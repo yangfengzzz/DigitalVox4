@@ -53,6 +53,8 @@
 		042295B8278C33090090983F /* CPPMetalDeviceInternals.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295B5278C33080090983F /* CPPMetalDeviceInternals.h */; };
 		042295B9278C33090090983F /* CPPMetalDispatchTableCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295B6278C33080090983F /* CPPMetalDispatchTableCache.h */; };
 		042295BA278C33090090983F /* CPPMetalInternalMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295B7278C33080090983F /* CPPMetalInternalMacros.h */; };
+		042295BE278C3B210090983F /* ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042295BC278C3B210090983F /* ray.cpp */; };
+		042295BF278C3B210090983F /* ray.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295BD278C3B210090983F /* ray.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +105,9 @@
 		042295B5278C33080090983F /* CPPMetalDeviceInternals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPMetalDeviceInternals.h; sourceTree = "<group>"; };
 		042295B6278C33080090983F /* CPPMetalDispatchTableCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPMetalDispatchTableCache.h; sourceTree = "<group>"; };
 		042295B7278C33080090983F /* CPPMetalInternalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPMetalInternalMacros.h; sourceTree = "<group>"; };
+		042295BC278C3B210090983F /* ray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ray.cpp; sourceTree = "<group>"; };
+		042295BD278C3B210090983F /* ray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ray.h; sourceTree = "<group>"; };
+		042295C1278C3B710090983F /* glm_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glm_common.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +140,8 @@
 		04229551278C30840090983F /* vox.render */ = {
 			isa = PBXGroup;
 			children = (
+				042295C0278C3B460090983F /* common */,
+				042295BB278C3B150090983F /* math */,
 				0422955D278C31DC0090983F /* core */,
 			);
 			path = vox.render;
@@ -147,38 +154,38 @@
 				0422956C278C32FA0090983F /* CPPMetalTypes.hpp */,
 				04229560278C32F90090983F /* CPPMetalAllocator.hpp */,
 				0422957B278C32FA0090983F /* CPPMetalConstants.hpp */,
+				04229568278C32FA0090983F /* CPPMetalDrawable.hpp */,
+				0422957F278C32FA0090983F /* CPPMetalDrawable.mm */,
+				04229577278C32FA0090983F /* CPPMetalDevice.hpp */,
+				04229585278C32FA0090983F /* CPPMetalDevice.mm */,
+				04229569278C32FA0090983F /* CPPMetalDeviceInternals.mm */,
+				04229580278C32FA0090983F /* CPPMetalResource.hpp */,
+				0422956F278C32FA0090983F /* CPPMetalResource.mm */,
+				04229572278C32FA0090983F /* CPPMetalResourceEnum.hpp */,
 				0422957D278C32FA0090983F /* CPPMetalBuffer.hpp */,
 				04229571278C32FA0090983F /* CPPMetalBuffer.mm */,
+				04229567278C32F90090983F /* CPPMetalTexture.hpp */,
+				04229574278C32FA0090983F /* CPPMetalTexture.mm */,
 				04229586278C32FA0090983F /* CPPMetalCommandBuffer.hpp */,
 				04229576278C32FA0090983F /* CPPMetalCommandBuffer.mm */,
 				0422956E278C32FA0090983F /* CPPMetalCommandQueue.hpp */,
 				04229579278C32FA0090983F /* CPPMetalCommandQueue.mm */,
 				04229564278C32F90090983F /* CPPMetalCommandEncoder.hpp */,
 				04229565278C32F90090983F /* CPPMetalCommandEncoder.mm */,
-				0422957C278C32FA0090983F /* CPPMetalDepthStencil.hpp */,
-				0422955F278C32F90090983F /* CPPMetalDepthStencil.mm */,
-				04229577278C32FA0090983F /* CPPMetalDevice.hpp */,
-				04229585278C32FA0090983F /* CPPMetalDevice.mm */,
-				04229569278C32FA0090983F /* CPPMetalDeviceInternals.mm */,
-				04229568278C32FA0090983F /* CPPMetalDrawable.hpp */,
-				0422957F278C32FA0090983F /* CPPMetalDrawable.mm */,
-				04229587278C32FA0090983F /* CPPMetalLibrary.hpp */,
-				04229582278C32FA0090983F /* CPPMetalLibrary.mm */,
-				04229578278C32FA0090983F /* CPPMetalPixelFormat.hpp */,
-				0422956A278C32FA0090983F /* CPPMetalPixelFormat.mm */,
 				04229588278C32FA0090983F /* CPPMetalRenderCommandEncoder.hpp */,
 				0422957E278C32FA0090983F /* CPPMetalRenderCommandEncoder.mm */,
 				0422956B278C32FA0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.hpp */,
 				04229563278C32F90090983F /* CPPMetalRenderCommandEncoder_DispatchTable.mm */,
-				04229581278C32FA0090983F /* CPPMetalRenderPass.hpp */,
-				04229561278C32F90090983F /* CPPMetalRenderPass.mm */,
 				04229575278C32FA0090983F /* CPPMetalRenderPipeline.hpp */,
 				04229562278C32F90090983F /* CPPMetalRenderPipeline.mm */,
-				04229580278C32FA0090983F /* CPPMetalResource.hpp */,
-				0422956F278C32FA0090983F /* CPPMetalResource.mm */,
-				04229572278C32FA0090983F /* CPPMetalResourceEnum.hpp */,
-				04229567278C32F90090983F /* CPPMetalTexture.hpp */,
-				04229574278C32FA0090983F /* CPPMetalTexture.mm */,
+				0422957C278C32FA0090983F /* CPPMetalDepthStencil.hpp */,
+				0422955F278C32F90090983F /* CPPMetalDepthStencil.mm */,
+				04229587278C32FA0090983F /* CPPMetalLibrary.hpp */,
+				04229582278C32FA0090983F /* CPPMetalLibrary.mm */,
+				04229578278C32FA0090983F /* CPPMetalPixelFormat.hpp */,
+				0422956A278C32FA0090983F /* CPPMetalPixelFormat.mm */,
+				04229581278C32FA0090983F /* CPPMetalRenderPass.hpp */,
+				04229561278C32F90090983F /* CPPMetalRenderPass.mm */,
 				04229573278C32FA0090983F /* CPPMetalVertexDescriptor.hpp */,
 				0422957A278C32FA0090983F /* CPPMetalVertexDescriptor.mm */,
 				04229589278C32FB0090983F /* CPPMetalImplementation.hpp */,
@@ -201,6 +208,23 @@
 			path = internal;
 			sourceTree = "<group>";
 		};
+		042295BB278C3B150090983F /* math */ = {
+			isa = PBXGroup;
+			children = (
+				042295BD278C3B210090983F /* ray.h */,
+				042295BC278C3B210090983F /* ray.cpp */,
+			);
+			path = math;
+			sourceTree = "<group>";
+		};
+		042295C0278C3B460090983F /* common */ = {
+			isa = PBXGroup;
+			children = (
+				042295C1278C3B710090983F /* glm_common.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -221,6 +245,7 @@
 				042295B8278C33090090983F /* CPPMetalDeviceInternals.h in Headers */,
 				042295A3278C32FB0090983F /* CPPMetalPixelFormat.hpp in Headers */,
 				042295A2278C32FB0090983F /* CPPMetalDevice.hpp in Headers */,
+				042295BF278C3B210090983F /* ray.h in Headers */,
 				042295AC278C32FB0090983F /* CPPMetalRenderPass.hpp in Headers */,
 				042295B4278C32FB0090983F /* CPPMetalImplementation.hpp in Headers */,
 				04229596278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.hpp in Headers */,
@@ -299,6 +324,7 @@
 				042295AE278C32FB0090983F /* CPPMetalKitTextureLoader.mm in Sources */,
 				042295A4278C32FB0090983F /* CPPMetalCommandQueue.mm in Sources */,
 				0422958E278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.mm in Sources */,
+				042295BE278C3B210090983F /* ray.cpp in Sources */,
 				042295AA278C32FB0090983F /* CPPMetalDrawable.mm in Sources */,
 				0422959A278C32FB0090983F /* CPPMetalResource.mm in Sources */,
 				042295AD278C32FB0090983F /* CPPMetalLibrary.mm in Sources */,
@@ -439,8 +465,10 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
+				HEADER_SEARCH_PATHS = ./vox.render;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = ./third_party/glm;
 			};
 			name = Debug;
 		};
@@ -452,8 +480,10 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
+				HEADER_SEARCH_PATHS = ./vox.render;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = ./third_party/glm;
 			};
 			name = Release;
 		};
