@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Header for C++ Metal library and function class wrappers
-*/
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ Header for C++ Metal library and function class wrappers
+ */
 
 #ifndef MTLLibrary_hpp
 #define MTLLibrary_hpp
@@ -13,80 +13,79 @@ Header for C++ Metal library and function class wrappers
 #include "CPPMetalDevice.hpp"
 
 
-namespace MTL
-{
+namespace MTL {
 
 
 class Function;
 
-class Library
-{
+class Library {
 public:
-
+    
     Library();
-
-    Library(const Library & rhs);
-
-    Library(Library && rhs);
-
-    Library & operator=(const Library & rhs);
-
-    Library & operator=(Library && rhs);
-
+    
+    Library(const Library &rhs);
+    
+    Library(Library &&rhs);
+    
+    Library &operator=(const Library &rhs);
+    
+    Library &operator=(Library &&rhs);
+    
     CPP_METAL_VIRTUAL ~Library();
-
-    Function *newFunctionWithName(const char* name);
-    Function makeFunction(const char* name);
-
+    
+    Function *newFunctionWithName(const char *name);
+    
+    Function makeFunction(const char *name);
+    
     Device device() const;
-
+    
 private:
-
+    
     CPPMetalInternal::Library m_objCObj;
-
+    
     Device *m_device;
-
+    
 public: // Public methods for CPPMetal internal implementation
-
-    Library(CPPMetalInternal::Library objCObj, Device & device);
-
+    
+    Library(CPPMetalInternal::Library objCObj, Device &device);
+    
 };
 
 class RenderPipelineState;
+
 class RenderPipelineDescriptor;
 
-class Function
-{
+class Function {
 public:
-
+    
     Function();
-
-    Function(const Function & rhs);
-
-    Function(Function && rhs);
-
-    Function & operator=(const Function & rhs);
-
-    Function & operator=(Function && rhs);
-
+    
+    Function(const Function &rhs);
+    
+    Function(Function &&rhs);
+    
+    Function &operator=(const Function &rhs);
+    
+    Function &operator=(Function &&rhs);
+    
     CPP_METAL_VIRTUAL ~Function();
-
-    const char* name() const;
-
+    
+    const char *name() const;
+    
     Device device() const;
-
+    
 private:
-
+    
     CPPMetalInternal::Function m_objCObj;
-
+    
     Device *m_device;
-
+    
 public: // Public methods for CPPMetal internal implementation
-
-    Function(CPPMetalInternal::Function objCObj, Device & device);
-
+    
+    Function(CPPMetalInternal::Function objCObj, Device &device);
+    
     CPPMetalInternal::Function objCObj() const;
-
+    
 };
 
 

@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Implementation of C++ command queue class wrapper
-*/
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ Implementation of C++ command queue class wrapper
+ */
 
 #include "CPPMetalCommandQueue.hpp"
 #include "CPPMetalCommandBuffer.hpp"
@@ -21,15 +21,13 @@ CPP_METAL_NULL_REFERENCE_CONSTRUCTOR_IMPLEMENATATION(CommandQueue);
 
 CPP_METAL_COPY_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(CommandQueue);
 
-CommandQueue::~CommandQueue()
-{
+CommandQueue::~CommandQueue() {
     m_objCObj = nil;
 }
 
-CommandBuffer CommandQueue::commandBuffer()
-{
-    const id<MTLCommandBuffer> objCObj = [m_objCObj commandBuffer];
-
+CommandBuffer CommandQueue::commandBuffer() {
+    const id <MTLCommandBuffer> objCObj = [m_objCObj commandBuffer];
+    
     return CommandBuffer(objCObj, *m_device);
 }
 

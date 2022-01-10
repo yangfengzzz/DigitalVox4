@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Implementation of C++ Metal texture class wrappers
-*/
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ Implementation of C++ Metal texture class wrappers
+ */
 
 
 #include "CPPMetalTexture.hpp"
@@ -14,49 +14,45 @@ using namespace MTL;
 
 #pragma mark - Enum Validation
 
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureType1D );
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureType1DArray );
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureType2D );
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureType2DMultisample );
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureTypeCube );
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureTypeCubeArray );
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureType3D );
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureType1D);
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureType1DArray);
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureType2D);
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureType2DMultisample);
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureTypeCube);
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureTypeCubeArray);
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureType3D);
 #if TARGET_OS_OSX
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureType2DMultisampleArray );
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureType2DMultisampleArray);
 #endif
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureTypeTextureBuffer );
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureTypeTextureBuffer);
 
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureUsageUnknown );
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureUsageShaderRead );
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureUsageShaderWrite );
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureUsageRenderTarget );
-CPP_METAL_VALIDATE_ENUM_ALIAS( TextureUsagePixelFormatView );
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureUsageUnknown);
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureUsageShaderRead);
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureUsageShaderWrite);
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureUsageRenderTarget);
+CPP_METAL_VALIDATE_ENUM_ALIAS(TextureUsagePixelFormatView);
 
 #pragma mark - TextureDescriptor
 
 TextureDescriptor::TextureDescriptor() :
-m_objCObj([MTLTextureDescriptor new])
-{
+m_objCObj([MTLTextureDescriptor new]) {
     // Member initialization only
 }
 
 
-TextureDescriptor::TextureDescriptor(const TextureDescriptor & rhs) :
-m_objCObj(rhs.m_objCObj)
-{
+TextureDescriptor::TextureDescriptor(const TextureDescriptor &rhs) :
+m_objCObj(rhs.m_objCObj) {
     // Member initialization only
 }
 
 
-TextureDescriptor & TextureDescriptor::operator=(const TextureDescriptor & rhs)
-{
+TextureDescriptor &TextureDescriptor::operator=(const TextureDescriptor &rhs) {
     m_objCObj = rhs.m_objCObj;
-
+    
     return *this;
 }
 
-TextureDescriptor::~TextureDescriptor()
-{
+TextureDescriptor::~TextureDescriptor() {
     m_objCObj = nil;
 }
 
@@ -84,149 +80,132 @@ CPP_METAL_READWRITE_MTL_ENUM_PROPERTY_IMPLEMENTATION(TextureDescriptor, StorageM
 
 CPP_METAL_READWRITE_MTL_ENUM_PROPERTY_IMPLEMENTATION(TextureDescriptor, TextureUsage, usage);
 
-void TextureDescriptor::usage(UInteger value)
-{
+void TextureDescriptor::usage(UInteger value) {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
-
+    
     m_objCObj.usage = value;
 }
 
 #pragma mark - Texture
 
-Texture::Texture(CPPMetalInternal::Texture objCObj, Device & device)
-: Resource(objCObj, device)
-{
+Texture::Texture(CPPMetalInternal::Texture objCObj, Device &device)
+: Resource(objCObj, device) {
     // Member initialization only
 }
 
-Texture::Texture(const Texture & rhs)
-: Resource(rhs)
-{
+Texture::Texture(const Texture &rhs)
+: Resource(rhs) {
     // Member initialization only
 }
 
-Texture & Texture::operator=(const Texture & rhs)
-{
+Texture &Texture::operator=(const Texture &rhs) {
     Resource::operator=(rhs);
-
+    
     return *this;
 }
 
-Texture::~Texture()
-{
+Texture::~Texture() {
 }
 
-TextureType Texture::textureType() const
-{
+TextureType Texture::textureType() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
-
-    return (TextureType)(((id<MTLTexture>)m_objCObj).textureType);
+    
+    return (TextureType) (((id <MTLTexture>) m_objCObj).textureType);
 }
 
-UInteger Texture::width() const
-{
+UInteger Texture::width() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
-
-    return ((id<MTLTexture>)m_objCObj).width;
+    
+    return ((id <MTLTexture>) m_objCObj).width;
 }
 
-UInteger Texture::height() const
-{
+UInteger Texture::height() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
-
-    return ((id<MTLTexture>)m_objCObj).height;
+    
+    return ((id <MTLTexture>) m_objCObj).height;
 }
 
-UInteger Texture::depth() const
-{
+UInteger Texture::depth() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
-
-    return ((id<MTLTexture>)m_objCObj).depth;
+    
+    return ((id <MTLTexture>) m_objCObj).depth;
 }
 
-UInteger Texture::mipmapLevelCount() const
-{
+UInteger Texture::mipmapLevelCount() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
-
-    return ((id<MTLTexture>)m_objCObj).mipmapLevelCount;
+    
+    return ((id <MTLTexture>) m_objCObj).mipmapLevelCount;
 }
 
-UInteger Texture::arrayLength() const
-{
+UInteger Texture::arrayLength() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
-
-    return ((id<MTLTexture>)m_objCObj).arrayLength;
+    
+    return ((id <MTLTexture>) m_objCObj).arrayLength;
 }
 
-UInteger Texture::sampleCount() const
-{
+UInteger Texture::sampleCount() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
-
-    return ((id<MTLTexture>)m_objCObj).sampleCount;
+    
+    return ((id <MTLTexture>) m_objCObj).sampleCount;
 }
 
-TextureUsage Texture::usage() const
-{
+TextureUsage Texture::usage() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
-
-    return  (TextureUsage)(((id<MTLTexture>)m_objCObj).usage);
+    
+    return (TextureUsage) (((id <MTLTexture>) m_objCObj).usage);
 }
 
-void Texture::replaceRegion(const Region & region,
+void Texture::replaceRegion(const Region &region,
                             UInteger mipmapLevel,
                             UInteger slice,
                             const void *pixelBytes,
                             UInteger bytesPerRow,
-                            UInteger bytesPerImage)
-{
-    const MTLRegion * mtlRegion = (const MTLRegion *)&region;
-    [((id<MTLTexture>)m_objCObj) replaceRegion:*mtlRegion
-                                   mipmapLevel:mipmapLevel
-                                         slice:slice
-                                     withBytes:pixelBytes
-                                   bytesPerRow:bytesPerRow
-                                 bytesPerImage:bytesPerImage];
+                            UInteger bytesPerImage) {
+    const MTLRegion *mtlRegion = (const MTLRegion *) &region;
+    [((id <MTLTexture>) m_objCObj) replaceRegion:*mtlRegion
+                                     mipmapLevel:mipmapLevel
+                                           slice:slice
+                                       withBytes:pixelBytes
+                                     bytesPerRow:bytesPerRow
+                                   bytesPerImage:bytesPerImage];
 }
 
 void Texture::getBytes(void *pixelBytes,
                        UInteger bytesPerRow,
                        UInteger bytesPerImage,
-                       const Region & sourceRegion,
+                       const Region &sourceRegion,
                        UInteger mipmapLevel,
-                       UInteger slice)
-{
-    const MTLRegion * mtlRegion = (const MTLRegion *)&sourceRegion;
-    [((id<MTLTexture>)m_objCObj) getBytes:pixelBytes
-                              bytesPerRow:bytesPerRow
-                            bytesPerImage:bytesPerImage
-                               fromRegion:*mtlRegion
-                              mipmapLevel:mipmapLevel
-                                    slice:slice];
-
+                       UInteger slice) {
+    const MTLRegion *mtlRegion = (const MTLRegion *) &sourceRegion;
+    [((id <MTLTexture>) m_objCObj) getBytes:pixelBytes
+                                bytesPerRow:bytesPerRow
+                              bytesPerImage:bytesPerImage
+                                 fromRegion:*mtlRegion
+                                mipmapLevel:mipmapLevel
+                                      slice:slice];
+    
 }
 
-void Texture::replaceRegion(const Region & region,
+void Texture::replaceRegion(const Region &region,
                             UInteger mipmapLevel,
                             const void *pixelBytes,
-                            UInteger bytesPerRow)
-{
-    const MTLRegion * mtlRegion = (const MTLRegion *)&region;
-    [((id<MTLTexture>)m_objCObj) replaceRegion:*mtlRegion
-                                   mipmapLevel:mipmapLevel
-                                     withBytes:pixelBytes
-                                   bytesPerRow:bytesPerRow];
+                            UInteger bytesPerRow) {
+    const MTLRegion *mtlRegion = (const MTLRegion *) &region;
+    [((id <MTLTexture>) m_objCObj) replaceRegion:*mtlRegion
+                                     mipmapLevel:mipmapLevel
+                                       withBytes:pixelBytes
+                                     bytesPerRow:bytesPerRow];
 }
 
-void Texture::getBytes(void * pixelBytes,
+void Texture::getBytes(void *pixelBytes,
                        UInteger bytesPerRow,
-                       const Region & sourceRegion,
-                       UInteger mipmapLevel)
-{
-    const MTLRegion * mtlRegion = (const MTLRegion *)&sourceRegion;
-    [((id<MTLTexture>)m_objCObj) getBytes:pixelBytes
-                              bytesPerRow:bytesPerRow
-                               fromRegion:*mtlRegion
-                              mipmapLevel:mipmapLevel];
+                       const Region &sourceRegion,
+                       UInteger mipmapLevel) {
+    const MTLRegion *mtlRegion = (const MTLRegion *) &sourceRegion;
+    [((id <MTLTexture>) m_objCObj) getBytes:pixelBytes
+                                bytesPerRow:bytesPerRow
+                                 fromRegion:*mtlRegion
+                                mipmapLevel:mipmapLevel];
 }
 
 CPP_METAL_DEVICE_GETTER_IMPLEMENTATION(Texture);

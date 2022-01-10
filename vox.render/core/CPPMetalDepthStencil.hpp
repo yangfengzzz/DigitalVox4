@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Header for C++ Metal depth stencil state class wrappers
-*/
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ Header for C++ Metal depth stencil state class wrappers
+ */
 
 #ifndef CPPMetalDepthStencilState_hpp
 #define CPPMetalDepthStencilState_hpp
@@ -16,8 +16,7 @@ Header for C++ Metal depth stencil state class wrappers
 #include "CPPMetalDevice.hpp"
 
 
-namespace MTL
-{
+namespace MTL {
 
 
 typedef enum CompareFunction {
@@ -43,64 +42,69 @@ typedef enum StencilOperation {
 } StencilOperation API_AVAILABLE(macos(10.11), ios(8.0));
 
 class Device;
+
 class DepthStencilDescriptor;
 
-struct StencilDescriptor
-{
+struct StencilDescriptor {
 public:
-
+    
     StencilDescriptor();
-
-    StencilDescriptor(const StencilDescriptor & rhs);
-
-    StencilDescriptor & operator=(const StencilDescriptor & rhs);
-
+    
+    StencilDescriptor(const StencilDescriptor &rhs);
+    
+    StencilDescriptor &operator=(const StencilDescriptor &rhs);
+    
     CPP_METAL_VIRTUAL ~StencilDescriptor();
-
+    
     CompareFunction stencilCompareFunction() const;
-    void            stencilCompareFunction(CompareFunction function);
-
+    
+    void stencilCompareFunction(CompareFunction function);
+    
     StencilOperation stencilFailureOperation() const;
-    void             stencilFailureOperation(StencilOperation operation);
-
+    
+    void stencilFailureOperation(StencilOperation operation);
+    
     StencilOperation depthFailureOperation() const;
-    void             depthFailureOperation(StencilOperation operation);
-
+    
+    void depthFailureOperation(StencilOperation operation);
+    
     StencilOperation depthStencilPassOperation() const;
-    void             depthStencilPassOperation(StencilOperation operation);
-
+    
+    void depthStencilPassOperation(StencilOperation operation);
+    
     uint32_t readMask() const;
-    void     readMask(uint32_t mask);
-
+    
+    void readMask(uint32_t mask);
+    
     uint32_t writeMask() const;
-    void     writeMask(uint32_t mask);
-
+    
+    void writeMask(uint32_t mask);
+    
 private:
-
+    
     CPPMetalInternal::StencilDescriptor m_objCObj;
-
+    
     CPPMetalInternal::DepthStencilDescriptor m_objCContainer;
-
+    
     Device *m_device;
-
+    
     bool m_frontFace;
-
+    
     StencilDescriptor(CPPMetalInternal::DepthStencilDescriptor objCContainer, bool frontFace);
-
+    
     void reinitialize(CPPMetalInternal::DepthStencilDescriptor objCContainer);
-
+    
     friend DepthStencilDescriptor;
-
+    
 public: // Public methods for CPPMetal internal implementation
-
+    
     CPPMetalInternal::StencilDescriptor objCObj() const;
-
+    
 };
 
-class DepthStencilDescriptor
-{
+class DepthStencilDescriptor {
 private:
-
+    
     // CPPMetal Internal Implementation Note:
     // The class must declare the 'm_objCObj' member before the 'frontFaceStencil' and
     // 'backFaceStencil" members.  The constructor of these members depend on the value of
@@ -108,71 +112,74 @@ private:
     // order of the initializer list in the contstructor).  So the class must declare 'm_objCObj'
     // first for it to initialize it first and allow these members to depend on its properties.
     CPPMetalInternal::DepthStencilDescriptor m_objCObj;
-
+    
 public:
-
+    
     DepthStencilDescriptor();
-
-    DepthStencilDescriptor(const DepthStencilDescriptor & rhs);
-
-    DepthStencilDescriptor & operator=(const DepthStencilDescriptor & rhs);
-
+    
+    DepthStencilDescriptor(const DepthStencilDescriptor &rhs);
+    
+    DepthStencilDescriptor &operator=(const DepthStencilDescriptor &rhs);
+    
     CPP_METAL_VIRTUAL ~DepthStencilDescriptor();
-
+    
     CompareFunction depthCompareFunction() const;
-    void            depthCompareFunction(CompareFunction function);
-
+    
+    void depthCompareFunction(CompareFunction function);
+    
     bool isDepthWriteEnabled() const;
+    
     void depthWriteEnabled(bool enabled);
-
-    const char* label() const;
-    void        label(const CFStringRef string);
-    void        label(const char* string);
-
+    
+    const char *label() const;
+    
+    void label(const CFStringRef string);
+    
+    void label(const char *string);
+    
     StencilDescriptor frontFaceStencil;
-
+    
     StencilDescriptor backFaceStencil;
-
+    
 public: // Public methods for CPPMetal internal implementation
-
+    
     CPPMetalInternal::DepthStencilDescriptor objCObj() const;
-
+    
 };
 
-class DepthStencilState
-{
+class DepthStencilState {
 public:
-
+    
     DepthStencilState();
-
-    DepthStencilState(const DepthStencilState & rhs);
-
-    DepthStencilState(DepthStencilState && rhs);
-
-    DepthStencilState & operator=(const DepthStencilState & rhs);
-
-    DepthStencilState & operator=(DepthStencilState && rhs);
-
+    
+    DepthStencilState(const DepthStencilState &rhs);
+    
+    DepthStencilState(DepthStencilState &&rhs);
+    
+    DepthStencilState &operator=(const DepthStencilState &rhs);
+    
+    DepthStencilState &operator=(DepthStencilState &&rhs);
+    
     CPP_METAL_VIRTUAL ~DepthStencilState();
-
-    bool operator==(const DepthStencilState & rhs) const;
-
-    const char* label() const;
-
+    
+    bool operator==(const DepthStencilState &rhs) const;
+    
+    const char *label() const;
+    
     Device device() const;
-
+    
 private:
-
+    
     CPPMetalInternal::DepthStencilState m_objCObj;
-
+    
     Device *m_device;
-
+    
 public: // Public methods for CPPMetal internal implementation
-
-    DepthStencilState(CPPMetalInternal::DepthStencilState objCObj, Device & device);
-
+    
+    DepthStencilState(CPPMetalInternal::DepthStencilState objCObj, Device &device);
+    
     CPPMetalInternal::DepthStencilState objCObj() const;
-
+    
 };
 
 
@@ -185,8 +192,7 @@ CPP_METAL_OBJCOBJ_GETTER_IMPLEMENATATION(StencilDescriptor);
 //=================================================================
 #pragma mark - DepthStencilDescriptor inline method implementations
 
-inline void DepthStencilDescriptor::label(const char* string)
-{
+inline void DepthStencilDescriptor::label(const char *string) {
     CPP_METAL_PROCESS_LABEL(string, label);
 }
 

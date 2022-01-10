@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Implementation code for C++ Metal wrapper device intenrals class
-*/
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ Implementation code for C++ Metal wrapper device intenrals class
+ */
 
 #include "CPPMetalDeviceInternals.h"
 #include "CPPMetalPixelFormat.hpp"
@@ -16,13 +16,10 @@ using namespace CPPMetalInternal;
 
 
 DeviceInternals::DeviceInternals(Allocator *allocator)
-: m_allocator(allocator)
-, m_renderCommandEncoderCache(*allocator)
-{
-
+: m_allocator(allocator), m_renderCommandEncoderCache(*allocator) {
+    
 }
 
-DeviceInternals::~DeviceInternals()
-{
-
+DeviceInternals::~DeviceInternals() {
+    
 }
