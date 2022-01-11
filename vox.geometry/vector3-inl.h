@@ -39,8 +39,8 @@ void Vector<T, 3>::set(T newX, T newY, T newZ) {
 
 template <typename T>
 void Vector<T, 3>::set(const Vector2<T>& pt, T newZ) {
-    x = pt.x;
-    y = pt.y;
+    x = pt.x();
+    y = pt.y();
     z = newZ;
 }
 

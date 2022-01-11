@@ -45,7 +45,7 @@ public:
     constexpr Vector(T x_, T y_, T z_) : x(x_), y(y_), z(z_) {}
     
     //! Constructs vector with a 2-D vector and a scalar.
-    constexpr Vector(const Vector2<T>& v, T z_) : x(v.x), y(v.y), z(z_) {}
+    constexpr Vector(const Vector2<T>& v, T z_) : x(v.x()), y(v.y()), z(z_) {}
     
     //! Constructs vector with initializer list.
     template <typename U>

@@ -10,6 +10,7 @@
 #include "vector.h"
 #include <algorithm>  // just make cpplint happy..
 #include <limits>
+#include <Eigen/Dense>
 
 namespace jet {
 
@@ -26,28 +27,34 @@ public:
     static_assert(std::is_floating_point<T>::value,
                   "Vector only can be instantiated with floating point types");
     
-    //! X (or the first) component of the vector.
-    T x;
+    using ValueType = Eigen::Matrix<T, 1, 2>;
     
-    //! Y (or the second) component of the vector.
-    T y;
+    //! internal value of the point.
+    ValueType value;
     
-    // MARK: Constructors
+    T x() const { return value.x(); }
+    
+    T y() const { return value.y(); }
+    
+    // MARK: - Constructors
     
     //! Constructs default vector (0, 0).
-    constexpr Vector() : x(0), y(0) {}
+    constexpr Vector() : value(0, 0) {}
     
     //! Constructs vector with given parameters \p x_ and \p y_.
-    constexpr Vector(T x_, T y_) : x(x_), y(y_) {}
+    constexpr Vector(T x_, T y_) : value(x_, y_) {}
+    
+    //! Constructs point with given parameters \p value_.
+    constexpr Vector(ValueType value_): value(value_) {}
     
     //! Constructs vector with initializer list.
     template <typename U>
     Vector(const std::initializer_list<U>& lst);
     
     //! Copy constructor.
-    constexpr Vector(const Vector& v) : x(v.x), y(v.y) {}
+    constexpr Vector(const Vector& v) : value(v.value) {}
     
-    // MARK: Basic setters
+    // MARK: - Basic setters
     
     //! Set both x and y components to \p s.
     void set(T s);
@@ -68,7 +75,7 @@ public:
     //! Normalizes this vector.
     void normalize();
     
-    // MARK: Binary operations: new instance = this (+) v
+    // MARK: - Binary operations: new instance = this (+) v
     
     //! Computes this + (v, v).
     Vector add(T v) const;
@@ -117,7 +124,7 @@ public:
     //! Computes \p v cross this.
     T rcross(const Vector& v) const;
     
-    // MARK: Augmented operations: this (+)= v
+    // MARK: - Augmented operations: this (+)= v
     
     //! Computes this += (v, v).
     void iadd(T v);
@@ -143,7 +150,7 @@ public:
     //! Computes this /= (v.x, v.y).
     void idiv(const Vector& v);
     
-    // MARK: Basic getters
+    // MARK: - Basic getters
     
     //! Returns const reference to the \p i -th element of the vector.
     const T& at(size_t i) const;
@@ -210,7 +217,7 @@ public:
     bool isSimilar(const Vector& other,
                    T epsilon = std::numeric_limits<T>::epsilon()) const;
     
-    // MARK: Operators
+    // MARK: - Operators
     
     //! Returns reference to the \p i -th element of the vector.
     T& operator[](size_t i);
@@ -334,29 +341,29 @@ template <typename T>
 Vector2<T> floor(const Vector2<T>& a);
 
 //! Float-type 2D vector.
-typedef Vector2<float> Vector2F;
+using Vector2F = Vector2<float>;
 
 //! Double-type 2D vector.
-typedef Vector2<double> Vector2D;
+using Vector2D = Vector2<double>;
 
 // MARK: Extensions
 
 //! Returns float-type zero vector.
 template <>
-constexpr Vector2F zero<Vector2F>() {
+inline Vector2F zero<Vector2F>() {
     return Vector2F(0.f, 0.f);
 }
 
 //! Returns double-type zero vector.
 template <>
-constexpr Vector2D zero<Vector2D>() {
+inline Vector2D zero<Vector2D>() {
     return Vector2D(0.0, 0.0);
 }
 
 //! Returns the type of the value itself.
 template <typename T>
 struct ScalarType<Vector2<T>> {
-    typedef T value;
+    using value = T;
 };
 
 //! Computes monotonic Catmull-Rom interpolation.
