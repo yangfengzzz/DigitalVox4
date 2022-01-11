@@ -27,11 +27,19 @@ public:
     
     T x() const { return value.x(); }
     
+    T& x() { return value.x(); }
+    
     T y() const { return value.y(); }
+    
+    T& y() { return value.y(); }
     
     T z() const { return value.z(); }
     
+    T& z() { return value.z(); }
+    
     T w() const { return value.w(); }
+    
+    T& w() { return value.w(); }
     
     // MARK: - Constructors
     

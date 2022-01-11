@@ -34,9 +34,15 @@ public:
     
     T x() const { return value.x(); }
     
+    T& x() { return value.x(); }
+    
     T y() const { return value.y(); }
     
+    T& y() { return value.y(); }
+    
     T z() const { return value.z(); }
+    
+    T& z() { return value.z(); }
     
     // MARK: - Constructors
     

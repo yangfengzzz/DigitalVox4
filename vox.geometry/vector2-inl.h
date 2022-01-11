@@ -299,7 +299,7 @@ T& Vector<T, 2>::operator[](size_t i) {
 template <typename T>
 const T& Vector<T, 2>::operator[](size_t i) const {
     JET_ASSERT(i < 2);
-    return (&x)[i];
+    return value[i];
 }
 
 template <typename T>
