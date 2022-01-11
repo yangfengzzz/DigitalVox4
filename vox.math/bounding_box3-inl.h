@@ -11,7 +11,7 @@
 #include <limits>
 #include <utility>  // just make cpplint happy..
 
-namespace jet {
+IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 template <typename T>
 BoundingBox<T, 3>::BoundingBox() {
@@ -111,40 +111,39 @@ bool BoundingBox<T, 3>::intersects(const Ray3<T>& ray) const {
 }
 
 template <typename T>
-BoundingBoxRayIntersection3<T> BoundingBox<T, 3>::closestIntersection(
-                                                                      const Ray3<T>& ray) const {
-                                                                          BoundingBoxRayIntersection3<T> intersection;
-                                                                          
-                                                                          T tMin = 0;
-                                                                          T tMax = std::numeric_limits<T>::max();
-                                                                          const Vector3<T>& rayInvDir = ray.direction.rdiv(1);
-                                                                          
-                                                                          for (int i = 0; i < 3; ++i) {
-                                                                              T tNear = (lowerCorner[i] - ray.origin[i]) * rayInvDir[i];
-                                                                              T tFar = (upperCorner[i] - ray.origin[i]) * rayInvDir[i];
-                                                                              
-                                                                              if (tNear > tFar) std::swap(tNear, tFar);
-                                                                              tMin = tNear > tMin ? tNear : tMin;
-                                                                              tMax = tFar < tMax ? tFar : tMax;
-                                                                              
-                                                                              if (tMin > tMax) {
-                                                                                  intersection.isIntersecting = false;
-                                                                                  return intersection;
-                                                                              }
-                                                                          }
-                                                                          
-                                                                          intersection.isIntersecting = true;
-                                                                          
-                                                                          if (contains(ray.origin)) {
-                                                                              intersection.tNear = tMax;
-                                                                              intersection.tFar = std::numeric_limits<T>::max();
-                                                                          } else {
-                                                                              intersection.tNear = tMin;
-                                                                              intersection.tFar = tMax;
-                                                                          }
-                                                                          
-                                                                          return intersection;
-                                                                      }
+BoundingBoxRayIntersection3<T> BoundingBox<T, 3>::closestIntersection(const Ray3<T>& ray) const {
+    BoundingBoxRayIntersection3<T> intersection;
+    
+    T tMin = 0;
+    T tMax = std::numeric_limits<T>::max();
+    const Vector3<T>& rayInvDir = ray.direction.rdiv(1);
+    
+    for (int i = 0; i < 3; ++i) {
+        T tNear = (lowerCorner[i] - ray.origin[i]) * rayInvDir[i];
+        T tFar = (upperCorner[i] - ray.origin[i]) * rayInvDir[i];
+        
+        if (tNear > tFar) std::swap(tNear, tFar);
+        tMin = tNear > tMin ? tNear : tMin;
+        tMax = tFar < tMax ? tFar : tMax;
+        
+        if (tMin > tMax) {
+            intersection.isIntersecting = false;
+            return intersection;
+        }
+    }
+    
+    intersection.isIntersecting = true;
+    
+    if (contains(ray.origin)) {
+        intersection.tNear = tMax;
+        intersection.tFar = std::numeric_limits<T>::max();
+    } else {
+        intersection.tNear = tMin;
+        intersection.tFar = tMax;
+    }
+    
+    return intersection;
+}
 
 template <typename T>
 Vector3<T> BoundingBox<T, 3>::midPoint() const {
@@ -218,6 +217,6 @@ bool BoundingBox<T, 3>::isEmpty() const {
             lowerCorner.z() >= upperCorner.z());
 }
 
-}  // namespace jet
+IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #endif  // INCLUDE_JET_DETAIL_BOUNDING_BOX3_INL_H_

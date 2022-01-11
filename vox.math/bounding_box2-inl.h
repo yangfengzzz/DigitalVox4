@@ -11,7 +11,7 @@
 #include <limits>
 #include <utility>  // just make cpplint happy..
 
-namespace jet {
+IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 template <typename T>
 BoundingBox<T, 2>::BoundingBox() {
@@ -19,12 +19,12 @@ BoundingBox<T, 2>::BoundingBox() {
 }
 
 template <typename T>
-BoundingBox<T, 2>::BoundingBox(const Vector2<T>& point1,
-                               const Vector2<T>& point2) {
-    lowerCorner.x() = std::min(point1.x(), point2.x());
-    lowerCorner.y() = std::min(point1.y(), point2.y());
-    upperCorner.x() = std::max(point1.x(), point2.x());
-    upperCorner.y() = std::max(point1.y(), point2.y());
+BoundingBox<T, 2>::BoundingBox(const Vec2<T>& point1,
+                               const Vec2<T>& point2) {
+    lowerCorner.x = std::min(point1.x, point2.x);
+    lowerCorner.y = std::min(point1.y, point2.y);
+    upperCorner.x = std::max(point1.x, point2.x);
+    upperCorner.y = std::max(point1.y, point2.y);
 }
 
 template <typename T>
@@ -33,28 +33,28 @@ BoundingBox<T, 2>::BoundingBox(const BoundingBox& other)
 
 template <typename T>
 T BoundingBox<T, 2>::width() const {
-    return upperCorner.x() - lowerCorner.x();
+    return upperCorner.x - lowerCorner.x;
 }
 
 template <typename T>
 T BoundingBox<T, 2>::height() const {
-    return upperCorner.y() - lowerCorner.y();
+    return upperCorner.y - lowerCorner.y;
 }
 
 template <typename T>
-T BoundingBox<T, 2>::length(size_t axis) {
+T BoundingBox<T, 2>::length(int axis) {
     return upperCorner[axis] - lowerCorner[axis];
 }
 
 template <typename T>
 bool BoundingBox<T, 2>::overlaps(const BoundingBox& other) const {
-    if (upperCorner.x() < other.lowerCorner.x() ||
-        lowerCorner.x() > other.upperCorner.x()) {
+    if (upperCorner.x < other.lowerCorner.x ||
+        lowerCorner.x > other.upperCorner.x) {
         return false;
     }
     
-    if (upperCorner.y() < other.lowerCorner.y() ||
-        lowerCorner.y() > other.upperCorner.y()) {
+    if (upperCorner.y < other.lowerCorner.y ||
+        lowerCorner.y > other.upperCorner.y) {
         return false;
     }
     
@@ -62,12 +62,12 @@ bool BoundingBox<T, 2>::overlaps(const BoundingBox& other) const {
 }
 
 template <typename T>
-bool BoundingBox<T, 2>::contains(const Vector2<T>& point) const {
-    if (upperCorner.x() < point.x() || lowerCorner.x() > point.x()) {
+bool BoundingBox<T, 2>::contains(const Vec2<T>& point) const {
+    if (upperCorner.x < point.x || lowerCorner.x > point.x) {
         return false;
     }
     
-    if (upperCorner.y() < point.y() || lowerCorner.y() > point.y()) {
+    if (upperCorner.y < point.y || lowerCorner.y > point.y) {
         return false;
     }
     
@@ -79,7 +79,7 @@ bool BoundingBox<T, 2>::intersects(const Ray2<T>& ray) const {
     T tMin = 0;
     T tMax = std::numeric_limits<T>::max();
     
-    const Vector2<T>& rayInvDir = ray.direction.rdiv(1);
+    const Vec2<T>& rayInvDir = Vec2<T>(1) / ray.direction;
     
     for (int i = 0; i < 2; ++i) {
         T tNear = (lowerCorner[i] - ray.origin[i]) * rayInvDir[i];
@@ -107,7 +107,7 @@ BoundingBoxRayIntersection2<T> BoundingBox<T, 2>::closestIntersection(const Ray2
     T tMin = 0;
     T tMax = std::numeric_limits<T>::max();
     
-    const Vector2<T>& rayInvDir = ray.direction.rdiv(1);
+    const Vec2<T>& rayInvDir = Vec2<T>(1) / ray.direction;
     
     for (int i = 0; i < 2; ++i) {
         T tNear = (lowerCorner[i] - ray.origin[i]) * rayInvDir[i];
@@ -140,7 +140,7 @@ BoundingBoxRayIntersection2<T> BoundingBox<T, 2>::closestIntersection(const Ray2
 }
 
 template <typename T>
-Vector2<T> BoundingBox<T, 2>::midPoint() const {
+Vec2<T> BoundingBox<T, 2>::midPoint() const {
     return (upperCorner + lowerCorner) / static_cast<T>(2);
 }
 
@@ -151,58 +151,58 @@ T BoundingBox<T, 2>::diagonalLength() const {
 
 template <typename T>
 T BoundingBox<T, 2>::diagonalLengthSquared() const {
-    return (upperCorner - lowerCorner).lengthSquared();
+    return (upperCorner - lowerCorner).length2();
 }
 
 template <typename T>
 void BoundingBox<T, 2>::reset() {
-    lowerCorner.x() = std::numeric_limits<T>::max();
-    lowerCorner.y() = std::numeric_limits<T>::max();
-    upperCorner.x() = -std::numeric_limits<T>::max();
-    upperCorner.y() = -std::numeric_limits<T>::max();
+    lowerCorner.x = std::numeric_limits<T>::max();
+    lowerCorner.y = std::numeric_limits<T>::max();
+    upperCorner.x = -std::numeric_limits<T>::max();
+    upperCorner.y = -std::numeric_limits<T>::max();
 }
 
 template <typename T>
-void BoundingBox<T, 2>::merge(const Vector2<T>& point) {
-    lowerCorner.x() = std::min(lowerCorner.x(), point.x());
-    lowerCorner.y() = std::min(lowerCorner.y(), point.y());
-    upperCorner.x() = std::max(upperCorner.x(), point.x());
-    upperCorner.y() = std::max(upperCorner.y(), point.y());
+void BoundingBox<T, 2>::merge(const Vec2<T>& point) {
+    lowerCorner.x = std::min(lowerCorner.x, point.x);
+    lowerCorner.y = std::min(lowerCorner.y, point.y);
+    upperCorner.x = std::max(upperCorner.x, point.x);
+    upperCorner.y = std::max(upperCorner.y, point.y);
 }
 
 template <typename T>
 void BoundingBox<T, 2>::merge(const BoundingBox& other) {
-    lowerCorner.x() = std::min(lowerCorner.x(), other.lowerCorner.x());
-    lowerCorner.y() = std::min(lowerCorner.y(), other.lowerCorner.y());
-    upperCorner.x() = std::max(upperCorner.x(), other.upperCorner.x());
-    upperCorner.y() = std::max(upperCorner.y(), other.upperCorner.y());
+    lowerCorner.x = std::min(lowerCorner.x, other.lowerCorner.x);
+    lowerCorner.y = std::min(lowerCorner.y, other.lowerCorner.y);
+    upperCorner.x = std::max(upperCorner.x, other.upperCorner.x);
+    upperCorner.y = std::max(upperCorner.y, other.upperCorner.y);
 }
 
 template <typename T>
 void BoundingBox<T, 2>::expand(T delta) {
-    lowerCorner -= delta;
-    upperCorner += delta;
+    lowerCorner -= Vec2<T>(delta);
+    upperCorner += Vec2<T>(delta);
 }
 
 template <typename T>
-Vector2<T> BoundingBox<T, 2>::corner(size_t idx) const {
+Vec2<T> BoundingBox<T, 2>::corner(size_t idx) const {
     static const T h = static_cast<T>(1) / 2;
-    static const Vector2<T> offset[4] = {
+    static const Vec2<T> offset[4] = {
         {-h, -h}, {+h, -h}, {-h, +h}, {+h, +h}};
     
-    return Vector2<T>(width(), height()) * offset[idx] + midPoint();
+    return Vec2<T>(width(), height()) * offset[idx] + midPoint();
 }
 
 template <typename T>
-Vector2<T> BoundingBox<T, 2>::clamp(const Vector2<T>& pt) const {
-    return ::jet::clamp(pt, lowerCorner, upperCorner);
+Vec2<T> BoundingBox<T, 2>::clamp(const Vec2<T>& pt) const {
+    return ::Imath::clamp(pt, lowerCorner, upperCorner);
 }
 
 template <typename T>
 bool BoundingBox<T, 2>::isEmpty() const {
-    return (lowerCorner.x() >= upperCorner.x() || lowerCorner.y() >= upperCorner.y());
+    return (lowerCorner.x >= upperCorner.x || lowerCorner.y >= upperCorner.y);
 }
 
-}  // namespace jet
+IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #endif  // INCLUDE_JET_DETAIL_BOUNDING_BOX2_INL_H_

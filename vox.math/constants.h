@@ -7,11 +7,10 @@
 #ifndef INCLUDE_JET_CONSTANTS_H_
 #define INCLUDE_JET_CONSTANTS_H_
 
-#include "macros.h"
 #include <cmath>
 #include <limits>
 
-namespace jet {
+IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 // MARK: Zero
 
@@ -334,6 +333,6 @@ constexpr int kDirectionAll = kDirectionLeft | kDirectionRight |
 kDirectionDown | kDirectionUp | kDirectionBack |
 kDirectionFront;
 
-}  // namespace jet
+IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #endif  // INCLUDE_JET_CONSTANTS_H_

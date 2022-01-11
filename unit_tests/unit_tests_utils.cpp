@@ -4,14 +4,13 @@
 // personal capacity and am not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "vector2.h"
-#include "vector3.h"
+#include "unit_tests_utils.h"
 
 #define STR(s) #s
 
-namespace jet {
+namespace Imath {
 
-const Vector2D kSamplePoints2[] = {
+const V2d kSamplePoints2[] = {
     {0.345361, 0.379616},
     {0.689684, 0.981134},
     {0.178295, 0.775100},
@@ -114,7 +113,7 @@ const Vector2D kSamplePoints2[] = {
     {0.797367, 0.573884}
 };
 
-const Vector2D kSampleDirs2[] = {
+const V2d kSampleDirs2[] = {
     {-0.834837, -0.550497},
     {-0.631745, 0.775177},
     {-0.123673, -0.992323},
@@ -217,7 +216,7 @@ const Vector2D kSampleDirs2[] = {
     {0.817585, -0.575807}
 };
 
-const Vector3D kSamplePoints3[] = {
+const V3d kSamplePoints3[] = {
     {0.497400, 0.340319, 0.174018},
     {0.345847, 0.671895, 0.770077},
     {0.824750, 0.832587, 0.337455},
@@ -320,7 +319,7 @@ const Vector3D kSamplePoints3[] = {
     {0.840032, 0.338341, 0.155947}
 };
 
-const Vector3D kSampleDirs3[] = {
+const V3d kSampleDirs3[] = {
     {-0.412626, 0.346615, 0.842376},
     {-0.159642, 0.702771, 0.693273},
     {0.626628, -0.656825, 0.419426},
@@ -949,7 +948,7 @@ const char* kSphereTriMesh5x5Obj = STR(
                                        f 20/23/88 16/24/89 22/34/90\n
                                        );
 
-const Vector2D* getSamplePoints2() {
+const V2d* getSamplePoints2() {
     return kSamplePoints2;
 }
 
@@ -957,7 +956,7 @@ size_t getNumberOfSamplePoints2() {
     return sizeof(kSamplePoints2) / sizeof(kSamplePoints2[0]);
 }
 
-const Vector3D* getSamplePoints3() {
+const V3d* getSamplePoints3() {
     return kSamplePoints3;
 }
 
@@ -965,7 +964,7 @@ size_t getNumberOfSamplePoints3() {
     return sizeof(kSamplePoints3) / sizeof(kSamplePoints3[0]);
 }
 
-const Vector2D* getSampleDirs2() {
+const V2d* getSampleDirs2() {
     return kSampleDirs2;
 }
 
@@ -973,7 +972,7 @@ size_t getNumberOfSampleDirs2() {
     return sizeof(kSampleDirs2) / sizeof(kSampleDirs2[0]);
 }
 
-const Vector3D* getSampleDirs3() {
+const V3d* getSampleDirs3() {
     return kSampleDirs3;
 }
 

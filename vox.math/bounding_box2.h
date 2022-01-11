@@ -4,23 +4,22 @@
 // personal capacity and am not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef INCLUDE_JET_BOUNDING_BOX3_H_
-#define INCLUDE_JET_BOUNDING_BOX3_H_
+#ifndef INCLUDE_JET_BOUNDING_BOX2_H_
+#define INCLUDE_JET_BOUNDING_BOX2_H_
 
 #include "bounding_box.h"
-#include "ray3.h"
-#include "vector3.h"
+#include "ray2.h"
 #include <limits>
 
-namespace jet {
+IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 //!
-//! \brief      3-D box-ray intersection result.
+//! \brief      2-D box-ray intersection result.
 //!
 //! \tparam     T     The value type.
 //!
 template <typename T>
-struct BoundingBoxRayIntersection3 {
+struct BoundingBoxRayIntersection2 {
     //! True if the box and ray intersects.
     bool isIntersecting = false;
     
@@ -32,24 +31,24 @@ struct BoundingBoxRayIntersection3 {
 };
 
 //!
-//! \brief 3-D axis-aligned bounding box class.
+//! \brief 2-D axis-aligned bounding box class.
 //!
 //! \tparam T - Real number type.
 //!
 template <typename T>
-class BoundingBox<T, 3> {
+class BoundingBox<T, 2> {
 public:
     //! Lower corner of the bounding box.
-    Vector3<T> lowerCorner;
+    Vec2<T> lowerCorner;
     
     //! Upper corner of the bounding box.
-    Vector3<T> upperCorner;
+    Vec2<T> upperCorner;
     
     //! Default constructor.
     BoundingBox();
     
     //! Constructs a box that tightly covers two points.
-    BoundingBox(const Vector3<T>& point1, const Vector3<T>& point2);
+    BoundingBox(const Vec2<T>& point1, const Vec2<T>& point2);
     
     //! Constructs a box with other box instance.
     BoundingBox(const BoundingBox& other);
@@ -60,29 +59,26 @@ public:
     //! Returns height of the box.
     T height() const;
     
-    //! Returns depth of the box.
-    T depth() const;
-    
     //! Returns length of the box in given axis.
-    T length(size_t axis);
+    T length(int axis);
     
     //! Returns true of this box and other box overlaps.
     bool overlaps(const BoundingBox& other) const;
     
-    //! Returns true if the input vector is inside of this box.
-    bool contains(const Vector3<T>& point) const;
+    //! Returns true if the input point is inside of this box.
+    bool contains(const Vec2<T>& point) const;
     
     //! Returns true if the input ray is intersecting with this box.
-    bool intersects(const Ray3<T>& ray) const;
+    bool intersects(const Ray2<T>& ray) const;
     
     //! Returns intersection.isIntersecting = true if the input ray is
     //! intersecting with this box. If interesects, intersection.tNear is
     //! assigned with distant to the closest intersecting point, and
     //! intersection.tFar with furthest.
-    BoundingBoxRayIntersection3<T> closestIntersection(const Ray3<T>& ray) const;
+    BoundingBoxRayIntersection2<T> closestIntersection(const Ray2<T>& ray) const;
     
     //! Returns the mid-point of this box.
-    Vector3<T> midPoint() const;
+    Vec2<T> midPoint() const;
     
     //! Returns diagonal length of this box.
     T diagonalLength() const;
@@ -94,7 +90,7 @@ public:
     void reset();
     
     //! Merges this and other point.
-    void merge(const Vector3<T>& point);
+    void merge(const Vec2<T>& point);
     
     //! Merges this and other box.
     void merge(const BoundingBox& other);
@@ -105,33 +101,33 @@ public:
     void expand(T delta);
     
     //! Returns corner position. Index starts from x-first order.
-    Vector3<T> corner(size_t idx) const;
+    Vec2<T> corner(size_t idx) const;
     
     //! Returns the clamped point.
-    Vector3<T> clamp(const Vector3<T>& point) const;
+    Vec2<T> clamp(const Vec2<T>& pt) const;
     
     //! Returns true if the box is empty.
     bool isEmpty() const;
 };
 
-//! Type alias for 3-D BoundingBox.
+//! Type alias for 2-D BoundingBox.
 template <typename T>
-using BoundingBox3 = BoundingBox<T, 3>;
+using BoundingBox2 = BoundingBox<T, 2>;
 
-//! Float-type 3-D BoundingBox.
-using BoundingBox3F = BoundingBox3<float>;
+//! Float-type 2-D BoundingBox.
+using BoundingBox2F = BoundingBox2<float>;
 
-//! Double-type 3-D BoundingBox.
-using BoundingBox3D = BoundingBox3<double>;
+//! Double-type 2-D BoundingBox.
+using BoundingBox2D = BoundingBox2<double>;
 
-//! Float-type 3-D box-ray intersection result.
-using BoundingBoxRayIntersection3F = BoundingBoxRayIntersection3<float>;
+//! Float-type 2-D box-ray intersection result.
+using BoundingBoxRayIntersection2F = BoundingBoxRayIntersection2<float>;
 
-//! Double-type 3-D box-ray intersection result.
-using BoundingBoxRayIntersection3D = BoundingBoxRayIntersection3<double>;
+//! Double-type 2-D box-ray intersection result.
+using BoundingBoxRayIntersection2D = BoundingBoxRayIntersection2<double>;
 
-}  // namespace jet
+IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
-#include "bounding_box3-inl.h"
+#include "bounding_box2-inl.h"
 
-#endif  // INCLUDE_JET_BOUNDING_BOX3_H_
+#endif  // INCLUDE_JET_BOUNDING_BOX2_H_

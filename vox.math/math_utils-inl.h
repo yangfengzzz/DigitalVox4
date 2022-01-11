@@ -12,7 +12,7 @@
 #include <cmath>
 #include <limits>
 
-namespace jet {
+IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 template <typename T>
 inline bool similar(T x, T y, T eps) {
@@ -253,6 +253,6 @@ inline T monotonicCatmullRom(const T& f0,
     return a3 * cubic(f) + a2 * square(f) + a1 * f + a0;
 }
 
-}  // namespace jet
+IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #endif  // INCLUDE_JET_DETAIL_MATH_UTILS_INL_H_

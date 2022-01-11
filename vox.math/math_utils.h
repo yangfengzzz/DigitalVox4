@@ -11,7 +11,7 @@
 #include <cstddef>
 #include <limits>
 
-namespace jet {
+IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 //!
 //! \brief      Returns true if \p x and \p y are similar.
@@ -232,7 +232,7 @@ template <typename T>
 inline T monotonicCatmullRom(const T& f0, const T& f1, const T& f2, const T& f3,
                              T t);
 
-}  // namespace jet
+IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #include "math_utils-inl.h"
 
