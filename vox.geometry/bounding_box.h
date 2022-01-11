@@ -22,7 +22,7 @@ class BoundingBox {
 public:
     static_assert(N > 0, "Size of static-sized box should be greater than zero.");
     
-    typedef Vector<T, N> VectorType;
+    using VectorType = Vector<T, N>;
     
     //! Lower corner of the bounding box.
     VectorType lowerCorner;

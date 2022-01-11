@@ -35,7 +35,6 @@ struct BoundingBoxRayIntersection2 {
 //! \brief 2-D axis-aligned bounding box class.
 //!
 //! \tparam T - Real number type.
-//! \tparam N - Dimension.
 //!
 template <typename T>
 class BoundingBox<T, 2> {

@@ -46,10 +46,10 @@ public:
 template <typename T> using Ray2 = Ray<T, 2>;
 
 //! Float-type 2-D ray.
-typedef Ray2<float> Ray2F;
+using Ray2F = Ray2<float>;
 
 //! Double-type 2-D ray.
-typedef Ray2<double> Ray2D;
+using Ray2D = Ray2<double>;
 
 }  // namespace jet
 
