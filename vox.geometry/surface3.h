@@ -13,14 +13,15 @@
 #include "transform3.h"
 #include <memory>
 
-namespace jet {
+namespace vox {
+using namespace Imath;
 
 //! Struct that represents ray-surface intersection point.
 struct SurfaceRayIntersection3 {
     bool isIntersecting = false;
     double distance = kMaxD;
-    Vector3D point;
-    Vector3D normal;
+    V3d point;
+    V3d normal;
 };
 
 //! Abstract base class for 3-D surface.
@@ -44,7 +45,7 @@ public:
     
     //! Returns the closest point from the given point \p otherPoint to the
     //! surface.
-    Vector3D closestPoint(const Vector3D& otherPoint) const;
+    V3d closestPoint(const V3d& otherPoint) const;
     
     //! Returns the bounding box of this surface object.
     BoundingBox3D boundingBox() const;
@@ -54,14 +55,14 @@ public:
     
     //! Returns the closest distance from the given point \p otherPoint to the
     //! point on the surface.
-    double closestDistance(const Vector3D& otherPoint) const;
+    double closestDistance(const V3d& otherPoint) const;
     
     //! Returns the closest intersection point for given \p ray.
     SurfaceRayIntersection3 closestIntersection(const Ray3D& ray) const;
     
     //! Returns the normal to the closest point on the surface from the given
     //! point \p otherPoint.
-    Vector3D closestNormal(const Vector3D& otherPoint) const;
+    V3d closestNormal(const V3d& otherPoint) const;
     
     //! Updates internal spatial query engine.
     virtual void updateQueryEngine();
@@ -74,12 +75,12 @@ public:
     
     //! Returns true if \p otherPoint is inside the volume defined by the
     //! surface.
-    bool isInside(const Vector3D& otherPoint) const;
+    bool isInside(const V3d& otherPoint) const;
     
 protected:
     //! Returns the closest point from the given point \p otherPoint to the
     //! surface in local frame.
-    virtual Vector3D closestPointLocal(const Vector3D& otherPoint) const = 0;
+    virtual V3d closestPointLocal(const V3d& otherPoint) const = 0;
     
     //! Returns the bounding box of this surface object in local frame.
     virtual BoundingBox3D boundingBoxLocal() const = 0;
@@ -89,7 +90,7 @@ protected:
     
     //! Returns the normal to the closest point on the surface from the given
     //! point \p otherPoint in local frame.
-    virtual Vector3D closestNormalLocal(const Vector3D& otherPoint) const = 0;
+    virtual V3d closestNormalLocal(const V3d& otherPoint) const = 0;
     
     //! Returns true if the given \p ray intersects with this surface object
     //! in local frame.
@@ -97,11 +98,11 @@ protected:
     
     //! Returns the closest distance from the given point \p otherPoint to the
     //! point on the surface in local frame.
-    virtual double closestDistanceLocal(const Vector3D& otherPoint) const;
+    virtual double closestDistanceLocal(const V3d& otherPoint) const;
     
     //! Returns true if \p otherPoint is inside by given \p depth the volume
     //! defined by the surface in local frame.
-    virtual bool isInsideLocal(const Vector3D& otherPoint) const;
+    virtual bool isInsideLocal(const V3d& otherPoint) const;
 };
 
 //! Shared pointer for the Surface3 type.
@@ -117,10 +118,10 @@ public:
     DerivedBuilder& withIsNormalFlipped(bool isNormalFlipped);
     
     //! Returns builder with translation.
-    DerivedBuilder& withTranslation(const Vector3D& translation);
+    DerivedBuilder& withTranslation(const V3d& translation);
     
     //! Returns builder with orientation.
-    DerivedBuilder& withOrientation(const QuaternionD& orientation);
+    DerivedBuilder& withOrientation(const Quatd& orientation);
     
     //! Returns builder with transform.
     DerivedBuilder& withTransform(const Transform3& transform);
@@ -137,13 +138,13 @@ T& SurfaceBuilderBase3<T>::withIsNormalFlipped(bool isNormalFlipped) {
 }
 
 template <typename T>
-T& SurfaceBuilderBase3<T>::withTranslation(const Vector3D& translation) {
+T& SurfaceBuilderBase3<T>::withTranslation(const V3d& translation) {
     _transform.setTranslation(translation);
     return static_cast<T&>(*this);
 }
 
 template <typename T>
-T& SurfaceBuilderBase3<T>::withOrientation(const QuaternionD& orientation) {
+T& SurfaceBuilderBase3<T>::withOrientation(const Quatd& orientation) {
     _transform.setOrientation(orientation);
     return static_cast<T&>(*this);
 }

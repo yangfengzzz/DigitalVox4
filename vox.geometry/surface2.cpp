@@ -10,7 +10,7 @@
 
 #include <algorithm>
 
-using namespace jet;
+using namespace vox;
 
 Surface2::Surface2(const Transform2& transform_, bool isNormalFlipped_)
 : transform(transform_), isNormalFlipped(isNormalFlipped_) {}
@@ -20,7 +20,7 @@ Surface2::Surface2(const Surface2& other)
 
 Surface2::~Surface2() {}
 
-Vector2D Surface2::closestPoint(const Vector2D& otherPoint) const {
+V2d Surface2::closestPoint(const V2d& otherPoint) const {
     return transform.toWorld(closestPointLocal(transform.toLocal(otherPoint)));
 }
 
@@ -32,7 +32,7 @@ bool Surface2::intersects(const Ray2D& ray) const {
     return intersectsLocal(transform.toLocal(ray));
 }
 
-double Surface2::closestDistance(const Vector2D& otherPoint) const {
+double Surface2::closestDistance(const V2d& otherPoint) const {
     return closestDistanceLocal(transform.toLocal(otherPoint));
 }
 
@@ -44,7 +44,7 @@ SurfaceRayIntersection2 Surface2::closestIntersection(const Ray2D& ray) const {
     return result;
 }
 
-Vector2D Surface2::closestNormal(const Vector2D& otherPoint) const {
+V2d Surface2::closestNormal(const V2d& otherPoint) const {
     auto result = transform.toWorldDirection(closestNormalLocal(transform.toLocal(otherPoint)));
     result *= (isNormalFlipped) ? -1.0 : 1.0;
     return result;
@@ -58,7 +58,7 @@ bool Surface2::isBounded() const { return true; }
 
 bool Surface2::isValidGeometry() const { return true; }
 
-bool Surface2::isInside(const Vector2D& otherPoint) const {
+bool Surface2::isInside(const V2d& otherPoint) const {
     return isNormalFlipped == !isInsideLocal(transform.toLocal(otherPoint));
 }
 
@@ -67,12 +67,12 @@ bool Surface2::intersectsLocal(const Ray2D& rayLocal) const {
     return result.isIntersecting;
 }
 
-double Surface2::closestDistanceLocal(const Vector2D& otherPointLocal) const {
-    return otherPointLocal.distanceTo(closestPointLocal(otherPointLocal));
+double Surface2::closestDistanceLocal(const V2d& otherPointLocal) const {
+    return (otherPointLocal - closestPointLocal(otherPointLocal)).length();
 }
 
-bool Surface2::isInsideLocal(const Vector2D& otherPointLocal) const {
-    Vector2D cpLocal = closestPointLocal(otherPointLocal);
-    Vector2D normalLocal = closestNormalLocal(otherPointLocal);
+bool Surface2::isInsideLocal(const V2d& otherPointLocal) const {
+    V2d cpLocal = closestPointLocal(otherPointLocal);
+    V2d normalLocal = closestNormalLocal(otherPointLocal);
     return (otherPointLocal - cpLocal).dot(normalLocal) < 0.0;
 }

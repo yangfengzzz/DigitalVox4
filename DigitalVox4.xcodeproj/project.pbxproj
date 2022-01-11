@@ -110,6 +110,9 @@
 		044591BC278DBA1B00F04CE0 /* bounding_box3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967A278D697B0090983F /* bounding_box3_tests.cpp */; };
 		044591BD278DCBA500F04CE0 /* transform2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422968E278D6FF30090983F /* transform2_tests.cpp */; };
 		044591BE278DCDDF00F04CE0 /* transform3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422968F278D6FF30090983F /* transform3_tests.cpp */; };
+		044591C1278DD2D200F04CE0 /* libvox.math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422969F278DAE4E0090983F /* libvox.math.a */; };
+		044591C2278DD2F000F04CE0 /* surface2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229694278D71760090983F /* surface2.cpp */; };
+		044591C3278DD39B00F04CE0 /* surface3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229695278D71760090983F /* surface3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +122,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 042295D8278D121C0090983F;
 			remoteInfo = vox.geometry;
+		};
+		044591BF278DD2CD00F04CE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0422969E278DAE4E0090983F;
+			remoteInfo = vox.math;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -273,6 +283,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044591C1278DD2D200F04CE0 /* libvox.math.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +639,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				044591C0278DD2CD00F04CE0 /* PBXTargetDependency */,
 			);
 			name = vox.geometry;
 			productName = vox.geometry;
@@ -745,6 +757,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044591C2278DD2F000F04CE0 /* surface2.cpp in Sources */,
+				044591C3278DD39B00F04CE0 /* surface3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,6 +796,11 @@
 			isa = PBXTargetDependency;
 			target = 042295D8278D121C0090983F /* vox.geometry */;
 			targetProxy = 04229614278D2B300090983F /* PBXContainerItemProxy */;
+		};
+		044591C0278DD2CD00F04CE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0422969E278DAE4E0090983F /* vox.math */;
+			targetProxy = 044591BF278DD2CD00F04CE0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -935,6 +954,7 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
+				HEADER_SEARCH_PATHS = ./vox.math;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYSTEM_HEADER_SEARCH_PATHS = ./third_party/eigen;
@@ -949,6 +969,7 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
+				HEADER_SEARCH_PATHS = ./vox.math;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYSTEM_HEADER_SEARCH_PATHS = ./third_party/eigen;
