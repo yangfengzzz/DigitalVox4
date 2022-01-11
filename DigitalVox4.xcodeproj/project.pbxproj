@@ -72,6 +72,7 @@
 		04229604278D20680090983F /* math_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229602278D20680090983F /* math_utils.h */; };
 		04229611278D29A70090983F /* point2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229610278D29A70090983F /* point2_tests.cpp */; };
 		04229616278D2DA00090983F /* point2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F2278D1FAA0090983F /* point2-inl.h */; };
+		04229618278D30850090983F /* point3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229617278D30850090983F /* point3_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +167,7 @@
 		04229602278D20680090983F /* math_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utils.h; sourceTree = "<group>"; };
 		04229609278D29760090983F /* unit_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unit_tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		04229610278D29A70090983F /* point2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point2_tests.cpp; sourceTree = "<group>"; };
+		04229617278D30850090983F /* point3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point3_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,8 +317,8 @@
 				042295F2278D1FAA0090983F /* point2-inl.h */,
 				042295E9278D1FAA0090983F /* point3.h */,
 				042295F0278D1FAA0090983F /* point3-inl.h */,
-				042295EB278D1FAA0090983F /* size-inl.h */,
 				042295E8278D1FAA0090983F /* size.h */,
+				042295EB278D1FAA0090983F /* size-inl.h */,
 				042295EE278D1FAA0090983F /* size2-inl.h */,
 				042295ED278D1FAA0090983F /* size2.h */,
 				042295F1278D1FAA0090983F /* size3-inl.h */,
@@ -329,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				04229610278D29A70090983F /* point2_tests.cpp */,
+				04229617278D30850090983F /* point3_tests.cpp */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04229618278D30850090983F /* point3_tests.cpp in Sources */,
 				04229611278D29A70090983F /* point2_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -725,6 +729,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4SL5L673UU;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = ./vox.geometry;
 				LIBRARY_SEARCH_PATHS = ./third_party/build/lib;
 				OTHER_LDFLAGS = (
@@ -746,6 +752,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4SL5L673UU;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = ./vox.geometry;
 				LIBRARY_SEARCH_PATHS = ./third_party/build/lib;
 				OTHER_LDFLAGS = (

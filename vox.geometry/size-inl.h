@@ -22,14 +22,14 @@ template <size_t N>
 template <typename... Params>
 Size<N>::Size(Params... params) {
     static_assert(sizeof...(params) == N, "Invalid number of parameters.");
-
+    
     setAt(0, params...);
 }
 
 template <size_t N>
 Size<N>::Size(const std::initializer_list<size_t>& lst) {
     assert(lst.size() >= N);
-
+    
     size_t i = 0;
     for (const auto& inputElem : lst) {
         elements[i] = inputElem;
@@ -39,7 +39,7 @@ Size<N>::Size(const std::initializer_list<size_t>& lst) {
 
 template <size_t N>
 Size<N>::Size(const Size& other) :
-    elements(other.elements) {
+elements(other.elements) {
 }
 
 template <size_t N>
@@ -56,7 +56,7 @@ template <size_t N>
 template <typename... Params>
 void Size<N>::setAt(size_t i, size_t v, Params... params) {
     elements[i] = v;
-
+    
     setAt(i+1, params...);
 }
 

@@ -7,8 +7,8 @@
 #ifndef INCLUDE_JET_DETAIL_POINT3_INL_H_
 #define INCLUDE_JET_DETAIL_POINT3_INL_H_
 
-#include <jet/macros.h>
-#include <jet/math_utils.h>
+#include "macros.h"
+#include "math_utils.h"
 
 #include <algorithm>
 #include <cassert>
@@ -25,217 +25,191 @@ Point<T, 3>::Point(const std::initializer_list<U>& lst) {
 // Basic setters
 template <typename T>
 void Point<T, 3>::set(T s) {
-    x = s;
-    y = s;
-    z = s;
+    value << s, s, s;
 }
 
 template <typename T>
 void Point<T, 3>::set(T newX, T newY, T newZ) {
-    x = newX;
-    y = newY;
-    z = newZ;
+    value << newX, newY, newZ;
 }
 
 template <typename T>
 void Point<T, 3>::set(const Point2<T>& pt, T newZ) {
-    x = pt.x;
-    y = pt.y;
-    z = newZ;
+    value << pt.x(), pt.y(), newZ;
 }
 
 template <typename T>
 template <typename U>
 void Point<T, 3>::set(const std::initializer_list<U>& lst) {
     assert(lst.size() >= 3);
-
+    
     auto inputElem = lst.begin();
-    x = static_cast<T>(*inputElem);
-    y = static_cast<T>(*(++inputElem));
-    z = static_cast<T>(*(++inputElem));
+    value << static_cast<T>(*inputElem), static_cast<T>(*(++inputElem)), static_cast<T>(*(++inputElem));
 }
 
 template <typename T>
 void Point<T, 3>::set(const Point& v) {
-    x = v.x;
-    y = v.y;
-    z = v.z;
+    value = v.value;
 }
 
 template <typename T>
 void Point<T, 3>::setZero() {
-    x = y = z = 0;
+    value.setZero();
 }
 
 // Binary operators: new instance = this (+) v
 template <typename T>
 Point<T, 3> Point<T, 3>::add(T v) const {
-    return Point(x + v, y + v, z + v);
+    return Point(value + ValueType(v, v, v));
 }
 
 template <typename T>
 Point<T, 3> Point<T, 3>::add(const Point& v) const {
-    return Point(x + v.x, y + v.y, z + v.z);
+    return Point(value + v.value);
 }
 
 template <typename T>
 Point<T, 3> Point<T, 3>::sub(T v) const {
-    return Point(x - v, y - v, z - v);
+    return Point(value - ValueType(v, v, v));
 }
 
 template <typename T>
 Point<T, 3> Point<T, 3>::sub(const Point& v) const {
-    return Point(x - v.x, y - v.y, z - v.z);
+    return Point(value - v.value);
 }
 
 template <typename T>
 Point<T, 3> Point<T, 3>::mul(T v) const {
-    return Point(x * v, y * v, z * v);
+    return Point(value * v);
 }
 
 template <typename T>
 Point<T, 3> Point<T, 3>::mul(const Point& v) const {
-    return Point(x * v.x, y * v.y, z * v.z);
+    return Point(value.cwiseProduct(v.value));
 }
 
 template <typename T>
 Point<T, 3> Point<T, 3>::div(T v) const {
-    return Point(x / v, y / v, z / v);
+    return Point(value / v);
 }
 
 template <typename T>
 Point<T, 3> Point<T, 3>::div(const Point& v) const {
-    return Point(x / v.x, y / v.y, z / v.z);
+    return Point(value.cwiseQuotient(v.value));
 }
 
 // Binary operators: new instance = v (+) this
 template <typename T>
 Point<T, 3> Point<T, 3>::rsub(T v) const {
-    return Point(v - x, v - y, v - z);
+    return Point(ValueType(v, v, v) - value);
 }
 
 template <typename T>
 Point<T, 3> Point<T, 3>::rsub(const Point& v) const {
-    return Point(v.x - x, v.y - y, v.z - z);
+    return Point(v.value - value);
 }
 
 template <typename T>
 Point<T, 3> Point<T, 3>::rdiv(T v) const {
-    return Point(v / x, v / y, v / z);
+    return Point(ValueType(v, v, v).cwiseQuotient(value));
 }
 
 template <typename T>
 Point<T, 3> Point<T, 3>::rdiv(const Point& v) const {
-    return Point(v.x / x, v.y / y, v.z / z);
+    return Point(v.value.cwiseQuotient(value));
 }
 
 // Augmented operators: this (+)= v
 template <typename T>
 void Point<T, 3>::iadd(T v) {
-    x += v;
-    y += v;
-    z += v;
+    value += ValueType(v, v, v);
 }
 
 template <typename T>
 void Point<T, 3>::iadd(const Point& v) {
-    x += v.x;
-    y += v.y;
-    z += v.z;
+    value += v.value;
 }
 
 template <typename T>
 void Point<T, 3>::isub(T v) {
-    x -= v;
-    y -= v;
-    z -= v;
+    value -= ValueType(v, v, v);
 }
 
 template <typename T>
 void Point<T, 3>::isub(const Point& v) {
-    x -= v.x;
-    y -= v.y;
-    z -= v.z;
+    value -= v.value;
 }
 
 template <typename T>
 void Point<T, 3>::imul(T v) {
-    x *= v;
-    y *= v;
-    z *= v;
+    value *= v;
 }
 
 template <typename T>
 void Point<T, 3>::imul(const Point& v) {
-    x *= v.x;
-    y *= v.y;
-    z *= v.z;
+    value = value.cwiseProduct(v.value);
 }
 
 template <typename T>
 void Point<T, 3>::idiv(T v) {
-    x /= v;
-    y /= v;
-    z /= v;
+    value /= v;
 }
 
 template <typename T>
 void Point<T, 3>::idiv(const Point& v) {
-    x /= v.x;
-    y /= v.y;
-    z /= v.z;
+    value = value.cwiseQuotient(v.value);
 }
 
 // Basic getters
 template <typename T>
 const T& Point<T, 3>::at(size_t i) const {
     assert(i < 3);
-    return (&x)[i];
+    return value[i];
 }
 
 template <typename T>
 T& Point<T, 3>::at(size_t i) {
     assert(i < 3);
-    return (&x)[i];
+    return value[i];
 }
 
 template <typename T>
 T Point<T, 3>::sum() const {
-    return x + y + z;
+    return value.sum();
 }
 
 template <typename T>
 T Point<T, 3>::min() const {
-    return std::min(std::min(x, y), z);
+    return value.minCoeff();
 }
 
 template <typename T>
 T Point<T, 3>::max() const {
-    return std::max(std::max(x, y), z);
+    return value.maxCoeff();
 }
 
 template <typename T>
 T Point<T, 3>::absmin() const {
-    return jet::absmin(jet::absmin(x, y), z);
+    return jet::absmin(jet::absmin(value[0], value[1]), value[2]);
 }
 
 template <typename T>
 T Point<T, 3>::absmax() const {
-    return jet::absmax(jet::absmax(x, y), z);
+    return jet::absmax(jet::absmax(value[0], value[1]), value[2]);
 }
 
 template <typename T>
 size_t Point<T, 3>::dominantAxis() const {
-    return (std::fabs(x) > std::fabs(y))
-               ? ((std::fabs(x) > std::fabs(z)) ? 0 : 2)
-               : ((std::fabs(y) > std::fabs(z)) ? 1 : 2);
+    return (std::fabs(value[0]) > std::fabs(value[1]))
+    ? ((std::fabs(value[0]) > std::fabs(value[2])) ? 0 : 2)
+    : ((std::fabs(value[1]) > std::fabs(value[2])) ? 1 : 2);
 }
 
 template <typename T>
 size_t Point<T, 3>::subminantAxis() const {
-    return (std::fabs(x) < std::fabs(y))
-               ? ((std::fabs(x) < std::fabs(z)) ? 0 : 2)
-               : ((std::fabs(y) < std::fabs(z)) ? 1 : 2);
+    return (std::fabs(value[0]) < std::fabs(value[1]))
+    ? ((std::fabs(value[0]) < std::fabs(value[2])) ? 0 : 2)
+    : ((std::fabs(value[1]) < std::fabs(value[2])) ? 1 : 2);
 }
 
 template <typename T>
@@ -246,14 +220,14 @@ Point3<U> Point<T, 3>::castTo() const {
 
 template <typename T>
 bool Point<T, 3>::isEqual(const Point& other) const {
-    return (x == other.x && y == other.y && z == other.z);
+    return value == other.value;
 }
 
 // Operators
 template <typename T>
 T& Point<T, 3>::operator[](size_t i) {
     assert(i < 3);
-    return (&x)[i];
+    return value[i];
 }
 
 template <typename T>
@@ -404,31 +378,30 @@ Point<T, 3> operator/(const Point<T, 3>& a, const Point<T, 3>& b) {
 
 template <typename T>
 Point<T, 3> min(const Point<T, 3>& a, const Point<T, 3>& b) {
-    return Point<T, 3>(std::min(a.x, b.x), std::min(a.y, b.y),
-                       std::min(a.z, b.z));
+    return Point<T, 3>(a.value.cwiseMin(b.value));
 }
 
 template <typename T>
 Point<T, 3> max(const Point<T, 3>& a, const Point<T, 3>& b) {
-    return Point<T, 3>(std::max(a.x, b.x), std::max(a.y, b.y),
-                       std::max(a.z, b.z));
+    return Point<T, 3>(a.value.cwiseMax(b.value));
 }
 
 template <typename T>
 Point<T, 3> clamp(const Point<T, 3>& v, const Point<T, 3>& low,
                   const Point<T, 3>& high) {
-    return Point<T, 3>(clamp(v.x, low.x, high.x), clamp(v.y, low.y, high.y),
-                       clamp(v.z, low.z, high.z));
+    return Point<T, 3>(clamp(v.x(), low.x(), high.x()),
+                       clamp(v.y(), low.y(), high.y()),
+                       clamp(v.z(), low.z(), high.z()));
 }
 
 template <typename T>
 Point<T, 3> ceil(const Point<T, 3>& a) {
-    return Point<T, 3>(std::ceil(a.x), std::ceil(a.y), std::ceil(a.z));
+    return Point<T, 3>(std::ceil(a.x()), std::ceil(a.y()), std::ceil(a.z()));
 }
 
 template <typename T>
 Point<T, 3> floor(const Point<T, 3>& a) {
-    return Point<T, 3>(std::floor(a.x), std::floor(a.y), std::floor(a.z));
+    return Point<T, 3>(std::floor(a.x()), std::floor(a.y()), std::floor(a.z()));
 }
 
 }  // namespace jet
