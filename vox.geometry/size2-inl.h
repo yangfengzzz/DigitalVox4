@@ -7,8 +7,8 @@
 #ifndef INCLUDE_JET_DETAIL_SIZE2_INL_H_
 #define INCLUDE_JET_DETAIL_SIZE2_INL_H_
 
-#include <jet/math_utils.h>
-#include <jet/size2.h>
+#include "math_utils.h"
+#include "size2.h"
 
 #include <algorithm>
 #include <cassert>
@@ -30,7 +30,7 @@ inline void Size2::set(size_t newX, size_t newY) {
 template <typename U>
 inline void Size2::set(const std::initializer_list<U>& lst) {
     assert(lst.size() >= 2);
-
+    
     auto inputElem = lst.begin();
     x = static_cast<size_t>(*inputElem);
     y = static_cast<size_t>(*(++inputElem));

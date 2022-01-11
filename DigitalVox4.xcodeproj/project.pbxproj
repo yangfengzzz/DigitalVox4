@@ -73,6 +73,23 @@
 		04229611278D29A70090983F /* point2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229610278D29A70090983F /* point2_tests.cpp */; };
 		04229616278D2DA00090983F /* point2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F2278D1FAA0090983F /* point2-inl.h */; };
 		04229618278D30850090983F /* point3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229617278D30850090983F /* point3_tests.cpp */; };
+		0422961E278D3EC70090983F /* vector4.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229619278D3EC70090983F /* vector4.h */; };
+		0422961F278D3EC70090983F /* vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422961A278D3EC70090983F /* vector.h */; };
+		04229620278D3EC70090983F /* vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422961B278D3EC70090983F /* vector3.h */; };
+		04229621278D3EC70090983F /* vector_expression.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422961C278D3EC70090983F /* vector_expression.h */; };
+		04229622278D3EC70090983F /* vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422961D278D3EC70090983F /* vector2.h */; };
+		04229628278D3EF70090983F /* vector_expression-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229623278D3EF60090983F /* vector_expression-inl.h */; };
+		04229629278D3EF70090983F /* vector3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229624278D3EF60090983F /* vector3-inl.h */; };
+		0422962A278D3EF70090983F /* vector2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229625278D3EF60090983F /* vector2-inl.h */; };
+		0422962B278D3EF70090983F /* vector-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229626278D3EF60090983F /* vector-inl.h */; };
+		0422962C278D3EF70090983F /* vector4-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229627278D3EF60090983F /* vector4-inl.h */; };
+		04229631278D3F430090983F /* vector3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422962D278D3F430090983F /* vector3_tests.cpp */; };
+		04229632278D3F430090983F /* vector4_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422962E278D3F430090983F /* vector4_tests.cpp */; };
+		04229633278D3F430090983F /* vector_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422962F278D3F430090983F /* vector_tests.cpp */; };
+		04229634278D3F430090983F /* vector2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229630278D3F430090983F /* vector2_tests.cpp */; };
+		04229637278D3F7D0090983F /* functors-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229635278D3F7D0090983F /* functors-inl.h */; };
+		04229638278D3F7D0090983F /* functors.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229636278D3F7D0090983F /* functors.h */; };
+		0422963A278D403C0090983F /* type_helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229639278D403C0090983F /* type_helpers.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +185,23 @@
 		04229609278D29760090983F /* unit_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unit_tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		04229610278D29A70090983F /* point2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point2_tests.cpp; sourceTree = "<group>"; };
 		04229617278D30850090983F /* point3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point3_tests.cpp; sourceTree = "<group>"; };
+		04229619278D3EC70090983F /* vector4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector4.h; sourceTree = "<group>"; };
+		0422961A278D3EC70090983F /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
+		0422961B278D3EC70090983F /* vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector3.h; sourceTree = "<group>"; };
+		0422961C278D3EC70090983F /* vector_expression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector_expression.h; sourceTree = "<group>"; };
+		0422961D278D3EC70090983F /* vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector2.h; sourceTree = "<group>"; };
+		04229623278D3EF60090983F /* vector_expression-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vector_expression-inl.h"; sourceTree = "<group>"; };
+		04229624278D3EF60090983F /* vector3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vector3-inl.h"; sourceTree = "<group>"; };
+		04229625278D3EF60090983F /* vector2-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vector2-inl.h"; sourceTree = "<group>"; };
+		04229626278D3EF60090983F /* vector-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vector-inl.h"; sourceTree = "<group>"; };
+		04229627278D3EF60090983F /* vector4-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vector4-inl.h"; sourceTree = "<group>"; };
+		0422962D278D3F430090983F /* vector3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector3_tests.cpp; sourceTree = "<group>"; };
+		0422962E278D3F430090983F /* vector4_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector4_tests.cpp; sourceTree = "<group>"; };
+		0422962F278D3F430090983F /* vector_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector_tests.cpp; sourceTree = "<group>"; };
+		04229630278D3F430090983F /* vector2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector2_tests.cpp; sourceTree = "<group>"; };
+		04229635278D3F7D0090983F /* functors-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "functors-inl.h"; sourceTree = "<group>"; };
+		04229636278D3F7D0090983F /* functors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = functors.h; sourceTree = "<group>"; };
+		04229639278D403C0090983F /* type_helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = type_helpers.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,10 +353,23 @@
 				042295F0278D1FAA0090983F /* point3-inl.h */,
 				042295E8278D1FAA0090983F /* size.h */,
 				042295EB278D1FAA0090983F /* size-inl.h */,
-				042295EE278D1FAA0090983F /* size2-inl.h */,
 				042295ED278D1FAA0090983F /* size2.h */,
-				042295F1278D1FAA0090983F /* size3-inl.h */,
+				042295EE278D1FAA0090983F /* size2-inl.h */,
 				042295EC278D1FAA0090983F /* size3.h */,
+				042295F1278D1FAA0090983F /* size3-inl.h */,
+				04229636278D3F7D0090983F /* functors.h */,
+				04229635278D3F7D0090983F /* functors-inl.h */,
+				04229639278D403C0090983F /* type_helpers.h */,
+				0422961C278D3EC70090983F /* vector_expression.h */,
+				04229623278D3EF60090983F /* vector_expression-inl.h */,
+				0422961A278D3EC70090983F /* vector.h */,
+				04229626278D3EF60090983F /* vector-inl.h */,
+				0422961D278D3EC70090983F /* vector2.h */,
+				04229625278D3EF60090983F /* vector2-inl.h */,
+				0422961B278D3EC70090983F /* vector3.h */,
+				04229624278D3EF60090983F /* vector3-inl.h */,
+				04229619278D3EC70090983F /* vector4.h */,
+				04229627278D3EF60090983F /* vector4-inl.h */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -332,6 +379,10 @@
 			children = (
 				04229610278D29A70090983F /* point2_tests.cpp */,
 				04229617278D30850090983F /* point3_tests.cpp */,
+				0422962F278D3F430090983F /* vector_tests.cpp */,
+				04229630278D3F430090983F /* vector2_tests.cpp */,
+				0422962D278D3F430090983F /* vector3_tests.cpp */,
+				0422962E278D3F430090983F /* vector4_tests.cpp */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -385,22 +436,35 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0422962A278D3EF70090983F /* vector2-inl.h in Headers */,
 				042295FC278D1FAA0090983F /* point3-inl.h in Headers */,
 				042295F6278D1FAA0090983F /* point.h in Headers */,
 				04229603278D20680090983F /* math_utils-inl.h in Headers */,
+				0422963A278D403C0090983F /* type_helpers.h in Headers */,
+				04229621278D3EC70090983F /* vector_expression.h in Headers */,
+				04229637278D3F7D0090983F /* functors-inl.h in Headers */,
 				042295F8278D1FAA0090983F /* size3.h in Headers */,
 				042295FD278D1FAA0090983F /* size3-inl.h in Headers */,
 				042295F9278D1FAA0090983F /* size2.h in Headers */,
 				042295F4278D1FAA0090983F /* size.h in Headers */,
 				042295E6278D17790090983F /* constants.h in Headers */,
+				0422962B278D3EF70090983F /* vector-inl.h in Headers */,
 				042295FF278D1FAA0090983F /* point-inl.h in Headers */,
+				04229622278D3EC70090983F /* vector2.h in Headers */,
 				042295E7278D17790090983F /* macros.h in Headers */,
+				0422962C278D3EF70090983F /* vector4-inl.h in Headers */,
 				04229604278D20680090983F /* math_utils.h in Headers */,
 				042295FB278D1FAA0090983F /* point2.h in Headers */,
 				042295FA278D1FAA0090983F /* size2-inl.h in Headers */,
 				042295F5278D1FAA0090983F /* point3.h in Headers */,
 				04229616278D2DA00090983F /* point2-inl.h in Headers */,
+				04229628278D3EF70090983F /* vector_expression-inl.h in Headers */,
+				0422961F278D3EC70090983F /* vector.h in Headers */,
+				04229620278D3EC70090983F /* vector3.h in Headers */,
+				04229638278D3F7D0090983F /* functors.h in Headers */,
 				042295F7278D1FAA0090983F /* size-inl.h in Headers */,
+				04229629278D3EF70090983F /* vector3-inl.h in Headers */,
+				0422961E278D3EC70090983F /* vector4.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,7 +603,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				04229618278D30850090983F /* point3_tests.cpp in Sources */,
+				04229631278D3F430090983F /* vector3_tests.cpp in Sources */,
 				04229611278D29A70090983F /* point2_tests.cpp in Sources */,
+				04229633278D3F430090983F /* vector_tests.cpp in Sources */,
+				04229632278D3F430090983F /* vector4_tests.cpp in Sources */,
+				04229634278D3F430090983F /* vector2_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,7 @@
 #ifndef INCLUDE_JET_DETAIL_SIZE3_INL_H_
 #define INCLUDE_JET_DETAIL_SIZE3_INL_H_
 
-#include <jet/math_utils.h>
+#include "math_utils.h"
 #include <algorithm>
 #include <cassert>
 
@@ -35,7 +35,7 @@ inline void Size3::set(const Size2& sz, size_t newZ) {
 template <typename U>
 inline void Size3::set(const std::initializer_list<U>& lst) {
     assert(lst.size() >= 3);
-
+    
     auto inputElem = lst.begin();
     x = static_cast<U>(*inputElem);
     y = static_cast<U>(*(++inputElem));

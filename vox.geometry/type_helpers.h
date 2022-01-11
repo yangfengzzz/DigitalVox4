@@ -4,19 +4,17 @@
 // personal capacity and am not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef INCLUDE_JET_SIZE_H_
-#define INCLUDE_JET_SIZE_H_
-
-#include "point.h"
+#ifndef INCLUDE_JET_TYPE_HELPERS_H_
+#define INCLUDE_JET_TYPE_HELPERS_H_
 
 namespace jet {
 
-//! \brief N-D size type.
-template <size_t N> using Size = Point<size_t, N>;
+//! Returns the type of the value itself.
+template <typename T>
+struct ScalarType {
+    typedef T value;
+};
 
 }  // namespace jet
 
-// #include "detail/size-inl.h"
-
-#endif  // INCLUDE_JET_SIZE_H_
-
+#endif  // INCLUDE_JET_TYPE_HELPERS_H_
