@@ -18,7 +18,8 @@ TEST(Transform3, Constructors) {
     EXPECT_EQ(V3d(0), t1.translation());
     EXPECT_EQ(0.0, t1.orientation().angle());
     
-    Transform3 t2({2.0, -5.0, 1.0}, Quatd(kQuarterPiD, {0.0, 1.0, 0.0}));
+    Quatd quat;
+    Transform3 t2({2.0, -5.0, 1.0}, quat.setAxisAngle({0.0, 1.0, 0.0}, kQuarterPiD));
     
     EXPECT_EQ(V3d(2.0, -5.0, 1.0), t2.translation());
     EXPECT_EQ(V3d(0.0, 1.0, 0.0), t2.orientation().axis());
@@ -26,7 +27,8 @@ TEST(Transform3, Constructors) {
 }
 
 TEST(Transform3, Transform) {
-    Transform3 t({2.0, -5.0, 1.0}, Quatd(kHalfPiD, {0.0, 1.0, 0.0}));
+    Quatd quat;
+    Transform3 t({2.0, -5.0, 1.0}, quat.setAxisAngle({0.0, 1.0, 0.0}, kHalfPiD));
     
     auto r1 = t.toWorld({4.0, 1.0, -3.0});
     EXPECT_NEAR(-1.0, r1.x, 1e-9);
