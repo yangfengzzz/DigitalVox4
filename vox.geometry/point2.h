@@ -30,6 +30,10 @@ class Point<T, 2> {
     
     //! internal value of the point.
     ValueType value;
+    
+    T x() const { return value.x(); }
+    
+    T y() const { return value.y(); }
 
     // MARK: - Constructors
     //! Constructs default point (0, 0).
@@ -303,5 +307,7 @@ using Point2I = Point2<ssize_t>;
 using Point2UI = Point2<size_t>;
 
 }  // namespace jet
+
+#include "point2-inl.h"
 
 #endif  // INCLUDE_JET_POINT2_H_

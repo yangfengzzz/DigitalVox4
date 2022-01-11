@@ -68,10 +68,33 @@
 		042295FC278D1FAA0090983F /* point3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F0278D1FAA0090983F /* point3-inl.h */; };
 		042295FD278D1FAA0090983F /* size3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F1278D1FAA0090983F /* size3-inl.h */; };
 		042295FF278D1FAA0090983F /* point-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F3278D1FAA0090983F /* point-inl.h */; };
-		04229600278D204C0090983F /* point2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042295F2278D1FAA0090983F /* point2.cpp */; };
 		04229603278D20680090983F /* math_utils-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229601278D20680090983F /* math_utils-inl.h */; };
 		04229604278D20680090983F /* math_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229602278D20680090983F /* math_utils.h */; };
+		04229611278D29A70090983F /* point2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229610278D29A70090983F /* point2_tests.cpp */; };
+		04229616278D2DA00090983F /* point2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F2278D1FAA0090983F /* point2-inl.h */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		04229614278D2B300090983F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 042295D8278D121C0090983F;
+			remoteInfo = vox.geometry;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		04229607278D29760090983F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0422954F278C30840090983F /* libvox.render.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.render.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,10 +160,12 @@
 		042295EF278D1FAA0090983F /* point2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point2.h; sourceTree = "<group>"; };
 		042295F0278D1FAA0090983F /* point3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "point3-inl.h"; sourceTree = "<group>"; };
 		042295F1278D1FAA0090983F /* size3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "size3-inl.h"; sourceTree = "<group>"; };
-		042295F2278D1FAA0090983F /* point2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point2.cpp; sourceTree = "<group>"; };
+		042295F2278D1FAA0090983F /* point2-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "point2-inl.h"; sourceTree = "<group>"; };
 		042295F3278D1FAA0090983F /* point-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "point-inl.h"; sourceTree = "<group>"; };
 		04229601278D20680090983F /* math_utils-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "math_utils-inl.h"; sourceTree = "<group>"; };
 		04229602278D20680090983F /* math_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utils.h; sourceTree = "<group>"; };
+		04229609278D29760090983F /* unit_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unit_tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		04229610278D29A70090983F /* point2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point2_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +183,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		04229606278D29760090983F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -166,7 +198,9 @@
 			children = (
 				042295DA278D121D0090983F /* vox.geometry */,
 				04229551278C30840090983F /* vox.render */,
+				0422960A278D29760090983F /* unit_tests */,
 				04229550278C30840090983F /* Products */,
+				04229612278D2B2D0090983F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -175,6 +209,7 @@
 			children = (
 				0422954F278C30840090983F /* libvox.render.a */,
 				042295D9278D121C0090983F /* libvox.geometry.a */,
+				04229609278D29760090983F /* unit_tests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -277,7 +312,7 @@
 				042295EA278D1FAA0090983F /* point.h */,
 				042295F3278D1FAA0090983F /* point-inl.h */,
 				042295EF278D1FAA0090983F /* point2.h */,
-				042295F2278D1FAA0090983F /* point2.cpp */,
+				042295F2278D1FAA0090983F /* point2-inl.h */,
 				042295E9278D1FAA0090983F /* point3.h */,
 				042295F0278D1FAA0090983F /* point3-inl.h */,
 				042295EB278D1FAA0090983F /* size-inl.h */,
@@ -288,6 +323,21 @@
 				042295EC278D1FAA0090983F /* size3.h */,
 			);
 			path = vox.geometry;
+			sourceTree = "<group>";
+		};
+		0422960A278D29760090983F /* unit_tests */ = {
+			isa = PBXGroup;
+			children = (
+				04229610278D29A70090983F /* point2_tests.cpp */,
+			);
+			path = unit_tests;
+			sourceTree = "<group>";
+		};
+		04229612278D2B2D0090983F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +396,7 @@
 				042295FB278D1FAA0090983F /* point2.h in Headers */,
 				042295FA278D1FAA0090983F /* size2-inl.h in Headers */,
 				042295F5278D1FAA0090983F /* point3.h in Headers */,
+				04229616278D2DA00090983F /* point2-inl.h in Headers */,
 				042295F7278D1FAA0090983F /* size-inl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,6 +438,24 @@
 			productReference = 042295D9278D121C0090983F /* libvox.geometry.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		04229608278D29760090983F /* unit_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0422960D278D29770090983F /* Build configuration list for PBXNativeTarget "unit_tests" */;
+			buildPhases = (
+				04229605278D29760090983F /* Sources */,
+				04229606278D29760090983F /* Frameworks */,
+				04229607278D29760090983F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				04229615278D2B300090983F /* PBXTargetDependency */,
+			);
+			name = unit_tests;
+			productName = unit_tests;
+			productReference = 04229609278D29760090983F /* unit_tests */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -400,6 +469,9 @@
 						CreatedOnToolsVersion = 13.2.1;
 					};
 					042295D8278D121C0090983F = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					04229608278D29760090983F = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
@@ -419,6 +491,7 @@
 			targets = (
 				0422954E278C30840090983F /* vox.render */,
 				042295D8278D121C0090983F /* vox.geometry */,
+				04229608278D29760090983F /* unit_tests */,
 			);
 		};
 /* End PBXProject section */
@@ -455,11 +528,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04229600278D204C0090983F /* point2.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04229605278D29760090983F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04229611278D29A70090983F /* point2_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		04229615278D2B300090983F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 042295D8278D121C0090983F /* vox.geometry */;
+			targetProxy = 04229614278D2B300090983F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		04229558278C30840090983F /* Debug */ = {
@@ -631,6 +719,48 @@
 			};
 			name = Release;
 		};
+		0422960E278D29770090983F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = ./vox.geometry;
+				LIBRARY_SEARCH_PATHS = ./third_party/build/lib;
+				OTHER_LDFLAGS = (
+					"-lgtest",
+					"-lgtest_main",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					./third_party/eigen,
+					./third_party/googletest/googlemock/include,
+					./third_party/googletest/googletest/include,
+				);
+			};
+			name = Debug;
+		};
+		0422960F278D29770090983F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = ./vox.geometry;
+				LIBRARY_SEARCH_PATHS = ./third_party/build/lib;
+				OTHER_LDFLAGS = (
+					"-lgtest",
+					"-lgtest_main",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					./third_party/eigen,
+					./third_party/googletest/googlemock/include,
+					./third_party/googletest/googletest/include,
+				);
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -657,6 +787,15 @@
 			buildConfigurations = (
 				042295E1278D121D0090983F /* Debug */,
 				042295E2278D121D0090983F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0422960D278D29770090983F /* Build configuration list for PBXNativeTarget "unit_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0422960E278D29770090983F /* Debug */,
+				0422960F278D29770090983F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

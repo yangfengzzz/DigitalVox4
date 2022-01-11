@@ -9,7 +9,6 @@
 
 #include "macros.h"
 #include "math_utils.h"
-#include "point2.h"
 
 #include <algorithm>
 #include <cassert>
@@ -316,7 +315,7 @@ Point<T, 2> operator+(const Point<T, 2>& a, T b) {
 
 template <typename T>
 Point<T, 2> operator+(T a, const Point<T, 2>& b) {
-    return b.radd(a);
+    return b.add(a);
 }
 
 template <typename T>
@@ -371,41 +370,29 @@ Point<T, 2> operator/(const Point<T, 2>& a, const Point<T, 2>& b) {
 
 template <typename T>
 Point<T, 2> min(const Point<T, 2>& a, const Point<T, 2>& b) {
-    return Point<T, 2>(std::min(a.x, b.x), std::min(a.y, b.y));
+    return Point<T, 2>(a.value.cwiseMin(b.value));
 }
 
 template <typename T>
 Point<T, 2> max(const Point<T, 2>& a, const Point<T, 2>& b) {
-    return Point<T, 2>(std::max(a.x, b.x), std::max(a.y, b.y));
+    return Point<T, 2>(a.value.cwiseMax(b.value));
 }
 
 template <typename T>
 Point<T, 2> clamp(
     const Point<T, 2>& v, const Point<T, 2>& low, const Point<T, 2>& high) {
-    return Point<T, 2>(clamp(v.x, low.x, high.x), clamp(v.y, low.y, high.y));
+    return Point<T, 2>(clamp(v.x(), low.x(), high.x()), clamp(v.y(), low.y(), high.y()));
 }
 
 template <typename T>
 Point<T, 2> ceil(const Point<T, 2>& a) {
-    return Point<T, 2>(std::ceil(a.x), std::ceil(a.y));
+    return Point<T, 2>(std::ceil(a.x()), std::ceil(a.y()));
 }
 
 template <typename T>
 Point<T, 2> floor(const Point<T, 2>& a) {
-    return Point<T, 2>(std::floor(a.x), std::floor(a.y));
+    return Point<T, 2>(std::floor(a.x()), std::floor(a.y()));
 }
-
-//! Float-type 2D point.
-template class Point<float, 2>;
-
-//! Double-type 2D point.
-template class Point<double, 2>;
-
-//! Integer-type 2D point.
-template class Point<ssize_t, 2>;
-
-//! Unsigned integer-type 2D point.
-template class Point<size_t, 2>;
 
 }  // namespace jet
 
