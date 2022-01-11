@@ -142,7 +142,6 @@
 		042296E5278DAE7C0090983F /* ImathShear.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296BC278DAE7A0090983F /* ImathShear.h */; };
 		042296E6278DAE7C0090983F /* ImathGL.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296BD278DAE7A0090983F /* ImathGL.h */; };
 		042296E7278DAE7C0090983F /* ImathPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296BE278DAE7A0090983F /* ImathPlatform.h */; };
-		042296E8278DAE7C0090983F /* toFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042296BF278DAE7A0090983F /* toFloat.cpp */; };
 		042296E9278DAE7C0090983F /* ImathColorAlgo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042296C0278DAE7A0090983F /* ImathColorAlgo.cpp */; };
 		042296EA278DAE7C0090983F /* halfFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296C1278DAE7B0090983F /* halfFunction.h */; };
 		042296EB278DAE7C0090983F /* ImathBoxAlgo.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296C2278DAE7B0090983F /* ImathBoxAlgo.h */; };
@@ -158,7 +157,6 @@
 		042296F5278DAE7C0090983F /* halfLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296CC278DAE7B0090983F /* halfLimits.h */; };
 		042296F6278DAE7C0090983F /* ImathRoots.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296CD278DAE7B0090983F /* ImathRoots.h */; };
 		042296F7278DAE7C0090983F /* ImathVecAlgo.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296CE278DAE7B0090983F /* ImathVecAlgo.h */; };
-		042296F8278DAE7C0090983F /* toFloat.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296CF278DAE7B0090983F /* toFloat.h */; };
 		042296F9278DAE7C0090983F /* ImathMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296D0278DAE7B0090983F /* ImathMath.h */; };
 		042296FA278DAE7C0090983F /* ImathEuler.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296D1278DAE7B0090983F /* ImathEuler.h */; };
 		042296FB278DAE7C0090983F /* ImathMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296D2278DAE7B0090983F /* ImathMatrix.h */; };
@@ -328,7 +326,6 @@
 		042296BC278DAE7A0090983F /* ImathShear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathShear.h; sourceTree = "<group>"; };
 		042296BD278DAE7A0090983F /* ImathGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathGL.h; sourceTree = "<group>"; };
 		042296BE278DAE7A0090983F /* ImathPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathPlatform.h; sourceTree = "<group>"; };
-		042296BF278DAE7A0090983F /* toFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = toFloat.cpp; sourceTree = "<group>"; };
 		042296C0278DAE7A0090983F /* ImathColorAlgo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImathColorAlgo.cpp; sourceTree = "<group>"; };
 		042296C1278DAE7B0090983F /* halfFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = halfFunction.h; sourceTree = "<group>"; };
 		042296C2278DAE7B0090983F /* ImathBoxAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathBoxAlgo.h; sourceTree = "<group>"; };
@@ -344,7 +341,6 @@
 		042296CC278DAE7B0090983F /* halfLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = halfLimits.h; sourceTree = "<group>"; };
 		042296CD278DAE7B0090983F /* ImathRoots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathRoots.h; sourceTree = "<group>"; };
 		042296CE278DAE7B0090983F /* ImathVecAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathVecAlgo.h; sourceTree = "<group>"; };
-		042296CF278DAE7B0090983F /* toFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = toFloat.h; sourceTree = "<group>"; };
 		042296D0278DAE7B0090983F /* ImathMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathMath.h; sourceTree = "<group>"; };
 		042296D1278DAE7B0090983F /* ImathEuler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathEuler.h; sourceTree = "<group>"; };
 		042296D2278DAE7B0090983F /* ImathMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathMatrix.h; sourceTree = "<group>"; };
@@ -586,47 +582,45 @@
 			isa = PBXGroup;
 			children = (
 				042296FC278DAEB40090983F /* ImathConfig.h */,
+				042296AC278DAE790090983F /* ImathNamespace.h */,
+				042296BE278DAE7A0090983F /* ImathPlatform.h */,
+				042296AF278DAE7A0090983F /* ImathTypeTraits.h */,
+				042296B8278DAE7A0090983F /* ImathExport.h */,
+				042296AD278DAE7A0090983F /* ImathInt64.h */,
+				042296B7278DAE7A0090983F /* ImathForward.h */,
+				042296D0278DAE7B0090983F /* ImathMath.h */,
 				042296C6278DAE7B0090983F /* half.h */,
 				042296C5278DAE7B0090983F /* half.cpp */,
 				042296CC278DAE7B0090983F /* halfLimits.h */,
 				042296C1278DAE7B0090983F /* halfFunction.h */,
-				042296B4278DAE7A0090983F /* ImathBox.h */,
-				042296C2278DAE7B0090983F /* ImathBoxAlgo.h */,
+				042296C4278DAE7B0090983F /* ImathFun.h */,
+				042296C3278DAE7B0090983F /* ImathFun.cpp */,
+				042296B2278DAE7A0090983F /* ImathVec.h */,
+				042296CE278DAE7B0090983F /* ImathVecAlgo.h */,
+				042296D2278DAE7B0090983F /* ImathMatrix.h */,
+				042296CB278DAE7B0090983F /* ImathMatrixAlgo.h */,
+				042296AB278DAE790090983F /* ImathMatrixAlgo.cpp */,
 				042296CA278DAE7B0090983F /* ImathColor.h */,
 				042296C0278DAE7A0090983F /* ImathColorAlgo.cpp */,
 				042296BB278DAE7A0090983F /* ImathColorAlgo.h */,
 				042296D1278DAE7B0090983F /* ImathEuler.h */,
-				042296B8278DAE7A0090983F /* ImathExport.h */,
-				042296B7278DAE7A0090983F /* ImathForward.h */,
+				042296C8278DAE7B0090983F /* ImathQuat.h */,
+				042296B4278DAE7A0090983F /* ImathBox.h */,
+				042296C2278DAE7B0090983F /* ImathBoxAlgo.h */,
+				042296B0278DAE7A0090983F /* ImathSphere.h */,
 				042296C9278DAE7B0090983F /* ImathFrame.h */,
 				042296BA278DAE7A0090983F /* ImathFrustum.h */,
 				042296B9278DAE7A0090983F /* ImathFrustumTest.h */,
-				042296C3278DAE7B0090983F /* ImathFun.cpp */,
-				042296C4278DAE7B0090983F /* ImathFun.h */,
-				042296BD278DAE7A0090983F /* ImathGL.h */,
-				042296AE278DAE7A0090983F /* ImathGLU.h */,
-				042296AD278DAE7A0090983F /* ImathInt64.h */,
+				042296C7278DAE7B0090983F /* ImathPlane.h */,
+				042296B3278DAE7A0090983F /* ImathRandom.h */,
+				042296B1278DAE7A0090983F /* ImathRandom.cpp */,
 				042296B6278DAE7A0090983F /* ImathInterval.h */,
 				042296AA278DAE790090983F /* ImathLine.h */,
 				042296B5278DAE7A0090983F /* ImathLineAlgo.h */,
-				042296D0278DAE7B0090983F /* ImathMath.h */,
-				042296D2278DAE7B0090983F /* ImathMatrix.h */,
-				042296AB278DAE790090983F /* ImathMatrixAlgo.cpp */,
-				042296CB278DAE7B0090983F /* ImathMatrixAlgo.h */,
-				042296AC278DAE790090983F /* ImathNamespace.h */,
-				042296C7278DAE7B0090983F /* ImathPlane.h */,
-				042296BE278DAE7A0090983F /* ImathPlatform.h */,
-				042296C8278DAE7B0090983F /* ImathQuat.h */,
-				042296B3278DAE7A0090983F /* ImathRandom.h */,
-				042296B1278DAE7A0090983F /* ImathRandom.cpp */,
 				042296CD278DAE7B0090983F /* ImathRoots.h */,
 				042296BC278DAE7A0090983F /* ImathShear.h */,
-				042296B0278DAE7A0090983F /* ImathSphere.h */,
-				042296AF278DAE7A0090983F /* ImathTypeTraits.h */,
-				042296B2278DAE7A0090983F /* ImathVec.h */,
-				042296CE278DAE7B0090983F /* ImathVecAlgo.h */,
-				042296CF278DAE7B0090983F /* toFloat.h */,
-				042296BF278DAE7A0090983F /* toFloat.cpp */,
+				042296BD278DAE7A0090983F /* ImathGL.h */,
+				042296AE278DAE7A0090983F /* ImathGLU.h */,
 			);
 			path = vox.math;
 			sourceTree = "<group>";
@@ -756,7 +750,6 @@
 				042296D7278DAE7B0090983F /* ImathGLU.h in Headers */,
 				042296EF278DAE7C0090983F /* half.h in Headers */,
 				042296E3278DAE7C0090983F /* ImathFrustum.h in Headers */,
-				042296F8278DAE7C0090983F /* toFloat.h in Headers */,
 				042296E4278DAE7C0090983F /* ImathColorAlgo.h in Headers */,
 				042296E7278DAE7C0090983F /* ImathPlatform.h in Headers */,
 				042296DF278DAE7C0090983F /* ImathInterval.h in Headers */,
@@ -949,7 +942,6 @@
 				042296E9278DAE7C0090983F /* ImathColorAlgo.cpp in Sources */,
 				042296DA278DAE7C0090983F /* ImathRandom.cpp in Sources */,
 				042296EE278DAE7C0090983F /* half.cpp in Sources */,
-				042296E8278DAE7C0090983F /* toFloat.cpp in Sources */,
 				042296D4278DAE7B0090983F /* ImathMatrixAlgo.cpp in Sources */,
 				042296EC278DAE7C0090983F /* ImathFun.cpp in Sources */,
 			);

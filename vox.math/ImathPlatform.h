@@ -42,9 +42,9 @@ IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 // Constexpr C++14 conditional definition
 //
 #if (IMATH_CPLUSPLUS_VERSION >= 14)
-  #define IMATH_CONSTEXPR14 constexpr
+#define IMATH_CONSTEXPR14 constexpr
 #else
-  #define IMATH_CONSTEXPR14 /* can not be constexpr before c++14 */
+#define IMATH_CONSTEXPR14 /* can not be constexpr before c++14 */
 #endif
 
 #endif // __cplusplus

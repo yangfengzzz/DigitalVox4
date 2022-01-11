@@ -97,9 +97,9 @@
 // compiling for Cuda.
 //
 #ifdef __CUDACC__
-  #define IMATH_HOSTDEVICE __host__ __device__
+#define IMATH_HOSTDEVICE __host__ __device__
 #else
-  #define IMATH_HOSTDEVICE
+#define IMATH_HOSTDEVICE
 #endif
 
 
@@ -159,7 +159,7 @@
 // MSVC does not do the same visibility attributes, and when we are
 // compiling a static library we won't be in DLL mode, but just don't
 // define these and the export headers will work out
-#if ! defined(_MSC_VER) && defined(IMATH_ENABLE_API_VISIBILITY)
+#if !defined(_MSC_VER) && defined(IMATH_ENABLE_API_VISIBILITY)
 #  define IMATH_PUBLIC_SYMBOL_ATTRIBUTE __attribute__ ((__visibility__ ("default")))
 #  define IMATH_PRIVATE_SYMBOL_ATTRIBUTE __attribute__ ((__visibility__ ("hidden")))
 // clang differs from gcc and has type visibility which is needed for enums and templates

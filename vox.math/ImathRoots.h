@@ -40,7 +40,8 @@ IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 ///
 /// @return 1 if the equation has a solution, 0 if there is no
 /// solution, and -1 if all real numbers are solutions.
-template <class T> IMATH_HOSTDEVICE IMATH_CONSTEXPR14 int solveLinear (T a, T b, T& x);
+template<class T>
+IMATH_HOSTDEVICE IMATH_CONSTEXPR14 int solveLinear(T a, T b, T &x);
 
 ///
 /// Solve for x in the quadratic equation:
@@ -50,8 +51,10 @@ template <class T> IMATH_HOSTDEVICE IMATH_CONSTEXPR14 int solveLinear (T a, T b,
 /// @return 2 if the equation has two solutions, 1 if the equation has
 /// a single solution, 0 if there is no solution, and -1 if all real
 /// numbers are solutions.
-template <class T> IMATH_HOSTDEVICE IMATH_CONSTEXPR14 int solveQuadratic (T a, T b, T c, T x[2]);
-template <class T>
+template<class T>
+IMATH_HOSTDEVICE IMATH_CONSTEXPR14 int solveQuadratic(T a, T b, T c, T x[2]);
+
+template<class T>
 
 ///
 /// Solve for x in the normalized cubic equation:
@@ -64,7 +67,7 @@ template <class T>
 ///
 /// @return 0 if there is no solution, and -1 if all real
 /// numbers are solutions, otherwise return the number of solutions.
-IMATH_HOSTDEVICE IMATH_CONSTEXPR14 int solveNormalizedCubic (T r, T s, T t, T x[3]);
+IMATH_HOSTDEVICE IMATH_CONSTEXPR14 int solveNormalizedCubic(T r, T s, T t, T x[3]);
 
 ///
 /// Solve for x in the cubic equation:
@@ -77,114 +80,95 @@ IMATH_HOSTDEVICE IMATH_CONSTEXPR14 int solveNormalizedCubic (T r, T s, T t, T x[
 ///
 /// @return 0 if there is no solution, and -1 if all real
 /// numbers are solutions, otherwise return the number of solutions.
-template <class T> IMATH_HOSTDEVICE IMATH_CONSTEXPR14 int solveCubic (T a, T b, T c, T d, T x[3]);
+template<class T>
+IMATH_HOSTDEVICE IMATH_CONSTEXPR14 int solveCubic(T a, T b, T c, T d, T x[3]);
 
 //---------------
 // Implementation
 //---------------
 
-template <class T>
+template<class T>
 IMATH_CONSTEXPR14 int
-solveLinear (T a, T b, T& x)
-{
-    if (a != 0)
-    {
+solveLinear(T a, T b, T &x) {
+    if (a != 0) {
         x = -b / a;
         return 1;
-    }
-    else if (b != 0)
-    {
+    } else if (b != 0) {
         return 0;
-    }
-    else
-    {
+    } else {
         return -1;
     }
 }
 
-template <class T>
+template<class T>
 IMATH_CONSTEXPR14 int
-solveQuadratic (T a, T b, T c, T x[2])
-{
-    if (a == 0)
-    {
-        return solveLinear (b, c, x[0]);
-    }
-    else
-    {
+solveQuadratic(T a, T b, T c, T x[2]) {
+    if (a == 0) {
+        return solveLinear(b, c, x[0]);
+    } else {
         T D = b * b - 4 * a * c;
-
-        if (D > 0)
-        {
-            T s = std::sqrt (D);
-            T q = -(b + (b > 0 ? 1 : -1) * s) / T (2);
-
+        
+        if (D > 0) {
+            T s = std::sqrt(D);
+            T q = -(b + (b > 0 ? 1 : -1) * s) / T(2);
+            
             x[0] = q / a;
             x[1] = c / q;
             return 2;
         }
-        if (D == 0)
-        {
+        if (D == 0) {
             x[0] = -b / (2 * a);
             return 1;
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }
 }
 
-template <class T>
+template<class T>
 IMATH_CONSTEXPR14 int
-solveNormalizedCubic (T r, T s, T t, T x[3])
-{
-    T p  = (3 * s - r * r) / 3;
-    T q  = 2 * r * r * r / 27 - r * s / 3 + t;
+solveNormalizedCubic(T r, T s, T t, T x[3]) {
+    T p = (3 * s - r * r) / 3;
+    T q = 2 * r * r * r / 27 - r * s / 3 + t;
     T p3 = p / 3;
     T q2 = q / 2;
-    T D  = p3 * p3 * p3 + q2 * q2;
-
-    if (D == 0 && p3 == 0)
-    {
+    T D = p3 * p3 * p3 + q2 * q2;
+    
+    if (D == 0 && p3 == 0) {
         x[0] = -r / 3;
         x[1] = -r / 3;
         x[2] = -r / 3;
         return 1;
     }
-
-    if (D > 0)
-    {
-        auto real_root = [] (T a, T x) -> T {
+    
+    if (D > 0) {
+        auto real_root = [](T a, T x) -> T {
             T sign = std::copysign(T(1), a);
-            return sign * std::pow (sign * a, T (1) / x);
+            return sign * std::pow(sign * a, T(1) / x);
         };
-
-        T u = real_root (-q / 2 + std::sqrt (D), 3);
-        T v = -p / (T (3) * u);
-
+        
+        T u = real_root(-q / 2 + std::sqrt(D), 3);
+        T v = -p / (T(3) * u);
+        
         x[0] = u + v - r / 3;
         return 1;
     }
-
-    namespace CN     = COMPLEX_NAMESPACE;
-    CN::complex<T> u = CN::pow (-q / 2 + CN::sqrt (CN::complex<T> (D)), T (1) / T (3));
-    CN::complex<T> v = -p / (T (3) * u);
-
-    const T sqrt3 = T (1.73205080756887729352744634150587); // enough digits
-                                                            // for long double
-    CN::complex<T> y0 (u + v);
-    CN::complex<T> y1 (-(u + v) / T (2) + (u - v) / T (2) * CN::complex<T> (0, sqrt3));
-    CN::complex<T> y2 (-(u + v) / T (2) - (u - v) / T (2) * CN::complex<T> (0, sqrt3));
-
-    if (D == 0)
-    {
+    
+    namespace CN = COMPLEX_NAMESPACE;
+    CN::complex <T> u = CN::pow(-q / 2 + CN::sqrt(CN::complex<T>(D)), T(1) / T(3));
+    CN::complex <T> v = -p / (T(3) * u);
+    
+    const T sqrt3 = T(1.73205080756887729352744634150587); // enough digits
+    // for long double
+    CN::complex <T> y0(u + v);
+    CN::complex <T> y1(-(u + v) / T(2) + (u - v) / T(2) * CN::complex<T>(0, sqrt3));
+    CN::complex <T> y2(-(u + v) / T(2) - (u - v) / T(2) * CN::complex<T>(0, sqrt3));
+    
+    if (D == 0) {
         x[0] = y0.real() - r / 3;
         x[1] = y1.real() - r / 3;
         return 2;
-    }
-    else
-    {
+    } else {
         x[0] = y0.real() - r / 3;
         x[1] = y1.real() - r / 3;
         x[2] = y2.real() - r / 3;
@@ -192,17 +176,13 @@ solveNormalizedCubic (T r, T s, T t, T x[3])
     }
 }
 
-template <class T>
+template<class T>
 IMATH_CONSTEXPR14 int
-solveCubic (T a, T b, T c, T d, T x[3])
-{
-    if (a == 0)
-    {
-        return solveQuadratic (b, c, d, x);
-    }
-    else
-    {
-        return solveNormalizedCubic (b / a, c / a, d / a, x);
+solveCubic(T a, T b, T c, T d, T x[3]) {
+    if (a == 0) {
+        return solveQuadratic(b, c, d, x);
+    } else {
+        return solveNormalizedCubic(b / a, c / a, d / a, x);
     }
 }
 

@@ -21,38 +21,33 @@
 
 IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
-template <class T>
+template<class T>
 IMATH_HOSTDEVICE constexpr inline T
-abs (T a) IMATH_NOEXCEPT
-{
-    return (a > T (0)) ? a : -a;
+abs(T a) IMATH_NOEXCEPT {
+    return (a > T(0)) ? a : -a;
 }
 
-template <class T>
+template<class T>
 IMATH_HOSTDEVICE constexpr inline int
-sign (T a) IMATH_NOEXCEPT
-{
-    return (a > T (0)) ? 1 : ((a < T (0)) ? -1 : 0);
+sign(T a) IMATH_NOEXCEPT {
+    return (a > T(0)) ? 1 : ((a < T(0)) ? -1 : 0);
 }
 
-template <class T, class Q>
+template<class T, class Q>
 IMATH_HOSTDEVICE constexpr inline T
-lerp (T a, T b, Q t) IMATH_NOEXCEPT
-{
+lerp(T a, T b, Q t) IMATH_NOEXCEPT {
     return (T) (a * (1 - t) + b * t);
 }
 
-template <class T, class Q>
+template<class T, class Q>
 IMATH_HOSTDEVICE constexpr inline T
-ulerp (T a, T b, Q t) IMATH_NOEXCEPT
-{
+ulerp(T a, T b, Q t) IMATH_NOEXCEPT {
     return (T) ((a > b) ? (a - (a - b) * t) : (a + (b - a) * t));
 }
 
-template <class T>
+template<class T>
 IMATH_HOSTDEVICE IMATH_CONSTEXPR14 inline T
-lerpfactor (T m, T a, T b) IMATH_NOEXCEPT
-{
+lerpfactor(T m, T a, T b) IMATH_NOEXCEPT {
     //
     // Return how far m is between a and b, that is return t such that
     // if:
@@ -62,70 +57,62 @@ lerpfactor (T m, T a, T b) IMATH_NOEXCEPT
     //
     // If a==b, return 0.
     //
-
+    
     T d = b - a;
     T n = m - a;
-
-    if (abs (d) > T (1) || abs (n) < std::numeric_limits<T>::max() * abs (d))
+    
+    if (abs(d) > T(1) || abs(n) < std::numeric_limits<T>::max() * abs(d))
         return n / d;
-
-    return T (0);
+    
+    return T(0);
 }
 
-template <class T>
+template<class T>
 IMATH_HOSTDEVICE constexpr inline T
-clamp (T a, T l, T h) IMATH_NOEXCEPT
-{
+clamp(T a, T l, T h) IMATH_NOEXCEPT {
     return (a < l) ? l : ((a > h) ? h : a);
 }
 
-template <class T>
+template<class T>
 IMATH_HOSTDEVICE constexpr inline int
-cmp (T a, T b) IMATH_NOEXCEPT
-{
-    return IMATH_INTERNAL_NAMESPACE::sign (a - b);
+cmp(T a, T b) IMATH_NOEXCEPT {
+    return IMATH_INTERNAL_NAMESPACE::sign(a - b);
 }
 
-template <class T>
+template<class T>
 IMATH_HOSTDEVICE constexpr inline int
-cmpt (T a, T b, T t) IMATH_NOEXCEPT
-{
-    return (IMATH_INTERNAL_NAMESPACE::abs (a - b) <= t) ? 0 : cmp (a, b);
+cmpt(T a, T b, T t) IMATH_NOEXCEPT {
+    return (IMATH_INTERNAL_NAMESPACE::abs(a - b) <= t) ? 0 : cmp(a, b);
 }
 
-template <class T>
+template<class T>
 IMATH_HOSTDEVICE constexpr inline bool
-iszero (T a, T t) IMATH_NOEXCEPT
-{
-    return (IMATH_INTERNAL_NAMESPACE::abs (a) <= t) ? 1 : 0;
+iszero(T a, T t) IMATH_NOEXCEPT {
+    return (IMATH_INTERNAL_NAMESPACE::abs(a) <= t) ? 1 : 0;
 }
 
-template <class T1, class T2, class T3>
+template<class T1, class T2, class T3>
 IMATH_HOSTDEVICE constexpr inline bool
-equal (T1 a, T2 b, T3 t) IMATH_NOEXCEPT
-{
-    return IMATH_INTERNAL_NAMESPACE::abs (a - b) <= t;
+equal(T1 a, T2 b, T3 t) IMATH_NOEXCEPT {
+    return IMATH_INTERNAL_NAMESPACE::abs(a - b) <= t;
 }
 
-template <class T>
+template<class T>
 IMATH_HOSTDEVICE constexpr inline int
-floor (T x) IMATH_NOEXCEPT
-{
-    return (x >= 0) ? int (x) : -(int (-x) + (-x > int (-x)));
+floor(T x) IMATH_NOEXCEPT {
+    return (x >= 0) ? int(x) : -(int(-x) + (-x > int(-x)));
 }
 
-template <class T>
+template<class T>
 IMATH_HOSTDEVICE constexpr inline int
-ceil (T x) IMATH_NOEXCEPT
-{
-    return -floor (-x);
+ceil(T x) IMATH_NOEXCEPT {
+    return -floor(-x);
 }
 
-template <class T>
+template<class T>
 IMATH_HOSTDEVICE constexpr inline int
-trunc (T x) IMATH_NOEXCEPT
-{
-    return (x >= 0) ? int (x) : -int (-x);
+trunc(T x) IMATH_NOEXCEPT {
+    return (x >= 0) ? int(x) : -int(-x);
 }
 
 //
@@ -137,14 +124,12 @@ trunc (T x) IMATH_NOEXCEPT
 //
 
 IMATH_HOSTDEVICE constexpr inline int
-divs (int x, int y) IMATH_NOEXCEPT
-{
+divs(int x, int y) IMATH_NOEXCEPT {
     return (x >= 0) ? ((y >= 0) ? (x / y) : -(x / -y)) : ((y >= 0) ? -(-x / y) : (-x / -y));
 }
 
 IMATH_HOSTDEVICE constexpr inline int
-mods (int x, int y) IMATH_NOEXCEPT
-{
+mods(int x, int y) IMATH_NOEXCEPT {
     return (x >= 0) ? ((y >= 0) ? (x % y) : (x % -y)) : ((y >= 0) ? -(-x % y) : -(-x % -y));
 }
 
@@ -157,16 +142,14 @@ mods (int x, int y) IMATH_NOEXCEPT
 //
 
 IMATH_HOSTDEVICE constexpr inline int
-divp (int x, int y) IMATH_NOEXCEPT
-{
+divp(int x, int y) IMATH_NOEXCEPT {
     return (x >= 0) ? ((y >= 0) ? (x / y) : -(x / -y))
-                    : ((y >= 0) ? -((y - 1 - x) / y) : ((-y - 1 - x) / -y));
+    : ((y >= 0) ? -((y - 1 - x) / y) : ((-y - 1 - x) / -y));
 }
 
 IMATH_HOSTDEVICE constexpr inline int
-modp (int x, int y) IMATH_NOEXCEPT
-{
-    return x - y * divp (x, y);
+modp(int x, int y) IMATH_NOEXCEPT {
+    return x - y * divp(x, y);
 }
 
 //----------------------------------------------------------
@@ -190,39 +173,37 @@ modp (int x, int y) IMATH_NOEXCEPT
 //
 //----------------------------------------------------------
 
-IMATH_EXPORT float succf (float f) IMATH_NOEXCEPT;
-IMATH_EXPORT float predf (float f) IMATH_NOEXCEPT;
+IMATH_EXPORT float succf(float f) IMATH_NOEXCEPT;
 
-IMATH_EXPORT double succd (double d) IMATH_NOEXCEPT;
-IMATH_EXPORT double predd (double d) IMATH_NOEXCEPT;
+IMATH_EXPORT float predf(float f) IMATH_NOEXCEPT;
+
+IMATH_EXPORT double succd(double d) IMATH_NOEXCEPT;
+
+IMATH_EXPORT double predd(double d) IMATH_NOEXCEPT;
 
 //
 // Return true if the number is not a NaN or Infinity.
 //
 
 IMATH_HOSTDEVICE inline bool
-finitef (float f) IMATH_NOEXCEPT
-{
-    union
-    {
+finitef(float f) IMATH_NOEXCEPT {
+    union {
         float f;
         int i;
     } u;
     u.f = f;
-
+    
     return (u.i & 0x7f800000) != 0x7f800000;
 }
 
 IMATH_HOSTDEVICE inline bool
-finited (double d) IMATH_NOEXCEPT
-{
-    union
-    {
+finited(double d) IMATH_NOEXCEPT {
+    union {
         double d;
         uint64_t i;
     } u;
     u.d = d;
-
+    
     return (u.i & 0x7ff0000000000000LL) != 0x7ff0000000000000LL;
 }
 

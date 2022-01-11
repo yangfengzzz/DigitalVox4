@@ -54,48 +54,59 @@
 #include "half.h"
 
 #include "ImathConfig.h"
+
 #ifndef IMATH_HAVE_LARGE_STACK
+
 #    include <string.h> // need this for memset
+
 #else
 #endif
 
 #include <float.h>
 
-template <class T> class halfFunction
-{
-  public:
+template<class T>
+class halfFunction {
+public:
     //------------
     // Constructor
     //------------
-
-    template <class Function>
-    halfFunction (Function f,
-                  half domainMin = -HALF_MAX,
-                  half domainMax = HALF_MAX,
-                  T defaultValue = 0,
-                  T posInfValue  = 0,
-                  T negInfValue  = 0,
-                  T nanValue     = 0);
-
+    
+    template<class Function>
+    halfFunction(Function f,
+                 half domainMin = -HALF_MAX,
+                 half domainMax = HALF_MAX,
+                 T defaultValue = 0,
+                 T posInfValue = 0,
+                 T negInfValue = 0,
+                 T nanValue = 0);
+    
 #ifndef IMATH_HAVE_LARGE_STACK
-    ~halfFunction() { delete[] _lut; }
-    halfFunction (const halfFunction&) = delete;
-    halfFunction& operator= (const halfFunction&) = delete;
-    halfFunction (halfFunction&&)                 = delete;
-    halfFunction& operator= (halfFunction&&) = delete;
+    
+    ~halfFunction() {
+        delete[] _lut;
+    }
+    
+    halfFunction(const halfFunction &) = delete;
+    
+    halfFunction &operator=(const halfFunction &) = delete;
+    
+    halfFunction(halfFunction &&) = delete;
+    
+    halfFunction &operator=(halfFunction &&) = delete;
+    
 #endif
-
+    
     //-----------
     // Evaluation
     //-----------
-
-    T operator() (half x) const;
-
-  private:
+    
+    T operator()(half x) const;
+    
+private:
 #ifdef IMATH_HAVE_LARGE_STACK
     T _lut[1 << 16];
 #else
-    T* _lut;
+    T *_lut;
 #endif
 };
 
@@ -103,25 +114,23 @@ template <class T> class halfFunction
 // Implementation
 //---------------
 
-template <class T>
-template <class Function>
-halfFunction<T>::halfFunction (Function f,
-                               half domainMin,
-                               half domainMax,
-                               T defaultValue,
-                               T posInfValue,
-                               T negInfValue,
-                               T nanValue)
-{
+template<class T>
+template<class Function>
+halfFunction<T>::halfFunction(Function f,
+                              half domainMin,
+                              half domainMax,
+                              T defaultValue,
+                              T posInfValue,
+                              T negInfValue,
+                              T nanValue) {
 #ifndef IMATH_HAVE_LARGE_STACK
     _lut = new T[1 << 16];
 #endif
-
-    for (int i = 0; i < (1 << 16); i++)
-    {
+    
+    for (int i = 0; i < (1 << 16); i++) {
         half x;
-        x.setBits (i);
-
+        x.setBits(i);
+        
         if (x.isNan())
             _lut[i] = nanValue;
         else if (x.isInfinity())
@@ -129,14 +138,13 @@ halfFunction<T>::halfFunction (Function f,
         else if (x < domainMin || x > domainMax)
             _lut[i] = defaultValue;
         else
-            _lut[i] = f (x);
+            _lut[i] = f(x);
     }
 }
 
-template <class T>
+template<class T>
 inline T
-halfFunction<T>::operator() (half x) const
-{
+halfFunction<T>::operator()(half x) const {
     return _lut[x.bits()];
 }
 

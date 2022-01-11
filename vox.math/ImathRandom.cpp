@@ -14,18 +14,16 @@
 #include <cstdint>
 
 IMATH_INTERNAL_NAMESPACE_SOURCE_ENTER
-namespace
-{
+namespace {
 
 //
 // Static state used by Imath::drand48(), Imath::lrand48() and Imath::srand48()
 //
 
-unsigned short staticState[3] = { 0, 0, 0 };
+unsigned short staticState[3] = {0, 0, 0};
 
 void
-rand48Next (unsigned short state[3])
-{
+rand48Next(unsigned short state[3]) {
     //
     // drand48() and friends are all based on a linear congruential
     // sequence,
@@ -34,27 +32,27 @@ rand48Next (unsigned short state[3])
     //
     // where a and c are as specified below, and m == (1 << 48)
     //
-
-    static const uint64_t a = uint64_t (0x5deece66dLL);
-    static const uint64_t c = uint64_t (0xbLL);
-
+    
+    static const uint64_t a = uint64_t(0x5deece66dLL);
+    static const uint64_t c = uint64_t(0xbLL);
+    
     //
     // Assemble the 48-bit value x[n] from the
     // three 16-bit values stored in state.
     //
-
+    
     // clang-format off
-    uint64_t x = (uint64_t (state[2]) << 32) |
-	      (uint64_t (state[1]) << 16) |
-	       uint64_t (state[0]);
+    uint64_t x = (uint64_t(state[2]) << 32) |
+    (uint64_t(state[1]) << 16) |
+    uint64_t(state[0]);
     // clang-format on
-
+    
     //
     // Compute x[n+1], except for the "modulo m" part.
     //
-
+    
     x = a * x + c;
-
+    
     //
     // Disassemble the 48 least significant bits of x[n+1] into
     // three 16-bit values.  Discard the 16 most significant bits;
@@ -62,7 +60,7 @@ rand48Next (unsigned short state[3])
     //
     // We assume that sizeof (unsigned short) == 2.
     //
-
+    
     state[2] = (unsigned short) (x >> 32);
     state[1] = (unsigned short) (x >> 16);
     state[0] = (unsigned short) (x);
@@ -84,64 +82,57 @@ rand48Next (unsigned short state[3])
 /// values produces numbers between 0.0 and 0.99999999999999978, that
 /// is, between 0.0 and 1.0-DBL_EPSILON.
 double
-erand48 (unsigned short state[3])
-{
-    rand48Next (state);
-
-    union
-    {
+erand48(unsigned short state[3]) {
+    rand48Next(state);
+    
+    union {
         double d;
         uint64_t i;
     } u;
-
+    
     // clang-format off
-    u.i = (uint64_t (0x3ff)    << 52) |	// sign and exponent
-	  (uint64_t (state[2]) << 36) |	// significand
-	  (uint64_t (state[1]) << 20) |
-	  (uint64_t (state[0]) <<  4) |
-	  (uint64_t (state[2]) >> 12);
+    u.i = (uint64_t(0x3ff) << 52) |    // sign and exponent
+    (uint64_t(state[2]) << 36) |    // significand
+    (uint64_t(state[1]) << 20) |
+    (uint64_t(state[0]) << 4) |
+    (uint64_t(state[2]) >> 12);
     // clang-format on
-
+    
     return u.d - 1;
 }
 
 /// Return erand48()
 double
-drand48()
-{
-    return IMATH_INTERNAL_NAMESPACE::erand48 (staticState);
+drand48() {
+    return IMATH_INTERNAL_NAMESPACE::erand48(staticState);
 }
 
 /// Generate uniformly distributed integers between 0 and 0x7fffffff.
 long int
-nrand48 (unsigned short state[3])
-{
-    rand48Next (state);
-
+nrand48(unsigned short state[3]) {
+    rand48Next(state);
+    
     // clang-format off
     return ((long int) (state[2]) << 15) |
-	   ((long int) (state[1]) >>  1);
+    ((long int) (state[1]) >> 1);
     // clang-format on
 }
 
 /// Return nrand48()
 long int
-lrand48()
-{
-    return IMATH_INTERNAL_NAMESPACE::nrand48 (staticState);
+lrand48() {
+    return IMATH_INTERNAL_NAMESPACE::nrand48(staticState);
 }
 
 void
-srand48 (long int seed)
-{
+srand48(long int seed) {
     staticState[2] = (unsigned short) (seed >> 16);
     staticState[1] = (unsigned short) (seed);
     staticState[0] = 0x330e;
 }
 
 float
-Rand32::nextf()
-{
+Rand32::nextf() {
     //
     // Generate single-precision floating-point values between 0.0 and 1.0:
     //
@@ -154,15 +145,14 @@ Rand32::nextf()
     // those values produces numbers between 0.0 and 0.99999988, that is,
     // between 0.0 and 1.0-FLT_EPSILON.
     //
-
+    
     next();
-
-    union
-    {
+    
+    union {
         float f;
         unsigned int i;
     } u;
-
+    
     u.i = 0x3f800000 | (_state & 0x7fffff);
     return u.f - 1;
 }

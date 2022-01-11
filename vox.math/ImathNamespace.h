@@ -66,11 +66,10 @@
 // namespace.
 //
 
-namespace IMATH_INTERNAL_NAMESPACE
-{}
-namespace IMATH_NAMESPACE
-{
-using namespace IMATH_INTERNAL_NAMESPACE;
+namespace IMATH_INTERNAL_NAMESPACE {
+}
+namespace IMATH_NAMESPACE {
+    using namespace IMATH_INTERNAL_NAMESPACE;
 }
 
 //
