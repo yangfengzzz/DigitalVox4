@@ -8,11 +8,10 @@
 #define INCLUDE_JET_TRANSFORM3_H_
 
 #include "bounding_box3.h"
-#include "quaternion.h"
 #include "ray3.h"
-#include "vector3.h"
+#include "ImathQuat.h"
 
-namespace jet {
+IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 //!
 //! \brief Represents 3-D rigid body transform.
@@ -23,13 +22,13 @@ public:
     Transform3();
     
     //! Constructs a transform with translation and orientation.
-    Transform3(const Vector3D& translation, const QuaternionD& orientation);
+    Transform3(const V3d& translation, const QuaternionD& orientation);
     
     //! Returns the translation.
-    const Vector3D& translation() const;
+    const V3d& translation() const;
     
     //! Sets the traslation.
-    void setTranslation(const Vector3D& translation);
+    void setTranslation(const V3d& translation);
     
     //! Returns the orientation.
     const QuaternionD& orientation() const;
@@ -38,10 +37,10 @@ public:
     void setOrientation(const QuaternionD& orientation);
     
     //! Transforms a point in world coordinate to the local frame.
-    Vector3D toLocal(const Vector3D& pointInWorld) const;
+    V3d toLocal(const V3d& pointInWorld) const;
     
     //! Transforms a direction in world coordinate to the local frame.
-    Vector3D toLocalDirection(const Vector3D& dirInWorld) const;
+    V3d toLocalDirection(const V3d& dirInWorld) const;
     
     //! Transforms a ray in world coordinate to the local frame.
     Ray3D toLocal(const Ray3D& rayInWorld) const;
@@ -50,10 +49,10 @@ public:
     BoundingBox3D toLocal(const BoundingBox3D& bboxInWorld) const;
     
     //! Transforms a point in local space to the world coordinate.
-    Vector3D toWorld(const Vector3D& pointInLocal) const;
+    V3d toWorld(const V3d& pointInLocal) const;
     
     //! Transforms a direction in local space to the world coordinate.
-    Vector3D toWorldDirection(const Vector3D& dirInLocal) const;
+    V3d toWorldDirection(const V3d& dirInLocal) const;
     
     //! Transforms a ray in local space to the world coordinate.
     Ray3D toWorld(const Ray3D& rayInLocal) const;
@@ -62,13 +61,13 @@ public:
     BoundingBox3D toWorld(const BoundingBox3D& bboxInLocal) const;
     
 private:
-    Vector3D _translation;
+    V3d _translation = V3d(0);
     QuaternionD _orientation;
     Eigen::Matrix3d _orientationMat3;
     Eigen::Matrix3d _inverseOrientationMat3;
 };
 
-}  // namespace jet
+IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #include "transform3-inl.h"
 

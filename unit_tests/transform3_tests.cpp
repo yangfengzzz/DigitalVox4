@@ -15,13 +15,13 @@ using namespace jet;
 TEST(Transform3, Constructors) {
     Transform3 t1;
     
-    EXPECT_EQ(Vector3D(), t1.translation());
+    EXPECT_EQ(V3d(0), t1.translation());
     EXPECT_EQ(0.0, t1.orientation().angle());
     
     Transform3 t2({2.0, -5.0, 1.0}, QuaternionD({0.0, 1.0, 0.0}, kQuarterPiD));
     
-    EXPECT_EQ(Vector3D(2.0, -5.0, 1.0), t2.translation());
-    EXPECT_EQ(Vector3D(0.0, 1.0, 0.0), t2.orientation().axis());
+    EXPECT_EQ(V3d(2.0, -5.0, 1.0), t2.translation());
+    EXPECT_EQ(V3d(0.0, 1.0, 0.0), t2.orientation().axis());
     EXPECT_DOUBLE_EQ(kQuarterPiD, t2.orientation().angle());
 }
 

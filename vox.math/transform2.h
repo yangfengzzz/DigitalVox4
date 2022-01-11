@@ -9,9 +9,8 @@
 
 #include "bounding_box2.h"
 #include "ray2.h"
-#include "vector2.h"
 
-namespace jet {
+IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 //!
 //! \brief Represents 2-D rigid body transform.
@@ -22,13 +21,13 @@ public:
     Transform2();
     
     //! Constructs a transform with translation and orientation.
-    Transform2(const Vector2D& translation, double orientation);
+    Transform2(const V2d& translation, double orientation);
     
     //! Returns the translation.
-    const Vector2D& translation() const;
+    const V2d& translation() const;
     
     //! Sets the traslation.
-    void setTranslation(const Vector2D& translation);
+    void setTranslation(const V2d& translation);
     
     //! Returns the orientation in radians.
     double orientation() const;
@@ -37,10 +36,10 @@ public:
     void setOrientation(double orientation);
     
     //! Transforms a point in world coordinate to the local frame.
-    Vector2D toLocal(const Vector2D& pointInWorld) const;
+    V2d toLocal(const V2d& pointInWorld) const;
     
     //! Transforms a direction in world coordinate to the local frame.
-    Vector2D toLocalDirection(const Vector2D& dirInWorld) const;
+    V2d toLocalDirection(const V2d& dirInWorld) const;
     
     //! Transforms a ray in world coordinate to the local frame.
     Ray2D toLocal(const Ray2D& rayInWorld) const;
@@ -49,10 +48,10 @@ public:
     BoundingBox2D toLocal(const BoundingBox2D& bboxInWorld) const;
     
     //! Transforms a point in local space to the world coordinate.
-    Vector2D toWorld(const Vector2D& pointInLocal) const;
+    V2d toWorld(const V2d& pointInLocal) const;
     
     //! Transforms a direction in local space to the world coordinate.
-    Vector2D toWorldDirection(const Vector2D& dirInLocal) const;
+    V2d toWorldDirection(const V2d& dirInLocal) const;
     
     //! Transforms a ray in local space to the world coordinate.
     Ray2D toWorld(const Ray2D& rayInLocal) const;
@@ -61,13 +60,13 @@ public:
     BoundingBox2D toWorld(const BoundingBox2D& bboxInLocal) const;
     
 private:
-    Vector2D _translation;
+    V2d _translation = V2d(0);
     double _orientation = 0.0;
     double _cosAngle = 1.0;
     double _sinAngle = 0.0;
 };
 
-}  // namespace jet
+IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #include "transform2-inl.h"
 

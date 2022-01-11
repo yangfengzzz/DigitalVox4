@@ -12,22 +12,22 @@
 #include <algorithm>
 #include <cmath>
 
-namespace jet {
+IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 inline Transform3::Transform3() {
 }
 
-inline Transform3::Transform3(const Vector3D& translation,
+inline Transform3::Transform3(const V3d& translation,
                               const QuaternionD& orientation) {
     setTranslation(translation);
     setOrientation(orientation);
 }
 
-inline const Vector3D& Transform3::translation() const {
+inline const V3d& Transform3::translation() const {
     return _translation;
 }
 
-inline void Transform3::setTranslation(const Vector3D& translation) {
+inline void Transform3::setTranslation(const V3d& translation) {
     _translation = translation;
 }
 
@@ -41,12 +41,12 @@ inline void Transform3::setOrientation(const QuaternionD& orientation) {
     _inverseOrientationMat3 = orientation.inverse().matrix3();
 }
 
-inline Vector3D Transform3::toLocal(const Vector3D& pointInWorld) const {
-    return Vector3D(_inverseOrientationMat3 * (pointInWorld - _translation).value);
+inline V3d Transform3::toLocal(const V3d& pointInWorld) const {
+    return V3d(_inverseOrientationMat3 * (pointInWorld - _translation).value);
 }
 
-inline Vector3D Transform3::toLocalDirection(const Vector3D& dirInWorld) const {
-    return Vector3D(_inverseOrientationMat3 * dirInWorld.value);
+inline V3d Transform3::toLocalDirection(const V3d& dirInWorld) const {
+    return V3d(_inverseOrientationMat3 * dirInWorld.value);
 }
 
 inline Ray3D Transform3::toLocal(const Ray3D& rayInWorld) const {
@@ -67,12 +67,12 @@ inline BoundingBox3D Transform3::toLocal(const BoundingBox3D& bboxInWorld) const
     return bboxInLocal;
 }
 
-inline Vector3D Transform3::toWorld(const Vector3D& pointInLocal) const {
-    return Vector3D(_orientationMat3 * pointInLocal.value) + _translation;
+inline V3d Transform3::toWorld(const V3d& pointInLocal) const {
+    return V3d(_orientationMat3 * pointInLocal.value) + _translation;
 }
 
-inline Vector3D Transform3::toWorldDirection(const Vector3D& dirInLocal) const {
-    return Vector3D(_orientationMat3 * dirInLocal.value);
+inline V3d Transform3::toWorldDirection(const V3d& dirInLocal) const {
+    return V3d(_orientationMat3 * dirInLocal.value);
 }
 
 inline Ray3D Transform3::toWorld(const Ray3D& rayInLocal) const {
@@ -92,6 +92,6 @@ inline BoundingBox3D Transform3::toWorld(const BoundingBox3D& bboxInLocal) const
     return bboxInWorld;
 }
 
-}  // namespace jet
+IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #endif  // INCLUDE_JET_DETAIL_TRANSFORM3_INL_H_

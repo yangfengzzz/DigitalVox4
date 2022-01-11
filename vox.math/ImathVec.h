@@ -2317,6 +2317,19 @@ operator*(T a, const Vec4<T> &v) IMATH_NOEXCEPT {
     return Vec4<T>(a * v.x, a * v.y, a * v.z, a * v.w);
 }
 
+//MARK: - Self-Define
+//! Returns element-wise min vector: (min(a.x, b.x), min(a.y, b.y)).
+template <typename T>
+Vec2<T> min(const Vec2<T>& a, const Vec2<T>& b) {
+    return Vec2<T>(std::min(a.x, b.x), std::min(a.y, b.y));
+}
+
+//! Returns element-wise max vector: (max(a.x, b.x), max(a.y, b.y)).
+template <typename T>
+Vec2<T> max(const Vec2<T>& a, const Vec2<T>& b) {
+    return Vec2<T>(std::max(a.x, b.x), std::max(a.y, b.y));
+}
+
 #if (defined _WIN32 || defined _WIN64) && defined _MSC_VER
 #    pragma warning(pop)
 #endif
