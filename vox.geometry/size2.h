@@ -258,6 +258,6 @@ Size2 floor(const Size2& a);
 
 }  // namespace jet
 
-#include "detail/size2-inl.h"
+#include "size2-inl.h"
 
 #endif  // INCLUDE_JET_SIZE2_H_

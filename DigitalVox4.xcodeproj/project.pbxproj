@@ -90,6 +90,20 @@
 		04229637278D3F7D0090983F /* functors-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229635278D3F7D0090983F /* functors-inl.h */; };
 		04229638278D3F7D0090983F /* functors.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229636278D3F7D0090983F /* functors.h */; };
 		0422963A278D403C0090983F /* type_helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229639278D403C0090983F /* type_helpers.h */; };
+		04229647278D58370090983F /* matrix_expression-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422963B278D58370090983F /* matrix_expression-inl.h */; };
+		04229649278D58370090983F /* matrix2x2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422963D278D58370090983F /* matrix2x2-inl.h */; };
+		0422964A278D58370090983F /* matrix4x4-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422963E278D58370090983F /* matrix4x4-inl.h */; };
+		0422964B278D58370090983F /* matrix4x4.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422963F278D58370090983F /* matrix4x4.h */; };
+		0422964C278D58370090983F /* matrix2x2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229640278D58370090983F /* matrix2x2.h */; };
+		0422964D278D58370090983F /* matrix_expression.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229641278D58370090983F /* matrix_expression.h */; };
+		0422964E278D58370090983F /* matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229642278D58370090983F /* matrix.h */; };
+		0422964F278D58370090983F /* matrix3x3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229643278D58370090983F /* matrix3x3-inl.h */; };
+		04229650278D58370090983F /* matrix-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229644278D58370090983F /* matrix-inl.h */; };
+		04229651278D58370090983F /* matrix3x3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229645278D58370090983F /* matrix3x3.h */; };
+		04229658278D58A30090983F /* matrix_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229653278D58A30090983F /* matrix_tests.cpp */; };
+		04229659278D58A30090983F /* matrix2x2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229654278D58A30090983F /* matrix2x2_tests.cpp */; };
+		0422965B278D58A30090983F /* matrix3x3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229656278D58A30090983F /* matrix3x3_tests.cpp */; };
+		0422965C278D58A30090983F /* matrix4x4_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229657278D58A30090983F /* matrix4x4_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +216,20 @@
 		04229635278D3F7D0090983F /* functors-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "functors-inl.h"; sourceTree = "<group>"; };
 		04229636278D3F7D0090983F /* functors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = functors.h; sourceTree = "<group>"; };
 		04229639278D403C0090983F /* type_helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = type_helpers.h; sourceTree = "<group>"; };
+		0422963B278D58370090983F /* matrix_expression-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix_expression-inl.h"; sourceTree = "<group>"; };
+		0422963D278D58370090983F /* matrix2x2-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix2x2-inl.h"; sourceTree = "<group>"; };
+		0422963E278D58370090983F /* matrix4x4-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix4x4-inl.h"; sourceTree = "<group>"; };
+		0422963F278D58370090983F /* matrix4x4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix4x4.h; sourceTree = "<group>"; };
+		04229640278D58370090983F /* matrix2x2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix2x2.h; sourceTree = "<group>"; };
+		04229641278D58370090983F /* matrix_expression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix_expression.h; sourceTree = "<group>"; };
+		04229642278D58370090983F /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
+		04229643278D58370090983F /* matrix3x3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix3x3-inl.h"; sourceTree = "<group>"; };
+		04229644278D58370090983F /* matrix-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix-inl.h"; sourceTree = "<group>"; };
+		04229645278D58370090983F /* matrix3x3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix3x3.h; sourceTree = "<group>"; };
+		04229653278D58A30090983F /* matrix_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix_tests.cpp; sourceTree = "<group>"; };
+		04229654278D58A30090983F /* matrix2x2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix2x2_tests.cpp; sourceTree = "<group>"; };
+		04229656278D58A30090983F /* matrix3x3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix3x3_tests.cpp; sourceTree = "<group>"; };
+		04229657278D58A30090983F /* matrix4x4_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix4x4_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +398,16 @@
 				04229624278D3EF60090983F /* vector3-inl.h */,
 				04229619278D3EC70090983F /* vector4.h */,
 				04229627278D3EF60090983F /* vector4-inl.h */,
+				04229641278D58370090983F /* matrix_expression.h */,
+				0422963B278D58370090983F /* matrix_expression-inl.h */,
+				04229642278D58370090983F /* matrix.h */,
+				04229644278D58370090983F /* matrix-inl.h */,
+				04229640278D58370090983F /* matrix2x2.h */,
+				0422963D278D58370090983F /* matrix2x2-inl.h */,
+				04229645278D58370090983F /* matrix3x3.h */,
+				04229643278D58370090983F /* matrix3x3-inl.h */,
+				0422963F278D58370090983F /* matrix4x4.h */,
+				0422963E278D58370090983F /* matrix4x4-inl.h */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -383,6 +421,10 @@
 				04229630278D3F430090983F /* vector2_tests.cpp */,
 				0422962D278D3F430090983F /* vector3_tests.cpp */,
 				0422962E278D3F430090983F /* vector4_tests.cpp */,
+				04229653278D58A30090983F /* matrix_tests.cpp */,
+				04229654278D58A30090983F /* matrix2x2_tests.cpp */,
+				04229656278D58A30090983F /* matrix3x3_tests.cpp */,
+				04229657278D58A30090983F /* matrix4x4_tests.cpp */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -436,30 +478,40 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0422964E278D58370090983F /* matrix.h in Headers */,
 				0422962A278D3EF70090983F /* vector2-inl.h in Headers */,
 				042295FC278D1FAA0090983F /* point3-inl.h in Headers */,
 				042295F6278D1FAA0090983F /* point.h in Headers */,
 				04229603278D20680090983F /* math_utils-inl.h in Headers */,
 				0422963A278D403C0090983F /* type_helpers.h in Headers */,
 				04229621278D3EC70090983F /* vector_expression.h in Headers */,
+				04229649278D58370090983F /* matrix2x2-inl.h in Headers */,
 				04229637278D3F7D0090983F /* functors-inl.h in Headers */,
 				042295F8278D1FAA0090983F /* size3.h in Headers */,
 				042295FD278D1FAA0090983F /* size3-inl.h in Headers */,
+				0422964C278D58370090983F /* matrix2x2.h in Headers */,
 				042295F9278D1FAA0090983F /* size2.h in Headers */,
 				042295F4278D1FAA0090983F /* size.h in Headers */,
 				042295E6278D17790090983F /* constants.h in Headers */,
 				0422962B278D3EF70090983F /* vector-inl.h in Headers */,
+				04229650278D58370090983F /* matrix-inl.h in Headers */,
 				042295FF278D1FAA0090983F /* point-inl.h in Headers */,
 				04229622278D3EC70090983F /* vector2.h in Headers */,
+				0422964B278D58370090983F /* matrix4x4.h in Headers */,
+				04229651278D58370090983F /* matrix3x3.h in Headers */,
 				042295E7278D17790090983F /* macros.h in Headers */,
 				0422962C278D3EF70090983F /* vector4-inl.h in Headers */,
+				04229647278D58370090983F /* matrix_expression-inl.h in Headers */,
 				04229604278D20680090983F /* math_utils.h in Headers */,
 				042295FB278D1FAA0090983F /* point2.h in Headers */,
 				042295FA278D1FAA0090983F /* size2-inl.h in Headers */,
 				042295F5278D1FAA0090983F /* point3.h in Headers */,
 				04229616278D2DA00090983F /* point2-inl.h in Headers */,
 				04229628278D3EF70090983F /* vector_expression-inl.h in Headers */,
+				0422964F278D58370090983F /* matrix3x3-inl.h in Headers */,
+				0422964A278D58370090983F /* matrix4x4-inl.h in Headers */,
 				0422961F278D3EC70090983F /* vector.h in Headers */,
+				0422964D278D58370090983F /* matrix_expression.h in Headers */,
 				04229620278D3EC70090983F /* vector3.h in Headers */,
 				04229638278D3F7D0090983F /* functors.h in Headers */,
 				042295F7278D1FAA0090983F /* size-inl.h in Headers */,
@@ -603,11 +655,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				04229618278D30850090983F /* point3_tests.cpp in Sources */,
+				04229658278D58A30090983F /* matrix_tests.cpp in Sources */,
 				04229631278D3F430090983F /* vector3_tests.cpp in Sources */,
+				0422965C278D58A30090983F /* matrix4x4_tests.cpp in Sources */,
 				04229611278D29A70090983F /* point2_tests.cpp in Sources */,
 				04229633278D3F430090983F /* vector_tests.cpp in Sources */,
 				04229632278D3F430090983F /* vector4_tests.cpp in Sources */,
 				04229634278D3F430090983F /* vector2_tests.cpp in Sources */,
+				04229659278D58A30090983F /* matrix2x2_tests.cpp in Sources */,
+				0422965B278D58A30090983F /* matrix3x3_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
