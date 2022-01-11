@@ -138,6 +138,7 @@
 		044591B9278DB69500F04CE0 /* bounding_box2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967C278D697B0090983F /* bounding_box2_tests.cpp */; };
 		044591BA278DB7A500F04CE0 /* unit_tests_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229684278D69AF0090983F /* unit_tests_utils.cpp */; };
 		044591BB278DB90500F04CE0 /* bounding_box_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967D278D697B0090983F /* bounding_box_tests.cpp */; };
+		044591BC278DBA1B00F04CE0 /* bounding_box3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967A278D697B0090983F /* bounding_box3_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -566,6 +567,9 @@
 				042296BB278DAE7A0090983F /* ImathColorAlgo.h */,
 				042296D1278DAE7B0090983F /* ImathEuler.h */,
 				042296C8278DAE7B0090983F /* ImathQuat.h */,
+				042296AA278DAE790090983F /* ImathLine.h */,
+				042296B5278DAE7A0090983F /* ImathLineAlgo.h */,
+				042296B6278DAE7A0090983F /* ImathInterval.h */,
 				042296B4278DAE7A0090983F /* ImathBox.h */,
 				042296C2278DAE7B0090983F /* ImathBoxAlgo.h */,
 				042296B0278DAE7A0090983F /* ImathSphere.h */,
@@ -575,9 +579,6 @@
 				042296C7278DAE7B0090983F /* ImathPlane.h */,
 				042296B3278DAE7A0090983F /* ImathRandom.h */,
 				042296B1278DAE7A0090983F /* ImathRandom.cpp */,
-				042296B6278DAE7A0090983F /* ImathInterval.h */,
-				042296AA278DAE790090983F /* ImathLine.h */,
-				042296B5278DAE7A0090983F /* ImathLineAlgo.h */,
 				042296CD278DAE7B0090983F /* ImathRoots.h */,
 				042296BC278DAE7A0090983F /* ImathShear.h */,
 				042296BD278DAE7A0090983F /* ImathGL.h */,
@@ -880,6 +881,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				044591BB278DB90500F04CE0 /* bounding_box_tests.cpp in Sources */,
+				044591BC278DBA1B00F04CE0 /* bounding_box3_tests.cpp in Sources */,
 				044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */,
 				044591B9278DB69500F04CE0 /* bounding_box2_tests.cpp in Sources */,
 				044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */,
