@@ -70,9 +70,7 @@
 		042295FF278D1FAA0090983F /* point-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F3278D1FAA0090983F /* point-inl.h */; };
 		04229603278D20680090983F /* math_utils-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229601278D20680090983F /* math_utils-inl.h */; };
 		04229604278D20680090983F /* math_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229602278D20680090983F /* math_utils.h */; };
-		04229611278D29A70090983F /* point2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229610278D29A70090983F /* point2_tests.cpp */; };
 		04229616278D2DA00090983F /* point2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F2278D1FAA0090983F /* point2-inl.h */; };
-		04229618278D30850090983F /* point3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229617278D30850090983F /* point3_tests.cpp */; };
 		0422961E278D3EC70090983F /* vector4.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229619278D3EC70090983F /* vector4.h */; };
 		0422961F278D3EC70090983F /* vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422961A278D3EC70090983F /* vector.h */; };
 		04229620278D3EC70090983F /* vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422961B278D3EC70090983F /* vector3.h */; };
@@ -83,44 +81,23 @@
 		0422962A278D3EF70090983F /* vector2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229625278D3EF60090983F /* vector2-inl.h */; };
 		0422962B278D3EF70090983F /* vector-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229626278D3EF60090983F /* vector-inl.h */; };
 		0422962C278D3EF70090983F /* vector4-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229627278D3EF60090983F /* vector4-inl.h */; };
-		04229631278D3F430090983F /* vector3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422962D278D3F430090983F /* vector3_tests.cpp */; };
-		04229632278D3F430090983F /* vector4_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422962E278D3F430090983F /* vector4_tests.cpp */; };
-		04229633278D3F430090983F /* vector_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422962F278D3F430090983F /* vector_tests.cpp */; };
-		04229634278D3F430090983F /* vector2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229630278D3F430090983F /* vector2_tests.cpp */; };
 		04229637278D3F7D0090983F /* functors-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229635278D3F7D0090983F /* functors-inl.h */; };
 		04229638278D3F7D0090983F /* functors.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229636278D3F7D0090983F /* functors.h */; };
 		0422963A278D403C0090983F /* type_helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229639278D403C0090983F /* type_helpers.h */; };
 		0422965F278D5CC00090983F /* quaternion-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422965D278D5CC00090983F /* quaternion-inl.h */; };
 		04229660278D5CC00090983F /* quaternion.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422965E278D5CC00090983F /* quaternion.h */; };
-		04229662278D5CCB0090983F /* quaternion_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229661278D5CCB0090983F /* quaternion_tests.cpp */; };
-		0422966E278D689C0090983F /* ray2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229663278D689B0090983F /* ray2.h */; };
 		0422966F278D689C0090983F /* bounding_box3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229664278D689B0090983F /* bounding_box3-inl.h */; };
 		04229670278D689C0090983F /* bounding_box3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229665278D689B0090983F /* bounding_box3.h */; };
-		04229671278D689C0090983F /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
 		04229672278D689C0090983F /* bounding_box-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229667278D689B0090983F /* bounding_box-inl.h */; };
-		04229673278D689C0090983F /* ray3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229668278D689B0090983F /* ray3.h */; };
 		04229674278D689C0090983F /* bounding_box2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229669278D689B0090983F /* bounding_box2-inl.h */; };
-		04229675278D689C0090983F /* ray2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422966A278D689B0090983F /* ray2-inl.h */; };
 		04229676278D689C0090983F /* bounding_box.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422966B278D689C0090983F /* bounding_box.h */; };
 		04229677278D689C0090983F /* bounding_box2.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422966C278D689C0090983F /* bounding_box2.h */; };
-		04229678278D689C0090983F /* ray.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422966D278D689C0090983F /* ray.h */; };
-		0422967E278D697B0090983F /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
-		0422967F278D697B0090983F /* bounding_box3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967A278D697B0090983F /* bounding_box3_tests.cpp */; };
-		04229680278D697B0090983F /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
-		04229681278D697B0090983F /* bounding_box2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967C278D697B0090983F /* bounding_box2_tests.cpp */; };
-		04229682278D697B0090983F /* bounding_box_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967D278D697B0090983F /* bounding_box_tests.cpp */; };
-		04229685278D69AF0090983F /* unit_tests_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229684278D69AF0090983F /* unit_tests_utils.cpp */; };
 		0422968A278D6F910090983F /* transform3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229686278D6F910090983F /* transform3-inl.h */; };
 		0422968B278D6F910090983F /* transform2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229687278D6F910090983F /* transform2.h */; };
 		0422968C278D6F910090983F /* transform2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229688278D6F910090983F /* transform2-inl.h */; };
 		0422968D278D6F910090983F /* transform3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229689278D6F910090983F /* transform3.h */; };
-		04229690278D6FF30090983F /* transform2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422968E278D6FF30090983F /* transform2_tests.cpp */; };
-		04229691278D6FF30090983F /* transform3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422968F278D6FF30090983F /* transform3_tests.cpp */; };
 		04229696278D71760090983F /* surface3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229692278D71760090983F /* surface3.h */; };
 		04229697278D71760090983F /* surface2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229693278D71760090983F /* surface2.h */; };
-		04229698278D71760090983F /* surface2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229694278D71760090983F /* surface2.cpp */; };
-		04229699278D71760090983F /* surface3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229695278D71760090983F /* surface3.cpp */; };
-		0422969A278D71F40090983F /* libvox.geometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 042295D9278D121C0090983F /* libvox.geometry.a */; };
 		042296D3278DAE7B0090983F /* ImathLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296AA278DAE790090983F /* ImathLine.h */; };
 		042296D4278DAE7B0090983F /* ImathMatrixAlgo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042296AB278DAE790090983F /* ImathMatrixAlgo.cpp */; };
 		042296D5278DAE7B0090983F /* ImathNamespace.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296AC278DAE790090983F /* ImathNamespace.h */; };
@@ -161,6 +138,13 @@
 		042296FA278DAE7C0090983F /* ImathEuler.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296D1278DAE7B0090983F /* ImathEuler.h */; };
 		042296FB278DAE7C0090983F /* ImathMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296D2278DAE7B0090983F /* ImathMatrix.h */; };
 		042296FD278DAEB40090983F /* ImathConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296FC278DAEB40090983F /* ImathConfig.h */; };
+		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
+		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
+		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
+		044591B4278DB45D00F04CE0 /* ray2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422966A278D689B0090983F /* ray2-inl.h */; };
+		044591B5278DB45D00F04CE0 /* ray.h in Headers */ = {isa = PBXBuildFile; fileRef = 0422966D278D689C0090983F /* ray.h */; };
+		044591B6278DB45D00F04CE0 /* ray2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229663278D689B0090983F /* ray2.h */; };
+		044591B7278DB45D00F04CE0 /* ray3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229668278D689B0090983F /* ray3.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -366,7 +350,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0422969A278D71F40090983F /* libvox.geometry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,11 +508,6 @@
 				04229627278D3EF60090983F /* vector4-inl.h */,
 				0422965E278D5CC00090983F /* quaternion.h */,
 				0422965D278D5CC00090983F /* quaternion-inl.h */,
-				0422966D278D689C0090983F /* ray.h */,
-				04229663278D689B0090983F /* ray2.h */,
-				0422966A278D689B0090983F /* ray2-inl.h */,
-				04229668278D689B0090983F /* ray3.h */,
-				04229666278D689B0090983F /* ray3-inl.h */,
 				0422966B278D689C0090983F /* bounding_box.h */,
 				04229667278D689B0090983F /* bounding_box-inl.h */,
 				0422966C278D689C0090983F /* bounding_box2.h */,
@@ -551,6 +529,8 @@
 		0422960A278D29760090983F /* unit_tests */ = {
 			isa = PBXGroup;
 			children = (
+				04229679278D697B0090983F /* ray2_tests.cpp */,
+				0422967B278D697B0090983F /* ray3_tests.cpp */,
 				04229683278D69AF0090983F /* unit_tests_utils.h */,
 				04229684278D69AF0090983F /* unit_tests_utils.cpp */,
 				04229610278D29A70090983F /* point2_tests.cpp */,
@@ -560,8 +540,6 @@
 				0422962D278D3F430090983F /* vector3_tests.cpp */,
 				0422962E278D3F430090983F /* vector4_tests.cpp */,
 				04229661278D5CCB0090983F /* quaternion_tests.cpp */,
-				04229679278D697B0090983F /* ray2_tests.cpp */,
-				0422967B278D697B0090983F /* ray3_tests.cpp */,
 				0422967D278D697B0090983F /* bounding_box_tests.cpp */,
 				0422967C278D697B0090983F /* bounding_box2_tests.cpp */,
 				0422967A278D697B0090983F /* bounding_box3_tests.cpp */,
@@ -608,9 +586,9 @@
 				042296B4278DAE7A0090983F /* ImathBox.h */,
 				042296C2278DAE7B0090983F /* ImathBoxAlgo.h */,
 				042296B0278DAE7A0090983F /* ImathSphere.h */,
-				042296C9278DAE7B0090983F /* ImathFrame.h */,
 				042296BA278DAE7A0090983F /* ImathFrustum.h */,
 				042296B9278DAE7A0090983F /* ImathFrustumTest.h */,
+				042296C9278DAE7B0090983F /* ImathFrame.h */,
 				042296C7278DAE7B0090983F /* ImathPlane.h */,
 				042296B3278DAE7A0090983F /* ImathRandom.h */,
 				042296B1278DAE7A0090983F /* ImathRandom.cpp */,
@@ -621,6 +599,11 @@
 				042296BC278DAE7A0090983F /* ImathShear.h */,
 				042296BD278DAE7A0090983F /* ImathGL.h */,
 				042296AE278DAE7A0090983F /* ImathGLU.h */,
+				0422966D278D689C0090983F /* ray.h */,
+				04229663278D689B0090983F /* ray2.h */,
+				0422966A278D689B0090983F /* ray2-inl.h */,
+				04229668278D689B0090983F /* ray3.h */,
+				04229666278D689B0090983F /* ray3-inl.h */,
 			);
 			path = vox.math;
 			sourceTree = "<group>";
@@ -673,17 +656,14 @@
 				0422965F278D5CC00090983F /* quaternion-inl.h in Headers */,
 				04229677278D689C0090983F /* bounding_box2.h in Headers */,
 				042295F6278D1FAA0090983F /* point.h in Headers */,
-				04229671278D689C0090983F /* ray3-inl.h in Headers */,
 				04229603278D20680090983F /* math_utils-inl.h in Headers */,
 				0422963A278D403C0090983F /* type_helpers.h in Headers */,
 				04229621278D3EC70090983F /* vector_expression.h in Headers */,
-				04229673278D689C0090983F /* ray3.h in Headers */,
 				04229637278D3F7D0090983F /* functors-inl.h in Headers */,
 				042295F8278D1FAA0090983F /* size3.h in Headers */,
 				042295FD278D1FAA0090983F /* size3-inl.h in Headers */,
 				042295F9278D1FAA0090983F /* size2.h in Headers */,
 				042295F4278D1FAA0090983F /* size.h in Headers */,
-				04229678278D689C0090983F /* ray.h in Headers */,
 				042295E6278D17790090983F /* constants.h in Headers */,
 				0422968A278D6F910090983F /* transform3-inl.h in Headers */,
 				0422962B278D3EF70090983F /* vector-inl.h in Headers */,
@@ -693,7 +673,6 @@
 				0422968C278D6F910090983F /* transform2-inl.h in Headers */,
 				0422962C278D3EF70090983F /* vector4-inl.h in Headers */,
 				04229660278D5CC00090983F /* quaternion.h in Headers */,
-				04229675278D689C0090983F /* ray2-inl.h in Headers */,
 				04229697278D71760090983F /* surface2.h in Headers */,
 				0422968D278D6F910090983F /* transform3.h in Headers */,
 				04229604278D20680090983F /* math_utils.h in Headers */,
@@ -707,7 +686,6 @@
 				04229670278D689C0090983F /* bounding_box3.h in Headers */,
 				04229628278D3EF70090983F /* vector_expression-inl.h in Headers */,
 				0422961F278D3EC70090983F /* vector.h in Headers */,
-				0422966E278D689C0090983F /* ray2.h in Headers */,
 				04229620278D3EC70090983F /* vector3.h in Headers */,
 				04229638278D3F7D0090983F /* functors.h in Headers */,
 				0422966F278D689C0090983F /* bounding_box3-inl.h in Headers */,
@@ -722,7 +700,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044591B6278DB45D00F04CE0 /* ray2.h in Headers */,
 				042296E0278DAE7C0090983F /* ImathForward.h in Headers */,
+				044591B5278DB45D00F04CE0 /* ray.h in Headers */,
 				042296DB278DAE7C0090983F /* ImathVec.h in Headers */,
 				042296F6278DAE7C0090983F /* ImathRoots.h in Headers */,
 				042296ED278DAE7C0090983F /* ImathFun.h in Headers */,
@@ -737,6 +717,7 @@
 				042296F5278DAE7C0090983F /* halfLimits.h in Headers */,
 				042296F4278DAE7C0090983F /* ImathMatrixAlgo.h in Headers */,
 				042296E5278DAE7C0090983F /* ImathShear.h in Headers */,
+				044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */,
 				042296DD278DAE7C0090983F /* ImathBox.h in Headers */,
 				042296FD278DAEB40090983F /* ImathConfig.h in Headers */,
 				042296F9278DAE7C0090983F /* ImathMath.h in Headers */,
@@ -747,12 +728,14 @@
 				042296F7278DAE7C0090983F /* ImathVecAlgo.h in Headers */,
 				042296FB278DAE7C0090983F /* ImathMatrix.h in Headers */,
 				042296F0278DAE7C0090983F /* ImathPlane.h in Headers */,
+				044591B4278DB45D00F04CE0 /* ray2-inl.h in Headers */,
 				042296D7278DAE7B0090983F /* ImathGLU.h in Headers */,
 				042296EF278DAE7C0090983F /* half.h in Headers */,
 				042296E3278DAE7C0090983F /* ImathFrustum.h in Headers */,
 				042296E4278DAE7C0090983F /* ImathColorAlgo.h in Headers */,
 				042296E7278DAE7C0090983F /* ImathPlatform.h in Headers */,
 				042296DF278DAE7C0090983F /* ImathInterval.h in Headers */,
+				044591B7278DB45D00F04CE0 /* ray3.h in Headers */,
 				042296DE278DAE7C0090983F /* ImathLineAlgo.h in Headers */,
 				042296E6278DAE7C0090983F /* ImathGL.h in Headers */,
 				042296D9278DAE7C0090983F /* ImathSphere.h in Headers */,
@@ -868,10 +851,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0422954E278C30840090983F /* vox.render */,
-				042295D8278D121C0090983F /* vox.geometry */,
-				04229608278D29760090983F /* unit_tests */,
 				0422969E278DAE4E0090983F /* vox.math */,
+				042295D8278D121C0090983F /* vox.geometry */,
+				0422954E278C30840090983F /* vox.render */,
+				04229608278D29760090983F /* unit_tests */,
 			);
 		};
 /* End PBXProject section */
@@ -908,8 +891,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04229698278D71760090983F /* surface2.cpp in Sources */,
-				04229699278D71760090983F /* surface3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,21 +898,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04229662278D5CCB0090983F /* quaternion_tests.cpp in Sources */,
-				04229618278D30850090983F /* point3_tests.cpp in Sources */,
-				04229631278D3F430090983F /* vector3_tests.cpp in Sources */,
-				04229691278D6FF30090983F /* transform3_tests.cpp in Sources */,
-				04229611278D29A70090983F /* point2_tests.cpp in Sources */,
-				04229680278D697B0090983F /* ray3_tests.cpp in Sources */,
-				04229685278D69AF0090983F /* unit_tests_utils.cpp in Sources */,
-				0422967F278D697B0090983F /* bounding_box3_tests.cpp in Sources */,
-				04229633278D3F430090983F /* vector_tests.cpp in Sources */,
-				04229682278D697B0090983F /* bounding_box_tests.cpp in Sources */,
-				04229632278D3F430090983F /* vector4_tests.cpp in Sources */,
-				04229634278D3F430090983F /* vector2_tests.cpp in Sources */,
-				04229690278D6FF30090983F /* transform2_tests.cpp in Sources */,
-				04229681278D697B0090983F /* bounding_box2_tests.cpp in Sources */,
-				0422967E278D697B0090983F /* ray2_tests.cpp in Sources */,
+				044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */,
+				044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1135,7 +1103,10 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = ./vox.geometry;
+				HEADER_SEARCH_PATHS = (
+					./vox.geometry,
+					./vox.math,
+				);
 				LIBRARY_SEARCH_PATHS = ./third_party/build/lib;
 				OTHER_LDFLAGS = (
 					"-lgtest",
@@ -1158,7 +1129,10 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = ./vox.geometry;
+				HEADER_SEARCH_PATHS = (
+					./vox.geometry,
+					./vox.math,
+				);
 				LIBRARY_SEARCH_PATHS = ./third_party/build/lib;
 				OTHER_LDFLAGS = (
 					"-lgtest",

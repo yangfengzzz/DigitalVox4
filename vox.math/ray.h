@@ -7,9 +7,9 @@
 #ifndef INCLUDE_JET_RAY_H_
 #define INCLUDE_JET_RAY_H_
 
-#include "vector.h"
+#include "ImathVec.h"
 
-namespace jet {
+IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 //!
 //! \brief      Class for ray.
@@ -24,6 +24,6 @@ class Ray {
                   "Ray only can be instantiated with floating point types");
 };
 
-}  // namespace jet
+IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #endif  // INCLUDE_JET_RAY_H_
