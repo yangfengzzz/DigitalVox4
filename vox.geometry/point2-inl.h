@@ -37,7 +37,7 @@ template <typename T>
 template <typename U>
 void Point<T, 2>::set(const std::initializer_list<U>& lst) {
     JET_ASSERT(lst.size() >= 2);
-
+    
     auto inputElem = lst.begin();
     value << static_cast<T>(*inputElem), static_cast<T>(*(++inputElem));
 }
@@ -211,7 +211,7 @@ Point2<U> Point<T, 2>::castTo() const {
 
 template <typename T>
 bool Point<T, 2>::isEqual(const Point& other) const {
-        return value == other.value;
+    return value == other.value;
 }
 
 // Operators
@@ -379,8 +379,7 @@ Point<T, 2> max(const Point<T, 2>& a, const Point<T, 2>& b) {
 }
 
 template <typename T>
-Point<T, 2> clamp(
-    const Point<T, 2>& v, const Point<T, 2>& low, const Point<T, 2>& high) {
+Point<T, 2> clamp(const Point<T, 2>& v, const Point<T, 2>& low, const Point<T, 2>& high) {
     return Point<T, 2>(clamp(v.x(), low.x(), high.x()), clamp(v.y(), low.y(), high.y()));
 }
 

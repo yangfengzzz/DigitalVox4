@@ -144,19 +144,18 @@ inline T radiansToDegrees(T angleInRadians) {
 }
 
 template<typename T>
-inline void getBarycentric(
-    T x,
-    ssize_t iLow,
-    ssize_t iHigh,
-    ssize_t* i,
-    T* f) {
+inline void getBarycentric(T x,
+                           ssize_t iLow,
+                           ssize_t iHigh,
+                           ssize_t* i,
+                           T* f) {
     T s = std::floor(x);
     *i = static_cast<ssize_t>(s);
-
+    
     ssize_t offset = -iLow;
     iLow += offset;
     iHigh += offset;
-
+    
     if (iLow == iHigh) {
         *i = iLow;
         *f = 0;
@@ -169,7 +168,7 @@ inline void getBarycentric(
     } else {
         *f = static_cast<T>(x - s);
     }
-
+    
     *i -= offset;
 }
 
@@ -179,84 +178,78 @@ inline S lerp(const S& value0, const S& value1, T f) {
 }
 
 template<typename S, typename T>
-inline S bilerp(
-    const S& f00,
-    const S& f10,
-    const S& f01,
-    const S& f11,
-    T tx, T ty) {
-    return lerp(
-        lerp(f00, f10, tx),
-        lerp(f01, f11, tx),
-        ty);
+inline S bilerp(const S& f00,
+                const S& f10,
+                const S& f01,
+                const S& f11,
+                T tx, T ty) {
+    return lerp(lerp(f00, f10, tx),
+                lerp(f01, f11, tx),
+                ty);
 }
 
 template<typename S, typename T>
-inline S trilerp(
-    const S& f000,
-    const S& f100,
-    const S& f010,
-    const S& f110,
-    const S& f001,
-    const S& f101,
-    const S& f011,
-    const S& f111,
-    T tx,
-    T ty,
-    T fz) {
-    return lerp(
-        bilerp(f000, f100, f010, f110, tx, ty),
-        bilerp(f001, f101, f011, f111, tx, ty),
-        fz);
+inline S trilerp(const S& f000,
+                 const S& f100,
+                 const S& f010,
+                 const S& f110,
+                 const S& f001,
+                 const S& f101,
+                 const S& f011,
+                 const S& f111,
+                 T tx,
+                 T ty,
+                 T fz) {
+    return lerp(bilerp(f000, f100, f010, f110, tx, ty),
+                bilerp(f001, f101, f011, f111, tx, ty),
+                fz);
 }
 
 template <typename S, typename T>
-inline S catmullRom(
-    const S& f0,
-    const S& f1,
-    const S& f2,
-    const S& f3,
-    T f) {
+inline S catmullRom(const S& f0,
+                    const S& f1,
+                    const S& f2,
+                    const S& f3,
+                    T f) {
     S d1 = (f2 - f0) / 2;
     S d2 = (f3 - f1) / 2;
     S D1 = f2 - f1;
-
+    
     S a3 = d1 + d2 - 2 * D1;
     S a2 = 3 * D1 - 2 * d1 - d2;
     S a1 = d1;
     S a0 = f1;
-
+    
     return a3 * cubic(f) + a2 * square(f) + a1 * f + a0;
 }
 
 template <typename T>
-inline T monotonicCatmullRom(
-    const T& f0,
-    const T& f1,
-    const T& f2,
-    const T& f3,
-    T f) {
+inline T monotonicCatmullRom(const T& f0,
+                             const T& f1,
+                             const T& f2,
+                             const T& f3,
+                             T f) {
     T d1 = (f2 - f0) / 2;
     T d2 = (f3 - f1) / 2;
     T D1 = f2 - f1;
-
+    
     if (std::fabs(D1) < kEpsilonD) {
         d1 = d2 = 0;
     }
-
+    
     if (sign(D1) != sign(d1)) {
         d1 = 0;
     }
-
+    
     if (sign(D1) != sign(d2)) {
         d2 = 0;
     }
-
+    
     T a3 = d1 + d2 - 2 * D1;
     T a2 = 3 * D1 - 2 * d1 - d2;
     T a1 = d1;
     T a0 = f1;
-
+    
     return a3 * cubic(f) + a2 * square(f) + a1 * f + a0;
 }
 

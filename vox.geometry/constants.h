@@ -331,8 +331,8 @@ constexpr int kDirectionFront = 1 << 5;
 
 //! All direction.
 constexpr int kDirectionAll = kDirectionLeft | kDirectionRight |
-                              kDirectionDown | kDirectionUp | kDirectionBack |
-                              kDirectionFront;
+kDirectionDown | kDirectionUp | kDirectionBack |
+kDirectionFront;
 
 }  // namespace jet
 

@@ -23,7 +23,7 @@ template <typename T, size_t N>
 template <typename... Params>
 Point<T, N>::Point(Params... params) {
     static_assert(sizeof...(params) == N, "Invalid number of parameters.");
-
+    
     setAt(0, params...);
 }
 
@@ -31,7 +31,7 @@ template <typename T, size_t N>
 template <typename U>
 Point<T, N>::Point(const std::initializer_list<U>& lst) {
     JET_ASSERT(lst.size() >= N);
-
+    
     size_t i = 0;
     for (const auto& inputElem : lst) {
         _elements[i] = static_cast<T>(inputElem);
@@ -41,14 +41,14 @@ Point<T, N>::Point(const std::initializer_list<U>& lst) {
 
 template <typename T, size_t N>
 Point<T, N>::Point(const Point& other) :
-    _elements(other._elements) {
+_elements(other._elements) {
 }
 
 template <typename T, size_t N>
 template <typename U>
 void Point<T, N>::set(const std::initializer_list<U>& lst) {
     assert(lst.size() >= N);
-
+    
     size_t i = 0;
     for (const auto& inputElem : lst) {
         _elements[i] = static_cast<T>(inputElem);
@@ -88,7 +88,7 @@ template <typename T, size_t N>
 template <typename... Params>
 void Point<T, N>::setAt(size_t i, T v, Params... params) {
     _elements[i] = v;
-
+    
     setAt(i+1, params...);
 }
 
