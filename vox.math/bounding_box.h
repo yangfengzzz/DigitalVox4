@@ -7,6 +7,7 @@
 #ifndef INCLUDE_JET_BOUNDING_BOX_H_
 #define INCLUDE_JET_BOUNDING_BOX_H_
 
+#include "ImathFun.h"
 #include "ImathVec.h"
 #include "constants.h"
 #include "math_utils.h"

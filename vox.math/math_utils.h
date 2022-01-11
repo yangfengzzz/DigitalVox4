@@ -146,20 +146,6 @@ template <typename T>
 inline T cubic(T x);
 
 //!
-//! \brief      Returns the clamped value.
-//!
-//! \param[in]  val   The value.
-//! \param[in]  low   The low value.
-//! \param[in]  high  The high value.
-//!
-//! \tparam     T     Value type.
-//!
-//! \return     The clamped value.
-//!
-template <typename T>
-inline T clamp(T val, T low, T high);
-
-//!
 //! \brief      Converts degrees to radians.
 //!
 //! \param[in]  angleInDegrees The angle in degrees.

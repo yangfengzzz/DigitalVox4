@@ -22,7 +22,7 @@ public:
     Transform3();
     
     //! Constructs a transform with translation and orientation.
-    Transform3(const V3d& translation, const QuaternionD& orientation);
+    Transform3(const V3d& translation, const Quatd& orientation);
     
     //! Returns the translation.
     const V3d& translation() const;
@@ -31,10 +31,10 @@ public:
     void setTranslation(const V3d& translation);
     
     //! Returns the orientation.
-    const QuaternionD& orientation() const;
+    const Quatd& orientation() const;
     
     //! Sets the orientation.
-    void setOrientation(const QuaternionD& orientation);
+    void setOrientation(const Quatd& orientation);
     
     //! Transforms a point in world coordinate to the local frame.
     V3d toLocal(const V3d& pointInWorld) const;
@@ -62,9 +62,9 @@ public:
     
 private:
     V3d _translation = V3d(0);
-    QuaternionD _orientation;
-    Eigen::Matrix3d _orientationMat3;
-    Eigen::Matrix3d _inverseOrientationMat3;
+    Quatd _orientation;
+    M44d _orientationMat4;
+    M44d _inverseOrientationMat4;
 };
 
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT

@@ -2330,6 +2330,22 @@ Vec2<T> max(const Vec2<T>& a, const Vec2<T>& b) {
     return Vec2<T>(std::max(a.x, b.x), std::max(a.y, b.y));
 }
 
+//! Returns element-wise min vector.
+template <typename T>
+Vec3<T> min(const Vec3<T>& a, const Vec3<T>& b) {
+    return Vec3<T>(std::min(a.x, b.x),
+                   std::min(a.y, b.y),
+                   std::min(a.z, b.z));
+}
+
+//! Returns element-wise max vector.
+template <typename T>
+Vec3<T> max(const Vec3<T>& a, const Vec3<T>& b) {
+    return Vec3<T>(std::max(a.x, b.x),
+                   std::max(a.y, b.y),
+                   std::max(a.z, b.z));
+}
+
 #if (defined _WIN32 || defined _WIN64) && defined _MSC_VER
 #    pragma warning(pop)
 #endif

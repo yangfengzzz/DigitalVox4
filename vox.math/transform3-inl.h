@@ -18,7 +18,7 @@ inline Transform3::Transform3() {
 }
 
 inline Transform3::Transform3(const V3d& translation,
-                              const QuaternionD& orientation) {
+                              const Quatd& orientation) {
     setTranslation(translation);
     setOrientation(orientation);
 }
@@ -31,22 +31,26 @@ inline void Transform3::setTranslation(const V3d& translation) {
     _translation = translation;
 }
 
-inline const QuaternionD& Transform3::orientation() const {
+inline const Quatd& Transform3::orientation() const {
     return _orientation;
 }
 
-inline void Transform3::setOrientation(const QuaternionD& orientation) {
+inline void Transform3::setOrientation(const Quatd& orientation) {
     _orientation = orientation;
-    _orientationMat3 = orientation.matrix3();
-    _inverseOrientationMat3 = orientation.inverse().matrix3();
+    _orientationMat4 = orientation.toMatrix44();
+    _inverseOrientationMat4 = orientation.inverse().toMatrix44();
 }
 
 inline V3d Transform3::toLocal(const V3d& pointInWorld) const {
-    return V3d(_inverseOrientationMat3 * (pointInWorld - _translation).value);
+    V3d result;
+    _inverseOrientationMat4.multDirMatrix(pointInWorld - _translation, result);
+    return result;
 }
 
 inline V3d Transform3::toLocalDirection(const V3d& dirInWorld) const {
-    return V3d(_inverseOrientationMat3 * dirInWorld.value);
+    V3d result;
+    _inverseOrientationMat4.multDirMatrix(dirInWorld, result);
+    return result;
 }
 
 inline Ray3D Transform3::toLocal(const Ray3D& rayInWorld) const {
@@ -68,11 +72,15 @@ inline BoundingBox3D Transform3::toLocal(const BoundingBox3D& bboxInWorld) const
 }
 
 inline V3d Transform3::toWorld(const V3d& pointInLocal) const {
-    return V3d(_orientationMat3 * pointInLocal.value) + _translation;
+    V3d result;
+    _orientationMat4.multDirMatrix(pointInLocal, result);
+    return result + _translation;
 }
 
 inline V3d Transform3::toWorldDirection(const V3d& dirInLocal) const {
-    return V3d(_orientationMat3 * dirInLocal.value);
+    V3d result;
+    _orientationMat4.multDirMatrix(dirInLocal, result);
+    return result;    
 }
 
 inline Ray3D Transform3::toWorld(const Ray3D& rayInLocal) const {
