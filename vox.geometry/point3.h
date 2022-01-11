@@ -25,7 +25,7 @@ public:
     static_assert(std::is_arithmetic<T>::value,
                   "Point only can be instantiated with arithematic types");
     
-    using ValueType = Eigen::Matrix<T, 1, 3>;
+    using ValueType = Eigen::Matrix<T, 3, 1>;
     
     //! internal value of the point.
     ValueType value;

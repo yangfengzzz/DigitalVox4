@@ -200,11 +200,11 @@ TEST(Quaternion, BinaryOperators) {
     Vector3D ans1 = q1.mul(v);
     
     Eigen::Matrix3Xd m = q1.matrix3();
-//    Vector3D ans2 = Vector3D(m * v.value);
-//
-//    EXPECT_DOUBLE_EQ(ans2.x(), ans1.x());
-//    EXPECT_DOUBLE_EQ(ans2.y(), ans1.y());
-//    EXPECT_DOUBLE_EQ(ans2.z(), ans1.z());
+    Vector3D ans2 = Vector3D(m * v.value);
+
+    EXPECT_DOUBLE_EQ(ans2.x(), ans1.x());
+    EXPECT_DOUBLE_EQ(ans2.y(), ans1.y());
+    EXPECT_DOUBLE_EQ(ans2.z(), ans1.z());
     
     q1.set(1, 2, 3, 4);
     q2.set(5, 6, 7, 8);
@@ -262,9 +262,13 @@ TEST(Quaternion, ComplexGetters) {
         -1.0 / 3.0, 2.0 / 3.0, -2.0 / 3.0
     };
     
-//    for (int i = 0; i < 9; ++i) {
-//        EXPECT_DOUBLE_EQ(solution3[i], mat3[i]);
-//    }
+    int index = 0;
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            EXPECT_DOUBLE_EQ(solution3[index], mat3(i, j));
+            index++;
+        }
+    }
     
     Eigen::Matrix<double, 4, 4> mat4 = q.matrix4();
     double solution4[16] = {
@@ -287,9 +291,13 @@ TEST(Quaternion, ComplexGetters) {
     
     EXPECT_DOUBLE_EQ(2.0 * std::acos(1.0 / std::sqrt(30.0)), angle);
     
-//    for (int i = 0; i < 16; ++i) {
-//        EXPECT_DOUBLE_EQ(solution4[i], mat4[i]);
-//    }
+    index = 0;
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            EXPECT_DOUBLE_EQ(solution4[index], mat4(i, j));
+            index++;
+        }
+    }
     
     q.set(1, 2, 3, 4);
     EXPECT_DOUBLE_EQ(std::sqrt(30.0), q.l2Norm());

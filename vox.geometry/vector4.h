@@ -27,7 +27,7 @@ public:
     static_assert(std::is_floating_point<T>::value,
                   "Vector only can be instantiated with floating point types");
     
-    using ValueType = Eigen::Matrix<T, 1, 4>;
+    using ValueType = Eigen::Matrix<T, 4, 1>;
     
     //! internal value of the point.
     ValueType value;

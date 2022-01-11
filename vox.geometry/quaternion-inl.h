@@ -276,8 +276,9 @@ inline Eigen::Matrix<T, 3, 3> Quaternion<T>::matrix3() const {
 
 template <typename T>
 inline Eigen::Matrix<T, 4, 4> Quaternion<T>::matrix4() const {
-    Eigen::Matrix<T, 4, 4> mat;
+    Eigen::Matrix<T, 4, 4> mat = Eigen::Matrix<T, 4, 4>::Zero();
     mat.template block<3, 3>(0, 0) = value.toRotationMatrix();
+    mat(3, 3) = 1.0;
     return mat;
 }
 
@@ -303,12 +304,44 @@ inline Quaternion<T>& Quaternion<T>::operator*=(const Quaternion& other) {
 // Getter operators
 template <typename T>
 inline T& Quaternion<T>::operator[](size_t i) {
-    return value.coeffs()[i];
+    switch (i) {
+        case 0:
+            return value.w();
+            break;
+        case 1:
+            return value.x();
+            break;
+        case 2:
+            return value.y();
+            break;
+        case 3:
+            return value.z();
+            break;
+        default:
+            assert(false);
+            break;
+    }
 }
 
 template <typename T>
 inline const T& Quaternion<T>::operator[](size_t i) const {
-    return (&w)[i];
+    switch (i) {
+        case 0:
+            return value.w();
+            break;
+        case 1:
+            return value.x();
+            break;
+        case 2:
+            return value.y();
+            break;
+        case 3:
+            return value.z();
+            break;
+        default:
+            assert(false);
+            break;
+    }
 }
 
 template <typename T>
