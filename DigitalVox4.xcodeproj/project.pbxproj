@@ -613,6 +613,7 @@
 				GCC_ENABLE_CPP_RTTI = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = ./third_party/eigen;
 			};
 			name = Debug;
 		};
@@ -626,6 +627,7 @@
 				GCC_ENABLE_CPP_RTTI = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = ./third_party/eigen;
 			};
 			name = Release;
 		};

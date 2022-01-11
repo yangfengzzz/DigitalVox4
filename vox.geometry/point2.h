@@ -9,6 +9,7 @@
 
 #include "point.h"
 #include <algorithm>  // just make cpplint happy..
+#include <Eigen/Dense>
 
 namespace jet {
 
@@ -25,26 +26,27 @@ class Point<T, 2> {
     static_assert(std::is_arithmetic<T>::value,
                   "Point only can be instantiated with arithmetic types");
 
-    //! X (or the first) component of the point.
-    T x;
+    using ValueType = Eigen::Matrix<T, 1, 2>;
+    
+    //! internal value of the point.
+    ValueType value;
 
-    //! Y (or the second) component of the point.
-    T y;
-
-    // MARK: Constructors
-
+    // MARK: - Constructors
     //! Constructs default point (0, 0).
-    constexpr Point() : x(0), y(0) {}
+    constexpr Point() : value(0, 0) {}
 
     //! Constructs point with given parameters \p x_ and \p y_.
-    constexpr Point(T x_, T y_) : x(x_), y(y_) {}
+    constexpr Point(T x_, T y_) : value(x_, y_) {}
+    
+    //! Constructs point with given parameters \p value_.
+    constexpr Point(ValueType value_): value(value_) {}
 
     //! Constructs point with initializer list.
     template <typename U>
     Point(const std::initializer_list<U>& lst);
 
     //! Copy constructor.
-    constexpr Point(const Point& v) : x(v.x), y(v.y) {}
+    constexpr Point(const Point& v) : value(v.value) {}
 
     // MARK: Basic setters
 
