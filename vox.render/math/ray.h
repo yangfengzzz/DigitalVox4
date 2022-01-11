@@ -20,6 +20,12 @@ public:
     glm::vec3 origin;
     /** The normalized direction of the ray. */
     glm::vec3 direction;
+    
+    void aaa() {
+        origin.x;
+        glm::mat4 m;
+        m.operator[](1);
+    }
 };
 
 }

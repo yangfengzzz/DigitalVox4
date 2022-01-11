@@ -55,6 +55,22 @@
 		042295BA278C33090090983F /* CPPMetalInternalMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295B7278C33080090983F /* CPPMetalInternalMacros.h */; };
 		042295BE278C3B210090983F /* ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042295BC278C3B210090983F /* ray.cpp */; };
 		042295BF278C3B210090983F /* ray.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295BD278C3B210090983F /* ray.h */; };
+		042295E6278D17790090983F /* constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295E4278D17790090983F /* constants.h */; };
+		042295E7278D17790090983F /* macros.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295E5278D17790090983F /* macros.h */; };
+		042295F4278D1FAA0090983F /* size.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295E8278D1FAA0090983F /* size.h */; };
+		042295F5278D1FAA0090983F /* point3.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295E9278D1FAA0090983F /* point3.h */; };
+		042295F6278D1FAA0090983F /* point.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295EA278D1FAA0090983F /* point.h */; };
+		042295F7278D1FAA0090983F /* size-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295EB278D1FAA0090983F /* size-inl.h */; };
+		042295F8278D1FAA0090983F /* size3.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295EC278D1FAA0090983F /* size3.h */; };
+		042295F9278D1FAA0090983F /* size2.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295ED278D1FAA0090983F /* size2.h */; };
+		042295FA278D1FAA0090983F /* size2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295EE278D1FAA0090983F /* size2-inl.h */; };
+		042295FB278D1FAA0090983F /* point2.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295EF278D1FAA0090983F /* point2.h */; };
+		042295FC278D1FAA0090983F /* point3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F0278D1FAA0090983F /* point3-inl.h */; };
+		042295FD278D1FAA0090983F /* size3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F1278D1FAA0090983F /* size3-inl.h */; };
+		042295FF278D1FAA0090983F /* point-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295F3278D1FAA0090983F /* point-inl.h */; };
+		04229600278D204C0090983F /* point2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042295F2278D1FAA0090983F /* point2.cpp */; };
+		04229603278D20680090983F /* math_utils-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229601278D20680090983F /* math_utils-inl.h */; };
+		04229604278D20680090983F /* math_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229602278D20680090983F /* math_utils.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,10 +124,34 @@
 		042295BC278C3B210090983F /* ray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ray.cpp; sourceTree = "<group>"; };
 		042295BD278C3B210090983F /* ray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ray.h; sourceTree = "<group>"; };
 		042295C1278C3B710090983F /* glm_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glm_common.h; sourceTree = "<group>"; };
+		042295D9278D121C0090983F /* libvox.geometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.geometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		042295E4278D17790090983F /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		042295E5278D17790090983F /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
+		042295E8278D1FAA0090983F /* size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = size.h; sourceTree = "<group>"; };
+		042295E9278D1FAA0090983F /* point3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point3.h; sourceTree = "<group>"; };
+		042295EA278D1FAA0090983F /* point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point.h; sourceTree = "<group>"; };
+		042295EB278D1FAA0090983F /* size-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "size-inl.h"; sourceTree = "<group>"; };
+		042295EC278D1FAA0090983F /* size3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = size3.h; sourceTree = "<group>"; };
+		042295ED278D1FAA0090983F /* size2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = size2.h; sourceTree = "<group>"; };
+		042295EE278D1FAA0090983F /* size2-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "size2-inl.h"; sourceTree = "<group>"; };
+		042295EF278D1FAA0090983F /* point2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point2.h; sourceTree = "<group>"; };
+		042295F0278D1FAA0090983F /* point3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "point3-inl.h"; sourceTree = "<group>"; };
+		042295F1278D1FAA0090983F /* size3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "size3-inl.h"; sourceTree = "<group>"; };
+		042295F2278D1FAA0090983F /* point2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point2.cpp; sourceTree = "<group>"; };
+		042295F3278D1FAA0090983F /* point-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "point-inl.h"; sourceTree = "<group>"; };
+		04229601278D20680090983F /* math_utils-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "math_utils-inl.h"; sourceTree = "<group>"; };
+		04229602278D20680090983F /* math_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0422954D278C30840090983F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		042295D7278D121C0090983F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -124,6 +164,7 @@
 		04229546278C30840090983F = {
 			isa = PBXGroup;
 			children = (
+				042295DA278D121D0090983F /* vox.geometry */,
 				04229551278C30840090983F /* vox.render */,
 				04229550278C30840090983F /* Products */,
 			);
@@ -133,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				0422954F278C30840090983F /* libvox.render.a */,
+				042295D9278D121C0090983F /* libvox.geometry.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -225,6 +267,29 @@
 			path = common;
 			sourceTree = "<group>";
 		};
+		042295DA278D121D0090983F /* vox.geometry */ = {
+			isa = PBXGroup;
+			children = (
+				042295E5278D17790090983F /* macros.h */,
+				042295E4278D17790090983F /* constants.h */,
+				04229602278D20680090983F /* math_utils.h */,
+				04229601278D20680090983F /* math_utils-inl.h */,
+				042295EA278D1FAA0090983F /* point.h */,
+				042295F3278D1FAA0090983F /* point-inl.h */,
+				042295EF278D1FAA0090983F /* point2.h */,
+				042295F2278D1FAA0090983F /* point2.cpp */,
+				042295E9278D1FAA0090983F /* point3.h */,
+				042295F0278D1FAA0090983F /* point3-inl.h */,
+				042295EB278D1FAA0090983F /* size-inl.h */,
+				042295E8278D1FAA0090983F /* size.h */,
+				042295EE278D1FAA0090983F /* size2-inl.h */,
+				042295ED278D1FAA0090983F /* size2.h */,
+				042295F1278D1FAA0090983F /* size3-inl.h */,
+				042295EC278D1FAA0090983F /* size3.h */,
+			);
+			path = vox.geometry;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -263,6 +328,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		042295D5278D121C0090983F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				042295FC278D1FAA0090983F /* point3-inl.h in Headers */,
+				042295F6278D1FAA0090983F /* point.h in Headers */,
+				04229603278D20680090983F /* math_utils-inl.h in Headers */,
+				042295F8278D1FAA0090983F /* size3.h in Headers */,
+				042295FD278D1FAA0090983F /* size3-inl.h in Headers */,
+				042295F9278D1FAA0090983F /* size2.h in Headers */,
+				042295F4278D1FAA0090983F /* size.h in Headers */,
+				042295E6278D17790090983F /* constants.h in Headers */,
+				042295FF278D1FAA0090983F /* point-inl.h in Headers */,
+				042295E7278D17790090983F /* macros.h in Headers */,
+				04229604278D20680090983F /* math_utils.h in Headers */,
+				042295FB278D1FAA0090983F /* point2.h in Headers */,
+				042295FA278D1FAA0090983F /* size2-inl.h in Headers */,
+				042295F5278D1FAA0090983F /* point3.h in Headers */,
+				042295F7278D1FAA0090983F /* size-inl.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -283,6 +370,23 @@
 			productReference = 0422954F278C30840090983F /* libvox.render.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		042295D8278D121C0090983F /* vox.geometry */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 042295E3278D121D0090983F /* Build configuration list for PBXNativeTarget "vox.geometry" */;
+			buildPhases = (
+				042295D5278D121C0090983F /* Headers */,
+				042295D6278D121C0090983F /* Sources */,
+				042295D7278D121C0090983F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vox.geometry;
+			productName = vox.geometry;
+			productReference = 042295D9278D121C0090983F /* libvox.geometry.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -293,6 +397,9 @@
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					0422954E278C30840090983F = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					042295D8278D121C0090983F = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
@@ -311,6 +418,7 @@
 			projectRoot = "";
 			targets = (
 				0422954E278C30840090983F /* vox.render */,
+				042295D8278D121C0090983F /* vox.geometry */,
 			);
 		};
 /* End PBXProject section */
@@ -340,6 +448,14 @@
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
 				0422959C278C32FB0090983F /* CPPMetalBuffer.mm in Sources */,
 				042295A1278C32FB0090983F /* CPPMetalCommandBuffer.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		042295D6278D121C0090983F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04229600278D204C0090983F /* point2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +603,32 @@
 			};
 			name = Release;
 		};
+		042295E1278D121D0090983F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		042295E2278D121D0090983F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -504,6 +646,15 @@
 			buildConfigurations = (
 				0422955B278C30840090983F /* Debug */,
 				0422955C278C30840090983F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		042295E3278D121D0090983F /* Build configuration list for PBXNativeTarget "vox.geometry" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				042295E1278D121D0090983F /* Debug */,
+				042295E2278D121D0090983F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
