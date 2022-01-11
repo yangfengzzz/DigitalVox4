@@ -4,3 +4,6 @@
 [submodule "third_party/physx"]
 	path = third_party/physx
 	url = https://github.com/NVIDIAGameWorks/PhysX.git
+[submodule "third_party/eigen"]
+	path = third_party/eigen
+	url = https://gitlab.com/libeigen/eigen.git
