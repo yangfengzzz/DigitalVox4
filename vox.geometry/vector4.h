@@ -27,38 +27,41 @@ public:
     static_assert(std::is_floating_point<T>::value,
                   "Vector only can be instantiated with floating point types");
     
-    //! X (or the first) component of the vector.
-    T x;
+    using ValueType = Eigen::Matrix<T, 1, 4>;
     
-    //! Y (or the second) component of the vector.
-    T y;
+    //! internal value of the point.
+    ValueType value;
     
-    //! Z (or the third) component of the vector.
-    T z;
+    T x() const { return value.x(); }
     
-    //! W (or the fourth) component of the vector.
-    T w;
+    T y() const { return value.y(); }
     
-    // MARK: Constructors
+    T z() const { return value.z(); }
+    
+    T w() const { return value.w(); }
+    
+    // MARK: - Constructors
     
     //! Constructs default vector (0, 0, 0, 0).
-    constexpr Vector() : x(0), y(0), z(0), w(0) {}
+    constexpr Vector() : value(0, 0, 0, 0) {}
     
     //! Constructs vector with given parameters \p x_, \p y_, \p z_, and \p w_.
-    constexpr Vector(T x_, T y_, T z_, T w_) : x(x_), y(y_), z(z_), w(w_) {}
+    constexpr Vector(T x_, T y_, T z_, T w_) : value(x_, y_, z_, w_) {}
+    
+    //! Constructs point with given parameters \p value_.
+    constexpr Vector(ValueType value_): value(value_) {}
     
     //! Constructs vector with a 3-D vector (x, y, and z) and a scalar (w).
-    constexpr Vector(const Vector3<T>& v, T w_)
-    : x(v.x), y(v.y), z(v.z), w(w_) {}
+    constexpr Vector(const Vector3<T>& v, T w_) : value(v.x(), v.y(), v.z(), w_) {}
     
     //! Constructs vector with initializer list.
     template <typename U>
     Vector(const std::initializer_list<U>& lst);
     
     //! Copy constructor.
-    constexpr Vector(const Vector& v) : x(v.x), y(v.y), z(v.z), w(v.w) {}
+    constexpr Vector(const Vector& v) : value(v.value) {}
     
-    // MARK: Basic setters
+    // MARK: - Basic setters
     
     //! Set both x, y, z, and w components to \p s.
     void set(T s);
@@ -82,7 +85,7 @@ public:
     //! Normalizes this vector.
     void normalize();
     
-    // MARK: Binary operations: new instance = this (+) v
+    // MARK: - Binary operations: new instance = this (+) v
     
     //! Computes this + (v, v, v, v).
     Vector add(T v) const;
@@ -111,7 +114,7 @@ public:
     //! Computes dot product.
     T dot(const Vector& v) const;
     
-    // MARK: Binary operations: new instance = v (+) this
+    // MARK: - Binary operations: new instance = v (+) this
     
     //! Computes (v, v, v, v) - this.
     Vector rsub(T v) const;
@@ -125,7 +128,7 @@ public:
     //! Computes (v.x, v.y, v.z, v.w) / this.
     Vector rdiv(const Vector& v) const;
     
-    // MARK: Augmented operations: this (+)= v
+    // MARK: - Augmented operations: this (+)= v
     
     //! Computes this += (v, v, v, v).
     void iadd(T v);
@@ -151,7 +154,7 @@ public:
     //! Computes this /= (v.x, v.y, v.z, v.w).
     void idiv(const Vector& v);
     
-    // MARK: Basic getters
+    // MARK: - Basic getters
     
     //! Returns const reference to the \p i -th element of the vector.
     const T& at(size_t i) const;
@@ -209,7 +212,7 @@ public:
     bool isSimilar(const Vector& other,
                    T epsilon = std::numeric_limits<T>::epsilon()) const;
     
-    // MARK: Operators
+    // MARK: - Operators
     
     //! Returns reference to the \p i -th element of the vector.
     T& operator[](size_t i);
@@ -337,29 +340,29 @@ template <typename T>
 Vector4<T> floor(const Vector4<T>& a);
 
 //! Float-type 4D vector.
-typedef Vector4<float> Vector4F;
+using Vector4F = Vector4<float>;
 
 //! Double-type 4D vector.
-typedef Vector4<double> Vector4D;
+using Vector4D = Vector4<double>;
 
-// MARK: Extensions
+// MARK: - Extensions
 
 //! Returns float-type zero vector.
 template <>
-constexpr Vector4F zero<Vector4F>() {
+inline Vector4F zero<Vector4F>() {
     return Vector4F(0.f, 0.f, 0.f, 0.f);
 }
 
 //! Returns double-type zero vector.
 template <>
-constexpr Vector4D zero<Vector4D>() {
+inline Vector4D zero<Vector4D>() {
     return Vector4D(0.0, 0.0, 0.0, 0.0);
 }
 
 //! Returns the type of the value itself.
 template <typename T>
 struct ScalarType<Vector4<T>> {
-    typedef T value;
+    using value = T;
 };
 
 //! Computes monotonic Catmull-Rom interpolation.

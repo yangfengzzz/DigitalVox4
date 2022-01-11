@@ -25,26 +25,17 @@ Vector<T, 4>::Vector(const std::initializer_list<U>& lst) {
 // Basic setters
 template <typename T>
 void Vector<T, 4>::set(T s) {
-    x = s;
-    y = s;
-    z = s;
-    w = s;
+    value << s, s, s, s;
 }
 
 template <typename T>
 void Vector<T, 4>::set(T newX, T newY, T newZ, T newW) {
-    x = newX;
-    y = newY;
-    z = newZ;
-    w = newW;
+    value << newX, newY, newZ, newW;
 }
 
 template <typename T>
 void Vector<T, 4>::set(const Vector<T, 3>& pt, T newW) {
-    x = pt.x;
-    y = pt.y;
-    z = pt.z;
-    w = newW;
+    value << pt.x(), pt.y(), pt.z(), newW;
 }
 
 template <typename T>
@@ -53,245 +44,215 @@ void Vector<T, 4>::set(const std::initializer_list<U>& lst) {
     JET_ASSERT(lst.size() >= 4);
     
     auto inputElem = lst.begin();
-    x = static_cast<T>(*inputElem);
-    y = static_cast<T>(*(++inputElem));
-    z = static_cast<T>(*(++inputElem));
-    w = static_cast<T>(*(++inputElem));
+    value << static_cast<T>(*inputElem),
+    static_cast<T>(*(++inputElem)),
+    static_cast<T>(*(++inputElem)),
+    static_cast<T>(*(++inputElem));
 }
 
 template <typename T>
 void Vector<T, 4>::set(const Vector& v) {
-    x = v.x;
-    y = v.y;
-    z = v.z;
-    w = v.w;
+    value = v.value;
 }
 
 template <typename T>
 void Vector<T, 4>::setZero() {
-    x = y = z = w = 0;
+    value.setZero();
 }
 
 template <typename T>
 void Vector<T, 4>::normalize() {
     T l = length();
-    x /= l;
-    y /= l;
-    z /= l;
-    w /= l;
+    value /= l;
 }
 
 // Binary operators: new instance = this (+) v
 template <typename T>
 Vector<T, 4> Vector<T, 4>::add(T v) const {
-    return Vector(x + v, y + v, z + v, w + v);
+    return Vector(value + ValueType(v, v, v, v));
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::add(const Vector& v) const {
-    return Vector(x + v.x, y + v.y, z + v.z, w + v.w);
+    return Vector(value + v.value);
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::sub(T v) const {
-    return Vector(x - v, y - v, z - v, w - v);
+    return Vector(value - ValueType(v, v, v, v));
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::sub(const Vector& v) const {
-    return Vector(x - v.x, y - v.y, z - v.z, w - v.w);
+    return Vector(value - v.value);
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::mul(T v) const {
-    return Vector(x * v, y * v, z * v, w * v);
+    return Vector(value * v);
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::mul(const Vector& v) const {
-    return Vector(x * v.x, y * v.y, z * v.z, w * v.w);
+    return Vector(value.cwiseProduct(v.value));
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::div(T v) const {
-    return Vector(x / v, y / v, z / v, w / v);
+    return Vector(value / v);
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::div(const Vector& v) const {
-    return Vector(x / v.x, y / v.y, z / v.z, w / v.w);
+    return Vector(value.cwiseQuotient(v.value));
 }
 
 template <typename T>
 T Vector<T, 4>::dot(const Vector& v) const {
-    return x * v.x + y * v.y + z * v.z + w * v.w;
+    return value.dot(v.value);
 }
 
 // Binary operators: new instance = v (+) this
 template <typename T>
 Vector<T, 4> Vector<T, 4>::rsub(T v) const {
-    return Vector(v - x, v - y, v - z, v - w);
+    return Vector(ValueType(v, v, v, v) - value);
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::rsub(const Vector& v) const {
-    return Vector(v.x - x, v.y - y, v.z - z, v.w - w);
+    return Vector(v.value - value);
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::rdiv(T v) const {
-    return Vector(v / x, v / y, v / z, v / w);
+    return Vector(ValueType(v, v, v, v).cwiseQuotient(value));
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::rdiv(const Vector& v) const {
-    return Vector(v.x / x, v.y / y, v.z / z, v.w / w);
+    return Vector(v.value.cwiseQuotient(value));
 }
 
 // Augmented operators: this (+)= v
 template <typename T>
 void Vector<T, 4>::iadd(T v) {
-    x += v;
-    y += v;
-    z += v;
-    w += v;
+    value += ValueType(v, v, v, v);
 }
 
 template <typename T>
 void Vector<T, 4>::iadd(const Vector& v) {
-    x += v.x;
-    y += v.y;
-    z += v.z;
-    w += v.w;
+    value += v.value;
 }
 
 template <typename T>
 void Vector<T, 4>::isub(T v) {
-    x -= v;
-    y -= v;
-    z -= v;
-    w -= v;
+    value -= ValueType(v, v, v, v);
 }
 
 template <typename T>
 void Vector<T, 4>::isub(const Vector& v) {
-    x -= v.x;
-    y -= v.y;
-    z -= v.z;
-    w -= v.w;
+    value -= v.value;
 }
 
 template <typename T>
 void Vector<T, 4>::imul(T v) {
-    x *= v;
-    y *= v;
-    z *= v;
-    w *= v;
+    value *= v;
 }
 
 template <typename T>
 void Vector<T, 4>::imul(const Vector& v) {
-    x *= v.x;
-    y *= v.y;
-    z *= v.z;
-    w *= v.w;
+    value = value.cwiseProduct(v.value);
 }
 
 template <typename T>
 void Vector<T, 4>::idiv(T v) {
-    x /= v;
-    y /= v;
-    z /= v;
-    w /= v;
+    value /= v;
 }
 
 template <typename T>
 void Vector<T, 4>::idiv(const Vector& v) {
-    x /= v.x;
-    y /= v.y;
-    z /= v.z;
-    w /= v.w;
+    value = value.cwiseQuotient(v.value);
 }
 
 // Basic getters
 template <typename T>
 const T& Vector<T, 4>::at(size_t i) const {
     JET_ASSERT(i < 4);
-    return (&x)[i];
+    return value[i];
 }
 
 template <typename T>
 T& Vector<T, 4>::at(size_t i) {
     JET_ASSERT(i < 4);
-    return (&x)[i];
+    return value[i];
 }
 
 template <typename T>
 T Vector<T, 4>::sum() const {
-    return x + y + z + w;
+    return value.sum();
 }
 
 template <typename T>
 T Vector<T, 4>::avg() const {
-    return (x + y + z + w) / 4;
+    return value.sum() / 4;
 }
 
 template <typename T>
 T Vector<T, 4>::min() const {
-    return std::min(std::min(x, y), std::min(z, w));
+    return value.minCoeff();
 }
 
 template <typename T>
 T Vector<T, 4>::max() const {
-    return std::max(std::max(x, y), std::max(z, w));
+    return value.maxCoeff();
 }
 
 template <typename T>
 T Vector<T, 4>::absmin() const {
-    return jet::absmin(jet::absmin(x, y), jet::absmin(z, w));
+    return jet::absmin(jet::absmin(x(), y()), jet::absmin(z(), w()));
 }
 
 template <typename T>
 T Vector<T, 4>::absmax() const {
-    return jet::absmax(jet::absmax(x, y), jet::absmax(z, w));
+    return jet::absmax(jet::absmax(x(), y()), jet::absmax(z(), w()));
 }
 
 template <typename T>
 size_t Vector<T, 4>::dominantAxis() const {
-    return (std::fabs(x) > std::fabs(y))
-    ? ((std::fabs(x) > std::fabs(z))
-       ? ((std::fabs(x) > std::fabs(w)) ? 0 : 3)
-       : ((std::fabs(z) > std::fabs(w)) ? 2 : 3))
-    : ((std::fabs(y) > std::fabs(z))
-       ? ((std::fabs(y) > std::fabs(w)) ? 1 : 3)
-       : ((std::fabs(z) > std::fabs(w)) ? 2 : 3));
+    return (std::fabs(x()) > std::fabs(y()))
+    ? ((std::fabs(x()) > std::fabs(z()))
+       ? ((std::fabs(x()) > std::fabs(w())) ? 0 : 3)
+       : ((std::fabs(z()) > std::fabs(w())) ? 2 : 3))
+    : ((std::fabs(y()) > std::fabs(z()))
+       ? ((std::fabs(y()) > std::fabs(w())) ? 1 : 3)
+       : ((std::fabs(z()) > std::fabs(w())) ? 2 : 3));
 }
 
 template <typename T>
 size_t Vector<T, 4>::subminantAxis() const {
-    return (std::fabs(x) < std::fabs(y))
-    ? ((std::fabs(x) < std::fabs(z))
-       ? ((std::fabs(x) < std::fabs(w)) ? 0 : 3)
-       : ((std::fabs(z) < std::fabs(w)) ? 2 : 3))
-    : ((std::fabs(y) < std::fabs(z))
-       ? ((std::fabs(y) < std::fabs(w)) ? 1 : 3)
-       : ((std::fabs(z) < std::fabs(w)) ? 2 : 3));
+    return (std::fabs(x()) < std::fabs(y()))
+    ? ((std::fabs(x()) < std::fabs(z()))
+       ? ((std::fabs(x()) < std::fabs(w())) ? 0 : 3)
+       : ((std::fabs(z()) < std::fabs(w())) ? 2 : 3))
+    : ((std::fabs(y()) < std::fabs(z()))
+       ? ((std::fabs(y()) < std::fabs(w())) ? 1 : 3)
+       : ((std::fabs(z()) < std::fabs(w())) ? 2 : 3));
 }
 
 template <typename T>
 Vector<T, 4> Vector<T, 4>::normalized() const {
     T l = length();
-    return Vector(x / l, y / l, z / l, w / l);
+    return Vector(value / l);
 }
 
 template <typename T>
 T Vector<T, 4>::length() const {
-    return std::sqrt(x * x + y * y + z * z + w * w);
+    return std::sqrt(value.dot(value));
 }
 
 template <typename T>
 T Vector<T, 4>::lengthSquared() const {
-    return x * x + y * y + z * z + w * w;
+    return value.dot(value);
 }
 
 template <typename T>
@@ -313,28 +274,28 @@ Vector<U, 4> Vector<T, 4>::castTo() const {
 
 template <typename T>
 bool Vector<T, 4>::isEqual(const Vector& other) const {
-    return x == other.x && y == other.y && z == other.z && w == other.w;
+    return value == other.value;
 }
 
 template <typename T>
 bool Vector<T, 4>::isSimilar(const Vector& other, T epsilon) const {
-    return (std::fabs(x - other.x) < epsilon) &&
-    (std::fabs(y - other.y) < epsilon) &&
-    (std::fabs(z - other.z) < epsilon) &&
-    (std::fabs(w - other.w) < epsilon);
+    return (std::fabs(x() - other.x()) < epsilon) &&
+    (std::fabs(y() - other.y()) < epsilon) &&
+    (std::fabs(z() - other.z()) < epsilon) &&
+    (std::fabs(w() - other.w()) < epsilon);
 }
 
 // Operators
 template <typename T>
 T& Vector<T, 4>::operator[](size_t i) {
     JET_ASSERT(i < 4);
-    return (&x)[i];
+    return value[i];
 }
 
 template <typename T>
 const T& Vector<T, 4>::operator[](size_t i) const {
     JET_ASSERT(i < 4);
-    return (&x)[i];
+    return value[i];
 }
 
 template <typename T>
@@ -400,12 +361,12 @@ Vector<T, 4>& Vector<T, 4>::operator/=(const Vector& v) {
 
 template <typename T>
 bool Vector<T, 4>::operator==(const Vector& v) const {
-    return x == v.x && y == v.y && z == v.z && w == v.w;
+    return isEqual(v);
 }
 
 template <typename T>
 bool Vector<T, 4>::operator!=(const Vector& v) const {
-    return x != v.x || y != v.y || z != v.z || w != v.w;
+    return !isEqual(v);
 }
 
 template <typename T>

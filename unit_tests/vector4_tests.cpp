@@ -40,7 +40,7 @@ TEST(Vector4, BasicGetterMethods) {
 
     float eps = 1e-6f;
     vec2 = vec.normalized();
-    float lenSqr = vec2.x * vec2.x + vec2.y * vec2.y + vec2.z * vec2.z + vec2.w * vec2.w;
+    float lenSqr = vec2.x() * vec2.x() + vec2.y() * vec2.y() + vec2.z() * vec2.z() + vec2.w() * vec2.w();
     EXPECT_TRUE(lenSqr - 1.f < eps);
 
     vec2.imul(2.f);

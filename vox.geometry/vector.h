@@ -34,7 +34,7 @@ public:
     static_assert(std::is_floating_point<T>::value,
                   "Vector only can be instantiated with floating point types");
     
-    typedef std::array<T, N> ContainerType;
+    using ContainerType = std::array<T, N>;
     
     //! Constructs a vector with zeros.
     Vector();
@@ -338,7 +338,7 @@ private:
 //! Returns the type of the value.
 template <typename T, size_t N>
 struct ScalarType<Vector<T, N>> {
-    typedef T value;
+    using value = T;
 };
 
 }  // namespace jet
