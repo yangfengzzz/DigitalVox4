@@ -27,34 +27,39 @@ public:
     static_assert(std::is_floating_point<T>::value,
                   "Vector only can be instantiated with floating point types");
     
-    //! X (or the first) component of the vector.
-    T x;
+    using ValueType = Eigen::Matrix<T, 1, 3>;
     
-    //! Y (or the second) component of the vector.
-    T y;
+    //! internal value of the point.
+    ValueType value;
     
-    //! Z (or the third) component of the vector.
-    T z;
+    T x() const { return value.x(); }
     
-    // MARK: Constructors
+    T y() const { return value.y(); }
+    
+    T z() const { return value.z(); }
+    
+    // MARK: - Constructors
     
     //! Constructs default vector (0, 0, 0).
-    constexpr Vector() : x(0), y(0), z(0) {}
+    constexpr Vector() : value(0, 0, 0) {}
     
     //! Constructs vector with given parameters \p x_, \p y_, and \p z_.
-    constexpr Vector(T x_, T y_, T z_) : x(x_), y(y_), z(z_) {}
+    constexpr Vector(T x_, T y_, T z_) : value(x_, y_, z_) {}
+    
+    //! Constructs point with given parameters \p value_.
+    constexpr Vector(ValueType value_): value(value_) {}
     
     //! Constructs vector with a 2-D vector and a scalar.
-    constexpr Vector(const Vector2<T>& v, T z_) : x(v.x()), y(v.y()), z(z_) {}
+    constexpr Vector(const Vector2<T>& v, T z_) : value(v.x(), v.y(), z_) {}
     
     //! Constructs vector with initializer list.
     template <typename U>
     Vector(const std::initializer_list<U>& lst);
     
     //! Copy constructor.
-    constexpr Vector(const Vector& v) : x(v.x), y(v.y), z(v.z) {}
+    constexpr Vector(const Vector& v) : value(v.value) {}
     
-    // MARK: Basic setters
+    // MARK: - Basic setters
     
     //! Set all x, y, and z components to \p s.
     void set(T s);
@@ -78,7 +83,7 @@ public:
     //! Normalizes this vector.
     void normalize();
     
-    // MARK: Binary operations: new instance = this (+) v
+    // MARK: - Binary operations: new instance = this (+) v
     
     //! Computes this + (v, v, v).
     Vector add(T v) const;
@@ -110,7 +115,7 @@ public:
     //! Computes cross product.
     Vector cross(const Vector& v) const;
     
-    // MARK: Binary operations: new instance = v (+) this
+    // MARK: - Binary operations: new instance = v (+) this
     
     //! Computes (v, v, v) - this.
     Vector rsub(T v) const;
@@ -127,7 +132,7 @@ public:
     //! Computes \p v cross this.
     Vector rcross(const Vector& v) const;
     
-    // MARK: Augmented operations: this (+)= v
+    // MARK: - Augmented operations: this (+)= v
     
     //! Computes this += (v, v, v).
     void iadd(T v);
@@ -153,7 +158,7 @@ public:
     //! Computes this /= (v.x, v.y, v.z).
     void idiv(const Vector& v);
     
-    // MARK: Basic getters
+    // MARK: - Basic getters
     
     //! Returns const reference to the \p i -th element of the vector.
     const T& at(size_t i) const;
@@ -220,7 +225,7 @@ public:
     bool isSimilar(const Vector& other,
                    T epsilon = std::numeric_limits<T>::epsilon()) const;
     
-    // MARK: Operators
+    // MARK: - Operators
     
     //! Returns reference to the \p i -th element of the vector.
     T& operator[](size_t i);
@@ -344,29 +349,29 @@ template <typename T>
 Vector3<T> floor(const Vector3<T>& a);
 
 //! Float-type 3D vector.
-typedef Vector3<float> Vector3F;
+using Vector3F = Vector3<float>;
 
 //! Double-type 3D vector.
-typedef Vector3<double> Vector3D;
+using Vector3D = Vector3<double>;
 
 // MARK: Extensions
 
 //! Returns float-type zero vector.
 template <>
-constexpr Vector3F zero<Vector3F>() {
+inline Vector3F zero<Vector3F>() {
     return Vector3F(0.f, 0.f, 0.f);
 }
 
 //! Returns double-type zero vector.
 template <>
-constexpr Vector3D zero<Vector3D>() {
+inline Vector3D zero<Vector3D>() {
     return Vector3D(0.0, 0.0, 0.0);
 }
 
 //! Returns the type of the value itself.
 template <typename T>
 struct ScalarType<Vector3<T>> {
-    typedef T value;
+    using value = T;
 };
 
 //! Computes monotonic Catmull-Rom interpolation.
