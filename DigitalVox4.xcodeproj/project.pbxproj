@@ -116,6 +116,11 @@
 		0422968D278D6F910090983F /* transform3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229689278D6F910090983F /* transform3.h */; };
 		04229690278D6FF30090983F /* transform2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422968E278D6FF30090983F /* transform2_tests.cpp */; };
 		04229691278D6FF30090983F /* transform3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422968F278D6FF30090983F /* transform3_tests.cpp */; };
+		04229696278D71760090983F /* surface3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229692278D71760090983F /* surface3.h */; };
+		04229697278D71760090983F /* surface2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229693278D71760090983F /* surface2.h */; };
+		04229698278D71760090983F /* surface2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229694278D71760090983F /* surface2.cpp */; };
+		04229699278D71760090983F /* surface3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229695278D71760090983F /* surface3.cpp */; };
+		0422969A278D71F40090983F /* libvox.geometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 042295D9278D121C0090983F /* libvox.geometry.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -255,6 +260,10 @@
 		04229689278D6F910090983F /* transform3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = transform3.h; sourceTree = "<group>"; };
 		0422968E278D6FF30090983F /* transform2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transform2_tests.cpp; sourceTree = "<group>"; };
 		0422968F278D6FF30090983F /* transform3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transform3_tests.cpp; sourceTree = "<group>"; };
+		04229692278D71760090983F /* surface3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = surface3.h; sourceTree = "<group>"; };
+		04229693278D71760090983F /* surface2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = surface2.h; sourceTree = "<group>"; };
+		04229694278D71760090983F /* surface2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface2.cpp; sourceTree = "<group>"; };
+		04229695278D71760090983F /* surface3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface3.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0422969A278D71F40090983F /* libvox.geometry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +450,10 @@
 				04229688278D6F910090983F /* transform2-inl.h */,
 				04229689278D6F910090983F /* transform3.h */,
 				04229686278D6F910090983F /* transform3-inl.h */,
+				04229693278D71760090983F /* surface2.h */,
+				04229694278D71760090983F /* surface2.cpp */,
+				04229692278D71760090983F /* surface3.h */,
+				04229695278D71760090983F /* surface3.cpp */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -543,8 +557,10 @@
 				0422962C278D3EF70090983F /* vector4-inl.h in Headers */,
 				04229660278D5CC00090983F /* quaternion.h in Headers */,
 				04229675278D689C0090983F /* ray2-inl.h in Headers */,
+				04229697278D71760090983F /* surface2.h in Headers */,
 				0422968D278D6F910090983F /* transform3.h in Headers */,
 				04229604278D20680090983F /* math_utils.h in Headers */,
+				04229696278D71760090983F /* surface3.h in Headers */,
 				042295FB278D1FAA0090983F /* point2.h in Headers */,
 				04229672278D689C0090983F /* bounding_box-inl.h in Headers */,
 				042295FA278D1FAA0090983F /* size2-inl.h in Headers */,
@@ -692,6 +708,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04229698278D71760090983F /* surface2.cpp in Sources */,
+				04229699278D71760090983F /* surface3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
