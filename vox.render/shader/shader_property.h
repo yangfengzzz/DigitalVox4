@@ -8,7 +8,7 @@
 #ifndef shader_property_hpp
 #define shader_property_hpp
 
-#include "shaderData_group.h"
+#include "shader_data_group.h"
 #include <string>
 
 namespace vox {

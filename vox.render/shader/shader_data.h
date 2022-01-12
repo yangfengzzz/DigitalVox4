@@ -8,7 +8,7 @@
 #ifndef shader_data_hpp
 #define shader_data_hpp
 
-#include "shaderData_group.h"
+#include "shader_data_group.h"
 #include "shader_macro_collection.h"
 #include "shader_property.h"
 #include <any>

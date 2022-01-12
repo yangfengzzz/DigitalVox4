@@ -169,7 +169,7 @@
 		04459297278EB2EB00F04CE0 /* shader_macro_collection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459295278EB2EB00F04CE0 /* shader_macro_collection.h */; };
 		0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0445929C278EB45200F04CE0 /* CPPMetalDataType.mm */; };
 		0445929F278EB45200F04CE0 /* CPPMetalDataType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0445929D278EB45200F04CE0 /* CPPMetalDataType.hpp */; };
-		044592A0278EB4D400F04CE0 /* shaderData_group.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459299278EB2F900F04CE0 /* shaderData_group.h */; };
+		044592A0278EB4D400F04CE0 /* shader_data_group.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459299278EB2F900F04CE0 /* shader_data_group.h */; };
 		044592A3278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm in Sources */ = {isa = PBXBuildFile; fileRef = 044592A1278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm */; };
 		044592A4278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 044592A2278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp */; };
 		044592A5278EB92800F04CE0 /* shader_macro_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */; };
@@ -193,6 +193,11 @@
 		044592CE278EC79200F04CE0 /* blend_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592CC278EC79200F04CE0 /* blend_state.h */; };
 		044592CF278EC79200F04CE0 /* blend_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592CD278EC79200F04CE0 /* blend_state.cpp */; };
 		044592D0278ECABC00F04CE0 /* render_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592BC278EC58900F04CE0 /* render_state.cpp */; };
+		044592D6278ED0FB00F04CE0 /* render_face.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D3278ED0FA00F04CE0 /* render_face.h */; };
+		044592D7278ED0FB00F04CE0 /* render_queue_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D4278ED0FA00F04CE0 /* render_queue_type.h */; };
+		044592D8278ED0FB00F04CE0 /* blend_mode.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D5278ED0FB00F04CE0 /* blend_mode.h */; };
+		044592DB278ED11F00F04CE0 /* material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D9278ED11E00F04CE0 /* material.h */; };
+		044592DC278ED11F00F04CE0 /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592DA278ED11F00F04CE0 /* material.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -422,7 +427,7 @@
 		0445928C278EA37D00F04CE0 /* script.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = script.h; sourceTree = "<group>"; };
 		04459295278EB2EB00F04CE0 /* shader_macro_collection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_macro_collection.h; sourceTree = "<group>"; };
 		04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_macro_collection.cpp; sourceTree = "<group>"; };
-		04459299278EB2F900F04CE0 /* shaderData_group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shaderData_group.h; sourceTree = "<group>"; };
+		04459299278EB2F900F04CE0 /* shader_data_group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_data_group.h; sourceTree = "<group>"; };
 		0445929B278EB31400F04CE0 /* macro_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = macro_name.h; sourceTree = "<group>"; };
 		0445929C278EB45200F04CE0 /* CPPMetalDataType.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPMetalDataType.mm; sourceTree = "<group>"; };
 		0445929D278EB45200F04CE0 /* CPPMetalDataType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalDataType.hpp; sourceTree = "<group>"; };
@@ -448,6 +453,11 @@
 		044592CA278EC76000F04CE0 /* renderTarget_blend_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderTarget_blend_state.h; sourceTree = "<group>"; };
 		044592CC278EC79200F04CE0 /* blend_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blend_state.h; sourceTree = "<group>"; };
 		044592CD278EC79200F04CE0 /* blend_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = blend_state.cpp; sourceTree = "<group>"; };
+		044592D3278ED0FA00F04CE0 /* render_face.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render_face.h; sourceTree = "<group>"; };
+		044592D4278ED0FA00F04CE0 /* render_queue_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render_queue_type.h; sourceTree = "<group>"; };
+		044592D5278ED0FB00F04CE0 /* blend_mode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blend_mode.h; sourceTree = "<group>"; };
+		044592D9278ED11E00F04CE0 /* material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = material.h; sourceTree = "<group>"; };
+		044592DA278ED11F00F04CE0 /* material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = material.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -539,6 +549,7 @@
 				0445925A278E7C8600F04CE0 /* metal_application.cpp */,
 				0445925E278E7F3300F04CE0 /* rendering */,
 				0445928F278EB27F00F04CE0 /* shader */,
+				044592D1278ED03000F04CE0 /* material */,
 				04459271278E80DC00F04CE0 /* layer.h */,
 				0445926B278E80DC00F04CE0 /* updateFlag.h */,
 				04459272278E80DC00F04CE0 /* updateFlag.cpp */,
@@ -786,9 +797,9 @@
 				044592B0278EBEE600F04CE0 /* shader.cpp */,
 				044592A7278EB9DF00F04CE0 /* shader_data.h */,
 				044592A6278EB9DF00F04CE0 /* shader_data.cpp */,
+				04459299278EB2F900F04CE0 /* shader_data_group.h */,
 				04459290278EB29100F04CE0 /* state */,
 				0445929B278EB31400F04CE0 /* macro_name.h */,
-				04459299278EB2F900F04CE0 /* shaderData_group.h */,
 				044592B4278EBFC600F04CE0 /* shader_program.h */,
 				044592B5278EBFC600F04CE0 /* shader_program.cpp */,
 				044592AB278EBEB900F04CE0 /* shader_property.h */,
@@ -816,6 +827,26 @@
 				044592CD278EC79200F04CE0 /* blend_state.cpp */,
 			);
 			path = state;
+			sourceTree = "<group>";
+		};
+		044592D1278ED03000F04CE0 /* material */ = {
+			isa = PBXGroup;
+			children = (
+				044592D2278ED04500F04CE0 /* enums */,
+				044592D9278ED11E00F04CE0 /* material.h */,
+				044592DA278ED11F00F04CE0 /* material.cpp */,
+			);
+			path = material;
+			sourceTree = "<group>";
+		};
+		044592D2278ED04500F04CE0 /* enums */ = {
+			isa = PBXGroup;
+			children = (
+				044592D5278ED0FB00F04CE0 /* blend_mode.h */,
+				044592D3278ED0FA00F04CE0 /* render_face.h */,
+				044592D4278ED0FA00F04CE0 /* render_queue_type.h */,
+			);
+			path = enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -870,7 +901,7 @@
 				044591CB278E551100F04CE0 /* unique_ptr.h in Headers */,
 				04229596278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.hpp in Headers */,
 				04459222278E5F1100F04CE0 /* input_events.h in Headers */,
-				044592A0278EB4D400F04CE0 /* shaderData_group.h in Headers */,
+				044592A0278EB4D400F04CE0 /* shader_data_group.h in Headers */,
 				0445927C278E80DD00F04CE0 /* updateFlag_manager.h in Headers */,
 				042295B1278C32FB0090983F /* CPPMetalCommandBuffer.hpp in Headers */,
 				042295A8278C32FB0090983F /* CPPMetalBuffer.hpp in Headers */,
@@ -880,6 +911,7 @@
 				042295A6278C32FB0090983F /* CPPMetalConstants.hpp in Headers */,
 				044592C2278EC5A200F04CE0 /* depth_state.h in Headers */,
 				042295A7278C32FB0090983F /* CPPMetalDepthStencil.hpp in Headers */,
+				044592D8278ED0FB00F04CE0 /* blend_mode.h in Headers */,
 				044592BB278EC19E00F04CE0 /* stencil_state.h in Headers */,
 				0445927F278E80DD00F04CE0 /* layer.h in Headers */,
 				04229592278C32FB0090983F /* CPPMetalTexture.hpp in Headers */,
@@ -887,8 +919,11 @@
 				0422958B278C32FB0090983F /* CPPMetalAllocator.hpp in Headers */,
 				04459204278E591A00F04CE0 /* imgui.h in Headers */,
 				0445928A278E84DE00F04CE0 /* transform.h in Headers */,
+				044592D7278ED0FB00F04CE0 /* render_queue_type.h in Headers */,
+				044592D6278ED0FB00F04CE0 /* render_face.h in Headers */,
 				04459255278E6D4700F04CE0 /* glfw_window.h in Headers */,
 				042295B9278C33090090983F /* CPPMetalDispatchTableCache.h in Headers */,
+				044592DB278ED11F00F04CE0 /* material.h in Headers */,
 				0445927A278E80DD00F04CE0 /* scene.h in Headers */,
 				0445927D278E80DD00F04CE0 /* components_manager.h in Headers */,
 				04459259278E708A00F04CE0 /* unix_engine.h in Headers */,
@@ -1086,6 +1121,7 @@
 				044591EE278E557C00F04CE0 /* align.cc in Sources */,
 				044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
+				044592DC278ED11F00F04CE0 /* material.cpp in Sources */,
 				0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */,
 				042295AE278C32FB0090983F /* CPPMetalKitTextureLoader.mm in Sources */,
 				0445924B278E63FA00F04CE0 /* application.cpp in Sources */,
