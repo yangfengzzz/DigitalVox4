@@ -116,6 +116,16 @@
 		044591CB278E551100F04CE0 /* unique_ptr.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591C8278E551100F04CE0 /* unique_ptr.h */; };
 		044591EE278E557C00F04CE0 /* platform.cc in Sources */ = {isa = PBXBuildFile; fileRef = 044591EA278E557C00F04CE0 /* platform.cc */; };
 		044591F1278E557C00F04CE0 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591ED278E557C00F04CE0 /* platform.h */; };
+		044591FE278E591A00F04CE0 /* imgui_tables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044591F3278E591900F04CE0 /* imgui_tables.cpp */; };
+		044591FF278E591A00F04CE0 /* imconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591F4278E591900F04CE0 /* imconfig.h */; };
+		04459200278E591A00F04CE0 /* imgui_widgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044591F5278E591900F04CE0 /* imgui_widgets.cpp */; };
+		04459202278E591A00F04CE0 /* imstb_rectpack.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591F7278E591900F04CE0 /* imstb_rectpack.h */; };
+		04459203278E591A00F04CE0 /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044591F8278E591900F04CE0 /* imgui_draw.cpp */; };
+		04459204278E591A00F04CE0 /* imgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591F9278E591900F04CE0 /* imgui.h */; };
+		04459205278E591A00F04CE0 /* imstb_truetype.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591FA278E591A00F04CE0 /* imstb_truetype.h */; };
+		04459206278E591A00F04CE0 /* imstb_textedit.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591FB278E591A00F04CE0 /* imstb_textedit.h */; };
+		04459207278E591A00F04CE0 /* imgui_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591FC278E591A00F04CE0 /* imgui_internal.h */; };
+		04459208278E591A00F04CE0 /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044591FD278E591A00F04CE0 /* imgui.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -286,6 +296,16 @@
 		044591D9278E551E00F04CE0 /* string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string.h; sourceTree = "<group>"; };
 		044591EA278E557C00F04CE0 /* platform.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cc; sourceTree = "<group>"; };
 		044591ED278E557C00F04CE0 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		044591F3278E591900F04CE0 /* imgui_tables.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_tables.cpp; sourceTree = "<group>"; };
+		044591F4278E591900F04CE0 /* imconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imconfig.h; sourceTree = "<group>"; };
+		044591F5278E591900F04CE0 /* imgui_widgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_widgets.cpp; sourceTree = "<group>"; };
+		044591F7278E591900F04CE0 /* imstb_rectpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imstb_rectpack.h; sourceTree = "<group>"; };
+		044591F8278E591900F04CE0 /* imgui_draw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_draw.cpp; sourceTree = "<group>"; };
+		044591F9278E591900F04CE0 /* imgui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui.h; sourceTree = "<group>"; };
+		044591FA278E591A00F04CE0 /* imstb_truetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imstb_truetype.h; sourceTree = "<group>"; };
+		044591FB278E591A00F04CE0 /* imstb_textedit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imstb_textedit.h; sourceTree = "<group>"; };
+		044591FC278E591A00F04CE0 /* imgui_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_internal.h; sourceTree = "<group>"; };
+		044591FD278E591A00F04CE0 /* imgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +372,7 @@
 				0422955D278C31DC0090983F /* core */,
 				044591C4278E54D500F04CE0 /* memory */,
 				044591C5278E54DF00F04CE0 /* containers */,
+				044591F2278E58F900F04CE0 /* gui */,
 			);
 			path = vox.render;
 			sourceTree = "<group>";
@@ -545,6 +566,23 @@
 			path = containers;
 			sourceTree = "<group>";
 		};
+		044591F2278E58F900F04CE0 /* gui */ = {
+			isa = PBXGroup;
+			children = (
+				044591F9278E591900F04CE0 /* imgui.h */,
+				044591FD278E591A00F04CE0 /* imgui.cpp */,
+				044591F8278E591900F04CE0 /* imgui_draw.cpp */,
+				044591F3278E591900F04CE0 /* imgui_tables.cpp */,
+				044591F5278E591900F04CE0 /* imgui_widgets.cpp */,
+				044591FC278E591A00F04CE0 /* imgui_internal.h */,
+				044591F4278E591900F04CE0 /* imconfig.h */,
+				044591F7278E591900F04CE0 /* imstb_rectpack.h */,
+				044591FB278E591A00F04CE0 /* imstb_textedit.h */,
+				044591FA278E591A00F04CE0 /* imstb_truetype.h */,
+			);
+			path = gui;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -554,20 +592,25 @@
 			files = (
 				04229599278C32FB0090983F /* CPPMetalCommandQueue.hpp in Headers */,
 				0422959D278C32FB0090983F /* CPPMetalResourceEnum.hpp in Headers */,
+				04459206278E591A00F04CE0 /* imstb_textedit.h in Headers */,
 				042295AB278C32FB0090983F /* CPPMetalResource.hpp in Headers */,
 				0422959E278C32FB0090983F /* CPPMetalVertexDescriptor.hpp in Headers */,
+				04459207278E591A00F04CE0 /* imgui_internal.h in Headers */,
 				042295AF278C32FB0090983F /* CPPMetal.hpp in Headers */,
 				0422959B278C32FB0090983F /* CPPMetalKitTextureLoader.hpp in Headers */,
 				042295A0278C32FB0090983F /* CPPMetalRenderPipeline.hpp in Headers */,
 				042295BA278C33090090983F /* CPPMetalInternalMacros.h in Headers */,
 				04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
+				044591FF278E591A00F04CE0 /* imconfig.h in Headers */,
 				044591F1278E557C00F04CE0 /* platform.h in Headers */,
 				042295B8278C33090090983F /* CPPMetalDeviceInternals.h in Headers */,
 				042295A3278C32FB0090983F /* CPPMetalPixelFormat.hpp in Headers */,
 				042295A2278C32FB0090983F /* CPPMetalDevice.hpp in Headers */,
 				042295AC278C32FB0090983F /* CPPMetalRenderPass.hpp in Headers */,
 				042295B4278C32FB0090983F /* CPPMetalImplementation.hpp in Headers */,
+				04459202278E591A00F04CE0 /* imstb_rectpack.h in Headers */,
+				04459205278E591A00F04CE0 /* imstb_truetype.h in Headers */,
 				044591CB278E551100F04CE0 /* unique_ptr.h in Headers */,
 				04229596278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.hpp in Headers */,
 				042295B1278C32FB0090983F /* CPPMetalCommandBuffer.hpp in Headers */,
@@ -580,6 +623,7 @@
 				04229591278C32FB0090983F /* CPPMetalKitView.hpp in Headers */,
 				042295B3278C32FB0090983F /* CPPMetalRenderCommandEncoder.hpp in Headers */,
 				0422958B278C32FB0090983F /* CPPMetalAllocator.hpp in Headers */,
+				04459204278E591A00F04CE0 /* imgui.h in Headers */,
 				042295B9278C33090090983F /* CPPMetalDispatchTableCache.h in Headers */,
 				0422958F278C32FB0090983F /* CPPMetalCommandEncoder.hpp in Headers */,
 			);
@@ -764,6 +808,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0422958D278C32FB0090983F /* CPPMetalRenderPipeline.mm in Sources */,
+				04459208278E591A00F04CE0 /* imgui.cpp in Sources */,
 				044591EE278E557C00F04CE0 /* platform.cc in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
 				042295AE278C32FB0090983F /* CPPMetalKitTextureLoader.mm in Sources */,
@@ -771,11 +816,13 @@
 				0422958E278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.mm in Sources */,
 				042295AA278C32FB0090983F /* CPPMetalDrawable.mm in Sources */,
 				0422959A278C32FB0090983F /* CPPMetalResource.mm in Sources */,
+				04459203278E591A00F04CE0 /* imgui_draw.cpp in Sources */,
 				042295AD278C32FB0090983F /* CPPMetalLibrary.mm in Sources */,
 				04229590278C32FB0090983F /* CPPMetalCommandEncoder.mm in Sources */,
 				04229598278C32FB0090983F /* CPPMetalKitView.mm in Sources */,
 				042295A5278C32FB0090983F /* CPPMetalVertexDescriptor.mm in Sources */,
 				0422958C278C32FB0090983F /* CPPMetalRenderPass.mm in Sources */,
+				04459200278E591A00F04CE0 /* imgui_widgets.cpp in Sources */,
 				042295B0278C32FB0090983F /* CPPMetalDevice.mm in Sources */,
 				042295A9278C32FB0090983F /* CPPMetalRenderCommandEncoder.mm in Sources */,
 				04229595278C32FB0090983F /* CPPMetalPixelFormat.mm in Sources */,
@@ -783,6 +830,7 @@
 				0422958A278C32FB0090983F /* CPPMetalDepthStencil.mm in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
 				0422959C278C32FB0090983F /* CPPMetalBuffer.mm in Sources */,
+				044591FE278E591A00F04CE0 /* imgui_tables.cpp in Sources */,
 				042295A1278C32FB0090983F /* CPPMetalCommandBuffer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
