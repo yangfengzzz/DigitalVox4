@@ -152,7 +152,7 @@
 		0445927A278E80DD00F04CE0 /* scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926C278E80DC00F04CE0 /* scene.h */; };
 		0445927B278E80DD00F04CE0 /* updateFlag_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445926D278E80DC00F04CE0 /* updateFlag_manager.cpp */; };
 		0445927C278E80DD00F04CE0 /* updateFlag_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926E278E80DC00F04CE0 /* updateFlag_manager.h */; };
-		0445927D278E80DD00F04CE0 /* component_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926F278E80DC00F04CE0 /* component_manager.h */; };
+		0445927D278E80DD00F04CE0 /* components_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926F278E80DC00F04CE0 /* components_manager.h */; };
 		0445927E278E80DD00F04CE0 /* entity.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459270278E80DC00F04CE0 /* entity.h */; };
 		0445927F278E80DD00F04CE0 /* layer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459271278E80DC00F04CE0 /* layer.h */; };
 		04459280278E80DD00F04CE0 /* updateFlag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459272278E80DC00F04CE0 /* updateFlag.cpp */; };
@@ -160,10 +160,12 @@
 		04459282278E80DD00F04CE0 /* component.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459274278E80DC00F04CE0 /* component.h */; };
 		04459283278E80DD00F04CE0 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459275278E80DC00F04CE0 /* scene.cpp */; };
 		04459284278E80DD00F04CE0 /* entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459276278E80DC00F04CE0 /* entity.cpp */; };
-		04459285278E80DD00F04CE0 /* component_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459277278E80DD00F04CE0 /* component_manager.cpp */; };
+		04459285278E80DD00F04CE0 /* components_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459277278E80DD00F04CE0 /* components_manager.cpp */; };
 		04459286278E80DD00F04CE0 /* scene_forward.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459278278E80DD00F04CE0 /* scene_forward.h */; };
 		04459289278E84DE00F04CE0 /* transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459287278E84DE00F04CE0 /* transform.cpp */; };
 		0445928A278E84DE00F04CE0 /* transform.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459288278E84DE00F04CE0 /* transform.h */; };
+		0445928D278EA37D00F04CE0 /* script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445928B278EA37D00F04CE0 /* script.cpp */; };
+		0445928E278EA37D00F04CE0 /* script.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445928C278EA37D00F04CE0 /* script.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -377,7 +379,7 @@
 		0445926C278E80DC00F04CE0 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
 		0445926D278E80DC00F04CE0 /* updateFlag_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = updateFlag_manager.cpp; sourceTree = "<group>"; };
 		0445926E278E80DC00F04CE0 /* updateFlag_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = updateFlag_manager.h; sourceTree = "<group>"; };
-		0445926F278E80DC00F04CE0 /* component_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = component_manager.h; sourceTree = "<group>"; };
+		0445926F278E80DC00F04CE0 /* components_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = components_manager.h; sourceTree = "<group>"; };
 		04459270278E80DC00F04CE0 /* entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entity.h; sourceTree = "<group>"; };
 		04459271278E80DC00F04CE0 /* layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = layer.h; sourceTree = "<group>"; };
 		04459272278E80DC00F04CE0 /* updateFlag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = updateFlag.cpp; sourceTree = "<group>"; };
@@ -385,10 +387,12 @@
 		04459274278E80DC00F04CE0 /* component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = component.h; sourceTree = "<group>"; };
 		04459275278E80DC00F04CE0 /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = "<group>"; };
 		04459276278E80DC00F04CE0 /* entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entity.cpp; sourceTree = "<group>"; };
-		04459277278E80DD00F04CE0 /* component_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = component_manager.cpp; sourceTree = "<group>"; };
+		04459277278E80DD00F04CE0 /* components_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = components_manager.cpp; sourceTree = "<group>"; };
 		04459278278E80DD00F04CE0 /* scene_forward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_forward.h; sourceTree = "<group>"; };
 		04459287278E84DE00F04CE0 /* transform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = transform.cpp; sourceTree = "<group>"; };
 		04459288278E84DE00F04CE0 /* transform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = transform.h; sourceTree = "<group>"; };
+		0445928B278EA37D00F04CE0 /* script.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = script.cpp; sourceTree = "<group>"; };
+		0445928C278EA37D00F04CE0 /* script.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = script.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -489,12 +493,14 @@
 				04459275278E80DC00F04CE0 /* scene.cpp */,
 				04459270278E80DC00F04CE0 /* entity.h */,
 				04459276278E80DC00F04CE0 /* entity.cpp */,
-				0445926F278E80DC00F04CE0 /* component_manager.h */,
-				04459277278E80DD00F04CE0 /* component_manager.cpp */,
+				0445926F278E80DC00F04CE0 /* components_manager.h */,
+				04459277278E80DD00F04CE0 /* components_manager.cpp */,
 				04459274278E80DC00F04CE0 /* component.h */,
 				04459273278E80DC00F04CE0 /* component.cpp */,
 				04459288278E84DE00F04CE0 /* transform.h */,
 				04459287278E84DE00F04CE0 /* transform.cpp */,
+				0445928C278EA37D00F04CE0 /* script.h */,
+				0445928B278EA37D00F04CE0 /* script.cpp */,
 			);
 			path = vox.render;
 			sourceTree = "<group>";
@@ -736,6 +742,7 @@
 				042295BA278C33090090983F /* CPPMetalInternalMacros.h in Headers */,
 				04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */,
 				0445925D278E7C8600F04CE0 /* metal_application.h in Headers */,
+				0445928E278EA37D00F04CE0 /* script.h in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
 				04459225278E5F1100F04CE0 /* configuration.h in Headers */,
 				044591FF278E591A00F04CE0 /* imconfig.h in Headers */,
@@ -771,7 +778,7 @@
 				04459255278E6D4700F04CE0 /* glfw_window.h in Headers */,
 				042295B9278C33090090983F /* CPPMetalDispatchTableCache.h in Headers */,
 				0445927A278E80DD00F04CE0 /* scene.h in Headers */,
-				0445927D278E80DD00F04CE0 /* component_manager.h in Headers */,
+				0445927D278E80DD00F04CE0 /* components_manager.h in Headers */,
 				04459259278E708A00F04CE0 /* unix_engine.h in Headers */,
 				0422958F278C32FB0090983F /* CPPMetalCommandEncoder.hpp in Headers */,
 				04459233278E5F1100F04CE0 /* timer.h in Headers */,
@@ -961,6 +968,7 @@
 				0422958D278C32FB0090983F /* CPPMetalRenderPipeline.mm in Sources */,
 				0445927B278E80DD00F04CE0 /* updateFlag_manager.cpp in Sources */,
 				04459208278E591A00F04CE0 /* imgui.cpp in Sources */,
+				0445928D278EA37D00F04CE0 /* script.cpp in Sources */,
 				044591EE278E557C00F04CE0 /* align.cc in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
 				042295AE278C32FB0090983F /* CPPMetalKitTextureLoader.mm in Sources */,
@@ -968,7 +976,7 @@
 				042295A4278C32FB0090983F /* CPPMetalCommandQueue.mm in Sources */,
 				0422958E278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.mm in Sources */,
 				042295AA278C32FB0090983F /* CPPMetalDrawable.mm in Sources */,
-				04459285278E80DD00F04CE0 /* component_manager.cpp in Sources */,
+				04459285278E80DD00F04CE0 /* components_manager.cpp in Sources */,
 				04459289278E84DE00F04CE0 /* transform.cpp in Sources */,
 				0422959A278C32FB0090983F /* CPPMetalResource.mm in Sources */,
 				04459203278E591A00F04CE0 /* imgui_draw.cpp in Sources */,

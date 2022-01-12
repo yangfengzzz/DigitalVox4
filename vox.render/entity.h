@@ -196,15 +196,9 @@ public:
     std::vector<Script *> scripts();
     
 private:
-    friend class Scene;
-    
     friend class Component;
-    
-    friend class ComponentsManager;
-    
+
     friend class Transform;
-    
-    friend class Script;
     
     void _removeComponent(Component *component);
     
@@ -255,60 +249,7 @@ private:
     std::vector<Component *> _activeChangedComponents{};
     
     std::unique_ptr<UpdateFlag> _inverseWorldMatFlag = nullptr;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-public:
-    Entity(const size_t id, const std::string &name);
-    
-    virtual ~Entity() = default;
-    
-    const size_t get_id() const;
-    
-    const std::string &get_name() const;
-    
-//    Transform &get_transform() {
-//        return transform;
-//    }
-    
-    void set_parent(Entity &parent);
-    
-    Entity *get_parent() const;
-    
-    void add_child(Entity &child);
-    
-    const std::vector<Entity *> &get_children() const;
-    
-    void set_component(Component &component);
-    
-    template<class T>
-    inline T &get_component() {
-        return dynamic_cast<T &>(get_component(typeid(T)));
-    }
-    
-    Component &get_component(const std::type_index index);
-    
-    template<class T>
-    bool has_component() {
-        return has_component(typeid(T));
-    }
-    
-    bool has_component(const std::type_index index);
-    
-private:
-    size_t id;    
-    
-    std::unordered_map<std::type_index, Component *> components;
 };
+
 }        // namespace sg
 }        // namespace vox
