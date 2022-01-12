@@ -46,10 +46,10 @@ public:
 template <typename T> using Ray2 = Ray<T, 2>;
 
 //! Float-type 2-D ray.
-using Ray2F = Ray2<float>;
+using Ray2f = Ray2<float>;
 
 //! Double-type 2-D ray.
-using Ray2D = Ray2<double>;
+using Ray2d = Ray2<double>;
 
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 

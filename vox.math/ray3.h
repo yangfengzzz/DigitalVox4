@@ -47,10 +47,10 @@ template <typename T>
 using Ray3 = Ray<T, 3>;
 
 //! Float-type 3-D ray.
-using Ray3F = Ray3<float>;
+using Ray3f = Ray3<float>;
 
 //! Double-type 3-D ray.
-using Ray3D = Ray3<double>;
+using Ray3d = Ray3<double>;
 
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 

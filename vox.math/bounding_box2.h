@@ -115,16 +115,16 @@ template <typename T>
 using BoundingBox2 = BoundingBox<T, 2>;
 
 //! Float-type 2-D BoundingBox.
-using BoundingBox2F = BoundingBox2<float>;
+using BoundingBox2f = BoundingBox2<float>;
 
 //! Double-type 2-D BoundingBox.
-using BoundingBox2D = BoundingBox2<double>;
+using BoundingBox2d = BoundingBox2<double>;
 
 //! Float-type 2-D box-ray intersection result.
-using BoundingBoxRayIntersection2F = BoundingBoxRayIntersection2<float>;
+using BoundingBoxRayIntersection2f = BoundingBoxRayIntersection2<float>;
 
 //! Double-type 2-D box-ray intersection result.
-using BoundingBoxRayIntersection2D = BoundingBoxRayIntersection2<double>;
+using BoundingBoxRayIntersection2d = BoundingBoxRayIntersection2<double>;
 
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 

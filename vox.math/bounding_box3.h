@@ -118,16 +118,16 @@ template <typename T>
 using BoundingBox3 = BoundingBox<T, 3>;
 
 //! Float-type 3-D BoundingBox.
-using BoundingBox3F = BoundingBox3<float>;
+using BoundingBox3f = BoundingBox3<float>;
 
 //! Double-type 3-D BoundingBox.
-using BoundingBox3D = BoundingBox3<double>;
+using BoundingBox3d = BoundingBox3<double>;
 
 //! Float-type 3-D box-ray intersection result.
-using BoundingBoxRayIntersection3F = BoundingBoxRayIntersection3<float>;
+using BoundingBoxRayIntersection3f = BoundingBoxRayIntersection3<float>;
 
 //! Double-type 3-D box-ray intersection result.
-using BoundingBoxRayIntersection3D = BoundingBoxRayIntersection3<double>;
+using BoundingBoxRayIntersection3d = BoundingBoxRayIntersection3<double>;
 
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 

@@ -216,6 +216,8 @@
 		04459300278F023A00F04CE0 /* bounding_frustum.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FA278F023900F04CE0 /* bounding_frustum.h */; };
 		04459301278F023A00F04CE0 /* spherical_harmonics3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */; };
 		04459304278F023A00F04CE0 /* spherical_harmonics3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FE278F023A00F04CE0 /* spherical_harmonics3.h */; };
+		04459305278F036D00F04CE0 /* collision_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FD278F023A00F04CE0 /* collision_util.cpp */; };
+		04459306278F063E00F04CE0 /* bounding_frustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FC278F023900F04CE0 /* bounding_frustum.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1276,6 +1278,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04459306278F063E00F04CE0 /* bounding_frustum.cpp in Sources */,
+				04459305278F036D00F04CE0 /* collision_util.cpp in Sources */,
 				042296E9278DAE7C0090983F /* ImathColorAlgo.cpp in Sources */,
 				042296DA278DAE7C0090983F /* ImathRandom.cpp in Sources */,
 				04459301278F023A00F04CE0 /* spherical_harmonics3.cpp in Sources */,

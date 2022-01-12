@@ -10,36 +10,32 @@
 
 #include <cassert>
 #include <cmath>
-#include <array>
-#include "maths/math_constant.h"
-#include "platform.h"
-#include "plane.h"
-#include "matrix.h"
-#include "bounding_box.h"
 #include <optional>
-#include <simd/simd.h>
+#include "ImathPlane.h"
+#include "bounding_box3.h"
+#include "ImathSphere.h"
 
 IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
 struct BoundingFrustum {
     /** The near plane of this frustum. */
-    Plane near;
+    Plane3f near;
     /** The far plane of this frustum. */
-    Plane far;
+    Plane3f far;
     /** The left plane of this frustum. */
-    Plane left;
+    Plane3f left;
     /** The right plane of this frustum. */
-    Plane right;
+    Plane3f right;
     /** The top plane of this frustum. */
-    Plane top;
+    Plane3f top;
     /** The bottom plane of this frustum. */
-    Plane bottom;
+    Plane3f bottom;
     
     /**
      * Constructor of BoundingFrustum.
      * @param matrix - The view-projection matrix
      */
-    BoundingFrustum(std::optional<Matrix> matrix = std::nullopt);
+    BoundingFrustum(std::optional<M44f> matrix = std::nullopt);
     
     /**
      * Get the plane by the given index.
@@ -52,29 +48,27 @@ struct BoundingFrustum {
      * @param index - The index
      * @returns The plane get
      */
-    Plane getPlane(int index) const;
+    Plane3f getPlane(int index) const;
     
     /**
      * Update all planes from the given matrix.
      * @param matrix - The given view-projection matrix
      */
-    void calculateFromMatrix(const Matrix &matrix);
-
-    void calculateFromMatrix(const simd_float4x4 &matrix);
+    void calculateFromMatrix(const M44f &matrix);
     
     /**
      * Get whether or not a specified bounding box intersects with this frustum (Contains or Intersects).
      * @param box - The box for testing
      * @returns True if bounding box intersects with this frustum, false otherwise
      */
-    bool intersectsBox(const BoundingBox &box) const;
+    bool intersectsBox(const BoundingBox3f &box) const;
     
     /**
      * Get whether or not a specified bounding sphere intersects with this frustum (Contains or Intersects).
      * @param sphere - The sphere for testing
      * @returns True if bounding sphere intersects with this frustum, false otherwise
      */
-    bool intersectsSphere(const BoundingSphere &sphere) const;
+    bool intersectsSphere(const Sphere3f &sphere) const;
 };
 
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT

@@ -240,6 +240,19 @@ operator-(const Plane3<T> &plane) IMATH_NOEXCEPT {
     return Plane3<T>(-plane.normal, -plane.distance);
 }
 
+/**
+ * Normalize the normal vector of the specified plane.
+ * @param p - The specified plane
+ * @return out - A normalized version of the specified plane
+ */
+template<class T>
+IMATH_CONSTEXPR14 Plane3<T> normalize(const Plane3<T> &p) {
+    const auto &normal = p.normal;
+    const auto factor = 1.0 / normal.length();
+    
+    return Plane3<T>(Vec3<T>(normal.x * factor, normal.y * factor, normal.z * factor), p.distance * factor);
+}
+
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #endif // INCLUDED_IMATHPLANE_H

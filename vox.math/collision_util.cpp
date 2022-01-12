@@ -6,18 +6,16 @@
 //
 
 #include "collision_util.h"
-#include "bounding_frustum.h"
-#include "bounding_sphere.h"
 #include "ray.h"
 
 IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 
-float distancePlaneAndPoint(const Plane &plane, const Float3 &point) {
-    return Dot(plane.normal, point) + plane.distance;
+float distancePlaneAndPoint(const Plane3f &plane, const V3f &point) {
+    return plane.normal.dot(point) + plane.distance;
 }
 
-PlaneIntersectionType intersectsPlaneAndPoint(const Plane &plane, const Float3 &point) {
-    const auto distance = collision_util::distancePlaneAndPoint(plane, point);
+PlaneIntersectionType intersectsPlaneAndPoint(const Plane3f &plane, const V3f &point) {
+    const auto distance = distancePlaneAndPoint(plane, point);
     if (distance > 0) {
         return PlaneIntersectionType::Front;
     }
@@ -27,12 +25,12 @@ PlaneIntersectionType intersectsPlaneAndPoint(const Plane &plane, const Float3 &
     return PlaneIntersectionType::Intersecting;
 }
 
-PlaneIntersectionType intersectsPlaneAndBox(const Plane &plane, const BoundingBox &box) {
-    const auto &min = box.min;
-    const auto &max = box.max;
+PlaneIntersectionType intersectsPlaneAndBox(const Plane3f &plane, const BoundingBox3f &box) {
+    const auto &min = box.lowerCorner;
+    const auto &max = box.upperCorner;
     const auto &normal = plane.normal;
-    Float3 front;
-    Float3 back;
+    V3f front;
+    V3f back;
     
     if (normal.x >= 0) {
         front.x = max.x;
@@ -56,21 +54,21 @@ PlaneIntersectionType intersectsPlaneAndBox(const Plane &plane, const BoundingBo
         back.z = max.z;
     }
     
-    if (collision_util::distancePlaneAndPoint(plane, front) < 0) {
+    if (distancePlaneAndPoint(plane, front) < 0) {
         return PlaneIntersectionType::Back;
     }
     
-    if (collision_util::distancePlaneAndPoint(plane, back) > 0) {
+    if (distancePlaneAndPoint(plane, back) > 0) {
         return PlaneIntersectionType::Front;
     }
     
     return PlaneIntersectionType::Intersecting;
 }
 
-PlaneIntersectionType intersectsPlaneAndSphere(const Plane &plane, const BoundingSphere &sphere) {
+PlaneIntersectionType intersectsPlaneAndSphere(const Plane3f &plane, const Sphere3f &sphere) {
     const auto &center = sphere.center;
     const auto &radius = sphere.radius;
-    const auto distance = collision_util::distancePlaneAndPoint(plane, center);
+    const auto distance = distancePlaneAndPoint(plane, center);
     if (distance > radius) {
         return PlaneIntersectionType::Front;
     }
@@ -80,20 +78,20 @@ PlaneIntersectionType intersectsPlaneAndSphere(const Plane &plane, const Boundin
     return PlaneIntersectionType::Intersecting;
 }
 
-float intersectsRayAndPlane(const Ray &ray, const Plane &plane) {
+float intersectsRayAndPlane(const Ray3f &ray, const Plane3f &plane) {
     const auto &normal = plane.normal;
     
-    const auto dir = Dot(normal, ray.direction);
+    const auto dir = normal.dot(ray.direction);
     // Parallel
-    if (std::abs(dir) < kNormalizationToleranceSq) {
+    if (std::abs(dir) < kEpsilonF) {
         return -1;
     }
     
-    const auto position = Dot(normal, ray.origin);
+    const auto position = normal.dot(ray.origin);
     auto distance = (-plane.distance - position) / dir;
     
     if (distance < 0) {
-        if (distance < -kNormalizationToleranceSq) {
+        if (distance < -kEpsilonF) {
             return -1;
         }
         
@@ -103,11 +101,11 @@ float intersectsRayAndPlane(const Ray &ray, const Plane &plane) {
     return distance;
 }
 
-float intersectsRayAndBox(const Ray &ray, const BoundingBox &box) {
+float intersectsRayAndBox(const Ray3f &ray, const BoundingBox3f &box) {
     const auto &origin = ray.origin;
     const auto &direction = ray.direction;
-    const auto &min = box.min;
-    const auto &max = box.max;
+    const auto &min = box.lowerCorner;
+    const auto &max = box.upperCorner;
     const auto &dirX = direction.x;
     const auto &dirY = direction.y;
     const auto &dirZ = direction.z;
@@ -117,7 +115,7 @@ float intersectsRayAndBox(const Ray &ray, const BoundingBox &box) {
     float distance = 0;
     float tmax = std::numeric_limits<float>::max();
     
-    if (std::abs(dirX) < kNormalizationToleranceSq) {
+    if (std::abs(dirX) < kEpsilonF) {
         if (oriX < min.x || oriX > max.x) {
             return -1;
         }
@@ -140,7 +138,7 @@ float intersectsRayAndBox(const Ray &ray, const BoundingBox &box) {
         }
     }
     
-    if (std::abs(dirY) < kNormalizationToleranceSq) {
+    if (std::abs(dirY) < kEpsilonF) {
         if (oriY < min.y || oriY > max.y) {
             return -1;
         }
@@ -163,7 +161,7 @@ float intersectsRayAndBox(const Ray &ray, const BoundingBox &box) {
         }
     }
     
-    if (std::abs(dirZ) < kNormalizationToleranceSq) {
+    if (std::abs(dirZ) < kEpsilonF) {
         if (oriZ < min.z || oriZ > max.z) {
             return -1;
         }
@@ -189,15 +187,15 @@ float intersectsRayAndBox(const Ray &ray, const BoundingBox &box) {
     return distance;
 }
 
-float intersectsRayAndSphere(const Ray &ray, const BoundingSphere &sphere) {
+float intersectsRayAndSphere(const Ray3f &ray, const Sphere3f &sphere) {
     const auto &origin = ray.origin;
     const auto &direction = ray.direction;
     const auto &center = sphere.center;
     const auto &radius = sphere.radius;
     
-    Float3 m = origin - center;
-    const auto b = Dot(m, direction);
-    const auto c = Dot(m, m) - radius * radius;
+    V3f m = origin - center;
+    const auto b = m.dot(direction);
+    const auto c = m.length2() - radius * radius;
     
     if (b > 0 && c > 0) {
         return -1;
@@ -216,40 +214,40 @@ float intersectsRayAndSphere(const Ray &ray, const BoundingSphere &sphere) {
     return distance;
 }
 
-bool intersectsBoxAndBox(const BoundingBox &boxA, const BoundingBox &boxB) {
-    if (boxA.min.x > boxB.max.x || boxB.min.x > boxA.max.x) {
+bool intersectsBoxAndBox(const BoundingBox3f &boxA, const BoundingBox3f &boxB) {
+    if (boxA.lowerCorner.x > boxB.upperCorner.x || boxB.lowerCorner.x > boxA.upperCorner.x) {
         return false;
     }
     
-    if (boxA.min.y > boxB.max.y || boxB.min.y > boxA.max.y) {
+    if (boxA.lowerCorner.y > boxB.upperCorner.y || boxB.lowerCorner.y > boxA.upperCorner.y) {
         return false;
     }
     
-    return !(boxA.min.z > boxB.max.z || boxB.min.z > boxA.max.z);
+    return !(boxA.lowerCorner.z > boxB.upperCorner.z || boxB.lowerCorner.z > boxA.upperCorner.z);
 }
 
-bool intersectsSphereAndSphere(const BoundingSphere &sphereA, const BoundingSphere &sphereB) {
+bool intersectsSphereAndSphere(const Sphere3f &sphereA, const Sphere3f &sphereB) {
     const auto radiisum = sphereA.radius + sphereB.radius;
-    return LengthSqr(sphereA.center - sphereB.center) < radiisum * radiisum;
+    return (sphereA.center - sphereB.center).length2() < radiisum * radiisum;
 }
 
-bool intersectsSphereAndBox(const BoundingSphere &sphere, const BoundingBox &box) {
+bool intersectsSphereAndBox(const Sphere3f &sphere, const BoundingBox3f &box) {
     const auto &center = sphere.center;
-    const auto &max = box.max;
-    const auto &min = box.min;
+    const auto &max = box.upperCorner;
+    const auto &min = box.lowerCorner;
     
-    Float3 closestPoint = Float3(std::max(min.x, std::min(center.x, max.x)),
-                                 std::max(min.y, std::min(center.y, max.y)),
-                                 std::max(min.z, std::min(center.z, max.z)));
+    V3f closestPoint = V3f(std::max(min.x, std::min(center.x, max.x)),
+                           std::max(min.y, std::min(center.y, max.y)),
+                           std::max(min.z, std::min(center.z, max.z)));
     
-    const auto distance = LengthSqr(center - closestPoint);
+    const auto distance = (center - closestPoint).length2();
     return distance <= sphere.radius * sphere.radius;
 }
 
-bool intersectsFrustumAndBox(const BoundingFrustum &frustum, const BoundingBox &box) {
-    const auto &min = box.min;
-    const auto &max = box.max;
-    Float3 back;
+bool intersectsFrustumAndBox(const BoundingFrustum &frustum, const BoundingBox3f &box) {
+    const auto &min = box.lowerCorner;
+    const auto &max = box.upperCorner;
+    V3f back;
     
     for (int i = 0; i < 6; ++i) {
         const auto plane = frustum.getPlane(i);
@@ -258,7 +256,7 @@ bool intersectsFrustumAndBox(const BoundingFrustum &frustum, const BoundingBox &
         back.x = normal.x >= 0 ? min.x : max.x;
         back.y = normal.y >= 0 ? min.y : max.y;
         back.z = normal.z >= 0 ? min.z : max.z;
-        if (Dot(plane.normal, back) > -plane.distance) {
+        if (plane.normal.dot(back) > -plane.distance) {
             return false;
         }
     }
@@ -266,11 +264,11 @@ bool intersectsFrustumAndBox(const BoundingFrustum &frustum, const BoundingBox &
     return true;
 }
 
-ContainmentType frustumContainsBox(const BoundingFrustum &frustum, const BoundingBox &box) {
-    const auto &min = box.min;
-    const auto &max = box.max;
-    Float3 front;
-    Float3 back;
+ContainmentType frustumContainsBox(const BoundingFrustum &frustum, const BoundingBox3f &box) {
+    const auto &min = box.lowerCorner;
+    const auto &max = box.upperCorner;
+    V3f front;
+    V3f back;
     auto result = ContainmentType::Contains;
     
     for (int i = 0; i < 6; ++i) {
@@ -299,11 +297,11 @@ ContainmentType frustumContainsBox(const BoundingFrustum &frustum, const Boundin
             back.z = max.z;
         }
         
-        if (collision_util::intersectsPlaneAndPoint(plane, back) == PlaneIntersectionType::Front) {
+        if (intersectsPlaneAndPoint(plane, back) == PlaneIntersectionType::Front) {
             return ContainmentType::Disjoint;
         }
         
-        if (collision_util::intersectsPlaneAndPoint(plane, front) == PlaneIntersectionType::Front) {
+        if (intersectsPlaneAndPoint(plane, front) == PlaneIntersectionType::Front) {
             result = ContainmentType::Intersects;
         }
     }
@@ -311,12 +309,12 @@ ContainmentType frustumContainsBox(const BoundingFrustum &frustum, const Boundin
     return result;
 }
 
-ContainmentType frustumContainsSphere(const BoundingFrustum &frustum, const BoundingSphere &sphere) {
+ContainmentType frustumContainsSphere(const BoundingFrustum &frustum, const Sphere3f &sphere) {
     auto result = ContainmentType::Contains;
     
     for (int i = 0; i < 6; ++i) {
         const auto plane = frustum.getPlane(i);
-        const auto intersectionType = collision_util::intersectsPlaneAndSphere(plane, sphere);
+        const auto intersectionType = intersectsPlaneAndSphere(plane, sphere);
         if (intersectionType == PlaneIntersectionType::Front) {
             return ContainmentType::Disjoint;
         } else if (intersectionType == PlaneIntersectionType::Intersecting) {
