@@ -9,6 +9,7 @@
 #define metal_application_hpp
 
 #include "application.h"
+#include "core/CPPMetalDevice.hpp"
 
 namespace vox {
 /**
@@ -125,16 +126,11 @@ public:
     bool has_scene();
     
 protected:
-//    /**
-//     * @brief The Vulkan instance
-//     */
-//    std::unique_ptr<Instance> instance{nullptr};
-//
-//    /**
-//     * @brief The Vulkan device
-//     */
-//    std::unique_ptr<Device> device{nullptr};
-//
+    /**
+     * @brief The Vulkan device
+     */
+    std::unique_ptr<MTL::Device> device{nullptr};
+
 //    /**
 //     * @brief Context used for rendering, it is responsible for managing the frames and their underlying images
 //     */
