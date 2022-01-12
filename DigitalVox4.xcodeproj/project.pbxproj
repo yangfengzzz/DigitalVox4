@@ -182,6 +182,8 @@
 		044592B3278EBEE600F04CE0 /* shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B1278EBEE600F04CE0 /* shader.h */; };
 		044592B6278EBFC600F04CE0 /* shader_program.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B4278EBFC600F04CE0 /* shader_program.h */; };
 		044592B7278EBFC600F04CE0 /* shader_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B5278EBFC600F04CE0 /* shader_program.cpp */; };
+		044592BA278EC19E00F04CE0 /* stencil_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B8278EC19E00F04CE0 /* stencil_state.cpp */; };
+		044592BB278EC19E00F04CE0 /* stencil_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B9278EC19E00F04CE0 /* stencil_state.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -426,6 +428,8 @@
 		044592B1278EBEE600F04CE0 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
 		044592B4278EBFC600F04CE0 /* shader_program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_program.h; sourceTree = "<group>"; };
 		044592B5278EBFC600F04CE0 /* shader_program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_program.cpp; sourceTree = "<group>"; };
+		044592B8278EC19E00F04CE0 /* stencil_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stencil_state.cpp; sourceTree = "<group>"; };
+		044592B9278EC19E00F04CE0 /* stencil_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stencil_state.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -781,6 +785,8 @@
 		04459290278EB29100F04CE0 /* state */ = {
 			isa = PBXGroup;
 			children = (
+				044592B9278EC19E00F04CE0 /* stencil_state.h */,
+				044592B8278EC19E00F04CE0 /* stencil_state.cpp */,
 			);
 			path = state;
 			sourceTree = "<group>";
@@ -844,6 +850,7 @@
 				0445922D278E5F1100F04CE0 /* application.h in Headers */,
 				042295A6278C32FB0090983F /* CPPMetalConstants.hpp in Headers */,
 				042295A7278C32FB0090983F /* CPPMetalDepthStencil.hpp in Headers */,
+				044592BB278EC19E00F04CE0 /* stencil_state.h in Headers */,
 				0445927F278E80DD00F04CE0 /* layer.h in Headers */,
 				04229592278C32FB0090983F /* CPPMetalTexture.hpp in Headers */,
 				042295B3278C32FB0090983F /* CPPMetalRenderCommandEncoder.hpp in Headers */,
@@ -1057,6 +1064,7 @@
 				04459289278E84DE00F04CE0 /* transform.cpp in Sources */,
 				0422959A278C32FB0090983F /* CPPMetalResource.mm in Sources */,
 				04459203278E591A00F04CE0 /* imgui_draw.cpp in Sources */,
+				044592BA278EC19E00F04CE0 /* stencil_state.cpp in Sources */,
 				044592A3278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm in Sources */,
 				042295AD278C32FB0090983F /* CPPMetalLibrary.mm in Sources */,
 				044592A5278EB92800F04CE0 /* shader_macro_collection.cpp in Sources */,

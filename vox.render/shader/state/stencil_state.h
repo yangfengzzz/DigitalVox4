@@ -8,11 +8,10 @@
 #ifndef stencil_state_hpp
 #define stencil_state_hpp
 
-#include <Metal/Metal.h>
+#include "core/CPPMetalDepthStencil.hpp"
+#include "core/CPPMetalRenderCommandEncoder.hpp"
 
 namespace vox {
-class MetalRenderer;
-
 /**
  * Stencil state.
  */
@@ -26,34 +25,34 @@ struct StencilState {
     /** Specifying a bit mask to enable or disable writing of individual bits in the stencil planes. */
     uint32_t writeMask = 0xff;
     /** The comparison function of the reference value of the front face of the geometry and the current buffer storage value. */
-    MTLCompareFunction compareFunctionFront = MTLCompareFunctionAlways;
+    MTL::CompareFunction compareFunctionFront = MTL::CompareFunctionAlways;
     /** The comparison function of the reference value of the back of the geometry and the current buffer storage value. */
-    MTLCompareFunction compareFunctionBack = MTLCompareFunctionAlways;
+    MTL::CompareFunction compareFunctionBack = MTL::CompareFunctionAlways;
     /** specifying the function to use for front face when both the stencil test and the depth test pass. */
-    MTLStencilOperation passOperationFront = MTLStencilOperationKeep;
+    MTL::StencilOperation passOperationFront = MTL::StencilOperationKeep;
     /** specifying the function to use for back face when both the stencil test and the depth test pass. */
-    MTLStencilOperation passOperationBack = MTLStencilOperationKeep;
+    MTL::StencilOperation passOperationBack = MTL::StencilOperationKeep;
     /** specifying the function to use for front face when the stencil test fails. */
-    MTLStencilOperation failOperationFront = MTLStencilOperationKeep;
+    MTL::StencilOperation failOperationFront = MTL::StencilOperationKeep;
     /** specifying the function to use for back face when the stencil test fails. */
-    MTLStencilOperation failOperationBack = MTLStencilOperationKeep;
+    MTL::StencilOperation failOperationBack = MTL::StencilOperationKeep;
     /** specifying the function to use for front face when the stencil test passes, but the depth test fails. */
-    MTLStencilOperation zFailOperationFront = MTLStencilOperationKeep;
+    MTL::StencilOperation zFailOperationFront = MTL::StencilOperationKeep;
     /** specifying the function to use for back face when the stencil test passes, but the depth test fails. */
-    MTLStencilOperation zFailOperationBack = MTLStencilOperationKeep;
+    MTL::StencilOperation zFailOperationBack = MTL::StencilOperationKeep;
     
 private:
     friend class RenderState;
     
-    void _apply(MTLRenderPipelineDescriptor *pipelineDescriptor,
-                MTLDepthStencilDescriptor *depthStencilDescriptor,
-                MetalRenderer *hardwareRenderer) {
-        _platformApply(pipelineDescriptor, depthStencilDescriptor, hardwareRenderer);
+    void _apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+                MTL::DepthStencilDescriptor &depthStencilDescriptor,
+                MTL::RenderCommandEncoder &encoder) {
+        _platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void _platformApply(MTLRenderPipelineDescriptor *pipelineDescriptor,
-                        MTLDepthStencilDescriptor *depthStencilDescriptor,
-                        MetalRenderer *hardwareRenderer);
+    void _platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+                        MTL::DepthStencilDescriptor &depthStencilDescriptor,
+                        MTL::RenderCommandEncoder &encoder);
 };
 
 }
