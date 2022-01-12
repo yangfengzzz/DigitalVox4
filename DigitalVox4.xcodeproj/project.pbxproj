@@ -111,6 +111,13 @@
 		044591C1278DD2D200F04CE0 /* libvox.math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422969F278DAE4E0090983F /* libvox.math.a */; };
 		044591C2278DD2F000F04CE0 /* surface2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229694278D71760090983F /* surface2.cpp */; };
 		044591C3278DD39B00F04CE0 /* surface3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229695278D71760090983F /* surface3.cpp */; };
+		044591C9278E551100F04CE0 /* allocator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 044591C6278E551100F04CE0 /* allocator.cc */; };
+		044591CA278E551100F04CE0 /* allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591C7278E551100F04CE0 /* allocator.h */; };
+		044591CB278E551100F04CE0 /* unique_ptr.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591C8278E551100F04CE0 /* unique_ptr.h */; };
+		044591EE278E557C00F04CE0 /* platform.cc in Sources */ = {isa = PBXBuildFile; fileRef = 044591EA278E557C00F04CE0 /* platform.cc */; };
+		044591EF278E557C00F04CE0 /* log.cc in Sources */ = {isa = PBXBuildFile; fileRef = 044591EB278E557C00F04CE0 /* log.cc */; };
+		044591F0278E557C00F04CE0 /* log.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591EC278E557C00F04CE0 /* log.h */; };
+		044591F1278E557C00F04CE0 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591ED278E557C00F04CE0 /* platform.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,6 +271,25 @@
 		042296D1278DAE7B0090983F /* ImathEuler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathEuler.h; sourceTree = "<group>"; };
 		042296D2278DAE7B0090983F /* ImathMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathMatrix.h; sourceTree = "<group>"; };
 		042296FC278DAEB40090983F /* ImathConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathConfig.h; sourceTree = "<group>"; };
+		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
+		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
+		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
+		044591CC278E551E00F04CE0 /* unordered_set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unordered_set.h; sourceTree = "<group>"; };
+		044591CD278E551E00F04CE0 /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
+		044591CE278E551E00F04CE0 /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
+		044591D0278E551E00F04CE0 /* deque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deque.h; sourceTree = "<group>"; };
+		044591D1278E551E00F04CE0 /* set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = set.h; sourceTree = "<group>"; };
+		044591D2278E551E00F04CE0 /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
+		044591D4278E551E00F04CE0 /* std_allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = std_allocator.h; sourceTree = "<group>"; };
+		044591D5278E551E00F04CE0 /* queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
+		044591D6278E551E00F04CE0 /* intrusive_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = intrusive_list.h; sourceTree = "<group>"; };
+		044591D7278E551E00F04CE0 /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		044591D8278E551E00F04CE0 /* unordered_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unordered_map.h; sourceTree = "<group>"; };
+		044591D9278E551E00F04CE0 /* string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string.h; sourceTree = "<group>"; };
+		044591EA278E557C00F04CE0 /* platform.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cc; sourceTree = "<group>"; };
+		044591EB278E557C00F04CE0 /* log.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = log.cc; sourceTree = "<group>"; };
+		044591EC278E557C00F04CE0 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
+		044591ED278E557C00F04CE0 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,7 +351,13 @@
 		04229551278C30840090983F /* vox.render */ = {
 			isa = PBXGroup;
 			children = (
+				044591ED278E557C00F04CE0 /* platform.h */,
+				044591EA278E557C00F04CE0 /* platform.cc */,
+				044591EC278E557C00F04CE0 /* log.h */,
+				044591EB278E557C00F04CE0 /* log.cc */,
 				0422955D278C31DC0090983F /* core */,
+				044591C4278E54D500F04CE0 /* memory */,
+				044591C5278E54DF00F04CE0 /* containers */,
 			);
 			path = vox.render;
 			sourceTree = "<group>";
@@ -490,6 +522,35 @@
 			path = vox.math;
 			sourceTree = "<group>";
 		};
+		044591C4278E54D500F04CE0 /* memory */ = {
+			isa = PBXGroup;
+			children = (
+				044591C7278E551100F04CE0 /* allocator.h */,
+				044591C6278E551100F04CE0 /* allocator.cc */,
+				044591C8278E551100F04CE0 /* unique_ptr.h */,
+			);
+			path = memory;
+			sourceTree = "<group>";
+		};
+		044591C5278E54DF00F04CE0 /* containers */ = {
+			isa = PBXGroup;
+			children = (
+				044591D4278E551E00F04CE0 /* std_allocator.h */,
+				044591CD278E551E00F04CE0 /* vector.h */,
+				044591D0278E551E00F04CE0 /* deque.h */,
+				044591D6278E551E00F04CE0 /* intrusive_list.h */,
+				044591D2278E551E00F04CE0 /* list.h */,
+				044591CE278E551E00F04CE0 /* map.h */,
+				044591D5278E551E00F04CE0 /* queue.h */,
+				044591D1278E551E00F04CE0 /* set.h */,
+				044591D7278E551E00F04CE0 /* stack.h */,
+				044591D9278E551E00F04CE0 /* string.h */,
+				044591CC278E551E00F04CE0 /* unordered_set.h */,
+				044591D8278E551E00F04CE0 /* unordered_map.h */,
+			);
+			path = containers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -505,16 +566,20 @@
 				0422959B278C32FB0090983F /* CPPMetalKitTextureLoader.hpp in Headers */,
 				042295A0278C32FB0090983F /* CPPMetalRenderPipeline.hpp in Headers */,
 				042295BA278C33090090983F /* CPPMetalInternalMacros.h in Headers */,
+				044591F0278E557C00F04CE0 /* log.h in Headers */,
 				04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
+				044591F1278E557C00F04CE0 /* platform.h in Headers */,
 				042295B8278C33090090983F /* CPPMetalDeviceInternals.h in Headers */,
 				042295A3278C32FB0090983F /* CPPMetalPixelFormat.hpp in Headers */,
 				042295A2278C32FB0090983F /* CPPMetalDevice.hpp in Headers */,
 				042295AC278C32FB0090983F /* CPPMetalRenderPass.hpp in Headers */,
 				042295B4278C32FB0090983F /* CPPMetalImplementation.hpp in Headers */,
+				044591CB278E551100F04CE0 /* unique_ptr.h in Headers */,
 				04229596278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.hpp in Headers */,
 				042295B1278C32FB0090983F /* CPPMetalCommandBuffer.hpp in Headers */,
 				042295A8278C32FB0090983F /* CPPMetalBuffer.hpp in Headers */,
+				044591CA278E551100F04CE0 /* allocator.h in Headers */,
 				04229593278C32FB0090983F /* CPPMetalDrawable.hpp in Headers */,
 				042295A6278C32FB0090983F /* CPPMetalConstants.hpp in Headers */,
 				042295A7278C32FB0090983F /* CPPMetalDepthStencil.hpp in Headers */,
@@ -706,6 +771,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0422958D278C32FB0090983F /* CPPMetalRenderPipeline.mm in Sources */,
+				044591EE278E557C00F04CE0 /* platform.cc in Sources */,
+				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
 				042295AE278C32FB0090983F /* CPPMetalKitTextureLoader.mm in Sources */,
 				042295A4278C32FB0090983F /* CPPMetalCommandQueue.mm in Sources */,
 				0422958E278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.mm in Sources */,
@@ -719,6 +786,7 @@
 				042295B0278C32FB0090983F /* CPPMetalDevice.mm in Sources */,
 				042295A9278C32FB0090983F /* CPPMetalRenderCommandEncoder.mm in Sources */,
 				04229595278C32FB0090983F /* CPPMetalPixelFormat.mm in Sources */,
+				044591EF278E557C00F04CE0 /* log.cc in Sources */,
 				04229594278C32FB0090983F /* CPPMetalDeviceInternals.mm in Sources */,
 				0422958A278C32FB0090983F /* CPPMetalDepthStencil.mm in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
