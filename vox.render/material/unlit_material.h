@@ -9,7 +9,7 @@
 #define unlit_material_hpp
 
 #include "base_material.h"
-#include "maths/vec_float.h"
+#include "ImathColor.h"
 
 namespace vox {
 /**
@@ -20,34 +20,33 @@ public:
     /**
      * Base color.
      */
-    math::Color baseColor();
+    Imath::Color4f baseColor();
     
-    void setBaseColor(const math::Color &newValue);
+    void setBaseColor(const Imath::Color4f &newValue);
     
     /**
      * Base texture.
      */
-    id <MTLTexture> baseTexture();
+    std::shared_ptr<MTL::Texture> baseTexture();
     
-    void setBaseTexture(id <MTLTexture> newValue);
+    void setBaseTexture(std::shared_ptr<MTL::Texture> newValue);
     
     /**
      * Tiling and offset of main textures.
      */
-    math::Float4 tilingOffset();
+    Imath::V4f tilingOffset();
     
-    void setTilingOffset(const math::Float4 &newValue);
+    void setTilingOffset(const Imath::V4f &newValue);
     
     /**
      * Create a unlit material instance.
-     * @param engine - Engine to which the material belongs
      */
-    explicit UnlitMaterial(Engine *engine);
+    explicit UnlitMaterial();
     
 private:
-    static ShaderProperty _baseColorProp;
-    static ShaderProperty _baseTextureProp;
-    static ShaderProperty _tilingOffsetProp;
+    ShaderProperty _baseColorProp;
+    ShaderProperty _baseTextureProp;
+    ShaderProperty _tilingOffsetProp;
 };
 
 }
