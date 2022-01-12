@@ -15,31 +15,26 @@
  * limitations under the License.
  */
 
-#include "headless_window.h"
+#pragma once
+
+#include "platform.h"
 
 namespace vox {
-HeadlessWindow::HeadlessWindow(const Window::Properties &properties) :
-Window(properties) {
-}
+enum UnixType {
+    Mac,
+    Linux
+};
 
-VkSurfaceKHR HeadlessWindow::create_surface(Instance &instance) {
-    return VK_NULL_HANDLE;
-}
-
-vk::SurfaceKHR HeadlessWindow::create_surface(vk::Instance, vk::PhysicalDevice) {
-    return nullptr;
-}
-
-bool HeadlessWindow::should_close() {
-    return closed;
-}
-
-void HeadlessWindow::close() {
-    closed = true;
-}
-
-float HeadlessWindow::get_dpi_factor() const {
-    // This factor is used for scaling UI elements, so return 1.0f (1 x n = n)
-    return 1.0f;
-}
+class UnixPlatform : public Platform {
+public:
+    UnixPlatform(const UnixType &type, int argc, char **argv);
+    
+    virtual ~UnixPlatform() = default;
+    
+protected:
+    virtual void create_window(const Window::Properties &properties) override;
+    
+private:
+    UnixType type;
+};
 }        // namespace vox
