@@ -306,6 +306,7 @@
 		044591FB278E591A00F04CE0 /* imstb_textedit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imstb_textedit.h; sourceTree = "<group>"; };
 		044591FC278E591A00F04CE0 /* imgui_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_internal.h; sourceTree = "<group>"; };
 		044591FD278E591A00F04CE0 /* imgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui.cpp; sourceTree = "<group>"; };
+		04459209278E5C8100F04CE0 /* helpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = helpers.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,6 +368,7 @@
 		04229551278C30840090983F /* vox.render */ = {
 			isa = PBXGroup;
 			children = (
+				04459209278E5C8100F04CE0 /* helpers.h */,
 				044591ED278E557C00F04CE0 /* platform.h */,
 				044591EA278E557C00F04CE0 /* platform.cc */,
 				0422955D278C31DC0090983F /* core */,
