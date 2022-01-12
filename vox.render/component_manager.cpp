@@ -21,7 +21,7 @@ std::unique_ptr<Component> ComponentManager::get_model(uint32_t index) {
 
 void ComponentManager::add_component(std::unique_ptr<Component> &&component) {
     if (component) {
-        components[component->get_type()].push_back(std::move(component));
+//        components[component->get_type()].push_back(std::move(component));
     }
 }
 

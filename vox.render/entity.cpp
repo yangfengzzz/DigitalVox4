@@ -55,15 +55,15 @@ const std::string &Entity::get_name() const {
 //    return children;
 //}
 
-void Entity::set_component(Component &component) {
-    auto it = components.find(component.get_type());
-    
-    if (it != components.end()) {
-        it->second = &component;
-    } else {
-        components.insert(std::make_pair(component.get_type(), &component));
-    }
-}
+//void Entity::set_component(Component &component) {
+//    auto it = components.find(component.get_type());
+//
+//    if (it != components.end()) {
+//        it->second = &component;
+//    } else {
+//        components.insert(std::make_pair(component.get_type(), &component));
+//    }
+//}
 
 Component &Entity::get_component(const std::type_index index) {
     return *components.at(index);

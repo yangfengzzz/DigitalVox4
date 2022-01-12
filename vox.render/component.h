@@ -25,10 +25,16 @@
 
 namespace vox {
 namespace sg {
-/// @brief A generic class which can be used by nodes.
+/**
+ * The base class of the components.
+ */
 class Component {
 public:
     explicit Component(Entity *entity);
+    
+    Component(Component &&other) = default;
+    
+    virtual ~Component() = default;
     
     /**
      * Indicates whether the component is enabled.
@@ -87,26 +93,6 @@ protected:
 private:
     bool _enabled = true;
     bool _awoken = false;
-    
-    
-    
-    
-    
-public:
-    Component() = default;
-    
-    Component(const std::string &name);
-    
-    Component(Component &&other) = default;
-    
-    virtual ~Component() = default;
-    
-    const std::string &get_name() const;
-    
-    virtual std::type_index get_type() = 0;
-    
-private:
-    std::string name;
 };
 }        // namespace sg
 }        // namespace vox
