@@ -204,6 +204,10 @@
 		044592E4278ED3D200F04CE0 /* unlit_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E2278ED3D200F04CE0 /* unlit_material.h */; };
 		044592E7278ED6AE00F04CE0 /* blinn_phong_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E5278ED6AE00F04CE0 /* blinn_phong_material.h */; };
 		044592E8278ED6AE00F04CE0 /* blinn_phong_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592E6278ED6AE00F04CE0 /* blinn_phong_material.cpp */; };
+		044592EB278ED82300F04CE0 /* pbr_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E9278ED82200F04CE0 /* pbr_material.h */; };
+		044592EC278ED82300F04CE0 /* pbr_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592EA278ED82300F04CE0 /* pbr_material.cpp */; };
+		044592EF278ED88400F04CE0 /* pbr_base_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592ED278ED88400F04CE0 /* pbr_base_material.h */; };
+		044592F0278ED88400F04CE0 /* pbr_base_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592EE278ED88400F04CE0 /* pbr_base_material.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -470,6 +474,10 @@
 		044592E2278ED3D200F04CE0 /* unlit_material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unlit_material.h; sourceTree = "<group>"; };
 		044592E5278ED6AE00F04CE0 /* blinn_phong_material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blinn_phong_material.h; sourceTree = "<group>"; };
 		044592E6278ED6AE00F04CE0 /* blinn_phong_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = blinn_phong_material.cpp; sourceTree = "<group>"; };
+		044592E9278ED82200F04CE0 /* pbr_material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbr_material.h; sourceTree = "<group>"; };
+		044592EA278ED82300F04CE0 /* pbr_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pbr_material.cpp; sourceTree = "<group>"; };
+		044592ED278ED88400F04CE0 /* pbr_base_material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbr_base_material.h; sourceTree = "<group>"; };
+		044592EE278ED88400F04CE0 /* pbr_base_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pbr_base_material.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -853,6 +861,10 @@
 				044592E1278ED3D200F04CE0 /* unlit_material.cpp */,
 				044592E5278ED6AE00F04CE0 /* blinn_phong_material.h */,
 				044592E6278ED6AE00F04CE0 /* blinn_phong_material.cpp */,
+				044592ED278ED88400F04CE0 /* pbr_base_material.h */,
+				044592EE278ED88400F04CE0 /* pbr_base_material.cpp */,
+				044592E9278ED82200F04CE0 /* pbr_material.h */,
+				044592EA278ED82300F04CE0 /* pbr_material.cpp */,
 			);
 			path = material;
 			sourceTree = "<group>";
@@ -895,7 +907,9 @@
 				0445928E278EA37D00F04CE0 /* script.h in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
 				04459225278E5F1100F04CE0 /* configuration.h in Headers */,
+				044592EF278ED88400F04CE0 /* pbr_base_material.h in Headers */,
 				044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */,
+				044592EB278ED82300F04CE0 /* pbr_material.h in Headers */,
 				044591FF278E591A00F04CE0 /* imconfig.h in Headers */,
 				0445929F278EB45200F04CE0 /* CPPMetalDataType.hpp in Headers */,
 				044592B3278EBEE600F04CE0 /* shader.h in Headers */,
@@ -1166,6 +1180,7 @@
 				04459258278E708A00F04CE0 /* unix_engine.cpp in Sources */,
 				04459280278E80DD00F04CE0 /* updateFlag.cpp in Sources */,
 				04459200278E591A00F04CE0 /* imgui_widgets.cpp in Sources */,
+				044592F0278ED88400F04CE0 /* pbr_base_material.cpp in Sources */,
 				044592B7278EBFC600F04CE0 /* shader_program.cpp in Sources */,
 				0445924C278E63FF00F04CE0 /* filesystem.cpp in Sources */,
 				042295B0278C32FB0090983F /* CPPMetalDevice.mm in Sources */,
@@ -1176,6 +1191,7 @@
 				0445925C278E7C8600F04CE0 /* metal_application.cpp in Sources */,
 				0445923C278E61D200F04CE0 /* debug_info.cpp in Sources */,
 				04229594278C32FB0090983F /* CPPMetalDeviceInternals.mm in Sources */,
+				044592EC278ED82300F04CE0 /* pbr_material.cpp in Sources */,
 				0422958A278C32FB0090983F /* CPPMetalDepthStencil.mm in Sources */,
 				044592E0278ED17E00F04CE0 /* base_material.cpp in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,

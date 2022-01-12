@@ -9,7 +9,7 @@
 #define pbr_base_material_hpp
 
 #include "base_material.h"
-#include "maths/vec_float.h"
+#include "ImathColor.h"
 
 namespace vox {
 /**
@@ -20,23 +20,23 @@ public:
     /**
      * Base color.
      */
-    math::Color baseColor();
+    Imath::Color4f baseColor();
     
-    void setBaseColor(const math::Color &newValue);
+    void setBaseColor(const Imath::Color4f &newValue);
     
     /**
      * Base texture.
      */
-    id <MTLTexture> baseTexture();
+    std::shared_ptr<MTL::Texture> baseTexture();
     
-    void setBaseTexture(id <MTLTexture> newValue);
+    void setBaseTexture(std::shared_ptr<MTL::Texture> newValue);
     
     /**
      * Normal texture.
      */
-    id <MTLTexture> normalTexture();
+    std::shared_ptr<MTL::Texture> normalTexture();
     
-    void setNormalTexture(id <MTLTexture> newValue);
+    void setNormalTexture(std::shared_ptr<MTL::Texture> newValue);
     
     /**
      * Normal texture intensity.
@@ -48,23 +48,23 @@ public:
     /**
      * Emissive color.
      */
-    math::Color emissiveColor();
+    Imath::Color4f emissiveColor();
     
-    void setEmissiveColor(const math::Color &newValue);
+    void setEmissiveColor(const Imath::Color4f &newValue);
     
     /**
      * Emissive texture.
      */
-    id <MTLTexture> emissiveTexture();
+    std::shared_ptr<MTL::Texture> emissiveTexture();
     
-    void setEmissiveTexture(id <MTLTexture> newValue);
+    void setEmissiveTexture(std::shared_ptr<MTL::Texture> newValue);
     
     /**
      * Occlusion texture.
      */
-    id <MTLTexture> occlusionTexture();
+    std::shared_ptr<MTL::Texture> occlusionTexture();
     
-    void setOcclusionTexture(id <MTLTexture> newValue);
+    void setOcclusionTexture(std::shared_ptr<MTL::Texture> newValue);
     
     /**
      * Occlusion texture intensity.
@@ -76,29 +76,28 @@ public:
     /**
      * Tiling and offset of main textures.
      */
-    math::Float4 tilingOffset();
+    Imath::V4f tilingOffset();
     
-    void setTilingOffset(const math::Float4 &newValue);
+    void setTilingOffset(const Imath::V4f &newValue);
     
 protected:
     /**
      * Create a pbr base material instance.
-     * @param engine - Engine to which the material belongs
      */
-    explicit PBRBaseMaterial(Engine *engine);
+    explicit PBRBaseMaterial();
     
 private:
-    static ShaderProperty _tilingOffsetProp;
-    static ShaderProperty _normalTextureIntensityProp;
-    static ShaderProperty _occlusionTextureIntensityProp;
+    ShaderProperty _tilingOffsetProp;
+    ShaderProperty _normalTextureIntensityProp;
+    ShaderProperty _occlusionTextureIntensityProp;
     
-    static ShaderProperty _baseColorProp;
-    static ShaderProperty _emissiveColorProp;
+    ShaderProperty _baseColorProp;
+    ShaderProperty _emissiveColorProp;
     
-    static ShaderProperty _baseTextureProp;
-    static ShaderProperty _normalTextureProp;
-    static ShaderProperty _emissiveTextureProp;
-    static ShaderProperty _occlusionTextureProp;
+    ShaderProperty _baseTextureProp;
+    ShaderProperty _normalTextureProp;
+    ShaderProperty _emissiveTextureProp;
+    ShaderProperty _occlusionTextureProp;
 };
 
 }

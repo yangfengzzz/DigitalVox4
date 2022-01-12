@@ -34,20 +34,19 @@ public:
      * Roughness metallic texture.
      * @remarks G channel is roughness, B channel is metallic
      */
-    id <MTLTexture> metallicRoughnessTexture();
+    std::shared_ptr<MTL::Texture> metallicRoughnessTexture();
     
-    void setMetallicRoughnessTexture(id <MTLTexture> newValue);
+    void setMetallicRoughnessTexture(std::shared_ptr<MTL::Texture> newValue);
     
     /**
      * Create a pbr metallic-roughness workflow material instance.
-     * @param engine - Engine to which the material belongs
      */
-    explicit PBRMaterial(Engine *engine);
+    explicit PBRMaterial();
     
 private:
-    static ShaderProperty _metallicProp;
-    static ShaderProperty _roughnessProp;
-    static ShaderProperty _metallicRoughnessTextureProp;
+    ShaderProperty _metallicProp;
+    ShaderProperty _roughnessProp;
+    ShaderProperty _metallicRoughnessTextureProp;
 };
 
 }
