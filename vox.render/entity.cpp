@@ -37,23 +37,23 @@ const std::string &Entity::get_name() const {
     return name;
 }
 
-void Entity::set_parent(Entity &p) {
-    parent = &p;
-    
-//    transform.parent_change();    
-}
+//void Entity::set_parent(Entity &p) {
+//    parent = &p;
+//
+//    transform.parent_change();
+//}
 
-Entity *Entity::get_parent() const {
-    return parent;
-}
-
-void Entity::add_child(Entity &child) {
-    children.push_back(&child);
-}
-
-const std::vector<Entity *> &Entity::get_children() const {
-    return children;
-}
+//Entity *Entity::get_parent() const {
+//    return parent;
+//}
+//
+//void Entity::add_child(Entity &child) {
+//    children.push_back(&child);
+//}
+//
+//const std::vector<Entity *> &Entity::get_children() const {
+//    return children;
+//}
 
 void Entity::set_component(Component &component) {
     auto it = components.find(component.get_type());

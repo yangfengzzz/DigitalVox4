@@ -13,6 +13,7 @@
 #include "ImathVec.h"
 #include "ImathMatrix.h"
 #include "ImathQuat.h"
+#include "ImathEuler.h"
 
 namespace vox {
 namespace sg {
@@ -120,17 +121,17 @@ public:
      * Local matrix.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    M33f localMatrix();
+    M44f localMatrix();
     
-    void setLocalMatrix(const M33f &value);
+    void setLocalMatrix(const M44f &value);
     
     /**
      * World matrix.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    M33f worldMatrix();
+    M44f worldMatrix();
     
-    void setWorldMatrix(const M33f &value);
+    void setWorldMatrix(const M44f &value);
     
     /**
      * Set local position by X, Y, Z value.
@@ -316,8 +317,6 @@ private:
     
     Transform *_getParentTransform();
     
-    M33f _getScaleMatrix();
-    
     bool _isContainDirtyFlags(int targetDirtyFlags);
     
     bool _isContainDirtyFlag(int type);
@@ -334,16 +333,16 @@ private:
     
     void _rotateXYZ(float x, float y, float z, bool relativeToLocal = true);
     
-    V3f _position;
-    V3f _rotation;
+    V3f _position = V3f(0);
+    Eulerf _rotation = Eulerf();
     Quatf _rotationQuaternion;
     V3f _scale = V3f(1, 1, 1);
-    V3f _worldPosition;
-    V3f _worldRotation;
+    V3f _worldPosition = V3f(0);
+    Eulerf _worldRotation = Eulerf();
     Quatf _worldRotationQuaternion;
     V3f _lossyWorldScale = V3f(1, 1, 1);
-    M33f _localMatrix;
-    M33f _worldMatrix;
+    M44f _localMatrix;
+    M44f _worldMatrix;
     UpdateFlagManager _updateFlagManager;
     bool _isParentDirty = true;
     Transform *_parentTransformCache = nullptr;

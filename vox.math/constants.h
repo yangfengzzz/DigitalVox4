@@ -333,6 +333,10 @@ constexpr int kDirectionAll = kDirectionLeft | kDirectionRight |
 kDirectionDown | kDirectionUp | kDirectionBack |
 kDirectionFront;
 
+// Angle unit conversion constants.
+constexpr float kDegreeToRadian = kPiF / 180.f;
+constexpr float kRadianToDegree = 180.f / kPiF;
+
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #endif  // INCLUDE_JET_CONSTANTS_H_
