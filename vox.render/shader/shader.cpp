@@ -6,8 +6,7 @@
 //
 
 #include "shader.h"
-#include "log.h"
-#include "../engine.h"
+#include <glog/logging.h>
 
 namespace vox {
 std::unordered_map<std::string, std::unique_ptr<Shader>> Shader::_shaderMap = {};
@@ -15,32 +14,26 @@ std::unordered_map<std::string, ShaderProperty> Shader::_propertyNameMap = {};
 
 Shader::Shader(const std::string &name,
                const std::string &vertexSource,
-               const std::string &fragmentSource,
-               const std::string &deferredFragmentSource) :
+               const std::string &fragmentSource) :
 name(name),
 _vertexSource(vertexSource),
-_fragmentSource(fragmentSource),
-_deferredFragmentSource(deferredFragmentSource) {
+_fragmentSource(fragmentSource) {
 }
 
-ShaderProgram *Shader::findShaderProgram(Engine *engine, const ShaderMacroCollection &macroCollection, bool isDeferred) {
-    if (isDeferred) {
-        return engine->_hardwareRenderer.resouceCache.request_shader_module(_vertexSource, _deferredFragmentSource, macroCollection);
-    } else {
-        return engine->_hardwareRenderer.resouceCache.request_shader_module(_vertexSource, _fragmentSource, macroCollection);
-    }
+ShaderProgram *Shader::findShaderProgram(const ShaderMacroCollection &macroCollection) {
+    return nullptr;
+//    return engine->_hardwareRenderer.resouceCache.request_shader_module(_vertexSource, _fragmentSource, macroCollection);
 }
 
 Shader *Shader::create(const std::string &name,
                        const std::string &vertexSource,
-                       const std::string &fragmentSource,
-                       const std::string &deferredFragmentSource) {
+                       const std::string &fragmentSource) {
     auto iter = Shader::_shaderMap.find(name);
     
     if (iter != Shader::_shaderMap.end()) {
-        log::Err() << ("Shader named" + name + "already exists.") << std::endl;
+        LOG(ERROR) << ("Shader named" + name + "already exists.") << std::endl;
     }
-    auto shader = std::make_unique<Shader>(name, vertexSource, fragmentSource, deferredFragmentSource);
+    auto shader = std::make_unique<Shader>(name, vertexSource, fragmentSource);
     auto shaderPtr = shader.get();
     Shader::_shaderMap.insert(std::make_pair(name, std::move(shader)));
     return shaderPtr;
@@ -65,7 +58,7 @@ std::optional<ShaderProperty> Shader::getPropertyByName(const std::string &name)
     }
 }
 
-ShaderProperty Shader::createProperty(const std::string &name, ShaderDataGroup::Enum group) {
+ShaderProperty Shader::createProperty(const std::string &name, ShaderDataGroup group) {
     auto iter = Shader::_propertyNameMap.find(name);
     if (iter != Shader::_propertyNameMap.end()) {
         return iter->second;
@@ -76,7 +69,7 @@ ShaderProperty Shader::createProperty(const std::string &name, ShaderDataGroup::
     }
 }
 
-std::optional<ShaderDataGroup::Enum> Shader::getShaderPropertyGroup(const std::string &propertyName) {
+std::optional<ShaderDataGroup> Shader::getShaderPropertyGroup(const std::string &propertyName) {
     auto iter = Shader::_propertyNameMap.find(propertyName);
     if (iter != Shader::_propertyNameMap.end()) {
         return iter->second.group;

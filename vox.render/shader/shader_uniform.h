@@ -8,7 +8,6 @@
 #ifndef shader_uniform_hpp
 #define shader_uniform_hpp
 
-#include <Metal/Metal.h>
 #include <string>
 #include <vector>
 

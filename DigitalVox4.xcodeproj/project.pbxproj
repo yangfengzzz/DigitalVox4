@@ -175,6 +175,11 @@
 		044592A5278EB92800F04CE0 /* shader_macro_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */; };
 		044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592A6278EB9DF00F04CE0 /* shader_data.cpp */; };
 		044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592A7278EB9DF00F04CE0 /* shader_data.h */; };
+		044592AD278EBEB900F04CE0 /* shader_uniform.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592AA278EBEB900F04CE0 /* shader_uniform.h */; };
+		044592AE278EBEB900F04CE0 /* shader_property.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592AB278EBEB900F04CE0 /* shader_property.h */; };
+		044592AF278EBEB900F04CE0 /* shader_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592AC278EBEB900F04CE0 /* shader_property.cpp */; };
+		044592B2278EBEE600F04CE0 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B0278EBEE600F04CE0 /* shader.cpp */; };
+		044592B3278EBEE600F04CE0 /* shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B1278EBEE600F04CE0 /* shader.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -412,6 +417,11 @@
 		044592A2278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalFunctionConstantValues.hpp; sourceTree = "<group>"; };
 		044592A6278EB9DF00F04CE0 /* shader_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_data.cpp; sourceTree = "<group>"; };
 		044592A7278EB9DF00F04CE0 /* shader_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_data.h; sourceTree = "<group>"; };
+		044592AA278EBEB900F04CE0 /* shader_uniform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_uniform.h; sourceTree = "<group>"; };
+		044592AB278EBEB900F04CE0 /* shader_property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_property.h; sourceTree = "<group>"; };
+		044592AC278EBEB900F04CE0 /* shader_property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_property.cpp; sourceTree = "<group>"; };
+		044592B0278EBEE600F04CE0 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
+		044592B1278EBEE600F04CE0 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -746,12 +756,17 @@
 		0445928F278EB27F00F04CE0 /* shader */ = {
 			isa = PBXGroup;
 			children = (
+				044592B1278EBEE600F04CE0 /* shader.h */,
+				044592B0278EBEE600F04CE0 /* shader.cpp */,
+				044592AA278EBEB900F04CE0 /* shader_uniform.h */,
 				0445929B278EB31400F04CE0 /* macro_name.h */,
 				04459299278EB2F900F04CE0 /* shaderData_group.h */,
 				04459295278EB2EB00F04CE0 /* shader_macro_collection.h */,
 				04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */,
 				044592A7278EB9DF00F04CE0 /* shader_data.h */,
 				044592A6278EB9DF00F04CE0 /* shader_data.cpp */,
+				044592AB278EBEB900F04CE0 /* shader_property.h */,
+				044592AC278EBEB900F04CE0 /* shader_property.cpp */,
 				04459290278EB29100F04CE0 /* state */,
 			);
 			path = shader;
@@ -773,6 +788,7 @@
 			files = (
 				04229599278C32FB0090983F /* CPPMetalCommandQueue.hpp in Headers */,
 				0422959D278C32FB0090983F /* CPPMetalResourceEnum.hpp in Headers */,
+				044592AE278EBEB900F04CE0 /* shader_property.h in Headers */,
 				04459206278E591A00F04CE0 /* imstb_textedit.h in Headers */,
 				04459226278E5F1100F04CE0 /* window.h in Headers */,
 				04459251278E689D00F04CE0 /* CPPCAMetalLayer.hpp in Headers */,
@@ -793,6 +809,7 @@
 				044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */,
 				044591FF278E591A00F04CE0 /* imconfig.h in Headers */,
 				0445929F278EB45200F04CE0 /* CPPMetalDataType.hpp in Headers */,
+				044592B3278EBEE600F04CE0 /* shader.h in Headers */,
 				04459237278E5FD700F04CE0 /* debug_info.h in Headers */,
 				04459286278E80DD00F04CE0 /* scene_forward.h in Headers */,
 				044592A4278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp in Headers */,
@@ -800,6 +817,7 @@
 				0445922A278E5F1100F04CE0 /* engine.h in Headers */,
 				042295B8278C33090090983F /* CPPMetalDeviceInternals.h in Headers */,
 				042295A3278C32FB0090983F /* CPPMetalPixelFormat.hpp in Headers */,
+				044592AD278EBEB900F04CE0 /* shader_uniform.h in Headers */,
 				04459282278E80DD00F04CE0 /* component.h in Headers */,
 				042295A2278C32FB0090983F /* CPPMetalDevice.hpp in Headers */,
 				042295AC278C32FB0090983F /* CPPMetalRenderPass.hpp in Headers */,
@@ -1038,6 +1056,7 @@
 				04229590278C32FB0090983F /* CPPMetalCommandEncoder.mm in Sources */,
 				0445923A278E61B000F04CE0 /* input_events.cpp in Sources */,
 				042295A5278C32FB0090983F /* CPPMetalVertexDescriptor.mm in Sources */,
+				044592AF278EBEB900F04CE0 /* shader_property.cpp in Sources */,
 				0422958C278C32FB0090983F /* CPPMetalRenderPass.mm in Sources */,
 				04459258278E708A00F04CE0 /* unix_engine.cpp in Sources */,
 				04459280278E80DD00F04CE0 /* updateFlag.cpp in Sources */,
@@ -1057,6 +1076,7 @@
 				04459250278E689D00F04CE0 /* CPPCAMetalLayer.mm in Sources */,
 				04459239278E617500F04CE0 /* window.cpp in Sources */,
 				044591FE278E591A00F04CE0 /* imgui_tables.cpp in Sources */,
+				044592B2278EBEE600F04CE0 /* shader.cpp in Sources */,
 				04459284278E80DD00F04CE0 /* entity.cpp in Sources */,
 				04459281278E80DD00F04CE0 /* component.cpp in Sources */,
 				0445923B278E61C500F04CE0 /* configuration.cpp in Sources */,
