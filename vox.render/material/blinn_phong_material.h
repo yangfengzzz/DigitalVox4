@@ -9,7 +9,7 @@
 #define blinn_phong_material_hpp
 
 #include "base_material.h"
-#include "maths/vec_float.h"
+#include "ImathColor.h"
 
 namespace vox {
 /**
@@ -20,51 +20,51 @@ public:
     /**
      * Base color.
      */
-    math::Color baseColor();
+    Imath::Color4f baseColor();
     
-    void setBaseColor(const math::Color &newValue);
+    void setBaseColor(const Imath::Color4f &newValue);
     
     /**
      * Base texture.
      */
-    id <MTLTexture> baseTexture();
+    std::shared_ptr<MTL::Texture> baseTexture();
     
-    void setBaseTexture(id <MTLTexture> newValue);
+    void setBaseTexture(std::shared_ptr<MTL::Texture> newValue);
     
     /**
      * Specular color.
      */
-    math::Color specularColor();
+    Imath::Color4f specularColor();
     
-    void setSpecularColor(const math::Color &newValue);
+    void setSpecularColor(const Imath::Color4f &newValue);
     
     /**
      * Specular texture.
      */
-    id <MTLTexture> specularTexture();
+    std::shared_ptr<MTL::Texture> specularTexture();
     
-    void setSpecularTexture(id <MTLTexture> newValue);
+    void setSpecularTexture(std::shared_ptr<MTL::Texture> newValue);
     
     /**
      * Emissive color.
      */
-    math::Color emissiveColor();
+    Imath::Color4f emissiveColor();
     
-    void setEmissiveColor(const math::Color &newValue);
+    void setEmissiveColor(const Imath::Color4f &newValue);
     
     /**
      * Emissive texture.
      */
-    id <MTLTexture> emissiveTexture();
+    std::shared_ptr<MTL::Texture> emissiveTexture();
     
-    void setEmissiveTexture(id <MTLTexture> newValue);
+    void setEmissiveTexture(std::shared_ptr<MTL::Texture> newValue);
     
     /**
      * Normal texture.
      */
-    id <MTLTexture> normalTexture();
+    std::shared_ptr<MTL::Texture> normalTexture();
     
-    void setNormalTexture(id <MTLTexture> newValue);
+    void setNormalTexture(std::shared_ptr<MTL::Texture> newValue);
     
     /**
      * Normal texture intensity.
@@ -83,24 +83,24 @@ public:
     /**
      * Tiling and offset of main textures.
      */
-    math::Float4 tilingOffset();
+    Imath::V4f tilingOffset();
     
-    void setTilingOffset(const math::Float4 &newValue);
+    void setTilingOffset(const Imath::V4f &newValue);
     
-    explicit BlinnPhongMaterial(Engine *engine);
+    explicit BlinnPhongMaterial();
     
 private:
-    static ShaderProperty _diffuseColorProp;
-    static ShaderProperty _specularColorProp;
-    static ShaderProperty _emissiveColorProp;
-    static ShaderProperty _tilingOffsetProp;
-    static ShaderProperty _shininessProp;
-    static ShaderProperty _normalIntensityProp;
+    ShaderProperty _diffuseColorProp;
+    ShaderProperty _specularColorProp;
+    ShaderProperty _emissiveColorProp;
+    ShaderProperty _tilingOffsetProp;
+    ShaderProperty _shininessProp;
+    ShaderProperty _normalIntensityProp;
     
-    static ShaderProperty _baseTextureProp;
-    static ShaderProperty _specularTextureProp;
-    static ShaderProperty _emissiveTextureProp;
-    static ShaderProperty _normalTextureProp;
+    ShaderProperty _baseTextureProp;
+    ShaderProperty _specularTextureProp;
+    ShaderProperty _emissiveTextureProp;
+    ShaderProperty _normalTextureProp;
 };
 
 

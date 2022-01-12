@@ -202,6 +202,8 @@
 		044592E0278ED17E00F04CE0 /* base_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592DE278ED17E00F04CE0 /* base_material.cpp */; };
 		044592E3278ED3D200F04CE0 /* unlit_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592E1278ED3D200F04CE0 /* unlit_material.cpp */; };
 		044592E4278ED3D200F04CE0 /* unlit_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E2278ED3D200F04CE0 /* unlit_material.h */; };
+		044592E7278ED6AE00F04CE0 /* blinn_phong_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E5278ED6AE00F04CE0 /* blinn_phong_material.h */; };
+		044592E8278ED6AE00F04CE0 /* blinn_phong_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592E6278ED6AE00F04CE0 /* blinn_phong_material.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -466,6 +468,8 @@
 		044592DE278ED17E00F04CE0 /* base_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base_material.cpp; sourceTree = "<group>"; };
 		044592E1278ED3D200F04CE0 /* unlit_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unlit_material.cpp; sourceTree = "<group>"; };
 		044592E2278ED3D200F04CE0 /* unlit_material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unlit_material.h; sourceTree = "<group>"; };
+		044592E5278ED6AE00F04CE0 /* blinn_phong_material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blinn_phong_material.h; sourceTree = "<group>"; };
+		044592E6278ED6AE00F04CE0 /* blinn_phong_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = blinn_phong_material.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -847,6 +851,8 @@
 				044592DE278ED17E00F04CE0 /* base_material.cpp */,
 				044592E2278ED3D200F04CE0 /* unlit_material.h */,
 				044592E1278ED3D200F04CE0 /* unlit_material.cpp */,
+				044592E5278ED6AE00F04CE0 /* blinn_phong_material.h */,
+				044592E6278ED6AE00F04CE0 /* blinn_phong_material.cpp */,
 			);
 			path = material;
 			sourceTree = "<group>";
@@ -893,6 +899,7 @@
 				044591FF278E591A00F04CE0 /* imconfig.h in Headers */,
 				0445929F278EB45200F04CE0 /* CPPMetalDataType.hpp in Headers */,
 				044592B3278EBEE600F04CE0 /* shader.h in Headers */,
+				044592E7278ED6AE00F04CE0 /* blinn_phong_material.h in Headers */,
 				04459237278E5FD700F04CE0 /* debug_info.h in Headers */,
 				04459286278E80DD00F04CE0 /* scene_forward.h in Headers */,
 				044592A4278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp in Headers */,
@@ -1174,6 +1181,7 @@
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
 				0422959C278C32FB0090983F /* CPPMetalBuffer.mm in Sources */,
 				04459250278E689D00F04CE0 /* CPPCAMetalLayer.mm in Sources */,
+				044592E8278ED6AE00F04CE0 /* blinn_phong_material.cpp in Sources */,
 				04459239278E617500F04CE0 /* window.cpp in Sources */,
 				044592C5278EC60E00F04CE0 /* depth_state.cpp in Sources */,
 				044591FE278E591A00F04CE0 /* imgui_tables.cpp in Sources */,
