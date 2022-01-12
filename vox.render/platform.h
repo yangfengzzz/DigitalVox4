@@ -73,11 +73,36 @@ public:
      */
     virtual void close();
     
+    virtual void resize(uint32_t width, uint32_t height);
+    
+    virtual void input_event(const InputEvent &input_event);
+    
+public:
+    void set_focus(bool focused);
+    
+    void force_simulation_fps(float fps);
+    
+    void disable_input_processing();
+    
+public:
+    Window &get_window() const;
+    
+    Application &get_app() const;
+    
+    Application &get_app();
+    
+    void set_app(std::unique_ptr<Application>&& active_app);
+    
+    bool start_app();
+    
+public:
     /**
      * @brief Returns the working directory of the application set by the platform
      * @returns The path to the working directory
      */
     static const std::string &get_external_storage_directory();
+    
+    static void set_external_storage_directory(const std::string &dir);
     
     /**
      * @brief Returns the suitable directory for temporary files from the environment variables set in the system
@@ -85,47 +110,11 @@ public:
      */
     static const std::string &get_temp_directory();
     
-    /**
-     * @return The VkInstance extension name for the platform
-     */
-    virtual const char *get_surface_extension() = 0;
-    
-//    virtual std::unique_ptr<RenderContext> create_render_context(Device &device, VkSurfaceKHR surface,
-//                                                                 const std::vector<VkSurfaceFormatKHR> &surface_format_priority) const;
-    
-    virtual void resize(uint32_t width, uint32_t height);
-    
-    virtual void input_event(const InputEvent &input_event);
-    
-    Window &get_window() const;
-    
-    Application &get_app() const;
-    
-    Application &get_app();
+    static void set_temp_directory(const std::string &dir);
     
     std::vector<std::string> &get_arguments();
     
     static void set_arguments(const std::vector<std::string> &args);
-    
-    static void set_external_storage_directory(const std::string &dir);
-    
-    static void set_temp_directory(const std::string &dir);
-    
-    template<class T>
-    T *get_plugin() const;
-    
-    template<class T>
-    bool using_plugin() const;
-    
-    void set_focus(bool focused);
-    
-    void set_app(std::unique_ptr<Application>&& active_app);
-    
-    bool start_app();
-    
-    void force_simulation_fps(float fps);
-    
-    void disable_input_processing();
     
     void set_window_properties(const Window::OptionalProperties &properties);
     
@@ -138,9 +127,7 @@ protected:
     std::unique_ptr<Window> window{nullptr};
     
     std::unique_ptr<Application> active_app{nullptr};
-    
-//    virtual std::vector<spdlog::sink_ptr> get_platform_sinks();
-    
+        
     /**
      * @brief Handles the creation of the window
      *
@@ -163,7 +150,6 @@ protected:
     float simulation_frame_time = 0.016f; /* A fabricated delta time */
     bool process_input_events{true};     /* App should continue processing input events */
     bool focused;                        /* App is currently in focus at an operating system level */
-    bool close_requested{false};         /* Close requested */
     
 private:
     Timer timer;

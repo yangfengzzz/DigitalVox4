@@ -38,13 +38,7 @@ std::string Platform::temp_directory = "";
 ExitCode Platform::initialize() {
     google::InitGoogleLogging("DigitalVox");
     
-    // Platform has been closed by a plugins initialization phase
-    if (close_requested) {
-        return ExitCode::Close;
-    }
-    
     create_window(window_properties);
-    
     if (!window) {
         LOG(ERROR) << "Window creation failed!";
         return ExitCode::FatalError;
@@ -64,7 +58,7 @@ ExitCode Platform::main_loop() {
     timer.tick<Timer::Seconds>();
     active_app->update(0.01667f);
     
-    while (!window->should_close() && !close_requested) {
+    while (!window->should_close()) {
         try {
             update();
             
@@ -96,36 +90,6 @@ void Platform::update() {
     }
 }
 
-//std::unique_ptr<RenderContext> Platform::create_render_context(Device &device, VkSurfaceKHR surface,
-//                                                               const std::vector<VkSurfaceFormatKHR> &surface_format_priority) const {
-//    assert(!surface_format_priority.empty() && "Surface format priority list must contain atleast one preffered surface format");
-//
-//    auto extent = window->get_extent();
-//    auto context = std::make_unique<RenderContext>(device, surface, extent.width, extent.height);
-//
-//    context->set_surface_format_priority(surface_format_priority);
-//
-//    context->request_image_format(surface_format_priority[0].format);
-//
-//    context->set_present_mode_priority({
-//        VK_PRESENT_MODE_MAILBOX_KHR,
-//        VK_PRESENT_MODE_FIFO_KHR,
-//        VK_PRESENT_MODE_IMMEDIATE_KHR,
-//    });
-//
-//    switch (window_properties.vsync) {
-//        case Window::Vsync::ON:
-//            context->request_present_mode(VK_PRESENT_MODE_FIFO_KHR);
-//            break;
-//        case Window::Vsync::OFF:
-//        default:
-//            context->request_present_mode(VK_PRESENT_MODE_MAILBOX_KHR);
-//            break;
-//    }
-//
-//    return context;
-//}
-
 void Platform::terminate(ExitCode code) {
     if (active_app) {
         std::string id = active_app->get_name();
@@ -137,7 +101,7 @@ void Platform::terminate(ExitCode code) {
     
     active_app.reset();
     window.reset();
-        
+    
     on_platform_close();
     
     // Halt on all unsuccessful exit codes unless ForceClose is in use
@@ -151,39 +115,37 @@ void Platform::close() {
     if (window) {
         window->close();
     }
+}
+
+void Platform::input_event(const InputEvent &input_event) {
+    if (process_input_events && active_app) {
+        active_app->input_event(input_event);
+    }
     
-    // Fallback incase a window is not yet in use
-    close_requested = true;
+    if (input_event.get_source() == EventSource::Keyboard) {
+        const auto &key_event = static_cast<const KeyInputEvent &>(input_event);
+        
+        if (key_event.get_code() == KeyCode::Back ||
+            key_event.get_code() == KeyCode::Escape) {
+            close();
+        }
+    }
 }
 
-void Platform::force_simulation_fps(float fps) {
-    fixed_simulation_fps = true;
-    simulation_frame_time = 1 / fps;
+void Platform::resize(uint32_t width, uint32_t height) {
+    auto extent = Window::Extent{std::max<uint32_t>(width, MIN_WINDOW_WIDTH), std::max<uint32_t>(height, MIN_WINDOW_HEIGHT)};
+    if (window) {
+        auto actual_extent = window->resize(extent);
+        
+        if (active_app) {
+            active_app->resize(actual_extent.width, actual_extent.height);
+        }
+    }
 }
 
-void Platform::disable_input_processing() {
-    process_input_events = false;
-}
-
-void Platform::set_focus(bool _focused) {
-    focused = _focused;
-}
-
-void Platform::set_window_properties(const Window::OptionalProperties &properties) {
-    window_properties.title = properties.title.has_value() ? properties.title.value() : window_properties.title;
-    window_properties.mode = properties.mode.has_value() ? properties.mode.value() : window_properties.mode;
-    window_properties.resizable = properties.resizable.has_value() ? properties.resizable.value() : window_properties.resizable;
-    window_properties.vsync = properties.vsync.has_value() ? properties.vsync.value() : window_properties.vsync;
-    window_properties.extent.width = properties.extent.width.has_value() ? properties.extent.width.value() : window_properties.extent.width;
-    window_properties.extent.height = properties.extent.height.has_value() ? properties.extent.height.value() : window_properties.extent.height;
-}
-
-const std::string &Platform::get_external_storage_directory() {
-    return external_storage_directory;
-}
-
-const std::string &Platform::get_temp_directory() {
-    return temp_directory;
+//MARK: - Application
+Window &Platform::get_window() const {
+    return *window;
 }
 
 Application &Platform::get_app() {
@@ -195,32 +157,6 @@ Application &Platform::get_app() const {
     assert(active_app && "Application is not valid");
     return *active_app;
 }
-
-Window &Platform::get_window() const {
-    return *window;
-}
-
-std::vector<std::string> &Platform::get_arguments() {
-    return Platform::arguments;
-}
-
-void Platform::set_arguments(const std::vector<std::string> &args) {
-    arguments = args;
-}
-
-void Platform::set_external_storage_directory(const std::string &dir) {
-    external_storage_directory = dir;
-}
-
-void Platform::set_temp_directory(const std::string &dir) {
-    temp_directory = dir;
-}
-
-//std::vector<spdlog::sink_ptr> Platform::get_platform_sinks() {
-//    std::vector<spdlog::sink_ptr> sinks;
-//    sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
-//    return sinks;
-//}
 
 void Platform::set_app(std::unique_ptr<Application>&& new_app) {
     if (active_app) {
@@ -253,30 +189,56 @@ bool Platform::start_app() {
     return true;
 }
 
-void Platform::input_event(const InputEvent &input_event) {
-    if (process_input_events && active_app) {
-        active_app->input_event(input_event);
-    }
-    
-    if (input_event.get_source() == EventSource::Keyboard) {
-        const auto &key_event = static_cast<const KeyInputEvent &>(input_event);
-        
-        if (key_event.get_code() == KeyCode::Back ||
-            key_event.get_code() == KeyCode::Escape) {
-            close();
-        }
-    }
+//MARK: - Controller
+void Platform::force_simulation_fps(float fps) {
+    fixed_simulation_fps = true;
+    simulation_frame_time = 1 / fps;
 }
 
-void Platform::resize(uint32_t width, uint32_t height) {
-    auto extent = Window::Extent{std::max<uint32_t>(width, MIN_WINDOW_WIDTH), std::max<uint32_t>(height, MIN_WINDOW_HEIGHT)};
-    if (window) {
-        auto actual_extent = window->resize(extent);
-        
-        if (active_app) {
-            active_app->resize(actual_extent.width, actual_extent.height);
-        }
-    }
+void Platform::disable_input_processing() {
+    process_input_events = false;
 }
+
+void Platform::set_focus(bool _focused) {
+    focused = _focused;
+}
+
+//MARK: - Property
+const std::string &Platform::get_external_storage_directory() {
+    return external_storage_directory;
+}
+
+void Platform::set_external_storage_directory(const std::string &dir) {
+    external_storage_directory = dir;
+}
+
+const std::string &Platform::get_temp_directory() {
+    return temp_directory;
+}
+
+void Platform::set_temp_directory(const std::string &dir) {
+    temp_directory = dir;
+}
+
+std::vector<std::string> &Platform::get_arguments() {
+    return Platform::arguments;
+}
+
+void Platform::set_arguments(const std::vector<std::string> &args) {
+    arguments = args;
+}
+
+void Platform::set_window_properties(const Window::OptionalProperties &properties) {
+    window_properties.title = properties.title.has_value() ? properties.title.value() : window_properties.title;
+    window_properties.mode = properties.mode.has_value() ? properties.mode.value() : window_properties.mode;
+    window_properties.resizable = properties.resizable.has_value() ? properties.resizable.value() : window_properties.resizable;
+    window_properties.vsync = properties.vsync.has_value() ? properties.vsync.value() : window_properties.vsync;
+    window_properties.extent.width = properties.extent.width.has_value() ? properties.extent.width.value() : window_properties.extent.width;
+    window_properties.extent.height = properties.extent.height.has_value() ? properties.extent.height.value() : window_properties.extent.height;
+}
+
+
+
+
 
 }        // namespace vox
