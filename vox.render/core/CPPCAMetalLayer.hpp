@@ -30,6 +30,10 @@ public:
 private:
     CPPMetalInternal::MetalLayer m_objCObj;
     MTL::Device *m_device;
+    
+public:
+    CPPMetalInternal::MetalLayer objCObj() const;
+
 };
 
 }

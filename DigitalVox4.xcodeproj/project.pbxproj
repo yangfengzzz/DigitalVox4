@@ -143,6 +143,8 @@
 		0445924D278E653300F04CE0 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445920C278E5F1000F04CE0 /* platform.cpp */; };
 		04459250278E689D00F04CE0 /* CPPCAMetalLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0445924E278E689D00F04CE0 /* CPPCAMetalLayer.mm */; };
 		04459251278E689D00F04CE0 /* CPPCAMetalLayer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0445924F278E689D00F04CE0 /* CPPCAMetalLayer.hpp */; };
+		04459254278E6D4700F04CE0 /* glfw_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459252278E6D4700F04CE0 /* glfw_window.mm */; };
+		04459255278E6D4700F04CE0 /* glfw_window.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459253278E6D4700F04CE0 /* glfw_window.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -347,6 +349,8 @@
 		04459235278E5FD700F04CE0 /* debug_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug_info.h; sourceTree = "<group>"; };
 		0445924E278E689D00F04CE0 /* CPPCAMetalLayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPCAMetalLayer.mm; sourceTree = "<group>"; };
 		0445924F278E689D00F04CE0 /* CPPCAMetalLayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPPCAMetalLayer.hpp; sourceTree = "<group>"; };
+		04459252278E6D4700F04CE0 /* glfw_window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = glfw_window.mm; sourceTree = "<group>"; };
+		04459253278E6D4700F04CE0 /* glfw_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw_window.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +418,8 @@
 				04459216278E5F1100F04CE0 /* timer.cpp */,
 				04459211278E5F1000F04CE0 /* window.h */,
 				04459219278E5F1100F04CE0 /* window.cpp */,
+				04459253278E6D4700F04CE0 /* glfw_window.h */,
+				04459252278E6D4700F04CE0 /* glfw_window.mm */,
 				0445920D278E5F1000F04CE0 /* input_events.h */,
 				0445921B278E5F1100F04CE0 /* input_events.cpp */,
 				04459210278E5F1000F04CE0 /* configuration.h */,
@@ -690,6 +696,7 @@
 				042295B3278C32FB0090983F /* CPPMetalRenderCommandEncoder.hpp in Headers */,
 				0422958B278C32FB0090983F /* CPPMetalAllocator.hpp in Headers */,
 				04459204278E591A00F04CE0 /* imgui.h in Headers */,
+				04459255278E6D4700F04CE0 /* glfw_window.h in Headers */,
 				042295B9278C33090090983F /* CPPMetalDispatchTableCache.h in Headers */,
 				0422958F278C32FB0090983F /* CPPMetalCommandEncoder.hpp in Headers */,
 				04459233278E5F1100F04CE0 /* timer.h in Headers */,
@@ -896,6 +903,7 @@
 				042295B0278C32FB0090983F /* CPPMetalDevice.mm in Sources */,
 				042295A9278C32FB0090983F /* CPPMetalRenderCommandEncoder.mm in Sources */,
 				04229595278C32FB0090983F /* CPPMetalPixelFormat.mm in Sources */,
+				04459254278E6D4700F04CE0 /* glfw_window.mm in Sources */,
 				0445922B278E5F1100F04CE0 /* timer.cpp in Sources */,
 				0445923C278E61D200F04CE0 /* debug_info.cpp in Sources */,
 				04229594278C32FB0090983F /* CPPMetalDeviceInternals.mm in Sources */,
@@ -1099,6 +1107,7 @@
 					./third_party/tinygltf,
 					./third_party/glog/src,
 					./third_party/glog/build,
+					./third_party/glfw/include,
 				);
 			};
 			name = Debug;
@@ -1123,6 +1132,7 @@
 					./third_party/tinygltf,
 					./third_party/glog/src,
 					./third_party/glog/build,
+					./third_party/glfw/include,
 				);
 			};
 			name = Release;

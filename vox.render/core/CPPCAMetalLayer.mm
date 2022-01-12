@@ -15,6 +15,10 @@ MetalLayer::MetalLayer() {
     m_objCObj = [CAMetalLayer layer];
 }
 
+CPPMetalInternal::MetalLayer MetalLayer::objCObj() const {
+    return m_objCObj;
+}
+
 void MetalLayer::setDevice(MTL::Device &device) {
     m_objCObj.device = device.objCObj();
     m_device = &device;

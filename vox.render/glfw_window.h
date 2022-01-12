@@ -17,8 +17,7 @@
 
 #pragma once
 
-#include "common/vk_common.h"
-#include "platform/window.h"
+#include "window.h"
 
 struct GLFWwindow;
 
@@ -34,9 +33,7 @@ public:
     
     virtual ~GlfwWindow();
     
-    virtual VkSurfaceKHR create_surface(Instance &instance) override;
-    
-    virtual vk::SurfaceKHR create_surface(vk::Instance instance, vk::PhysicalDevice physical_device) override;
+    virtual CA::MetalLayer create_layer() override;
     
     virtual bool should_close() override;
     

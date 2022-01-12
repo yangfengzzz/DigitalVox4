@@ -19,24 +19,18 @@
 
 #include <unordered_map>
 
-#include "common/error.h"
-
-VKBP_DISABLE_WARNINGS()
 #define GLFW_INCLUDE_NONE
-
+#define GLFW_EXPOSE_NATIVE_COCOA
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-#include <spdlog/spdlog.h>
+#include <glog/logging.h>
 
-VKBP_ENABLE_WARNINGS()
-
-#include "platform/platform.h"
+#include "platform.h"
 
 namespace vox {
 namespace {
 void error_callback(int error, const char *description) {
-    LOGE("GLFW Error (code {}): {}", error, description);
+    LOG(ERROR) << "GLFW Error (code " << error << "): {" << description << "}";
 }
 
 void window_close_callback(GLFWwindow *window) {
@@ -296,36 +290,13 @@ GlfwWindow::~GlfwWindow() {
     glfwTerminate();
 }
 
-VkSurfaceKHR GlfwWindow::create_surface(Instance &instance) {
-    if (instance.get_handle() == VK_NULL_HANDLE || !handle) {
-        return VK_NULL_HANDLE;
-    }
+CA::MetalLayer GlfwWindow::create_layer() {
+    NSWindow *nswin = glfwGetCocoaWindow(handle);
+    auto layer = CA::MetalLayer();
+    nswin.contentView.layer = layer.objCObj();
+    nswin.contentView.wantsLayer = YES;
     
-    VkSurfaceKHR surface;
-    
-    VkResult errCode = glfwCreateWindowSurface(instance.get_handle(), handle, NULL, &surface);
-    
-    if (errCode != VK_SUCCESS) {
-        return VK_NULL_HANDLE;
-    }
-    
-    return surface;
-}
-
-vk::SurfaceKHR GlfwWindow::create_surface(vk::Instance instance, vk::PhysicalDevice) {
-    if (!instance || !handle) {
-        return nullptr;
-    }
-    
-    VkSurfaceKHR surface;
-    
-    VkResult errCode = glfwCreateWindowSurface(instance, handle, NULL, &surface);
-    
-    if (errCode != VK_SUCCESS) {
-        return nullptr;
-    }
-    
-    return surface;
+    return layer;
 }
 
 bool GlfwWindow::should_close() {
