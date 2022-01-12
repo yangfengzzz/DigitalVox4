@@ -182,8 +182,11 @@
 		044592B3278EBEE600F04CE0 /* shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B1278EBEE600F04CE0 /* shader.h */; };
 		044592B6278EBFC600F04CE0 /* shader_program.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B4278EBFC600F04CE0 /* shader_program.h */; };
 		044592B7278EBFC600F04CE0 /* shader_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B5278EBFC600F04CE0 /* shader_program.cpp */; };
-		044592BA278EC19E00F04CE0 /* stencil_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B8278EC19E00F04CE0 /* stencil_state.cpp */; };
 		044592BB278EC19E00F04CE0 /* stencil_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B9278EC19E00F04CE0 /* stencil_state.h */; };
+		044592BF278EC58A00F04CE0 /* render_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592BD278EC58900F04CE0 /* render_state.h */; };
+		044592C2278EC5A200F04CE0 /* depth_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592C0278EC5A200F04CE0 /* depth_state.h */; };
+		044592C4278EC60C00F04CE0 /* stencil_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B8278EC19E00F04CE0 /* stencil_state.cpp */; };
+		044592C5278EC60E00F04CE0 /* depth_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592C1278EC5A200F04CE0 /* depth_state.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -430,6 +433,10 @@
 		044592B5278EBFC600F04CE0 /* shader_program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_program.cpp; sourceTree = "<group>"; };
 		044592B8278EC19E00F04CE0 /* stencil_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stencil_state.cpp; sourceTree = "<group>"; };
 		044592B9278EC19E00F04CE0 /* stencil_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stencil_state.h; sourceTree = "<group>"; };
+		044592BC278EC58900F04CE0 /* render_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render_state.cpp; sourceTree = "<group>"; };
+		044592BD278EC58900F04CE0 /* render_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render_state.h; sourceTree = "<group>"; };
+		044592C0278EC5A200F04CE0 /* depth_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = depth_state.h; sourceTree = "<group>"; };
+		044592C1278EC5A200F04CE0 /* depth_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = depth_state.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -785,6 +792,10 @@
 		04459290278EB29100F04CE0 /* state */ = {
 			isa = PBXGroup;
 			children = (
+				044592BD278EC58900F04CE0 /* render_state.h */,
+				044592BC278EC58900F04CE0 /* render_state.cpp */,
+				044592C0278EC5A200F04CE0 /* depth_state.h */,
+				044592C1278EC5A200F04CE0 /* depth_state.cpp */,
 				044592B9278EC19E00F04CE0 /* stencil_state.h */,
 				044592B8278EC19E00F04CE0 /* stencil_state.cpp */,
 			);
@@ -849,6 +860,7 @@
 				04229593278C32FB0090983F /* CPPMetalDrawable.hpp in Headers */,
 				0445922D278E5F1100F04CE0 /* application.h in Headers */,
 				042295A6278C32FB0090983F /* CPPMetalConstants.hpp in Headers */,
+				044592C2278EC5A200F04CE0 /* depth_state.h in Headers */,
 				042295A7278C32FB0090983F /* CPPMetalDepthStencil.hpp in Headers */,
 				044592BB278EC19E00F04CE0 /* stencil_state.h in Headers */,
 				0445927F278E80DD00F04CE0 /* layer.h in Headers */,
@@ -862,6 +874,7 @@
 				0445927A278E80DD00F04CE0 /* scene.h in Headers */,
 				0445927D278E80DD00F04CE0 /* components_manager.h in Headers */,
 				04459259278E708A00F04CE0 /* unix_engine.h in Headers */,
+				044592BF278EC58A00F04CE0 /* render_state.h in Headers */,
 				0422958F278C32FB0090983F /* CPPMetalCommandEncoder.hpp in Headers */,
 				04459233278E5F1100F04CE0 /* timer.h in Headers */,
 				04459279278E80DD00F04CE0 /* updateFlag.h in Headers */,
@@ -1064,7 +1077,6 @@
 				04459289278E84DE00F04CE0 /* transform.cpp in Sources */,
 				0422959A278C32FB0090983F /* CPPMetalResource.mm in Sources */,
 				04459203278E591A00F04CE0 /* imgui_draw.cpp in Sources */,
-				044592BA278EC19E00F04CE0 /* stencil_state.cpp in Sources */,
 				044592A3278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm in Sources */,
 				042295AD278C32FB0090983F /* CPPMetalLibrary.mm in Sources */,
 				044592A5278EB92800F04CE0 /* shader_macro_collection.cpp in Sources */,
@@ -1091,12 +1103,14 @@
 				0422959C278C32FB0090983F /* CPPMetalBuffer.mm in Sources */,
 				04459250278E689D00F04CE0 /* CPPCAMetalLayer.mm in Sources */,
 				04459239278E617500F04CE0 /* window.cpp in Sources */,
+				044592C5278EC60E00F04CE0 /* depth_state.cpp in Sources */,
 				044591FE278E591A00F04CE0 /* imgui_tables.cpp in Sources */,
 				044592B2278EBEE600F04CE0 /* shader.cpp in Sources */,
 				04459284278E80DD00F04CE0 /* entity.cpp in Sources */,
 				04459281278E80DD00F04CE0 /* component.cpp in Sources */,
 				0445923B278E61C500F04CE0 /* configuration.cpp in Sources */,
 				042295A1278C32FB0090983F /* CPPMetalCommandBuffer.mm in Sources */,
+				044592C4278EC60C00F04CE0 /* stencil_state.cpp in Sources */,
 				0445924D278E653300F04CE0 /* engine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

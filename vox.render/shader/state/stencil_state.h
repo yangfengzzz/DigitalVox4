@@ -41,18 +41,15 @@ struct StencilState {
     /** specifying the function to use for back face when the stencil test passes, but the depth test fails. */
     MTL::StencilOperation zFailOperationBack = MTL::StencilOperationKeep;
     
-private:
-    friend class RenderState;
-    
-    void _apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
-                MTL::DepthStencilDescriptor &depthStencilDescriptor,
-                MTL::RenderCommandEncoder &encoder) {
-        _platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
+    void apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+               MTL::DepthStencilDescriptor &depthStencilDescriptor,
+               MTL::RenderCommandEncoder &encoder) {
+        platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void _platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
-                        MTL::DepthStencilDescriptor &depthStencilDescriptor,
-                        MTL::RenderCommandEncoder &encoder);
+    void platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+                       MTL::DepthStencilDescriptor &depthStencilDescriptor,
+                       MTL::RenderCommandEncoder &encoder);
 };
 
 }

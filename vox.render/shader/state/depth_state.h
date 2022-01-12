@@ -8,11 +8,10 @@
 #ifndef depth_state_hpp
 #define depth_state_hpp
 
-#include <Metal/Metal.h>
+#include "core/CPPMetalDepthStencil.hpp"
+#include "core/CPPMetalRenderCommandEncoder.hpp"
 
 namespace vox {
-class MetalRenderer;
-
 /**
  * Depth state.
  */
@@ -22,23 +21,20 @@ struct DepthState {
     /** Whether the depth value can be written.*/
     bool writeEnabled = true;
     /** Depth comparison function. */
-    MTLCompareFunction compareFunction = MTLCompareFunctionLess;
-    
-private:
-    friend class RenderState;
+    MTL::CompareFunction compareFunction = MTL::CompareFunctionLess;
     
     /**
      * Apply the current depth state by comparing with the last depth state.
      */
-    void _apply(MTLRenderPipelineDescriptor *pipelineDescriptor,
-                MTLDepthStencilDescriptor *depthStencilDescriptor,
-                MetalRenderer *hardwareRenderer) {
-        _platformApply(pipelineDescriptor, depthStencilDescriptor, hardwareRenderer);
+    void apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+               MTL::DepthStencilDescriptor &depthStencilDescriptor,
+               MTL::RenderCommandEncoder &encoder) {
+        platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void _platformApply(MTLRenderPipelineDescriptor *pipelineDescriptor,
-                        MTLDepthStencilDescriptor *depthStencilDescriptor,
-                        MetalRenderer *hardwareRenderer);
+    void platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+                       MTL::DepthStencilDescriptor &depthStencilDescriptor,
+                       MTL::RenderCommandEncoder &encoder);
 };
 
 }
