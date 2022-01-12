@@ -202,6 +202,8 @@ private:
     
     friend class Script;
     
+    friend class Scene;
+    
     void _removeComponent(Component *component);
     
     void _addScript(Script *script);

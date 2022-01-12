@@ -24,6 +24,7 @@
 
 #include "scene_forward.h"
 #include "components_manager.h"
+#include "shader/shader_data.h"
 //#include "scene_graph/components/light.h"
 //#include "scene_graph/components/texture.h"
 
@@ -42,7 +43,7 @@ public:
 //    Background background = Background(_engine);
     
     /** Scene-related shader data. */
-//    ShaderData shaderData = ShaderData();
+    ShaderData shaderData = ShaderData();
     
     /** Light Manager */
 //    LightManager light_manager;
@@ -111,20 +112,19 @@ public:
      */
     void destroy();
     
+    void attachRenderCamera(Camera *camera);
+    
+    void detachRenderCamera(Camera *camera);
+    
 private:
-//    void _attachRenderCamera(Camera *camera);
-    
-//    void _detachRenderCamera(Camera *camera);
-    
     void _processActive(bool active);
     
     void _updateShaderData();
     
     void _removeEntity(EntityPtr entity);
     
-//    std::vector<Camera *> _activeCameras;
-//    ShaderMacroCollection _globalShaderMacro = ShaderMacroCollection();
-//    static ShaderProperty _frameBufferSizeProperty;
+    std::vector<Camera *> _activeCameras;
+    ShaderMacroCollection _globalShaderMacro = ShaderMacroCollection();
     
     bool _destroyed = false;
     std::vector<EntityPtr> _rootEntities;

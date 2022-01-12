@@ -13,6 +13,7 @@
 #include "layer.h"
 #include "ray3.h"
 #include "ImathMatrix.h"
+#include "bounding_frustum.h"
 #include "updateFlag.h"
 
 namespace vox {
@@ -165,7 +166,7 @@ public:
      * @param point - Point in viewport space, which is represented by normalization
      * @returns Ray
      */
-    Imath::Ray3F viewportPointToRay(const Imath::V2f &point);
+    Imath::Ray3f viewportPointToRay(const Imath::V2f &point);
     
     /**
      * Transform the X and Y coordinates of a point from screen space to viewport space
@@ -206,12 +207,14 @@ public:
      * @param point - Point in screen space, the unit is pixel
      * @returns Ray
      */
-    Imath::Ray3F screenPointToRay(const Imath::V2f &point);
+    Imath::Ray3f screenPointToRay(const Imath::V2f &point);
     
     /**
      * Manually call the rendering of the camera.
      */
     void render();
+    
+    void resize(uint32_t width, uint32_t height);
     
 public:
     void _onActive() override;
@@ -237,15 +240,15 @@ private:
      */
     Imath::M44f inverseProjectionMatrix();
     
-    static ShaderProperty _viewMatrixProperty;
-    static ShaderProperty _projectionMatrixProperty;
-    static ShaderProperty _vpMatrixProperty;
-    static ShaderProperty _inverseViewMatrixProperty;
-    static ShaderProperty _inverseProjectionMatrixProperty;
-    static ShaderProperty _cameraPositionProperty;
+    ShaderProperty _viewMatrixProperty;
+    ShaderProperty _projectionMatrixProperty;
+    ShaderProperty _vpMatrixProperty;
+    ShaderProperty _inverseViewMatrixProperty;
+    ShaderProperty _inverseProjectionMatrixProperty;
+    ShaderProperty _cameraPositionProperty;
     
     ShaderMacroCollection _globalShaderMacro = ShaderMacroCollection();
-    BoundingFrustum _frustum = BoundingFrustum();
+    Imath::BoundingFrustum _frustum = Imath::BoundingFrustum();
     
     bool _isOrthographic = false;
     bool _isProjMatSetting = false;
@@ -268,6 +271,9 @@ private:
     Imath::M44f _inverseProjectionMatrix = Imath::M44f();
     Imath::V2f _lastAspectSize = Imath::V2f();
     Imath::M44f _invViewProjMat = Imath::M44f();
+    
+    uint32_t _width;
+    uint32_t _height;
 };
 
 
