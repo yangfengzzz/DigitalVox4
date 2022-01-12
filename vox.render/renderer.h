@@ -131,6 +131,8 @@ protected:
     std::vector<std::shared_ptr<Material>> _materials;
     
 private:
+    friend class ComponentsManager;
+
     ShaderProperty _localMatrixProperty;
     ShaderProperty _worldMatrixProperty;
     ShaderProperty _mvMatrixProperty;

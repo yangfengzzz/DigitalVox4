@@ -196,6 +196,8 @@ public:
     std::vector<Script *> scripts();
     
 private:
+    friend class ComponentsManager;
+
     friend class Component;
 
     friend class Transform;

@@ -224,6 +224,8 @@ public:
     void _onDestroy() override;
     
 private:
+    friend class ComponentsManager;
+    
     void _projMatChange();
     
     Imath::V3f _innerViewportToWorldPoint(const Imath::V3f &point, const Imath::M44f &invViewProjMat);
