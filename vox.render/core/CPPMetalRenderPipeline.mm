@@ -108,6 +108,7 @@ CPP_METAL_READWRITE_MTL_ENUM_PROPERTY_IMPLEMENTATION(RenderPipelineColorAttachme
 
 CPP_METAL_READWRITE_MTL_ENUM_PROPERTY_IMPLEMENTATION(RenderPipelineColorAttachmentDescriptor, BlendOperation, alphaBlendOperation);
 
+CPP_METAL_READWRITE_MTL_ENUM_PROPERTY_IMPLEMENTATION(RenderPipelineColorAttachmentDescriptor, ColorWriteMask, writeMask);
 
 //========================================================================
 #pragma mark - RenderPipelineColorAttachmentDescriptorArray Implemeentation
@@ -257,6 +258,8 @@ VertexDescriptor *RenderPipelineDescriptor::vertexDescriptor() {
 CPP_METAL_READWRITE_MTL_ENUM_PROPERTY_IMPLEMENTATION(RenderPipelineDescriptor, PixelFormat, depthAttachmentPixelFormat);
 
 CPP_METAL_READWRITE_MTL_ENUM_PROPERTY_IMPLEMENTATION(RenderPipelineDescriptor, PixelFormat, stencilAttachmentPixelFormat)
+
+CPP_METAL_READWRITE_BOOL_PROPERTY_IMPLEMENTATION(RenderPipelineDescriptor, alphaToCoverageEnabled, isAlphaToCoverageEnabled);
 
 bool RenderPipelineDescriptor::operator==(const RenderPipelineDescriptor &rhs) const {
     return [m_objCObj isEqual:rhs.objCObj()];

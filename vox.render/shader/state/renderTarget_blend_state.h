@@ -8,7 +8,7 @@
 #ifndef renderTarget_blend_state_hpp
 #define renderTarget_blend_state_hpp
 
-#include <Metal/Metal.h>
+#include "core/CPPMetalRenderPipeline.hpp"
 
 namespace vox {
 /**
@@ -18,19 +18,19 @@ struct RenderTargetBlendState {
     /** Whether to enable blend. */
     bool enabled = false;
     /** color (RGB) blend operation. */
-    MTLBlendOperation colorBlendOperation = MTLBlendOperationAdd;
+    MTL::BlendOperation colorBlendOperation = MTL::BlendOperationAdd;
     /** alpha (A) blend operation. */
-    MTLBlendOperation alphaBlendOperation = MTLBlendOperationAdd;
+    MTL::BlendOperation alphaBlendOperation = MTL::BlendOperationAdd;
     /** color blend factor (RGB) for source. */
-    MTLBlendFactor sourceColorBlendFactor = MTLBlendFactorOne;
+    MTL::BlendFactor sourceColorBlendFactor = MTL::BlendFactorOne;
     /** alpha blend factor (A) for source. */
-    MTLBlendFactor sourceAlphaBlendFactor = MTLBlendFactorOne;
+    MTL::BlendFactor sourceAlphaBlendFactor = MTL::BlendFactorOne;
     /** color blend factor (RGB) for destination. */
-    MTLBlendFactor destinationColorBlendFactor = MTLBlendFactorZero;
+    MTL::BlendFactor destinationColorBlendFactor = MTL::BlendFactorZero;
     /** alpha blend factor (A) for destination. */
-    MTLBlendFactor destinationAlphaBlendFactor = MTLBlendFactorZero;
+    MTL::BlendFactor destinationAlphaBlendFactor = MTL::BlendFactorZero;
     /** color mask. */
-    MTLColorWriteMask colorWriteMask = MTLColorWriteMaskAll;
+    MTL::ColorWriteMask colorWriteMask = MTL::ColorWriteMaskAll;
 };
 
 }

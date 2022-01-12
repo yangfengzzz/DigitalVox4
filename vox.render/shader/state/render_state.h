@@ -8,7 +8,6 @@
 #ifndef render_state_hpp
 #define render_state_hpp
 
-#include "../../vox_type.h"
 #include "blend_state.h"
 #include "raster_state.h"
 #include "depth_state.h"
@@ -28,16 +27,9 @@ struct RenderState {
     /** Raster state. */
     RasterState rasterState = RasterState();
     
-private:
-    friend class RenderPipeline;
-    
-    friend class ForwardRenderPipeline;
-    
-    friend class DeferredRenderPipeline;
-    
-    void _apply(Engine *engine,
-                MTLRenderPipelineDescriptor *pipelineDescriptor,
-                MTLDepthStencilDescriptor *depthStencilDescriptor);
+    void apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+               MTL::DepthStencilDescriptor &depthStencilDescriptor,
+               MTL::RenderCommandEncoder &encoder);
 };
 
 }

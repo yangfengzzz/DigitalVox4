@@ -44,6 +44,15 @@ typedef enum {
 } BlendFactor;
 
 typedef enum {
+    ColorWriteMaskNone  = 0,
+    ColorWriteMaskRed   = 0x1 << 3,
+    ColorWriteMaskGreen = 0x1 << 2,
+    ColorWriteMaskBlue  = 0x1 << 1,
+    ColorWriteMaskAlpha = 0x1 << 0,
+    ColorWriteMaskAll   = 0xf
+} ColorWriteMask API_AVAILABLE(macos(10.11), ios(8.0));
+
+typedef enum {
     BlendOperationAdd = 0,
     BlendOperationSubtract = 1,
     BlendOperationReverseSubtract = 2,
@@ -95,6 +104,10 @@ public:
     BlendOperation alphaBlendOperation() const;
     
     void alphaBlendOperation(BlendOperation operation);
+    
+    ColorWriteMask writeMask() const;
+    
+    void writeMask(ColorWriteMask mask);
     
 private:
     
@@ -205,6 +218,10 @@ public:
     void stencilAttachmentPixelFormat(PixelFormat format);
     
     RenderPipelineColorAttachmentDescriptorArray colorAttachments;
+    
+    bool isAlphaToCoverageEnabled() const;
+    
+    void alphaToCoverageEnabled(bool enabled);
     
 private:
     

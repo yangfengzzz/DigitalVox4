@@ -189,6 +189,10 @@
 		044592C5278EC60E00F04CE0 /* depth_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592C1278EC5A200F04CE0 /* depth_state.cpp */; };
 		044592C8278EC64A00F04CE0 /* raster_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592C6278EC64A00F04CE0 /* raster_state.cpp */; };
 		044592C9278EC64A00F04CE0 /* raster_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592C7278EC64A00F04CE0 /* raster_state.h */; };
+		044592CB278EC76000F04CE0 /* renderTarget_blend_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592CA278EC76000F04CE0 /* renderTarget_blend_state.h */; };
+		044592CE278EC79200F04CE0 /* blend_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592CC278EC79200F04CE0 /* blend_state.h */; };
+		044592CF278EC79200F04CE0 /* blend_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592CD278EC79200F04CE0 /* blend_state.cpp */; };
+		044592D0278ECABC00F04CE0 /* render_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592BC278EC58900F04CE0 /* render_state.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -441,6 +445,9 @@
 		044592C1278EC5A200F04CE0 /* depth_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = depth_state.cpp; sourceTree = "<group>"; };
 		044592C6278EC64A00F04CE0 /* raster_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = raster_state.cpp; sourceTree = "<group>"; };
 		044592C7278EC64A00F04CE0 /* raster_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raster_state.h; sourceTree = "<group>"; };
+		044592CA278EC76000F04CE0 /* renderTarget_blend_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderTarget_blend_state.h; sourceTree = "<group>"; };
+		044592CC278EC79200F04CE0 /* blend_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blend_state.h; sourceTree = "<group>"; };
+		044592CD278EC79200F04CE0 /* blend_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = blend_state.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -804,6 +811,9 @@
 				044592B8278EC19E00F04CE0 /* stencil_state.cpp */,
 				044592C7278EC64A00F04CE0 /* raster_state.h */,
 				044592C6278EC64A00F04CE0 /* raster_state.cpp */,
+				044592CA278EC76000F04CE0 /* renderTarget_blend_state.h */,
+				044592CC278EC79200F04CE0 /* blend_state.h */,
+				044592CD278EC79200F04CE0 /* blend_state.cpp */,
 			);
 			path = state;
 			sourceTree = "<group>";
@@ -817,6 +827,7 @@
 			files = (
 				04229599278C32FB0090983F /* CPPMetalCommandQueue.hpp in Headers */,
 				0422959D278C32FB0090983F /* CPPMetalResourceEnum.hpp in Headers */,
+				044592CB278EC76000F04CE0 /* renderTarget_blend_state.h in Headers */,
 				044592AE278EBEB900F04CE0 /* shader_property.h in Headers */,
 				04459206278E591A00F04CE0 /* imstb_textedit.h in Headers */,
 				04459226278E5F1100F04CE0 /* window.h in Headers */,
@@ -846,6 +857,7 @@
 				0445922A278E5F1100F04CE0 /* engine.h in Headers */,
 				042295B8278C33090090983F /* CPPMetalDeviceInternals.h in Headers */,
 				042295A3278C32FB0090983F /* CPPMetalPixelFormat.hpp in Headers */,
+				044592CE278EC79200F04CE0 /* blend_state.h in Headers */,
 				044592AD278EBEB900F04CE0 /* shader_uniform.h in Headers */,
 				04459282278E80DD00F04CE0 /* component.h in Headers */,
 				042295A2278C32FB0090983F /* CPPMetalDevice.hpp in Headers */,
@@ -1077,6 +1089,7 @@
 				0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */,
 				042295AE278C32FB0090983F /* CPPMetalKitTextureLoader.mm in Sources */,
 				0445924B278E63FA00F04CE0 /* application.cpp in Sources */,
+				044592CF278EC79200F04CE0 /* blend_state.cpp in Sources */,
 				042295A4278C32FB0090983F /* CPPMetalCommandQueue.mm in Sources */,
 				0422958E278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.mm in Sources */,
 				042295AA278C32FB0090983F /* CPPMetalDrawable.mm in Sources */,
@@ -1090,6 +1103,7 @@
 				04229590278C32FB0090983F /* CPPMetalCommandEncoder.mm in Sources */,
 				0445923A278E61B000F04CE0 /* input_events.cpp in Sources */,
 				042295A5278C32FB0090983F /* CPPMetalVertexDescriptor.mm in Sources */,
+				044592D0278ECABC00F04CE0 /* render_state.cpp in Sources */,
 				044592AF278EBEB900F04CE0 /* shader_property.cpp in Sources */,
 				0422958C278C32FB0090983F /* CPPMetalRenderPass.mm in Sources */,
 				04459258278E708A00F04CE0 /* unix_engine.cpp in Sources */,
