@@ -17,7 +17,7 @@
 
 #include "filesystem.h"
 
-#include "platform.h"
+#include "engine.h"
 #include <glog/logging.h>
 
 namespace vox {
@@ -35,26 +35,26 @@ const std::string get(const Type type, const std::string &file) {
     
     // Check for special cases first
     if (type == Type::WorkingDir) {
-        return Platform::get_external_storage_directory();
+        return Engine::get_external_storage_directory();
     } else if (type == Type::Temp) {
-        return Platform::get_temp_directory();
+        return Engine::get_temp_directory();
     }
     
     // Check for relative paths
     auto it = relative_paths.find(type);
     
     if (relative_paths.size() < Type::TotalRelativePathTypes) {
-        throw std::runtime_error("Platform hasn't initialized the paths correctly");
+        throw std::runtime_error("Engine hasn't initialized the paths correctly");
     } else if (it == relative_paths.end()) {
         throw std::runtime_error("Path enum doesn't exist, or wasn't specified in the path map");
     } else if (it->second.empty()) {
         throw std::runtime_error("Path was found, but it is empty");
     }
     
-    auto path = Platform::get_external_storage_directory() + it->second;
+    auto path = Engine::get_external_storage_directory() + it->second;
     
     if (!is_directory(path)) {
-        create_path(Platform::get_external_storage_directory(), it->second);
+        create_path(Engine::get_external_storage_directory(), it->second);
     }
     
     return path + file;

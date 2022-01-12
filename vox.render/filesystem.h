@@ -53,7 +53,7 @@ extern const std::unordered_map<Type, std::string> relative_paths;
  * @brief Gets the absolute path of a given type or a specific file
  * @param type The type of file path
  * @param file (Optional) The filename
- * @throws runtime_error if the platform didn't initialize each path properly, path wasn't found or the path was found but is empty
+ * @throws runtime_error if the engine didn't initialize each path properly, path wasn't found or the path was found but is empty
  * @return Path to the directory of a certain type
  */
 const std::string get(const Type type, const std::string &file = "");
@@ -74,7 +74,7 @@ bool is_directory(const std::string &path);
 bool is_file(const std::string &filename);
 
 /**
- * @brief Platform specific implementation to create a directory
+ * @brief Engine specific implementation to create a directory
  * @param path A path to a directory
  */
 void create_directory(const std::string &path);

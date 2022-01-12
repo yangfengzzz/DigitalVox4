@@ -27,7 +27,7 @@
 namespace vox {
 class Window;
 
-class Platform;
+class Engine;
 
 class Application {
 public:
@@ -37,9 +37,9 @@ public:
     
     /**
      * @brief Prepares the application for execution
-     * @param platform The platform the application is being run on
+     * @param engine The engine the application is being run on
      */
-    virtual bool prepare(Platform &platform);
+    virtual bool prepare(Engine &engine);
     
     /**
      * @brief Updates the application
@@ -80,7 +80,7 @@ protected:
     
     uint32_t last_frame_count{0};
     
-    Platform *platform;
+    Engine *engine;
     
 private:
     std::string name{};

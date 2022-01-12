@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#include "platform.h"
+#include "engine.h"
 
 #include <algorithm>
 #include <ctime>
@@ -26,16 +26,16 @@
 #include "filesystem.h"
 
 namespace vox {
-const uint32_t Platform::MIN_WINDOW_WIDTH = 420;
-const uint32_t Platform::MIN_WINDOW_HEIGHT = 320;
+const uint32_t Engine::MIN_WINDOW_WIDTH = 420;
+const uint32_t Engine::MIN_WINDOW_HEIGHT = 320;
 
-std::vector<std::string> Platform::arguments = {};
+std::vector<std::string> Engine::arguments = {};
 
-std::string Platform::external_storage_directory = "";
+std::string Engine::external_storage_directory = "";
 
-std::string Platform::temp_directory = "";
+std::string Engine::temp_directory = "";
 
-ExitCode Platform::initialize() {
+ExitCode Engine::initialize() {
     google::InitGoogleLogging("DigitalVox");
     
     create_window(window_properties);
@@ -47,7 +47,7 @@ ExitCode Platform::initialize() {
     return ExitCode::Success;
 }
 
-ExitCode Platform::main_loop() {
+ExitCode Engine::main_loop() {
     // Load the requested app
     if (!start_app()) {
         LOG(ERROR) << "Failed to load requested application";
@@ -76,7 +76,7 @@ ExitCode Platform::main_loop() {
     return ExitCode::Success;
 }
 
-void Platform::update() {
+void Engine::update() {
     auto delta_time = static_cast<float>(timer.tick<Timer::Seconds>());
     
     if (focused) {
@@ -90,7 +90,7 @@ void Platform::update() {
     }
 }
 
-void Platform::terminate(ExitCode code) {
+void Engine::terminate(ExitCode code) {
     if (active_app) {
         std::string id = active_app->get_name();
         
@@ -102,7 +102,7 @@ void Platform::terminate(ExitCode code) {
     active_app.reset();
     window.reset();
     
-    on_platform_close();
+    on_engine_close();
     
     // Halt on all unsuccessful exit codes unless ForceClose is in use
     if (code != ExitCode::Success) {
@@ -111,13 +111,13 @@ void Platform::terminate(ExitCode code) {
     }
 }
 
-void Platform::close() {
+void Engine::close() {
     if (window) {
         window->close();
     }
 }
 
-void Platform::input_event(const InputEvent &input_event) {
+void Engine::input_event(const InputEvent &input_event) {
     if (process_input_events && active_app) {
         active_app->input_event(input_event);
     }
@@ -132,7 +132,7 @@ void Platform::input_event(const InputEvent &input_event) {
     }
 }
 
-void Platform::resize(uint32_t width, uint32_t height) {
+void Engine::resize(uint32_t width, uint32_t height) {
     auto extent = Window::Extent{std::max<uint32_t>(width, MIN_WINDOW_WIDTH), std::max<uint32_t>(height, MIN_WINDOW_HEIGHT)};
     if (window) {
         auto actual_extent = window->resize(extent);
@@ -144,21 +144,21 @@ void Platform::resize(uint32_t width, uint32_t height) {
 }
 
 //MARK: - Application
-Window &Platform::get_window() const {
+Window &Engine::get_window() const {
     return *window;
 }
 
-Application &Platform::get_app() {
+Application &Engine::get_app() {
     assert(active_app && "Application is not valid");
     return *active_app;
 }
 
-Application &Platform::get_app() const {
+Application &Engine::get_app() const {
     assert(active_app && "Application is not valid");
     return *active_app;
 }
 
-void Platform::set_app(std::unique_ptr<Application>&& new_app) {
+void Engine::set_app(std::unique_ptr<Application>&& new_app) {
     if (active_app) {
         auto execution_time = timer.stop();
         LOG(INFO) << "Closing App (Runtime: " << execution_time << ")";
@@ -171,7 +171,7 @@ void Platform::set_app(std::unique_ptr<Application>&& new_app) {
     active_app = std::move(new_app);
 }
 
-bool Platform::start_app() {
+bool Engine::start_app() {
     active_app->set_name("");
     
     if (!active_app) {
@@ -190,45 +190,45 @@ bool Platform::start_app() {
 }
 
 //MARK: - Controller
-void Platform::force_simulation_fps(float fps) {
+void Engine::force_simulation_fps(float fps) {
     fixed_simulation_fps = true;
     simulation_frame_time = 1 / fps;
 }
 
-void Platform::disable_input_processing() {
+void Engine::disable_input_processing() {
     process_input_events = false;
 }
 
-void Platform::set_focus(bool _focused) {
+void Engine::set_focus(bool _focused) {
     focused = _focused;
 }
 
 //MARK: - Property
-const std::string &Platform::get_external_storage_directory() {
+const std::string &Engine::get_external_storage_directory() {
     return external_storage_directory;
 }
 
-void Platform::set_external_storage_directory(const std::string &dir) {
+void Engine::set_external_storage_directory(const std::string &dir) {
     external_storage_directory = dir;
 }
 
-const std::string &Platform::get_temp_directory() {
+const std::string &Engine::get_temp_directory() {
     return temp_directory;
 }
 
-void Platform::set_temp_directory(const std::string &dir) {
+void Engine::set_temp_directory(const std::string &dir) {
     temp_directory = dir;
 }
 
-std::vector<std::string> &Platform::get_arguments() {
-    return Platform::arguments;
+std::vector<std::string> &Engine::get_arguments() {
+    return Engine::arguments;
 }
 
-void Platform::set_arguments(const std::vector<std::string> &args) {
+void Engine::set_arguments(const std::vector<std::string> &args) {
     arguments = args;
 }
 
-void Platform::set_window_properties(const Window::OptionalProperties &properties) {
+void Engine::set_window_properties(const Window::OptionalProperties &properties) {
     window_properties.title = properties.title.has_value() ? properties.title.value() : window_properties.title;
     window_properties.mode = properties.mode.has_value() ? properties.mode.value() : window_properties.mode;
     window_properties.resizable = properties.resizable.has_value() ? properties.resizable.value() : window_properties.resizable;

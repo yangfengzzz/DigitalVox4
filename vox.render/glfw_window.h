@@ -22,14 +22,14 @@
 struct GLFWwindow;
 
 namespace vox {
-class Platform;
+class Engine;
 
 /**
  * @brief An implementation of GLFW, inheriting the behaviour of the Window interface
  */
 class GlfwWindow : public Window {
 public:
-    GlfwWindow(Platform *platform, const Window::Properties &properties);
+    GlfwWindow(Engine *engine, const Window::Properties &properties);
     
     virtual ~GlfwWindow();
     

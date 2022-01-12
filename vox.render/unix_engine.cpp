@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#include "unix_platform.h"
+#include "unix_engine.h"
 
 #include "glfw_window.h"
 
@@ -40,13 +40,13 @@ void create_directory(const std::string &path) {
 }
 }        // namespace fs
 
-UnixPlatform::UnixPlatform(const UnixType &type, int argc, char **argv) :
+UnixEngine::UnixEngine(const UnixType &type, int argc, char **argv) :
 type{type} {
-    Platform::set_arguments({argv + 1, argv + argc});
-    Platform::set_temp_directory(get_temp_path_from_environment());
+    UnixEngine::set_arguments({argv + 1, argv + argc});
+    UnixEngine::set_temp_directory(get_temp_path_from_environment());
 }
 
-void UnixPlatform::create_window(const Window::Properties &properties) {
+void UnixEngine::create_window(const Window::Properties &properties) {
     window = std::make_unique<GlfwWindow>(this, properties);
 }
 }        // namespace vox

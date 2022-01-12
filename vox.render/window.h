@@ -75,7 +75,7 @@ public:
     virtual ~Window() = default;
     
     /**
-     * @brief Gets a handle from the platform's Metal layer
+     * @brief Gets a handle from the engine's Metal layer
      * @returns A CAMetalLayer handle, for use by the application
      */
     virtual CA::MetalLayer create_layer() = 0;

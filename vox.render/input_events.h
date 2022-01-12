@@ -21,7 +21,7 @@
 #include <cstdint>
 
 namespace vox {
-class Platform;
+class Engine;
 
 enum class EventSource {
     Keyboard,

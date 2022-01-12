@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include "platform.h"
+#include "engine.h"
 
 namespace vox {
 enum UnixType {
@@ -25,11 +25,11 @@ enum UnixType {
     Linux
 };
 
-class UnixPlatform : public Platform {
+class UnixEngine : public Engine {
 public:
-    UnixPlatform(const UnixType &type, int argc, char **argv);
+    UnixEngine(const UnixType &type, int argc, char **argv);
     
-    virtual ~UnixPlatform() = default;
+    virtual ~UnixEngine() = default;
     
 protected:
     virtual void create_window(const Window::Properties &properties) override;

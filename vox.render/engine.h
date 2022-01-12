@@ -26,10 +26,6 @@
 #include "filesystem.h"
 #include "window.h"
 
-#if defined(VK_USE_PLATFORM_XLIB_KHR)
-#	undef Success
-#endif
-
 namespace vox {
 enum class ExitCode {
     Success = 0, /* App executed as expected */
@@ -38,21 +34,21 @@ enum class ExitCode {
     FatalError   /* App encountered an unexpected error */
 };
 
-class Platform {
+class Engine {
 public:
-    Platform() = default;
+    Engine() = default;
     
-    virtual ~Platform() = default;
+    virtual ~Engine() = default;
     
     /**
-     * @brief Initialize the platform
+     * @brief Initialize the engine
      * @return An exit code representing the outcome of initialization
      */
     virtual ExitCode initialize();
     
     /**
-     * @brief Handles the main loop of the platform
-     * This should be overriden if a platform requires a specific main loop setup.
+     * @brief Handles the main loop of the engine
+     * This should be overriden if a engine requires a specific main loop setup.
      * @return An exit code representing the outcome of the loop
      */
     ExitCode main_loop();
@@ -63,13 +59,13 @@ public:
     void update();
     
     /**
-     * @brief Terminates the platform and the application
-     * @param code Determines how the platform should exit
+     * @brief Terminates the engine and the application
+     * @param code Determines how the engine should exit
      */
     virtual void terminate(ExitCode code);
     
     /**
-     * @brief Requests to close the platform at the next available point
+     * @brief Requests to close the engine at the next available point
      */
     virtual void close();
     
@@ -97,7 +93,7 @@ public:
     
 public:
     /**
-     * @brief Returns the working directory of the application set by the platform
+     * @brief Returns the working directory of the application set by the engine
      * @returns The path to the working directory
      */
     static const std::string &get_external_storage_directory();
@@ -143,7 +139,7 @@ protected:
     
     void on_app_close(const std::string &app_id);
     
-    void on_platform_close();
+    void on_engine_close();
     
     Window::Properties window_properties;              /* Source of truth for window state */
     bool fixed_simulation_fps{false};    /* Delta time should be fixed with a fabricated value */
@@ -154,7 +150,7 @@ protected:
 private:
     Timer timer;
             
-    /// Static so can be set via JNI code in android_platform.cpp
+    /// Static so can be set via JNI code in android_engine.cpp
     static std::vector<std::string> arguments;
     
     static std::string external_storage_directory;

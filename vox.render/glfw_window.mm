@@ -25,7 +25,7 @@
 #include <GLFW/glfw3native.h>
 #include <glog/logging.h>
 
-#include "platform.h"
+#include "engine.h"
 
 namespace vox {
 namespace {
@@ -38,14 +38,14 @@ void window_close_callback(GLFWwindow *window) {
 }
 
 void window_size_callback(GLFWwindow *window, int width, int height) {
-    if (auto platform = reinterpret_cast<Platform *>(glfwGetWindowUserPointer(window))) {
-        platform->resize(width, height);
+    if (auto engine = reinterpret_cast<Engine *>(glfwGetWindowUserPointer(window))) {
+        engine->resize(width, height);
     }
 }
 
 void window_focus_callback(GLFWwindow *window, int focused) {
-    if (auto platform = reinterpret_cast<Platform *>(glfwGetWindowUserPointer(window))) {
-        platform->set_focus(focused);
+    if (auto engine = reinterpret_cast<Engine *>(glfwGetWindowUserPointer(window))) {
+        engine->set_focus(focused);
     }
 }
 
@@ -181,8 +181,8 @@ void key_callback(GLFWwindow *window, int key, int /*scancode*/, int action, int
     KeyCode key_code = translate_key_code(key);
     KeyAction key_action = translate_key_action(action);
     
-    if (auto platform = reinterpret_cast<Platform *>(glfwGetWindowUserPointer(window))) {
-        platform->input_event(KeyInputEvent{key_code, key_action});
+    if (auto engine = reinterpret_cast<Engine *>(glfwGetWindowUserPointer(window))) {
+        engine->input_event(KeyInputEvent{key_code, key_action});
     }
 }
 
@@ -205,8 +205,8 @@ inline MouseAction translate_mouse_action(int action) {
 }
 
 void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
-    if (auto *platform = reinterpret_cast<Platform *>(glfwGetWindowUserPointer(window))) {
-        platform->input_event(MouseButtonInputEvent{
+    if (auto *engine = reinterpret_cast<Engine *>(glfwGetWindowUserPointer(window))) {
+        engine->input_event(MouseButtonInputEvent{
             MouseButton::Unknown,
             MouseAction::Move,
             static_cast<float>(xpos),
@@ -217,11 +217,11 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
 void mouse_button_callback(GLFWwindow *window, int button, int action, int /*mods*/) {
     MouseAction mouse_action = translate_mouse_action(action);
     
-    if (auto *platform = reinterpret_cast<Platform *>(glfwGetWindowUserPointer(window))) {
+    if (auto *engine = reinterpret_cast<Engine *>(glfwGetWindowUserPointer(window))) {
         double xpos, ypos;
         glfwGetCursorPos(window, &xpos, &ypos);
         
-        platform->input_event(MouseButtonInputEvent{
+        engine->input_event(MouseButtonInputEvent{
             translate_mouse_button(button),
             mouse_action,
             static_cast<float>(xpos),
@@ -230,12 +230,8 @@ void mouse_button_callback(GLFWwindow *window, int button, int action, int /*mod
 }
 }        // namespace
 
-GlfwWindow::GlfwWindow(Platform *platform, const Window::Properties &properties) :
+GlfwWindow::GlfwWindow(Engine *engine, const Window::Properties &properties) :
 Window(properties) {
-#if defined(VK_USE_PLATFORM_XLIB_KHR)
-    glfwInitHint(GLFW_X11_XCB_VULKAN_SURFACE, false);
-#endif
-    
     if (!glfwInit()) {
         throw std::runtime_error("GLFW couldn't be initialized.");
     }
@@ -273,7 +269,7 @@ Window(properties) {
         throw std::runtime_error("Couldn't create glfw window.");
     }
     
-    glfwSetWindowUserPointer(handle, platform);
+    glfwSetWindowUserPointer(handle, engine);
     
     glfwSetWindowCloseCallback(handle, window_close_callback);
     glfwSetWindowSizeCallback(handle, window_size_callback);

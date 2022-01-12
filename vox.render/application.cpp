@@ -17,7 +17,7 @@
 
 #include "application.h"
 
-#include "platform.h"
+#include "engine.h"
 #include "window.h"
 
 namespace vox {
@@ -25,12 +25,12 @@ Application::Application() :
 name{"Sample Name"} {
 }
 
-bool Application::prepare(Platform &_platform) {
+bool Application::prepare(Engine &_engine) {
     auto &_debug_info = get_debug_info();
     _debug_info.insert<field::MinMax, float>("fps", fps);
     _debug_info.insert<field::MinMax, float>("frame_time", frame_time);
     
-    this->platform = &_platform;
+    this->engine = &_engine;
     
     return true;
 }
