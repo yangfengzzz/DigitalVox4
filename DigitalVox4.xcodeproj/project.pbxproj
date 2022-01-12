@@ -212,6 +212,10 @@
 		044592F4278EDA3300F04CE0 /* pbr_specular_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */; };
 		044592F7278EFEC700F04CE0 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F5278EFEC700F04CE0 /* camera.cpp */; };
 		044592F8278EFEC700F04CE0 /* camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F6278EFEC700F04CE0 /* camera.h */; };
+		044592FF278F023A00F04CE0 /* collision_util.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F9278F023900F04CE0 /* collision_util.h */; };
+		04459300278F023A00F04CE0 /* bounding_frustum.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FA278F023900F04CE0 /* bounding_frustum.h */; };
+		04459301278F023A00F04CE0 /* spherical_harmonics3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */; };
+		04459304278F023A00F04CE0 /* spherical_harmonics3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FE278F023A00F04CE0 /* spherical_harmonics3.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -486,6 +490,12 @@
 		044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pbr_specular_material.cpp; sourceTree = "<group>"; };
 		044592F5278EFEC700F04CE0 /* camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
 		044592F6278EFEC700F04CE0 /* camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
+		044592F9278F023900F04CE0 /* collision_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collision_util.h; sourceTree = "<group>"; };
+		044592FA278F023900F04CE0 /* bounding_frustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bounding_frustum.h; sourceTree = "<group>"; };
+		044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spherical_harmonics3.cpp; sourceTree = "<group>"; };
+		044592FC278F023900F04CE0 /* bounding_frustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bounding_frustum.cpp; sourceTree = "<group>"; };
+		044592FD278F023A00F04CE0 /* collision_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision_util.cpp; sourceTree = "<group>"; };
+		044592FE278F023A00F04CE0 /* spherical_harmonics3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spherical_harmonics3.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -757,6 +767,12 @@
 				04229669278D689B0090983F /* bounding_box2-inl.h */,
 				04229665278D689B0090983F /* bounding_box3.h */,
 				04229664278D689B0090983F /* bounding_box3-inl.h */,
+				044592FA278F023900F04CE0 /* bounding_frustum.h */,
+				044592FC278F023900F04CE0 /* bounding_frustum.cpp */,
+				044592F9278F023900F04CE0 /* collision_util.h */,
+				044592FD278F023A00F04CE0 /* collision_util.cpp */,
+				044592FE278F023A00F04CE0 /* spherical_harmonics3.h */,
+				044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */,
 				04229687278D6F910090983F /* transform2.h */,
 				04229688278D6F910090983F /* transform2-inl.h */,
 				04229689278D6F910090983F /* transform3.h */,
@@ -1004,6 +1020,7 @@
 				042296F6278DAE7C0090983F /* ImathRoots.h in Headers */,
 				042296ED278DAE7C0090983F /* ImathFun.h in Headers */,
 				042296D6278DAE7B0090983F /* ImathInt64.h in Headers */,
+				044592FF278F023A00F04CE0 /* collision_util.h in Headers */,
 				042296D8278DAE7C0090983F /* ImathTypeTraits.h in Headers */,
 				042296FA278DAE7C0090983F /* ImathEuler.h in Headers */,
 				042296F1278DAE7C0090983F /* ImathQuat.h in Headers */,
@@ -1015,6 +1032,7 @@
 				042296F4278DAE7C0090983F /* ImathMatrixAlgo.h in Headers */,
 				042296E5278DAE7C0090983F /* ImathShear.h in Headers */,
 				044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */,
+				04459304278F023A00F04CE0 /* spherical_harmonics3.h in Headers */,
 				042296DD278DAE7C0090983F /* ImathBox.h in Headers */,
 				042296FD278DAEB40090983F /* ImathConfig.h in Headers */,
 				042296F9278DAE7C0090983F /* ImathMath.h in Headers */,
@@ -1023,6 +1041,7 @@
 				042296D5278DAE7B0090983F /* ImathNamespace.h in Headers */,
 				042296D3278DAE7B0090983F /* ImathLine.h in Headers */,
 				042296F7278DAE7C0090983F /* ImathVecAlgo.h in Headers */,
+				04459300278F023A00F04CE0 /* bounding_frustum.h in Headers */,
 				042296FB278DAE7C0090983F /* ImathMatrix.h in Headers */,
 				042296F0278DAE7C0090983F /* ImathPlane.h in Headers */,
 				044591B4278DB45D00F04CE0 /* ray2-inl.h in Headers */,
@@ -1259,6 +1278,7 @@
 			files = (
 				042296E9278DAE7C0090983F /* ImathColorAlgo.cpp in Sources */,
 				042296DA278DAE7C0090983F /* ImathRandom.cpp in Sources */,
+				04459301278F023A00F04CE0 /* spherical_harmonics3.cpp in Sources */,
 				042296EE278DAE7C0090983F /* half.cpp in Sources */,
 				042296D4278DAE7B0090983F /* ImathMatrixAlgo.cpp in Sources */,
 				042296EC278DAE7C0090983F /* ImathFun.cpp in Sources */,

@@ -165,7 +165,7 @@ public:
      * @param point - Point in viewport space, which is represented by normalization
      * @returns Ray
      */
-    Ray viewportPointToRay(const Imath::V2f &point);
+    Imath::Ray3F viewportPointToRay(const Imath::V2f &point);
     
     /**
      * Transform the X and Y coordinates of a point from screen space to viewport space
@@ -206,7 +206,7 @@ public:
      * @param point - Point in screen space, the unit is pixel
      * @returns Ray
      */
-    Ray screenPointToRay(const Imath::V2f &point);
+    Imath::Ray3F screenPointToRay(const Imath::V2f &point);
     
     /**
      * Manually call the rendering of the camera.
