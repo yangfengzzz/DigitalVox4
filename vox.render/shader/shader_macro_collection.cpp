@@ -9,80 +9,80 @@
 #include "helpers.h"
 
 namespace vox {
-std::unordered_map<MacroName, std::pair<int, MTLDataType>> ShaderMacroCollection::defaultValue = {
-    {HAS_UV, {0, MTLDataTypeBool}},
-    {HAS_NORMAL, {0, MTLDataTypeBool}},
-    {HAS_TANGENT, {0, MTLDataTypeBool}},
-    {HAS_VERTEXCOLOR, {0, MTLDataTypeBool}},
+std::unordered_map<MacroName, std::pair<int, MTL::DataType>> ShaderMacroCollection::defaultValue = {
+    {HAS_UV, {0, MTL::DataTypeBool}},
+    {HAS_NORMAL, {0, MTL::DataTypeBool}},
+    {HAS_TANGENT, {0, MTL::DataTypeBool}},
+    {HAS_VERTEXCOLOR, {0, MTL::DataTypeBool}},
     
     // Blend Shape
-    {HAS_BLENDSHAPE, {0, MTLDataTypeBool}},
-    {HAS_BLENDSHAPE_NORMAL, {0, MTLDataTypeBool}},
-    {HAS_BLENDSHAPE_TANGENT, {0, MTLDataTypeBool}},
+    {HAS_BLENDSHAPE, {0, MTL::DataTypeBool}},
+    {HAS_BLENDSHAPE_NORMAL, {0, MTL::DataTypeBool}},
+    {HAS_BLENDSHAPE_TANGENT, {0, MTL::DataTypeBool}},
     
     // Skin
-    {HAS_SKIN, {0, MTLDataTypeBool}},
-    {HAS_JOINT_TEXTURE, {0, MTLDataTypeBool}},
-    {JOINTS_COUNT, {0, MTLDataTypeInt}},
+    {HAS_SKIN, {0, MTL::DataTypeBool}},
+    {HAS_JOINT_TEXTURE, {0, MTL::DataTypeBool}},
+    {JOINTS_COUNT, {0, MTL::DataTypeInt}},
     
     // Material
-    {NEED_ALPHA_CUTOFF, {0, MTLDataTypeBool}},
-    {NEED_WORLDPOS, {0, MTLDataTypeBool}},
-    {NEED_TILINGOFFSET, {0, MTLDataTypeBool}},
-    {HAS_DIFFUSE_TEXTURE, {0, MTLDataTypeBool}},
-    {HAS_SPECULAR_TEXTURE, {0, MTLDataTypeBool}},
-    {HAS_EMISSIVE_TEXTURE, {0, MTLDataTypeBool}},
-    {HAS_NORMAL_TEXTURE, {0, MTLDataTypeBool}},
-    {OMIT_NORMAL, {0, MTLDataTypeBool}},
-    {HAS_BASE_TEXTURE, {0, MTLDataTypeBool}},
-    {HAS_BASE_COLORMAP, {0, MTLDataTypeBool}},
-    {HAS_EMISSIVEMAP, {0, MTLDataTypeBool}},
-    {HAS_OCCLUSIONMAP, {0, MTLDataTypeBool}},
-    {HAS_SPECULARGLOSSINESSMAP, {0, MTLDataTypeBool}},
-    {HAS_METALROUGHNESSMAP, {0, MTLDataTypeBool}},
-    {IS_METALLIC_WORKFLOW, {0, MTLDataTypeBool}},
+    {NEED_ALPHA_CUTOFF, {0, MTL::DataTypeBool}},
+    {NEED_WORLDPOS, {0, MTL::DataTypeBool}},
+    {NEED_TILINGOFFSET, {0, MTL::DataTypeBool}},
+    {HAS_DIFFUSE_TEXTURE, {0, MTL::DataTypeBool}},
+    {HAS_SPECULAR_TEXTURE, {0, MTL::DataTypeBool}},
+    {HAS_EMISSIVE_TEXTURE, {0, MTL::DataTypeBool}},
+    {HAS_NORMAL_TEXTURE, {0, MTL::DataTypeBool}},
+    {OMIT_NORMAL, {0, MTL::DataTypeBool}},
+    {HAS_BASE_TEXTURE, {0, MTL::DataTypeBool}},
+    {HAS_BASE_COLORMAP, {0, MTL::DataTypeBool}},
+    {HAS_EMISSIVEMAP, {0, MTL::DataTypeBool}},
+    {HAS_OCCLUSIONMAP, {0, MTL::DataTypeBool}},
+    {HAS_SPECULARGLOSSINESSMAP, {0, MTL::DataTypeBool}},
+    {HAS_METALROUGHNESSMAP, {0, MTL::DataTypeBool}},
+    {IS_METALLIC_WORKFLOW, {0, MTL::DataTypeBool}},
     
     // Light
-    {DIRECT_LIGHT_COUNT, {0, MTLDataTypeInt}},
-    {POINT_LIGHT_COUNT, {0, MTLDataTypeInt}},
-    {SPOT_LIGHT_COUNT, {0, MTLDataTypeInt}},
+    {DIRECT_LIGHT_COUNT, {0, MTL::DataTypeInt}},
+    {POINT_LIGHT_COUNT, {0, MTL::DataTypeInt}},
+    {SPOT_LIGHT_COUNT, {0, MTL::DataTypeInt}},
     
     // Enviroment
-    {HAS_SH, {0, MTLDataTypeBool}},
-    {HAS_SPECULAR_ENV, {0, MTLDataTypeBool}},
-    {HAS_DIFFUSE_ENV, {0, MTLDataTypeBool}},
+    {HAS_SH, {0, MTL::DataTypeBool}},
+    {HAS_SPECULAR_ENV, {0, MTL::DataTypeBool}},
+    {HAS_DIFFUSE_ENV, {0, MTL::DataTypeBool}},
     
     // Particle Render
-    {HAS_PARTICLE_TEXTURE, {0, MTLDataTypeBool}},
-    {NEED_ROTATE_TO_VELOCITY, {0, MTLDataTypeBool}},
-    {NEED_USE_ORIGIN_COLOR, {0, MTLDataTypeBool}},
-    {NEED_SCALE_BY_LIFE_TIME, {0, MTLDataTypeBool}},
-    {NEED_FADE_IN, {0, MTLDataTypeBool}},
-    {NEED_FADE_OUT, {0, MTLDataTypeBool}},
-    {IS_2D, {0, MTLDataTypeBool}},
+    {HAS_PARTICLE_TEXTURE, {0, MTL::DataTypeBool}},
+    {NEED_ROTATE_TO_VELOCITY, {0, MTL::DataTypeBool}},
+    {NEED_USE_ORIGIN_COLOR, {0, MTL::DataTypeBool}},
+    {NEED_SCALE_BY_LIFE_TIME, {0, MTL::DataTypeBool}},
+    {NEED_FADE_IN, {0, MTL::DataTypeBool}},
+    {NEED_FADE_OUT, {0, MTL::DataTypeBool}},
+    {IS_2D, {0, MTL::DataTypeBool}},
     
     // Shadow
-    {SHADOW_MAP_COUNT, {0, MTLDataTypeInt}},
-    {CUBE_SHADOW_MAP_COUNT, {0, MTLDataTypeInt}},
+    {SHADOW_MAP_COUNT, {0, MTL::DataTypeInt}},
+    {CUBE_SHADOW_MAP_COUNT, {0, MTL::DataTypeInt}},
 };
 
-MTLFunctionConstantValues *ShaderMacroCollection::createDefaultFunction() {
-    MTLFunctionConstantValues *functionConstants = [[MTLFunctionConstantValues alloc] init];
+MTL::FunctionConstantValues ShaderMacroCollection::createDefaultFunction() {
+    MTL::FunctionConstantValues functionConstants = MTL::FunctionConstantValues();
     for (size_t i = 0; i < TOTAL_COUNT; i++) {
         const auto macro = ShaderMacroCollection::defaultValue[MacroName(i)];
         
         int value = macro.first;
         auto type = macro.second;
-        if (type == MTLDataTypeBool) {
+        if (type == MTL::DataTypeBool) {
             bool property;
             if (value == 1) {
                 property = true;
             } else {
                 property = false;
             }
-            [functionConstants setConstantValue:&property type:MTLDataTypeBool atIndex:i];
+            functionConstants.setConstantValue(&property, MTL::DataTypeBool, i);
         } else {
-            [functionConstants setConstantValue:&value type:type atIndex:i];
+            functionConstants.setConstantValue(&value, type, i);
         }
     }
     return functionConstants;

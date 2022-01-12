@@ -10,15 +10,16 @@
 
 #include <unordered_map>
 #include "macro_name.h"
+#include "core/CPPMetalFunctionConstantValues.hpp"
 
 namespace vox {
 /**
  * Shader macro collection.
  */
 struct ShaderMacroCollection {
-    static std::unordered_map<MacroName, std::pair<int, MTLDataType>> defaultValue;
+    static std::unordered_map<MacroName, std::pair<int, MTL::DataType>> defaultValue;
     
-    static MTLFunctionConstantValues *createDefaultFunction();
+    static MTL::FunctionConstantValues createDefaultFunction();
     
     /**
      * Union of two macro collection.
@@ -36,7 +37,7 @@ private:
     
     friend class ShaderData;
     
-    std::unordered_map<MacroName, std::pair<int, MTLDataType>> _value{};
+    std::unordered_map<MacroName, std::pair<int, MTL::DataType>> _value{};
 };
 
 }
