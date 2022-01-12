@@ -218,6 +218,8 @@
 		04459304278F023A00F04CE0 /* spherical_harmonics3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FE278F023A00F04CE0 /* spherical_harmonics3.h */; };
 		04459305278F036D00F04CE0 /* collision_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FD278F023A00F04CE0 /* collision_util.cpp */; };
 		04459306278F063E00F04CE0 /* bounding_frustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FC278F023900F04CE0 /* bounding_frustum.cpp */; };
+		04459309278F14BD00F04CE0 /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459307278F14BD00F04CE0 /* renderer.cpp */; };
+		0445930A278F14BD00F04CE0 /* renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459308278F14BD00F04CE0 /* renderer.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -498,6 +500,8 @@
 		044592FC278F023900F04CE0 /* bounding_frustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bounding_frustum.cpp; sourceTree = "<group>"; };
 		044592FD278F023A00F04CE0 /* collision_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision_util.cpp; sourceTree = "<group>"; };
 		044592FE278F023A00F04CE0 /* spherical_harmonics3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spherical_harmonics3.h; sourceTree = "<group>"; };
+		04459307278F14BD00F04CE0 /* renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = renderer.cpp; sourceTree = "<group>"; };
+		04459308278F14BD00F04CE0 /* renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = renderer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -610,6 +614,8 @@
 				0445928B278EA37D00F04CE0 /* script.cpp */,
 				044592F6278EFEC700F04CE0 /* camera.h */,
 				044592F5278EFEC700F04CE0 /* camera.cpp */,
+				04459308278F14BD00F04CE0 /* renderer.h */,
+				04459307278F14BD00F04CE0 /* renderer.cpp */,
 			);
 			path = vox.render;
 			sourceTree = "<group>";
@@ -933,6 +939,7 @@
 				042295A0278C32FB0090983F /* CPPMetalRenderPipeline.hpp in Headers */,
 				042295BA278C33090090983F /* CPPMetalInternalMacros.h in Headers */,
 				04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */,
+				0445930A278F14BD00F04CE0 /* renderer.h in Headers */,
 				0445925D278E7C8600F04CE0 /* metal_application.h in Headers */,
 				0445928E278EA37D00F04CE0 /* script.h in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
@@ -1215,6 +1222,7 @@
 				0422958C278C32FB0090983F /* CPPMetalRenderPass.mm in Sources */,
 				04459258278E708A00F04CE0 /* unix_engine.cpp in Sources */,
 				04459280278E80DD00F04CE0 /* updateFlag.cpp in Sources */,
+				04459309278F14BD00F04CE0 /* renderer.cpp in Sources */,
 				04459200278E591A00F04CE0 /* imgui_widgets.cpp in Sources */,
 				044592F0278ED88400F04CE0 /* pbr_base_material.cpp in Sources */,
 				044592B7278EBFC600F04CE0 /* shader_program.cpp in Sources */,

@@ -14,6 +14,8 @@ namespace vox {
 namespace sg {
 class Scene;
 
+using ScenePtr = std::shared_ptr<Scene>;
+
 class Entity;
 
 using EntityPtr = std::shared_ptr<Entity>;
@@ -22,29 +24,55 @@ class Component;
 
 class ComponentManager;
 
-class Script;
-
-class Camera;
-
 class Transform;
-
-class Light;
-
-class Renderer;
-
-class Mesh;
 
 class SubMesh;
 
+class Mesh;
+
+using MeshPtr = std::shared_ptr<Mesh>;
+
+class ModelMesh;
+
+using ModelMeshPtr = std::shared_ptr<ModelMesh>;
+
 class Material;
+
+using MaterialPtr = std::shared_ptr<Material>;
+
+class UnlitMaterial;
+
+using UnlitMaterialPtr = std::shared_ptr<UnlitMaterial>;
+
+class BlinnPhongMaterial;
+
+using BlinnPhongMaterialPtr = std::shared_ptr<BlinnPhongMaterial>;
 
 class PBRMaterial;
 
-class Texture;
+using PBRMaterialPtr = std::shared_ptr<PBRMaterial>;
 
-class Image;
+class Camera;
 
-class Sampler;
+class Renderer;
+
+class MeshRenderer;
+
+class GPUSkinnedMeshRenderer;
+
+class Script;
+
+class Animator;
+
+class SceneAnimator;
+
+class Light;
+
+class PointLight;
+
+class SpotLight;
+
+class DirectLight;
 
 }
 }
