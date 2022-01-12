@@ -23,10 +23,7 @@
 #include <vector>
 #include <glog/logging.h>
 
-//#include "force_close/force_close.h"
 #include "filesystem.h"
-//#include "parsers/CLI11.h"
-#include "plugins/plugin.h"
 
 namespace vox {
 const uint32_t Platform::MIN_WINDOW_WIDTH = 420;
@@ -38,7 +35,7 @@ std::string Platform::external_storage_directory = "";
 
 std::string Platform::temp_directory = "";
 
-ExitCode Platform::initialize(const std::vector<Plugin *> &plugins = {}) {
+ExitCode Platform::initialize() {
     google::InitGoogleLogging("DigitalVox");
     
     // Platform has been closed by a plugins initialization phase
@@ -281,41 +278,5 @@ void Platform::resize(uint32_t width, uint32_t height) {
         }
     }
 }
-
-#define HOOK(enum, func)                \
-    static auto res = hooks.find(enum); \
-    if (res != hooks.end())             \
-    {                                   \
-        for (auto plugin : res->second) \
-        {                               \
-            plugin->func;               \
-        }                               \
-    }
-
-void Platform::on_post_draw(RenderContext &context) const {
-    HOOK(Hook::PostDraw, on_post_draw(context));
-}
-
-void Platform::on_app_error(const std::string &app_id) {
-    HOOK(Hook::OnAppError, on_app_error(app_id));
-}
-
-void Platform::on_update(float delta_time) {
-    HOOK(Hook::OnUpdate, on_update(delta_time));
-}
-
-void Platform::on_app_start(const std::string &app_id) {
-    HOOK(Hook::OnAppStart, on_app_start(app_id));
-}
-
-void Platform::on_app_close(const std::string &app_id) {
-    HOOK(Hook::OnAppClose, on_app_close(app_id));
-}
-
-void Platform::on_platform_close() {
-    HOOK(Hook::OnPlatformClose, on_platform_close());
-}
-
-#undef HOOK
 
 }        // namespace vox

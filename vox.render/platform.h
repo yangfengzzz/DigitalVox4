@@ -24,7 +24,6 @@
 
 #include "application.h"
 #include "filesystem.h"
-#include "plugins/plugin.h"
 #include "window.h"
 
 #if defined(VK_USE_PLATFORM_XLIB_KHR)
@@ -47,10 +46,9 @@ public:
     
     /**
      * @brief Initialize the platform
-     * @param plugins plugins available to the platform
      * @return An exit code representing the outcome of initialization
      */
-    virtual ExitCode initialize(const std::vector<Plugin *> &plugins);
+    virtual ExitCode initialize();
     
     /**
      * @brief Handles the main loop of the platform
@@ -131,16 +129,12 @@ public:
     
     void set_window_properties(const Window::OptionalProperties &properties);
     
-    void on_post_draw(RenderContext &context) const;
+//    void on_post_draw(RenderContext &context) const;
     
     static const uint32_t MIN_WINDOW_WIDTH;
     static const uint32_t MIN_WINDOW_HEIGHT;
     
 protected:
-    std::vector<Plugin *> active_plugins;
-    
-    std::unordered_map<Hook, std::vector<Plugin *>> hooks;
-    
     std::unique_ptr<Window> window{nullptr};
     
     std::unique_ptr<Application> active_app{nullptr};
@@ -173,9 +167,7 @@ protected:
     
 private:
     Timer timer;
-        
-    std::vector<Plugin *> plugins;
-    
+            
     /// Static so can be set via JNI code in android_platform.cpp
     static std::vector<std::string> arguments;
     
@@ -184,15 +176,4 @@ private:
     static std::string temp_directory;
 };
 
-template<class T>
-bool Platform::using_plugin() const {
-    return !plugins::with_tags<T>(active_plugins).empty();
-}
-
-template<class T>
-T *Platform::get_plugin() const {
-    assert(using_plugin<T>() && "Plugin is not enabled but was requested");
-    const auto plugins = plugins::with_tags<T>(active_plugins);
-    return dynamic_cast<T *>(plugins[0]);
-}
 }        // namespace vox
