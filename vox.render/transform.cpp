@@ -9,6 +9,7 @@
 #include "math_utils.h"
 #include "entity.h"
 #include "ImathMatrixAlgo.h"
+#include "ImathRightHand.h"
 
 namespace vox {
 namespace sg {
@@ -53,7 +54,7 @@ void Transform::setWorldPosition(const V3f &value) {
 V3f Transform::rotation() {
     if (_isContainDirtyFlag(TransformFlag::LocalEuler)) {
         _rotation.extract(_rotationQuaternion);
-        _rotation = _rotation * kRadianToDegree; // radians to degrees
+        _rotation *= kRadianToDegree; // radians to degrees
         
         _setDirtyFlagFalse(TransformFlag::LocalEuler);
     }
@@ -70,7 +71,7 @@ void Transform::setRotation(const V3f &value) {
 V3f Transform::worldRotation() {
     if (_isContainDirtyFlag(TransformFlag::WorldEuler)) {
         _worldRotation.extract(worldRotationQuaternion());
-        _worldRotation = _worldRotation * kRadianToDegree; // Radian to angle
+        _worldRotation *= kRadianToDegree; // Radian to angle
         _setDirtyFlagFalse(TransformFlag::WorldEuler);
     }
     return _worldRotation;
@@ -148,8 +149,7 @@ V3f Transform::lossyWorldScale() {
 
 M44f Transform::localMatrix() {
     if (_isContainDirtyFlag(TransformFlag::LocalMatrix)) {
-        _localMatrix = _localMatrix.setScale(_scale);
-        _localMatrix = _localMatrix.rotate(rotation());
+        _localMatrix = rotationQuaternion().toMatrix44().scale(_scale);
         _localMatrix = _localMatrix.translate(_position);
         _setDirtyFlagFalse(TransformFlag::LocalMatrix);
     }
@@ -160,6 +160,7 @@ void Transform::setLocalMatrix(const M44f &value) {
     _localMatrix = value;
     V3f dump;
     extractSHRT(_localMatrix, _scale, dump, _rotation, _position);
+    _rotationQuaternion = _rotation.toQuat();
     _setDirtyFlagTrue(TransformFlag::LocalEuler);
     _setDirtyFlagFalse(TransformFlag::LocalMatrix);
     _updateAllWorldFlag();
@@ -269,17 +270,17 @@ void Transform::rotateByAxis(const V3f &axis, float angle, bool relativeToLocal)
 }
 
 void Transform::lookAt(const V3f &worldPosition, const V3f &worldUp) {
-//    const auto position = this->worldPosition();
-//    const auto EPSILON = kNormalizationToleranceSq;
-//    if (std::abs(position.x - worldPosition.x) < EPSILON &&
-//        std::abs(position.y - worldPosition.y) < EPSILON &&
-//        std::abs(position.z - worldPosition.z) < EPSILON) {
-//        return;
-//    }
-//    M33f rotMat = Matrix::lookAt(position, worldPosition, worldUp);
-//    auto worldRotationQuaternion = rotMat.rotate();
-//    worldRotationQuaternion = invert(worldRotationQuaternion);
-//    setWorldRotationQuaternion(worldRotationQuaternion);
+    const auto position = this->worldPosition();
+    const auto EPSILON = 1e-6f;;
+    if (std::abs(position.x - worldPosition.x) < EPSILON &&
+        std::abs(position.y - worldPosition.y) < EPSILON &&
+        std::abs(position.z - worldPosition.z) < EPSILON) {
+        return;
+    }
+    M44f rotMat = Imath::lookAt(position, worldPosition, worldUp);
+    Eulerf worldRotation;
+    Imath::extractEulerXYZ(rotMat, worldRotation);
+    setWorldRotationQuaternion(worldRotation.toQuat().inverse());
 }
 
 std::unique_ptr<UpdateFlag> Transform::registerWorldChangeFlag() {
