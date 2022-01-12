@@ -37,32 +37,31 @@ public:
     /**
      * Set which face for render.
      */
-    const RenderFace::Enum &renderFace();
+    const RenderFace &renderFace();
     
-    void setRenderFace(const RenderFace::Enum &newValue);
+    void setRenderFace(const RenderFace &newValue);
     
     /**
      * Alpha blend mode.
      * @remarks
      * Only take effect when `isTransparent` is `true`.
      */
-    const BlendMode::Enum &blendMode();
+    const BlendMode &blendMode();
     
-    void setBlendMode(const BlendMode::Enum &newValue);
+    void setBlendMode(const BlendMode &newValue);
     
     /**
      * Create a BaseMaterial instance.
-     * @param engine - Engine to which the material belongs
      * @param shader - Shader used by the material
      */
-    BaseMaterial(Engine *engine, Shader *shader);
+    BaseMaterial(Shader *shader);
     
 private:
-    static ShaderProperty _alphaCutoffProp;
+    ShaderProperty _alphaCutoffProp;
     
-    RenderFace::Enum _renderFace = RenderFace::Enum::Back;
+    RenderFace _renderFace = RenderFace::Back;
+    BlendMode _blendMode = BlendMode::Normal;
     bool _isTransparent = false;
-    BlendMode::Enum _blendMode = BlendMode::Enum::Normal;
 };
 
 }

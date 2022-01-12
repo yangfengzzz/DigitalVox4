@@ -198,6 +198,8 @@
 		044592D8278ED0FB00F04CE0 /* blend_mode.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D5278ED0FB00F04CE0 /* blend_mode.h */; };
 		044592DB278ED11F00F04CE0 /* material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D9278ED11E00F04CE0 /* material.h */; };
 		044592DC278ED11F00F04CE0 /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592DA278ED11F00F04CE0 /* material.cpp */; };
+		044592DF278ED17E00F04CE0 /* base_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592DD278ED17E00F04CE0 /* base_material.h */; };
+		044592E0278ED17E00F04CE0 /* base_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592DE278ED17E00F04CE0 /* base_material.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -458,6 +460,8 @@
 		044592D5278ED0FB00F04CE0 /* blend_mode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blend_mode.h; sourceTree = "<group>"; };
 		044592D9278ED11E00F04CE0 /* material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = material.h; sourceTree = "<group>"; };
 		044592DA278ED11F00F04CE0 /* material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = material.cpp; sourceTree = "<group>"; };
+		044592DD278ED17E00F04CE0 /* base_material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base_material.h; sourceTree = "<group>"; };
+		044592DE278ED17E00F04CE0 /* base_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base_material.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -835,6 +839,8 @@
 				044592D2278ED04500F04CE0 /* enums */,
 				044592D9278ED11E00F04CE0 /* material.h */,
 				044592DA278ED11F00F04CE0 /* material.cpp */,
+				044592DD278ED17E00F04CE0 /* base_material.h */,
+				044592DE278ED17E00F04CE0 /* base_material.cpp */,
 			);
 			path = material;
 			sourceTree = "<group>";
@@ -912,6 +918,7 @@
 				044592C2278EC5A200F04CE0 /* depth_state.h in Headers */,
 				042295A7278C32FB0090983F /* CPPMetalDepthStencil.hpp in Headers */,
 				044592D8278ED0FB00F04CE0 /* blend_mode.h in Headers */,
+				044592DF278ED17E00F04CE0 /* base_material.h in Headers */,
 				044592BB278EC19E00F04CE0 /* stencil_state.h in Headers */,
 				0445927F278E80DD00F04CE0 /* layer.h in Headers */,
 				04229592278C32FB0090983F /* CPPMetalTexture.hpp in Headers */,
@@ -1156,6 +1163,7 @@
 				0445923C278E61D200F04CE0 /* debug_info.cpp in Sources */,
 				04229594278C32FB0090983F /* CPPMetalDeviceInternals.mm in Sources */,
 				0422958A278C32FB0090983F /* CPPMetalDepthStencil.mm in Sources */,
+				044592E0278ED17E00F04CE0 /* base_material.cpp in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
 				0422959C278C32FB0090983F /* CPPMetalBuffer.mm in Sources */,
 				04459250278E689D00F04CE0 /* CPPCAMetalLayer.mm in Sources */,

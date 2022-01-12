@@ -8,8 +8,6 @@
 #include "base_material.h"
 
 namespace vox {
-ShaderProperty BaseMaterial::_alphaCutoffProp = Shader::createProperty("u_alphaCutoff", ShaderDataGroup::Material);
-
 bool BaseMaterial::isTransparent() {
     return _isTransparent;
 }
@@ -30,7 +28,8 @@ void BaseMaterial::setIsTransparent(bool newValue) {
     } else {
         targetBlendState.enabled = false;
         depthState.writeEnabled = true;
-        renderQueueType = (shaderData.getData(BaseMaterial::_alphaCutoffProp).has_value()) ? RenderQueueType::AlphaTest : RenderQueueType::Opaque;
+        renderQueueType = (shaderData.getData(BaseMaterial::_alphaCutoffProp).has_value())
+        ? RenderQueueType::AlphaTest : RenderQueueType::Opaque;
     }
 }
 
@@ -50,59 +49,60 @@ void BaseMaterial::setAlphaCutoff(float newValue) {
     }
 }
 
-const RenderFace::Enum &BaseMaterial::renderFace() {
+const RenderFace &BaseMaterial::renderFace() {
     return _renderFace;
 }
 
-void BaseMaterial::setRenderFace(const RenderFace::Enum &newValue) {
+void BaseMaterial::setRenderFace(const RenderFace &newValue) {
     _renderFace = newValue;
     
     switch (newValue) {
         case RenderFace::Front:
-            renderState.rasterState.cullMode = MTLCullModeBack;
+            renderState.rasterState.cullMode = MTL::CullModeBack;
             break;
         case RenderFace::Back:
-            renderState.rasterState.cullMode = MTLCullModeFront;
+            renderState.rasterState.cullMode = MTL::CullModeFront;
             break;
         case RenderFace::Double:
-            renderState.rasterState.cullMode = MTLCullModeNone;
+            renderState.rasterState.cullMode = MTL::CullModeNone;
             break;
     }
 }
 
-const BlendMode::Enum &BaseMaterial::blendMode() {
+const BlendMode &BaseMaterial::blendMode() {
     return _blendMode;
 }
 
-void BaseMaterial::setBlendMode(const BlendMode::Enum &newValue) {
+void BaseMaterial::setBlendMode(const BlendMode &newValue) {
     _blendMode = newValue;
     
     auto &target = renderState.blendState.targetBlendState;
     
     switch (newValue) {
         case BlendMode::Normal:
-            target.sourceColorBlendFactor = MTLBlendFactorSourceAlpha;
-            target.destinationColorBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
-            target.sourceAlphaBlendFactor = MTLBlendFactorOne;
-            target.destinationAlphaBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
-            target.alphaBlendOperation = MTLBlendOperationAdd;
-            target.colorBlendOperation = MTLBlendOperationAdd;
+            target.sourceColorBlendFactor = MTL::BlendFactorSourceAlpha;
+            target.destinationColorBlendFactor = MTL::BlendFactorOneMinusSourceAlpha;
+            target.sourceAlphaBlendFactor = MTL::BlendFactorOne;
+            target.destinationAlphaBlendFactor = MTL::BlendFactorOneMinusSourceAlpha;
+            target.alphaBlendOperation = MTL::BlendOperationAdd;
+            target.colorBlendOperation = MTL::BlendOperationAdd;
             break;
         case BlendMode::Additive:
-            target.sourceColorBlendFactor = MTLBlendFactorSourceAlpha;
-            target.destinationColorBlendFactor = MTLBlendFactorOne;
-            target.sourceAlphaBlendFactor = MTLBlendFactorOne;
-            target.destinationAlphaBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
-            target.alphaBlendOperation = MTLBlendOperationAdd;
-            target.colorBlendOperation = MTLBlendOperationAdd;
+            target.sourceColorBlendFactor = MTL::BlendFactorSourceAlpha;
+            target.destinationColorBlendFactor = MTL::BlendFactorOne;
+            target.sourceAlphaBlendFactor = MTL::BlendFactorOne;
+            target.destinationAlphaBlendFactor = MTL::BlendFactorOneMinusSourceAlpha;
+            target.alphaBlendOperation = MTL::BlendOperationAdd;
+            target.colorBlendOperation = MTL::BlendOperationAdd;
             break;
     }
 }
 
-BaseMaterial::BaseMaterial(Engine *engine, Shader *shader) :
-Material(engine, shader) {
-    setBlendMode(BlendMode::Enum::Normal);
-    shaderData.setData(BaseMaterial::_alphaCutoffProp, 0.0f);
+BaseMaterial::BaseMaterial(Shader *shader) :
+Material(shader),
+_alphaCutoffProp(Shader::createProperty("u_alphaCutoff", ShaderDataGroup::Material)) {
+    setBlendMode(BlendMode::Normal);
+    shaderData.setData(_alphaCutoffProp, 0.0f);
 }
 
 }
