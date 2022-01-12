@@ -27,7 +27,8 @@ public:
      */
     bool isValid();
     
-    ShaderProgram(MTL::Library* library, const std::string &vertexSource, const std::string &fragmentSource,
+    ShaderProgram(MTL::Library* library,
+                  const std::string &vertexSource, const std::string &fragmentSource,
                   const ShaderMacroCollection &macroInfo);
     
     

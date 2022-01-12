@@ -56,6 +56,22 @@ Function Library::makeFunction(const char *name) {
     return Function(objCObj, *m_device);
 }
 
+Function Library::makeFunction(const char *name, const MTL::FunctionConstantValues& constantValues) {
+    CPP_METAL_VALIDATE_WRAPPED_NIL();
+    
+    NSError *error = nil;
+    NSString *nsName = [[NSString alloc] initWithUTF8String:name];
+    
+    id <MTLFunction> objCObj = [m_objCObj newFunctionWithName:nsName
+                                               constantValues:constantValues.objCObj()
+                                                        error:&error];
+    if (error != nil) {
+        NSLog(@"Error: failed to create Metal function: %@", error);
+    }
+    
+    return Function(objCObj, *m_device);
+}
+
 CPP_METAL_DEVICE_GETTER_IMPLEMENTATION(Library);
 
 

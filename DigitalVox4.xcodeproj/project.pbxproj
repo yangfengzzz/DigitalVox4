@@ -180,6 +180,8 @@
 		044592AF278EBEB900F04CE0 /* shader_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592AC278EBEB900F04CE0 /* shader_property.cpp */; };
 		044592B2278EBEE600F04CE0 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B0278EBEE600F04CE0 /* shader.cpp */; };
 		044592B3278EBEE600F04CE0 /* shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B1278EBEE600F04CE0 /* shader.h */; };
+		044592B6278EBFC600F04CE0 /* shader_program.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B4278EBFC600F04CE0 /* shader_program.h */; };
+		044592B7278EBFC600F04CE0 /* shader_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B5278EBFC600F04CE0 /* shader_program.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -422,6 +424,8 @@
 		044592AC278EBEB900F04CE0 /* shader_property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_property.cpp; sourceTree = "<group>"; };
 		044592B0278EBEE600F04CE0 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		044592B1278EBEE600F04CE0 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
+		044592B4278EBFC600F04CE0 /* shader_program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_program.h; sourceTree = "<group>"; };
+		044592B5278EBFC600F04CE0 /* shader_program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_program.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -758,16 +762,18 @@
 			children = (
 				044592B1278EBEE600F04CE0 /* shader.h */,
 				044592B0278EBEE600F04CE0 /* shader.cpp */,
-				044592AA278EBEB900F04CE0 /* shader_uniform.h */,
-				0445929B278EB31400F04CE0 /* macro_name.h */,
-				04459299278EB2F900F04CE0 /* shaderData_group.h */,
-				04459295278EB2EB00F04CE0 /* shader_macro_collection.h */,
-				04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */,
 				044592A7278EB9DF00F04CE0 /* shader_data.h */,
 				044592A6278EB9DF00F04CE0 /* shader_data.cpp */,
+				04459290278EB29100F04CE0 /* state */,
+				0445929B278EB31400F04CE0 /* macro_name.h */,
+				04459299278EB2F900F04CE0 /* shaderData_group.h */,
+				044592B4278EBFC600F04CE0 /* shader_program.h */,
+				044592B5278EBFC600F04CE0 /* shader_program.cpp */,
 				044592AB278EBEB900F04CE0 /* shader_property.h */,
 				044592AC278EBEB900F04CE0 /* shader_property.cpp */,
-				04459290278EB29100F04CE0 /* state */,
+				044592AA278EBEB900F04CE0 /* shader_uniform.h */,
+				04459295278EB2EB00F04CE0 /* shader_macro_collection.h */,
+				04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */,
 			);
 			path = shader;
 			sourceTree = "<group>";
@@ -820,6 +826,7 @@
 				044592AD278EBEB900F04CE0 /* shader_uniform.h in Headers */,
 				04459282278E80DD00F04CE0 /* component.h in Headers */,
 				042295A2278C32FB0090983F /* CPPMetalDevice.hpp in Headers */,
+				044592B6278EBFC600F04CE0 /* shader_program.h in Headers */,
 				042295AC278C32FB0090983F /* CPPMetalRenderPass.hpp in Headers */,
 				04459297278EB2EB00F04CE0 /* shader_macro_collection.h in Headers */,
 				042295B4278C32FB0090983F /* CPPMetalImplementation.hpp in Headers */,
@@ -1061,6 +1068,7 @@
 				04459258278E708A00F04CE0 /* unix_engine.cpp in Sources */,
 				04459280278E80DD00F04CE0 /* updateFlag.cpp in Sources */,
 				04459200278E591A00F04CE0 /* imgui_widgets.cpp in Sources */,
+				044592B7278EBFC600F04CE0 /* shader_program.cpp in Sources */,
 				0445924C278E63FF00F04CE0 /* filesystem.cpp in Sources */,
 				042295B0278C32FB0090983F /* CPPMetalDevice.mm in Sources */,
 				042295A9278C32FB0090983F /* CPPMetalRenderCommandEncoder.mm in Sources */,

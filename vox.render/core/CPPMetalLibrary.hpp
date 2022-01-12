@@ -11,7 +11,7 @@
 #include "CPPMetalImplementation.hpp"
 #include "CPPMetalTypes.hpp"
 #include "CPPMetalDevice.hpp"
-
+#include "CPPMetalFunctionConstantValues.hpp"
 
 namespace MTL {
 
@@ -36,6 +36,8 @@ public:
     Function *newFunctionWithName(const char *name);
     
     Function makeFunction(const char *name);
+    
+    Function makeFunction(const char *name, const MTL::FunctionConstantValues& constantValues);
     
     Device device() const;
     

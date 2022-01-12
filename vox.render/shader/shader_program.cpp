@@ -11,11 +11,11 @@
 namespace vox {
 int ShaderProgram::_counter = 0;
 
-id <MTLFunction> ShaderProgram::vertexShader() {
+MTL::Function ShaderProgram::vertexShader() {
     return _vertexShader;
 }
 
-id <MTLFunction> ShaderProgram::fragmentShader() {
+MTL::Function ShaderProgram::fragmentShader() {
     return _fragmentShader;
 }
 
@@ -23,7 +23,7 @@ bool ShaderProgram::isValid() {
     return _isValid;
 }
 
-ShaderProgram::ShaderProgram(id <MTLLibrary> library,
+ShaderProgram::ShaderProgram(MTL::Library* library,
                              const std::string &vertexSource,
                              const std::string &fragmentSource,
                              const ShaderMacroCollection &macroInfo) {
@@ -35,20 +35,21 @@ ShaderProgram::ShaderProgram(id <MTLLibrary> library,
     _isValid = true;
 }
 
-MTLFunctionConstantValues *ShaderProgram::makeFunctionConstants(const ShaderMacroCollection &macroInfo) {
+MTL::FunctionConstantValues ShaderProgram::makeFunctionConstants(const ShaderMacroCollection &macroInfo) {
     auto functionConstants = ShaderMacroCollection::createDefaultFunction();
-    std::for_each(macroInfo._value.begin(), macroInfo._value.end(), [&](const std::pair<MacroName, std::pair<int, MTLDataType>> &info) {
-        if (info.second.second == MTLDataTypeBool) {
+    std::for_each(macroInfo._value.begin(), macroInfo._value.end(),
+                  [&](const std::pair<MacroName, std::pair<int, MTL::DataType>> &info) {
+        if (info.second.second == MTL::DataTypeBool) {
             bool property;
             if (info.second.first == 1) {
                 property = true;
             } else {
                 property = false;
             }
-            [functionConstants setConstantValue:&property type:MTLDataTypeBool atIndex:info.first];
+            functionConstants.setConstantValue(&property, MTL::DataTypeBool, info.first);
         } else {
             auto &property = info.second.first;
-            [functionConstants setConstantValue:&property type:info.second.second atIndex:info.first];
+            functionConstants.setConstantValue(&property, info.second.second, info.first);
         }
     });
     return functionConstants;
@@ -57,10 +58,8 @@ MTLFunctionConstantValues *ShaderProgram::makeFunctionConstants(const ShaderMacr
 void ShaderProgram::_createProgram(const std::string &vertexSource, const std::string &fragmentSource,
                                    const ShaderMacroCollection &macroInfo) {
     auto functionConstants = makeFunctionConstants(macroInfo);
-    _vertexShader = [_library newFunctionWithName:[NSString stringWithCString:vertexSource.c_str() encoding:NSUTF8StringEncoding]
-                                   constantValues:functionConstants error:nullptr];
-    _fragmentShader = [_library newFunctionWithName:[NSString stringWithCString:fragmentSource.c_str() encoding:NSUTF8StringEncoding]
-                                     constantValues:functionConstants error:nullptr];
+    _vertexShader = _library->makeFunction(vertexSource.c_str(), functionConstants);
+    _fragmentShader = _library->makeFunction(fragmentSource.c_str(), functionConstants);
 }
 
 
