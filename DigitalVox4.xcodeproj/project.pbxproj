@@ -208,6 +208,8 @@
 		044592EC278ED82300F04CE0 /* pbr_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592EA278ED82300F04CE0 /* pbr_material.cpp */; };
 		044592EF278ED88400F04CE0 /* pbr_base_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592ED278ED88400F04CE0 /* pbr_base_material.h */; };
 		044592F0278ED88400F04CE0 /* pbr_base_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592EE278ED88400F04CE0 /* pbr_base_material.cpp */; };
+		044592F3278EDA3300F04CE0 /* pbr_specular_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F1278EDA3200F04CE0 /* pbr_specular_material.h */; };
+		044592F4278EDA3300F04CE0 /* pbr_specular_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -478,6 +480,8 @@
 		044592EA278ED82300F04CE0 /* pbr_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pbr_material.cpp; sourceTree = "<group>"; };
 		044592ED278ED88400F04CE0 /* pbr_base_material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbr_base_material.h; sourceTree = "<group>"; };
 		044592EE278ED88400F04CE0 /* pbr_base_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pbr_base_material.cpp; sourceTree = "<group>"; };
+		044592F1278EDA3200F04CE0 /* pbr_specular_material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbr_specular_material.h; sourceTree = "<group>"; };
+		044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pbr_specular_material.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -865,6 +869,8 @@
 				044592EE278ED88400F04CE0 /* pbr_base_material.cpp */,
 				044592E9278ED82200F04CE0 /* pbr_material.h */,
 				044592EA278ED82300F04CE0 /* pbr_material.cpp */,
+				044592F1278EDA3200F04CE0 /* pbr_specular_material.h */,
+				044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */,
 			);
 			path = material;
 			sourceTree = "<group>";
@@ -939,6 +945,7 @@
 				0445927C278E80DD00F04CE0 /* updateFlag_manager.h in Headers */,
 				042295B1278C32FB0090983F /* CPPMetalCommandBuffer.hpp in Headers */,
 				042295A8278C32FB0090983F /* CPPMetalBuffer.hpp in Headers */,
+				044592F3278EDA3300F04CE0 /* pbr_specular_material.h in Headers */,
 				044591CA278E551100F04CE0 /* allocator.h in Headers */,
 				04229593278C32FB0090983F /* CPPMetalDrawable.hpp in Headers */,
 				0445922D278E5F1100F04CE0 /* application.h in Headers */,
@@ -1159,6 +1166,7 @@
 				044592DC278ED11F00F04CE0 /* material.cpp in Sources */,
 				0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */,
 				042295AE278C32FB0090983F /* CPPMetalKitTextureLoader.mm in Sources */,
+				044592F4278EDA3300F04CE0 /* pbr_specular_material.cpp in Sources */,
 				0445924B278E63FA00F04CE0 /* application.cpp in Sources */,
 				044592CF278EC79200F04CE0 /* blend_state.cpp in Sources */,
 				042295A4278C32FB0090983F /* CPPMetalCommandQueue.mm in Sources */,
