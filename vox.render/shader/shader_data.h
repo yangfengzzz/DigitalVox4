@@ -43,7 +43,7 @@ public:
      * @param macroName - Macro name
      * @param value - Macro value
      */
-    void enableMacro(MacroName macroName, std::pair<int, MTLDataType> value);
+    void enableMacro(MacroName macroName, std::pair<int, MTL::DataType> value);
     
     /**
      * Disable macro

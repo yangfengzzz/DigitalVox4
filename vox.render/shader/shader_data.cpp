@@ -46,10 +46,10 @@ const std::unordered_map<int, std::any> &ShaderData::properties() const {
 
 //MARK: - Macro
 void ShaderData::enableMacro(MacroName macroName) {
-    _macroCollection._value.insert(std::make_pair(macroName, std::make_pair(1, MTLDataTypeBool)));
+    _macroCollection._value.insert(std::make_pair(macroName, std::make_pair(1, MTL::DataTypeBool)));
 }
 
-void ShaderData::enableMacro(MacroName macroName, std::pair<int, MTLDataType> value) {
+void ShaderData::enableMacro(MacroName macroName, std::pair<int, MTL::DataType> value) {
     _macroCollection._value.insert(std::make_pair(macroName, value));
 }
 

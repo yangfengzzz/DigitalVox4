@@ -11,7 +11,6 @@
 #include <unordered_map>
 #include <string>
 #include <optional>
-#include "../vox_type.h"
 #include "shader_property.h"
 #include "shader_program.h"
 #include "shader_macro_collection.h"
@@ -28,7 +27,7 @@ public:
     Shader(const std::string &name, const std::string &vertexSource,
            const std::string &fragmentSource, const std::string &deferredFragmentSource = "");
     
-    ShaderProgram *findShaderProgram(Engine *engine, const ShaderMacroCollection &macroCollection, bool isDeferred = false);
+    ShaderProgram *findShaderProgram(const ShaderMacroCollection &macroCollection, bool isDeferred = false);
     
     /**
      * Create a shader.
@@ -53,7 +52,7 @@ public:
      */
     static std::optional<ShaderProperty> getPropertyByName(const std::string &name);
     
-    static std::optional<ShaderDataGroup::Enum> getShaderPropertyGroup(const std::string &propertyName);
+    static std::optional<ShaderDataGroup> getShaderPropertyGroup(const std::string &propertyName);
     
     /**
      * Create shader property by name.
@@ -61,7 +60,7 @@ public:
      * @param group - Group of shader data
      * @returns Shader property
      */
-    static ShaderProperty createProperty(const std::string &name, ShaderDataGroup::Enum group);
+    static ShaderProperty createProperty(const std::string &name, ShaderDataGroup group);
     
 private:
     // common shader map

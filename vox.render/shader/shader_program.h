@@ -8,8 +8,9 @@
 #ifndef shader_program_hpp
 #define shader_program_hpp
 
-#import <Metal/Metal.h>
 #include "shader_macro_collection.h"
+#include "core/CPPMetalLibrary.hpp"
+#include "core/CPPMetalFunctionConstantValues.hpp"
 
 namespace vox {
 /**
@@ -17,21 +18,21 @@ namespace vox {
  */
 class ShaderProgram {
 public:
-    id <MTLFunction> vertexShader();
+    MTL::Function vertexShader();
     
-    id <MTLFunction> fragmentShader();
+    MTL::Function fragmentShader();
     
     /**
      * Whether this shader program is valid.
      */
     bool isValid();
     
-    ShaderProgram(id <MTLLibrary> library, const std::string &vertexSource, const std::string &fragmentSource,
+    ShaderProgram(MTL::Library* library, const std::string &vertexSource, const std::string &fragmentSource,
                   const ShaderMacroCollection &macroInfo);
     
     
 private:
-    MTLFunctionConstantValues *makeFunctionConstants(const ShaderMacroCollection &macroInfo);
+    MTL::FunctionConstantValues makeFunctionConstants(const ShaderMacroCollection &macroInfo);
     
     /**
      * init and link program with shader.
@@ -42,9 +43,9 @@ private:
     static int _counter;
     int ID;
     bool _isValid;
-    id <MTLLibrary> _library;
-    id <MTLFunction> _vertexShader;
-    id <MTLFunction> _fragmentShader;
+    MTL::Library* _library;
+    MTL::Function _vertexShader;
+    MTL::Function _fragmentShader;
 };
 
 }

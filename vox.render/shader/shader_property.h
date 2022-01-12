@@ -8,7 +8,7 @@
 #ifndef shader_property_hpp
 #define shader_property_hpp
 
-#include "enums/shaderData_group.h"
+#include "shaderData_group.h"
 #include <string>
 
 namespace vox {
@@ -19,11 +19,11 @@ struct ShaderProperty {
     /** Shader property name. */
     const std::string name;
     
-    const ShaderDataGroup::Enum group;
+    const ShaderDataGroup group;
     
     const int uniqueId;
     
-    ShaderProperty(const std::string &name, ShaderDataGroup::Enum group);
+    ShaderProperty(const std::string &name, ShaderDataGroup group);
     
 private:
     static int _propertyNameCounter;

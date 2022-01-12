@@ -173,6 +173,8 @@
 		044592A3278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm in Sources */ = {isa = PBXBuildFile; fileRef = 044592A1278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm */; };
 		044592A4278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 044592A2278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp */; };
 		044592A5278EB92800F04CE0 /* shader_macro_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */; };
+		044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592A6278EB9DF00F04CE0 /* shader_data.cpp */; };
+		044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592A7278EB9DF00F04CE0 /* shader_data.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -408,6 +410,8 @@
 		0445929D278EB45200F04CE0 /* CPPMetalDataType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalDataType.hpp; sourceTree = "<group>"; };
 		044592A1278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPMetalFunctionConstantValues.mm; sourceTree = "<group>"; };
 		044592A2278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalFunctionConstantValues.hpp; sourceTree = "<group>"; };
+		044592A6278EB9DF00F04CE0 /* shader_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_data.cpp; sourceTree = "<group>"; };
+		044592A7278EB9DF00F04CE0 /* shader_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_data.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -746,6 +750,8 @@
 				04459299278EB2F900F04CE0 /* shaderData_group.h */,
 				04459295278EB2EB00F04CE0 /* shader_macro_collection.h */,
 				04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */,
+				044592A7278EB9DF00F04CE0 /* shader_data.h */,
+				044592A6278EB9DF00F04CE0 /* shader_data.cpp */,
 				04459290278EB29100F04CE0 /* state */,
 			);
 			path = shader;
@@ -784,6 +790,7 @@
 				0445928E278EA37D00F04CE0 /* script.h in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
 				04459225278E5F1100F04CE0 /* configuration.h in Headers */,
+				044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */,
 				044591FF278E591A00F04CE0 /* imconfig.h in Headers */,
 				0445929F278EB45200F04CE0 /* CPPMetalDataType.hpp in Headers */,
 				04459237278E5FD700F04CE0 /* debug_info.h in Headers */,
@@ -1013,6 +1020,7 @@
 				04459208278E591A00F04CE0 /* imgui.cpp in Sources */,
 				0445928D278EA37D00F04CE0 /* script.cpp in Sources */,
 				044591EE278E557C00F04CE0 /* align.cc in Sources */,
+				044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
 				0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */,
 				042295AE278C32FB0090983F /* CPPMetalKitTextureLoader.mm in Sources */,
