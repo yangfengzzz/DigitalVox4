@@ -114,8 +114,8 @@
 		044591C9278E551100F04CE0 /* allocator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 044591C6278E551100F04CE0 /* allocator.cc */; };
 		044591CA278E551100F04CE0 /* allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591C7278E551100F04CE0 /* allocator.h */; };
 		044591CB278E551100F04CE0 /* unique_ptr.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591C8278E551100F04CE0 /* unique_ptr.h */; };
-		044591EE278E557C00F04CE0 /* platform.cc in Sources */ = {isa = PBXBuildFile; fileRef = 044591EA278E557C00F04CE0 /* platform.cc */; };
-		044591F1278E557C00F04CE0 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591ED278E557C00F04CE0 /* platform.h */; };
+		044591EE278E557C00F04CE0 /* align.cc in Sources */ = {isa = PBXBuildFile; fileRef = 044591EA278E557C00F04CE0 /* align.cc */; };
+		044591F1278E557C00F04CE0 /* align.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591ED278E557C00F04CE0 /* align.h */; };
 		044591FE278E591A00F04CE0 /* imgui_tables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044591F3278E591900F04CE0 /* imgui_tables.cpp */; };
 		044591FF278E591A00F04CE0 /* imconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591F4278E591900F04CE0 /* imconfig.h */; };
 		04459200278E591A00F04CE0 /* imgui_widgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044591F5278E591900F04CE0 /* imgui_widgets.cpp */; };
@@ -294,8 +294,8 @@
 		044591D7278E551E00F04CE0 /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
 		044591D8278E551E00F04CE0 /* unordered_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unordered_map.h; sourceTree = "<group>"; };
 		044591D9278E551E00F04CE0 /* string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string.h; sourceTree = "<group>"; };
-		044591EA278E557C00F04CE0 /* platform.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cc; sourceTree = "<group>"; };
-		044591ED278E557C00F04CE0 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		044591EA278E557C00F04CE0 /* align.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = align.cc; sourceTree = "<group>"; };
+		044591ED278E557C00F04CE0 /* align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = align.h; sourceTree = "<group>"; };
 		044591F3278E591900F04CE0 /* imgui_tables.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_tables.cpp; sourceTree = "<group>"; };
 		044591F4278E591900F04CE0 /* imconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imconfig.h; sourceTree = "<group>"; };
 		044591F5278E591900F04CE0 /* imgui_widgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_widgets.cpp; sourceTree = "<group>"; };
@@ -369,8 +369,6 @@
 			isa = PBXGroup;
 			children = (
 				04459209278E5C8100F04CE0 /* helpers.h */,
-				044591ED278E557C00F04CE0 /* platform.h */,
-				044591EA278E557C00F04CE0 /* platform.cc */,
 				0422955D278C31DC0090983F /* core */,
 				044591C4278E54D500F04CE0 /* memory */,
 				044591C5278E54DF00F04CE0 /* containers */,
@@ -542,6 +540,8 @@
 		044591C4278E54D500F04CE0 /* memory */ = {
 			isa = PBXGroup;
 			children = (
+				044591ED278E557C00F04CE0 /* align.h */,
+				044591EA278E557C00F04CE0 /* align.cc */,
 				044591C7278E551100F04CE0 /* allocator.h */,
 				044591C6278E551100F04CE0 /* allocator.cc */,
 				044591C8278E551100F04CE0 /* unique_ptr.h */,
@@ -605,7 +605,7 @@
 				04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
 				044591FF278E591A00F04CE0 /* imconfig.h in Headers */,
-				044591F1278E557C00F04CE0 /* platform.h in Headers */,
+				044591F1278E557C00F04CE0 /* align.h in Headers */,
 				042295B8278C33090090983F /* CPPMetalDeviceInternals.h in Headers */,
 				042295A3278C32FB0090983F /* CPPMetalPixelFormat.hpp in Headers */,
 				042295A2278C32FB0090983F /* CPPMetalDevice.hpp in Headers */,
@@ -811,7 +811,7 @@
 			files = (
 				0422958D278C32FB0090983F /* CPPMetalRenderPipeline.mm in Sources */,
 				04459208278E591A00F04CE0 /* imgui.cpp in Sources */,
-				044591EE278E557C00F04CE0 /* platform.cc in Sources */,
+				044591EE278E557C00F04CE0 /* align.cc in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
 				042295AE278C32FB0090983F /* CPPMetalKitTextureLoader.mm in Sources */,
 				042295A4278C32FB0090983F /* CPPMetalCommandQueue.mm in Sources */,

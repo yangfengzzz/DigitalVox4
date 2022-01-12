@@ -32,7 +32,7 @@
 #include <new>
 #include <utility>
 
-#include "platform.h"
+#include "align.h"
 
 namespace vox {
 namespace memory {

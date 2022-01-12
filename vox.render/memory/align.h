@@ -25,19 +25,10 @@
 //                                                                            //
 //----------------------------------------------------------------------------//
 
-#ifndef VOX_VOX_BASE_PLATFORM_H_
-#define VOX_VOX_BASE_PLATFORM_H_
-
-// Ensures compiler supports c++11 language standards, to help user understand
-// compilation error in case it's not supported.
-// Unfortunately MSVC doesn't update __cplusplus, so test compiler version
-// instead.
-#if !((__cplusplus >= 201103L) || (_MSC_VER >= 1900))
-#error "vox-animation requires c++11 language standards."
-#endif  // __cplusplus
+#ifndef VOX_ALIGN_H_
+#define VOX_ALIGN_H_
 
 #include <stdint.h>
-
 #include <cassert>
 #include <cstddef>
 
@@ -111,4 +102,4 @@ _Ty* PointerStride(_Ty* _ty, size_t _stride) {
   return reinterpret_cast<_Ty*>(reinterpret_cast<uintptr_t>(_ty) + _stride);
 }
 }  // namespace vox
-#endif  // VOX_VOX_BASE_PLATFORM_H_
+#endif  // VOX_ALIGN_H_
