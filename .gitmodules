@@ -13,3 +13,6 @@
 [submodule "third_party/imath"]
 	path = third_party/imath
 	url = https://github.com/AcademySoftwareFoundation/Imath.git
+[submodule "third_party/glog"]
+	path = third_party/glog
+	url = https://github.com/google/glog.git

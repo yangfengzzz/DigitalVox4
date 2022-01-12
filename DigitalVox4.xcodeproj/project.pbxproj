@@ -115,8 +115,6 @@
 		044591CA278E551100F04CE0 /* allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591C7278E551100F04CE0 /* allocator.h */; };
 		044591CB278E551100F04CE0 /* unique_ptr.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591C8278E551100F04CE0 /* unique_ptr.h */; };
 		044591EE278E557C00F04CE0 /* platform.cc in Sources */ = {isa = PBXBuildFile; fileRef = 044591EA278E557C00F04CE0 /* platform.cc */; };
-		044591EF278E557C00F04CE0 /* log.cc in Sources */ = {isa = PBXBuildFile; fileRef = 044591EB278E557C00F04CE0 /* log.cc */; };
-		044591F0278E557C00F04CE0 /* log.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591EC278E557C00F04CE0 /* log.h */; };
 		044591F1278E557C00F04CE0 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591ED278E557C00F04CE0 /* platform.h */; };
 /* End PBXBuildFile section */
 
@@ -287,8 +285,6 @@
 		044591D8278E551E00F04CE0 /* unordered_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unordered_map.h; sourceTree = "<group>"; };
 		044591D9278E551E00F04CE0 /* string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string.h; sourceTree = "<group>"; };
 		044591EA278E557C00F04CE0 /* platform.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cc; sourceTree = "<group>"; };
-		044591EB278E557C00F04CE0 /* log.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = log.cc; sourceTree = "<group>"; };
-		044591EC278E557C00F04CE0 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
 		044591ED278E557C00F04CE0 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -353,8 +349,6 @@
 			children = (
 				044591ED278E557C00F04CE0 /* platform.h */,
 				044591EA278E557C00F04CE0 /* platform.cc */,
-				044591EC278E557C00F04CE0 /* log.h */,
-				044591EB278E557C00F04CE0 /* log.cc */,
 				0422955D278C31DC0090983F /* core */,
 				044591C4278E54D500F04CE0 /* memory */,
 				044591C5278E54DF00F04CE0 /* containers */,
@@ -566,7 +560,6 @@
 				0422959B278C32FB0090983F /* CPPMetalKitTextureLoader.hpp in Headers */,
 				042295A0278C32FB0090983F /* CPPMetalRenderPipeline.hpp in Headers */,
 				042295BA278C33090090983F /* CPPMetalInternalMacros.h in Headers */,
-				044591F0278E557C00F04CE0 /* log.h in Headers */,
 				04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
 				044591F1278E557C00F04CE0 /* platform.h in Headers */,
@@ -786,7 +779,6 @@
 				042295B0278C32FB0090983F /* CPPMetalDevice.mm in Sources */,
 				042295A9278C32FB0090983F /* CPPMetalRenderCommandEncoder.mm in Sources */,
 				04229595278C32FB0090983F /* CPPMetalPixelFormat.mm in Sources */,
-				044591EF278E557C00F04CE0 /* log.cc in Sources */,
 				04229594278C32FB0090983F /* CPPMetalDeviceInternals.mm in Sources */,
 				0422958A278C32FB0090983F /* CPPMetalDepthStencil.mm in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
