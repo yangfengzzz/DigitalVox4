@@ -24,6 +24,7 @@
 
 #include "scene_forward.h"
 #include "components_manager.h"
+#include "physics/physics_manager.h"
 #include "shader/shader_data.h"
 //#include "scene_graph/components/light.h"
 //#include "scene_graph/components/texture.h"
@@ -38,6 +39,8 @@ public:
     std::string name;
     
     ComponentsManager _componentsManager;
+    physics::PhysicsManager _physicsManager;
+
     
     /** The background of the scene. */
 //    Background background = Background(_engine);

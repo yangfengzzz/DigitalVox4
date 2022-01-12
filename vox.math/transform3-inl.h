@@ -53,14 +53,14 @@ inline V3d Transform3::toLocalDirection(const V3d& dirInWorld) const {
     return result;
 }
 
-inline Ray3D Transform3::toLocal(const Ray3D& rayInWorld) const {
-    return Ray3D(
+inline Ray3d Transform3::toLocal(const Ray3d& rayInWorld) const {
+    return Ray3d(
                  toLocal(rayInWorld.origin),
                  toLocalDirection(rayInWorld.direction));
 }
 
-inline BoundingBox3D Transform3::toLocal(const BoundingBox3D& bboxInWorld) const {
-    BoundingBox3D bboxInLocal;
+inline BoundingBox3d Transform3::toLocal(const BoundingBox3d& bboxInWorld) const {
+    BoundingBox3d bboxInLocal;
     for (int i = 0; i < 8; ++i) {
         auto cornerInLocal = toLocal(bboxInWorld.corner(i));
         bboxInLocal.lowerCorner
@@ -83,13 +83,13 @@ inline V3d Transform3::toWorldDirection(const V3d& dirInLocal) const {
     return result;    
 }
 
-inline Ray3D Transform3::toWorld(const Ray3D& rayInLocal) const {
-    return Ray3D(toWorld(rayInLocal.origin),
+inline Ray3d Transform3::toWorld(const Ray3d& rayInLocal) const {
+    return Ray3d(toWorld(rayInLocal.origin),
                  toWorldDirection(rayInLocal.direction));
 }
 
-inline BoundingBox3D Transform3::toWorld(const BoundingBox3D& bboxInLocal) const {
-    BoundingBox3D bboxInWorld;
+inline BoundingBox3d Transform3::toWorld(const BoundingBox3d& bboxInLocal) const {
+    BoundingBox3d bboxInWorld;
     for (int i = 0; i < 8; ++i) {
         auto cornerInWorld = toWorld(bboxInLocal.corner(i));
         bboxInWorld.lowerCorner

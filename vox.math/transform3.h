@@ -43,10 +43,10 @@ public:
     V3d toLocalDirection(const V3d& dirInWorld) const;
     
     //! Transforms a ray in world coordinate to the local frame.
-    Ray3D toLocal(const Ray3D& rayInWorld) const;
+    Ray3d toLocal(const Ray3d& rayInWorld) const;
     
     //! Transforms a bounding box in world coordinate to the local frame.
-    BoundingBox3D toLocal(const BoundingBox3D& bboxInWorld) const;
+    BoundingBox3d toLocal(const BoundingBox3d& bboxInWorld) const;
     
     //! Transforms a point in local space to the world coordinate.
     V3d toWorld(const V3d& pointInLocal) const;
@@ -55,10 +55,10 @@ public:
     V3d toWorldDirection(const V3d& dirInLocal) const;
     
     //! Transforms a ray in local space to the world coordinate.
-    Ray3D toWorld(const Ray3D& rayInLocal) const;
+    Ray3d toWorld(const Ray3d& rayInLocal) const;
     
     //! Transforms a bounding box in local space to the world coordinate.
-    BoundingBox3D toWorld(const BoundingBox3D& bboxInLocal) const;
+    BoundingBox3d toWorld(const BoundingBox3d& bboxInLocal) const;
     
 private:
     V3d _translation = V3d(0);
