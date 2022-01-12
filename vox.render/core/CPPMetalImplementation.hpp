@@ -40,6 +40,13 @@ Piece of the CPPMetal wrapper implementation on which public classes have depend
         CPP_METAL_VALIDATE_SIZE( MTK ## typename *, CFTypeRef ); \
     }
 
+#define CPP_CoreAnimation_CLASS_ALIAS( typename ) \
+    namespace CPPMetalInternal                                   \
+    {                                                            \
+        using typename = CA ## typename *;                      \
+        CPP_METAL_VALIDATE_SIZE( CA ## typename *, CFTypeRef ); \
+    }
+
 namespace CPPMetalInternal
 {
     using ObjCObj = NSObject;
@@ -126,8 +133,8 @@ CPP_METAL_CLASS_ALIAS( VertexBufferLayoutDescriptorArray );
 CPP_METAL_CLASS_ALIAS( VertexAttributeDescriptorArray );
 CPP_METAL_CLASS_ALIAS( VertexDescriptor );
 
-CPP_METALKIT_CLASS_ALIAS( View );
 CPP_METALKIT_CLASS_ALIAS( TextureLoader );
+CPP_CoreAnimation_CLASS_ALIAS(MetalLayer);
 
 #define CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION( classname ) \
     inline classname::classname(classname && rhs)                                   \

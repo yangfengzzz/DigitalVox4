@@ -14,14 +14,12 @@
 		0422958E278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04229563278C32F90090983F /* CPPMetalRenderCommandEncoder_DispatchTable.mm */; };
 		0422958F278C32FB0090983F /* CPPMetalCommandEncoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 04229564278C32F90090983F /* CPPMetalCommandEncoder.hpp */; };
 		04229590278C32FB0090983F /* CPPMetalCommandEncoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04229565278C32F90090983F /* CPPMetalCommandEncoder.mm */; };
-		04229591278C32FB0090983F /* CPPMetalKitView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 04229566278C32F90090983F /* CPPMetalKitView.hpp */; };
 		04229592278C32FB0090983F /* CPPMetalTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 04229567278C32F90090983F /* CPPMetalTexture.hpp */; };
 		04229593278C32FB0090983F /* CPPMetalDrawable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 04229568278C32FA0090983F /* CPPMetalDrawable.hpp */; };
 		04229594278C32FB0090983F /* CPPMetalDeviceInternals.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04229569278C32FA0090983F /* CPPMetalDeviceInternals.mm */; };
 		04229595278C32FB0090983F /* CPPMetalPixelFormat.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0422956A278C32FA0090983F /* CPPMetalPixelFormat.mm */; };
 		04229596278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0422956B278C32FA0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.hpp */; };
 		04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0422956C278C32FA0090983F /* CPPMetalTypes.hpp */; };
-		04229598278C32FB0090983F /* CPPMetalKitView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0422956D278C32FA0090983F /* CPPMetalKitView.mm */; };
 		04229599278C32FB0090983F /* CPPMetalCommandQueue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0422956E278C32FA0090983F /* CPPMetalCommandQueue.hpp */; };
 		0422959A278C32FB0090983F /* CPPMetalResource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0422956F278C32FA0090983F /* CPPMetalResource.mm */; };
 		0422959B278C32FB0090983F /* CPPMetalKitTextureLoader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 04229570278C32FA0090983F /* CPPMetalKitTextureLoader.hpp */; };
@@ -140,10 +138,11 @@
 		0445923B278E61C500F04CE0 /* configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445921A278E5F1100F04CE0 /* configuration.cpp */; };
 		0445923C278E61D200F04CE0 /* debug_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459234278E5FD700F04CE0 /* debug_info.cpp */; };
 		0445923F278E620900F04CE0 /* libvox.math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422969F278DAE4E0090983F /* libvox.math.a */; };
-		0445924A278E62F000F04CE0 /* tags.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459249278E62F000F04CE0 /* tags.h */; };
 		0445924B278E63FA00F04CE0 /* application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459212278E5F1000F04CE0 /* application.cpp */; };
 		0445924C278E63FF00F04CE0 /* filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445920E278E5F1000F04CE0 /* filesystem.cpp */; };
 		0445924D278E653300F04CE0 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445920C278E5F1000F04CE0 /* platform.cpp */; };
+		04459250278E689D00F04CE0 /* CPPCAMetalLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0445924E278E689D00F04CE0 /* CPPCAMetalLayer.mm */; };
+		04459251278E689D00F04CE0 /* CPPCAMetalLayer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0445924F278E689D00F04CE0 /* CPPCAMetalLayer.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,14 +190,12 @@
 		04229563278C32F90090983F /* CPPMetalRenderCommandEncoder_DispatchTable.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPMetalRenderCommandEncoder_DispatchTable.mm; sourceTree = "<group>"; };
 		04229564278C32F90090983F /* CPPMetalCommandEncoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalCommandEncoder.hpp; sourceTree = "<group>"; };
 		04229565278C32F90090983F /* CPPMetalCommandEncoder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPMetalCommandEncoder.mm; sourceTree = "<group>"; };
-		04229566278C32F90090983F /* CPPMetalKitView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalKitView.hpp; sourceTree = "<group>"; };
 		04229567278C32F90090983F /* CPPMetalTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalTexture.hpp; sourceTree = "<group>"; };
 		04229568278C32FA0090983F /* CPPMetalDrawable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalDrawable.hpp; sourceTree = "<group>"; };
 		04229569278C32FA0090983F /* CPPMetalDeviceInternals.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPMetalDeviceInternals.mm; sourceTree = "<group>"; };
 		0422956A278C32FA0090983F /* CPPMetalPixelFormat.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPMetalPixelFormat.mm; sourceTree = "<group>"; };
 		0422956B278C32FA0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalRenderCommandEncoder_DispatchTable.hpp; sourceTree = "<group>"; };
 		0422956C278C32FA0090983F /* CPPMetalTypes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalTypes.hpp; sourceTree = "<group>"; };
-		0422956D278C32FA0090983F /* CPPMetalKitView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPMetalKitView.mm; sourceTree = "<group>"; };
 		0422956E278C32FA0090983F /* CPPMetalCommandQueue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalCommandQueue.hpp; sourceTree = "<group>"; };
 		0422956F278C32FA0090983F /* CPPMetalResource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPMetalResource.mm; sourceTree = "<group>"; };
 		04229570278C32FA0090983F /* CPPMetalKitTextureLoader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalKitTextureLoader.hpp; sourceTree = "<group>"; };
@@ -348,7 +345,8 @@
 		0445921E278E5F1100F04CE0 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
 		04459234278E5FD700F04CE0 /* debug_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug_info.cpp; sourceTree = "<group>"; };
 		04459235278E5FD700F04CE0 /* debug_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug_info.h; sourceTree = "<group>"; };
-		04459249278E62F000F04CE0 /* tags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tags.h; sourceTree = "<group>"; };
+		0445924E278E689D00F04CE0 /* CPPCAMetalLayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPCAMetalLayer.mm; sourceTree = "<group>"; };
+		0445924F278E689D00F04CE0 /* CPPCAMetalLayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPPCAMetalLayer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -411,7 +409,6 @@
 		04229551278C30840090983F /* vox.render */ = {
 			isa = PBXGroup;
 			children = (
-				04459249278E62F000F04CE0 /* tags.h */,
 				04459209278E5C8100F04CE0 /* helpers.h */,
 				0445921E278E5F1100F04CE0 /* timer.h */,
 				04459216278E5F1100F04CE0 /* timer.cpp */,
@@ -480,10 +477,10 @@
 				0422957A278C32FA0090983F /* CPPMetalVertexDescriptor.mm */,
 				04229589278C32FB0090983F /* CPPMetalImplementation.hpp */,
 				0422955E278C32C30090983F /* internal */,
-				04229566278C32F90090983F /* CPPMetalKitView.hpp */,
-				0422956D278C32FA0090983F /* CPPMetalKitView.mm */,
 				04229570278C32FA0090983F /* CPPMetalKitTextureLoader.hpp */,
 				04229583278C32FA0090983F /* CPPMetalKitTextureLoader.mm */,
+				0445924F278E689D00F04CE0 /* CPPCAMetalLayer.hpp */,
+				0445924E278E689D00F04CE0 /* CPPCAMetalLayer.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -656,6 +653,7 @@
 				0422959D278C32FB0090983F /* CPPMetalResourceEnum.hpp in Headers */,
 				04459206278E591A00F04CE0 /* imstb_textedit.h in Headers */,
 				04459226278E5F1100F04CE0 /* window.h in Headers */,
+				04459251278E689D00F04CE0 /* CPPCAMetalLayer.hpp in Headers */,
 				042295AB278C32FB0090983F /* CPPMetalResource.hpp in Headers */,
 				0422959E278C32FB0090983F /* CPPMetalVertexDescriptor.hpp in Headers */,
 				04459207278E591A00F04CE0 /* imgui_internal.h in Headers */,
@@ -677,7 +675,6 @@
 				042295AC278C32FB0090983F /* CPPMetalRenderPass.hpp in Headers */,
 				042295B4278C32FB0090983F /* CPPMetalImplementation.hpp in Headers */,
 				04459202278E591A00F04CE0 /* imstb_rectpack.h in Headers */,
-				0445924A278E62F000F04CE0 /* tags.h in Headers */,
 				04459205278E591A00F04CE0 /* imstb_truetype.h in Headers */,
 				044591CB278E551100F04CE0 /* unique_ptr.h in Headers */,
 				04229596278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.hpp in Headers */,
@@ -690,7 +687,6 @@
 				042295A6278C32FB0090983F /* CPPMetalConstants.hpp in Headers */,
 				042295A7278C32FB0090983F /* CPPMetalDepthStencil.hpp in Headers */,
 				04229592278C32FB0090983F /* CPPMetalTexture.hpp in Headers */,
-				04229591278C32FB0090983F /* CPPMetalKitView.hpp in Headers */,
 				042295B3278C32FB0090983F /* CPPMetalRenderCommandEncoder.hpp in Headers */,
 				0422958B278C32FB0090983F /* CPPMetalAllocator.hpp in Headers */,
 				04459204278E591A00F04CE0 /* imgui.h in Headers */,
@@ -892,7 +888,6 @@
 				04459203278E591A00F04CE0 /* imgui_draw.cpp in Sources */,
 				042295AD278C32FB0090983F /* CPPMetalLibrary.mm in Sources */,
 				04229590278C32FB0090983F /* CPPMetalCommandEncoder.mm in Sources */,
-				04229598278C32FB0090983F /* CPPMetalKitView.mm in Sources */,
 				0445923A278E61B000F04CE0 /* input_events.cpp in Sources */,
 				042295A5278C32FB0090983F /* CPPMetalVertexDescriptor.mm in Sources */,
 				0422958C278C32FB0090983F /* CPPMetalRenderPass.mm in Sources */,
@@ -907,6 +902,7 @@
 				0422958A278C32FB0090983F /* CPPMetalDepthStencil.mm in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
 				0422959C278C32FB0090983F /* CPPMetalBuffer.mm in Sources */,
+				04459250278E689D00F04CE0 /* CPPCAMetalLayer.mm in Sources */,
 				04459239278E617500F04CE0 /* window.cpp in Sources */,
 				044591FE278E591A00F04CE0 /* imgui_tables.cpp in Sources */,
 				0445923B278E61C500F04CE0 /* configuration.cpp in Sources */,
