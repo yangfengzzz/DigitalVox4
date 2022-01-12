@@ -200,6 +200,8 @@ private:
 
     friend class Transform;
     
+    friend class Script;
+    
     void _removeComponent(Component *component);
     
     void _addScript(Script *script);
