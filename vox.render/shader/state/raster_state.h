@@ -8,36 +8,30 @@
 #ifndef raster_state_hpp
 #define raster_state_hpp
 
-#include <Metal/Metal.h>
+#include "core/CPPMetalDepthStencil.hpp"
+#include "core/CPPMetalRenderCommandEncoder.hpp"
 
 namespace vox {
-class MetalRenderer;
-
 /**
  * Raster state.
  */
 struct RasterState {
     /** Specifies whether or not front- and/or back-facing polygons can be culled. */
-    MTLCullMode cullMode = MTLCullModeFront;
+    MTL::CullMode cullMode = MTL::CullModeFront;
     /** The multiplier by which an implementation-specific value is multiplied with to create a constant depth offset. */
     float depthBias = 0;
     /** The scale factor for the variable depth offset for each polygon. */
     float slopeScaledDepthBias = 0;
     
-private:
-    friend class RenderState;
-    
-    bool _cullFaceEnable = true;
-    
-    void _apply(MTLRenderPipelineDescriptor *pipelineDescriptor,
-                MTLDepthStencilDescriptor *depthStencilDescriptor,
-                MetalRenderer *hardwareRenderer) {
-        _platformApply(pipelineDescriptor, depthStencilDescriptor, hardwareRenderer);
+    void apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+               MTL::DepthStencilDescriptor &depthStencilDescriptor,
+               MTL::RenderCommandEncoder &encoder) {
+        platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void _platformApply(MTLRenderPipelineDescriptor *pipelineDescriptor,
-                        MTLDepthStencilDescriptor *depthStencilDescriptor,
-                        MetalRenderer *hardwareRenderer);
+    void platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+                       MTL::DepthStencilDescriptor &depthStencilDescriptor,
+                       MTL::RenderCommandEncoder &encoder);
 };
 
 }

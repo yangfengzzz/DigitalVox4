@@ -187,6 +187,8 @@
 		044592C2278EC5A200F04CE0 /* depth_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592C0278EC5A200F04CE0 /* depth_state.h */; };
 		044592C4278EC60C00F04CE0 /* stencil_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B8278EC19E00F04CE0 /* stencil_state.cpp */; };
 		044592C5278EC60E00F04CE0 /* depth_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592C1278EC5A200F04CE0 /* depth_state.cpp */; };
+		044592C8278EC64A00F04CE0 /* raster_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592C6278EC64A00F04CE0 /* raster_state.cpp */; };
+		044592C9278EC64A00F04CE0 /* raster_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592C7278EC64A00F04CE0 /* raster_state.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -437,6 +439,8 @@
 		044592BD278EC58900F04CE0 /* render_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render_state.h; sourceTree = "<group>"; };
 		044592C0278EC5A200F04CE0 /* depth_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = depth_state.h; sourceTree = "<group>"; };
 		044592C1278EC5A200F04CE0 /* depth_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = depth_state.cpp; sourceTree = "<group>"; };
+		044592C6278EC64A00F04CE0 /* raster_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = raster_state.cpp; sourceTree = "<group>"; };
+		044592C7278EC64A00F04CE0 /* raster_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raster_state.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -798,6 +802,8 @@
 				044592C1278EC5A200F04CE0 /* depth_state.cpp */,
 				044592B9278EC19E00F04CE0 /* stencil_state.h */,
 				044592B8278EC19E00F04CE0 /* stencil_state.cpp */,
+				044592C7278EC64A00F04CE0 /* raster_state.h */,
+				044592C6278EC64A00F04CE0 /* raster_state.cpp */,
 			);
 			path = state;
 			sourceTree = "<group>";
@@ -874,6 +880,7 @@
 				0445927A278E80DD00F04CE0 /* scene.h in Headers */,
 				0445927D278E80DD00F04CE0 /* components_manager.h in Headers */,
 				04459259278E708A00F04CE0 /* unix_engine.h in Headers */,
+				044592C9278EC64A00F04CE0 /* raster_state.h in Headers */,
 				044592BF278EC58A00F04CE0 /* render_state.h in Headers */,
 				0422958F278C32FB0090983F /* CPPMetalCommandEncoder.hpp in Headers */,
 				04459233278E5F1100F04CE0 /* timer.h in Headers */,
@@ -1107,6 +1114,7 @@
 				044591FE278E591A00F04CE0 /* imgui_tables.cpp in Sources */,
 				044592B2278EBEE600F04CE0 /* shader.cpp in Sources */,
 				04459284278E80DD00F04CE0 /* entity.cpp in Sources */,
+				044592C8278EC64A00F04CE0 /* raster_state.cpp in Sources */,
 				04459281278E80DD00F04CE0 /* component.cpp in Sources */,
 				0445923B278E61C500F04CE0 /* configuration.cpp in Sources */,
 				042295A1278C32FB0090983F /* CPPMetalCommandBuffer.mm in Sources */,
