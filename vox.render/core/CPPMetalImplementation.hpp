@@ -75,6 +75,12 @@ namespace CPPMetalInternal
         using typename = id;                 \
     }
 
+#define CPP_CoreAnimation_CLASS_ALIAS( typename ) \
+    namespace CPPMetalInternal                    \
+    {                                             \
+        using typename = id;                      \
+    }
+
 namespace CPPMetalInternal
 {
     using ObjCObj = CFTypeRef;
