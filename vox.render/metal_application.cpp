@@ -11,6 +11,12 @@
 #include <glog/logging.h>
 
 namespace vox {
+MetalApplication::~MetalApplication() {
+    render_context.reset();
+    device.reset();
+    render_pipeline.reset();
+}
+
 bool MetalApplication::prepare(Engine &engine) {
     if (!Application::prepare(engine)) {
         return false;
@@ -43,6 +49,9 @@ void MetalApplication::framebuffer_resize(uint32_t width, uint32_t height) {
     render_pipeline->drawableSizeWillChange(*render_context, MTL::SizeMake(width, height, 0));
 }
 
+void MetalApplication::input_event(const InputEvent &input_event) {}
+
+void MetalApplication::finish() {}
 
 
 }

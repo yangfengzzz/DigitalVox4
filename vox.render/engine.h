@@ -137,16 +137,6 @@ protected:
      */
     virtual void create_window(const Window::Properties &properties) = 0;
     
-    void on_update(float delta_time);
-    
-    void on_app_error(const std::string &app_id);
-    
-    void on_app_start(const std::string &app_id);
-    
-    void on_app_close(const std::string &app_id);
-    
-    void on_engine_close();
-    
     Window::Properties window_properties;              /* Source of truth for window state */
     bool fixed_simulation_fps{false};    /* Delta time should be fixed with a fabricated value */
     float simulation_frame_time = 0.016f; /* A fabricated delta time */

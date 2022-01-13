@@ -199,7 +199,7 @@ protected:
      *
      * @return Vector of additional instance layers. Default is empty vector.
      */
-    virtual const std::vector<const char *> get_validation_layers();
+//    virtual const std::vector<const char *> get_validation_layers();
     
     /**
      * @brief Get sample-specific instance extensions.
@@ -247,7 +247,7 @@ protected:
     /**
      * @brief Override this to customise the creation of the swapchain and render_context
      */
-    virtual void prepare_render_context();
+//    virtual void prepare_render_context();
     
     /**
      * @brief Resets the stats view max values for high demanding configs
@@ -260,12 +260,12 @@ protected:
     /**
      * @brief Samples should override this function to draw their interface
      */
-    virtual void draw_gui();
+//    virtual void draw_gui();
     
     /**
      * @brief Updates the debug window, samples can override this to insert their own data elements
      */
-    virtual void update_debug_window();
+//    virtual void update_debug_window();
     
 //    /**
 //     * @brief Set viewport and scissor state in command buffer for a given extent

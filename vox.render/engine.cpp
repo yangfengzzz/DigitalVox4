@@ -68,7 +68,6 @@ ExitCode Engine::main_loop() {
             LOG(ERROR) << "Error Message: " << e.what();
             LOG(ERROR) << "Failed when running application " << active_app->get_name();
             
-            on_app_error(active_app->get_name());
             return ExitCode::FatalError;
         }
     }
@@ -80,8 +79,6 @@ void Engine::update() {
     auto delta_time = static_cast<float>(timer.tick<Timer::Seconds>());
     
     if (focused) {
-        on_update(delta_time);
-        
         if (fixed_simulation_fps) {
             delta_time = simulation_frame_time;
         }
@@ -92,18 +89,12 @@ void Engine::update() {
 
 void Engine::terminate(ExitCode code) {
     if (active_app) {
-        std::string id = active_app->get_name();
-        
-        on_app_close(id);
-        
         active_app->finish();
     }
     
     active_app.reset();
     window.reset();
-    
-    on_engine_close();
-    
+        
     // Halt on all unsuccessful exit codes unless ForceClose is in use
     if (code != ExitCode::Success) {
         std::cout << "Press any key to continue";
@@ -195,9 +186,7 @@ bool Engine::start_app() {
         LOG(ERROR) << "Failed to prepare vulkan app.";
         return false;
     }
-    
-    on_app_start("");
-    
+        
     return true;
 }
 

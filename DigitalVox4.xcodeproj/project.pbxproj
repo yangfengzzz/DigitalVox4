@@ -282,6 +282,15 @@
 		044593B0279002D500F04CE0 /* point_lights.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459397278FFF6E00F04CE0 /* point_lights.metal */; };
 		044593B1279002D500F04CE0 /* shadow.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445939A278FFF6F00F04CE0 /* shadow.metal */; };
 		044593B2279002D500F04CE0 /* gBuffer.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459398278FFF6E00F04CE0 /* gBuffer.metal */; };
+		044593BA2790055100F04CE0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593B92790055100F04CE0 /* main.cpp */; };
+		044593C4279005FF00F04CE0 /* libvox.math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422969F278DAE4E0090983F /* libvox.math.a */; };
+		044593C5279005FF00F04CE0 /* libvox.render.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422954F278C30840090983F /* libvox.render.a */; };
+		044593C72790061E00F04CE0 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593C62790061E00F04CE0 /* Metal.framework */; };
+		044593C9279006AA00F04CE0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593C8279006AA00F04CE0 /* Cocoa.framework */; };
+		044593CB279006B000F04CE0 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593CA279006B000F04CE0 /* IOKit.framework */; };
+		044593CF279006DB00F04CE0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593CE279006DA00F04CE0 /* QuartzCore.framework */; };
+		044593D22790081300F04CE0 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D12790081200F04CE0 /* MetalKit.framework */; };
+		044593D42790082600F04CE0 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D32790082600F04CE0 /* ModelIO.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -306,10 +315,40 @@
 			remoteGlobalIDString = 0422969E278DAE4E0090983F;
 			remoteInfo = vox.math;
 		};
+		044593BE279005F900F04CE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0422969E278DAE4E0090983F;
+			remoteInfo = vox.math;
+		};
+		044593C0279005F900F04CE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0422954E278C30840090983F;
+			remoteInfo = vox.render;
+		};
+		044593C2279005F900F04CE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 044593A6279002C000F04CE0;
+			remoteInfo = vox.shader;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		04229607278D29760090983F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		044593B52790055000F04CE0 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -629,6 +668,16 @@
 		04459398278FFF6E00F04CE0 /* gBuffer.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = gBuffer.metal; sourceTree = "<group>"; };
 		04459399278FFF6E00F04CE0 /* fairy.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = fairy.metal; sourceTree = "<group>"; };
 		0445939A278FFF6F00F04CE0 /* shadow.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = shadow.metal; sourceTree = "<group>"; };
+		044593B72790055000F04CE0 /* apps */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = apps; sourceTree = BUILT_PRODUCTS_DIR; };
+		044593B92790055100F04CE0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		044593C62790061E00F04CE0 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		044593C8279006AA00F04CE0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		044593CA279006B000F04CE0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		044593CC279006B800F04CE0 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		044593CE279006DA00F04CE0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		044593D02790077D00F04CE0 /* apps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = apps.entitlements; sourceTree = "<group>"; };
+		044593D12790081200F04CE0 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		044593D32790082600F04CE0 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -662,6 +711,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		044593B42790055000F04CE0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				044593D42790082600F04CE0 /* ModelIO.framework in Frameworks */,
+				044593C72790061E00F04CE0 /* Metal.framework in Frameworks */,
+				044593D22790081300F04CE0 /* MetalKit.framework in Frameworks */,
+				044593C9279006AA00F04CE0 /* Cocoa.framework in Frameworks */,
+				044593CF279006DB00F04CE0 /* QuartzCore.framework in Frameworks */,
+				044593CB279006B000F04CE0 /* IOKit.framework in Frameworks */,
+				044593C4279005FF00F04CE0 /* libvox.math.a in Frameworks */,
+				044593C5279005FF00F04CE0 /* libvox.render.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -673,6 +737,7 @@
 				044593A7279002C000F04CE0 /* vox.shader */,
 				04229551278C30840090983F /* vox.render */,
 				0422960A278D29760090983F /* unit_tests */,
+				044593B82790055100F04CE0 /* apps */,
 				04229550278C30840090983F /* Products */,
 				04229612278D2B2D0090983F /* Frameworks */,
 			);
@@ -685,6 +750,7 @@
 				042295D9278D121C0090983F /* libvox.geometry.a */,
 				04229609278D29760090983F /* unit_tests */,
 				0422969F278DAE4E0090983F /* libvox.math.a */,
+				044593B72790055000F04CE0 /* apps */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -846,6 +912,13 @@
 		04229612278D2B2D0090983F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				044593D32790082600F04CE0 /* ModelIO.framework */,
+				044593D12790081200F04CE0 /* MetalKit.framework */,
+				044593CE279006DA00F04CE0 /* QuartzCore.framework */,
+				044593CC279006B800F04CE0 /* CoreVideo.framework */,
+				044593CA279006B000F04CE0 /* IOKit.framework */,
+				044593C8279006AA00F04CE0 /* Cocoa.framework */,
+				044593C62790061E00F04CE0 /* Metal.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -970,7 +1043,6 @@
 		0445925E278E7F3300F04CE0 /* rendering */ = {
 			isa = PBXGroup;
 			children = (
-				04459390278FFF5400F04CE0 /* shader */,
 				04459382278FFE3200F04CE0 /* utilities.h */,
 				0445937D278FFE3100F04CE0 /* math_utilities.h */,
 				04459378278FFE3100F04CE0 /* math_utilities.cpp */,
@@ -1140,13 +1212,6 @@
 			path = joint;
 			sourceTree = "<group>";
 		};
-		04459390278FFF5400F04CE0 /* shader */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = shader;
-			sourceTree = "<group>";
-		};
 		044593A7279002C000F04CE0 /* vox.shader */ = {
 			isa = PBXGroup;
 			children = (
@@ -1161,6 +1226,15 @@
 				04459394278FFF6E00F04CE0 /* skybox.metal */,
 			);
 			path = vox.shader;
+			sourceTree = "<group>";
+		};
+		044593B82790055100F04CE0 /* apps */ = {
+			isa = PBXGroup;
+			children = (
+				044593D02790077D00F04CE0 /* apps.entitlements */,
+				044593B92790055100F04CE0 /* main.cpp */,
+			);
+			path = apps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1432,6 +1506,26 @@
 			productName = vox.shader;
 			productType = "com.apple.product-type.metal-library";
 		};
+		044593B62790055000F04CE0 /* apps */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 044593BB2790055100F04CE0 /* Build configuration list for PBXNativeTarget "apps" */;
+			buildPhases = (
+				044593B32790055000F04CE0 /* Sources */,
+				044593B42790055000F04CE0 /* Frameworks */,
+				044593B52790055000F04CE0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				044593BF279005F900F04CE0 /* PBXTargetDependency */,
+				044593C1279005F900F04CE0 /* PBXTargetDependency */,
+				044593C3279005F900F04CE0 /* PBXTargetDependency */,
+			);
+			name = apps;
+			productName = apps;
+			productReference = 044593B72790055000F04CE0 /* apps */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1456,6 +1550,9 @@
 					044593A6279002C000F04CE0 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
+					044593B62790055000F04CE0 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 				};
 			};
 			buildConfigurationList = 0422954A278C30840090983F /* Build configuration list for PBXProject "DigitalVox4" */;
@@ -1474,8 +1571,9 @@
 				0422969E278DAE4E0090983F /* vox.math */,
 				042295D8278D121C0090983F /* vox.geometry */,
 				0422954E278C30840090983F /* vox.render */,
-				04229608278D29760090983F /* unit_tests */,
 				044593A6279002C000F04CE0 /* vox.shader */,
+				04229608278D29760090983F /* unit_tests */,
+				044593B62790055000F04CE0 /* apps */,
 			);
 		};
 /* End PBXProject section */
@@ -1632,6 +1730,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		044593B32790055000F04CE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				044593BA2790055100F04CE0 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1649,6 +1755,21 @@
 			isa = PBXTargetDependency;
 			target = 0422969E278DAE4E0090983F /* vox.math */;
 			targetProxy = 0445923D278E620600F04CE0 /* PBXContainerItemProxy */;
+		};
+		044593BF279005F900F04CE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0422969E278DAE4E0090983F /* vox.math */;
+			targetProxy = 044593BE279005F900F04CE0 /* PBXContainerItemProxy */;
+		};
+		044593C1279005F900F04CE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0422954E278C30840090983F /* vox.render */;
+			targetProxy = 044593C0279005F900F04CE0 /* PBXContainerItemProxy */;
+		};
+		044593C3279005F900F04CE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 044593A6279002C000F04CE0 /* vox.shader */;
+			targetProxy = 044593C2279005F900F04CE0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1997,6 +2118,106 @@
 			};
 			name = Release;
 		};
+		044593BC2790055100F04CE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = apps/apps.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					./vox.render,
+					./vox.math,
+				);
+				LD_RUNPATH_SEARCH_PATHS = ../third_party/glog/build;
+				LIBRARY_SEARCH_PATHS = (
+					./third_party/glog/build,
+					./third_party/glfw/build/src,
+				);
+				OTHER_LDFLAGS = (
+					"-lglog",
+					"-lglfw3",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					./third_party/tinygltf,
+					./third_party/glog/src,
+					./third_party/glog/build,
+					./third_party/glfw/include,
+					./third_party/physx/physx/source/common/src/mac,
+					./third_party/physx/physx/include,
+					./third_party/physx/physx/source/common/include,
+					./third_party/physx/physx/source/common/src,
+					./third_party/physx/physx/source/geomutils/include,
+					./third_party/physx/physx/source/geomutils/src,
+					./third_party/physx/physx/source/geomutils/src/contact,
+					./third_party/physx/physx/source/geomutils/src/common,
+					./third_party/physx/physx/source/geomutils/src/convex,
+					./third_party/physx/physx/source/geomutils/src/distance,
+					./third_party/physx/physx/source/geomutils/src/sweep,
+					./third_party/physx/physx/source/geomutils/src/gjk,
+					./third_party/physx/physx/source/geomutils/src/intersection,
+					./third_party/physx/physx/source/geomutils/src/mesh,
+					./third_party/physx/physx/source/geomutils/src/hf,
+					./third_party/physx/physx/source/geomutils/src/pcm,
+					./third_party/physx/physx/source/geomutils/src/ccd,
+					./third_party/physx/physx/source/physxgpu/include,
+					./third_party/physx/physx/../pxshared/include,
+					./third_party/physx/physx/source/foundation/include,
+				);
+			};
+			name = Debug;
+		};
+		044593BD2790055100F04CE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = apps/apps.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					./vox.render,
+					./vox.math,
+				);
+				LD_RUNPATH_SEARCH_PATHS = ../third_party/glog/build;
+				LIBRARY_SEARCH_PATHS = (
+					./third_party/glog/build,
+					./third_party/glfw/build/src,
+				);
+				OTHER_LDFLAGS = (
+					"-lglog",
+					"-lglfw3",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					./third_party/tinygltf,
+					./third_party/glog/src,
+					./third_party/glog/build,
+					./third_party/glfw/include,
+					./third_party/physx/physx/source/common/src/mac,
+					./third_party/physx/physx/include,
+					./third_party/physx/physx/source/common/include,
+					./third_party/physx/physx/source/common/src,
+					./third_party/physx/physx/source/geomutils/include,
+					./third_party/physx/physx/source/geomutils/src,
+					./third_party/physx/physx/source/geomutils/src/contact,
+					./third_party/physx/physx/source/geomutils/src/common,
+					./third_party/physx/physx/source/geomutils/src/convex,
+					./third_party/physx/physx/source/geomutils/src/distance,
+					./third_party/physx/physx/source/geomutils/src/sweep,
+					./third_party/physx/physx/source/geomutils/src/gjk,
+					./third_party/physx/physx/source/geomutils/src/intersection,
+					./third_party/physx/physx/source/geomutils/src/mesh,
+					./third_party/physx/physx/source/geomutils/src/hf,
+					./third_party/physx/physx/source/geomutils/src/pcm,
+					./third_party/physx/physx/source/geomutils/src/ccd,
+					./third_party/physx/physx/source/physxgpu/include,
+					./third_party/physx/physx/../pxshared/include,
+					./third_party/physx/physx/source/foundation/include,
+				);
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2050,6 +2271,15 @@
 			buildConfigurations = (
 				044593AB279002C000F04CE0 /* Debug */,
 				044593AC279002C000F04CE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		044593BB2790055100F04CE0 /* Build configuration list for PBXNativeTarget "apps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				044593BC2790055100F04CE0 /* Debug */,
+				044593BD2790055100F04CE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

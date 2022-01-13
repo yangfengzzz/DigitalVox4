@@ -33,6 +33,13 @@ public: // Public methods for CPPMetal internal implementation
     CPPMetalInternal::FunctionConstantValues objCObj() const;
 };
 
+//===============================================
+#pragma mark - View inline method implementations
+
+inline CPPMetalInternal::FunctionConstantValues FunctionConstantValues::objCObj() const {
+    return m_objCObj;
+}
+
 }
 
 #endif /* CPPMetalFunctionConstantValues_hpp */
