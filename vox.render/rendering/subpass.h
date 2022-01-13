@@ -26,13 +26,13 @@ static const float FarPlane = 150;
 
 class Subpass {
 public:
-    explicit Subpass(MTL::View &view);
+    explicit Subpass(MTL::View *view);
     
     virtual ~Subpass();
     
     MTL::Device device() const;
     
-    MTL::View &view();
+    MTL::View *view();
     
     const Mesh &icosahedronMesh() const;
     
@@ -65,9 +65,9 @@ public:
     // Open the Metal shader library
     MTL::Library makeShaderLibrary();
     
-    virtual void drawableSizeWillChange(MTL::View &view, const MTL::Size &size) = 0;
+    virtual void drawableSizeWillChange(MTL::View *view, const MTL::Size &size) = 0;
     
-    virtual void drawInView(MTL::View &view) = 0;
+    virtual void drawInView(MTL::View *view) = 0;
     
 protected:
     
@@ -101,7 +101,7 @@ protected:
     
     MTL::Device m_device;
     
-    MTL::View m_view;
+    MTL::View* m_view;
     
     int8_t m_frameDataBufferIndex;
     
@@ -221,7 +221,7 @@ inline MTL::Device Subpass::device() const {
     return m_device;
 }
 
-inline MTL::View &Subpass::view() {
+inline MTL::View* Subpass::view() {
     return m_view;
 }
 
@@ -230,11 +230,11 @@ inline const Mesh &Subpass::icosahedronMesh() const {
 }
 
 inline MTL::PixelFormat Subpass::colorTargetPixelFormat() const {
-    return m_view.colorPixelFormat();
+    return m_view->colorPixelFormat();
 }
 
 inline MTL::PixelFormat Subpass::depthStencilTargetPixelFormat() const {
-    return m_view.depthStencilPixelFormat();
+    return m_view->depthStencilPixelFormat();
 }
 
 inline const MTL::Buffer &Subpass::quadVertexBuffer() const {
@@ -242,7 +242,7 @@ inline const MTL::Buffer &Subpass::quadVertexBuffer() const {
 }
 
 inline MTL::Texture &Subpass::depthStencilTexture() {
-    return *(m_view.depthStencilTexture());
+    return *(m_view->depthStencilTexture());
 }
 
 inline int8_t Subpass::frameDataBufferIndex() const {

@@ -14,7 +14,7 @@
 
 #include "utilities.h"
 
-LightingSubpass::LightingSubpass(MTL::View &view)
+LightingSubpass::LightingSubpass(MTL::View *view)
 : Subpass(view) {
     m_singlePassDeferred = false;
     loadMetal();
@@ -36,7 +36,7 @@ void LightingSubpass::loadMetal() {
         MTL::RenderPipelineDescriptor renderPipelineDescriptor;
         
         renderPipelineDescriptor.label("Light");
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view.colorPixelFormat());
+        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
         
         // Enable additive blending
         renderPipelineDescriptor.colorAttachments[RenderTargetLighting].blendingEnabled(true);
@@ -47,8 +47,8 @@ void LightingSubpass::loadMetal() {
         renderPipelineDescriptor.colorAttachments[RenderTargetLighting].sourceRGBBlendFactor(MTL::BlendFactorOne);
         renderPipelineDescriptor.colorAttachments[RenderTargetLighting].sourceAlphaBlendFactor(MTL::BlendFactorOne);
         
-        renderPipelineDescriptor.depthAttachmentPixelFormat(m_view.depthStencilPixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view.depthStencilPixelFormat());
+        renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
+        renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
         
         MTL::Library shaderLibrary = makeShaderLibrary();
         
@@ -91,7 +91,7 @@ void LightingSubpass::loadMetal() {
 }
 
 /// Respond to view size change
-void LightingSubpass::drawableSizeWillChange(MTL::View &view, const MTL::Size &size) {
+void LightingSubpass::drawableSizeWillChange(MTL::View *view, const MTL::Size &size) {
     // The subpass base class allocates all GBuffers >except< lighting GBuffer (since with the
     // single-pass deferred subpass the lighting buffer is the same as the drawable)
     Subpass::drawableSizeWillChange(size, MTL::StorageModePrivate);
@@ -135,15 +135,15 @@ void LightingSubpass::drawPointLights(MTL::RenderCommandEncoder &renderEncoder) 
 }
 
 /// Frame drawing routine
-void LightingSubpass::drawInView(MTL::View &view) {
+void LightingSubpass::drawInView(MTL::View *view) {
     {
         MTL::CommandBuffer commandBuffer = Subpass::beginFrame();
         commandBuffer.label("Shadow & GBuffer Commands");
         
         Subpass::drawShadow(commandBuffer);
         
-        m_GBufferRenderPassDescriptor.depthAttachment.texture(*view.depthStencilTexture());
-        m_GBufferRenderPassDescriptor.stencilAttachment.texture(*view.depthStencilTexture());
+        m_GBufferRenderPassDescriptor.depthAttachment.texture(*view->depthStencilTexture());
+        m_GBufferRenderPassDescriptor.stencilAttachment.texture(*view->depthStencilTexture());
         
         MTL::RenderCommandEncoder renderEncoder =
         commandBuffer.renderCommandEncoderWithDescriptor(m_GBufferRenderPassDescriptor);
@@ -171,8 +171,8 @@ void LightingSubpass::drawInView(MTL::View &view) {
             // Render the lighting and composition pass
             
             m_finalRenderPassDescriptor.colorAttachments[0].texture(*drawableTexture);
-            m_finalRenderPassDescriptor.depthAttachment.texture(*m_view.depthStencilTexture());
-            m_finalRenderPassDescriptor.stencilAttachment.texture(*m_view.depthStencilTexture());
+            m_finalRenderPassDescriptor.depthAttachment.texture(*m_view->depthStencilTexture());
+            m_finalRenderPassDescriptor.stencilAttachment.texture(*m_view->depthStencilTexture());
             
             MTL::RenderCommandEncoder renderEncoder =
             commandBuffer.renderCommandEncoderWithDescriptor(m_finalRenderPassDescriptor);

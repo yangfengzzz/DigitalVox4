@@ -14,13 +14,13 @@
 
 class LightingSubpass : public Subpass {
 public:
-    explicit LightingSubpass(MTL::View &view);
+    explicit LightingSubpass(MTL::View *view);
     
     virtual ~LightingSubpass();
     
-    void drawInView(MTL::View &view);
+    void drawInView(MTL::View *view);
     
-    void drawableSizeWillChange(MTL::View &view, const MTL::Size &size);
+    void drawableSizeWillChange(MTL::View *view, const MTL::Size &size);
     
 private:
     MTL::RenderPipelineState m_lightPipelineState;

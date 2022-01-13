@@ -33,9 +33,9 @@ static const uint32_t TreeLights = 0 + 0.30 * NumLights;
 static const uint32_t GroundLights = TreeLights + 0.40 * NumLights;
 static const uint32_t ColumnLights = GroundLights + 0.30 * NumLights;
 
-Subpass::Subpass(MTL::View &view)
+Subpass::Subpass(MTL::View* view)
 : m_view(view),
-m_device(view.device()),
+m_device(view->device()),
 m_completedHandler(nullptr),
 m_originalLightPositions(nullptr),
 m_frameDataBufferIndex(0),
@@ -58,7 +58,7 @@ void Subpass::loadMetal() {
     // Create and load the basic Metal state objects
     CFErrorRef error = nullptr;
     
-    printf("Selected Device: %s\n", m_view.device().name());
+    printf("Selected Device: %s\n", m_view->device().name());
     
     for (uint8_t i = 0; i < MaxFramesInFlight; i++) {
         // Indicate shared storage so that both the CPU can access the buffers
@@ -111,8 +111,8 @@ void Subpass::loadMetal() {
     m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepRate(1);
     m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepFunction(MTL::VertexStepFunctionPerVertex);
     
-    m_view.depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
-    m_view.colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
+    m_view->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
+    m_view->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
     
     m_albedo_specular_GBufferFormat = MTL::PixelFormatRGBA8Unorm_sRGB;
     m_normal_shadow_GBufferFormat = MTL::PixelFormatRGBA8Snorm;
@@ -130,7 +130,7 @@ void Subpass::loadMetal() {
             renderPipelineDescriptor.vertexDescriptor(&m_defaultVertexDescriptor);
             
             if (m_singlePassDeferred) {
-                renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view.colorPixelFormat());
+                renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
             } else {
                 renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(MTL::PixelFormatInvalid);
             }
@@ -138,8 +138,8 @@ void Subpass::loadMetal() {
             renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
             renderPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(m_normal_shadow_GBufferFormat);
             renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
-            renderPipelineDescriptor.depthAttachmentPixelFormat(m_view.depthStencilPixelFormat());
-            renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view.depthStencilPixelFormat());
+            renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
+            renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
             
             renderPipelineDescriptor.vertexFunction(&GBufferVertexFunction);
             renderPipelineDescriptor.fragmentFunction(&GBufferFragmentFunction);
@@ -194,7 +194,7 @@ void Subpass::loadMetal() {
             renderPipelineDescriptor.vertexDescriptor(nullptr);
             renderPipelineDescriptor.vertexFunction(&directionalVertexFunction);
             renderPipelineDescriptor.fragmentFunction(&directionalFragmentFunction);
-            renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view.colorPixelFormat());
+            renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
             
             if (m_singlePassDeferred) {
                 renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
@@ -202,8 +202,8 @@ void Subpass::loadMetal() {
                 renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
             }
             
-            renderPipelineDescriptor.depthAttachmentPixelFormat(m_view.depthStencilPixelFormat());
-            renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view.depthStencilPixelFormat());
+            renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
+            renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
             
             m_directionalLightPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor,
                                                                                &error);
@@ -249,7 +249,7 @@ void Subpass::loadMetal() {
         renderPipelineDescriptor.vertexDescriptor(nullptr);
         renderPipelineDescriptor.vertexFunction(&fairyVertexFunction);
         renderPipelineDescriptor.fragmentFunction(&fairyFragmentFunction);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view.colorPixelFormat());
+        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
         
         // Because iOS subpass can perform GBuffer pass in final pass, any pipeline rendering in
         // the final pass must take the GBuffers into account
@@ -259,8 +259,8 @@ void Subpass::loadMetal() {
             renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
         }
         
-        renderPipelineDescriptor.depthAttachmentPixelFormat(m_view.depthStencilPixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view.depthStencilPixelFormat());
+        renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
+        renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
         renderPipelineDescriptor.colorAttachments[0].blendingEnabled(true);
         renderPipelineDescriptor.colorAttachments[0].rgbBlendOperation(MTL::BlendOperationAdd);
         renderPipelineDescriptor.colorAttachments[0].alphaBlendOperation(MTL::BlendOperationAdd);
@@ -293,7 +293,7 @@ void Subpass::loadMetal() {
         renderPipelineDescriptor.vertexDescriptor(&m_skyVertexDescriptor);
         renderPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
         renderPipelineDescriptor.fragmentFunction(&skyboxFragmentFunction);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view.colorPixelFormat());
+        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
         
         if (m_singlePassDeferred) {
             renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
@@ -301,8 +301,8 @@ void Subpass::loadMetal() {
             renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
         }
         
-        renderPipelineDescriptor.depthAttachmentPixelFormat(m_view.depthStencilPixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view.depthStencilPixelFormat());
+        renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
+        renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
         
         m_skyboxPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
         
@@ -389,7 +389,7 @@ void Subpass::loadMetal() {
             renderPipelineDescriptor.vertexDescriptor(nullptr);
             renderPipelineDescriptor.vertexFunction(&lightMaskVertex);
             renderPipelineDescriptor.fragmentFunction(nullptr);
-            renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view.colorPixelFormat());
+            renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
             
             if (m_singlePassDeferred) {
                 renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
@@ -397,8 +397,8 @@ void Subpass::loadMetal() {
                 renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
             }
             
-            renderPipelineDescriptor.depthAttachmentPixelFormat(m_view.depthStencilPixelFormat());
-            renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view.depthStencilPixelFormat());
+            renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
+            renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
             
             m_lightMaskPipelineState =
             m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
@@ -807,7 +807,7 @@ void Subpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
 
 /// Get a drawable from the view (or hand back an offscreen drawable for buffer examination mode)
 MTL::Texture *Subpass::currentDrawableTexture() {
-    MTL::Drawable *drawable = m_view.currentDrawable();
+    MTL::Drawable *drawable = m_view->currentDrawable();
     
     if (drawable) {
         return drawable->texture();
@@ -869,7 +869,7 @@ MTL::CommandBuffer Subpass::beginDrawableCommands() {
 /// for the current frame.  Also, when enabled, draw buffer examination elements before all this.
 void Subpass::endFrame(MTL::CommandBuffer &commandBuffer) {
     // Schedule a present once the framebuffer is complete using the current drawable
-    if (m_view.currentDrawable()) {
+    if (m_view->currentDrawable()) {
         // Create a scheduled handler functor for Metal to present the drawable when the command
         // buffer has been scheduled by the kernel.
         struct PresentationScheduledHandler : public MTL::CommandBufferHandler {
@@ -886,7 +886,7 @@ void Subpass::endFrame(MTL::CommandBuffer &commandBuffer) {
         };
         
         PresentationScheduledHandler *scheduledHandler =
-        new PresentationScheduledHandler(*m_view.currentDrawable());
+        new PresentationScheduledHandler(*m_view->currentDrawable());
         
         commandBuffer.addScheduledHandler(*scheduledHandler);
     }
