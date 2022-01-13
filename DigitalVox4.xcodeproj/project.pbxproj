@@ -236,6 +236,12 @@
 		0445932E278FAA7900F04CE0 /* box_collider_shape.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459326278FAA7900F04CE0 /* box_collider_shape.h */; };
 		0445932F278FAA7900F04CE0 /* box_collider_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459327278FAA7900F04CE0 /* box_collider_shape.cpp */; };
 		04459330278FAA7900F04CE0 /* sphere_collider_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459328278FAA7900F04CE0 /* sphere_collider_shape.cpp */; };
+		04459337278FAE0C00F04CE0 /* character_controller.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459331278FAE0B00F04CE0 /* character_controller.h */; };
+		04459338278FAE0C00F04CE0 /* character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459332278FAE0B00F04CE0 /* character_controller.cpp */; };
+		04459339278FAE0C00F04CE0 /* capsule_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459333278FAE0B00F04CE0 /* capsule_character_controller.cpp */; };
+		0445933A278FAE0C00F04CE0 /* box_character_controller.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459334278FAE0C00F04CE0 /* box_character_controller.h */; };
+		0445933B278FAE0C00F04CE0 /* box_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459335278FAE0C00F04CE0 /* box_character_controller.cpp */; };
+		0445933C278FAE0C00F04CE0 /* capsule_character_controller.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459336278FAE0C00F04CE0 /* capsule_character_controller.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -534,6 +540,12 @@
 		04459326278FAA7900F04CE0 /* box_collider_shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = box_collider_shape.h; sourceTree = "<group>"; };
 		04459327278FAA7900F04CE0 /* box_collider_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = box_collider_shape.cpp; sourceTree = "<group>"; };
 		04459328278FAA7900F04CE0 /* sphere_collider_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere_collider_shape.cpp; sourceTree = "<group>"; };
+		04459331278FAE0B00F04CE0 /* character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = character_controller.h; sourceTree = "<group>"; };
+		04459332278FAE0B00F04CE0 /* character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = character_controller.cpp; sourceTree = "<group>"; };
+		04459333278FAE0B00F04CE0 /* capsule_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = capsule_character_controller.cpp; sourceTree = "<group>"; };
+		04459334278FAE0C00F04CE0 /* box_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = box_character_controller.h; sourceTree = "<group>"; };
+		04459335278FAE0C00F04CE0 /* box_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = box_character_controller.cpp; sourceTree = "<group>"; };
+		04459336278FAE0C00F04CE0 /* capsule_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = capsule_character_controller.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -992,6 +1004,12 @@
 		04459312278F17F800F04CE0 /* character_controller */ = {
 			isa = PBXGroup;
 			children = (
+				04459331278FAE0B00F04CE0 /* character_controller.h */,
+				04459332278FAE0B00F04CE0 /* character_controller.cpp */,
+				04459334278FAE0C00F04CE0 /* box_character_controller.h */,
+				04459335278FAE0C00F04CE0 /* box_character_controller.cpp */,
+				04459336278FAE0C00F04CE0 /* capsule_character_controller.h */,
+				04459333278FAE0B00F04CE0 /* capsule_character_controller.cpp */,
 			);
 			path = character_controller;
 			sourceTree = "<group>";
@@ -1077,6 +1095,7 @@
 				042295A6278C32FB0090983F /* CPPMetalConstants.hpp in Headers */,
 				044592C2278EC5A200F04CE0 /* depth_state.h in Headers */,
 				042295A7278C32FB0090983F /* CPPMetalDepthStencil.hpp in Headers */,
+				04459337278FAE0C00F04CE0 /* character_controller.h in Headers */,
 				044592D8278ED0FB00F04CE0 /* blend_mode.h in Headers */,
 				044592DF278ED17E00F04CE0 /* base_material.h in Headers */,
 				044592BB278EC19E00F04CE0 /* stencil_state.h in Headers */,
@@ -1085,7 +1104,9 @@
 				042295B3278C32FB0090983F /* CPPMetalRenderCommandEncoder.hpp in Headers */,
 				04459329278FAA7900F04CE0 /* capsule_collider_shape.h in Headers */,
 				0422958B278C32FB0090983F /* CPPMetalAllocator.hpp in Headers */,
+				0445933A278FAE0C00F04CE0 /* box_character_controller.h in Headers */,
 				04459204278E591A00F04CE0 /* imgui.h in Headers */,
+				0445933C278FAE0C00F04CE0 /* capsule_character_controller.h in Headers */,
 				0445928A278E84DE00F04CE0 /* transform.h in Headers */,
 				044592D7278ED0FB00F04CE0 /* render_queue_type.h in Headers */,
 				044592D6278ED0FB00F04CE0 /* render_face.h in Headers */,
@@ -1291,6 +1312,7 @@
 				0445927B278E80DD00F04CE0 /* updateFlag_manager.cpp in Sources */,
 				0445932D278FAA7900F04CE0 /* plane_collider_shape.cpp in Sources */,
 				04459208278E591A00F04CE0 /* imgui.cpp in Sources */,
+				04459338278FAE0C00F04CE0 /* character_controller.cpp in Sources */,
 				0445928D278EA37D00F04CE0 /* script.cpp in Sources */,
 				04459317278F183500F04CE0 /* physics.cpp in Sources */,
 				04459330278FAA7900F04CE0 /* sphere_collider_shape.cpp in Sources */,
@@ -1298,6 +1320,7 @@
 				044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */,
 				0445930E278F170100F04CE0 /* spherical.cpp in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
+				04459339278FAE0C00F04CE0 /* capsule_character_controller.cpp in Sources */,
 				044592DC278ED11F00F04CE0 /* material.cpp in Sources */,
 				0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */,
 				0445932F278FAA7900F04CE0 /* box_collider_shape.cpp in Sources */,
@@ -1343,6 +1366,7 @@
 				0422958A278C32FB0090983F /* CPPMetalDepthStencil.mm in Sources */,
 				044592E0278ED17E00F04CE0 /* base_material.cpp in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
+				0445933B278FAE0C00F04CE0 /* box_character_controller.cpp in Sources */,
 				0422959C278C32FB0090983F /* CPPMetalBuffer.mm in Sources */,
 				04459250278E689D00F04CE0 /* CPPCAMetalLayer.mm in Sources */,
 				044592E8278ED6AE00F04CE0 /* blinn_phong_material.cpp in Sources */,

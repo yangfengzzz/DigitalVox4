@@ -6,7 +6,8 @@
 //
 
 #include "capsule_character_controller.h"
-#include "../../engine.h"
+#include "../../entity.h"
+#include "../../scene.h"
 
 namespace vox {
 namespace physics {
@@ -15,7 +16,7 @@ CharacterController(entity) {
 }
 
 void CapsuleCharacterController::setDesc(const PxCapsuleControllerDesc &desc) {
-    _nativeController = engine()->_physicsManager._nativeCharacterControllerManager->createController(desc);
+    _nativeController = entity()->scene()->_physicsManager._nativeCharacterControllerManager->createController(desc);
 }
 
 float CapsuleCharacterController::radius() const {

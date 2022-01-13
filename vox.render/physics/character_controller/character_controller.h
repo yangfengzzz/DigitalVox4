@@ -13,19 +13,21 @@
 
 namespace vox {
 namespace physics {
+using namespace sg;
+
 class CharacterController : public Component {
 public:
     CharacterController(Entity *entity);
     
-    PxControllerCollisionFlags move(const math::Float3 &disp, float minDist, float elapsedTime);
+    PxControllerCollisionFlags move(const Imath::V3f &disp, float minDist, float elapsedTime);
     
-    bool setPosition(const math::Float3 &position);
+    bool setPosition(const Imath::V3f &position);
     
-    math::Float3 position() const;
+    Imath::V3f position() const;
     
-    bool setFootPosition(const math::Float3 &position);
+    bool setFootPosition(const Imath::V3f &position);
     
-    math::Float3 footPosition() const;
+    Imath::V3f footPosition() const;
     
     void setStepOffset(const float offset);
     
@@ -39,9 +41,9 @@ public:
     
     void setContactOffset(float offset);
     
-    math::Float3 upDirection() const;
+    Imath::V3f upDirection() const;
     
-    void setUpDirection(const math::Float3 &up);
+    void setUpDirection(const Imath::V3f &up);
     
     float slopeLimit() const;
     

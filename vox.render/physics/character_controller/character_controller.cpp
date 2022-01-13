@@ -6,7 +6,8 @@
 //
 
 #include "character_controller.h"
-#include "../../engine.h"
+#include "../../entity.h"
+#include "../../scene.h"
 
 namespace vox {
 namespace physics {
@@ -14,26 +15,26 @@ CharacterController::CharacterController(Entity *entity) :
 Component(entity) {
 }
 
-PxControllerCollisionFlags CharacterController::move(const math::Float3 &disp, float minDist, float elapsedTime) {
+PxControllerCollisionFlags CharacterController::move(const Imath::V3f &disp, float minDist, float elapsedTime) {
     return _nativeController->move(PxVec3(disp.x, disp.y, disp.z), minDist, elapsedTime, PxControllerFilters());
 }
 
-bool CharacterController::setPosition(const math::Float3 &position) {
+bool CharacterController::setPosition(const Imath::V3f &position) {
     return _nativeController->setPosition(PxExtendedVec3(position.x, position.y, position.z));
 }
 
-math::Float3 CharacterController::position() const {
+Imath::V3f CharacterController::position() const {
     auto pose = _nativeController->getPosition();
-    return math::Float3(pose.x, pose.y, pose.z);
+    return Imath::V3f(pose.x, pose.y, pose.z);
 }
 
-bool CharacterController::setFootPosition(const math::Float3 &position) {
+bool CharacterController::setFootPosition(const Imath::V3f &position) {
     return _nativeController->setFootPosition(PxExtendedVec3(position.x, position.y, position.z));
 }
 
-math::Float3 CharacterController::footPosition() const {
+Imath::V3f CharacterController::footPosition() const {
     auto pose = _nativeController->getFootPosition();
-    return math::Float3(pose.x, pose.y, pose.z);
+    return Imath::V3f(pose.x, pose.y, pose.z);
 }
 
 void CharacterController::setStepOffset(const float offset) {
@@ -60,12 +61,12 @@ void CharacterController::setContactOffset(float offset) {
     _nativeController->setContactOffset(offset);
 }
 
-math::Float3 CharacterController::upDirection() const {
+Imath::V3f CharacterController::upDirection() const {
     auto dir = _nativeController->getUpDirection();
-    return math::Float3(dir.x, dir.y, dir.z);
+    return Imath::V3f(dir.x, dir.y, dir.z);
 }
 
-void CharacterController::setUpDirection(const math::Float3 &up) {
+void CharacterController::setUpDirection(const Imath::V3f &up) {
     _nativeController->setUpDirection(PxVec3(up.x, up.y, up.z));
 }
 
@@ -98,11 +99,11 @@ void CharacterController::_onLateUpdate() {
 }
 
 void CharacterController::_onEnable() {
-    engine()->_physicsManager._addCharacterController(this);
+    entity()->scene()->_physicsManager._addCharacterController(this);
 }
 
 void CharacterController::_onDisable() {
-    engine()->_physicsManager._removeCharacterController(this);
+    entity()->scene()->_physicsManager._removeCharacterController(this);
 }
 
 }
