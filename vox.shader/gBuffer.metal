@@ -47,7 +47,7 @@ vertex ColorInOut gbuffer_vertex(DescriptorDefinedVertex in    [[ stage_in ]],
     // Make position a float4 to perform 4x4 matrix math on it
     float4 eye_position = frameData.temple_modelview_matrix * model_position;
     out.position = frameData.projection_matrix * eye_position;
-    out.tex_coord = in.tex_coord;
+    out.tex_coord = float2(in.tex_coord.x, 1-in.tex_coord.y);
 
 #if USE_EYE_DEPTH
     out.eye_position = eye_position.xyz;
