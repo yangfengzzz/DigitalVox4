@@ -276,15 +276,12 @@
 		0445938D278FFE3200F04CE0 /* mesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459380278FFE3100F04CE0 /* mesh.mm */; };
 		0445938E278FFE3200F04CE0 /* lighting_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459381278FFE3200F04CE0 /* lighting_subpass.h */; };
 		0445938F278FFE3200F04CE0 /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459382278FFE3200F04CE0 /* utilities.h */; };
-		0445939B278FFF6F00F04CE0 /* shader_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459391278FFF6E00F04CE0 /* shader_types.h */; };
-		0445939C278FFF6F00F04CE0 /* directional_light.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459392278FFF6E00F04CE0 /* directional_light.metal */; };
-		0445939E278FFF6F00F04CE0 /* skybox.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459394278FFF6E00F04CE0 /* skybox.metal */; };
-		0445939F278FFF6F00F04CE0 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459395278FFF6E00F04CE0 /* config.h */; };
-		044593A0278FFF6F00F04CE0 /* shader_common.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459396278FFF6E00F04CE0 /* shader_common.h */; };
-		044593A1278FFF6F00F04CE0 /* point_lights.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459397278FFF6E00F04CE0 /* point_lights.metal */; };
-		044593A2278FFF6F00F04CE0 /* gBuffer.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459398278FFF6E00F04CE0 /* gBuffer.metal */; };
-		044593A3278FFF6F00F04CE0 /* fairy.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459399278FFF6E00F04CE0 /* fairy.metal */; };
-		044593A4278FFF6F00F04CE0 /* shadow.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445939A278FFF6F00F04CE0 /* shadow.metal */; };
+		044593AD279002D500F04CE0 /* fairy.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459399278FFF6E00F04CE0 /* fairy.metal */; };
+		044593AE279002D500F04CE0 /* directional_light.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459392278FFF6E00F04CE0 /* directional_light.metal */; };
+		044593AF279002D500F04CE0 /* skybox.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459394278FFF6E00F04CE0 /* skybox.metal */; };
+		044593B0279002D500F04CE0 /* point_lights.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459397278FFF6E00F04CE0 /* point_lights.metal */; };
+		044593B1279002D500F04CE0 /* shadow.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445939A278FFF6F00F04CE0 /* shadow.metal */; };
+		044593B2279002D500F04CE0 /* gBuffer.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459398278FFF6E00F04CE0 /* gBuffer.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -673,6 +670,7 @@
 			children = (
 				042296A0278DAE4E0090983F /* vox.math */,
 				042295DA278D121D0090983F /* vox.geometry */,
+				044593A7279002C000F04CE0 /* vox.shader */,
 				04229551278C30840090983F /* vox.render */,
 				0422960A278D29760090983F /* unit_tests */,
 				04229550278C30840090983F /* Products */,
@@ -1145,6 +1143,13 @@
 		04459390278FFF5400F04CE0 /* shader */ = {
 			isa = PBXGroup;
 			children = (
+			);
+			path = shader;
+			sourceTree = "<group>";
+		};
+		044593A7279002C000F04CE0 /* vox.shader */ = {
+			isa = PBXGroup;
+			children = (
 				04459395278FFF6E00F04CE0 /* config.h */,
 				04459391278FFF6E00F04CE0 /* shader_types.h */,
 				04459396278FFF6E00F04CE0 /* shader_common.h */,
@@ -1155,7 +1160,7 @@
 				04459392278FFF6E00F04CE0 /* directional_light.metal */,
 				04459394278FFF6E00F04CE0 /* skybox.metal */,
 			);
-			path = shader;
+			path = vox.shader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1172,7 +1177,6 @@
 				04459206278E591A00F04CE0 /* imstb_textedit.h in Headers */,
 				04459226278E5F1100F04CE0 /* window.h in Headers */,
 				042295AB278C32FB0090983F /* CPPMetalResource.hpp in Headers */,
-				0445939B278FFF6F00F04CE0 /* shader_types.h in Headers */,
 				0422959E278C32FB0090983F /* CPPMetalVertexDescriptor.hpp in Headers */,
 				04459207278E591A00F04CE0 /* imgui_internal.h in Headers */,
 				042295AF278C32FB0090983F /* CPPMetal.hpp in Headers */,
@@ -1187,7 +1191,6 @@
 				0445930A278F14BD00F04CE0 /* renderer.h in Headers */,
 				04459375278FE8F600F04CE0 /* CPPMetalView.hpp in Headers */,
 				0445925D278E7C8600F04CE0 /* metal_application.h in Headers */,
-				0445939F278FFF6F00F04CE0 /* config.h in Headers */,
 				0445928E278EA37D00F04CE0 /* script.h in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
 				04459225278E5F1100F04CE0 /* configuration.h in Headers */,
@@ -1195,7 +1198,6 @@
 				044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */,
 				044592EB278ED82300F04CE0 /* pbr_material.h in Headers */,
 				044591FF278E591A00F04CE0 /* imconfig.h in Headers */,
-				044593A0278FFF6F00F04CE0 /* shader_common.h in Headers */,
 				0445929F278EB45200F04CE0 /* CPPMetalDataType.hpp in Headers */,
 				04459383278FFE3200F04CE0 /* mesh.h in Headers */,
 				044592B3278EBEE600F04CE0 /* shader.h in Headers */,
@@ -1416,6 +1418,20 @@
 			productReference = 0422969F278DAE4E0090983F /* libvox.math.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		044593A6279002C000F04CE0 /* vox.shader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 044593AA279002C000F04CE0 /* Build configuration list for PBXNativeTarget "vox.shader" */;
+			buildPhases = (
+				044593A5279002C000F04CE0 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vox.shader;
+			productName = vox.shader;
+			productType = "com.apple.product-type.metal-library";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1437,6 +1453,9 @@
 					0422969E278DAE4E0090983F = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
+					044593A6279002C000F04CE0 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 				};
 			};
 			buildConfigurationList = 0422954A278C30840090983F /* Build configuration list for PBXProject "DigitalVox4" */;
@@ -1456,6 +1475,7 @@
 				042295D8278D121C0090983F /* vox.geometry */,
 				0422954E278C30840090983F /* vox.render */,
 				04229608278D29760090983F /* unit_tests */,
+				044593A6279002C000F04CE0 /* vox.shader */,
 			);
 		};
 /* End PBXProject section */
@@ -1477,13 +1497,11 @@
 				04459317278F183500F04CE0 /* physics.cpp in Sources */,
 				0445934D278FAF9800F04CE0 /* fixed_joint.cpp in Sources */,
 				04459330278FAA7900F04CE0 /* sphere_collider_shape.cpp in Sources */,
-				044593A2278FFF6F00F04CE0 /* gBuffer.metal in Sources */,
 				044591EE278E557C00F04CE0 /* align.cc in Sources */,
 				044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */,
 				0445930E278F170100F04CE0 /* spherical.cpp in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
 				04459339278FAE0C00F04CE0 /* capsule_character_controller.cpp in Sources */,
-				044593A4278FFF6F00F04CE0 /* shadow.metal in Sources */,
 				044592DC278ED11F00F04CE0 /* material.cpp in Sources */,
 				0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */,
 				0445932F278FAA7900F04CE0 /* box_collider_shape.cpp in Sources */,
@@ -1508,13 +1526,11 @@
 				044592A5278EB92800F04CE0 /* shader_macro_collection.cpp in Sources */,
 				0445938D278FFE3200F04CE0 /* mesh.mm in Sources */,
 				04229590278C32FB0090983F /* CPPMetalCommandEncoder.mm in Sources */,
-				0445939E278FFF6F00F04CE0 /* skybox.metal in Sources */,
 				0445923A278E61B000F04CE0 /* input_events.cpp in Sources */,
 				042295A5278C32FB0090983F /* CPPMetalVertexDescriptor.mm in Sources */,
 				044592D0278ECABC00F04CE0 /* render_state.cpp in Sources */,
 				044592AF278EBEB900F04CE0 /* shader_property.cpp in Sources */,
 				0422958C278C32FB0090983F /* CPPMetalRenderPass.mm in Sources */,
-				0445939C278FFF6F00F04CE0 /* directional_light.metal in Sources */,
 				04459371278FBCDB00F04CE0 /* free_control.cpp in Sources */,
 				04459258278E708A00F04CE0 /* unix_engine.cpp in Sources */,
 				0445931B278F197600F04CE0 /* collider_shape.cpp in Sources */,
@@ -1539,7 +1555,6 @@
 				04459353278FAF9800F04CE0 /* translational_joint.cpp in Sources */,
 				04459357278FAF9800F04CE0 /* spherical_joint.cpp in Sources */,
 				04459367278FB19800F04CE0 /* dynamic_collider.cpp in Sources */,
-				044593A1278FFF6F00F04CE0 /* point_lights.metal in Sources */,
 				0422958A278C32FB0090983F /* CPPMetalDepthStencil.mm in Sources */,
 				044592E0278ED17E00F04CE0 /* base_material.cpp in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
@@ -1562,7 +1577,6 @@
 				042295A1278C32FB0090983F /* CPPMetalCommandBuffer.mm in Sources */,
 				044592C4278EC60C00F04CE0 /* stencil_state.cpp in Sources */,
 				0445924D278E653300F04CE0 /* engine.cpp in Sources */,
-				044593A3278FFF6F00F04CE0 /* fairy.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1602,6 +1616,19 @@
 				042296EE278DAE7C0090983F /* half.cpp in Sources */,
 				042296D4278DAE7B0090983F /* ImathMatrixAlgo.cpp in Sources */,
 				042296EC278DAE7C0090983F /* ImathFun.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		044593A5279002C000F04CE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				044593B2279002D500F04CE0 /* gBuffer.metal in Sources */,
+				044593AF279002D500F04CE0 /* skybox.metal in Sources */,
+				044593B0279002D500F04CE0 /* point_lights.metal in Sources */,
+				044593AE279002D500F04CE0 /* directional_light.metal in Sources */,
+				044593AD279002D500F04CE0 /* fairy.metal in Sources */,
+				044593B1279002D500F04CE0 /* shadow.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1952,6 +1979,24 @@
 			};
 			name = Release;
 		};
+		044593AB279002C000F04CE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		044593AC279002C000F04CE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1996,6 +2041,15 @@
 			buildConfigurations = (
 				042296A8278DAE4E0090983F /* Debug */,
 				042296A9278DAE4E0090983F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		044593AA279002C000F04CE0 /* Build configuration list for PBXNativeTarget "vox.shader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				044593AB279002C000F04CE0 /* Debug */,
+				044593AC279002C000F04CE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
