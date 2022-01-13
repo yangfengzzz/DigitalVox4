@@ -60,6 +60,13 @@ public:
     virtual bool resize(const uint32_t width, const uint32_t height);
     
     /**
+     * @brief Handles resizing of the window
+     * @param width New pixel width of the window
+     * @param height New pixel height of the window
+     */
+    virtual void framebuffer_resize(uint32_t width, uint32_t height);
+    
+    /**
      * @brief Handles input events of the window
      * @param input_event The input event object
      */

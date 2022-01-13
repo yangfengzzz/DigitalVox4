@@ -25,6 +25,8 @@
 #include "application.h"
 #include "filesystem.h"
 #include "window.h"
+#include "core/CPPMetalDevice.hpp"
+#include "core/CPPMetalView.hpp"
 
 namespace vox {
 enum class ExitCode {
@@ -71,7 +73,11 @@ public:
     
     virtual void resize(uint32_t width, uint32_t height);
     
+    virtual void framebuffer_resize(uint32_t width, uint32_t height);
+    
     virtual void input_event(const InputEvent &input_event);
+    
+    virtual std::unique_ptr<MTL::View> create_render_context(MTL::Device &device);
     
 public:
     void set_focus(bool focused);

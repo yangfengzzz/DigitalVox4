@@ -10,6 +10,7 @@
 
 #include "application.h"
 #include "core/CPPMetalDevice.hpp"
+#include "core/CPPMetalView.hpp"
 
 namespace vox {
 /**
@@ -98,6 +99,8 @@ public:
     
     virtual bool resize(const uint32_t width, const uint32_t height) override;
     
+    virtual void framebuffer_resize(uint32_t width, uint32_t height) override;
+    
     virtual void input_event(const InputEvent &input_event) override;
     
     virtual void finish() override;
@@ -131,11 +134,11 @@ protected:
      */
     std::unique_ptr<MTL::Device> device{nullptr};
 
-//    /**
-//     * @brief Context used for rendering, it is responsible for managing the frames and their underlying images
-//     */
-//    std::unique_ptr<RenderContext> render_context{nullptr};
-//
+    /**
+     * @brief Context used for rendering, it is responsible for managing the frames and their underlying images
+     */
+    std::unique_ptr<MTL::View> render_context{nullptr};
+
 //    /**
 //     * @brief Pipeline used for rendering, it should be set up by the concrete sample
 //     */

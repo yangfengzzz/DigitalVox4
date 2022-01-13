@@ -42,6 +42,9 @@ bool Application::resize(const uint32_t /*width*/, const uint32_t /*height*/) {
     return true;
 }
 
+void Application::framebuffer_resize(uint32_t width, uint32_t height) {    
+}
+
 void Application::input_event(const InputEvent &input_event) {
 }
 

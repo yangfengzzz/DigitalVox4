@@ -143,6 +143,18 @@ void Engine::resize(uint32_t width, uint32_t height) {
     }
 }
 
+void Engine::framebuffer_resize(uint32_t width, uint32_t height) {
+    if (active_app) {
+        active_app->framebuffer_resize(width, height);
+    }
+}
+
+std::unique_ptr<MTL::View> Engine::create_render_context(MTL::Device &device) {
+    auto context = std::make_unique<MTL::View>(device);
+    window->set_view(*context);
+    return context;
+}
+
 //MARK: - Application
 Window &Engine::get_window() const {
     return *window;
