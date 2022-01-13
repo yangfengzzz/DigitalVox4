@@ -267,6 +267,24 @@
 		04459371278FBCDB00F04CE0 /* free_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445936E278FBCCA00F04CE0 /* free_control.cpp */; };
 		04459374278FE8F600F04CE0 /* CPPMetalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459372278FE8F600F04CE0 /* CPPMetalView.mm */; };
 		04459375278FE8F600F04CE0 /* CPPMetalView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 04459373278FE8F600F04CE0 /* CPPMetalView.hpp */; };
+		04459383278FFE3200F04CE0 /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459376278FFE3100F04CE0 /* mesh.h */; };
+		04459385278FFE3200F04CE0 /* math_utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459378278FFE3100F04CE0 /* math_utilities.cpp */; };
+		04459386278FFE3200F04CE0 /* subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459379278FFE3100F04CE0 /* subpass.h */; };
+		04459387278FFE3200F04CE0 /* lighting_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445937A278FFE3100F04CE0 /* lighting_subpass.cpp */; };
+		0445938A278FFE3200F04CE0 /* math_utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445937D278FFE3100F04CE0 /* math_utilities.h */; };
+		0445938C278FFE3200F04CE0 /* subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445937F278FFE3100F04CE0 /* subpass.cpp */; };
+		0445938D278FFE3200F04CE0 /* mesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459380278FFE3100F04CE0 /* mesh.mm */; };
+		0445938E278FFE3200F04CE0 /* lighting_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459381278FFE3200F04CE0 /* lighting_subpass.h */; };
+		0445938F278FFE3200F04CE0 /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459382278FFE3200F04CE0 /* utilities.h */; };
+		0445939B278FFF6F00F04CE0 /* shader_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459391278FFF6E00F04CE0 /* shader_types.h */; };
+		0445939C278FFF6F00F04CE0 /* directional_light.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459392278FFF6E00F04CE0 /* directional_light.metal */; };
+		0445939E278FFF6F00F04CE0 /* skybox.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459394278FFF6E00F04CE0 /* skybox.metal */; };
+		0445939F278FFF6F00F04CE0 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459395278FFF6E00F04CE0 /* config.h */; };
+		044593A0278FFF6F00F04CE0 /* shader_common.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459396278FFF6E00F04CE0 /* shader_common.h */; };
+		044593A1278FFF6F00F04CE0 /* point_lights.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459397278FFF6E00F04CE0 /* point_lights.metal */; };
+		044593A2278FFF6F00F04CE0 /* gBuffer.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459398278FFF6E00F04CE0 /* gBuffer.metal */; };
+		044593A3278FFF6F00F04CE0 /* fairy.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459399278FFF6E00F04CE0 /* fairy.metal */; };
+		044593A4278FFF6F00F04CE0 /* shadow.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445939A278FFF6F00F04CE0 /* shadow.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -596,6 +614,24 @@
 		0445936E278FBCCA00F04CE0 /* free_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = free_control.cpp; sourceTree = "<group>"; };
 		04459372278FE8F600F04CE0 /* CPPMetalView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPMetalView.mm; sourceTree = "<group>"; };
 		04459373278FE8F600F04CE0 /* CPPMetalView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalView.hpp; sourceTree = "<group>"; };
+		04459376278FFE3100F04CE0 /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
+		04459378278FFE3100F04CE0 /* math_utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = math_utilities.cpp; sourceTree = "<group>"; };
+		04459379278FFE3100F04CE0 /* subpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = subpass.h; sourceTree = "<group>"; };
+		0445937A278FFE3100F04CE0 /* lighting_subpass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lighting_subpass.cpp; sourceTree = "<group>"; };
+		0445937D278FFE3100F04CE0 /* math_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utilities.h; sourceTree = "<group>"; };
+		0445937F278FFE3100F04CE0 /* subpass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = subpass.cpp; sourceTree = "<group>"; };
+		04459380278FFE3100F04CE0 /* mesh.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mesh.mm; sourceTree = "<group>"; };
+		04459381278FFE3200F04CE0 /* lighting_subpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lighting_subpass.h; sourceTree = "<group>"; };
+		04459382278FFE3200F04CE0 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utilities.h; sourceTree = "<group>"; };
+		04459391278FFF6E00F04CE0 /* shader_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_types.h; sourceTree = "<group>"; };
+		04459392278FFF6E00F04CE0 /* directional_light.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = directional_light.metal; sourceTree = "<group>"; };
+		04459394278FFF6E00F04CE0 /* skybox.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = skybox.metal; sourceTree = "<group>"; };
+		04459395278FFF6E00F04CE0 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		04459396278FFF6E00F04CE0 /* shader_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_common.h; sourceTree = "<group>"; };
+		04459397278FFF6E00F04CE0 /* point_lights.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = point_lights.metal; sourceTree = "<group>"; };
+		04459398278FFF6E00F04CE0 /* gBuffer.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = gBuffer.metal; sourceTree = "<group>"; };
+		04459399278FFF6E00F04CE0 /* fairy.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = fairy.metal; sourceTree = "<group>"; };
+		0445939A278FFF6F00F04CE0 /* shadow.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = shadow.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -936,6 +972,16 @@
 		0445925E278E7F3300F04CE0 /* rendering */ = {
 			isa = PBXGroup;
 			children = (
+				04459390278FFF5400F04CE0 /* shader */,
+				04459382278FFE3200F04CE0 /* utilities.h */,
+				0445937D278FFE3100F04CE0 /* math_utilities.h */,
+				04459378278FFE3100F04CE0 /* math_utilities.cpp */,
+				04459376278FFE3100F04CE0 /* mesh.h */,
+				04459380278FFE3100F04CE0 /* mesh.mm */,
+				04459379278FFE3100F04CE0 /* subpass.h */,
+				0445937F278FFE3100F04CE0 /* subpass.cpp */,
+				04459381278FFE3200F04CE0 /* lighting_subpass.h */,
+				0445937A278FFE3100F04CE0 /* lighting_subpass.cpp */,
 			);
 			path = rendering;
 			sourceTree = "<group>";
@@ -1096,6 +1142,22 @@
 			path = joint;
 			sourceTree = "<group>";
 		};
+		04459390278FFF5400F04CE0 /* shader */ = {
+			isa = PBXGroup;
+			children = (
+				04459395278FFF6E00F04CE0 /* config.h */,
+				04459391278FFF6E00F04CE0 /* shader_types.h */,
+				04459396278FFF6E00F04CE0 /* shader_common.h */,
+				0445939A278FFF6F00F04CE0 /* shadow.metal */,
+				04459398278FFF6E00F04CE0 /* gBuffer.metal */,
+				04459399278FFF6E00F04CE0 /* fairy.metal */,
+				04459397278FFF6E00F04CE0 /* point_lights.metal */,
+				04459392278FFF6E00F04CE0 /* directional_light.metal */,
+				04459394278FFF6E00F04CE0 /* skybox.metal */,
+			);
+			path = shader;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1110,6 +1172,7 @@
 				04459206278E591A00F04CE0 /* imstb_textedit.h in Headers */,
 				04459226278E5F1100F04CE0 /* window.h in Headers */,
 				042295AB278C32FB0090983F /* CPPMetalResource.hpp in Headers */,
+				0445939B278FFF6F00F04CE0 /* shader_types.h in Headers */,
 				0422959E278C32FB0090983F /* CPPMetalVertexDescriptor.hpp in Headers */,
 				04459207278E591A00F04CE0 /* imgui_internal.h in Headers */,
 				042295AF278C32FB0090983F /* CPPMetal.hpp in Headers */,
@@ -1124,6 +1187,7 @@
 				0445930A278F14BD00F04CE0 /* renderer.h in Headers */,
 				04459375278FE8F600F04CE0 /* CPPMetalView.hpp in Headers */,
 				0445925D278E7C8600F04CE0 /* metal_application.h in Headers */,
+				0445939F278FFF6F00F04CE0 /* config.h in Headers */,
 				0445928E278EA37D00F04CE0 /* script.h in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
 				04459225278E5F1100F04CE0 /* configuration.h in Headers */,
@@ -1131,7 +1195,9 @@
 				044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */,
 				044592EB278ED82300F04CE0 /* pbr_material.h in Headers */,
 				044591FF278E591A00F04CE0 /* imconfig.h in Headers */,
+				044593A0278FFF6F00F04CE0 /* shader_common.h in Headers */,
 				0445929F278EB45200F04CE0 /* CPPMetalDataType.hpp in Headers */,
+				04459383278FFE3200F04CE0 /* mesh.h in Headers */,
 				044592B3278EBEE600F04CE0 /* shader.h in Headers */,
 				044592E7278ED6AE00F04CE0 /* blinn_phong_material.h in Headers */,
 				0445930F278F170100F04CE0 /* spherical.h in Headers */,
@@ -1143,6 +1209,7 @@
 				0445922A278E5F1100F04CE0 /* engine.h in Headers */,
 				042295B8278C33090090983F /* CPPMetalDeviceInternals.h in Headers */,
 				04459356278FAF9800F04CE0 /* spring_joint.h in Headers */,
+				04459386278FFE3200F04CE0 /* subpass.h in Headers */,
 				0445934B278FAF9800F04CE0 /* spherical_joint.h in Headers */,
 				0445931F278F1A4A00F04CE0 /* collider.h in Headers */,
 				042295A3278C32FB0090983F /* CPPMetalPixelFormat.hpp in Headers */,
@@ -1178,6 +1245,7 @@
 				042295A6278C32FB0090983F /* CPPMetalConstants.hpp in Headers */,
 				044592C2278EC5A200F04CE0 /* depth_state.h in Headers */,
 				042295A7278C32FB0090983F /* CPPMetalDepthStencil.hpp in Headers */,
+				0445938F278FFE3200F04CE0 /* utilities.h in Headers */,
 				04459337278FAE0C00F04CE0 /* character_controller.h in Headers */,
 				044592D8278ED0FB00F04CE0 /* blend_mode.h in Headers */,
 				04459364278FB14400F04CE0 /* hit_result.h in Headers */,
@@ -1194,9 +1262,11 @@
 				0445928A278E84DE00F04CE0 /* transform.h in Headers */,
 				044592D7278ED0FB00F04CE0 /* render_queue_type.h in Headers */,
 				044592D6278ED0FB00F04CE0 /* render_face.h in Headers */,
+				0445938A278FFE3200F04CE0 /* math_utilities.h in Headers */,
 				0445932A278FAA7900F04CE0 /* sphere_collider_shape.h in Headers */,
 				04459255278E6D4700F04CE0 /* glfw_window.h in Headers */,
 				0445936C278FB37C00F04CE0 /* orbit_control.h in Headers */,
+				0445938E278FFE3200F04CE0 /* lighting_subpass.h in Headers */,
 				042295B9278C33090090983F /* CPPMetalDispatchTableCache.h in Headers */,
 				04459363278FB14400F04CE0 /* physics_manager.h in Headers */,
 				0445934C278FAF9800F04CE0 /* fixed_joint.h in Headers */,
@@ -1398,6 +1468,7 @@
 				04459283278E80DD00F04CE0 /* scene.cpp in Sources */,
 				0422958D278C32FB0090983F /* CPPMetalRenderPipeline.mm in Sources */,
 				0445927B278E80DD00F04CE0 /* updateFlag_manager.cpp in Sources */,
+				04459387278FFE3200F04CE0 /* lighting_subpass.cpp in Sources */,
 				0445932D278FAA7900F04CE0 /* plane_collider_shape.cpp in Sources */,
 				04459208278E591A00F04CE0 /* imgui.cpp in Sources */,
 				04459338278FAE0C00F04CE0 /* character_controller.cpp in Sources */,
@@ -1406,11 +1477,13 @@
 				04459317278F183500F04CE0 /* physics.cpp in Sources */,
 				0445934D278FAF9800F04CE0 /* fixed_joint.cpp in Sources */,
 				04459330278FAA7900F04CE0 /* sphere_collider_shape.cpp in Sources */,
+				044593A2278FFF6F00F04CE0 /* gBuffer.metal in Sources */,
 				044591EE278E557C00F04CE0 /* align.cc in Sources */,
 				044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */,
 				0445930E278F170100F04CE0 /* spherical.cpp in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
 				04459339278FAE0C00F04CE0 /* capsule_character_controller.cpp in Sources */,
+				044593A4278FFF6F00F04CE0 /* shadow.metal in Sources */,
 				044592DC278ED11F00F04CE0 /* material.cpp in Sources */,
 				0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */,
 				0445932F278FAA7900F04CE0 /* box_collider_shape.cpp in Sources */,
@@ -1433,18 +1506,22 @@
 				044592A3278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm in Sources */,
 				042295AD278C32FB0090983F /* CPPMetalLibrary.mm in Sources */,
 				044592A5278EB92800F04CE0 /* shader_macro_collection.cpp in Sources */,
+				0445938D278FFE3200F04CE0 /* mesh.mm in Sources */,
 				04229590278C32FB0090983F /* CPPMetalCommandEncoder.mm in Sources */,
+				0445939E278FFF6F00F04CE0 /* skybox.metal in Sources */,
 				0445923A278E61B000F04CE0 /* input_events.cpp in Sources */,
 				042295A5278C32FB0090983F /* CPPMetalVertexDescriptor.mm in Sources */,
 				044592D0278ECABC00F04CE0 /* render_state.cpp in Sources */,
 				044592AF278EBEB900F04CE0 /* shader_property.cpp in Sources */,
 				0422958C278C32FB0090983F /* CPPMetalRenderPass.mm in Sources */,
+				0445939C278FFF6F00F04CE0 /* directional_light.metal in Sources */,
 				04459371278FBCDB00F04CE0 /* free_control.cpp in Sources */,
 				04459258278E708A00F04CE0 /* unix_engine.cpp in Sources */,
 				0445931B278F197600F04CE0 /* collider_shape.cpp in Sources */,
 				04459280278E80DD00F04CE0 /* updateFlag.cpp in Sources */,
 				04459309278F14BD00F04CE0 /* renderer.cpp in Sources */,
 				04459200278E591A00F04CE0 /* imgui_widgets.cpp in Sources */,
+				0445938C278FFE3200F04CE0 /* subpass.cpp in Sources */,
 				044592F0278ED88400F04CE0 /* pbr_base_material.cpp in Sources */,
 				044592B7278EBFC600F04CE0 /* shader_program.cpp in Sources */,
 				0445924C278E63FF00F04CE0 /* filesystem.cpp in Sources */,
@@ -1462,6 +1539,7 @@
 				04459353278FAF9800F04CE0 /* translational_joint.cpp in Sources */,
 				04459357278FAF9800F04CE0 /* spherical_joint.cpp in Sources */,
 				04459367278FB19800F04CE0 /* dynamic_collider.cpp in Sources */,
+				044593A1278FFF6F00F04CE0 /* point_lights.metal in Sources */,
 				0422958A278C32FB0090983F /* CPPMetalDepthStencil.mm in Sources */,
 				044592E0278ED17E00F04CE0 /* base_material.cpp in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
@@ -1477,12 +1555,14 @@
 				044592C8278EC64A00F04CE0 /* raster_state.cpp in Sources */,
 				04459362278FB14400F04CE0 /* static_collider.cpp in Sources */,
 				04459281278E80DD00F04CE0 /* component.cpp in Sources */,
+				04459385278FFE3200F04CE0 /* math_utilities.cpp in Sources */,
 				0445932B278FAA7900F04CE0 /* capsule_collider_shape.cpp in Sources */,
 				04459354278FAF9800F04CE0 /* configurable_joint.cpp in Sources */,
 				0445923B278E61C500F04CE0 /* configuration.cpp in Sources */,
 				042295A1278C32FB0090983F /* CPPMetalCommandBuffer.mm in Sources */,
 				044592C4278EC60C00F04CE0 /* stencil_state.cpp in Sources */,
 				0445924D278E653300F04CE0 /* engine.cpp in Sources */,
+				044593A3278FFF6F00F04CE0 /* fairy.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
