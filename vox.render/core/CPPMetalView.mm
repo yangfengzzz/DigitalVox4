@@ -34,17 +34,21 @@ View::~View() {
     destroy(m_device->allocator(), m_depthStencilTexture);
 }
 
+void View::draw() {
+    m_drawableCObj = [m_objCObj nextDrawable];
+}
+
 MTL::Drawable *View::currentDrawable() {
     assert(m_objCObj.device);
     
-    if (m_currentDrawable == nullptr ||
-        ![m_currentDrawable->objCObj() isEqual:[m_objCObj nextDrawable]]) {
+    if(m_currentDrawable == nullptr ||
+       ![m_currentDrawable->objCObj() isEqual:m_drawableCObj]) {
         destroy(m_device->allocator(), m_currentDrawable);
         m_currentDrawable = nullptr;
         
-        id <MTLDrawable> objCDrawable = [m_objCObj nextDrawable];
+        id<MTLDrawable> objCDrawable = m_drawableCObj;
         
-        if (objCDrawable) {
+        if(objCDrawable) {
             m_currentDrawable = construct<Drawable>(m_device->allocator(),
                                                     objCDrawable, *m_device);
         }
@@ -57,8 +61,8 @@ Texture *View::depthStencilTexture() {
     if (!m_depthStencilTexture) {
         MTLTextureDescriptor *descriptor =
         [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:(MTLPixelFormat) m_depthStencilPixelFormat
-                                                           width:m_validatedDrawableSize.width
-                                                          height:m_validatedDrawableSize.height
+                                                           width:m_objCObj.drawableSize.width
+                                                          height:m_objCObj.drawableSize.height
                                                        mipmapped:false];
         descriptor.usage = MTLTextureUsageShaderRead | MTLTextureUsageRenderTarget;
         descriptor.storageMode = MTLStorageModePrivate;
@@ -78,10 +82,8 @@ MTL::RenderPassDescriptor *View::currentRenderPassDescriptor() {
     }
     m_currentRenderPassDescriptor->colorAttachments[0].texture(*currentDrawable()->texture());
     
-    if (m_validatedDrawableSize.width != m_objCObj.drawableSize.width &&
-        m_validatedDrawableSize.height != m_objCObj.drawableSize.height) {
-        m_validatedDrawableSize.width = m_objCObj.drawableSize.width;
-        m_validatedDrawableSize.height = m_objCObj.drawableSize.height;
+    if (m_depthStencilTexture->width() != m_objCObj.drawableSize.width ||
+        m_depthStencilTexture->height() != m_objCObj.drawableSize.height) {
         
         destroy(m_device->allocator(), m_depthStencilTexture);
         m_depthStencilTexture = nullptr;

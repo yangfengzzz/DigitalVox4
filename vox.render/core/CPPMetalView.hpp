@@ -27,6 +27,8 @@ public:
     
     CPP_METAL_VIRTUAL ~View();
     
+    void draw();
+    
     MTL::Drawable *currentDrawable();
     
     MTL::Texture *depthStencilTexture();
@@ -49,16 +51,15 @@ public:
     
 private:
     CPPMetalInternal::MetalLayer m_objCObj;
-    
+    CPPMetalInternal::Drawable m_drawableCObj;
+
     MTL::Device *m_device;
     
     MTL::Drawable *m_currentDrawable;
     MTL::Texture *m_depthStencilTexture;
     MTL::PixelFormat m_depthStencilPixelFormat;
     MTL::RenderPassDescriptor *m_currentRenderPassDescriptor;
-    
-    MTL::Size m_validatedDrawableSize;
-    
+        
 public: // Public methods for CPPMetal internal implementation
     CPPMetalInternal::MetalLayer objCObj() const;
 };

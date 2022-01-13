@@ -29,12 +29,13 @@ bool MetalApplication::prepare(Engine &engine) {
     
     render_pipeline = std::make_unique<LightingSubpass>(render_context.get());
     auto extent = engine.get_window().get_extent();
-    framebuffer_resize(extent.width, extent.height);
-    render_context->currentRenderPassDescriptor();
+    framebuffer_resize(extent.width*2, extent.height*2);
+
     return true;
 }
 
 void MetalApplication::update(float delta_time) {
+    render_context->draw();
     render_pipeline->drawInView(render_context.get());
 }
 
