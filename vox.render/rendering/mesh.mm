@@ -106,7 +106,7 @@ static Texture createTextureFromMaterial(MDLMaterial *material,
                 URLString = [[NSMutableString alloc] initWithString:[url absoluteString]];
             } else {
                 URLString = [[NSMutableString alloc] initWithString:@"file://"];
-                [URLString appendString:property.stringValue];
+                [URLString appendString:property.URLValue.absoluteString];
             }
             
             // Attempt to load the texture from the file system
@@ -299,6 +299,7 @@ static std::vector<Mesh> createMeshesFromModelIOObject(MDLObject *object,
 }
 
 std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
+                                           const char *meshFile,
                                            MTL::Device &device,
                                            const MTL::VertexDescriptor &vertexDescriptor,
                                            CFErrorRef *error) {
@@ -315,7 +316,8 @@ std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
     modelIOVertexDescriptor.attributes[VertexAttributeBitangent].name = MDLVertexAttributeBitangent;
     
     NSString *nsBunldePath = [[NSString alloc] initWithUTF8String:bundlePath];
-    NSURL *modelFileURL = [[NSBundle mainBundle] URLForResource:nsBunldePath withExtension:nil];
+    NSString *nsMeshName = [[NSString alloc] initWithUTF8String:meshFile];
+    NSURL *modelFileURL = [[NSBundle bundleWithPath: nsBunldePath] URLForResource:nsMeshName withExtension:nil];
     
     AAPLAssert(modelFileURL, "Could not find model (%s) file in bundle", modelFileURL.absoluteString.UTF8String);
     

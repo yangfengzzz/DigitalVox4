@@ -348,15 +348,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		044593B52790055000F04CE0 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -678,6 +669,7 @@
 		044593D02790077D00F04CE0 /* apps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = apps.entitlements; sourceTree = "<group>"; };
 		044593D12790081200F04CE0 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		044593D32790082600F04CE0 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
+		044593D8279011CA00F04CE0 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = assets/Models; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -732,6 +724,7 @@
 		04229546278C30840090983F = {
 			isa = PBXGroup;
 			children = (
+				044593D8279011CA00F04CE0 /* Models */,
 				042296A0278DAE4E0090983F /* vox.math */,
 				042295DA278D121D0090983F /* vox.geometry */,
 				044593A7279002C000F04CE0 /* vox.shader */,
@@ -1512,7 +1505,6 @@
 			buildPhases = (
 				044593B32790055000F04CE0 /* Sources */,
 				044593B42790055000F04CE0 /* Frameworks */,
-				044593B52790055000F04CE0 /* CopyFiles */,
 			);
 			buildRules = (
 			);

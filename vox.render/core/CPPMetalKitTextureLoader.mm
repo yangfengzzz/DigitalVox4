@@ -8,6 +8,8 @@
 #include <Metal/Metal.h>
 #include "CPPMetalKitTextureLoader.hpp"
 #include "CPPMetalDevice.hpp"
+#include <string>
+#include <array>
 
 using namespace MTL;
 using namespace MTK;
@@ -122,4 +124,68 @@ MTL::Texture TextureLoader::makeTexture(const char *URLString,
     }
     
     return Texture(objCTexture, *m_device);
+}
+
+MTL::Texture TextureLoader::loadCubeTexture(const std::string &path,
+                                            const std::array<std::string, 6> &imageName,
+                                            bool isTopLeft) {
+    NSString *pathName = [[NSString alloc] initWithUTF8String:path.c_str()];
+    NSString *textureName1 = [[NSString alloc] initWithUTF8String:imageName[0].c_str()];
+    NSString *textureName2 = [[NSString alloc] initWithUTF8String:imageName[1].c_str()];
+    NSString *textureName3 = [[NSString alloc] initWithUTF8String:imageName[2].c_str()];
+    NSString *textureName4 = [[NSString alloc] initWithUTF8String:imageName[3].c_str()];
+    NSString *textureName5 = [[NSString alloc] initWithUTF8String:imageName[4].c_str()];
+    NSString *textureName6 = [[NSString alloc] initWithUTF8String:imageName[5].c_str()];
+    
+    NSMutableArray<NSString *> *imageNames = [[NSMutableArray alloc] init];
+    [imageNames addObject:textureName1];
+    [imageNames addObject:textureName2];
+    [imageNames addObject:textureName3];
+    [imageNames addObject:textureName4];
+    [imageNames addObject:textureName5];
+    [imageNames addObject:textureName6];
+    
+    MDLTexture *mdlTexture = [MDLTexture textureCubeWithImagesNamed:imageNames bundle:[NSBundle bundleWithPath:pathName]];
+    MTKTextureLoaderOrigin origin = MTKTextureLoaderOriginTopLeft;
+    if (!isTopLeft) {
+        origin = MTKTextureLoaderOriginBottomLeft;
+    }
+    
+    NSDictionary < MTKTextureLoaderOption, id > *options = @{
+        MTKTextureLoaderOptionOrigin: origin,
+        MTKTextureLoaderOptionGenerateMipmaps: [NSNumber numberWithBool:FALSE],
+        MTKTextureLoaderOptionTextureUsage: [NSNumber numberWithUnsignedLong:MTLTextureUsageShaderRead]
+    };
+    NSError *error = nil;
+    id <MTLTexture> mtlTexture = [m_objCObj newTextureWithMDLTexture:mdlTexture options:options error:&error];
+    if (error != nil) {
+        NSLog(@"Error: failed to create MTLTexture: %@", error);
+    }
+    
+    return Texture(mtlTexture, *m_device);
+}
+
+MTL::Texture TextureLoader::loadTexture(const std::string &path, const std::string &imageName, bool isTopLeft) {
+    NSString *pathName = [[NSString alloc] initWithUTF8String:path.c_str()];
+    NSString *textureName = [[NSString alloc] initWithUTF8String:imageName.c_str()];
+    NSURL *url = [[NSBundle bundleWithPath:pathName] URLForResource:textureName withExtension:nil];
+    
+    MTKTextureLoaderOrigin origin = MTKTextureLoaderOriginTopLeft;
+    if (!isTopLeft) {
+        origin = MTKTextureLoaderOriginBottomLeft;
+    }
+    
+    NSDictionary < MTKTextureLoaderOption, id > *options = @{
+        MTKTextureLoaderOptionOrigin: origin,
+        MTKTextureLoaderOptionGenerateMipmaps: [NSNumber numberWithBool:TRUE]
+    };
+    
+    NSError *error = nil;
+    id <MTLTexture> texture = [m_objCObj newTextureWithContentsOfURL:url
+                                                             options:options error:&error];
+    if (error != nil) {
+        NSLog(@"Error: failed to create MTLTexture: %@", error);
+    }
+    
+    return Texture(texture, *m_device);
 }

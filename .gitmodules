@@ -22,3 +22,6 @@
 [submodule "third_party/glfw"]
 	path = third_party/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "assets"]
+	path = assets
+	url = https://github.com/yangfengzzz/Assets.git

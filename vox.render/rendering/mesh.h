@@ -147,6 +147,7 @@ private:
 };
 
 std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
+                                           const char *meshFile,
                                            MTL::Device &device,
                                            const MTL::VertexDescriptor &vertexDescriptor,
                                            CFErrorRef *error);

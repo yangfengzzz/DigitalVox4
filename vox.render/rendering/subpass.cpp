@@ -10,6 +10,8 @@
 #include <sys/sysctl.h>
 #include <simd/simd.h>
 #include <stdlib.h>
+#include <array>
+#include <string>
 
 #include "subpass.h"
 #include "mesh.h"
@@ -457,7 +459,8 @@ void Subpass::loadScene() {
     // Create and load assets into Metal objects including meshes and textures
     CFErrorRef error = nullptr;
     
-    m_meshes = newMeshesFromBundlePath("Meshes/Temple.obj", m_device, m_defaultVertexDescriptor, &error);
+    m_meshes = newMeshesFromBundlePath("../assets/Models", "Temple.obj",
+                                       m_device, m_defaultVertexDescriptor, &error);
     
     AAPLAssert(m_meshes, error, "Could not create meshes from model file");
     
@@ -533,19 +536,23 @@ void Subpass::loadScene() {
         textureLoaderOptions.usage = MTL::TextureUsageShaderRead;
         textureLoaderOptions.storageMode = MTL::StorageModePrivate;
         
-        m_skyMap = textureLoader.makeTexture("SkyMap",
-                                             1.0,
-                                             textureLoaderOptions,
-                                             &error);
+        const std::array<std::string, 6> images = {"X+.png", "X-.png", "Y+.png", "Y-.png", "Z+.png", "Z-.png"};
+        m_skyMap = textureLoader.loadCubeTexture("../assets/SkyMap", images, true);
+        
+//        m_skyMap = textureLoader.makeTexture("SkyMap",
+//                                             1.0,
+//                                             textureLoaderOptions,
+//                                             &error);
         
         AAPLAssert(error == nullptr, error, "Could not load sky texture");
         
         m_skyMap.label("Sky Map");
         
-        m_fairyMap = textureLoader.makeTexture("FairyMap",
-                                               1.0,
-                                               textureLoaderOptions,
-                                               &error);
+        m_fairyMap = textureLoader.loadTexture("../assets/Textures/", "fairy.png", true);
+        
+//        m_fairyMap = textureLoader.makeTexture("file://../assets/Textures/fairy.png",
+//                                               textureLoaderOptions,
+//                                               &error);
         
         AAPLAssert(error == nullptr, error, "Could not load fairy texture");
         
@@ -1047,30 +1054,8 @@ void Subpass::drawSky(MTL::RenderCommandEncoder &renderEncoder) {
 MTL::Library Subpass::makeShaderLibrary() {
     CFErrorRef error = nullptr;
     CFURLRef libraryURL = nullptr;
-    // macOS 11 uses shader using Metal Shading Language 2.3 which supports programmable
-    // blending on Apple Silicon Macs
-#ifdef TARGET_MACOS
-    float osVersion = 0.0;
-    
-    {
-        char osVersionString[256];
-        size_t size;
-        if(!sysctlbyname("kern.osrelease", osVersionString, &size, nullptr, 0))
-        {
-            osVersion = atof(osVersionString);
-        }
-    }
-    
-    if (osVersion >= 20)
-    {
-        libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("MSL23Shaders"), CFSTR("metallib"), nullptr);
-    }
-    else
-#endif
-    {
-        libraryURL = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("MSL20Shaders"), CFSTR("metallib"), nullptr);
-    }
-    
+
+    libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
     MTL::Library shaderLibrary = m_device.makeLibrary(libraryURL, &error);
     
     AAPLAssert(!error, error, "Could not load Metal shader library");

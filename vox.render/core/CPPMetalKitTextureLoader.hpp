@@ -13,17 +13,11 @@
 
 
 namespace MTL {
-
 class Device;
-
 }
 
-
 namespace MTK {
-
-
 struct TextureLoaderOptions {
-    
     MTL::TextureUsage usage;
     MTL::StorageMode storageMode;
     
@@ -32,13 +26,10 @@ struct TextureLoaderOptions {
     storageMode(MTL::StorageModePrivate) {
         // Member initialization only
     }
-    
 };
 
 class TextureLoader {
-    
 public:
-    
     TextureLoader() = delete;
     
     explicit TextureLoader(MTL::Device &device);
@@ -63,12 +54,19 @@ public:
                              const TextureLoaderOptions &options,
                              CFErrorRef *error = nullptr);
     
-private:
+public:
+    MTL::Texture loadCubeTexture(const std::string &path,
+                                 const std::array<std::string, 6> &imageName,
+                                 bool isTopLeft);
     
+    MTL::Texture loadTexture(const std::string &path,
+                             const std::string &imageName,
+                             bool isTopLeft);
+    
+private:
     CPPMetalInternal::TextureLoader m_objCObj;
     
     MTL::Device *m_device;
-    
 };
 
 
