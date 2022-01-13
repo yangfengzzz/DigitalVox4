@@ -670,6 +670,7 @@
 		044593D12790081200F04CE0 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		044593D32790082600F04CE0 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		044593D8279011CA00F04CE0 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = assets/Models; sourceTree = "<group>"; };
+		044593DA27902BE900F04CE0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -724,6 +725,7 @@
 		04229546278C30840090983F = {
 			isa = PBXGroup;
 			children = (
+				044593DA27902BE900F04CE0 /* README.md */,
 				044593D8279011CA00F04CE0 /* Models */,
 				042296A0278DAE4E0090983F /* vox.math */,
 				042295DA278D121D0090983F /* vox.geometry */,
