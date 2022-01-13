@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Header for vector, matrix, and quaternion math utility functions useful for 3D graphics rendering.
-*/
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ Header for vector, matrix, and quaternion math utility functions useful for 3D graphics rendering.
+ */
 
 #include <stdlib.h>
 #include <simd/simd.h>
@@ -27,9 +27,8 @@ float AAPL_SIMD_OVERLOAD degrees_from_radians(float radians);
 float AAPL_SIMD_OVERLOAD radians_from_degrees(float degrees);
 
 // Generates a random float value inside the given range.
-inline static float AAPL_SIMD_OVERLOAD  random_float(float min, float max)
-{
-    return (((double)random()/RAND_MAX) * (max-min)) + min;
+inline static float AAPL_SIMD_OVERLOAD random_float(float min, float max) {
+    return (((double) random() / RAND_MAX) * (max - min)) + min;
 }
 
 /// Generate a random three-component vector with values between min and max.

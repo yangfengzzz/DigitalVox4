@@ -18,43 +18,45 @@ namespace MTL {
 class View {
 public:
     View() = delete;
-
-    View(const View & rhs);
-
-    View & operator=(const View & rhs) = delete;
-
-    View(MTL::Device & device);
-
+    
+    View(const View &rhs);
+    
+    View &operator=(const View &rhs) = delete;
+    
+    View(MTL::Device &device);
+    
     CPP_METAL_VIRTUAL ~View();
-
+    
     MTL::Drawable *currentDrawable();
     
     MTL::Texture *depthStencilTexture();
-
+    
     MTL::RenderPassDescriptor *currentRenderPassDescriptor();
-
+    
     MTL::Size drawableSize() const;
     
-    void resize(const MTL::Size& size);
-
+    void resize(const MTL::Size &size);
+    
     MTL::PixelFormat depthStencilPixelFormat() const;
-    void             depthStencilPixelFormat(MTL::PixelFormat format);
-
+    
+    void depthStencilPixelFormat(MTL::PixelFormat format);
+    
     MTL::PixelFormat colorPixelFormat() const;
-    void             colorPixelFormat(MTL::PixelFormat format);
-
-    MTL::Device & device();
-
+    
+    void colorPixelFormat(MTL::PixelFormat format);
+    
+    MTL::Device &device();
+    
 private:
     CPPMetalInternal::MetalLayer m_objCObj;
-
+    
     MTL::Device *m_device;
-
+    
     MTL::Drawable *m_currentDrawable;
     MTL::Texture *m_depthStencilTexture;
     MTL::PixelFormat m_depthStencilPixelFormat;
     MTL::RenderPassDescriptor *m_currentRenderPassDescriptor;
-
+    
     MTL::Size m_validatedDrawableSize;
     
 public: // Public methods for CPPMetal internal implementation

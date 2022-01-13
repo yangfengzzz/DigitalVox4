@@ -8,7 +8,7 @@
 #include "CPPMetalView.hpp"
 
 namespace MTL {
-View::View(MTL::Device & device) :
+View::View(MTL::Device &device) :
 m_objCObj([CAMetalLayer layer]),
 m_device(&device),
 m_currentDrawable(nullptr),
@@ -17,13 +17,13 @@ m_depthStencilTexture(nullptr) {
     m_objCObj.device = device.objCObj();
 }
 
-View::View(const View & rhs) :
+View::View(const View &rhs) :
 m_objCObj(rhs.m_objCObj),
 m_device(rhs.m_device),
 m_currentDrawable(nullptr),
 m_currentRenderPassDescriptor(nullptr),
 m_depthStencilTexture(nullptr) {
-    if(rhs.m_depthStencilTexture) {
+    if (rhs.m_depthStencilTexture) {
         m_depthStencilTexture = construct<Texture>(m_device->allocator(), *rhs.m_depthStencilTexture);
     }
 }
@@ -37,14 +37,14 @@ View::~View() {
 MTL::Drawable *View::currentDrawable() {
     assert(m_objCObj.device);
     
-    if(m_currentDrawable == nullptr ||
-       ![m_currentDrawable->objCObj() isEqual:[m_objCObj nextDrawable]]) {
+    if (m_currentDrawable == nullptr ||
+        ![m_currentDrawable->objCObj() isEqual:[m_objCObj nextDrawable]]) {
         destroy(m_device->allocator(), m_currentDrawable);
         m_currentDrawable = nullptr;
         
-        id<MTLDrawable> objCDrawable = [m_objCObj nextDrawable];
+        id <MTLDrawable> objCDrawable = [m_objCObj nextDrawable];
         
-        if(objCDrawable) {
+        if (objCDrawable) {
             m_currentDrawable = construct<Drawable>(m_device->allocator(),
                                                     objCDrawable, *m_device);
         }
@@ -54,9 +54,9 @@ MTL::Drawable *View::currentDrawable() {
 }
 
 Texture *View::depthStencilTexture() {
-    if(!m_depthStencilTexture) {
+    if (!m_depthStencilTexture) {
         MTLTextureDescriptor *descriptor =
-        [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:(MTLPixelFormat)m_depthStencilPixelFormat
+        [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:(MTLPixelFormat) m_depthStencilPixelFormat
                                                            width:m_validatedDrawableSize.width
                                                           height:m_validatedDrawableSize.height
                                                        mipmapped:false];
@@ -71,21 +71,21 @@ Texture *View::depthStencilTexture() {
 }
 
 MTL::RenderPassDescriptor *View::currentRenderPassDescriptor() {
-    if(m_currentRenderPassDescriptor == nullptr) {
-        MTLRenderPassDescriptor *renderPassDescriptor = [[MTLRenderPassDescriptor alloc]init];
+    if (m_currentRenderPassDescriptor == nullptr) {
+        MTLRenderPassDescriptor *renderPassDescriptor = [[MTLRenderPassDescriptor alloc] init];
         m_currentRenderPassDescriptor = construct<RenderPassDescriptor>(m_device->allocator(),
                                                                         renderPassDescriptor);
     }
-    m_currentRenderPassDescriptor->colorAttachments[0].texture(*currentDrawable()->texture() );
+    m_currentRenderPassDescriptor->colorAttachments[0].texture(*currentDrawable()->texture());
     
-    if(m_validatedDrawableSize.width != m_objCObj.drawableSize.width &&
-       m_validatedDrawableSize.height != m_objCObj.drawableSize.height) {
+    if (m_validatedDrawableSize.width != m_objCObj.drawableSize.width &&
+        m_validatedDrawableSize.height != m_objCObj.drawableSize.height) {
         m_validatedDrawableSize.width = m_objCObj.drawableSize.width;
         m_validatedDrawableSize.height = m_objCObj.drawableSize.height;
-
+        
         destroy(m_device->allocator(), m_depthStencilTexture);
         m_depthStencilTexture = nullptr;
-        if(depthStencilTexture()) {
+        if (depthStencilTexture()) {
             m_currentRenderPassDescriptor->depthAttachment.texture(*m_depthStencilTexture);
             m_currentRenderPassDescriptor->stencilAttachment.texture(*m_depthStencilTexture);
         }
@@ -99,7 +99,7 @@ MTL::Size View::drawableSize() const {
     return size;
 }
 
-void View::resize(const MTL::Size& size) {
+void View::resize(const MTL::Size &size) {
     m_objCObj.drawableSize = CGSizeMake(size.width, size.height);
 }
 
@@ -112,14 +112,14 @@ void View::depthStencilPixelFormat(MTL::PixelFormat format) {
 }
 
 MTL::PixelFormat View::colorPixelFormat() const {
-    return (MTL::PixelFormat)m_objCObj.pixelFormat;
+    return (MTL::PixelFormat) m_objCObj.pixelFormat;
 }
 
 void View::colorPixelFormat(MTL::PixelFormat format) {
-    m_objCObj.pixelFormat = (MTLPixelFormat)format;
+    m_objCObj.pixelFormat = (MTLPixelFormat) format;
 }
 
-Device & View::device() {
+Device &View::device() {
     return *m_device;
 }
 
