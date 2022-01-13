@@ -19,7 +19,7 @@
 
 #include <optional>
 #include <string>
-#include "core/CPPCAMetalLayer.hpp"
+#include "core/CPPMetalView.hpp"
 
 namespace vox {
 /**
@@ -76,9 +76,9 @@ public:
     
     /**
      * @brief Gets a handle from the engine's Metal layer
-     * @returns A CAMetalLayer handle, for use by the application
+     * @param view View handle, for use by the application
      */
-    virtual CA::MetalLayer create_layer() = 0;
+    virtual void set_view(const MTL::View& view) = 0;
     
     /**
      * @brief Checks if the window should be closed

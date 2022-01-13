@@ -140,8 +140,6 @@
 		0445924B278E63FA00F04CE0 /* application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459212278E5F1000F04CE0 /* application.cpp */; };
 		0445924C278E63FF00F04CE0 /* filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445920E278E5F1000F04CE0 /* filesystem.cpp */; };
 		0445924D278E653300F04CE0 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445920C278E5F1000F04CE0 /* engine.cpp */; };
-		04459250278E689D00F04CE0 /* CPPCAMetalLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0445924E278E689D00F04CE0 /* CPPCAMetalLayer.mm */; };
-		04459251278E689D00F04CE0 /* CPPCAMetalLayer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0445924F278E689D00F04CE0 /* CPPCAMetalLayer.hpp */; };
 		04459254278E6D4700F04CE0 /* glfw_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459252278E6D4700F04CE0 /* glfw_window.mm */; };
 		04459255278E6D4700F04CE0 /* glfw_window.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459253278E6D4700F04CE0 /* glfw_window.h */; };
 		04459258278E708A00F04CE0 /* unix_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459256278E708A00F04CE0 /* unix_engine.cpp */; };
@@ -470,8 +468,6 @@
 		0445921E278E5F1100F04CE0 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
 		04459234278E5FD700F04CE0 /* debug_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug_info.cpp; sourceTree = "<group>"; };
 		04459235278E5FD700F04CE0 /* debug_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug_info.h; sourceTree = "<group>"; };
-		0445924E278E689D00F04CE0 /* CPPCAMetalLayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPCAMetalLayer.mm; sourceTree = "<group>"; };
-		0445924F278E689D00F04CE0 /* CPPCAMetalLayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPPCAMetalLayer.hpp; sourceTree = "<group>"; };
 		04459252278E6D4700F04CE0 /* glfw_window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = glfw_window.mm; sourceTree = "<group>"; };
 		04459253278E6D4700F04CE0 /* glfw_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw_window.h; sourceTree = "<group>"; };
 		04459256278E708A00F04CE0 /* unix_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unix_engine.cpp; sourceTree = "<group>"; };
@@ -769,8 +765,6 @@
 				0422955E278C32C30090983F /* internal */,
 				04229570278C32FA0090983F /* CPPMetalKitTextureLoader.hpp */,
 				04229583278C32FA0090983F /* CPPMetalKitTextureLoader.mm */,
-				0445924F278E689D00F04CE0 /* CPPCAMetalLayer.hpp */,
-				0445924E278E689D00F04CE0 /* CPPCAMetalLayer.mm */,
 				04459373278FE8F600F04CE0 /* CPPMetalView.hpp */,
 				04459372278FE8F600F04CE0 /* CPPMetalView.mm */,
 			);
@@ -1115,7 +1109,6 @@
 				044592AE278EBEB900F04CE0 /* shader_property.h in Headers */,
 				04459206278E591A00F04CE0 /* imstb_textedit.h in Headers */,
 				04459226278E5F1100F04CE0 /* window.h in Headers */,
-				04459251278E689D00F04CE0 /* CPPCAMetalLayer.hpp in Headers */,
 				042295AB278C32FB0090983F /* CPPMetalResource.hpp in Headers */,
 				0422959E278C32FB0090983F /* CPPMetalVertexDescriptor.hpp in Headers */,
 				04459207278E591A00F04CE0 /* imgui_internal.h in Headers */,
@@ -1474,7 +1467,6 @@
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
 				0445933B278FAE0C00F04CE0 /* box_character_controller.cpp in Sources */,
 				0422959C278C32FB0090983F /* CPPMetalBuffer.mm in Sources */,
-				04459250278E689D00F04CE0 /* CPPCAMetalLayer.mm in Sources */,
 				044592E8278ED6AE00F04CE0 /* blinn_phong_material.cpp in Sources */,
 				04459239278E617500F04CE0 /* window.cpp in Sources */,
 				044592C5278EC60E00F04CE0 /* depth_state.cpp in Sources */,

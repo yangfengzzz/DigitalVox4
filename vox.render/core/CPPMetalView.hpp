@@ -8,7 +8,10 @@
 #ifndef CPPMetalView_hpp
 #define CPPMetalView_hpp
 
-#include "CPPCAMetalLayer.hpp"
+#include "CPPMetalImplementation.hpp"
+#include "CPPMetalDrawable.hpp"
+#include "CPPMetalDevice.hpp"
+#include "CPPMetalPixelFormat.hpp"
 #include "CPPMetalRenderPass.hpp"
 
 namespace MTL {
@@ -20,17 +23,15 @@ public:
 
     View & operator=(const View & rhs) = delete;
 
-    View(CA::MetalLayer & layer, MTL::Device & device);
+    View(MTL::Device & device);
 
     CPP_METAL_VIRTUAL ~View();
 
-    void draw();
-
     MTL::Drawable *currentDrawable();
+    
+    MTL::Texture *depthStencilTexture();
 
     MTL::RenderPassDescriptor *currentRenderPassDescriptor();
-
-    MTL::Texture *depthStencilTexture();
 
     MTL::Size drawableSize() const;
     
@@ -45,19 +46,27 @@ public:
     MTL::Device & device();
 
 private:
-    CA::MetalLayer m_layer;
+    CPPMetalInternal::MetalLayer m_objCObj;
 
     MTL::Device *m_device;
 
     MTL::Drawable *m_currentDrawable;
-
+    MTL::Texture *m_depthStencilTexture;
+    MTL::PixelFormat m_depthStencilPixelFormat;
     MTL::RenderPassDescriptor *m_currentRenderPassDescriptor;
 
-    MTL::Texture *m_depthStencilTexture;
-
     MTL::Size m_validatedDrawableSize;
+    
+public: // Public methods for CPPMetal internal implementation
+    CPPMetalInternal::MetalLayer objCObj() const;
 };
 
+//===============================================
+#pragma mark - View inline method implementations
+
+inline CPPMetalInternal::MetalLayer View::objCObj() const {
+    return m_objCObj;
+}
 
 }
 

@@ -286,13 +286,10 @@ GlfwWindow::~GlfwWindow() {
     glfwTerminate();
 }
 
-CA::MetalLayer GlfwWindow::create_layer() {
+void GlfwWindow::set_view(const MTL::View& view) {
     NSWindow *nswin = glfwGetCocoaWindow(handle);
-    auto layer = CA::MetalLayer();
-    nswin.contentView.layer = layer.objCObj();
+    nswin.contentView.layer = view.objCObj();
     nswin.contentView.wantsLayer = YES;
-    
-    return layer;
 }
 
 bool GlfwWindow::should_close() {

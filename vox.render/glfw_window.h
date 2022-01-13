@@ -33,7 +33,7 @@ public:
     
     virtual ~GlfwWindow();
     
-    virtual CA::MetalLayer create_layer() override;
+    virtual void set_view(const MTL::View& view) override;
     
     virtual bool should_close() override;
     
