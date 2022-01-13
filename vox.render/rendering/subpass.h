@@ -2,10 +2,10 @@
  See LICENSE folder for this sample’s licensing information.
  
  Abstract:
- Header for renderer class which performs Metal setup and per frame rendering
+ Header for subpass class which performs Metal setup and per frame rendering
  */
-#ifndef AAPLRenderer_h
-#define AAPLRenderer_h
+#ifndef AAPLSubpass_h
+#define AAPLSubpass_h
 
 #include "config.h"
 #include "mesh.h"
@@ -24,11 +24,11 @@ static const uint32_t NumLights = 256;
 static const float NearPlane = 1;
 static const float FarPlane = 150;
 
-class Renderer {
+class Subpass {
 public:
-    explicit Renderer(MTL::View &view);
+    explicit Subpass(MTL::View &view);
     
-    virtual ~Renderer();
+    virtual ~Subpass();
     
     MTL::Device device() const;
     
@@ -120,11 +120,11 @@ protected:
     MTL::Texture m_depth_GBuffer;
     
     // This is used to build render pipelines that perform common operations for both the iOS and macOS
-    // renderers.  The only difference between the iOS and macOS versions of these pipelines is that
-    // the iOS renderer needs the GBuffers attached as render targets while the macOS renderer needs
-    // the GBuffers set as textures to sample/read from.  So this is YES for the iOS renderer and NO
-    // for the macOS renderer.  This enables more sharing of the code to create these pipelines
-    // in the implementation of the Renderer base class which is common to both renderers.
+    // subpasss.  The only difference between the iOS and macOS versions of these pipelines is that
+    // the iOS subpass needs the GBuffers attached as render targets while the macOS subpass needs
+    // the GBuffers set as textures to sample/read from.  So this is YES for the iOS subpass and NO
+    // for the macOS subpass.  This enables more sharing of the code to create these pipelines
+    // in the implementation of the Subpass base class which is common to both subpasss.
     bool m_singlePassDeferred;
     
     MTL::DepthStencilState *m_dontWriteDepthStencilState;
@@ -217,68 +217,68 @@ private:
 };
 
 
-inline MTL::Device Renderer::device() const {
+inline MTL::Device Subpass::device() const {
     return m_device;
 }
 
-inline MTL::View &Renderer::view() {
+inline MTL::View &Subpass::view() {
     return m_view;
 }
 
-inline const Mesh &Renderer::icosahedronMesh() const {
+inline const Mesh &Subpass::icosahedronMesh() const {
     return m_icosahedronMesh;
 }
 
-inline MTL::PixelFormat Renderer::colorTargetPixelFormat() const {
+inline MTL::PixelFormat Subpass::colorTargetPixelFormat() const {
     return m_view.colorPixelFormat();
 }
 
-inline MTL::PixelFormat Renderer::depthStencilTargetPixelFormat() const {
+inline MTL::PixelFormat Subpass::depthStencilTargetPixelFormat() const {
     return m_view.depthStencilPixelFormat();
 }
 
-inline const MTL::Buffer &Renderer::quadVertexBuffer() const {
+inline const MTL::Buffer &Subpass::quadVertexBuffer() const {
     return m_quadVertexBuffer;
 }
 
-inline MTL::Texture &Renderer::depthStencilTexture() {
+inline MTL::Texture &Subpass::depthStencilTexture() {
     return *(m_view.depthStencilTexture());
 }
 
-inline int8_t Renderer::frameDataBufferIndex() const {
+inline int8_t Subpass::frameDataBufferIndex() const {
     return m_frameDataBufferIndex;
 }
 
-inline MTL::Buffer &Renderer::frameDataBuffer(int8_t frameDataBufferIndex) {
+inline MTL::Buffer &Subpass::frameDataBuffer(int8_t frameDataBufferIndex) {
     return m_uniformBuffers[frameDataBufferIndex];
 }
 
-inline MTL::Buffer &Renderer::lightPositions(int8_t frameDataBufferIndex) {
+inline MTL::Buffer &Subpass::lightPositions(int8_t frameDataBufferIndex) {
     return m_lightPositions[frameDataBufferIndex];
 }
 
-inline MTL::Buffer &Renderer::lightsData() {
+inline MTL::Buffer &Subpass::lightsData() {
     return m_lightsData;
 }
 
-inline MTL::DepthStencilState &Renderer::pointLightDepthStencilState() {
+inline MTL::DepthStencilState &Subpass::pointLightDepthStencilState() {
     return m_pointLightDepthStencilState;
 }
 
-inline MTL::Texture &Renderer::albedo_specular_GBuffer() {
+inline MTL::Texture &Subpass::albedo_specular_GBuffer() {
     return m_albedo_specular_GBuffer;
 }
 
-inline MTL::Texture &Renderer::normal_shadow_GBuffer() {
+inline MTL::Texture &Subpass::normal_shadow_GBuffer() {
     return m_normal_shadow_GBuffer;
 }
 
-inline MTL::Texture &Renderer::depth_GBuffer() {
+inline MTL::Texture &Subpass::depth_GBuffer() {
     return m_depth_GBuffer;
 }
 
-inline MTL::Texture &Renderer::shadowMap() {
+inline MTL::Texture &Subpass::shadowMap() {
     return m_shadowMap;
 }
 
-#endif // AAPLRenderer_h
+#endif // AAPLSubpass_h

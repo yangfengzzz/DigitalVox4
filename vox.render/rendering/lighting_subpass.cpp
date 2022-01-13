@@ -2,8 +2,8 @@
  See LICENSE folder for this sample’s licensing information.
  
  Abstract:
- Implementation of the renderer class which performs Metal setup and per frame rendering for a
- traditional deferred renderer used for macOS devices without Apple Silicon and the
+ Implementation of the subpass class which performs Metal setup and per frame rendering for a
+ traditional deferred subpass used for macOS devices without Apple Silicon and the
  iOS & tvOS simulators.
  */
 
@@ -14,19 +14,19 @@
 
 #include "utilities.h"
 
-Renderer_TraditionalDeferred::Renderer_TraditionalDeferred(MTL::View &view)
-: Renderer(view) {
+LightingSubpass::LightingSubpass(MTL::View &view)
+: Subpass(view) {
     m_singlePassDeferred = false;
     loadMetal();
     loadScene();
 }
 
-Renderer_TraditionalDeferred::~Renderer_TraditionalDeferred() {
+LightingSubpass::~LightingSubpass() {
 }
 
-/// Create traditional deferred renderer specific Metal state objects
-void Renderer_TraditionalDeferred::loadMetal() {
-    Renderer::loadMetal();
+/// Create traditional deferred subpass specific Metal state objects
+void LightingSubpass::loadMetal() {
+    Subpass::loadMetal();
     
     CFErrorRef error = nullptr;
     
@@ -91,10 +91,10 @@ void Renderer_TraditionalDeferred::loadMetal() {
 }
 
 /// Respond to view size change
-void Renderer_TraditionalDeferred::drawableSizeWillChange(MTL::View &view, const MTL::Size &size) {
-    // The renderer base class allocates all GBuffers >except< lighting GBuffer (since with the
-    // single-pass deferred renderer the lighting buffer is the same as the drawable)
-    Renderer::drawableSizeWillChange(size, MTL::StorageModePrivate);
+void LightingSubpass::drawableSizeWillChange(MTL::View &view, const MTL::Size &size) {
+    // The subpass base class allocates all GBuffers >except< lighting GBuffer (since with the
+    // single-pass deferred subpass the lighting buffer is the same as the drawable)
+    Subpass::drawableSizeWillChange(size, MTL::StorageModePrivate);
     
     // Re-set GBuffer textures in the GBuffer render pass descriptor after they have been
     // reallocated by a resize
@@ -103,22 +103,22 @@ void Renderer_TraditionalDeferred::drawableSizeWillChange(MTL::View &view, const
     m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].texture(m_depth_GBuffer);
 }
 
-/// Draw directional lighting, which, with a tradition deferred renderer needs to set GBuffers as
+/// Draw directional lighting, which, with a tradition deferred subpass needs to set GBuffers as
 /// textures before executing common rendering code to draw the light
-void Renderer_TraditionalDeferred::drawDirectionalLight(MTL::RenderCommandEncoder &renderEncoder) {
+void LightingSubpass::drawDirectionalLight(MTL::RenderCommandEncoder &renderEncoder) {
     renderEncoder.pushDebugGroup("Draw Directional Light");
     renderEncoder.setFragmentTexture(m_albedo_specular_GBuffer, RenderTargetAlbedo);
     renderEncoder.setFragmentTexture(m_normal_shadow_GBuffer, RenderTargetNormal);
     renderEncoder.setFragmentTexture(m_depth_GBuffer, RenderTargetDepth);
     
-    Renderer::drawDirectionalLightCommon(renderEncoder);
+    Subpass::drawDirectionalLightCommon(renderEncoder);
     
     renderEncoder.popDebugGroup();
 }
 
 /// Setup traditional deferred rendering specific pipeline and set GBuffer textures.  Then call
-/// common renderer code to apply the point lights
-void Renderer_TraditionalDeferred::drawPointLights(MTL::RenderCommandEncoder &renderEncoder) {
+/// common subpass code to apply the point lights
+void LightingSubpass::drawPointLights(MTL::RenderCommandEncoder &renderEncoder) {
     renderEncoder.pushDebugGroup("Draw Point Lights");
     
     renderEncoder.setRenderPipelineState(m_lightPipelineState);
@@ -128,19 +128,19 @@ void Renderer_TraditionalDeferred::drawPointLights(MTL::RenderCommandEncoder &re
     renderEncoder.setFragmentTexture(m_depth_GBuffer, RenderTargetDepth);
     
     // Call common base class method after setting state in the renderEncoder specific to the
-    // traditional deferred renderer
-    Renderer::drawPointLightsCommon(renderEncoder);
+    // traditional deferred subpass
+    Subpass::drawPointLightsCommon(renderEncoder);
     
     renderEncoder.popDebugGroup();
 }
 
 /// Frame drawing routine
-void Renderer_TraditionalDeferred::drawInView(MTL::View &view) {
+void LightingSubpass::drawInView(MTL::View &view) {
     {
-        MTL::CommandBuffer commandBuffer = Renderer::beginFrame();
+        MTL::CommandBuffer commandBuffer = Subpass::beginFrame();
         commandBuffer.label("Shadow & GBuffer Commands");
         
-        Renderer::drawShadow(commandBuffer);
+        Subpass::drawShadow(commandBuffer);
         
         m_GBufferRenderPassDescriptor.depthAttachment.texture(*view.depthStencilTexture());
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*view.depthStencilTexture());
@@ -149,7 +149,7 @@ void Renderer_TraditionalDeferred::drawInView(MTL::View &view) {
         commandBuffer.renderCommandEncoderWithDescriptor(m_GBufferRenderPassDescriptor);
         renderEncoder.label("GBuffer Generation");
         
-        Renderer::drawGBuffer(renderEncoder);
+        Subpass::drawGBuffer(renderEncoder);
         
         renderEncoder.endEncoding();
         
@@ -159,11 +159,11 @@ void Renderer_TraditionalDeferred::drawInView(MTL::View &view) {
     }
     
     {
-        MTL::CommandBuffer commandBuffer = Renderer::beginDrawableCommands();
+        MTL::CommandBuffer commandBuffer = Subpass::beginDrawableCommands();
         
         commandBuffer.label("Lighting Commands");
         
-        MTL::Texture *drawableTexture = Renderer::currentDrawableTexture();
+        MTL::Texture *drawableTexture = Subpass::currentDrawableTexture();
         
         // The final pass can only render if a drawable is available, otherwise it needs to skip
         // rendering this frame.
@@ -180,17 +180,17 @@ void Renderer_TraditionalDeferred::drawInView(MTL::View &view) {
             
             drawDirectionalLight(renderEncoder);
             
-            Renderer::drawPointLightMask(renderEncoder);
+            Subpass::drawPointLightMask(renderEncoder);
             
             drawPointLights(renderEncoder);
             
-            Renderer::drawSky(renderEncoder);
+            Subpass::drawSky(renderEncoder);
             
-            Renderer::drawFairies(renderEncoder);
+            Subpass::drawFairies(renderEncoder);
             
             renderEncoder.endEncoding();
         }
         
-        Renderer::endFrame(commandBuffer);
+        Subpass::endFrame(commandBuffer);
     }
 }

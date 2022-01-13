@@ -2,7 +2,7 @@
  See LICENSE folder for this sample’s licensing information.
  
  Abstract:
- Implementation of renderer class which performs Metal setup and per frame rendering
+ Implementation of subpass class which performs Metal setup and per frame rendering
  */
 
 #include "subpass.h"
@@ -31,7 +31,7 @@ static const uint32_t TreeLights = 0 + 0.30 * NumLights;
 static const uint32_t GroundLights = TreeLights + 0.40 * NumLights;
 static const uint32_t ColumnLights = GroundLights + 0.30 * NumLights;
 
-Renderer::Renderer(MTL::View &view)
+Subpass::Subpass(MTL::View &view)
 : m_view(view),
 m_device(view.device()),
 m_completedHandler(nullptr),
@@ -43,7 +43,7 @@ m_frameNumber(0) {
 }
 
 
-Renderer::~Renderer() {
+Subpass::~Subpass() {
     delete[] m_originalLightPositions;
     
     delete m_meshes;
@@ -52,7 +52,7 @@ Renderer::~Renderer() {
 }
 
 /// Create Metal render state objects
-void Renderer::loadMetal() {
+void Subpass::loadMetal() {
     // Create and load the basic Metal state objects
     CFErrorRef error = nullptr;
     
@@ -249,7 +249,7 @@ void Renderer::loadMetal() {
         renderPipelineDescriptor.fragmentFunction(&fairyFragmentFunction);
         renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view.colorPixelFormat());
         
-        // Because iOS renderer can perform GBuffer pass in final pass, any pipeline rendering in
+        // Because iOS subpass can perform GBuffer pass in final pass, any pipeline rendering in
         // the final pass must take the GBuffers into account
         if (m_singlePassDeferred) {
             renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
@@ -453,7 +453,7 @@ void Renderer::loadMetal() {
 }
 
 /// Load models/textures, etc.
-void Renderer::loadScene() {
+void Subpass::loadScene() {
     // Create and load assets into Metal objects including meshes and textures
     CFErrorRef error = nullptr;
     
@@ -554,7 +554,7 @@ void Renderer::loadScene() {
 }
 
 /// Initialize light positions and colors
-void Renderer::populateLights() {
+void Subpass::populateLights() {
     PointLight *light_data = (PointLight *) m_lightsData.contents();
     
     m_originalLightPositions = new float4[NumLights];
@@ -608,7 +608,7 @@ void Renderer::populateLights() {
 }
 
 /// Update light positions
-void Renderer::updateLights(const float4x4 &modelViewMatrix) {
+void Subpass::updateLights(const float4x4 &modelViewMatrix) {
     PointLight *lightData = (PointLight *) m_lightsData.contents();
     
     float4 *currentBuffer =
@@ -643,7 +643,7 @@ void Renderer::updateLights(const float4x4 &modelViewMatrix) {
 }
 
 /// Update application state for the current frame
-void Renderer::updateWorldState() {
+void Subpass::updateWorldState() {
     m_frameNumber++;
     m_frameDataBufferIndex = (m_frameDataBufferIndex + 1) % MaxFramesInFlight;
     
@@ -732,7 +732,7 @@ void Renderer::updateWorldState() {
 }
 
 /// Called whenever view changes orientation or layout is changed
-void Renderer::drawableSizeWillChange(MTL::Size size, MTL::StorageMode GBufferStorageMode) {
+void Subpass::drawableSizeWillChange(MTL::Size size, MTL::StorageMode GBufferStorageMode) {
     // When reshape is called, update the aspect ratio and projection matrix since the view
     //   orientation or size has changed
     float aspect = (float) size.width / (float) size.height;
@@ -771,7 +771,7 @@ void Renderer::drawableSizeWillChange(MTL::Size size, MTL::StorageMode GBufferSt
 #pragma mark Common Rendering Code
 
 /// Draw the Mesh objects with the given renderEncoder
-void Renderer::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
+void Subpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     for (auto &mesh: *m_meshes) {
         for (auto &meshBuffer: mesh.vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),
@@ -799,7 +799,7 @@ void Renderer::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
 }
 
 /// Get a drawable from the view (or hand back an offscreen drawable for buffer examination mode)
-MTL::Texture *Renderer::currentDrawableTexture() {
+MTL::Texture *Subpass::currentDrawableTexture() {
     MTL::Drawable *drawable = m_view.currentDrawable();
     
     if (drawable) {
@@ -811,7 +811,7 @@ MTL::Texture *Renderer::currentDrawableTexture() {
 
 /// Perform operations necessary at the beginning of the frame.  Wait on the in flight semaphore,
 /// and get a command buffer to encode intial commands for this frame.
-MTL::CommandBuffer Renderer::beginFrame() {
+MTL::CommandBuffer Subpass::beginFrame() {
     // Wait to ensure only MaxFramesInFlight are getting processed by any stage in the Metal
     // pipeline (App, Metal, Drivers, GPU, etc)
     
@@ -829,7 +829,7 @@ MTL::CommandBuffer Renderer::beginFrame() {
 /// endoding commands that are not dependant on the drawable in a separate command buffer, Metal
 /// can begin executing encoded commands for the frame (commands from the previous command buffer)
 /// before a drawable for this frame becomes avaliable.
-MTL::CommandBuffer Renderer::beginDrawableCommands() {
+MTL::CommandBuffer Subpass::beginDrawableCommands() {
     MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
     
     if (!m_completedHandler) {
@@ -837,7 +837,7 @@ MTL::CommandBuffer Renderer::beginDrawableCommands() {
         // processing the commands encoded for this frame.  This implenentation of the completed
         // hander signals the `m_inFlightSemaphore`, which indicates that the GPU is no longer
         // accesing the the dynamic buffer written this frame.  When the GPU no longer accesses the
-        // buffer, the Renderer can safely overwrite the buffer's data to update data for a future
+        // buffer, the Subpass can safely overwrite the buffer's data to update data for a future
         // frame.
         struct CommandBufferCompletedHandler : public MTL::CommandBufferHandler {
             dispatch_semaphore_t semaphore;
@@ -860,7 +860,7 @@ MTL::CommandBuffer Renderer::beginDrawableCommands() {
 
 /// Perform cleanup operations including presenting the drawable and committing the command buffer
 /// for the current frame.  Also, when enabled, draw buffer examination elements before all this.
-void Renderer::endFrame(MTL::CommandBuffer &commandBuffer) {
+void Subpass::endFrame(MTL::CommandBuffer &commandBuffer) {
     // Schedule a present once the framebuffer is complete using the current drawable
     if (m_view.currentDrawable()) {
         // Create a scheduled handler functor for Metal to present the drawable when the command
@@ -889,7 +889,7 @@ void Renderer::endFrame(MTL::CommandBuffer &commandBuffer) {
 }
 
 /// Draw to the depth texture from the directional lights point of view to generate the shadow map
-void Renderer::drawShadow(MTL::CommandBuffer &commandBuffer) {
+void Subpass::drawShadow(MTL::CommandBuffer &commandBuffer) {
     MTL::RenderCommandEncoder encoder = commandBuffer.renderCommandEncoderWithDescriptor(m_shadowRenderPassDescriptor);
     
     encoder.label("Shadow Map Pass");
@@ -907,7 +907,7 @@ void Renderer::drawShadow(MTL::CommandBuffer &commandBuffer) {
 }
 
 /// Draw to the three textures which compose the GBuffer
-void Renderer::drawGBuffer(MTL::RenderCommandEncoder &renderEncoder) {
+void Subpass::drawGBuffer(MTL::RenderCommandEncoder &renderEncoder) {
     renderEncoder.pushDebugGroup("Draw G-Buffer");
     renderEncoder.setCullMode(MTL::CullModeBack);
     renderEncoder.setRenderPipelineState(m_GBufferPipelineState);
@@ -923,7 +923,7 @@ void Renderer::drawGBuffer(MTL::RenderCommandEncoder &renderEncoder) {
 
 /// Draw the directional ("sun") light in deferred pass.  Use stencil buffer to limit execution
 /// of the shader to only those pixels that should be lit
-void Renderer::drawDirectionalLightCommon(MTL::RenderCommandEncoder &renderEncoder) {
+void Subpass::drawDirectionalLightCommon(MTL::RenderCommandEncoder &renderEncoder) {
     renderEncoder.setCullMode(MTL::CullModeBack);
     renderEncoder.setStencilReferenceValue(128);
     
@@ -939,7 +939,7 @@ void Renderer::drawDirectionalLightCommon(MTL::RenderCommandEncoder &renderEncod
 
 /// Render to stencil buffer only to increment stencil on that fragments in front
 /// of the backside of each light volume
-void Renderer::drawPointLightMask(MTL::RenderCommandEncoder &renderEncoder) {
+void Subpass::drawPointLightMask(MTL::RenderCommandEncoder &renderEncoder) {
 #if LIGHT_STENCIL_CULLING
     renderEncoder.pushDebugGroup("Draw Light Mask");
     renderEncoder.setRenderPipelineState(m_lightMaskPipelineState);
@@ -970,9 +970,9 @@ void Renderer::drawPointLightMask(MTL::RenderCommandEncoder &renderEncoder) {
 }
 
 /// Performs operations common to both single-pass and traditional deferred renders for drawing point lights.
-/// Called by derived renderer classes  after they have set up any renderer specific specific state
-/// (such as setting GBuffer textures with the traditional deferred renderer not needed for the single-pass renderer)
-void Renderer::drawPointLightsCommon(MTL::RenderCommandEncoder &renderEncoder) {
+/// Called by derived subpass classes  after they have set up any subpass specific specific state
+/// (such as setting GBuffer textures with the traditional deferred subpass not needed for the single-pass subpass)
+void Subpass::drawPointLightsCommon(MTL::RenderCommandEncoder &renderEncoder) {
     renderEncoder.setDepthStencilState(m_pointLightDepthStencilState);
     
     renderEncoder.setStencilReferenceValue(128);
@@ -1001,7 +1001,7 @@ void Renderer::drawPointLightsCommon(MTL::RenderCommandEncoder &renderEncoder) {
 
 /// Draw the "fairies" at the center of the point lights with a 2D disk using a texture to perform
 /// smooth alpha blending on the edges
-void Renderer::drawFairies(MTL::RenderCommandEncoder &renderEncoder) {
+void Subpass::drawFairies(MTL::RenderCommandEncoder &renderEncoder) {
     renderEncoder.pushDebugGroup("Draw Fairies");
     renderEncoder.setRenderPipelineState(m_fairyPipelineState);
     renderEncoder.setDepthStencilState(*m_dontWriteDepthStencilState);
@@ -1017,7 +1017,7 @@ void Renderer::drawFairies(MTL::RenderCommandEncoder &renderEncoder) {
 
 /// Draw the sky dome behind all other geometry (testing against depth buffer generated in
 ///  GBuffer pass)
-void Renderer::drawSky(MTL::RenderCommandEncoder &renderEncoder) {
+void Subpass::drawSky(MTL::RenderCommandEncoder &renderEncoder) {
     renderEncoder.pushDebugGroup("Draw Sky");
     renderEncoder.setRenderPipelineState(m_skyboxPipelineState);
     renderEncoder.setDepthStencilState(*m_dontWriteDepthStencilState);
@@ -1044,7 +1044,7 @@ void Renderer::drawSky(MTL::RenderCommandEncoder &renderEncoder) {
 }
 
 
-MTL::Library Renderer::makeShaderLibrary() {
+MTL::Library Subpass::makeShaderLibrary() {
     CFErrorRef error = nullptr;
     CFURLRef libraryURL = nullptr;
     // macOS 11 uses shader using Metal Shading Language 2.3 which supports programmable

@@ -11,6 +11,7 @@
 #include "application.h"
 #include "core/CPPMetalDevice.hpp"
 #include "core/CPPMetalView.hpp"
+#include "rendering/subpass.h"
 
 namespace vox {
 /**
@@ -139,11 +140,11 @@ protected:
      */
     std::unique_ptr<MTL::View> render_context{nullptr};
 
-//    /**
-//     * @brief Pipeline used for rendering, it should be set up by the concrete sample
-//     */
-//    std::unique_ptr<RenderPipeline> render_pipeline{nullptr};
-//
+    /**
+     * @brief Pipeline used for rendering, it should be set up by the concrete sample
+     */
+    std::unique_ptr<Subpass> render_pipeline{nullptr};
+
 //    /**
 //     * @brief Holds all scene information
 //     */

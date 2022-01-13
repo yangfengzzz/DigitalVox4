@@ -2,21 +2,21 @@
  See LICENSE folder for this sample’s licensing information.
  
  Abstract:
- Header for the renderer class which performs Metal setup and per frame rendering for a traditional
- deferred renderer used for macOS devices without Apple Silicon and the iOS & tvOS simulators.
+ Header for the subpass class which performs Metal setup and per frame rendering for a traditional
+ deferred subpass used for macOS devices without Apple Silicon and the iOS & tvOS simulators.
  */
 
-#ifndef AAPLRenderer_TraditionalDeferred_h
-#define AAPLRenderer_TraditionalDeferred_h
+#ifndef AAPLLightingSubpass_h
+#define AAPLLightingSubpass_h
 
 #include "subpass.h"
 #include "CPPMetal.hpp"
 
-class Renderer_TraditionalDeferred : public Renderer {
+class LightingSubpass : public Subpass {
 public:
-    explicit Renderer_TraditionalDeferred(MTL::View &view);
+    explicit LightingSubpass(MTL::View &view);
     
-    virtual ~Renderer_TraditionalDeferred();
+    virtual ~LightingSubpass();
     
     void drawInView(MTL::View &view);
     
@@ -35,4 +35,4 @@ private:
     void drawPointLights(MTL::RenderCommandEncoder &renderEncoder);
 };
 
-#endif // AAPLRenderer_TraditionalDeferred_h
+#endif // AAPLLightingSubpass_h
