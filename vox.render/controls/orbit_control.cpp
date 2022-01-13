@@ -6,79 +6,56 @@
 //
 
 #include "orbit_control.h"
-#include "../engine.h"
+#include "../entity.h"
 
 namespace vox {
 namespace control {
 OrbitControl::OrbitControl(Entity *entity) :
 Script(entity),
 camera(entity) {
-    window = engine()->canvas()->handle();
-    
-    cursorPosCallback = [&](GLFWwindow *window, double xpos, double ypos) {
-        onMouseMove(xpos, ypos);
-    };
-    
-    scrollCallback = [&](GLFWwindow *window, double xoffset, double yoffset) {
-        onMouseWheel(xoffset, yoffset);
-    };
-    
-    keyCallback = [&](GLFWwindow *window, int key, int scancode, int action, int mods) {
-        onKeyDown(key);
-    };
-    
-    mouseButtonCallback = [&](GLFWwindow *window, int button, int action, int mods) {
-        if (action == GLFW_PRESS) {
-            onMouseDown(button);
-            Canvas::cursor_callbacks.push_back(cursorPosCallback);
-            cursorCallbackIndex = Canvas::cursor_callbacks.size() - 1;
-        } else {
-            onMouseUp();
-            if (cursorCallbackIndex != -1) {
-                Canvas::cursor_callbacks.erase(Canvas::cursor_callbacks.begin() + cursorCallbackIndex);
-                cursorCallbackIndex = -1;
-            }
-        }
-    };
-    
-    Canvas::mouse_button_callbacks.push_back(mouseButtonCallback);
-    mouseCallbackIndex = Canvas::mouse_button_callbacks.size() - 1;
-    Canvas::key_callbacks.push_back(keyCallback);
-    keyCallbackIndex = Canvas::key_callbacks.size() - 1;
-    Canvas::scroll_callbacks.push_back(scrollCallback);
-    scrollCallbackIndex = Canvas::scroll_callbacks.size() - 1;
 }
 
 void OrbitControl::onDisable() {
-    if (cursorCallbackIndex != -1) {
-        Canvas::cursor_callbacks.erase(Canvas::cursor_callbacks.begin() + cursorCallbackIndex);
-        cursorCallbackIndex = -1;
-    }
-    
-    if (scrollCallbackIndex != -1) {
-        Canvas::scroll_callbacks.erase(Canvas::scroll_callbacks.begin() + scrollCallbackIndex);
-        scrollCallbackIndex = -1;
-    }
+    _enableEvent = false;
 }
 
 void OrbitControl::onEnable() {
-    if (scrollCallbackIndex == -1) {
-        Canvas::scroll_callbacks.push_back(scrollCallback);
-        scrollCallbackIndex = Canvas::scroll_callbacks.size() - 1;
-    }
+    _enableEvent = true;
 }
 
 void OrbitControl::onDestroy() {
-    Canvas::mouse_button_callbacks.erase(Canvas::mouse_button_callbacks.begin() + mouseCallbackIndex);
-    mouseCallbackIndex = -1;
-    Canvas::key_callbacks.erase(Canvas::key_callbacks.begin() + keyCallbackIndex);
-    keyCallbackIndex = -1;
-    Canvas::scroll_callbacks.erase(Canvas::scroll_callbacks.begin() + scrollCallbackIndex);
-    scrollCallbackIndex = -1;
-    
-    if (cursorCallbackIndex != -1) {
-        Canvas::cursor_callbacks.erase(Canvas::cursor_callbacks.begin() + cursorCallbackIndex);
-        cursorCallbackIndex = -1;
+    onDisable();
+}
+
+void OrbitControl::resize(uint32_t width, uint32_t height) {
+    _width = width;
+    _height = height;
+}
+
+void OrbitControl::inputEvent(const InputEvent &input_event) {
+    if (_enableEvent) {
+        if (input_event.get_source() == EventSource::Keyboard) {
+            const auto &key_event = static_cast<const KeyInputEvent &>(input_event);
+            onKeyDown(key_event.get_code());
+        } else if (input_event.get_source() == EventSource::Mouse) {
+            const auto &mouse_button = static_cast<const MouseButtonInputEvent &>(input_event);
+            if (mouse_button.get_action() == MouseAction::Down) {
+                onMouseDown(mouse_button.get_button(), mouse_button.get_pos_x(), mouse_button.get_pos_y());
+                _enableMove = true;
+            } else {
+                onMouseUp();
+                _enableMove = false;
+            }
+            
+            if (_enableMove && mouse_button.get_action() == MouseAction::Move) {
+                onMouseMove(mouse_button.get_pos_x(), mouse_button.get_pos_y());
+            }
+        } else if (input_event.get_source() == EventSource::Scroll) {
+            const auto &scroll_event = static_cast<const ScrollInputEvent &>(input_event);
+            onMouseWheel(scroll_event.get_offset_x(), scroll_event.get_offset_y());
+        } else if (input_event.get_source() == EventSource::Touchscreen) {
+            // TODO
+        }
     }
 }
 
@@ -133,7 +110,7 @@ void OrbitControl::onUpdate(float dtime) {
     }
     
     _scale = 1;
-    _panOffset = math::Float3(0, 0, 0);
+    _panOffset = Imath::V3f(0, 0, 0);
 }
 
 float OrbitControl::autoRotationAngle(float dtime) {
@@ -158,33 +135,31 @@ void OrbitControl::rotateUp(float radian) {
     }
 }
 
-void OrbitControl::panLeft(float distance, const math::Matrix &worldMatrix) {
-    const auto &e = worldMatrix.elements;
-    _vPan = Float3(e[0], e[1], e[2]);
+void OrbitControl::panLeft(float distance, const Imath::M44f &worldMatrix) {
+    const auto &e = worldMatrix.getValue();
+    _vPan = Imath::V3f(e[0], e[1], e[2]);
     _vPan = _vPan * distance;
     _panOffset = _panOffset + _vPan;
 }
 
-void OrbitControl::panUp(float distance, const math::Matrix &worldMatrix) {
-    const auto &e = worldMatrix.elements;
-    _vPan = Float3(e[4], e[5], e[6]);
+void OrbitControl::panUp(float distance, const Imath::M44f &worldMatrix) {
+    const auto &e = worldMatrix.getValue();
+    _vPan = Imath::V3f(e[4], e[5], e[6]);
     _vPan = _vPan * distance;
     _panOffset = _panOffset + _vPan;
 }
 
 void OrbitControl::pan(float deltaX, float deltaY) {
     // perspective only
-    Float3 position = camera->transform->position();
+    Imath::V3f position = camera->transform->position();
     _vPan = position;
     _vPan = _vPan - target;
-    auto targetDistance = Length(_vPan);
+    auto targetDistance = _vPan.length();
     
     targetDistance *= (fov / 2) * (M_PI / 180);
     
-    int width, height;
-    glfwGetWindowSize(window, &width, &height);
-    panLeft(-2 * deltaX * (targetDistance / float(width)), camera->transform->worldMatrix());
-    panUp(2 * deltaY * (targetDistance / float(height)), camera->transform->worldMatrix());
+    panLeft(-2 * deltaX * (targetDistance / float(_width)), camera->transform->worldMatrix());
+    panUp(2 * deltaY * (targetDistance / float(_height)), camera->transform->worldMatrix());
 }
 
 void OrbitControl::zoomIn(float zoomScale) {
@@ -196,38 +171,30 @@ void OrbitControl::zoomOut(float zoomScale) {
 }
 
 //MARK: - Mouse
-void OrbitControl::handleMouseDownRotate() {
-    double x, y;
-    glfwGetCursorPos(window, &x, &y);
-    _rotateStart = Float2(x, y);
+void OrbitControl::handleMouseDownRotate(double xpos, double ypos) {
+    _rotateStart = Imath::V2f(xpos, ypos);
 }
 
-void OrbitControl::handleMouseDownZoom() {
-    double x, y;
-    glfwGetCursorPos(window, &x, &y);
-    _zoomStart = Float2(x, y);
+void OrbitControl::handleMouseDownZoom(double xpos, double ypos) {
+    _zoomStart = Imath::V2f(xpos, ypos);
 }
 
-void OrbitControl::handleMouseDownPan() {
-    double x, y;
-    glfwGetCursorPos(window, &x, &y);
-    _panStart = Float2(x, y);
+void OrbitControl::handleMouseDownPan(double xpos, double ypos) {
+    _panStart = Imath::V2f(xpos, ypos);
 }
 
 void OrbitControl::handleMouseMoveRotate(double xpos, double ypos) {
-    _rotateEnd = Float2(xpos, ypos);
+    _rotateEnd = Imath::V2f(xpos, ypos);
     _rotateDelta = _rotateEnd - _rotateStart;
     
-    int width, height;
-    glfwGetWindowSize(window, &width, &height);
-    rotateLeft(2 * M_PI * (_rotateDelta.x / float(width)) * rotateSpeed);
-    rotateUp(2 * M_PI * (_rotateDelta.y / float(height)) * rotateSpeed);
+    rotateLeft(2 * M_PI * (_rotateDelta.x / float(_width)) * rotateSpeed);
+    rotateUp(2 * M_PI * (_rotateDelta.y / float(_height)) * rotateSpeed);
     
     _rotateStart = _rotateEnd;
 }
 
 void OrbitControl::handleMouseMoveZoom(double xpos, double ypos) {
-    _zoomEnd = Float2(xpos, ypos);
+    _zoomEnd = Imath::V2f(xpos, ypos);
     _zoomDelta = _zoomEnd - _zoomStart;
     
     if (_zoomDelta.y > 0) {
@@ -240,7 +207,7 @@ void OrbitControl::handleMouseMoveZoom(double xpos, double ypos) {
 }
 
 void OrbitControl::handleMouseMovePan(double xpos, double ypos) {
-    _panEnd = Float2(xpos, ypos);
+    _panEnd = Imath::V2f(xpos, ypos);
     _panDelta = _panEnd - _panStart;
     
     pan(_panDelta.x, _panDelta.y);
@@ -256,28 +223,28 @@ void OrbitControl::handleMouseWheel(double xoffset, double yoffset) {
     }
 }
 
-void OrbitControl::onMouseDown(int button) {
+void OrbitControl::onMouseDown(MouseButton button, double xpos, double ypos) {
     if (enabled() == false) return;
     
     _isMouseUp = false;
     
     switch (button) {
-        case GLFW_MOUSE_BUTTON_LEFT:
+        case MouseButton::Left:
             if (enableRotate == false) return;
             
-            handleMouseDownRotate();
+            handleMouseDownRotate(xpos, ypos);
             _state = STATE::ROTATE;
             break;
-        case GLFW_MOUSE_BUTTON_MIDDLE:
+        case MouseButton::Middle:
             if (enableZoom == false) return;
             
-            handleMouseDownZoom();
+            handleMouseDownZoom(xpos, ypos);
             _state = STATE::ZOOM;
             break;
-        case GLFW_MOUSE_BUTTON_RIGHT:
+        case MouseButton::Right:
             if (enablePan == false) return;
             
-            handleMouseDownPan();
+            handleMouseDownPan(xpos, ypos);
             _state = STATE::PAN;
             break;
         default:
@@ -327,24 +294,26 @@ void OrbitControl::onMouseWheel(double xoffset, double yoffset) {
 }
 
 //MARK: - KeyBoard
-void OrbitControl::handleKeyDown(int key) {
+void OrbitControl::handleKeyDown(KeyCode key) {
     switch (key) {
-        case GLFW_KEY_UP:
+        case KeyCode::Up:
             pan(0, keyPanSpeed);
             break;
-        case GLFW_KEY_DOWN:
+        case KeyCode::Down:
             pan(0, -keyPanSpeed);
             break;
-        case GLFW_KEY_LEFT:
+        case KeyCode::Left:
             pan(keyPanSpeed, 0);
             break;
-        case GLFW_KEY_RIGHT:
+        case KeyCode::Right:
             pan(-keyPanSpeed, 0);
+            break;
+        default:
             break;
     }
 }
 
-void OrbitControl::onKeyDown(int key) {
+void OrbitControl::onKeyDown(KeyCode key) {
     if (enabled() == false || enableKeys == false || enablePan == false) return;
     
     handleKeyDown(key);

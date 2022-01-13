@@ -26,6 +26,7 @@ class Engine;
 enum class EventSource {
     Keyboard,
     Mouse,
+    Scroll,
     Touchscreen
 };
 
@@ -39,6 +40,7 @@ private:
     EventSource source;
 };
 
+//MARK: - Key Event
 enum class KeyCode {
     Unknown,
     Space,
@@ -167,6 +169,7 @@ private:
     KeyAction action;
 };
 
+//MARK: - Mouse Event
 enum class MouseButton {
     Left,
     Right,
@@ -205,6 +208,22 @@ private:
     float pos_y;
 };
 
+//MARK: - Scroll Event
+class ScrollInputEvent : public InputEvent {
+public:
+    ScrollInputEvent(float offset_x, float offset_y);
+    
+    float get_offset_x() const;
+    
+    float get_offset_y() const;
+    
+private:
+    float offset_x;
+    
+    float offset_y;
+};
+
+//MARK: - Touch Event
 enum class TouchAction {
     Down,
     Up,

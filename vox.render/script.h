@@ -9,6 +9,7 @@
 #define script_hpp
 
 #include "component.h"
+#include "input_events.h"
 
 namespace vox {
 namespace physics {
@@ -99,41 +100,10 @@ public:
     virtual void onTriggerStay(physics::ColliderShapePtr other) {
     }
     
-    /**
-     * Called when the pointer is down while over the ColliderShape.
-     */
-    virtual void onPointerDown() {
+    virtual void inputEvent(const InputEvent &input_event) {
     }
     
-    /**
-     * Called when the pointer is up while over the ColliderShape.
-     */
-    virtual void onPointerUp() {
-    }
-    
-    /**
-     * Called when the pointer is down and up with the same collider.
-     */
-    virtual void onPointerClick() {
-    }
-    
-    /**
-     * Called when the pointer is enters the ColliderShape.
-     */
-    virtual void onPointerEnter() {
-    }
-    
-    /**
-     * Called when the pointer is no longer over the ColliderShape.
-     */
-    virtual void onPointerExit() {
-    }
-    
-    /**
-     * Called when the pointer is down while over the ColliderShape and is still holding down.
-     * @remarks onPointerDrag is called every frame while the pointer is down.
-     */
-    virtual void onPointerDrag() {
+    virtual void resize(uint32_t width, uint32_t height) {
     }
     
     /**

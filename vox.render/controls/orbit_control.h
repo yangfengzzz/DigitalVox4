@@ -8,14 +8,15 @@
 #ifndef orbit_control_hpp
 #define orbit_control_hpp
 
-#include "../canvas.h"
 #include "../script.h"
-#include "maths/vec_float.h"
+#include "ImathVec.h"
+#include "ImathMatrix.h"
 #include "spherical.h"
-#include <GLFW/glfw3.h>
 
 namespace vox {
 namespace control {
+using namespace sg;
+
 /**
  * The camera's track controller, can rotate, zoom, pan, support mouse and touch events.
  */
@@ -30,6 +31,10 @@ public:
     void onDestroy() override;
     
     void onUpdate(float dtime) override;
+    
+    void inputEvent(const InputEvent &input_event) override;
+    
+    void resize(uint32_t width, uint32_t height) override;
     
 public:
     /**
@@ -54,12 +59,12 @@ public:
     /**
      * Pan left.
      */
-    void panLeft(float distance, const math::Matrix &worldMatrix);
+    void panLeft(float distance, const Imath::M44f &worldMatrix);
     
     /**
      * Pan right.
      */
-    void panUp(float distance, const math::Matrix &worldMatrix);
+    void panUp(float distance, const Imath::M44f &worldMatrix);
     
     /**
      * Pan.
@@ -82,17 +87,17 @@ public:
     /**
      * Rotation parameter update on mouse click.
      */
-    void handleMouseDownRotate();
+    void handleMouseDownRotate(double xpos, double ypos);
     
     /**
      * Zoom parameter update on mouse click.
      */
-    void handleMouseDownZoom();
+    void handleMouseDownZoom(double xpos, double ypos);
     
     /**
      * Pan parameter update on mouse click.
      */
-    void handleMouseDownPan();
+    void handleMouseDownPan(double xpos, double ypos);
     
     /**
      * Rotation parameter update when the mouse moves.
@@ -117,7 +122,7 @@ public:
     /**
      * Total handling of mouse down events.
      */
-    void onMouseDown(int button);
+    void onMouseDown(MouseButton button, double xpos, double ypos);
     
     /**
      * Total handling of mouse movement events.
@@ -138,12 +143,12 @@ public:
     /**
      * Pan parameter update when keyboard is pressed.
      */
-    void handleKeyDown(int key);
+    void handleKeyDown(KeyCode key);
     
     /**
      * Total handling of keyboard down events.
      */
-    void onKeyDown(int key);
+    void onKeyDown(KeyCode key);
     
 public:
     /**
@@ -231,13 +236,12 @@ private:
     };
     
     EntityPtr camera;
-    GLFWwindow *window;
     
     float fov = 45;
     // Target position.
-    math::Float3 target;
+    Imath::V3f target;
     // Up vector
-    math::Float3 up = math::Float3(0, 1, 0);
+    Imath::V3f up = Imath::V3f(0, 1, 0);
     /**
      * The minimum distance, the default is 0.1, should be greater than 0.
      */
@@ -318,35 +322,31 @@ private:
     /** The radian of automatic rotation per second. */
     float autoRotateSpeed = M_PI;
     
-    math::Float3 _position;
-    math::Float3 _offset;
+    Imath::V3f _position;
+    Imath::V3f _offset;
     Spherical _spherical;
     Spherical _sphericalDelta;
     Spherical _sphericalDump;
     float _zoomFrag = 0;
     float _scale = 1;
-    math::Float3 _panOffset;
+    Imath::V3f _panOffset;
     bool _isMouseUp = true;
-    math::Float3 _vPan;
+    Imath::V3f _vPan;
     STATE::Enum _state = STATE::Enum::NONE;
-    math::Float2 _rotateStart;
-    math::Float2 _rotateEnd;
-    math::Float2 _rotateDelta;
-    math::Float2 _panStart;
-    math::Float2 _panEnd;
-    math::Float2 _panDelta;
-    math::Float2 _zoomStart;
-    math::Float2 _zoomEnd;
-    math::Float2 _zoomDelta;
+    Imath::V2f _rotateStart;
+    Imath::V2f _rotateEnd;
+    Imath::V2f _rotateDelta;
+    Imath::V2f _panStart;
+    Imath::V2f _panEnd;
+    Imath::V2f _panDelta;
+    Imath::V2f _zoomStart;
+    Imath::V2f _zoomEnd;
+    Imath::V2f _zoomDelta;
     
-    ssize_t cursorCallbackIndex = -1;
-    Canvas::CursorPosFunc cursorPosCallback;
-    ssize_t scrollCallbackIndex = -1;
-    Canvas::ScrollFunc scrollCallback;
-    ssize_t keyCallbackIndex = -1;
-    Canvas::KeyFunc keyCallback;
-    ssize_t mouseCallbackIndex = -1;
-    Canvas::MouseButtonFunc mouseButtonCallback;
+    bool _enableEvent = true;
+    bool _enableMove = false;
+    uint32_t _width = 1000;
+    uint32_t _height = 1000;
 };
 
 }
