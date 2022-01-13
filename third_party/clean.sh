@@ -3,39 +3,28 @@ set -x
 
 # PhysX #################################### 
 cd physx/physx
-./generate_projects.sh linux
 
 cd compiler/linux-debug
-make -j5
+make clean
 cd ..
 
 cd linux-release
-make -j5
+make clean
 cd ../../../../
 
 # GoogleTest ###############################
 cd googletest
-mkdir build
-cd build
-cmake ..
-make -j5
-cd ../..
+rm -rf build
+cd ..
 
 # Google Log ##############################
 cd glog
-mkdir build
-cd build
-cmake ..
-make -j5
-cd ../..
+rm -rf build
+cd ..
 
 # GLFW ####################################
 cd glfw
-mkdir build
-cd build
-cmake ..
-make -j5
-cd ../..
-
+rm -rf build
+cd ..
 
 set +x
