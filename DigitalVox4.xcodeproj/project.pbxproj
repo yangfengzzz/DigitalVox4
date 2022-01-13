@@ -265,6 +265,8 @@
 		04459368278FB27D00F04CE0 /* physics_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445935F278FB14400F04CE0 /* physics_manager.cpp */; };
 		0445936B278FB37C00F04CE0 /* orbit_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459369278FB37B00F04CE0 /* orbit_control.cpp */; };
 		0445936C278FB37C00F04CE0 /* orbit_control.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445936A278FB37C00F04CE0 /* orbit_control.h */; };
+		0445936F278FBCCA00F04CE0 /* free_control.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445936D278FBCCA00F04CE0 /* free_control.h */; };
+		04459371278FBCDB00F04CE0 /* free_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445936E278FBCCA00F04CE0 /* free_control.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -592,6 +594,8 @@
 		0445935F278FB14400F04CE0 /* physics_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physics_manager.cpp; sourceTree = "<group>"; };
 		04459369278FB37B00F04CE0 /* orbit_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = orbit_control.cpp; sourceTree = "<group>"; };
 		0445936A278FB37C00F04CE0 /* orbit_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orbit_control.h; sourceTree = "<group>"; };
+		0445936D278FBCCA00F04CE0 /* free_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = free_control.h; sourceTree = "<group>"; };
+		0445936E278FBCCA00F04CE0 /* free_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = free_control.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1014,6 +1018,8 @@
 				0445930C278F170100F04CE0 /* spherical.cpp */,
 				0445936A278FB37C00F04CE0 /* orbit_control.h */,
 				04459369278FB37B00F04CE0 /* orbit_control.cpp */,
+				0445936D278FBCCA00F04CE0 /* free_control.h */,
+				0445936E278FBCCA00F04CE0 /* free_control.cpp */,
 			);
 			path = controls;
 			sourceTree = "<group>";
@@ -1163,6 +1169,7 @@
 				0445927C278E80DD00F04CE0 /* updateFlag_manager.h in Headers */,
 				042295B1278C32FB0090983F /* CPPMetalCommandBuffer.hpp in Headers */,
 				042295A8278C32FB0090983F /* CPPMetalBuffer.hpp in Headers */,
+				0445936F278FBCCA00F04CE0 /* free_control.h in Headers */,
 				044592F3278EDA3300F04CE0 /* pbr_specular_material.h in Headers */,
 				044591CA278E551100F04CE0 /* allocator.h in Headers */,
 				04229593278C32FB0090983F /* CPPMetalDrawable.hpp in Headers */,
@@ -1431,6 +1438,7 @@
 				044592D0278ECABC00F04CE0 /* render_state.cpp in Sources */,
 				044592AF278EBEB900F04CE0 /* shader_property.cpp in Sources */,
 				0422958C278C32FB0090983F /* CPPMetalRenderPass.mm in Sources */,
+				04459371278FBCDB00F04CE0 /* free_control.cpp in Sources */,
 				04459258278E708A00F04CE0 /* unix_engine.cpp in Sources */,
 				0445931B278F197600F04CE0 /* collider_shape.cpp in Sources */,
 				04459280278E80DD00F04CE0 /* updateFlag.cpp in Sources */,

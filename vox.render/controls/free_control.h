@@ -8,14 +8,15 @@
 #ifndef free_control_hpp
 #define free_control_hpp
 
-#include "../canvas.h"
 #include "../script.h"
 #include "spherical.h"
-#include "maths/vec_float.h"
+#include "ImathVec.h"
 #include <array>
 
 namespace vox {
 namespace control {
+using namespace sg;
+
 /**
  * The camera's roaming controller, can move up and down, left and right, and rotate the viewing angle.
  */
@@ -23,20 +24,34 @@ class FreeControl : public Script {
 public:
     FreeControl(Entity *entity);
     
+    void onDisable() override;
+    
+    void onEnable() override;
+    
+    void onDestroy() override;
+    
+    void onUpdate(float delta) override;
+    
+    void inputEvent(const InputEvent &input_event) override;
+    
+    void resize(uint32_t width, uint32_t height) override;
+
+public:
     /**
      * Keyboard press event.
      */
-    void onKeyDown(int key);
+    void onKeyDown(KeyCode key);
     
     /**
      * Keyboard up event.
      */
-    void onKeyUp(int key);
+    void onKeyUp(KeyCode key);
     
+public:
     /**
      * Mouse press event.
      */
-    void onMouseDown(GLFWwindow *window);
+    void onMouseDown(double xpos, double ypos);
     
     /**
      * Mouse up event.
@@ -46,7 +61,7 @@ public:
     /**
      * Mouse movement event.
      */
-    void onMouseMove(GLFWwindow *window, double xpos, double ypos);
+    void onMouseMove(double xpos, double ypos);
     
     /**
      * The angle of rotation around the y axis and the x axis respectively.
@@ -54,16 +69,7 @@ public:
      * @param beta - Radian to rotate around the x axis
      */
     void rotate(float alpha = 0, float beta = 0);
-    
-    void onUpdate(float delta) override;
-    
-    /**
-     * Register browser events.
-     */
-    void initEvents();
-    
-    void onDestroy() override;
-    
+        
     /**
      * must updateSpherical after quaternion has been changed
      * @example
@@ -73,8 +79,8 @@ public:
     void updateSpherical();
     
 private:
-    math::Float3 _forward;
-    math::Float3 _right;
+    Imath::V3f _forward;
+    Imath::V3f _right;
     
     /**
      * Movement distance per second, the unit is the unit before MVP conversion.
@@ -116,16 +122,13 @@ private:
     bool _moveLeft = false;
     bool _moveRight = false;
     
-    math::Float3 _v3Cache;
+    Imath::V3f _v3Cache;
     Spherical _spherical;
     std::array<double, 2> _rotateOri{};
     
-    ssize_t cursorCallbackIndex = -1;
-    Canvas::CursorPosFunc cursorPosCallback;
-    ssize_t keyCallbackIndex = -1;
-    Canvas::KeyFunc keyCallback;
-    ssize_t mouseCallbackIndex = -1;
-    Canvas::MouseButtonFunc mouseButtonCallback;
+    bool _enableEvent = true;
+    uint32_t _width = 1000;
+    uint32_t _height = 1000;
 };
 
 }
