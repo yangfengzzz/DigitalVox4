@@ -87,32 +87,32 @@ PxD6JointDrive ConfigurableJoint::drive(PxD6Drive::Enum index) const {
     return static_cast<PxD6Joint *>(_nativeJoint)->getDrive(index);
 }
 
-void ConfigurableJoint::setDrivePosition(const math::Transform &pose, bool autowake) {
-    const auto &p = pose.translation;
-    const auto &q = pose.rotation;
+void ConfigurableJoint::setDrivePosition(const Imath::Transform3 &pose, bool autowake) {
+    const auto &p = pose.translation();
+    const auto &q = pose.orientation();
     
     static_cast<PxD6Joint *>(_nativeJoint)->setDrivePosition(PxTransform(PxVec3(p.x, p.y, p.z),
-                                                                         PxQuat(q.x, q.y, q.z, q.w)), autowake);
+                                                                         PxQuat(q.v.x, q.v.y, q.v.z, q.r)), autowake);
 }
 
-math::Transform ConfigurableJoint::drivePosition() const {
+Imath::Transform3 ConfigurableJoint::drivePosition() const {
     const auto pose = static_cast<PxD6Joint *>(_nativeJoint)->getDrivePosition();
-    math::Transform trans;
-    trans.translation = math::Float3(pose.p.x, pose.p.y, pose.p.z);
-    trans.rotation = math::Quaternion(pose.q.x, pose.q.y, pose.q.z, pose.q.w);
+    Imath::Transform3 trans;
+    trans.setTranslation(Imath::V3f(pose.p.x, pose.p.y, pose.p.z));
+    trans.setOrientation(Imath::Quatf(pose.q.w, pose.q.x, pose.q.y, pose.q.z));
     return trans;
 }
 
-void ConfigurableJoint::setDriveVelocity(const math::Float3 &linear, const math::Float3 &angular, bool autowake) {
+void ConfigurableJoint::setDriveVelocity(const Imath::V3f &linear, const Imath::V3f &angular, bool autowake) {
     static_cast<PxD6Joint *>(_nativeJoint)->setDriveVelocity(PxVec3(linear.x, linear.y, linear.z),
                                                              PxVec3(angular.x, angular.y, angular.z), autowake);
 }
 
-void ConfigurableJoint::driveVelocity(math::Float3 &linear, math::Float3 &angular) const {
+void ConfigurableJoint::driveVelocity(Imath::V3f &linear, Imath::V3f &angular) const {
     PxVec3 l, a;
     static_cast<PxD6Joint *>(_nativeJoint)->getDriveVelocity(l, a);
-    linear = math::Float3(l.x, l.y, l.z);
-    angular = math::Float3(a.x, a.y, a.z);
+    linear = Imath::V3f(l.x, l.y, l.z);
+    angular = Imath::V3f(a.x, a.y, a.z);
 }
 
 void ConfigurableJoint::setProjectionLinearTolerance(float tolerance) {

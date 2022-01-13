@@ -12,7 +12,7 @@ namespace vox {
 namespace physics {
 ColliderShape::ColliderShape() :
 _nativeMaterial(PhysicsManager::_nativePhysics()->createMaterial(0, 0, 0)) {
-    _pose.setOrientation(Imath::Quatf(0, 0, halfSqrt, halfSqrt));
+    _pose.setOrientation(Imath::Quatf(halfSqrt, 0, 0, halfSqrt));
 }
 
 Collider *ColliderShape::collider() {

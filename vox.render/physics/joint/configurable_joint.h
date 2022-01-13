@@ -55,13 +55,13 @@ public:
     
     PxD6JointDrive drive(PxD6Drive::Enum index) const;
     
-    void setDrivePosition(const math::Transform &pose, bool autowake = true);
+    void setDrivePosition(const Imath::Transform3 &pose, bool autowake = true);
     
-    math::Transform drivePosition() const;
+    Imath::Transform3 drivePosition() const;
     
-    void setDriveVelocity(const math::Float3 &linear, const math::Float3 &angular, bool autowake = true);
+    void setDriveVelocity(const Imath::V3f &linear, const Imath::V3f &angular, bool autowake = true);
     
-    void driveVelocity(math::Float3 &linear, math::Float3 &angular) const;
+    void driveVelocity(Imath::V3f &linear, Imath::V3f &angular) const;
     
     void setProjectionLinearTolerance(float tolerance);
     

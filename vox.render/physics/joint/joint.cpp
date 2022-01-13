@@ -14,36 +14,36 @@ void Joint::setActors(Collider *actor0, Collider *actor1) {
     _nativeJoint->setActors(actor0->handle(), actor1->handle());
 }
 
-void Joint::setLocalPose(PxJointActorIndex::Enum actor, const math::Transform &localPose) {
-    const auto &p = localPose.translation;
-    const auto &q = localPose.rotation;
-    _nativeJoint->setLocalPose(actor, PxTransform(PxVec3(p.x, p.y, p.z), PxQuat(q.x, q.y, q.z, q.w)));
+void Joint::setLocalPose(PxJointActorIndex::Enum actor, const Imath::Transform3 &localPose) {
+    const auto &p = localPose.translation();
+    const auto &q = localPose.orientation();
+    _nativeJoint->setLocalPose(actor, PxTransform(PxVec3(p.x, p.y, p.z), PxQuat(q.v.x, q.v.y, q.v.z, q.r)));
 }
 
-math::Transform Joint::localPose(PxJointActorIndex::Enum actor) const {
+Imath::Transform3 Joint::localPose(PxJointActorIndex::Enum actor) const {
     const auto pose = _nativeJoint->getLocalPose(actor);
-    math::Transform trans;
-    trans.translation = math::Float3(pose.p.x, pose.p.y, pose.p.z);
-    trans.rotation = math::Quaternion(pose.q.x, pose.q.y, pose.q.z, pose.q.w);
+    Imath::Transform3 trans;
+    trans.setTranslation(Imath::V3f(pose.p.x, pose.p.y, pose.p.z));
+    trans.setOrientation(Imath::Quatf(pose.q.w, pose.q.x, pose.q.y, pose.q.z));
     return trans;
 }
 
-math::Transform Joint::relativeTransform() const {
+Imath::Transform3 Joint::relativeTransform() const {
     const auto pose = _nativeJoint->getRelativeTransform();
-    math::Transform trans;
-    trans.translation = math::Float3(pose.p.x, pose.p.y, pose.p.z);
-    trans.rotation = math::Quaternion(pose.q.x, pose.q.y, pose.q.z, pose.q.w);
+    Imath::Transform3 trans;
+    trans.setTranslation(Imath::V3f(pose.p.x, pose.p.y, pose.p.z));
+    trans.setOrientation(Imath::Quatf(pose.q.w, pose.q.x, pose.q.y, pose.q.z));
     return trans;
 }
 
-math::Float3 Joint::relativeLinearVelocity() const {
+Imath::V3f Joint::relativeLinearVelocity() const {
     const auto vel = _nativeJoint->getRelativeLinearVelocity();
-    return math::Float3(vel.x, vel.y, vel.z);
+    return Imath::V3f(vel.x, vel.y, vel.z);
 }
 
-math::Float3 Joint::relativeAngularVelocity() const {
+Imath::V3f Joint::relativeAngularVelocity() const {
     const auto vel = _nativeJoint->getRelativeAngularVelocity();
-    return math::Float3(vel.x, vel.y, vel.z);
+    return Imath::V3f(vel.x, vel.y, vel.z);
 }
 
 void Joint::setBreakForce(float force, float torque) {

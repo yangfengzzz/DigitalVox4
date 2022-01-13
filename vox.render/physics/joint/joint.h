@@ -9,7 +9,7 @@
 #define joint_hpp
 
 #include "../physics.h"
-#include "maths/transform.h"
+#include "transform3.h"
 
 namespace vox {
 namespace physics {
@@ -20,15 +20,15 @@ class Joint {
 public:
     void setActors(Collider *actor0, Collider *actor1);
     
-    void setLocalPose(PxJointActorIndex::Enum actor, const math::Transform &localPose);
+    void setLocalPose(PxJointActorIndex::Enum actor, const Imath::Transform3 &localPose);
     
-    math::Transform localPose(PxJointActorIndex::Enum actor) const;
+    Imath::Transform3 localPose(PxJointActorIndex::Enum actor) const;
     
-    math::Transform relativeTransform() const;
+    Imath::Transform3 relativeTransform() const;
     
-    math::Float3 relativeLinearVelocity() const;
+    Imath::V3f relativeLinearVelocity() const;
     
-    math::Float3 relativeAngularVelocity() const;
+    Imath::V3f relativeAngularVelocity() const;
     
     void setBreakForce(float force, float torque);
     
