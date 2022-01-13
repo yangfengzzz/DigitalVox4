@@ -56,13 +56,13 @@ inline V2d Transform2::toLocalDirection(const V2d& dirInWorld) const {
                -_sinAngle * dirInWorld.x + _cosAngle * dirInWorld.y);
 }
 
-inline Ray2D Transform2::toLocal(const Ray2D& rayInWorld) const {
-    return Ray2D(toLocal(rayInWorld.origin),
+inline Ray2d Transform2::toLocal(const Ray2d& rayInWorld) const {
+    return Ray2d(toLocal(rayInWorld.origin),
                  toLocalDirection(rayInWorld.direction));
 }
 
-inline BoundingBox2D Transform2::toLocal(const BoundingBox2D& bboxInWorld) const {
-    BoundingBox2D bboxInLocal;
+inline BoundingBox2d Transform2::toLocal(const BoundingBox2d& bboxInWorld) const {
+    BoundingBox2d bboxInLocal;
     for (int i = 0; i < 4; ++i) {
         auto cornerInLocal = toLocal(bboxInWorld.corner(i));
         bboxInLocal.lowerCorner
@@ -87,13 +87,13 @@ inline V2d Transform2::toWorldDirection(const V2d& dirInLocal) const {
                _sinAngle * dirInLocal.x + _cosAngle * dirInLocal.y);
 }
 
-inline Ray2D Transform2::toWorld(const Ray2D& rayInLocal) const {
-    return Ray2D(toWorld(rayInLocal.origin),
+inline Ray2d Transform2::toWorld(const Ray2d& rayInLocal) const {
+    return Ray2d(toWorld(rayInLocal.origin),
                  toWorldDirection(rayInLocal.direction));
 }
 
-inline BoundingBox2D Transform2::toWorld(const BoundingBox2D& bboxInLocal) const {
-    BoundingBox2D bboxInWorld;
+inline BoundingBox2d Transform2::toWorld(const BoundingBox2d& bboxInLocal) const {
+    BoundingBox2d bboxInWorld;
     for (int i = 0; i < 4; ++i) {
         auto cornerInWorld = toWorld(bboxInLocal.corner(i));
         bboxInWorld.lowerCorner

@@ -50,9 +50,9 @@ TEST(Transform3, Transform) {
     EXPECT_NEAR(1.0, r4.y, 1e-9);
     EXPECT_NEAR(-3.0, r4.z, 1e-9);
     
-    BoundingBox3D bbox({-2, -1, -3}, {2, 1, 3});
+    BoundingBox3d bbox({-2, -1, -3}, {2, 1, 3});
     auto r5 = t.toWorld(bbox);
-    EXPECT_BOUNDING_BOX3_NEAR(BoundingBox3D({-1, -6, -1}, {5, -4, 3}), r5, 1e-9);
+    EXPECT_BOUNDING_BOX3_NEAR(BoundingBox3d({-1, -6, -1}, {5, -4, 3}), r5, 1e-9);
     
     auto r6 = t.toLocal(r5);
     EXPECT_BOUNDING_BOX3_NEAR(bbox, r6, 1e-9);

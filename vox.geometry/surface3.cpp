@@ -24,11 +24,11 @@ V3d Surface3::closestPoint(const V3d& otherPoint) const {
     return transform.toWorld(closestPointLocal(transform.toLocal(otherPoint)));
 }
 
-BoundingBox3D Surface3::boundingBox() const {
+BoundingBox3d Surface3::boundingBox() const {
     return transform.toWorld(boundingBoxLocal());
 }
 
-bool Surface3::intersects(const Ray3D& ray) const {
+bool Surface3::intersects(const Ray3d& ray) const {
     return intersectsLocal(transform.toLocal(ray));
 }
 
@@ -36,7 +36,7 @@ double Surface3::closestDistance(const V3d& otherPoint) const {
     return closestDistanceLocal(transform.toLocal(otherPoint));
 }
 
-SurfaceRayIntersection3 Surface3::closestIntersection(const Ray3D& ray) const {
+SurfaceRayIntersection3 Surface3::closestIntersection(const Ray3d& ray) const {
     auto result = closestIntersectionLocal(transform.toLocal(ray));
     result.point = transform.toWorld(result.point);
     result.normal = transform.toWorldDirection(result.normal);
@@ -50,7 +50,7 @@ V3d Surface3::closestNormal(const V3d& otherPoint) const {
     return result;
 }
 
-bool Surface3::intersectsLocal(const Ray3D& rayLocal) const {
+bool Surface3::intersectsLocal(const Ray3d& rayLocal) const {
     auto result = closestIntersectionLocal(rayLocal);
     return result.isIntersecting;
 }

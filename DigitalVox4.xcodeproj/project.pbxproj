@@ -2028,7 +2028,7 @@
 					./vox.geometry,
 					./vox.math,
 				);
-				LIBRARY_SEARCH_PATHS = ./third_party/build/lib;
+				LIBRARY_SEARCH_PATHS = ./third_party/googletest/build/lib;
 				OTHER_LDFLAGS = (
 					"-lgtest",
 					"-lgtest_main",
@@ -2054,7 +2054,7 @@
 					./vox.geometry,
 					./vox.math,
 				);
-				LIBRARY_SEARCH_PATHS = ./third_party/build/lib;
+				LIBRARY_SEARCH_PATHS = ./third_party/googletest/build/lib;
 				OTHER_LDFLAGS = (
 					"-lgtest",
 					"-lgtest_main",

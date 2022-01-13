@@ -10,20 +10,20 @@
 using namespace Imath;
 
 TEST(Ray3, Constructors) {
-    Ray3D ray;
+    Ray3d ray;
     EXPECT_EQ(V3d(0), ray.origin);
     EXPECT_EQ(V3d(1, 0, 0), ray.direction);
 
-    Ray3D ray2({1, 2, 3}, {4, 5, 6});
+    Ray3d ray2({1, 2, 3}, {4, 5, 6});
     EXPECT_EQ(V3d(1, 2, 3), ray2.origin);
     EXPECT_EQ(V3d(4, 5, 6).normalized(), ray2.direction);
 
-    Ray3D ray3(ray2);
+    Ray3d ray3(ray2);
     EXPECT_EQ(V3d(1, 2, 3), ray3.origin);
     EXPECT_EQ(V3d(4, 5, 6).normalized(), ray3.direction);
 }
 
 TEST(Ray3, PointAt) {
-    Ray3D ray;
+    Ray3d ray;
     EXPECT_EQ(V3d(4.5, 0.0, 0.0), ray.pointAt(4.5));
 }

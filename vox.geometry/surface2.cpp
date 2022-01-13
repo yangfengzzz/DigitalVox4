@@ -24,11 +24,11 @@ V2d Surface2::closestPoint(const V2d& otherPoint) const {
     return transform.toWorld(closestPointLocal(transform.toLocal(otherPoint)));
 }
 
-BoundingBox2D Surface2::boundingBox() const {
+BoundingBox2d Surface2::boundingBox() const {
     return transform.toWorld(boundingBoxLocal());
 }
 
-bool Surface2::intersects(const Ray2D& ray) const {
+bool Surface2::intersects(const Ray2d& ray) const {
     return intersectsLocal(transform.toLocal(ray));
 }
 
@@ -36,7 +36,7 @@ double Surface2::closestDistance(const V2d& otherPoint) const {
     return closestDistanceLocal(transform.toLocal(otherPoint));
 }
 
-SurfaceRayIntersection2 Surface2::closestIntersection(const Ray2D& ray) const {
+SurfaceRayIntersection2 Surface2::closestIntersection(const Ray2d& ray) const {
     auto result = closestIntersectionLocal(transform.toLocal(ray));
     result.point = transform.toWorld(result.point);
     result.normal = transform.toWorldDirection(result.normal);
@@ -62,7 +62,7 @@ bool Surface2::isInside(const V2d& otherPoint) const {
     return isNormalFlipped == !isInsideLocal(transform.toLocal(otherPoint));
 }
 
-bool Surface2::intersectsLocal(const Ray2D& rayLocal) const {
+bool Surface2::intersectsLocal(const Ray2d& rayLocal) const {
     auto result = closestIntersectionLocal(rayLocal);
     return result.isIntersecting;
 }

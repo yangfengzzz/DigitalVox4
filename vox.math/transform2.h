@@ -42,10 +42,10 @@ public:
     V2d toLocalDirection(const V2d& dirInWorld) const;
     
     //! Transforms a ray in world coordinate to the local frame.
-    Ray2D toLocal(const Ray2D& rayInWorld) const;
+    Ray2d toLocal(const Ray2d& rayInWorld) const;
     
     //! Transforms a bounding box in world coordinate to the local frame.
-    BoundingBox2D toLocal(const BoundingBox2D& bboxInWorld) const;
+    BoundingBox2d toLocal(const BoundingBox2d& bboxInWorld) const;
     
     //! Transforms a point in local space to the world coordinate.
     V2d toWorld(const V2d& pointInLocal) const;
@@ -54,10 +54,10 @@ public:
     V2d toWorldDirection(const V2d& dirInLocal) const;
     
     //! Transforms a ray in local space to the world coordinate.
-    Ray2D toWorld(const Ray2D& rayInLocal) const;
+    Ray2d toWorld(const Ray2d& rayInLocal) const;
     
     //! Transforms a bounding box in local space to the world coordinate.
-    BoundingBox2D toWorld(const BoundingBox2D& bboxInLocal) const;
+    BoundingBox2d toWorld(const BoundingBox2d& bboxInLocal) const;
     
 private:
     V2d _translation = V2d(0);

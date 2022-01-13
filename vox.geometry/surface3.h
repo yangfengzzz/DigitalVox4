@@ -48,17 +48,17 @@ public:
     V3d closestPoint(const V3d& otherPoint) const;
     
     //! Returns the bounding box of this surface object.
-    BoundingBox3D boundingBox() const;
+    BoundingBox3d boundingBox() const;
     
     //! Returns true if the given \p ray intersects with this surface object.
-    bool intersects(const Ray3D& ray) const;
+    bool intersects(const Ray3d& ray) const;
     
     //! Returns the closest distance from the given point \p otherPoint to the
     //! point on the surface.
     double closestDistance(const V3d& otherPoint) const;
     
     //! Returns the closest intersection point for given \p ray.
-    SurfaceRayIntersection3 closestIntersection(const Ray3D& ray) const;
+    SurfaceRayIntersection3 closestIntersection(const Ray3d& ray) const;
     
     //! Returns the normal to the closest point on the surface from the given
     //! point \p otherPoint.
@@ -83,10 +83,10 @@ protected:
     virtual V3d closestPointLocal(const V3d& otherPoint) const = 0;
     
     //! Returns the bounding box of this surface object in local frame.
-    virtual BoundingBox3D boundingBoxLocal() const = 0;
+    virtual BoundingBox3d boundingBoxLocal() const = 0;
     
     //! Returns the closest intersection point for given \p ray in local frame.
-    virtual SurfaceRayIntersection3 closestIntersectionLocal(const Ray3D& ray) const = 0;
+    virtual SurfaceRayIntersection3 closestIntersectionLocal(const Ray3d& ray) const = 0;
     
     //! Returns the normal to the closest point on the surface from the given
     //! point \p otherPoint in local frame.
@@ -94,7 +94,7 @@ protected:
     
     //! Returns true if the given \p ray intersects with this surface object
     //! in local frame.
-    virtual bool intersectsLocal(const Ray3D& ray) const;
+    virtual bool intersectsLocal(const Ray3d& ray) const;
     
     //! Returns the closest distance from the given point \p otherPoint to the
     //! point on the surface in local frame.
