@@ -9,7 +9,7 @@
 #define dynamic_collider_hpp
 
 #include "collider.h"
-#include "maths/transform.h"
+#include "transform3.h"
 
 namespace vox {
 namespace physics {
@@ -34,16 +34,16 @@ public:
     /**
      * The linear velocity vector of the dynamic collider measured in world unit per second.
      */
-    math::Float3 linearVelocity();
+    Imath::V3f linearVelocity();
     
-    void setLinearVelocity(const math::Float3 &newValue);
+    void setLinearVelocity(const Imath::V3f &newValue);
     
     /**
      * The angular velocity vector of the dynamic collider measured in radians per second.
      */
-    math::Float3 angularVelocity();
+    Imath::V3f angularVelocity();
     
-    void setAngularVelocity(const math::Float3 &newValue);
+    void setAngularVelocity(const Imath::V3f &newValue);
     
     /**
      * The mass of the dynamic collider.
@@ -55,16 +55,16 @@ public:
     /**
      * The center of mass relative to the transform's origin.
      */
-    math::Transform centerOfMass();
+    Imath::Transform3 centerOfMass();
     
-    void setCenterOfMass(const math::Transform &newValue);
+    void setCenterOfMass(const Imath::Transform3 &newValue);
     
     /**
      * The diagonal inertia tensor of mass relative to the center of mass.
      */
-    math::Float3 inertiaTensor();
+    Imath::V3f inertiaTensor();
     
-    void setInertiaTensor(const math::Float3 &newValue);
+    void setInertiaTensor(const Imath::V3f &newValue);
     
     /**
      * The maximum angular velocity of the collider measured in radians per second. (Default 7) range { 0, infinity }.
@@ -130,19 +130,19 @@ public:
      * Apply a force to the DynamicCollider.
      * @param force - The force make the collider move
      */
-    void applyForce(const math::Float3 &force);
+    void applyForce(const Imath::V3f &force);
     
     /**
      * Apply a torque to the DynamicCollider.
      * @param torque - The force make the collider rotate
      */
-    void applyTorque(const math::Float3 &torque);
+    void applyTorque(const Imath::V3f &torque);
     
     /**
      * Moves kinematically controlled dynamic actors through the game world.
      * @param pose The desired pose for the kinematic actor
      */
-    void setKinematicTarget(const math::Transform &pose);
+    void setKinematicTarget(const Imath::Transform3 &pose);
     
     /**
      * Forces a collider to sleep at least one frame.

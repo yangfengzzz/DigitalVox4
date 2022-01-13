@@ -15,10 +15,10 @@ StaticCollider::StaticCollider(Entity *entity) :
 Collider(entity) {
     const auto &p = entity->transform->worldPosition();
     auto q = entity->transform->worldRotationQuaternion();
-    q = Normalize(q);
+    q.normalize();
     
     _nativeActor = PhysicsManager::_nativePhysics()->createRigidStatic(PxTransform(PxVec3(p.x, p.y, p.z),
-                                                                                   PxQuat(q.x, q.y, q.z, q.w)));
+                                                                                   PxQuat(q.v.x, q.v.y, q.v.z, q.r)));
 }
 
 }

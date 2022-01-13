@@ -10,6 +10,7 @@
 #include "character_controller/character_controller.h"
 #include "collider.h"
 #include "../entity.h"
+#include "../script.h"
 
 namespace vox {
 namespace physics {
@@ -190,16 +191,16 @@ void PhysicsManager::_removeCharacterController(CharacterController *characterCo
 }
 
 //MARK: - Raycast
-bool PhysicsManager::raycast(const math::Ray &ray) {
+bool PhysicsManager::raycast(const Imath::Ray3f &ray) {
     return _raycast(ray, std::numeric_limits<float>::infinity(), nullptr);
 }
 
-bool PhysicsManager::raycast(const math::Ray &ray, HitResult &outHitResult) {
+bool PhysicsManager::raycast(const Imath::Ray3f &ray, HitResult &outHitResult) {
     const auto layerMask = Layer::Everything;
     
     bool result = false;
     _raycast(ray, std::numeric_limits<float>::infinity(),
-             [&](uint32_t idx, float distance, const math::Float3 &normal, const math::Float3 &point) {
+             [&](uint32_t idx, float distance, const Imath::V3f &normal, const Imath::V3f &point) {
         if (_physicalObjectsMap[idx]->collider()->entity()->layer & layerMask) {
             result = true;
             
@@ -213,22 +214,22 @@ bool PhysicsManager::raycast(const math::Ray &ray, HitResult &outHitResult) {
     if (!result) {
         outHitResult.entity = nullptr;
         outHitResult.distance = 0;
-        outHitResult.point = math::Float3(0, 0, 0);
-        outHitResult.normal = math::Float3(0, 0, 0);
+        outHitResult.point = Imath::V3f(0, 0, 0);
+        outHitResult.normal = Imath::V3f(0, 0, 0);
     }
     
     return result;
 }
 
-bool PhysicsManager::raycast(const math::Ray &ray, float distance) {
+bool PhysicsManager::raycast(const Imath::Ray3f &ray, float distance) {
     return _raycast(ray, distance, nullptr);
 }
 
-bool PhysicsManager::raycast(const math::Ray &ray, float distance, HitResult &outHitResult) {
+bool PhysicsManager::raycast(const Imath::Ray3f &ray, float distance, HitResult &outHitResult) {
     const auto layerMask = Layer::Everything;
     
     bool result = false;
-    _raycast(ray, distance, [&](uint32_t idx, float distance, const math::Float3 &normal, const math::Float3 &point) {
+    _raycast(ray, distance, [&](uint32_t idx, float distance, const Imath::V3f &normal, const Imath::V3f &point) {
         if (_physicalObjectsMap[idx]->collider()->entity()->layer & layerMask) {
             result = true;
             
@@ -242,16 +243,16 @@ bool PhysicsManager::raycast(const math::Ray &ray, float distance, HitResult &ou
     if (!result) {
         outHitResult.entity = nullptr;
         outHitResult.distance = 0;
-        outHitResult.point = math::Float3(0, 0, 0);
-        outHitResult.normal = math::Float3(0, 0, 0);
+        outHitResult.point = Imath::V3f(0, 0, 0);
+        outHitResult.normal = Imath::V3f(0, 0, 0);
     }
     
     return result;
 }
 
-bool PhysicsManager::raycast(const math::Ray &ray, float distance, Layer layerMask) {
+bool PhysicsManager::raycast(const Imath::Ray3f &ray, float distance, Layer layerMask) {
     bool result = false;
-    _raycast(ray, distance, [&](uint32_t idx, float, const math::Float3 &, const math::Float3 &) {
+    _raycast(ray, distance, [&](uint32_t idx, float, const Imath::V3f &, const Imath::V3f &) {
         if (_physicalObjectsMap[idx]->collider()->entity()->layer & layerMask) {
             result = true;
         }
@@ -259,9 +260,9 @@ bool PhysicsManager::raycast(const math::Ray &ray, float distance, Layer layerMa
     return result;
 }
 
-bool PhysicsManager::raycast(const math::Ray &ray, float distance, Layer layerMask, HitResult &outHitResult) {
+bool PhysicsManager::raycast(const Imath::Ray3f &ray, float distance, Layer layerMask, HitResult &outHitResult) {
     bool result = false;
-    _raycast(ray, distance, [&](uint32_t idx, float distance, const math::Float3 &normal, const math::Float3 &point) {
+    _raycast(ray, distance, [&](uint32_t idx, float distance, const Imath::V3f &normal, const Imath::V3f &point) {
         if (_physicalObjectsMap[idx]->collider()->entity()->layer & layerMask) {
             result = true;
             
@@ -275,17 +276,17 @@ bool PhysicsManager::raycast(const math::Ray &ray, float distance, Layer layerMa
     if (!result) {
         outHitResult.entity = nullptr;
         outHitResult.distance = 0;
-        outHitResult.point = math::Float3(0, 0, 0);
-        outHitResult.normal = math::Float3(0, 0, 0);
+        outHitResult.point = Imath::V3f(0, 0, 0);
+        outHitResult.normal = Imath::V3f(0, 0, 0);
     }
     
     return result;
 }
 
-bool PhysicsManager::_raycast(const math::Ray &ray, float distance,
+bool PhysicsManager::_raycast(const Imath::Ray3f &ray, float distance,
                               std::function<void(uint32_t, float,
-                                                 const math::Float3 &,
-                                                 const math::Float3 &)> outHitResult) {
+                                                 const Imath::V3f &,
+                                                 const Imath::V3f &)> outHitResult) {
     PxRaycastHit hit = PxRaycastHit();
     PxSceneQueryFilterData filterData = PxSceneQueryFilterData();
     filterData.flags = PxQueryFlags(PxQueryFlag::eSTATIC | PxQueryFlag::eDYNAMIC);
@@ -301,8 +302,8 @@ bool PhysicsManager::_raycast(const math::Ray &ray, float distance,
     if (result && outHitResult != nullptr) {
         outHitResult(hit.shape->getQueryFilterData().word0,
                      hit.distance,
-                     math::Float3(hit.position.x, hit.position.y, hit.position.z),
-                     math::Float3(hit.normal.x, hit.normal.y, hit.normal.z));
+                     Imath::V3f(hit.position.x, hit.position.y, hit.position.z),
+                     Imath::V3f(hit.normal.x, hit.normal.y, hit.normal.z));
     }
     
     return result;

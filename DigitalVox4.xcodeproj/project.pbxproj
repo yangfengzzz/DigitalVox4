@@ -256,6 +256,13 @@
 		04459356278FAF9800F04CE0 /* spring_joint.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459348278FAF9800F04CE0 /* spring_joint.h */; };
 		04459357278FAF9800F04CE0 /* spherical_joint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459349278FAF9800F04CE0 /* spherical_joint.cpp */; };
 		04459358278FAF9800F04CE0 /* joint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445934A278FAF9800F04CE0 /* joint.cpp */; };
+		04459361278FB14400F04CE0 /* static_collider.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445935A278FB14400F04CE0 /* static_collider.h */; };
+		04459362278FB14400F04CE0 /* static_collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445935B278FB14400F04CE0 /* static_collider.cpp */; };
+		04459363278FB14400F04CE0 /* physics_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445935C278FB14400F04CE0 /* physics_manager.h */; };
+		04459364278FB14400F04CE0 /* hit_result.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445935D278FB14400F04CE0 /* hit_result.h */; };
+		04459365278FB14400F04CE0 /* dynamic_collider.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445935E278FB14400F04CE0 /* dynamic_collider.h */; };
+		04459367278FB19800F04CE0 /* dynamic_collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459359278FB14400F04CE0 /* dynamic_collider.cpp */; };
+		04459368278FB27D00F04CE0 /* physics_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445935F278FB14400F04CE0 /* physics_manager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -574,6 +581,13 @@
 		04459348278FAF9800F04CE0 /* spring_joint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spring_joint.h; sourceTree = "<group>"; };
 		04459349278FAF9800F04CE0 /* spherical_joint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spherical_joint.cpp; sourceTree = "<group>"; };
 		0445934A278FAF9800F04CE0 /* joint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = joint.cpp; sourceTree = "<group>"; };
+		04459359278FB14400F04CE0 /* dynamic_collider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dynamic_collider.cpp; sourceTree = "<group>"; };
+		0445935A278FB14400F04CE0 /* static_collider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = static_collider.h; sourceTree = "<group>"; };
+		0445935B278FB14400F04CE0 /* static_collider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = static_collider.cpp; sourceTree = "<group>"; };
+		0445935C278FB14400F04CE0 /* physics_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = physics_manager.h; sourceTree = "<group>"; };
+		0445935D278FB14400F04CE0 /* hit_result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hit_result.h; sourceTree = "<group>"; };
+		0445935E278FB14400F04CE0 /* dynamic_collider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamic_collider.h; sourceTree = "<group>"; };
+		0445935F278FB14400F04CE0 /* physics_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physics_manager.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1006,8 +1020,15 @@
 				04459311278F17F000F04CE0 /* shape */,
 				04459312278F17F800F04CE0 /* character_controller */,
 				04459313278F180100F04CE0 /* joint */,
+				0445935D278FB14400F04CE0 /* hit_result.h */,
 				0445931D278F1A4A00F04CE0 /* collider.h */,
 				0445931C278F1A4A00F04CE0 /* collider.cpp */,
+				0445935A278FB14400F04CE0 /* static_collider.h */,
+				0445935B278FB14400F04CE0 /* static_collider.cpp */,
+				0445935E278FB14400F04CE0 /* dynamic_collider.h */,
+				04459359278FB14400F04CE0 /* dynamic_collider.cpp */,
+				0445935C278FB14400F04CE0 /* physics_manager.h */,
+				0445935F278FB14400F04CE0 /* physics_manager.cpp */,
 			);
 			path = physics;
 			sourceTree = "<group>";
@@ -1106,6 +1127,7 @@
 				04459286278E80DD00F04CE0 /* scene_forward.h in Headers */,
 				044592A4278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp in Headers */,
 				044591F1278E557C00F04CE0 /* align.h in Headers */,
+				04459361278FB14400F04CE0 /* static_collider.h in Headers */,
 				0445922A278E5F1100F04CE0 /* engine.h in Headers */,
 				042295B8278C33090090983F /* CPPMetalDeviceInternals.h in Headers */,
 				04459356278FAF9800F04CE0 /* spring_joint.h in Headers */,
@@ -1145,6 +1167,7 @@
 				042295A7278C32FB0090983F /* CPPMetalDepthStencil.hpp in Headers */,
 				04459337278FAE0C00F04CE0 /* character_controller.h in Headers */,
 				044592D8278ED0FB00F04CE0 /* blend_mode.h in Headers */,
+				04459364278FB14400F04CE0 /* hit_result.h in Headers */,
 				044592DF278ED17E00F04CE0 /* base_material.h in Headers */,
 				044592BB278EC19E00F04CE0 /* stencil_state.h in Headers */,
 				0445927F278E80DD00F04CE0 /* layer.h in Headers */,
@@ -1161,10 +1184,12 @@
 				0445932A278FAA7900F04CE0 /* sphere_collider_shape.h in Headers */,
 				04459255278E6D4700F04CE0 /* glfw_window.h in Headers */,
 				042295B9278C33090090983F /* CPPMetalDispatchTableCache.h in Headers */,
+				04459363278FB14400F04CE0 /* physics_manager.h in Headers */,
 				0445934C278FAF9800F04CE0 /* fixed_joint.h in Headers */,
 				044592DB278ED11F00F04CE0 /* material.h in Headers */,
 				0445927A278E80DD00F04CE0 /* scene.h in Headers */,
 				0445927D278E80DD00F04CE0 /* components_manager.h in Headers */,
+				04459365278FB14400F04CE0 /* dynamic_collider.h in Headers */,
 				04459259278E708A00F04CE0 /* unix_engine.h in Headers */,
 				04459316278F183500F04CE0 /* physics.h in Headers */,
 				044592C9278EC64A00F04CE0 /* raster_state.h in Headers */,
@@ -1377,6 +1402,7 @@
 				0445932F278FAA7900F04CE0 /* box_collider_shape.cpp in Sources */,
 				042295AE278C32FB0090983F /* CPPMetalKitTextureLoader.mm in Sources */,
 				04459358278FAF9800F04CE0 /* joint.cpp in Sources */,
+				04459368278FB27D00F04CE0 /* physics_manager.cpp in Sources */,
 				044592F4278EDA3300F04CE0 /* pbr_specular_material.cpp in Sources */,
 				0445924B278E63FA00F04CE0 /* application.cpp in Sources */,
 				044592CF278EC79200F04CE0 /* blend_state.cpp in Sources */,
@@ -1418,6 +1444,7 @@
 				044592EC278ED82300F04CE0 /* pbr_material.cpp in Sources */,
 				04459353278FAF9800F04CE0 /* translational_joint.cpp in Sources */,
 				04459357278FAF9800F04CE0 /* spherical_joint.cpp in Sources */,
+				04459367278FB19800F04CE0 /* dynamic_collider.cpp in Sources */,
 				0422958A278C32FB0090983F /* CPPMetalDepthStencil.mm in Sources */,
 				044592E0278ED17E00F04CE0 /* base_material.cpp in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
@@ -1432,6 +1459,7 @@
 				044592B2278EBEE600F04CE0 /* shader.cpp in Sources */,
 				04459284278E80DD00F04CE0 /* entity.cpp in Sources */,
 				044592C8278EC64A00F04CE0 /* raster_state.cpp in Sources */,
+				04459362278FB14400F04CE0 /* static_collider.cpp in Sources */,
 				04459281278E80DD00F04CE0 /* component.cpp in Sources */,
 				0445932B278FAA7900F04CE0 /* capsule_collider_shape.cpp in Sources */,
 				04459354278FAF9800F04CE0 /* configurable_joint.cpp in Sources */,
