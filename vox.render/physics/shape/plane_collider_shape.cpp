@@ -17,15 +17,19 @@ PlaneColliderShape::PlaneColliderShape() {
     setLocalPose(_pose);
 }
 
-math::Float3 PlaneColliderShape::rotation() {
-    const auto &rot = _pose.rotation;
-    return math::ToEuler(rot);
+Imath::Eulerf PlaneColliderShape::rotation() {
+    Imath::Eulerf euler;
+    euler.extract(_pose.orientation());
+    return euler;
 }
 
-void PlaneColliderShape::setRotation(const math::Float3 &value) {
-    _pose.rotation = math::Quaternion::FromEuler(value.x, value.y, value.z);
-    _pose.rotation = math::Quaternion::rotateZ(_pose.rotation, M_PI * 0.5);
-    _pose.rotation = math::Normalize(_pose.rotation);
+void PlaneColliderShape::setRotation(const Imath::V3f &value) {
+    auto rotation = Imath::Eulerf(value.x, value.y, value.z).toQuat();
+    Imath::Quatf rotateZ;
+    rotateZ.setAxisAngle(Imath::V3f(0, 0, 1), M_PI * 0.5);
+    rotation *= rotateZ;
+    rotation.normalize();
+    _pose.setOrientation(rotation);
     setLocalPose(_pose);
 }
 

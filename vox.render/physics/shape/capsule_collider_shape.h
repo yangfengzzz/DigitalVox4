@@ -54,7 +54,7 @@ public:
     
     void setUpAxis(ColliderShapeUpAxis::Enum value);
     
-    void setWorldScale(const math::Float3 &scale) override;
+    void setWorldScale(const Imath::V3f &scale) override;
     
 private:
     float _radius = 1;
