@@ -58,7 +58,12 @@ MTL::Drawable *View::currentDrawable() {
 }
 
 Texture *View::depthStencilTexture() {
-    if (!m_depthStencilTexture) {
+    if ((!m_depthStencilTexture) ||
+        (m_depthStencilTexture->width() != m_objCObj.drawableSize.width ||
+         m_depthStencilTexture->height() != m_objCObj.drawableSize.height)) {
+        destroy(m_device->allocator(), m_depthStencilTexture);
+        m_depthStencilTexture = nullptr;
+        
         MTLTextureDescriptor *descriptor =
         [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:(MTLPixelFormat) m_depthStencilPixelFormat
                                                            width:m_objCObj.drawableSize.width
