@@ -17,7 +17,6 @@
 namespace vox {
 LightingSubpass::LightingSubpass(MTL::View *view)
 : Subpass(view) {
-    m_singlePassDeferred = false;
     loadMetal();
     loadScene();
 }

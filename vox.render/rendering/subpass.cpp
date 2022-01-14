@@ -132,12 +132,7 @@ void Subpass::loadMetal() {
             renderPipelineDescriptor.label("G-buffer Creation");
             renderPipelineDescriptor.vertexDescriptor(&m_defaultVertexDescriptor);
             
-            if (m_singlePassDeferred) {
-                renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
-            } else {
-                renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(MTL::PixelFormatInvalid);
-            }
-            
+            renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(MTL::PixelFormatInvalid);
             renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
             renderPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(m_normal_shadow_GBufferFormat);
             renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
@@ -181,30 +176,14 @@ void Subpass::loadMetal() {
 #pragma mark Directional lighting render pipeline setup
         {
             MTL::Function directionalVertexFunction = shaderLibrary.makeFunction("deferred_direction_lighting_vertex");
-            MTL::Function directionalFragmentFunction;
-            
-            if (m_singlePassDeferred) {
-                directionalFragmentFunction =
-                shaderLibrary.makeFunction("deferred_directional_lighting_fragment_single_pass");
-            } else {
-                directionalFragmentFunction =
-                shaderLibrary.makeFunction("deferred_directional_lighting_fragment_traditional");
-            }
-            
+            MTL::Function directionalFragmentFunction = shaderLibrary.makeFunction("deferred_directional_lighting_fragment_traditional");
+
             MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-            
             renderPipelineDescriptor.label("Deferred Directional Lighting");
             renderPipelineDescriptor.vertexDescriptor(nullptr);
             renderPipelineDescriptor.vertexFunction(&directionalVertexFunction);
             renderPipelineDescriptor.fragmentFunction(&directionalFragmentFunction);
             renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
-            
-            if (m_singlePassDeferred) {
-                renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
-                renderPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(m_normal_shadow_GBufferFormat);
-                renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
-            }
-            
             renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
             renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
             
@@ -253,15 +232,6 @@ void Subpass::loadMetal() {
         renderPipelineDescriptor.vertexFunction(&fairyVertexFunction);
         renderPipelineDescriptor.fragmentFunction(&fairyFragmentFunction);
         renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
-        
-        // Because iOS subpass can perform GBuffer pass in final pass, any pipeline rendering in
-        // the final pass must take the GBuffers into account
-        if (m_singlePassDeferred) {
-            renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
-            renderPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(m_normal_shadow_GBufferFormat);
-            renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
-        }
-        
         renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
         renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
         renderPipelineDescriptor.colorAttachments[0].blendingEnabled(true);
@@ -297,13 +267,6 @@ void Subpass::loadMetal() {
         renderPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
         renderPipelineDescriptor.fragmentFunction(&skyboxFragmentFunction);
         renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
-        
-        if (m_singlePassDeferred) {
-            renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
-            renderPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(m_normal_shadow_GBufferFormat);
-            renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
-        }
-        
         renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
         renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
         
@@ -393,13 +356,6 @@ void Subpass::loadMetal() {
             renderPipelineDescriptor.vertexFunction(&lightMaskVertex);
             renderPipelineDescriptor.fragmentFunction(nullptr);
             renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
-            
-            if (m_singlePassDeferred) {
-                renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
-                renderPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(m_normal_shadow_GBufferFormat);
-                renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
-            }
-            
             renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
             renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
             

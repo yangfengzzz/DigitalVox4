@@ -121,14 +121,6 @@ protected:
     
     MTL::Texture m_depth_GBuffer;
     
-    // This is used to build render pipelines that perform common operations for both the iOS and macOS
-    // subpasss.  The only difference between the iOS and macOS versions of these pipelines is that
-    // the iOS subpass needs the GBuffers attached as render targets while the macOS subpass needs
-    // the GBuffers set as textures to sample/read from.  So this is YES for the iOS subpass and NO
-    // for the macOS subpass.  This enables more sharing of the code to create these pipelines
-    // in the implementation of the Subpass base class which is common to both subpasss.
-    bool m_singlePassDeferred;
-    
     MTL::DepthStencilState *m_dontWriteDepthStencilState;
     
 private:
