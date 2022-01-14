@@ -14,7 +14,6 @@ namespace vox {
 MetalApplication::~MetalApplication() {
     render_context.reset();
     device.reset();
-    render_pipeline.reset();
 }
 
 bool MetalApplication::prepare(Engine &engine) {
@@ -28,10 +27,6 @@ bool MetalApplication::prepare(Engine &engine) {
     m_commandQueue = device->makeCommandQueue();
 
     render_context = engine.create_render_context(*device);
-    
-    render_pipeline = std::make_unique<LightingSubpass>(render_context.get());
-    auto extent = engine.get_window().get_extent();
-    framebuffer_resize(extent.width*2, extent.height*2);
 
     return true;
 }

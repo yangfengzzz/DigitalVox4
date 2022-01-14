@@ -9,13 +9,17 @@
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 #include "rendering/lighting_subpass.h"
+#include "engine.h"
 
 namespace vox {
 Deferred::~Deferred() {
     delete m_completedHandler;
+    render_pipeline.reset();
 }
 
 bool Deferred::prepare(Engine &engine) {
+    MetalApplication::prepare(engine);
+    
     m_inFlightSemaphore = dispatch_semaphore_create(MaxFramesInFlight);
 
     // Create a render pass descriptor to create an encoder for rendering to the GBuffers.
@@ -43,7 +47,12 @@ bool Deferred::prepare(Engine &engine) {
     m_finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionLoad);
     m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
     
-    return MetalApplication::prepare(engine);
+    render_pipeline = std::make_unique<LightingSubpass>(render_context.get());
+    
+    auto extent = engine.get_window().get_extent();
+    framebuffer_resize(extent.width*2, extent.height*2);
+        
+    return true;
 }
 
 void Deferred::update(float delta_time) {
