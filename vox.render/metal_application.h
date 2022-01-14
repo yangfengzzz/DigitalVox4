@@ -134,6 +134,7 @@ protected:
      * @brief The Vulkan device
      */
     std::unique_ptr<MTL::Device> device{nullptr};
+    MTL::CommandQueue m_commandQueue;
 
     /**
      * @brief Context used for rendering, it is responsible for managing the frames and their underlying images

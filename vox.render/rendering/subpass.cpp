@@ -39,21 +39,15 @@ static const uint32_t ColumnLights = GroundLights + 0.30 * NumLights;
 Subpass::Subpass(MTL::View* view)
 : m_view(view),
 m_device(view->device()),
-m_completedHandler(nullptr),
 m_originalLightPositions(nullptr),
 m_frameDataBufferIndex(0),
-m_frameNumber(0) {
-    
-    this->m_inFlightSemaphore = dispatch_semaphore_create(MaxFramesInFlight);
+m_frameNumber(0) {    
 }
-
 
 Subpass::~Subpass() {
     delete[] m_originalLightPositions;
     
-    delete m_meshes;
-    
-    delete m_completedHandler;
+    delete m_meshes;    
 }
 
 /// Create Metal render state objects
@@ -409,8 +403,6 @@ void Subpass::loadMetal() {
         
         m_pointLightDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
     }
-    
-    m_commandQueue = m_device.makeCommandQueue();
 }
 
 /// Load models/textures, etc.
@@ -773,55 +765,6 @@ MTL::Texture *Subpass::currentDrawableTexture() {
     }
     
     return nullptr;
-}
-
-/// Perform operations necessary at the beginning of the frame.  Wait on the in flight semaphore,
-/// and get a command buffer to encode intial commands for this frame.
-MTL::CommandBuffer Subpass::beginFrame() {
-    // Wait to ensure only MaxFramesInFlight are getting processed by any stage in the Metal
-    // pipeline (App, Metal, Drivers, GPU, etc)
-    
-    dispatch_semaphore_wait(this->m_inFlightSemaphore, DISPATCH_TIME_FOREVER);
-    
-    // Create a new command buffer for each render pass to the current drawable
-    MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
-    
-    updateWorldState();
-    
-    return commandBuffer;
-}
-
-/// Perform operations necessary to obtain a command buffer for rendering to the drawable.  By
-/// endoding commands that are not dependant on the drawable in a separate command buffer, Metal
-/// can begin executing encoded commands for the frame (commands from the previous command buffer)
-/// before a drawable for this frame becomes avaliable.
-MTL::CommandBuffer Subpass::beginDrawableCommands() {
-    MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
-    
-    if (!m_completedHandler) {
-        // Create a completed handler functor for Metal to execute when the GPU has fully finished
-        // processing the commands encoded for this frame.  This implenentation of the completed
-        // hander signals the `m_inFlightSemaphore`, which indicates that the GPU is no longer
-        // accesing the the dynamic buffer written this frame.  When the GPU no longer accesses the
-        // buffer, the Subpass can safely overwrite the buffer's data to update data for a future
-        // frame.
-        struct CommandBufferCompletedHandler : public MTL::CommandBufferHandler {
-            dispatch_semaphore_t semaphore;
-            
-            void operator()(const MTL::CommandBuffer &) {
-                dispatch_semaphore_signal(semaphore);
-            }
-        };
-        
-        CommandBufferCompletedHandler *completedHandler = new CommandBufferCompletedHandler();
-        completedHandler->semaphore = m_inFlightSemaphore;
-        
-        m_completedHandler = completedHandler;
-    }
-    
-    commandBuffer.addCompletedHandler(*m_completedHandler);
-    
-    return commandBuffer;
 }
 
 /// Perform cleanup operations including presenting the drawable and committing the command buffer

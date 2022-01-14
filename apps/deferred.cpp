@@ -12,10 +12,12 @@
 
 namespace vox {
 Deferred::~Deferred() {
-    
+    delete m_completedHandler;
 }
 
 bool Deferred::prepare(Engine &engine) {
+    m_inFlightSemaphore = dispatch_semaphore_create(MaxFramesInFlight);
+
     // Create a render pass descriptor to create an encoder for rendering to the GBuffers.
     // The encoder stores rendered data of each attachment when encoding ends.
     m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].loadAction(MTL::LoadActionDontCare);
@@ -49,9 +51,14 @@ void Deferred::update(float delta_time) {
     
     auto subpass = static_cast<LightingSubpass*>(render_pipeline.get());
     {
-        MTL::CommandBuffer commandBuffer = subpass->beginFrame();
+        // Wait to ensure only MaxFramesInFlight are getting processed by any stage in the Metal
+        // pipeline (App, Metal, Drivers, GPU, etc)
+        dispatch_semaphore_wait(m_inFlightSemaphore, DISPATCH_TIME_FOREVER);
+        // Create a new command buffer for each render pass to the current drawable
+        MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
         commandBuffer.label("Shadow & GBuffer Commands");
         
+        subpass->updateWorldState();
         subpass->drawShadow(commandBuffer);
         
         m_GBufferRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
@@ -71,8 +78,28 @@ void Deferred::update(float delta_time) {
     }
     
     {
-        MTL::CommandBuffer commandBuffer = subpass->beginDrawableCommands();
-        
+        MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
+        if (!m_completedHandler) {
+            // Create a completed handler functor for Metal to execute when the GPU has fully finished
+            // processing the commands encoded for this frame.  This implenentation of the completed
+            // hander signals the `m_inFlightSemaphore`, which indicates that the GPU is no longer
+            // accesing the the dynamic buffer written this frame.  When the GPU no longer accesses the
+            // buffer, the Subpass can safely overwrite the buffer's data to update data for a future
+            // frame.
+            struct CommandBufferCompletedHandler : public MTL::CommandBufferHandler {
+                dispatch_semaphore_t semaphore;
+                
+                void operator()(const MTL::CommandBuffer &) {
+                    dispatch_semaphore_signal(semaphore);
+                }
+            };
+            
+            CommandBufferCompletedHandler *completedHandler = new CommandBufferCompletedHandler();
+            completedHandler->semaphore = m_inFlightSemaphore;
+            
+            m_completedHandler = completedHandler;
+        }
+        commandBuffer.addCompletedHandler(*m_completedHandler);
         commandBuffer.label("Lighting Commands");
         
         MTL::Texture *drawableTexture = subpass->currentDrawableTexture();

@@ -72,10 +72,6 @@ public:
     
     void loadScene();
     
-    MTL::CommandBuffer beginFrame();
-    
-    MTL::CommandBuffer beginDrawableCommands();
-    
     void endFrame(MTL::CommandBuffer &commandBuffer);
     
     void drawShadow(MTL::CommandBuffer &commandBuffer);
@@ -125,14 +121,8 @@ public:
     
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
     
-    dispatch_semaphore_t m_inFlightSemaphore;
-    
-    MTL::CommandBufferHandler *m_completedHandler;
-    
     // Vertex descriptor for models loaded with MetalKit
     MTL::VertexDescriptor m_defaultVertexDescriptor;
-    
-    MTL::CommandQueue m_commandQueue;
     
     // Pipeline states
     MTL::RenderPipelineState m_GBufferPipelineState;

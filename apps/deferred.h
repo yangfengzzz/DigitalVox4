@@ -30,6 +30,9 @@ public:
     virtual void framebuffer_resize(uint32_t width, uint32_t height) override;
     
 private:
+    dispatch_semaphore_t m_inFlightSemaphore;
+    MTL::CommandBufferHandler *m_completedHandler{nullptr};
+
     MTL::RenderPassDescriptor m_GBufferRenderPassDescriptor;
     MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
 };
