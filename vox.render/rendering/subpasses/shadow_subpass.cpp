@@ -7,11 +7,16 @@
 
 #include "shadow_subpass.h"
 
+// Include header shared between C code here, which executes Metal API commands, and .metal files
+#include "shader_types.h"
+
 namespace vox {
 ShadowSubpass::ShadowSubpass(MTL::RenderPassDescriptor* desc,
                              MTL::Library& shaderLibrary,
-                             MTL::Device& m_device):
-Subpass(desc) {
+                             MTL::Device& m_device,
+                             std::vector<Mesh> *m_meshes):
+Subpass(desc),
+m_meshes(m_meshes) {
     MTL::PixelFormat shadowMapPixelFormat = MTL::PixelFormatDepth16Unorm;
     CFErrorRef error = nullptr;
 
@@ -66,7 +71,34 @@ void ShadowSubpass::draw(MTL::RenderCommandEncoder commandEncoder) {
     
 //    commandEncoder.setVertexBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
     
-//    drawMeshes(encoder);
+    drawMeshes(commandEncoder);
+}
+
+void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
+    for (auto &mesh: *m_meshes) {
+        for (auto &meshBuffer: mesh.vertexBuffers()) {
+            renderEncoder.setVertexBuffer(meshBuffer.buffer(),
+                                          meshBuffer.offset(),
+                                          meshBuffer.argumentIndex());
+        }
+        
+        for (auto &submesh: mesh.submeshes()) {
+            // Set any textures read/sampled from the render pipeline
+            const std::vector<MTL::Texture> &submeshTextures = submesh.textures();
+            
+            renderEncoder.setFragmentTexture(submeshTextures[TextureIndexBaseColor], TextureIndexBaseColor);
+            
+            renderEncoder.setFragmentTexture(submeshTextures[TextureIndexNormal], TextureIndexNormal);
+            
+            renderEncoder.setFragmentTexture(submeshTextures[TextureIndexSpecular], TextureIndexSpecular);
+            
+            renderEncoder.drawIndexedPrimitives(submesh.primitiveType(),
+                                                submesh.indexCount(),
+                                                submesh.indexType(),
+                                                submesh.indexBuffer().buffer(),
+                                                submesh.indexBuffer().offset());
+        }
+    }
 }
 
 }

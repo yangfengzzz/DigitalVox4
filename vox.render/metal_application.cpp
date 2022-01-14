@@ -27,7 +27,7 @@ bool MetalApplication::prepare(Engine &engine) {
     m_commandQueue = device->makeCommandQueue();
 
     render_context = engine.create_render_context(*device);
-
+    scene = std::make_unique<sg::Scene>();
     return true;
 }
 

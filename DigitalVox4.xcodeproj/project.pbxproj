@@ -2189,6 +2189,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4SL5L673UU;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					DISABLE_CUDA_PHYSX,
+					PX_PHYSX_CORE_EXPORTS,
+					_DEBUG,
+					"'PX_DEBUG=1'",
+					"'PX_CHECKED=1'",
+					"'PX_NVTX=0'",
+					"'PX_SUPPORT_PVD=1'",
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = (
 					./vox.render,
 					./vox.math,
@@ -2197,10 +2207,17 @@
 				LIBRARY_SEARCH_PATHS = (
 					./third_party/glog/build,
 					./third_party/glfw/build/src,
+					./third_party/physX/physx/bin/linux.clang/debug,
 				);
 				OTHER_LDFLAGS = (
 					"-lglog",
 					"-lglfw3",
+					"-lPhysX_static_64",
+					"-lPhysXCommon_static_64",
+					"-lPhysXFoundation_static_64",
+					"-lPhysXPvdSDK_static_64",
+					"-lPhysXExtensions_static_64",
+					"-lPhysXCharacterKinematic_static_64",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -2239,6 +2256,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4SL5L673UU;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					DISABLE_CUDA_PHYSX,
+					PX_PHYSX_CORE_EXPORTS,
+					NDEBUG,
+					"'PX_SUPPORT_PVD=0'",
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = (
 					./vox.render,
 					./vox.math,
@@ -2247,10 +2271,17 @@
 				LIBRARY_SEARCH_PATHS = (
 					./third_party/glog/build,
 					./third_party/glfw/build/src,
+					./third_party/physX/physx/bin/linux.clang/release,
 				);
 				OTHER_LDFLAGS = (
 					"-lglog",
 					"-lglfw3",
+					"-lPhysX_static_64",
+					"-lPhysXCommon_static_64",
+					"-lPhysXFoundation_static_64",
+					"-lPhysXPvdSDK_static_64",
+					"-lPhysXExtensions_static_64",
+					"-lPhysXCharacterKinematic_static_64",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (

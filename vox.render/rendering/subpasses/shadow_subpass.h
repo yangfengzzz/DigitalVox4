@@ -9,20 +9,27 @@
 #define shadow_subpass_hpp
 
 #include "../subpass.h"
+#include "graphics/mesh.h"
+#include <vector>
 
 namespace vox {
 class ShadowSubpass: public Subpass {
 public:
     ShadowSubpass(MTL::RenderPassDescriptor* desc,
                   MTL::Library& shaderLibrary,
-                  MTL::Device& m_device);
+                  MTL::Device& m_device,
+                  std::vector<Mesh> *m_meshes);
 
     void draw(MTL::RenderCommandEncoder commandEncoder) override;
     
 private:
+    void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
+
     MTL::RenderPipelineState m_shadowGenPipelineState;
     MTL::DepthStencilState m_shadowDepthStencilState;
     MTL::Texture m_shadowMap;
+    
+    std::vector<Mesh> *m_meshes;
 };
 
 }

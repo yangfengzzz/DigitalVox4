@@ -12,6 +12,7 @@
 #include "core/CPPMetal.hpp"
 
 #include "rendering/lighting_subpass.h"
+#include "scene.h"
 
 namespace vox {
 /**
@@ -146,13 +147,11 @@ protected:
      */
     std::unique_ptr<LightingSubpass> render_pipeline{nullptr};
 
-//    /**
-//     * @brief Holds all scene information
-//     */
-//    std::unique_ptr<sg::Scene> scene{nullptr};
-//
-//    std::unique_ptr<sg::ComponentManager> component_manager{nullptr};
-//
+    /**
+     * @brief Holds all scene information
+     */
+    std::unique_ptr<sg::Scene> scene{nullptr};
+
 //    std::unique_ptr<Gui> gui{nullptr};
 //
 //    std::unique_ptr<Stats> stats{nullptr};
