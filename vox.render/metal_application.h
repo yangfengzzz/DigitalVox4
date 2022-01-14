@@ -9,9 +9,9 @@
 #define metal_application_hpp
 
 #include "application.h"
-#include "core/CPPMetalDevice.hpp"
-#include "core/CPPMetalView.hpp"
-#include "rendering/subpass.h"
+#include "core/CPPMetal.hpp"
+
+#include "rendering/lighting_subpass.h"
 
 namespace vox {
 /**
@@ -144,7 +144,7 @@ protected:
     /**
      * @brief Pipeline used for rendering, it should be set up by the concrete sample
      */
-    std::unique_ptr<Subpass> render_pipeline{nullptr};
+    std::unique_ptr<LightingSubpass> render_pipeline{nullptr};
 
 //    /**
 //     * @brief Holds all scene information
