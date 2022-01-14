@@ -304,6 +304,7 @@
 		044593F627914F7500F04CE0 /* subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F427914F7500F04CE0 /* subpass.h */; };
 		044593FA2791581900F04CE0 /* shadow_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F82791581900F04CE0 /* shadow_subpass.cpp */; };
 		044593FB2791581900F04CE0 /* shadow_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F92791581900F04CE0 /* shadow_subpass.h */; };
+		044593FF2791A58A00F04CE0 /* deferred_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593FD2791A58A00F04CE0 /* deferred_subpass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -698,6 +699,8 @@
 		044593F427914F7500F04CE0 /* subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = subpass.h; sourceTree = "<group>"; };
 		044593F82791581900F04CE0 /* shadow_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shadow_subpass.cpp; sourceTree = "<group>"; };
 		044593F92791581900F04CE0 /* shadow_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shadow_subpass.h; sourceTree = "<group>"; };
+		044593FC2791A58A00F04CE0 /* deferred_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = deferred_subpass.cpp; sourceTree = "<group>"; };
+		044593FD2791A58A00F04CE0 /* deferred_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = deferred_subpass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1285,6 +1288,8 @@
 			children = (
 				044593F92791581900F04CE0 /* shadow_subpass.h */,
 				044593F82791581900F04CE0 /* shadow_subpass.cpp */,
+				044593FD2791A58A00F04CE0 /* deferred_subpass.h */,
+				044593FC2791A58A00F04CE0 /* deferred_subpass.cpp */,
 			);
 			path = subpasses;
 			sourceTree = "<group>";
@@ -1403,6 +1408,7 @@
 				0445936C278FB37C00F04CE0 /* orbit_control.h in Headers */,
 				042295B9278C33090090983F /* CPPMetalDispatchTableCache.h in Headers */,
 				04459363278FB14400F04CE0 /* physics_manager.h in Headers */,
+				044593FF2791A58A00F04CE0 /* deferred_subpass.h in Headers */,
 				0445934C278FAF9800F04CE0 /* fixed_joint.h in Headers */,
 				044592DB278ED11F00F04CE0 /* material.h in Headers */,
 				0445927A278E80DD00F04CE0 /* scene.h in Headers */,

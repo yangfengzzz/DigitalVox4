@@ -92,9 +92,13 @@ private:
 
     MTL::RenderPassDescriptor m_shadowRenderPassDescriptor;
     std::unique_ptr<RenderPass> m_shadowRenderPass{nullptr};
-    
+    MTL::Texture m_shadowMap;
+
     MTL::RenderPassDescriptor m_GBufferRenderPassDescriptor;
+    std::unique_ptr<RenderPass> m_GBufferRenderPass{nullptr};
+
     MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
+    std::unique_ptr<RenderPass> m_finalRenderPass{nullptr};
 };
 
 }

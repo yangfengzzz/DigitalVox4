@@ -125,6 +125,8 @@ public:
     CPP_METAL_VIRTUAL ~Texture();
     
     TextureType textureType() const;
+
+    PixelFormat pixelFormat() const;
     
     UInteger width() const;
     

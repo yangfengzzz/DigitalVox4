@@ -113,6 +113,12 @@ TextureType Texture::textureType() const {
     return (TextureType) (((id <MTLTexture>) m_objCObj).textureType);
 }
 
+PixelFormat Texture::pixelFormat() const {
+    CPP_METAL_VALIDATE_WRAPPED_NIL();
+    
+    return (PixelFormat) (((id <MTLTexture>) m_objCObj).pixelFormat);
+}
+
 UInteger Texture::width() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
     

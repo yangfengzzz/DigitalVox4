@@ -26,7 +26,8 @@ public:
     
     RenderPass &operator=(RenderPass &&) = default;
     
-    void draw(MTL::CommandBuffer& commandBuffer);
+    void draw(MTL::CommandBuffer& commandBuffer,
+              std::optional<std::string> label = std::nullopt);
     
 public:
     /**

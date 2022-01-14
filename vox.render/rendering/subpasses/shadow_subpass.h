@@ -22,22 +22,15 @@ public:
                   std::vector<Mesh> *m_meshes);
 
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
-    
-    MTL::Texture &shadowMap();
-    
+        
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
 
     MTL::RenderPipelineState m_shadowGenPipelineState;
     MTL::DepthStencilState m_shadowDepthStencilState;
-    MTL::Texture m_shadowMap;
     
     std::vector<Mesh> *m_meshes;
 };
-
-inline MTL::Texture &ShadowSubpass::shadowMap() {
-    return m_shadowMap;
-}
 
 }
 

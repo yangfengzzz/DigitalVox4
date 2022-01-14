@@ -12,10 +12,14 @@ RenderPass::RenderPass(MTL::RenderPassDescriptor* desc):
 desc(desc) {
 }
 
-void RenderPass::draw(MTL::CommandBuffer& commandBuffer) {
+void RenderPass::draw(MTL::CommandBuffer& commandBuffer,
+                      std::optional<std::string> label) {
     assert(!subpasses.empty() && "Render pipeline should contain at least one sub-pass");
     
     MTL::RenderCommandEncoder encoder = commandBuffer.renderCommandEncoderWithDescriptor(*desc);
+    if (label) {
+        encoder.label(label.value().c_str());
+    }
     for (size_t i = 0; i < subpasses.size(); ++i) {
         active_subpass_index = i;
         subpasses[i]->draw(encoder);

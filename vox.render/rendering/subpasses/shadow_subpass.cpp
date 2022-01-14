@@ -18,7 +18,6 @@ ShadowSubpass::ShadowSubpass(MTL::RenderPassDescriptor* desc,
                              std::vector<Mesh> *m_meshes):
 Subpass(desc, scene),
 m_meshes(m_meshes) {
-    MTL::PixelFormat shadowMapPixelFormat = MTL::PixelFormatDepth16Unorm;
     CFErrorRef error = nullptr;
 
 #pragma mark Shadow pass render pipeline setup
@@ -30,7 +29,7 @@ m_meshes(m_meshes) {
         renderPipelineDescriptor.vertexDescriptor(nullptr);
         renderPipelineDescriptor.vertexFunction(shadowVertexFunction);
         renderPipelineDescriptor.fragmentFunction(nullptr);
-        renderPipelineDescriptor.depthAttachmentPixelFormat(shadowMapPixelFormat);
+        renderPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
         
         m_shadowGenPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
         
@@ -44,22 +43,6 @@ m_meshes(m_meshes) {
         depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLessEqual);
         depthStencilDesc.depthWriteEnabled(true);
         m_shadowDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
-    }
-    
-#pragma mark Shadow map setup
-    {
-        MTL::TextureDescriptor shadowTextureDesc;
-        
-        shadowTextureDesc.pixelFormat(shadowMapPixelFormat);
-        shadowTextureDesc.width(2048);
-        shadowTextureDesc.height(2048);
-        shadowTextureDesc.mipmapLevelCount(1);
-        shadowTextureDesc.resourceOptions(MTL::ResourceStorageModePrivate);
-        shadowTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
-        
-        m_shadowMap = m_device.makeTexture(shadowTextureDesc);
-        m_shadowMap.label("Shadow Map");
-        desc->depthAttachment.texture( m_shadowMap );
     }
 }
 
