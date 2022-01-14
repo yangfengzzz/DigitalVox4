@@ -302,6 +302,8 @@
 		044593F227914EFF00F04CE0 /* render_pass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F027914EFF00F04CE0 /* render_pass.h */; };
 		044593F527914F7500F04CE0 /* subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F327914F7500F04CE0 /* subpass.cpp */; };
 		044593F627914F7500F04CE0 /* subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F427914F7500F04CE0 /* subpass.h */; };
+		044593FA2791581900F04CE0 /* shadow_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F82791581900F04CE0 /* shadow_subpass.cpp */; };
+		044593FB2791581900F04CE0 /* shadow_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F92791581900F04CE0 /* shadow_subpass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -694,6 +696,8 @@
 		044593F027914EFF00F04CE0 /* render_pass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render_pass.h; sourceTree = "<group>"; };
 		044593F327914F7500F04CE0 /* subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = subpass.cpp; sourceTree = "<group>"; };
 		044593F427914F7500F04CE0 /* subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = subpass.h; sourceTree = "<group>"; };
+		044593F82791581900F04CE0 /* shadow_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shadow_subpass.cpp; sourceTree = "<group>"; };
+		044593F92791581900F04CE0 /* shadow_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shadow_subpass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1065,6 +1069,7 @@
 				044593EF27914EFF00F04CE0 /* render_pass.cpp */,
 				044593F427914F7500F04CE0 /* subpass.h */,
 				044593F327914F7500F04CE0 /* subpass.cpp */,
+				044593F72791580900F04CE0 /* subpasses */,
 				0445937D278FFE3100F04CE0 /* math_utilities.h */,
 				04459378278FFE3100F04CE0 /* math_utilities.cpp */,
 				04459379278FFE3100F04CE0 /* lighting_subpass.h */,
@@ -1275,6 +1280,15 @@
 			path = graphics;
 			sourceTree = "<group>";
 		};
+		044593F72791580900F04CE0 /* subpasses */ = {
+			isa = PBXGroup;
+			children = (
+				044593F92791581900F04CE0 /* shadow_subpass.h */,
+				044593F82791581900F04CE0 /* shadow_subpass.cpp */,
+			);
+			path = subpasses;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1330,6 +1344,7 @@
 				04459386278FFE3200F04CE0 /* lighting_subpass.h in Headers */,
 				0445934B278FAF9800F04CE0 /* spherical_joint.h in Headers */,
 				0445931F278F1A4A00F04CE0 /* collider.h in Headers */,
+				044593FB2791581900F04CE0 /* shadow_subpass.h in Headers */,
 				042295A3278C32FB0090983F /* CPPMetalPixelFormat.hpp in Headers */,
 				044592CE278EC79200F04CE0 /* blend_state.h in Headers */,
 				044592AD278EBEB900F04CE0 /* shader_uniform.h in Headers */,
@@ -1640,6 +1655,7 @@
 				044593E62791055900F04CE0 /* mesh.cpp in Sources */,
 				044593F527914F7500F04CE0 /* subpass.cpp in Sources */,
 				044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */,
+				044593FA2791581900F04CE0 /* shadow_subpass.cpp in Sources */,
 				0445930E278F170100F04CE0 /* spherical.cpp in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
 				04459339278FAE0C00F04CE0 /* capsule_character_controller.cpp in Sources */,

@@ -29,4 +29,16 @@ void RenderPass::draw(MTL::CommandBuffer commandBuffer,
     commandBuffer.commit();
 }
 
+void RenderPass::addSubpass(std::unique_ptr<Subpass> &&subpass) {
+    subpasses.emplace_back(std::move(subpass));
+}
+
+std::vector<std::unique_ptr<Subpass>> &RenderPass::getSubpasses() {
+    return subpasses;
+}
+
+std::unique_ptr<Subpass> &RenderPass::getActiveSubpass() {
+    return subpasses[active_subpass_index];
+}
+
 }
