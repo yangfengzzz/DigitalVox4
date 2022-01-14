@@ -269,9 +269,7 @@
 		04459375278FE8F600F04CE0 /* CPPMetalView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 04459373278FE8F600F04CE0 /* CPPMetalView.hpp */; };
 		04459383278FFE3200F04CE0 /* mesh_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459376278FFE3100F04CE0 /* mesh_loader.h */; };
 		04459385278FFE3200F04CE0 /* math_utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459378278FFE3100F04CE0 /* math_utilities.cpp */; };
-		04459386278FFE3200F04CE0 /* lighting_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459379278FFE3100F04CE0 /* lighting_subpass.h */; };
 		0445938A278FFE3200F04CE0 /* math_utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445937D278FFE3100F04CE0 /* math_utilities.h */; };
-		0445938C278FFE3200F04CE0 /* lighting_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445937F278FFE3100F04CE0 /* lighting_subpass.cpp */; };
 		0445938D278FFE3200F04CE0 /* mesh_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459380278FFE3100F04CE0 /* mesh_loader.mm */; };
 		0445938F278FFE3200F04CE0 /* CPPMetalAssert.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 04459382278FFE3200F04CE0 /* CPPMetalAssert.hpp */; };
 		044593AD279002D500F04CE0 /* fairy.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459399278FFF6E00F04CE0 /* fairy.metal */; };
@@ -1354,7 +1352,6 @@
 				0445922A278E5F1100F04CE0 /* engine.h in Headers */,
 				042295B8278C33090090983F /* CPPMetalDeviceInternals.h in Headers */,
 				04459356278FAF9800F04CE0 /* spring_joint.h in Headers */,
-				04459386278FFE3200F04CE0 /* lighting_subpass.h in Headers */,
 				0445934B278FAF9800F04CE0 /* spherical_joint.h in Headers */,
 				0445931F278F1A4A00F04CE0 /* collider.h in Headers */,
 				044593FB2791581900F04CE0 /* shadow_subpass.h in Headers */,
@@ -1713,7 +1710,6 @@
 				04459309278F14BD00F04CE0 /* renderer.cpp in Sources */,
 				044593E22790FBE400F04CE0 /* sub_mesh.cpp in Sources */,
 				04459200278E591A00F04CE0 /* imgui_widgets.cpp in Sources */,
-				0445938C278FFE3200F04CE0 /* lighting_subpass.cpp in Sources */,
 				044592F0278ED88400F04CE0 /* pbr_base_material.cpp in Sources */,
 				044592B7278EBFC600F04CE0 /* shader_program.cpp in Sources */,
 				0445924C278E63FF00F04CE0 /* filesystem.cpp in Sources */,

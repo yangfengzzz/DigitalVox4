@@ -47,9 +47,7 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
     CFErrorRef error = nullptr;
     
     printf("Selected Device: %s\n", m_view->device().name());
-    
-    MTL::Library shaderLibrary = makeShaderLibrary();
-    
+        
 #pragma mark Fairy billboard render pipeline setup
     {
         MTL::Function fairyVertexFunction = shaderLibrary.makeFunction("fairy_vertex");
@@ -205,65 +203,6 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
 }
 
 #pragma mark Common Rendering Code
-
-/// Draw the Mesh objects with the given renderEncoder
-void LightingSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder, std::vector<Mesh> *m_meshes) {
-    for (auto &mesh: *m_meshes) {
-        for (auto &meshBuffer: mesh.vertexBuffers()) {
-            renderEncoder.setVertexBuffer(meshBuffer.buffer(),
-                                          meshBuffer.offset(),
-                                          meshBuffer.argumentIndex());
-        }
-        
-        for (auto &submesh: mesh.submeshes()) {
-            // Set any textures read/sampled from the render pipeline
-            const std::vector<MTL::Texture> &submeshTextures = submesh.textures();
-            
-            renderEncoder.setFragmentTexture(submeshTextures[TextureIndexBaseColor], TextureIndexBaseColor);
-            
-            renderEncoder.setFragmentTexture(submeshTextures[TextureIndexNormal], TextureIndexNormal);
-            
-            renderEncoder.setFragmentTexture(submeshTextures[TextureIndexSpecular], TextureIndexSpecular);
-            
-            renderEncoder.drawIndexedPrimitives(submesh.primitiveType(),
-                                                submesh.indexCount(),
-                                                submesh.indexType(),
-                                                submesh.indexBuffer().buffer(),
-                                                submesh.indexBuffer().offset());
-        }
-    }
-}
-
-/// Perform cleanup operations including presenting the drawable and committing the command buffer
-/// for the current frame.  Also, when enabled, draw buffer examination elements before all this.
-void LightingSubpass::endFrame(MTL::CommandBuffer &commandBuffer) {
-    // Schedule a present once the framebuffer is complete using the current drawable
-    if (m_view->currentDrawable()) {
-        // Create a scheduled handler functor for Metal to present the drawable when the command
-        // buffer has been scheduled by the kernel.
-        struct PresentationScheduledHandler : public MTL::CommandBufferHandler {
-            MTL::Drawable m_drawable;
-            
-            PresentationScheduledHandler(MTL::Drawable drawable)
-            : m_drawable(drawable) {
-            }
-            
-            void operator()(const MTL::CommandBuffer &) {
-                m_drawable.present();
-                delete this;
-            }
-        };
-        
-        PresentationScheduledHandler *scheduledHandler =
-        new PresentationScheduledHandler(*m_view->currentDrawable());
-        
-        commandBuffer.addScheduledHandler(*scheduledHandler);
-    }
-    
-    // Finalize rendering here & push the command buffer to the GPU
-    commandBuffer.commit();
-}
-
 /// Render to stencil buffer only to increment stencil on that fragments in front
 /// of the backside of each light volume
 void LightingSubpass::drawPointLightMask(MTL::RenderCommandEncoder &renderEncoder,
@@ -396,20 +335,6 @@ void LightingSubpass::drawSky(MTL::RenderCommandEncoder &renderEncoder,
                                             submesh.indexBuffer().offset());
     }
     renderEncoder.popDebugGroup();
-}
-
-
-MTL::Library LightingSubpass::makeShaderLibrary() {
-    CFErrorRef error = nullptr;
-    CFURLRef libraryURL = nullptr;
-    
-    libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
-    MTL::Library shaderLibrary = m_device.makeLibrary(libraryURL, &error);
-    
-    MTLAssert(!error, error, "Could not load Metal shader library");
-    
-    CFRelease(libraryURL);
-    return shaderLibrary;
 }
 
 }

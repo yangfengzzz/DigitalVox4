@@ -38,18 +38,13 @@ public:
     
     MTL::DepthStencilState &pointLightDepthStencilState();
     
-    // Open the Metal shader library
-    MTL::Library makeShaderLibrary();
-    
 #pragma mark -
     virtual void loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor,
                            MTL::VertexDescriptor& m_skyVertexDescriptor,
                            MTL::PixelFormat m_albedo_specular_GBufferFormat,
                            MTL::PixelFormat m_normal_shadow_GBufferFormat,
                            MTL::PixelFormat m_depth_GBufferFormat);
-    
-    void endFrame(MTL::CommandBuffer &commandBuffer);
-    
+        
     void drawPointLightMask(MTL::RenderCommandEncoder &renderEncoder,
                             MTL::Buffer& m_lightsData,
                             MTL::Buffer& m_lightPosition,
@@ -83,9 +78,7 @@ public:
     
     MTL::DepthStencilState *m_dontWriteDepthStencilState;
     
-#pragma mark -
-    void drawMeshes(MTL::RenderCommandEncoder &renderEncoder, std::vector<Mesh> *m_meshes);
-    
+#pragma mark -    
     // Pipeline states
     MTL::RenderPipelineState m_fairyPipelineState;
     MTL::RenderPipelineState m_skyboxPipelineState;
