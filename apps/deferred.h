@@ -9,6 +9,7 @@
 #define deferred_hpp
 
 #include "metal_application.h"
+#include "rendering/render_pass.h"
 
 namespace vox {
 // The max number of command buffers in flight
@@ -91,6 +92,8 @@ private:
     MTL::RenderPassDescriptor m_shadowRenderPassDescriptor;
     MTL::RenderPassDescriptor m_GBufferRenderPassDescriptor;
     MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
+    
+    std::unique_ptr<RenderPass> m_shadowRenderPass{nullptr};
 };
 
 }

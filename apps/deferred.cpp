@@ -9,11 +9,14 @@
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 #include "rendering/lighting_subpass.h"
+#include "rendering/render_pass.h"
+#include "rendering/subpasses/shadow_subpass.h"
 #include "engine.h"
 #include "core/CPPMetalAssert.hpp"
 #include "material/texture_loader.h"
 #include "graphics/mesh_loader.h"
 #include "graphics/primitive_mesh.h"
+#include "shader/shader.h"
 
 namespace vox {
 using namespace simd;
@@ -25,43 +28,9 @@ Deferred::~Deferred() {
 
 bool Deferred::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
-    
+    MTL::Library shaderLibrary = makeShaderLibrary();
+
     m_inFlightSemaphore = dispatch_semaphore_create(MaxFramesInFlight);
-    
-#pragma mark Shadow render pass descriptor setup
-    {
-        // m_shadowRenderPassDescriptor.depthAttachment.texture(m_shadowMap);
-        m_shadowRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
-        m_shadowRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
-        m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
-    }
-    
-    {
-        // Create a render pass descriptor to create an encoder for rendering to the GBuffers.
-        // The encoder stores rendered data of each attachment when encoding ends.
-        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].loadAction(MTL::LoadActionDontCare);
-        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].storeAction(MTL::StoreActionDontCare);
-        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].loadAction(MTL::LoadActionDontCare);
-        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].storeAction(MTL::StoreActionStore);
-        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].loadAction(MTL::LoadActionDontCare);
-        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].storeAction(MTL::StoreActionStore);
-        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].loadAction(MTL::LoadActionDontCare);
-        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].storeAction(MTL::StoreActionStore);
-        m_GBufferRenderPassDescriptor.depthAttachment.clearDepth(1.0);
-        m_GBufferRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
-        m_GBufferRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
-        m_GBufferRenderPassDescriptor.stencilAttachment.clearStencil(0);
-        m_GBufferRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
-        m_GBufferRenderPassDescriptor.stencilAttachment.storeAction(MTL::StoreActionStore);
-    }
-    
-    {
-        // Create a render pass descriptor for thelighting and composition pass
-        // Whatever rendered in the final pass needs to be stored so it can be displayed
-        m_finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
-        m_finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionLoad);
-        m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
-    }
     
 #pragma mark VertexDescriptor
     for (uint8_t i = 0; i < MaxFramesInFlight; i++) {
@@ -128,9 +97,49 @@ bool Deferred::prepare(Engine &engine) {
         m_skyVertexDescriptor.layouts[BufferIndexMeshGenerics].stride(12);
     }
     
+    loadScene();
+    Shader::createProperty("frameData", ShaderDataGroup::Scene);
+    
+#pragma mark Shadow render pass descriptor setup
+    {
+        // m_shadowRenderPassDescriptor.depthAttachment.texture(m_shadowMap);
+        m_shadowRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
+        m_shadowRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
+        m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
+        m_shadowRenderPass = std::make_unique<RenderPass>(&m_shadowRenderPassDescriptor);
+        auto subpass = std::make_unique<ShadowSubpass>(&m_shadowRenderPassDescriptor, scene.get(), shaderLibrary, *device, m_meshes);
+        m_shadowRenderPass->addSubpass(std::move(subpass));
+    }
+    
+    {
+        // Create a render pass descriptor to create an encoder for rendering to the GBuffers.
+        // The encoder stores rendered data of each attachment when encoding ends.
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].loadAction(MTL::LoadActionDontCare);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].storeAction(MTL::StoreActionDontCare);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].loadAction(MTL::LoadActionDontCare);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].loadAction(MTL::LoadActionDontCare);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].loadAction(MTL::LoadActionDontCare);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.depthAttachment.clearDepth(1.0);
+        m_GBufferRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
+        m_GBufferRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.stencilAttachment.clearStencil(0);
+        m_GBufferRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
+        m_GBufferRenderPassDescriptor.stencilAttachment.storeAction(MTL::StoreActionStore);
+    }
+    
+    {
+        // Create a render pass descriptor for thelighting and composition pass
+        // Whatever rendered in the final pass needs to be stored so it can be displayed
+        m_finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
+        m_finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionLoad);
+        m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
+    }
+    
     render_pipeline = std::make_unique<LightingSubpass>(render_context.get());
     render_pipeline->loadMetal(m_defaultVertexDescriptor, m_skyVertexDescriptor);
-    loadScene();
     
     auto extent = engine.get_window().get_extent();
     framebuffer_resize(extent.width*2, extent.height*2);
@@ -140,29 +149,29 @@ bool Deferred::prepare(Engine &engine) {
 
 void Deferred::update(float delta_time) {
     MetalApplication::update(delta_time);
+
+    // Wait to ensure only MaxFramesInFlight are getting processed by any stage in the Metal
+    // pipeline (App, Metal, Drivers, GPU, etc)
+    dispatch_semaphore_wait(m_inFlightSemaphore, DISPATCH_TIME_FOREVER);
+    updateWorldState(static_cast<uint32_t>(render_context->drawableSize().width),
+                     static_cast<uint32_t>(render_context->drawableSize().height));
+    scene->shaderData.setData("frameData", m_uniformBuffers[m_frameDataBufferIndex]);
     
     auto subpass = static_cast<LightingSubpass*>(render_pipeline.get());
     {
-        // Wait to ensure only MaxFramesInFlight are getting processed by any stage in the Metal
-        // pipeline (App, Metal, Drivers, GPU, etc)
-        dispatch_semaphore_wait(m_inFlightSemaphore, DISPATCH_TIME_FOREVER);
         // Create a new command buffer for each render pass to the current drawable
         MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
         commandBuffer.label("Shadow & GBuffer Commands");
         
-        updateWorldState(static_cast<uint32_t>(render_context->drawableSize().width),
-                         static_cast<uint32_t>(render_context->drawableSize().height));
+//        m_shadowRenderPass->draw(commandBuffer);
+        
         subpass->drawShadow(commandBuffer, m_meshes, m_uniformBuffers[m_frameDataBufferIndex]);
         
         m_GBufferRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
-        
-        MTL::RenderCommandEncoder renderEncoder =
-        commandBuffer.renderCommandEncoderWithDescriptor(m_GBufferRenderPassDescriptor);
+        MTL::RenderCommandEncoder renderEncoder = commandBuffer.renderCommandEncoderWithDescriptor(m_GBufferRenderPassDescriptor);
         renderEncoder.label("GBuffer Generation");
-        
         subpass->drawGBuffer(renderEncoder, m_meshes, m_uniformBuffers[m_frameDataBufferIndex]);
-        
         renderEncoder.endEncoding();
         
         // Commit commands so that Metal can begin working on non-drawable dependant work without

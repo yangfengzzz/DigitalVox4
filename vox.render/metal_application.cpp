@@ -8,6 +8,7 @@
 #include "metal_application.h"
 #include "engine.h"
 #include "rendering/lighting_subpass.h"
+#include "core/CPPMetalAssert.hpp"
 #include <glog/logging.h>
 
 namespace vox {
@@ -50,6 +51,20 @@ void MetalApplication::framebuffer_resize(uint32_t width, uint32_t height) {
 void MetalApplication::input_event(const InputEvent &input_event) {}
 
 void MetalApplication::finish() {}
+
+
+MTL::Library MetalApplication::makeShaderLibrary() {
+    CFErrorRef error = nullptr;
+    CFURLRef libraryURL = nullptr;
+
+    libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
+    MTL::Library shaderLibrary = device->makeLibrary(libraryURL, &error);
+    
+    MTLAssert(!error, error, "Could not load Metal shader library");
+    
+    CFRelease(libraryURL);
+    return shaderLibrary;
+}
 
 
 }

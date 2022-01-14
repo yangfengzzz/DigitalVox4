@@ -59,6 +59,7 @@ m_meshes(m_meshes) {
         
         m_shadowMap = m_device.makeTexture(shadowTextureDesc);
         m_shadowMap.label("Shadow Map");
+        desc->depthAttachment.texture( m_shadowMap );
     }
 }
 
