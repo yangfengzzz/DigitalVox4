@@ -12,10 +12,11 @@
 
 namespace vox {
 ShadowSubpass::ShadowSubpass(MTL::RenderPassDescriptor* desc,
+                             sg::Scene* scene,
                              MTL::Library& shaderLibrary,
                              MTL::Device& m_device,
                              std::vector<Mesh> *m_meshes):
-Subpass(desc),
+Subpass(desc, scene),
 m_meshes(m_meshes) {
     MTL::PixelFormat shadowMapPixelFormat = MTL::PixelFormatDepth16Unorm;
     CFErrorRef error = nullptr;
@@ -68,8 +69,7 @@ void ShadowSubpass::draw(MTL::RenderCommandEncoder commandEncoder) {
     commandEncoder.setDepthStencilState(m_shadowDepthStencilState);
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setDepthBias(0.015, 7, 0.02);
-    
-//    commandEncoder.setVertexBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
     
     drawMeshes(commandEncoder);
 }

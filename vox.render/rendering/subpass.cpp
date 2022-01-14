@@ -8,5 +8,9 @@
 #include "subpass.h"
 
 namespace vox {
+Subpass::Subpass(MTL::RenderPassDescriptor* desc,
+                 sg::Scene* scene):
+scene(scene) {
+}
 
 }

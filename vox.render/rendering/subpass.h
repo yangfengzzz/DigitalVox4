@@ -9,11 +9,13 @@
 #define subpass_hpp
 
 #include "core/CPPMetal.hpp"
+#include "scene.h"
 
 namespace vox {
 class Subpass {
 public:
-    Subpass(MTL::RenderPassDescriptor* desc);
+    Subpass(MTL::RenderPassDescriptor* desc,
+            sg::Scene* scene);
     
     Subpass(const Subpass &) = delete;
     
@@ -30,6 +32,9 @@ public:
      * @param commandEncoder CommandEncoder to use to record draw commands
      */
     virtual void draw(MTL::RenderCommandEncoder commandEncoder) = 0;
+    
+protected:
+    sg::Scene* scene;
 };
 
 }
