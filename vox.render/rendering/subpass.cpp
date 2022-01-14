@@ -14,7 +14,7 @@
 #include <string>
 
 #include "subpass.h"
-#include "mesh.h"
+#include "graphics/mesh_utilities.h"
 #include "math_utilities.h"
 #include "utilities.h"
 
@@ -23,6 +23,7 @@ using namespace simd;
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
+namespace vox {
 // Number of vertices in our 2D fairy model
 static const uint32_t NumFairyVertices = 7;
 
@@ -1062,4 +1063,6 @@ MTL::Library Subpass::makeShaderLibrary() {
     
     CFRelease(libraryURL);
     return shaderLibrary;
+}
+
 }

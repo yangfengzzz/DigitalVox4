@@ -9,12 +9,14 @@
 
 #include "config.h"
 #include "mesh.h"
+#include "math_utilities.h"
 
 #include <CoreGraphics/CoreGraphics.h>
 #include <CoreFoundation/CoreFoundation.h>
 
 #include "CPPMetal.hpp"
 
+namespace vox {
 // The max number of command buffers in flight
 static const uint8_t MaxFramesInFlight = 3;
 
@@ -279,6 +281,8 @@ inline MTL::Texture &Subpass::depth_GBuffer() {
 
 inline MTL::Texture &Subpass::shadowMap() {
     return m_shadowMap;
+}
+
 }
 
 #endif // AAPLSubpass_h

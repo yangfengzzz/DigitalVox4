@@ -6,36 +6,28 @@
 //
 
 #include "mesh_buffer.h"
+#include "memory/align.h"
 #include <set>
 
 using namespace MTL;
 
 namespace vox {
-inline MeshBuffer::MeshBuffer(MTL::Buffer buffer,
-                              MTL::UInteger offset,
-                              MTL::UInteger length,
-                              MTL::UInteger argumentIndex)
+MeshBuffer::MeshBuffer(MTL::Buffer buffer,
+                       MTL::UInteger offset,
+                       MTL::UInteger length,
+                       MTL::UInteger argumentIndex)
 : m_buffer(buffer), m_offset(offset), m_length(length), m_argumentIndex(argumentIndex) {
     // Member initialization only
 }
 
-inline MeshBuffer::MeshBuffer(MTL::UInteger offset,
-                              MTL::UInteger length,
-                              MTL::UInteger argumentIndex)
+MeshBuffer::MeshBuffer(MTL::UInteger offset,
+                       MTL::UInteger length,
+                       MTL::UInteger argumentIndex)
 : m_buffer(), m_offset(offset), m_length(length), m_argumentIndex(argumentIndex) {
     // Member initialization only
 }
 
 MeshBuffer::~MeshBuffer() {
-}
-
-size_t alignSize(size_t inSize, size_t alignment) {
-    // Asset if align is not a power of 2
-    assert(((alignment - 1) & alignment) == 0);
-    
-    const MTL::UInteger alignmentMask = alignment - 1;
-    
-    return ((inSize + alignmentMask) & (~alignmentMask));
 }
 
 std::vector<MeshBuffer>

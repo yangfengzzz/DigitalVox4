@@ -14,6 +14,7 @@
 
 #include "utilities.h"
 
+namespace vox {
 LightingSubpass::LightingSubpass(MTL::View *view)
 : Subpass(view) {
     m_singlePassDeferred = false;
@@ -193,4 +194,6 @@ void LightingSubpass::drawInView(MTL::View *view) {
         
         Subpass::endFrame(commandBuffer);
     }
+}
+
 }

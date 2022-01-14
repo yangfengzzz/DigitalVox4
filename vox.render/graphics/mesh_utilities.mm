@@ -6,83 +6,17 @@
  */
 #include <MetalKit/MetalKit.h>
 #include <ModelIO/ModelIO.h>
-#include <set>
 #include <unordered_map>
-
-#include "mesh.h"
+#include <set>
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
-#include "utilities.h"
-#include "CPPMetal.hpp"
+#include "mesh_utilities.h"
+#include "rendering/utilities.h"
 
 using namespace MTL;
 
-inline MeshBuffer::MeshBuffer(MTL::Buffer buffer,
-                              MTL::UInteger offset,
-                              MTL::UInteger length,
-                              MTL::UInteger argumentIndex)
-: m_buffer(buffer), m_offset(offset), m_length(length), m_argumentIndex(argumentIndex) {
-    // Member initialization only
-}
-
-inline MeshBuffer::MeshBuffer(MTL::UInteger offset,
-                              MTL::UInteger length,
-                              MTL::UInteger argumentIndex)
-: m_buffer(), m_offset(offset), m_length(length), m_argumentIndex(argumentIndex) {
-    // Member initialization only
-}
-
-MeshBuffer::~MeshBuffer() {
-}
-
-
-inline Submesh::Submesh(MTL::PrimitiveType primitiveType,
-                        MTL::IndexType indexType,
-                        MTL::UInteger indexCount,
-                        const MeshBuffer indexBuffer,
-                        const std::vector<MTL::Texture> &textures)
-: m_primitiveType(primitiveType),
-m_indexType(indexType),
-m_indexCount(indexCount),
-m_indexBuffer(indexBuffer),
-m_textures(textures) {
-    // Member initialization only
-}
-
-// Initialize a submesh without textures
-inline Submesh::Submesh(MTL::PrimitiveType primitiveType,
-                        MTL::IndexType indexType,
-                        MTL::UInteger indexCount,
-                        MeshBuffer indexBuffer)
-: m_primitiveType(primitiveType), m_indexType(indexType), m_indexCount(indexCount), m_indexBuffer(indexBuffer) {
-    
-}
-
-Submesh::~Submesh() {
-}
-
-Mesh::Mesh() {
-    // Construct a mesh with no submeshes and no vertexBuffer
-}
-
-
-inline Mesh::Mesh(const std::vector<Submesh> &submeshes,
-                  const std::vector<MeshBuffer> &vertexBuffers)
-: m_submeshes(submeshes), m_vertexBuffers(vertexBuffers) {
-    // Member initialization only
-}
-
-
-inline Mesh::Mesh(const Submesh &submesh,
-                  const std::vector<MeshBuffer> &vertexBuffers)
-: m_vertexBuffers(vertexBuffers) {
-    m_submeshes.emplace_back(submesh);
-}
-
-Mesh::~Mesh() {
-}
-
+namespace vox {
 static Texture createTextureFromMaterial(MDLMaterial *material,
                                          MDLMaterialSemantic materialSemantic,
                                          MTK::TextureLoader &textureLoader) {
@@ -365,50 +299,6 @@ std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
     return newMeshes;
 }
 
-size_t alignSize(size_t inSize, size_t alignment) {
-    // Asset if align is not a power of 2
-    assert(((alignment - 1) & alignment) == 0);
-    
-    const NSUInteger alignmentMask = alignment - 1;
-    
-    return ((inSize + alignmentMask) & (~alignmentMask));
-}
-
-std::vector<MeshBuffer>
-MeshBuffer::makeVertexBuffers(MTL::Device &device,
-                              const MTL::VertexDescriptor &descritptor,
-                              MTL::UInteger vertexCount,
-                              MTL::UInteger indexBufferSize) {
-    std::set<MTL::UInteger> bufferIndicessUsed;
-    
-    for (int i = 0; i < MTL::MaxVertexAttributes; i++) {
-        bufferIndicessUsed.insert(descritptor.attributes[i].bufferIndex());
-    }
-    
-    std::vector<MeshBuffer> vertexBuffers;
-    
-    indexBufferSize = alignSize(indexBufferSize, 256);
-    
-    UInteger bufferLength = indexBufferSize;
-    for (auto bufferIndex: bufferIndicessUsed) {
-        UInteger offset = bufferLength;
-        UInteger sectionLength = alignSize(vertexCount * descritptor.layouts[bufferIndex].stride(), 256);
-        
-        bufferLength += sectionLength;
-        
-        MeshBuffer meshBuffer(offset, sectionLength, bufferIndex);
-        vertexBuffers.emplace_back(meshBuffer);
-    }
-    
-    Buffer metalBuffer = device.makeBuffer(bufferLength);
-    
-    for (auto &&vertexBuffer: vertexBuffers) {
-        vertexBuffer.m_buffer = metalBuffer;
-    }
-    
-    return vertexBuffers;
-}
-
 uint32_t vertexCountForSphere(int radialSegments, int verticalSegments) {
     return (radialSegments + 1) * verticalSegments;
 }
@@ -684,7 +574,8 @@ Mesh makeIcosahedronMesn(MTL::Device &device,
     UInteger indexCount = sizeof(indices) / sizeof(uint16_t);
     UInteger indexBufferSize = sizeof(indices);
     
-    std::vector<MeshBuffer> vertexBuffers = MeshBuffer::makeVertexBuffers(device, vertexDescriptor, vertexCount, indexBufferSize);
+    std::vector<MeshBuffer> vertexBuffers = MeshBuffer::makeVertexBuffers(device, vertexDescriptor,
+                                                                          vertexCount, indexBufferSize);
     
     MTL::Buffer buffer = vertexBuffers[0].buffer();
     
@@ -716,4 +607,6 @@ Mesh makeIcosahedronMesn(MTL::Device &device,
                     indexBuffer);
     
     return Mesh(submesh, vertexBuffers);
+}
+
 }

@@ -12,6 +12,7 @@
 #include "subpass.h"
 #include "CPPMetal.hpp"
 
+namespace vox {
 class LightingSubpass : public Subpass {
 public:
     explicit LightingSubpass(MTL::View *view);
@@ -34,5 +35,7 @@ private:
     
     void drawPointLights(MTL::RenderCommandEncoder &renderEncoder);
 };
+
+}
 
 #endif // AAPLLightingSubpass_h

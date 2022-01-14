@@ -101,5 +101,15 @@ template <typename _Ty>
 _Ty* PointerStride(_Ty* _ty, size_t _stride) {
   return reinterpret_cast<_Ty*>(reinterpret_cast<uintptr_t>(_ty) + _stride);
 }
+
+size_t alignSize(size_t inSize, size_t alignment) {
+    // Asset if align is not a power of 2
+    assert(((alignment - 1) & alignment) == 0);
+    
+    const size_t alignmentMask = alignment - 1;
+    
+    return ((inSize + alignmentMask) & (~alignmentMask));
+}
+
 }  // namespace vox
 #endif  // VOX_ALIGN_H_

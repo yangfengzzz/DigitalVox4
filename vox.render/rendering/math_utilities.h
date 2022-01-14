@@ -5,6 +5,8 @@
  Header for vector, matrix, and quaternion math utility functions useful for 3D graphics rendering.
  */
 
+#pragma once
+
 #include <stdlib.h>
 #include <simd/simd.h>
 

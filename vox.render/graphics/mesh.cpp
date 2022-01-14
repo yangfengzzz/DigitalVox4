@@ -13,15 +13,15 @@ Mesh::Mesh() {
 }
 
 
-inline Mesh::Mesh(const std::vector<Submesh> &submeshes,
-                  const std::vector<MeshBuffer> &vertexBuffers)
+Mesh::Mesh(const std::vector<Submesh> &submeshes,
+           const std::vector<MeshBuffer> &vertexBuffers)
 : m_submeshes(submeshes), m_vertexBuffers(vertexBuffers) {
     // Member initialization only
 }
 
 
-inline Mesh::Mesh(const Submesh &submesh,
-                  const std::vector<MeshBuffer> &vertexBuffers)
+Mesh::Mesh(const Submesh &submesh,
+           const std::vector<MeshBuffer> &vertexBuffers)
 : m_vertexBuffers(vertexBuffers) {
     m_submeshes.emplace_back(submesh);
 }
