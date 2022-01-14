@@ -295,6 +295,8 @@
 		044593DF2790F99200F04CE0 /* mesh_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593DD2790F99200F04CE0 /* mesh_buffer.h */; };
 		044593E22790FBE400F04CE0 /* sub_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E02790FBE400F04CE0 /* sub_mesh.cpp */; };
 		044593E32790FBE400F04CE0 /* sub_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E12790FBE400F04CE0 /* sub_mesh.h */; };
+		044593E62791055900F04CE0 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E42791055900F04CE0 /* mesh.cpp */; };
+		044593E72791055900F04CE0 /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E52791055900F04CE0 /* mesh.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -679,6 +681,8 @@
 		044593DD2790F99200F04CE0 /* mesh_buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh_buffer.h; sourceTree = "<group>"; };
 		044593E02790FBE400F04CE0 /* sub_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sub_mesh.cpp; sourceTree = "<group>"; };
 		044593E12790FBE400F04CE0 /* sub_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sub_mesh.h; sourceTree = "<group>"; };
+		044593E42791055900F04CE0 /* mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
+		044593E52791055900F04CE0 /* mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1248,6 +1252,8 @@
 				044593DC2790F99200F04CE0 /* mesh_buffer.cpp */,
 				044593E12790FBE400F04CE0 /* sub_mesh.h */,
 				044593E02790FBE400F04CE0 /* sub_mesh.cpp */,
+				044593E52791055900F04CE0 /* mesh.h */,
+				044593E42791055900F04CE0 /* mesh.cpp */,
 			);
 			path = graphics;
 			sourceTree = "<group>";
@@ -1286,6 +1292,7 @@
 				04459225278E5F1100F04CE0 /* configuration.h in Headers */,
 				044592EF278ED88400F04CE0 /* pbr_base_material.h in Headers */,
 				044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */,
+				044593E72791055900F04CE0 /* mesh.h in Headers */,
 				044592EB278ED82300F04CE0 /* pbr_material.h in Headers */,
 				044591FF278E591A00F04CE0 /* imconfig.h in Headers */,
 				0445929F278EB45200F04CE0 /* CPPMetalDataType.hpp in Headers */,
@@ -1612,6 +1619,7 @@
 				0445934D278FAF9800F04CE0 /* fixed_joint.cpp in Sources */,
 				04459330278FAA7900F04CE0 /* sphere_collider_shape.cpp in Sources */,
 				044591EE278E557C00F04CE0 /* align.cc in Sources */,
+				044593E62791055900F04CE0 /* mesh.cpp in Sources */,
 				044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */,
 				0445930E278F170100F04CE0 /* spherical.cpp in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,

@@ -74,6 +74,10 @@ inline const MeshBuffer &Submesh::indexBuffer() const {
     return m_indexBuffer;
 }
 
+inline const std::vector<MTL::Texture> &Submesh::textures() const {
+    return m_textures;
+}
+
 }
 
 #endif /* sub_mesh_hpp */
