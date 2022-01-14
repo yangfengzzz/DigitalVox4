@@ -291,6 +291,8 @@
 		044593CF279006DB00F04CE0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593CE279006DA00F04CE0 /* QuartzCore.framework */; };
 		044593D22790081300F04CE0 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D12790081200F04CE0 /* MetalKit.framework */; };
 		044593D42790082600F04CE0 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D32790082600F04CE0 /* ModelIO.framework */; };
+		044593DE2790F99200F04CE0 /* mesh_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593DC2790F99200F04CE0 /* mesh_buffer.cpp */; };
+		044593DF2790F99200F04CE0 /* mesh_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593DD2790F99200F04CE0 /* mesh_buffer.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -671,6 +673,8 @@
 		044593D32790082600F04CE0 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		044593D8279011CA00F04CE0 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = assets/Models; sourceTree = "<group>"; };
 		044593DA27902BE900F04CE0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		044593DC2790F99200F04CE0 /* mesh_buffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mesh_buffer.cpp; sourceTree = "<group>"; };
+		044593DD2790F99200F04CE0 /* mesh_buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh_buffer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -780,6 +784,7 @@
 				04459212278E5F1000F04CE0 /* application.cpp */,
 				0445925B278E7C8600F04CE0 /* metal_application.h */,
 				0445925A278E7C8600F04CE0 /* metal_application.cpp */,
+				044593DB2790F97000F04CE0 /* graphics */,
 				0445925E278E7F3300F04CE0 /* rendering */,
 				0445928F278EB27F00F04CE0 /* shader */,
 				044592D1278ED03000F04CE0 /* material */,
@@ -1232,6 +1237,15 @@
 			path = apps;
 			sourceTree = "<group>";
 		};
+		044593DB2790F97000F04CE0 /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				044593DD2790F99200F04CE0 /* mesh_buffer.h */,
+				044593DC2790F99200F04CE0 /* mesh_buffer.cpp */,
+			);
+			path = graphics;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1312,6 +1326,7 @@
 				044591CA278E551100F04CE0 /* allocator.h in Headers */,
 				04229593278C32FB0090983F /* CPPMetalDrawable.hpp in Headers */,
 				044592F8278EFEC700F04CE0 /* camera.h in Headers */,
+				044593DF2790F99200F04CE0 /* mesh_buffer.h in Headers */,
 				0445922D278E5F1100F04CE0 /* application.h in Headers */,
 				042295A6278C32FB0090983F /* CPPMetalConstants.hpp in Headers */,
 				044592C2278EC5A200F04CE0 /* depth_state.h in Headers */,
@@ -1656,6 +1671,7 @@
 				04459239278E617500F04CE0 /* window.cpp in Sources */,
 				044592C5278EC60E00F04CE0 /* depth_state.cpp in Sources */,
 				044591FE278E591A00F04CE0 /* imgui_tables.cpp in Sources */,
+				044593DE2790F99200F04CE0 /* mesh_buffer.cpp in Sources */,
 				044592E3278ED3D200F04CE0 /* unlit_material.cpp in Sources */,
 				044592B2278EBEE600F04CE0 /* shader.cpp in Sources */,
 				04459284278E80DD00F04CE0 /* entity.cpp in Sources */,
