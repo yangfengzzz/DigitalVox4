@@ -215,9 +215,6 @@ void Deferred::update(float delta_time) {
         commandBuffer.label("Shadow & GBuffer Commands");
         
         m_shadowRenderPass->draw(commandBuffer);
-        
-        m_GBufferRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
-        m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         m_GBufferRenderPass->draw(commandBuffer, "GBuffer Generation");
         
         // Commit commands so that Metal can begin working on non-drawable dependant work without
@@ -297,12 +294,14 @@ void Deferred::update(float delta_time) {
 }
 
 void Deferred::framebuffer_resize(uint32_t width, uint32_t height) {
-    MetalApplication::framebuffer_resize(width, height);
-    
     // When reshape is called, update the aspect ratio and projection matrix since the view
     //   orientation or size has changed
     float aspect = (float) width / (float) height;
     m_projection_matrix = matrix_perspective_left_hand(65.0f * (M_PI / 180.0f), aspect, NearPlane, FarPlane);
+    
+    MetalApplication::framebuffer_resize(width, height);
+    m_GBufferRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
+    m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
     
     MTL::TextureDescriptor GBufferTextureDesc;
     GBufferTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
