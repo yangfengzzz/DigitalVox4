@@ -8,7 +8,6 @@
 #include "deferred.h"
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
-#include "rendering/lighting_subpass.h"
 #include "rendering/render_pass.h"
 #include "rendering/subpasses/shadow_subpass.h"
 #include "rendering/subpasses/deferred_subpass.h"
@@ -192,13 +191,6 @@ bool Deferred::prepare(Engine &engine) {
                                                                        shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
                                                                        m_quadVertexBuffer, &m_GBufferRenderPassDescriptor));
     }
-    
-    render_pipeline = std::make_unique<LightingSubpass>(render_context.get());
-    render_pipeline->loadMetal(m_defaultVertexDescriptor, m_skyVertexDescriptor,
-                               m_albedo_specular_GBufferFormat,
-                               m_normal_shadow_GBufferFormat,
-                               m_depth_GBufferFormat);
-    
     framebuffer_resize(extent.width*2, extent.height*2);
     
     return true;
@@ -214,7 +206,6 @@ void Deferred::update(float delta_time) {
                      static_cast<uint32_t>(render_context->drawableSize().height));
     scene->shaderData.setData("frameData", m_uniformBuffers[m_frameDataBufferIndex]);
     
-    auto subpass = static_cast<LightingSubpass*>(render_pipeline.get());
     {
         // Create a new command buffer for each render pass to the current drawable
         MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
@@ -287,7 +278,29 @@ void Deferred::update(float delta_time) {
 //                                 m_fairy, m_fairyMap);            
         }
         
-        subpass->endFrame(commandBuffer);
+        // Schedule a present once the framebuffer is complete using the current drawable
+        if (render_context->currentDrawable()) {
+            // Create a scheduled handler functor for Metal to present the drawable when the command
+            // buffer has been scheduled by the kernel.
+            struct PresentationScheduledHandler : public MTL::CommandBufferHandler {
+                MTL::Drawable m_drawable;
+                
+                PresentationScheduledHandler(MTL::Drawable drawable)
+                : m_drawable(drawable) {
+                }
+                
+                void operator()(const MTL::CommandBuffer &) {
+                    m_drawable.present();
+                    delete this;
+                }
+            };
+            
+            PresentationScheduledHandler *scheduledHandler = new PresentationScheduledHandler(*render_context->currentDrawable());
+            commandBuffer.addScheduledHandler(*scheduledHandler);
+        }
+        
+        // Finalize rendering here & push the command buffer to the GPU
+        commandBuffer.commit();
     }
 }
 
