@@ -89,9 +89,7 @@ public:
     void drawSky(MTL::RenderCommandEncoder &renderEncoder);
     
     void drawableSizeWillChange(MTL::Size size, MTL::StorageMode GBufferStorageMode);
-    
-    MTL::Texture *currentDrawableTexture();
-    
+        
     MTL::Device m_device;
     
     MTL::View* m_view;

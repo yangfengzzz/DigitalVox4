@@ -787,17 +787,6 @@ void LightingSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     }
 }
 
-/// Get a drawable from the view (or hand back an offscreen drawable for buffer examination mode)
-MTL::Texture *LightingSubpass::currentDrawableTexture() {
-    MTL::Drawable *drawable = m_view->currentDrawable();
-    
-    if (drawable) {
-        return drawable->texture();
-    }
-    
-    return nullptr;
-}
-
 /// Perform cleanup operations including presenting the drawable and committing the command buffer
 /// for the current frame.  Also, when enabled, draw buffer examination elements before all this.
 void LightingSubpass::endFrame(MTL::CommandBuffer &commandBuffer) {

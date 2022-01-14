@@ -21,7 +21,7 @@ bool Deferred::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
     
     m_inFlightSemaphore = dispatch_semaphore_create(MaxFramesInFlight);
-
+    
     // Create a render pass descriptor to create an encoder for rendering to the GBuffers.
     // The encoder stores rendered data of each attachment when encoding ends.
     m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].loadAction(MTL::LoadActionDontCare);
@@ -51,7 +51,7 @@ bool Deferred::prepare(Engine &engine) {
     
     auto extent = engine.get_window().get_extent();
     framebuffer_resize(extent.width*2, extent.height*2);
-        
+    
     return true;
 }
 
@@ -111,14 +111,13 @@ void Deferred::update(float delta_time) {
         commandBuffer.addCompletedHandler(*m_completedHandler);
         commandBuffer.label("Lighting Commands");
         
-        MTL::Texture *drawableTexture = subpass->currentDrawableTexture();
-        
+        MTL::Drawable *drawable = render_context->currentDrawable();
         // The final pass can only render if a drawable is available, otherwise it needs to skip
         // rendering this frame.
-        if (drawableTexture) {
+        if (drawable) {
             // Render the lighting and composition pass
             
-            m_finalRenderPassDescriptor.colorAttachments[0].texture(*drawableTexture);
+            m_finalRenderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
             m_finalRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
             m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
             
