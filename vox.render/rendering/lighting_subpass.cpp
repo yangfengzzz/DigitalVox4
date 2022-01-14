@@ -110,7 +110,7 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
         {
             MTL::Function directionalVertexFunction = shaderLibrary.makeFunction("deferred_direction_lighting_vertex");
             MTL::Function directionalFragmentFunction = shaderLibrary.makeFunction("deferred_directional_lighting_fragment_traditional");
-
+            
             MTL::RenderPipelineDescriptor renderPipelineDescriptor;
             renderPipelineDescriptor.label("Deferred Directional Lighting");
             renderPipelineDescriptor.vertexDescriptor(nullptr);
@@ -124,7 +124,7 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
                                                                                &error);
             
             MTLAssert(error == nullptr, error,
-                       "Failed to create directional light render pipeline state:");
+                      "Failed to create directional light render pipeline state:");
         }
         
 #pragma mark Directional lighting mask depth stencil state setup
@@ -209,59 +209,6 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
         m_dontWriteDepthStencilState = m_device.newDepthStencilStateWithDescriptor(depthStencilDesc);
     }
     
-    // Setup objects for shadow pass
-    {
-        MTL::PixelFormat shadowMapPixelFormat = MTL::PixelFormatDepth16Unorm;
-        
-#pragma mark Shadow pass render pipeline setup
-        {
-            MTL::Function *shadowVertexFunction = shaderLibrary.newFunctionWithName("shadow_vertex");
-            
-            MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-            renderPipelineDescriptor.label("Shadow Gen");
-            renderPipelineDescriptor.vertexDescriptor(nullptr);
-            renderPipelineDescriptor.vertexFunction(shadowVertexFunction);
-            renderPipelineDescriptor.fragmentFunction(nullptr);
-            renderPipelineDescriptor.depthAttachmentPixelFormat(shadowMapPixelFormat);
-            
-            m_shadowGenPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
-            
-            delete shadowVertexFunction;
-        }
-        
-#pragma mark Shadow pass depth state setup
-        {
-            MTL::DepthStencilDescriptor depthStencilDesc;
-            depthStencilDesc.label("Shadow Gen");
-            depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLessEqual);
-            depthStencilDesc.depthWriteEnabled(true);
-            m_shadowDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
-        }
-        
-#pragma mark Shadow map setup
-        {
-            MTL::TextureDescriptor shadowTextureDesc;
-            
-            shadowTextureDesc.pixelFormat(shadowMapPixelFormat);
-            shadowTextureDesc.width(2048);
-            shadowTextureDesc.height(2048);
-            shadowTextureDesc.mipmapLevelCount(1);
-            shadowTextureDesc.resourceOptions(MTL::ResourceStorageModePrivate);
-            shadowTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
-            
-            m_shadowMap = m_device.makeTexture(shadowTextureDesc);
-            m_shadowMap.label("Shadow Map");
-        }
-        
-#pragma mark Shadow render pass descriptor setup
-        {
-            m_shadowRenderPassDescriptor.depthAttachment.texture(m_shadowMap);
-            m_shadowRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
-            m_shadowRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
-            m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
-        }
-    }
-    
 #if LIGHT_STENCIL_CULLING
     // Setup objects for point light mask rendering
     {
@@ -282,7 +229,7 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
             m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
             
             MTLAssert(error == nullptr, error,
-                       "Failed to create directional light mask pipeline state:");
+                      "Failed to create directional light mask pipeline state:");
         }
         
 #pragma mark Light mask depth stencil state setup
@@ -347,7 +294,7 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
         
         renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
         renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
-
+        
         MTL::Function lightVertexFunction = shaderLibrary.makeFunction("deferred_point_lighting_vertex");
         MTL::Function lightFragmentFunction = shaderLibrary.makeFunction("deferred_point_lighting_fragment_traditional");
         
@@ -452,26 +399,11 @@ void LightingSubpass::endFrame(MTL::CommandBuffer &commandBuffer) {
     commandBuffer.commit();
 }
 
-/// Draw to the depth texture from the directional lights point of view to generate the shadow map
-void LightingSubpass::drawShadow(MTL::CommandBuffer &commandBuffer, std::vector<Mesh> *m_meshes, MTL::Buffer& m_uniformBuffer) {
-    MTL::RenderCommandEncoder encoder = commandBuffer.renderCommandEncoderWithDescriptor(m_shadowRenderPassDescriptor);
-    
-    encoder.label("Shadow Map Pass");
-    
-    encoder.setRenderPipelineState(m_shadowGenPipelineState);
-    encoder.setDepthStencilState(m_shadowDepthStencilState);
-    encoder.setCullMode(MTL::CullModeBack);
-    encoder.setDepthBias(0.015, 7, 0.02);
-    
-    encoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
-    
-    drawMeshes(encoder, m_meshes);
-    
-    encoder.endEncoding();
-}
-
 /// Draw to the three textures which compose the GBuffer
-void LightingSubpass::drawGBuffer(MTL::RenderCommandEncoder &renderEncoder, std::vector<Mesh> *m_meshes, MTL::Buffer& m_uniformBuffer) {
+void LightingSubpass::drawGBuffer(MTL::RenderCommandEncoder &renderEncoder,
+                                  std::vector<Mesh> *m_meshes,
+                                  MTL::Buffer& m_uniformBuffer,
+                                  MTL::Texture& m_shadowMap) {
     renderEncoder.pushDebugGroup("Draw G-Buffer");
     renderEncoder.setCullMode(MTL::CullModeBack);
     renderEncoder.setRenderPipelineState(m_GBufferPipelineState);
@@ -642,7 +574,7 @@ void LightingSubpass::drawSky(MTL::RenderCommandEncoder &renderEncoder,
 MTL::Library LightingSubpass::makeShaderLibrary() {
     CFErrorRef error = nullptr;
     CFURLRef libraryURL = nullptr;
-
+    
     libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
     MTL::Library shaderLibrary = m_device.makeLibrary(libraryURL, &error);
     

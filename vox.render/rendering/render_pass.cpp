@@ -12,7 +12,7 @@ RenderPass::RenderPass(MTL::RenderPassDescriptor* desc):
 desc(desc) {
 }
 
-void RenderPass::draw(MTL::CommandBuffer commandBuffer) {
+void RenderPass::draw(MTL::CommandBuffer& commandBuffer) {
     assert(!subpasses.empty() && "Render pipeline should contain at least one sub-pass");
     
     MTL::RenderCommandEncoder encoder = commandBuffer.renderCommandEncoderWithDescriptor(*desc);

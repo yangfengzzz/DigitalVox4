@@ -63,7 +63,7 @@ m_meshes(m_meshes) {
     }
 }
 
-void ShadowSubpass::draw(MTL::RenderCommandEncoder commandEncoder) {
+void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.label("Shadow Map Pass");
     
     commandEncoder.setRenderPipelineState(m_shadowGenPipelineState);

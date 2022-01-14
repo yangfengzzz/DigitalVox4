@@ -31,7 +31,7 @@ public:
      * @brief Draw virtual function
      * @param commandEncoder CommandEncoder to use to record draw commands
      */
-    virtual void draw(MTL::RenderCommandEncoder commandEncoder) = 0;
+    virtual void draw(MTL::RenderCommandEncoder& commandEncoder) = 0;
     
 protected:
     sg::Scene* scene;

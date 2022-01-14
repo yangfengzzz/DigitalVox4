@@ -10,7 +10,6 @@
 #include "shader_types.h"
 #include "rendering/lighting_subpass.h"
 #include "rendering/render_pass.h"
-#include "rendering/subpasses/shadow_subpass.h"
 #include "engine.h"
 #include "core/CPPMetalAssert.hpp"
 #include "material/texture_loader.h"
@@ -108,6 +107,7 @@ bool Deferred::prepare(Engine &engine) {
         m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
         m_shadowRenderPass = std::make_unique<RenderPass>(&m_shadowRenderPassDescriptor);
         auto subpass = std::make_unique<ShadowSubpass>(&m_shadowRenderPassDescriptor, scene.get(), shaderLibrary, *device, m_meshes);
+        m_shadowSubpass = subpass.get();
         m_shadowRenderPass->addSubpass(std::move(subpass));
     }
     
@@ -163,15 +163,13 @@ void Deferred::update(float delta_time) {
         MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
         commandBuffer.label("Shadow & GBuffer Commands");
         
-//        m_shadowRenderPass->draw(commandBuffer);
-        
-        subpass->drawShadow(commandBuffer, m_meshes, m_uniformBuffers[m_frameDataBufferIndex]);
-        
+        m_shadowRenderPass->draw(commandBuffer);
+                
         m_GBufferRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         MTL::RenderCommandEncoder renderEncoder = commandBuffer.renderCommandEncoderWithDescriptor(m_GBufferRenderPassDescriptor);
         renderEncoder.label("GBuffer Generation");
-        subpass->drawGBuffer(renderEncoder, m_meshes, m_uniformBuffers[m_frameDataBufferIndex]);
+        subpass->drawGBuffer(renderEncoder, m_meshes, m_uniformBuffers[m_frameDataBufferIndex], m_shadowSubpass->shadowMap());
         renderEncoder.endEncoding();
         
         // Commit commands so that Metal can begin working on non-drawable dependant work without

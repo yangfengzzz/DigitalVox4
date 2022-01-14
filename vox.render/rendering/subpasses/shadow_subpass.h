@@ -21,7 +21,9 @@ public:
                   MTL::Device& m_device,
                   std::vector<Mesh> *m_meshes);
 
-    void draw(MTL::RenderCommandEncoder commandEncoder) override;
+    void draw(MTL::RenderCommandEncoder& commandEncoder) override;
+    
+    MTL::Texture &shadowMap();
     
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
@@ -32,6 +34,10 @@ private:
     
     std::vector<Mesh> *m_meshes;
 };
+
+inline MTL::Texture &ShadowSubpass::shadowMap() {
+    return m_shadowMap;
+}
 
 }
 

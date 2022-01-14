@@ -26,7 +26,7 @@ public:
     
     RenderPass &operator=(RenderPass &&) = default;
     
-    void draw(MTL::CommandBuffer commandBuffer);
+    void draw(MTL::CommandBuffer& commandBuffer);
     
 public:
     /**
