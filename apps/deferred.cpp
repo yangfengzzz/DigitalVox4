@@ -28,6 +28,7 @@ Deferred::~Deferred() {
 bool Deferred::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
     MTL::Library shaderLibrary = makeShaderLibrary();
+    auto extent = engine.get_window().get_extent();
 
     m_inFlightSemaphore = dispatch_semaphore_create(MaxFramesInFlight);
     
@@ -122,16 +123,41 @@ bool Deferred::prepare(Engine &engine) {
     
 #pragma mark GBuffer render pass descriptor setup
     {
+        m_albedo_specular_GBufferFormat = MTL::PixelFormatRGBA8Unorm_sRGB;
+        m_normal_shadow_GBufferFormat = MTL::PixelFormatRGBA8Snorm;
+        m_depth_GBufferFormat = MTL::PixelFormatR32Float;
+        MTL::TextureDescriptor GBufferTextureDesc;
+        
+        GBufferTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
+        GBufferTextureDesc.width(extent.width * 2);
+        GBufferTextureDesc.height(extent.height * 2);
+        GBufferTextureDesc.mipmapLevelCount(1);
+        GBufferTextureDesc.textureType(MTL::TextureType2D);
+        GBufferTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
+        GBufferTextureDesc.storageMode(MTL::StorageModePrivate);
+        GBufferTextureDesc.pixelFormat(m_albedo_specular_GBufferFormat);
+        m_albedo_specular_GBuffer = device->makeTexture(GBufferTextureDesc);
+        m_albedo_specular_GBuffer.label("Albedo + Shadow GBuffer");
+        GBufferTextureDesc.pixelFormat(m_normal_shadow_GBufferFormat);
+        m_normal_shadow_GBuffer = device->makeTexture(GBufferTextureDesc);
+        m_normal_shadow_GBuffer.label("Normal + Specular GBuffer");
+        GBufferTextureDesc.pixelFormat(m_depth_GBufferFormat);
+        m_depth_GBuffer = device->makeTexture(GBufferTextureDesc);
+        m_depth_GBuffer.label("Depth GBuffer");
+        
         // Create a render pass descriptor to create an encoder for rendering to the GBuffers.
         // The encoder stores rendered data of each attachment when encoding ends.
         m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].loadAction(MTL::LoadActionDontCare);
         m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].storeAction(MTL::StoreActionDontCare);
         m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].loadAction(MTL::LoadActionDontCare);
         m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].texture(m_albedo_specular_GBuffer);
         m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].loadAction(MTL::LoadActionDontCare);
         m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].texture(m_normal_shadow_GBuffer);
         m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].loadAction(MTL::LoadActionDontCare);
         m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].texture(m_depth_GBuffer);
         m_GBufferRenderPassDescriptor.depthAttachment.clearDepth(1.0);
         m_GBufferRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
         m_GBufferRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
@@ -152,9 +178,11 @@ bool Deferred::prepare(Engine &engine) {
     }
     
     render_pipeline = std::make_unique<LightingSubpass>(render_context.get());
-    render_pipeline->loadMetal(m_defaultVertexDescriptor, m_skyVertexDescriptor);
+    render_pipeline->loadMetal(m_defaultVertexDescriptor, m_skyVertexDescriptor,
+                               m_albedo_specular_GBufferFormat,
+                               m_normal_shadow_GBufferFormat,
+                               m_depth_GBufferFormat);
     
-    auto extent = engine.get_window().get_extent();
     framebuffer_resize(extent.width*2, extent.height*2);
     
     return true;
@@ -229,7 +257,8 @@ void Deferred::update(float delta_time) {
             commandBuffer.renderCommandEncoderWithDescriptor(m_finalRenderPassDescriptor);
             renderEncoder.label("Lighting & Composition Pass");
             
-            subpass->drawDirectionalLight(renderEncoder, m_quadVertexBuffer, m_uniformBuffers[m_frameDataBufferIndex]);
+            subpass->drawDirectionalLight(renderEncoder, m_quadVertexBuffer, m_uniformBuffers[m_frameDataBufferIndex],
+                                          m_albedo_specular_GBuffer, m_normal_shadow_GBuffer, m_depth_GBuffer);
             
             subpass->drawPointLightMask(renderEncoder, m_lightsData,
                                         m_lightPositions[m_frameDataBufferIndex],
@@ -239,7 +268,10 @@ void Deferred::update(float delta_time) {
             subpass->drawPointLights(renderEncoder, m_lightsData,
                                      m_lightPositions[m_frameDataBufferIndex],
                                      m_uniformBuffers[m_frameDataBufferIndex],
-                                     m_icosahedronMesh);
+                                     m_icosahedronMesh,
+                                     m_albedo_specular_GBuffer,
+                                     m_normal_shadow_GBuffer,
+                                     m_depth_GBuffer);
             
             subpass->drawSky(renderEncoder,
                              m_uniformBuffers[m_frameDataBufferIndex],
@@ -265,17 +297,29 @@ void Deferred::framebuffer_resize(uint32_t width, uint32_t height) {
     //   orientation or size has changed
     float aspect = (float) width / (float) height;
     m_projection_matrix = matrix_perspective_left_hand(65.0f * (M_PI / 180.0f), aspect, NearPlane, FarPlane);
-    
-    auto subpass = static_cast<LightingSubpass*>(render_pipeline.get());
-    // The subpass base class allocates all GBuffers >except< lighting GBuffer (since with the
-    // single-pass deferred subpass the lighting buffer is the same as the drawable)
-    subpass->drawableSizeWillChange(MTL::SizeMake(width, height, 0), MTL::StorageModePrivate);
-    
+        
+    MTL::TextureDescriptor GBufferTextureDesc;
+    GBufferTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
+    GBufferTextureDesc.width(width);
+    GBufferTextureDesc.height(height);
+    GBufferTextureDesc.mipmapLevelCount(1);
+    GBufferTextureDesc.textureType(MTL::TextureType2D);
+    GBufferTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
+    GBufferTextureDesc.storageMode(MTL::StorageModePrivate);
+    GBufferTextureDesc.pixelFormat(m_albedo_specular_GBufferFormat);
+    m_albedo_specular_GBuffer = device->makeTexture(GBufferTextureDesc);
+    m_albedo_specular_GBuffer.label("Albedo + Shadow GBuffer");
+    GBufferTextureDesc.pixelFormat(m_normal_shadow_GBufferFormat);
+    m_normal_shadow_GBuffer = device->makeTexture(GBufferTextureDesc);
+    m_normal_shadow_GBuffer.label("Normal + Specular GBuffer");
+    GBufferTextureDesc.pixelFormat(m_depth_GBufferFormat);
+    m_depth_GBuffer = device->makeTexture(GBufferTextureDesc);
+    m_depth_GBuffer.label("Depth GBuffer");
     // Re-set GBuffer textures in the GBuffer render pass descriptor after they have been
     // reallocated by a resize
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].texture(subpass->m_albedo_specular_GBuffer);
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].texture(subpass->m_normal_shadow_GBuffer);
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].texture(subpass->m_depth_GBuffer);
+    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].texture(m_albedo_specular_GBuffer);
+    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].texture(m_normal_shadow_GBuffer);
+    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].texture(m_depth_GBuffer);
 }
 
 //MARK: - TODO Warpper into Scene and Script

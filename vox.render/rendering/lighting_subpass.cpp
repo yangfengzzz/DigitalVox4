@@ -39,7 +39,10 @@ LightingSubpass::~LightingSubpass() {
 
 /// Create Metal render state objects
 void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor,
-                                MTL::VertexDescriptor& m_skyVertexDescriptor) {
+                                MTL::VertexDescriptor& m_skyVertexDescriptor,
+                                MTL::PixelFormat m_albedo_specular_GBufferFormat,
+                                MTL::PixelFormat m_normal_shadow_GBufferFormat,
+                                MTL::PixelFormat m_depth_GBufferFormat) {
     // Create and load the basic Metal state objects
     CFErrorRef error = nullptr;
     
@@ -49,10 +52,6 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
     
     m_view->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
     m_view->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
-    
-    m_albedo_specular_GBufferFormat = MTL::PixelFormatRGBA8Unorm_sRGB;
-    m_normal_shadow_GBufferFormat = MTL::PixelFormatRGBA8Snorm;
-    m_depth_GBufferFormat = MTL::PixelFormatR32Float;
     
 #pragma mark GBuffer render pipeline setup
     {
@@ -307,38 +306,6 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
     }
 }
 
-/// Called whenever view changes orientation or layout is changed
-void LightingSubpass::drawableSizeWillChange(MTL::Size size, MTL::StorageMode GBufferStorageMode) {    
-    MTL::TextureDescriptor GBufferTextureDesc;
-    
-    GBufferTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
-    GBufferTextureDesc.width(size.width);
-    GBufferTextureDesc.height(size.height);
-    GBufferTextureDesc.mipmapLevelCount(1);
-    GBufferTextureDesc.textureType(MTL::TextureType2D);
-    
-    if (GBufferStorageMode == MTL::StorageModePrivate) {
-        GBufferTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
-    } else {
-        GBufferTextureDesc.usage(MTL::TextureUsageRenderTarget);
-    }
-    
-    GBufferTextureDesc.storageMode(GBufferStorageMode);
-    
-    GBufferTextureDesc.pixelFormat(m_albedo_specular_GBufferFormat);
-    m_albedo_specular_GBuffer = m_device.makeTexture(GBufferTextureDesc);
-    
-    GBufferTextureDesc.pixelFormat(m_normal_shadow_GBufferFormat);
-    m_normal_shadow_GBuffer = m_device.makeTexture(GBufferTextureDesc);
-    
-    GBufferTextureDesc.pixelFormat(m_depth_GBufferFormat);
-    m_depth_GBuffer = m_device.makeTexture(GBufferTextureDesc);
-    
-    m_albedo_specular_GBuffer.label("Albedo + Shadow GBuffer");
-    m_normal_shadow_GBuffer.label("Normal + Specular GBuffer");
-    m_depth_GBuffer.label("Depth GBuffer");
-}
-
 #pragma mark Common Rendering Code
 
 /// Draw the Mesh objects with the given renderEncoder
@@ -419,7 +386,12 @@ void LightingSubpass::drawGBuffer(MTL::RenderCommandEncoder &renderEncoder,
 
 /// Draw the directional ("sun") light in deferred pass.  Use stencil buffer to limit execution
 /// of the shader to only those pixels that should be lit
-void LightingSubpass::drawDirectionalLight(MTL::RenderCommandEncoder &renderEncoder, MTL::Buffer& m_quadVertexBuffer, MTL::Buffer& m_uniformBuffer) {
+void LightingSubpass::drawDirectionalLight(MTL::RenderCommandEncoder &renderEncoder,
+                                           MTL::Buffer& m_quadVertexBuffer,
+                                           MTL::Buffer& m_uniformBuffer,
+                                           MTL::Texture& m_albedo_specular_GBuffer,
+                                           MTL::Texture& m_normal_shadow_GBuffer,
+                                           MTL::Texture& m_depth_GBuffer) {
     renderEncoder.pushDebugGroup("Draw Directional Light");
     renderEncoder.setFragmentTexture(m_albedo_specular_GBuffer, RenderTargetAlbedo);
     renderEncoder.setFragmentTexture(m_normal_shadow_GBuffer, RenderTargetNormal);
@@ -482,7 +454,10 @@ void LightingSubpass::drawPointLights(MTL::RenderCommandEncoder &renderEncoder,
                                       MTL::Buffer& m_lightsData,
                                       MTL::Buffer& m_lightPosition,
                                       MTL::Buffer& m_uniformBuffer,
-                                      Mesh& m_icosahedronMesh) {
+                                      Mesh& m_icosahedronMesh,
+                                      MTL::Texture& m_albedo_specular_GBuffer,
+                                      MTL::Texture& m_normal_shadow_GBuffer,
+                                      MTL::Texture& m_depth_GBuffer) {
     renderEncoder.pushDebugGroup("Draw Point Lights");
     
     renderEncoder.setRenderPipelineState(m_lightPipelineState);

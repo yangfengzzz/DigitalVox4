@@ -96,7 +96,13 @@ private:
 
     MTL::RenderPassDescriptor m_GBufferRenderPassDescriptor;
     std::unique_ptr<RenderPass> m_GBufferRenderPass{nullptr};
-
+    MTL::PixelFormat m_albedo_specular_GBufferFormat;
+    MTL::PixelFormat m_normal_shadow_GBufferFormat;
+    MTL::PixelFormat m_depth_GBufferFormat;
+    MTL::Texture m_albedo_specular_GBuffer;
+    MTL::Texture m_normal_shadow_GBuffer;
+    MTL::Texture m_depth_GBuffer;
+    
     MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
     std::unique_ptr<RenderPass> m_finalRenderPass{nullptr};
 };

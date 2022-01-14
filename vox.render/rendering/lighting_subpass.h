@@ -38,18 +38,15 @@ public:
     
     MTL::DepthStencilState &pointLightDepthStencilState();
     
-    MTL::Texture &albedo_specular_GBuffer();
-    
-    MTL::Texture &normal_shadow_GBuffer();
-    
-    MTL::Texture &depth_GBuffer();
-    
     // Open the Metal shader library
     MTL::Library makeShaderLibrary();
     
 #pragma mark -
     virtual void loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor,
-                           MTL::VertexDescriptor& m_skyVertexDescriptor);
+                           MTL::VertexDescriptor& m_skyVertexDescriptor,
+                           MTL::PixelFormat m_albedo_specular_GBufferFormat,
+                           MTL::PixelFormat m_normal_shadow_GBufferFormat,
+                           MTL::PixelFormat m_depth_GBufferFormat);
     
     void endFrame(MTL::CommandBuffer &commandBuffer);
     
@@ -60,7 +57,10 @@ public:
     
     void drawDirectionalLight(MTL::RenderCommandEncoder &renderEncoder,
                               MTL::Buffer& m_quadVertexBuffer,
-                              MTL::Buffer& m_uniformBuffer);
+                              MTL::Buffer& m_uniformBuffer,
+                              MTL::Texture& m_albedo_specular_GBuffer,
+                              MTL::Texture& m_normal_shadow_GBuffer,
+                              MTL::Texture& m_depth_GBuffer);
     
     void drawPointLightMask(MTL::RenderCommandEncoder &renderEncoder,
                             MTL::Buffer& m_lightsData,
@@ -72,7 +72,10 @@ public:
                          MTL::Buffer& m_lightsData,
                          MTL::Buffer& m_lightPosition,
                          MTL::Buffer& m_uniformBuffer,
-                         Mesh& m_icosahedronMesh);
+                         Mesh& m_icosahedronMesh,
+                         MTL::Texture& m_albedo_specular_GBuffer,
+                         MTL::Texture& m_normal_shadow_GBuffer,
+                         MTL::Texture& m_depth_GBuffer);
     
     void drawFairies(MTL::RenderCommandEncoder &renderEncoder,
                      MTL::Buffer& m_lightsData,
@@ -85,26 +88,10 @@ public:
                  MTL::Buffer& m_uniformBuffer,
                  Mesh& m_skyMesh,
                  MTL::Texture& m_skyMap);
-    
-    void drawableSizeWillChange(MTL::Size size, MTL::StorageMode GBufferStorageMode);
-    
+        
     MTL::Device m_device;
     
     MTL::View* m_view;
-    
-    // GBuffer properties
-    
-    MTL::PixelFormat m_albedo_specular_GBufferFormat;
-    
-    MTL::PixelFormat m_normal_shadow_GBufferFormat;
-    
-    MTL::PixelFormat m_depth_GBufferFormat;
-    
-    MTL::Texture m_albedo_specular_GBuffer;
-    
-    MTL::Texture m_normal_shadow_GBuffer;
-    
-    MTL::Texture m_depth_GBuffer;
     
     MTL::DepthStencilState *m_dontWriteDepthStencilState;
     
@@ -153,18 +140,6 @@ inline MTL::Texture &LightingSubpass::depthStencilTexture() {
 
 inline MTL::DepthStencilState &LightingSubpass::pointLightDepthStencilState() {
     return m_pointLightDepthStencilState;
-}
-
-inline MTL::Texture &LightingSubpass::albedo_specular_GBuffer() {
-    return m_albedo_specular_GBuffer;
-}
-
-inline MTL::Texture &LightingSubpass::normal_shadow_GBuffer() {
-    return m_normal_shadow_GBuffer;
-}
-
-inline MTL::Texture &LightingSubpass::depth_GBuffer() {
-    return m_depth_GBuffer;
 }
 
 }
