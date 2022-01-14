@@ -17,7 +17,9 @@ public:
                    sg::Scene* scene,
                    MTL::Library& shaderLibrary,
                    MTL::Device& m_device,
-                   MTL::Buffer &m_quadVertexBuffer);
+                   MTL::PixelFormat colorPixelFormat,
+                   MTL::Buffer &m_quadVertexBuffer,
+                   MTL::RenderPassDescriptor* gbuffer_desc);
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     

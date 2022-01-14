@@ -50,13 +50,6 @@ public:
     
     void endFrame(MTL::CommandBuffer &commandBuffer);
     
-    void drawDirectionalLight(MTL::RenderCommandEncoder &renderEncoder,
-                              MTL::Buffer& m_quadVertexBuffer,
-                              MTL::Buffer& m_uniformBuffer,
-                              MTL::Texture& m_albedo_specular_GBuffer,
-                              MTL::Texture& m_normal_shadow_GBuffer,
-                              MTL::Texture& m_depth_GBuffer);
-    
     void drawPointLightMask(MTL::RenderCommandEncoder &renderEncoder,
                             MTL::Buffer& m_lightsData,
                             MTL::Buffer& m_lightPosition,
@@ -96,12 +89,10 @@ public:
     // Pipeline states
     MTL::RenderPipelineState m_fairyPipelineState;
     MTL::RenderPipelineState m_skyboxPipelineState;
-    MTL::RenderPipelineState m_directionalLightPipelineState;
     
     MTL::RenderPipelineState m_lightPipelineState;
     
     // Depht Stencitl States
-    MTL::DepthStencilState m_directionLightDepthStencilState;
     MTL::DepthStencilState m_pointLightDepthStencilState;
     
 #if LIGHT_STENCIL_CULLING

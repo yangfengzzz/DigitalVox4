@@ -50,55 +50,6 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
     
     MTL::Library shaderLibrary = makeShaderLibrary();
     
-    // Setup render state to apply directional light and shadow in final pass
-    {
-#pragma mark Directional lighting render pipeline setup
-        {
-            MTL::Function directionalVertexFunction = shaderLibrary.makeFunction("deferred_direction_lighting_vertex");
-            MTL::Function directionalFragmentFunction = shaderLibrary.makeFunction("deferred_directional_lighting_fragment_traditional");
-            
-            MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-            renderPipelineDescriptor.label("Deferred Directional Lighting");
-            renderPipelineDescriptor.vertexDescriptor(nullptr);
-            renderPipelineDescriptor.vertexFunction(&directionalVertexFunction);
-            renderPipelineDescriptor.fragmentFunction(&directionalFragmentFunction);
-            renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
-            renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
-            renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
-            
-            m_directionalLightPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor,
-                                                                               &error);
-            
-            MTLAssert(error == nullptr, error,
-                      "Failed to create directional light render pipeline state:");
-        }
-        
-#pragma mark Directional lighting mask depth stencil state setup
-        {
-#if LIGHT_STENCIL_CULLING
-            // Stencil state setup so direction lighting fragment shader only executed on pixels
-            // drawn in GBuffer stage (i.e. mask out the background/sky)
-            MTL::StencilDescriptor stencilStateDesc;
-            stencilStateDesc.stencilCompareFunction(MTL::CompareFunctionEqual);
-            stencilStateDesc.stencilFailureOperation(MTL::StencilOperationKeep);
-            stencilStateDesc.depthFailureOperation(MTL::StencilOperationKeep);
-            stencilStateDesc.depthStencilPassOperation(MTL::StencilOperationKeep);
-            stencilStateDesc.readMask(0xFF);
-            stencilStateDesc.writeMask(0x0);
-#else
-            MTL::StencilDescriptor stencilStateDesc;
-#endif
-            MTL::DepthStencilDescriptor depthStencilDesc;
-            depthStencilDesc.label("Deferred Directional Lighting");
-            depthStencilDesc.depthWriteEnabled(false);
-            depthStencilDesc.depthCompareFunction(MTL::CompareFunctionAlways);
-            depthStencilDesc.frontFaceStencil = stencilStateDesc;
-            depthStencilDesc.backFaceStencil = stencilStateDesc;
-            
-            m_directionLightDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
-        }
-    }
-    
 #pragma mark Fairy billboard render pipeline setup
     {
         MTL::Function fairyVertexFunction = shaderLibrary.makeFunction("fairy_vertex");
@@ -311,33 +262,6 @@ void LightingSubpass::endFrame(MTL::CommandBuffer &commandBuffer) {
     
     // Finalize rendering here & push the command buffer to the GPU
     commandBuffer.commit();
-}
-
-/// Draw the directional ("sun") light in deferred pass.  Use stencil buffer to limit execution
-/// of the shader to only those pixels that should be lit
-void LightingSubpass::drawDirectionalLight(MTL::RenderCommandEncoder &renderEncoder,
-                                           MTL::Buffer& m_quadVertexBuffer,
-                                           MTL::Buffer& m_uniformBuffer,
-                                           MTL::Texture& m_albedo_specular_GBuffer,
-                                           MTL::Texture& m_normal_shadow_GBuffer,
-                                           MTL::Texture& m_depth_GBuffer) {
-    renderEncoder.pushDebugGroup("Draw Directional Light");
-    renderEncoder.setFragmentTexture(m_albedo_specular_GBuffer, RenderTargetAlbedo);
-    renderEncoder.setFragmentTexture(m_normal_shadow_GBuffer, RenderTargetNormal);
-    renderEncoder.setFragmentTexture(m_depth_GBuffer, RenderTargetDepth);
-    
-    renderEncoder.setCullMode(MTL::CullModeBack);
-    renderEncoder.setStencilReferenceValue(128);
-    
-    renderEncoder.setRenderPipelineState(m_directionalLightPipelineState);
-    renderEncoder.setDepthStencilState(m_directionLightDepthStencilState);
-    renderEncoder.setVertexBuffer(m_quadVertexBuffer, 0, BufferIndexMeshPositions);
-    renderEncoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
-    renderEncoder.setFragmentBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
-    
-    // Draw full screen quad
-    renderEncoder.drawPrimitives(MTL::PrimitiveTypeTriangle, 0, 6);
-    renderEncoder.popDebugGroup();
 }
 
 /// Render to stencil buffer only to increment stencil on that fragments in front

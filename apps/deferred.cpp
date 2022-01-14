@@ -12,6 +12,7 @@
 #include "rendering/render_pass.h"
 #include "rendering/subpasses/shadow_subpass.h"
 #include "rendering/subpasses/deferred_subpass.h"
+#include "rendering/subpasses/compose_subpass.h"
 #include "engine.h"
 #include "core/CPPMetalAssert.hpp"
 #include "material/texture_loader.h"
@@ -183,8 +184,13 @@ bool Deferred::prepare(Engine &engine) {
         // Whatever rendered in the final pass needs to be stored so it can be displayed
         m_finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
         m_finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionLoad);
+        m_finalRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
         m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
+        m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         m_finalRenderPass = std::make_unique<RenderPass>(&m_finalRenderPassDescriptor);
+        m_finalRenderPass->addSubpass(std::make_unique<ComposeSubpass>(&m_finalRenderPassDescriptor, scene.get(),
+                                                                       shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
+                                                                       m_quadVertexBuffer, &m_GBufferRenderPassDescriptor));
     }
     
     render_pipeline = std::make_unique<LightingSubpass>(render_context.get());
@@ -255,13 +261,7 @@ void Deferred::update(float delta_time) {
             m_finalRenderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
             m_finalRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
             m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
-            
-            MTL::RenderCommandEncoder renderEncoder =
-            commandBuffer.renderCommandEncoderWithDescriptor(m_finalRenderPassDescriptor);
-            renderEncoder.label("Lighting & Composition Pass");
-            
-            subpass->drawDirectionalLight(renderEncoder, m_quadVertexBuffer, m_uniformBuffers[m_frameDataBufferIndex],
-                                          m_albedo_specular_GBuffer, m_normal_shadow_GBuffer, m_depth_GBuffer);
+            m_finalRenderPass->draw(commandBuffer, "Lighting & Composition Pass");
             
 //            subpass->drawPointLightMask(renderEncoder, m_lightsData,
 //                                        m_lightPositions[m_frameDataBufferIndex],
@@ -284,9 +284,7 @@ void Deferred::update(float delta_time) {
 //            subpass->drawFairies(renderEncoder, m_lightsData,
 //                                 m_lightPositions[m_frameDataBufferIndex],
 //                                 m_uniformBuffers[m_frameDataBufferIndex],
-//                                 m_fairy, m_fairyMap);
-            
-            renderEncoder.endEncoding();
+//                                 m_fairy, m_fairyMap);            
         }
         
         subpass->endFrame(commandBuffer);
