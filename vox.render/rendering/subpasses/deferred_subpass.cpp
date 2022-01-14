@@ -16,9 +16,12 @@ DeferredSubpass::DeferredSubpass(MTL::RenderPassDescriptor* desc,
                                  sg::Scene* scene,
                                  MTL::Library& shaderLibrary,
                                  MTL::Device& m_device,
-                                 std::vector<Mesh> *m_meshes):
+                                 std::vector<Mesh> *m_meshes,
+                                 MTL::VertexDescriptor& m_defaultVertexDescriptor,
+                                 MTL::RenderPassDescriptor* shadow_desc):
 Subpass(desc, scene),
-m_meshes(m_meshes) {
+m_meshes(m_meshes),
+shadow_desc(shadow_desc) {
     CFErrorRef error = nullptr;
 
     {
@@ -31,11 +34,11 @@ m_meshes(m_meshes) {
         renderPipelineDescriptor.vertexDescriptor(&m_defaultVertexDescriptor);
         
         renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(MTL::PixelFormatInvalid);
-        renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
-        renderPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(m_normal_shadow_GBufferFormat);
-        renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
-        renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
+        renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(desc->colorAttachments[RenderTargetAlbedo].texture().pixelFormat());
+        renderPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(desc->colorAttachments[RenderTargetNormal].texture().pixelFormat());
+        renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(desc->colorAttachments[RenderTargetDepth].texture().pixelFormat());
+        renderPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
+        renderPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
         
         renderPipelineDescriptor.vertexFunction(&GBufferVertexFunction);
         renderPipelineDescriptor.fragmentFunction(&GBufferFragmentFunction);
@@ -77,7 +80,7 @@ void DeferredSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.setStencilReferenceValue(128);
     commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
     commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setFragmentTexture(m_shadowMap, TextureIndexShadow);
+    commandEncoder.setFragmentTexture(shadow_desc->depthAttachment.texture(), TextureIndexShadow);
     
     drawMeshes(commandEncoder);
     commandEncoder.popDebugGroup();

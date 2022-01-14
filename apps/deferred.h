@@ -10,7 +10,6 @@
 
 #include "metal_application.h"
 #include "rendering/render_pass.h"
-#include "rendering/subpasses/shadow_subpass.h"
 
 namespace vox {
 // The max number of command buffers in flight

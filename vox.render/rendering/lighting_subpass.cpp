@@ -50,59 +50,6 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor
     
     MTL::Library shaderLibrary = makeShaderLibrary();
     
-    m_view->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
-    m_view->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
-    
-#pragma mark GBuffer render pipeline setup
-    {
-        {
-            MTL::Function GBufferVertexFunction = shaderLibrary.makeFunction("gbuffer_vertex");
-            MTL::Function GBufferFragmentFunction = shaderLibrary.makeFunction("gbuffer_fragment");
-            
-            MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-            
-            renderPipelineDescriptor.label("G-buffer Creation");
-            renderPipelineDescriptor.vertexDescriptor(&m_defaultVertexDescriptor);
-            
-            renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(MTL::PixelFormatInvalid);
-            renderPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(m_albedo_specular_GBufferFormat);
-            renderPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(m_normal_shadow_GBufferFormat);
-            renderPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(m_depth_GBufferFormat);
-            renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
-            renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
-            
-            renderPipelineDescriptor.vertexFunction(&GBufferVertexFunction);
-            renderPipelineDescriptor.fragmentFunction(&GBufferFragmentFunction);
-            
-            m_GBufferPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
-            
-            MTLAssert(error == nullptr, error, "Failed to create GBuffer render pipeline state");
-        }
-        
-#pragma mark GBuffer depth state setup
-        {
-#if LIGHT_STENCIL_CULLING
-            MTL::StencilDescriptor stencilStateDesc;
-            stencilStateDesc.stencilCompareFunction(MTL::CompareFunctionAlways);
-            stencilStateDesc.stencilFailureOperation(MTL::StencilOperationKeep);
-            stencilStateDesc.depthFailureOperation(MTL::StencilOperationKeep);
-            stencilStateDesc.depthStencilPassOperation(MTL::StencilOperationReplace);
-            stencilStateDesc.readMask(0x0);
-            stencilStateDesc.writeMask(0xFF);
-#else
-            MTL::StencilDescriptor stencilStateDesc;
-#endif
-            MTL::DepthStencilDescriptor depthStencilDesc;
-            depthStencilDesc.label("G-buffer Creation");
-            depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLess);
-            depthStencilDesc.depthWriteEnabled(true);
-            depthStencilDesc.frontFaceStencil = stencilStateDesc;
-            depthStencilDesc.backFaceStencil = stencilStateDesc;
-            
-            m_GBufferDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
-        }
-    }
-    
     // Setup render state to apply directional light and shadow in final pass
     {
 #pragma mark Directional lighting render pipeline setup
@@ -364,24 +311,6 @@ void LightingSubpass::endFrame(MTL::CommandBuffer &commandBuffer) {
     
     // Finalize rendering here & push the command buffer to the GPU
     commandBuffer.commit();
-}
-
-/// Draw to the three textures which compose the GBuffer
-void LightingSubpass::drawGBuffer(MTL::RenderCommandEncoder &renderEncoder,
-                                  std::vector<Mesh> *m_meshes,
-                                  MTL::Buffer& m_uniformBuffer,
-                                  MTL::Texture& m_shadowMap) {
-    renderEncoder.pushDebugGroup("Draw G-Buffer");
-    renderEncoder.setCullMode(MTL::CullModeBack);
-    renderEncoder.setRenderPipelineState(m_GBufferPipelineState);
-    renderEncoder.setDepthStencilState(m_GBufferDepthStencilState);
-    renderEncoder.setStencilReferenceValue(128);
-    renderEncoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
-    renderEncoder.setFragmentBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
-    renderEncoder.setFragmentTexture(m_shadowMap, TextureIndexShadow);
-    
-    drawMeshes(renderEncoder, m_meshes);
-    renderEncoder.popDebugGroup();
 }
 
 /// Draw the directional ("sun") light in deferred pass.  Use stencil buffer to limit execution

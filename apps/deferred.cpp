@@ -10,6 +10,8 @@
 #include "shader_types.h"
 #include "rendering/lighting_subpass.h"
 #include "rendering/render_pass.h"
+#include "rendering/subpasses/shadow_subpass.h"
+#include "rendering/subpasses/deferred_subpass.h"
 #include "engine.h"
 #include "core/CPPMetalAssert.hpp"
 #include "material/texture_loader.h"
@@ -29,7 +31,10 @@ bool Deferred::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
     MTL::Library shaderLibrary = makeShaderLibrary();
     auto extent = engine.get_window().get_extent();
-
+    render_context->resize(MTL::SizeMake(extent.width * 2, extent.height * 2, 0));
+    render_context->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
+    render_context->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
+    
     m_inFlightSemaphore = dispatch_semaphore_create(MaxFramesInFlight);
     
 #pragma mark VertexDescriptor
@@ -161,10 +166,15 @@ bool Deferred::prepare(Engine &engine) {
         m_GBufferRenderPassDescriptor.depthAttachment.clearDepth(1.0);
         m_GBufferRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
         m_GBufferRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
         m_GBufferRenderPassDescriptor.stencilAttachment.clearStencil(0);
         m_GBufferRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
         m_GBufferRenderPassDescriptor.stencilAttachment.storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         m_GBufferRenderPass = std::make_unique<RenderPass>(&m_GBufferRenderPassDescriptor);
+        m_GBufferRenderPass->addSubpass(std::make_unique<DeferredSubpass>(&m_GBufferRenderPassDescriptor, scene.get(),
+                                                                          shaderLibrary, *device, m_meshes,
+                                                                          m_defaultVertexDescriptor, &m_shadowRenderPassDescriptor));
     }
     
 #pragma mark Compositor render pass descriptor setup
@@ -190,7 +200,7 @@ bool Deferred::prepare(Engine &engine) {
 
 void Deferred::update(float delta_time) {
     MetalApplication::update(delta_time);
-
+    
     // Wait to ensure only MaxFramesInFlight are getting processed by any stage in the Metal
     // pipeline (App, Metal, Drivers, GPU, etc)
     dispatch_semaphore_wait(m_inFlightSemaphore, DISPATCH_TIME_FOREVER);
@@ -205,14 +215,10 @@ void Deferred::update(float delta_time) {
         commandBuffer.label("Shadow & GBuffer Commands");
         
         m_shadowRenderPass->draw(commandBuffer);
-                
+        
         m_GBufferRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
-        MTL::RenderCommandEncoder renderEncoder = commandBuffer.renderCommandEncoderWithDescriptor(m_GBufferRenderPassDescriptor);
-        renderEncoder.label("GBuffer Generation");
-        subpass->drawGBuffer(renderEncoder, m_meshes, m_uniformBuffers[m_frameDataBufferIndex],
-                             m_shadowRenderPassDescriptor.depthAttachment.texture());
-        renderEncoder.endEncoding();
+        m_GBufferRenderPass->draw(commandBuffer, "GBuffer Generation");
         
         // Commit commands so that Metal can begin working on non-drawable dependant work without
         // waiting for a drawable to become avaliable
@@ -297,7 +303,7 @@ void Deferred::framebuffer_resize(uint32_t width, uint32_t height) {
     //   orientation or size has changed
     float aspect = (float) width / (float) height;
     m_projection_matrix = matrix_perspective_left_hand(65.0f * (M_PI / 180.0f), aspect, NearPlane, FarPlane);
-        
+    
     MTL::TextureDescriptor GBufferTextureDesc;
     GBufferTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
     GBufferTextureDesc.width(width);

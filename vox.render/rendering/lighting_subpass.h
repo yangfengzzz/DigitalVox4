@@ -50,11 +50,6 @@ public:
     
     void endFrame(MTL::CommandBuffer &commandBuffer);
     
-    void drawGBuffer(MTL::RenderCommandEncoder &renderEncoder,
-                     std::vector<Mesh> *m_meshes,
-                     MTL::Buffer& m_uniformBuffer,
-                     MTL::Texture& m_shadowMap);
-    
     void drawDirectionalLight(MTL::RenderCommandEncoder &renderEncoder,
                               MTL::Buffer& m_quadVertexBuffer,
                               MTL::Buffer& m_uniformBuffer,
@@ -99,7 +94,6 @@ public:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder, std::vector<Mesh> *m_meshes);
     
     // Pipeline states
-    MTL::RenderPipelineState m_GBufferPipelineState;
     MTL::RenderPipelineState m_fairyPipelineState;
     MTL::RenderPipelineState m_skyboxPipelineState;
     MTL::RenderPipelineState m_directionalLightPipelineState;
@@ -108,7 +102,6 @@ public:
     
     // Depht Stencitl States
     MTL::DepthStencilState m_directionLightDepthStencilState;
-    MTL::DepthStencilState m_GBufferDepthStencilState;
     MTL::DepthStencilState m_pointLightDepthStencilState;
     
 #if LIGHT_STENCIL_CULLING
