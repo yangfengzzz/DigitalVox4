@@ -13,9 +13,16 @@
 namespace vox {
 class ShadowSubpass: public Subpass {
 public:
-    ShadowSubpass(MTL::RenderPassDescriptor* desc);
+    ShadowSubpass(MTL::RenderPassDescriptor* desc,
+                  MTL::Library& shaderLibrary,
+                  MTL::Device& m_device);
 
-    void draw(MTL::CommandEncoder commandEncoder) override;
+    void draw(MTL::RenderCommandEncoder commandEncoder) override;
+    
+private:
+    MTL::RenderPipelineState m_shadowGenPipelineState;
+    MTL::DepthStencilState m_shadowDepthStencilState;
+    MTL::Texture m_shadowMap;
 };
 
 }

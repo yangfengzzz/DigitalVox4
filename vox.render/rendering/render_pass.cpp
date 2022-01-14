@@ -12,21 +12,16 @@ RenderPass::RenderPass(MTL::RenderPassDescriptor* desc):
 desc(desc) {
 }
 
-void RenderPass::draw(MTL::CommandBuffer commandBuffer,
-                      MTL::CommandBufferHandler* handler) {
+void RenderPass::draw(MTL::CommandBuffer commandBuffer) {
     assert(!subpasses.empty() && "Render pipeline should contain at least one sub-pass");
     
-    MTL::CommandEncoder encoder = commandBuffer.renderCommandEncoderWithDescriptor(*desc);
+    MTL::RenderCommandEncoder encoder = commandBuffer.renderCommandEncoderWithDescriptor(*desc);
     for (size_t i = 0; i < subpasses.size(); ++i) {
         active_subpass_index = i;
         subpasses[i]->draw(encoder);
     }
     active_subpass_index = 0;
-    
-    if (handler) {
-        commandBuffer.addScheduledHandler(*handler);
-    }
-    commandBuffer.commit();
+    encoder.endEncoding();
 }
 
 void RenderPass::addSubpass(std::unique_ptr<Subpass> &&subpass) {
