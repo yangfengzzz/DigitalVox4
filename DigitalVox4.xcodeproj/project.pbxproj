@@ -298,6 +298,10 @@
 		044593EA2791107600F04CE0 /* primitive_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E82791107600F04CE0 /* primitive_mesh.cpp */; };
 		044593EB2791107600F04CE0 /* primitive_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E92791107600F04CE0 /* primitive_mesh.h */; };
 		044593EE2791213E00F04CE0 /* deferred.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593EC2791213E00F04CE0 /* deferred.cpp */; };
+		044593F127914EFF00F04CE0 /* render_pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593EF27914EFF00F04CE0 /* render_pass.cpp */; };
+		044593F227914EFF00F04CE0 /* render_pass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F027914EFF00F04CE0 /* render_pass.h */; };
+		044593F527914F7500F04CE0 /* subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F327914F7500F04CE0 /* subpass.cpp */; };
+		044593F627914F7500F04CE0 /* subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F427914F7500F04CE0 /* subpass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -686,6 +690,10 @@
 		044593E92791107600F04CE0 /* primitive_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = primitive_mesh.h; sourceTree = "<group>"; };
 		044593EC2791213E00F04CE0 /* deferred.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = deferred.cpp; sourceTree = "<group>"; };
 		044593ED2791213E00F04CE0 /* deferred.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = deferred.h; sourceTree = "<group>"; };
+		044593EF27914EFF00F04CE0 /* render_pass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = render_pass.cpp; sourceTree = "<group>"; };
+		044593F027914EFF00F04CE0 /* render_pass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render_pass.h; sourceTree = "<group>"; };
+		044593F327914F7500F04CE0 /* subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = subpass.cpp; sourceTree = "<group>"; };
+		044593F427914F7500F04CE0 /* subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = subpass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1053,6 +1061,10 @@
 		0445925E278E7F3300F04CE0 /* rendering */ = {
 			isa = PBXGroup;
 			children = (
+				044593F027914EFF00F04CE0 /* render_pass.h */,
+				044593EF27914EFF00F04CE0 /* render_pass.cpp */,
+				044593F427914F7500F04CE0 /* subpass.h */,
+				044593F327914F7500F04CE0 /* subpass.cpp */,
 				0445937D278FFE3100F04CE0 /* math_utilities.h */,
 				04459378278FFE3100F04CE0 /* math_utilities.cpp */,
 				04459379278FFE3100F04CE0 /* lighting_subpass.h */,
@@ -1290,6 +1302,7 @@
 				044593E32790FBE400F04CE0 /* sub_mesh.h in Headers */,
 				04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */,
 				0445930A278F14BD00F04CE0 /* renderer.h in Headers */,
+				044593F627914F7500F04CE0 /* subpass.h in Headers */,
 				04459375278FE8F600F04CE0 /* CPPMetalView.hpp in Headers */,
 				0445925D278E7C8600F04CE0 /* metal_application.h in Headers */,
 				0445928E278EA37D00F04CE0 /* script.h in Headers */,
@@ -1322,6 +1335,7 @@
 				044592AD278EBEB900F04CE0 /* shader_uniform.h in Headers */,
 				044592E4278ED3D200F04CE0 /* unlit_material.h in Headers */,
 				04459282278E80DD00F04CE0 /* component.h in Headers */,
+				044593F227914EFF00F04CE0 /* render_pass.h in Headers */,
 				042295A2278C32FB0090983F /* CPPMetalDevice.hpp in Headers */,
 				044592B6278EBFC600F04CE0 /* shader_program.h in Headers */,
 				04459320278F1B7900F04CE0 /* collider_shape.h in Headers */,
@@ -1624,6 +1638,7 @@
 				04459330278FAA7900F04CE0 /* sphere_collider_shape.cpp in Sources */,
 				044591EE278E557C00F04CE0 /* align.cc in Sources */,
 				044593E62791055900F04CE0 /* mesh.cpp in Sources */,
+				044593F527914F7500F04CE0 /* subpass.cpp in Sources */,
 				044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */,
 				0445930E278F170100F04CE0 /* spherical.cpp in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
@@ -1633,6 +1648,7 @@
 				0445932F278FAA7900F04CE0 /* box_collider_shape.cpp in Sources */,
 				042295AE278C32FB0090983F /* texture_loader.mm in Sources */,
 				0445936B278FB37C00F04CE0 /* orbit_control.cpp in Sources */,
+				044593F127914EFF00F04CE0 /* render_pass.cpp in Sources */,
 				04459358278FAF9800F04CE0 /* joint.cpp in Sources */,
 				04459368278FB27D00F04CE0 /* physics_manager.cpp in Sources */,
 				044592F4278EDA3300F04CE0 /* pbr_specular_material.cpp in Sources */,

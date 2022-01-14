@@ -22,30 +22,40 @@ bool Deferred::prepare(Engine &engine) {
     
     m_inFlightSemaphore = dispatch_semaphore_create(MaxFramesInFlight);
     
-    // Create a render pass descriptor to create an encoder for rendering to the GBuffers.
-    // The encoder stores rendered data of each attachment when encoding ends.
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].loadAction(MTL::LoadActionDontCare);
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].storeAction(MTL::StoreActionDontCare);
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].loadAction(MTL::LoadActionDontCare);
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].storeAction(MTL::StoreActionStore);
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].loadAction(MTL::LoadActionDontCare);
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].storeAction(MTL::StoreActionStore);
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].loadAction(MTL::LoadActionDontCare);
-    m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].storeAction(MTL::StoreActionStore);
-    m_GBufferRenderPassDescriptor.depthAttachment.clearDepth(1.0);
-    m_GBufferRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
-    m_GBufferRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
+#pragma mark Shadow render pass descriptor setup
+    {
+        // m_shadowRenderPassDescriptor.depthAttachment.texture(m_shadowMap);
+        m_shadowRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
+        m_shadowRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
+        m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
+    }
     
-    m_GBufferRenderPassDescriptor.stencilAttachment.clearStencil(0);
-    m_GBufferRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
-    m_GBufferRenderPassDescriptor.stencilAttachment.storeAction(MTL::StoreActionStore);
+    {
+        // Create a render pass descriptor to create an encoder for rendering to the GBuffers.
+        // The encoder stores rendered data of each attachment when encoding ends.
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].loadAction(MTL::LoadActionDontCare);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetLighting].storeAction(MTL::StoreActionDontCare);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].loadAction(MTL::LoadActionDontCare);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].loadAction(MTL::LoadActionDontCare);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].loadAction(MTL::LoadActionDontCare);
+        m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.depthAttachment.clearDepth(1.0);
+        m_GBufferRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
+        m_GBufferRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
+        m_GBufferRenderPassDescriptor.stencilAttachment.clearStencil(0);
+        m_GBufferRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
+        m_GBufferRenderPassDescriptor.stencilAttachment.storeAction(MTL::StoreActionStore);
+    }
     
-    // Create a render pass descriptor for thelighting and composition pass
-    
-    // Whatever rendered in the final pass needs to be stored so it can be displayed
-    m_finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
-    m_finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionLoad);
-    m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
+    {
+        // Create a render pass descriptor for thelighting and composition pass
+        // Whatever rendered in the final pass needs to be stored so it can be displayed
+        m_finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
+        m_finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionLoad);
+        m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
+    }
     
     render_pipeline = std::make_unique<LightingSubpass>(render_context.get());
     
@@ -116,7 +126,6 @@ void Deferred::update(float delta_time) {
         // rendering this frame.
         if (drawable) {
             // Render the lighting and composition pass
-            
             m_finalRenderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
             m_finalRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
             m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());

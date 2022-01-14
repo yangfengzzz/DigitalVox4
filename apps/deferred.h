@@ -33,6 +33,7 @@ private:
     dispatch_semaphore_t m_inFlightSemaphore;
     MTL::CommandBufferHandler *m_completedHandler{nullptr};
 
+    MTL::RenderPassDescriptor m_shadowRenderPassDescriptor;
     MTL::RenderPassDescriptor m_GBufferRenderPassDescriptor;
     MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
 };
