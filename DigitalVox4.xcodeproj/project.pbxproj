@@ -293,6 +293,8 @@
 		044593D42790082600F04CE0 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D32790082600F04CE0 /* ModelIO.framework */; };
 		044593DE2790F99200F04CE0 /* mesh_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593DC2790F99200F04CE0 /* mesh_buffer.cpp */; };
 		044593DF2790F99200F04CE0 /* mesh_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593DD2790F99200F04CE0 /* mesh_buffer.h */; };
+		044593E22790FBE400F04CE0 /* sub_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E02790FBE400F04CE0 /* sub_mesh.cpp */; };
+		044593E32790FBE400F04CE0 /* sub_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E12790FBE400F04CE0 /* sub_mesh.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -675,6 +677,8 @@
 		044593DA27902BE900F04CE0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		044593DC2790F99200F04CE0 /* mesh_buffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mesh_buffer.cpp; sourceTree = "<group>"; };
 		044593DD2790F99200F04CE0 /* mesh_buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh_buffer.h; sourceTree = "<group>"; };
+		044593E02790FBE400F04CE0 /* sub_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sub_mesh.cpp; sourceTree = "<group>"; };
+		044593E12790FBE400F04CE0 /* sub_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sub_mesh.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1242,6 +1246,8 @@
 			children = (
 				044593DD2790F99200F04CE0 /* mesh_buffer.h */,
 				044593DC2790F99200F04CE0 /* mesh_buffer.cpp */,
+				044593E12790FBE400F04CE0 /* sub_mesh.h */,
+				044593E02790FBE400F04CE0 /* sub_mesh.cpp */,
 			);
 			path = graphics;
 			sourceTree = "<group>";
@@ -1270,6 +1276,7 @@
 				042295A0278C32FB0090983F /* CPPMetalRenderPipeline.hpp in Headers */,
 				04459351278FAF9800F04CE0 /* translational_joint.h in Headers */,
 				042295BA278C33090090983F /* CPPMetalInternalMacros.h in Headers */,
+				044593E32790FBE400F04CE0 /* sub_mesh.h in Headers */,
 				04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */,
 				0445930A278F14BD00F04CE0 /* renderer.h in Headers */,
 				04459375278FE8F600F04CE0 /* CPPMetalView.hpp in Headers */,
@@ -1643,6 +1650,7 @@
 				0445931B278F197600F04CE0 /* collider_shape.cpp in Sources */,
 				04459280278E80DD00F04CE0 /* updateFlag.cpp in Sources */,
 				04459309278F14BD00F04CE0 /* renderer.cpp in Sources */,
+				044593E22790FBE400F04CE0 /* sub_mesh.cpp in Sources */,
 				04459200278E591A00F04CE0 /* imgui_widgets.cpp in Sources */,
 				0445938C278FFE3200F04CE0 /* subpass.cpp in Sources */,
 				044592F0278ED88400F04CE0 /* pbr_base_material.cpp in Sources */,
