@@ -8,11 +8,11 @@
 #include <ModelIO/ModelIO.h>
 #include <unordered_map>
 #include <set>
+#include "core/CPPMetalAssert.hpp"
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 #include "mesh_loader.h"
-#include "rendering/utilities.h"
 #include "material/texture_loader.h"
 
 using namespace MTL;
@@ -254,7 +254,7 @@ std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
     NSString *nsMeshName = [[NSString alloc] initWithUTF8String:meshFile];
     NSURL *modelFileURL = [[NSBundle bundleWithPath: nsBunldePath] URLForResource:nsMeshName withExtension:nil];
     
-    AAPLAssert(modelFileURL, "Could not find model (%s) file in bundle", modelFileURL.absoluteString.UTF8String);
+    MTLAssert(modelFileURL, "Could not find model (%s) file in bundle", modelFileURL.absoluteString.UTF8String);
     
     // Create a MetalKit mesh buffer allocator so that ModelIO will load mesh data directly into
     // Metal buffers accessible by the GPU
@@ -269,7 +269,7 @@ std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
                                    vertexDescriptor:nil
                                     bufferAllocator:bufferAllocator];
     
-    AAPLAssert(asset, "Failed to open model file with given URL: %s", modelFileURL.absoluteString.UTF8String);
+    MTLAssert(asset, "Failed to open model file with given URL: %s", modelFileURL.absoluteString.UTF8String);
     
     // Create a MetalKit texture loader to load material textures from files or the asset catalog
     //   into Metal textures

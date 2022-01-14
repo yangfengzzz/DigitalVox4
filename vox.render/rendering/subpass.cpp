@@ -18,7 +18,7 @@
 #include "graphics/mesh_loader.h"
 #include "graphics/primitive_mesh.h"
 #include "math_utilities.h"
-#include "utilities.h"
+#include "core/CPPMetalAssert.hpp"
 
 using namespace simd;
 
@@ -149,7 +149,7 @@ void Subpass::loadMetal() {
             
             m_GBufferPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
             
-            AAPLAssert(error == nullptr, error, "Failed to create GBuffer render pipeline state");
+            MTLAssert(error == nullptr, error, "Failed to create GBuffer render pipeline state");
         }
         
 #pragma mark GBuffer depth state setup
@@ -211,7 +211,7 @@ void Subpass::loadMetal() {
             m_directionalLightPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor,
                                                                                &error);
             
-            AAPLAssert(error == nullptr, error,
+            MTLAssert(error == nullptr, error,
                        "Failed to create directional light render pipeline state:");
         }
         
@@ -274,7 +274,7 @@ void Subpass::loadMetal() {
         
         m_fairyPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor);
         
-        AAPLAssert(error == nullptr, error, "Failed to create fairy render pipeline state: %@");
+        MTLAssert(error == nullptr, error, "Failed to create fairy render pipeline state: %@");
     }
     
 #pragma mark Sky render pipeline setup
@@ -309,7 +309,7 @@ void Subpass::loadMetal() {
         
         m_skyboxPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
         
-        AAPLAssert(error == nullptr, error, "Failed to create skybox render pipeline state: %@");
+        MTLAssert(error == nullptr, error, "Failed to create skybox render pipeline state: %@");
     }
     
 #pragma mark Post lighting depth state setup
@@ -406,7 +406,7 @@ void Subpass::loadMetal() {
             m_lightMaskPipelineState =
             m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
             
-            AAPLAssert(error == nullptr, error,
+            MTLAssert(error == nullptr, error,
                        "Failed to create directional light mask pipeline state:");
         }
         
@@ -465,7 +465,7 @@ void Subpass::loadScene() {
     m_meshes = newMeshesFromBundlePath("../assets/Models", "Temple.obj",
                                        m_device, m_defaultVertexDescriptor, &error);
     
-    AAPLAssert(m_meshes, error, "Could not create meshes from model file");
+    MTLAssert(m_meshes, error, "Could not create meshes from model file");
     
     // Generate data
     {
@@ -547,7 +547,7 @@ void Subpass::loadScene() {
 //                                             textureLoaderOptions,
 //                                             &error);
         
-        AAPLAssert(error == nullptr, error, "Could not load sky texture");
+        MTLAssert(error == nullptr, error, "Could not load sky texture");
         
         m_skyMap.label("Sky Map");
         
@@ -557,7 +557,7 @@ void Subpass::loadScene() {
 //                                               textureLoaderOptions,
 //                                               &error);
         
-        AAPLAssert(error == nullptr, error, "Could not load fairy texture");
+        MTLAssert(error == nullptr, error, "Could not load fairy texture");
         
         m_fairyMap.label("Fairy Map");
     }
@@ -1061,7 +1061,7 @@ MTL::Library Subpass::makeShaderLibrary() {
     libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
     MTL::Library shaderLibrary = m_device.makeLibrary(libraryURL, &error);
     
-    AAPLAssert(!error, error, "Could not load Metal shader library");
+    MTLAssert(!error, error, "Could not load Metal shader library");
     
     CFRelease(libraryURL);
     return shaderLibrary;

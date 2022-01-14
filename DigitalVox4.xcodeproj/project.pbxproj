@@ -275,7 +275,7 @@
 		0445938C278FFE3200F04CE0 /* subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445937F278FFE3100F04CE0 /* subpass.cpp */; };
 		0445938D278FFE3200F04CE0 /* mesh_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459380278FFE3100F04CE0 /* mesh_loader.mm */; };
 		0445938E278FFE3200F04CE0 /* lighting_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459381278FFE3200F04CE0 /* lighting_subpass.h */; };
-		0445938F278FFE3200F04CE0 /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459382278FFE3200F04CE0 /* utilities.h */; };
+		0445938F278FFE3200F04CE0 /* CPPMetalAssert.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 04459382278FFE3200F04CE0 /* CPPMetalAssert.hpp */; };
 		044593AD279002D500F04CE0 /* fairy.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459399278FFF6E00F04CE0 /* fairy.metal */; };
 		044593AE279002D500F04CE0 /* directional_light.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459392278FFF6E00F04CE0 /* directional_light.metal */; };
 		044593AF279002D500F04CE0 /* skybox.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04459394278FFF6E00F04CE0 /* skybox.metal */; };
@@ -657,7 +657,7 @@
 		0445937F278FFE3100F04CE0 /* subpass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = subpass.cpp; sourceTree = "<group>"; };
 		04459380278FFE3100F04CE0 /* mesh_loader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mesh_loader.mm; sourceTree = "<group>"; };
 		04459381278FFE3200F04CE0 /* lighting_subpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lighting_subpass.h; sourceTree = "<group>"; };
-		04459382278FFE3200F04CE0 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utilities.h; sourceTree = "<group>"; };
+		04459382278FFE3200F04CE0 /* CPPMetalAssert.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalAssert.hpp; sourceTree = "<group>"; };
 		04459391278FFF6E00F04CE0 /* shader_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_types.h; sourceTree = "<group>"; };
 		04459392278FFF6E00F04CE0 /* directional_light.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = directional_light.metal; sourceTree = "<group>"; };
 		04459394278FFF6E00F04CE0 /* skybox.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = skybox.metal; sourceTree = "<group>"; };
@@ -831,6 +831,7 @@
 		0422955D278C31DC0090983F /* core */ = {
 			isa = PBXGroup;
 			children = (
+				04459382278FFE3200F04CE0 /* CPPMetalAssert.hpp */,
 				04229584278C32FA0090983F /* CPPMetal.hpp */,
 				0422956C278C32FA0090983F /* CPPMetalTypes.hpp */,
 				04229560278C32F90090983F /* CPPMetalAllocator.hpp */,
@@ -1053,7 +1054,6 @@
 		0445925E278E7F3300F04CE0 /* rendering */ = {
 			isa = PBXGroup;
 			children = (
-				04459382278FFE3200F04CE0 /* utilities.h */,
 				0445937D278FFE3100F04CE0 /* math_utilities.h */,
 				04459378278FFE3100F04CE0 /* math_utilities.cpp */,
 				04459379278FFE3100F04CE0 /* subpass.h */,
@@ -1352,7 +1352,7 @@
 				042295A6278C32FB0090983F /* CPPMetalConstants.hpp in Headers */,
 				044592C2278EC5A200F04CE0 /* depth_state.h in Headers */,
 				042295A7278C32FB0090983F /* CPPMetalDepthStencil.hpp in Headers */,
-				0445938F278FFE3200F04CE0 /* utilities.h in Headers */,
+				0445938F278FFE3200F04CE0 /* CPPMetalAssert.hpp in Headers */,
 				04459337278FAE0C00F04CE0 /* character_controller.h in Headers */,
 				044592D8278ED0FB00F04CE0 /* blend_mode.h in Headers */,
 				04459364278FB14400F04CE0 /* hit_result.h in Headers */,

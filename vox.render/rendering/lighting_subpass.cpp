@@ -12,7 +12,7 @@
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
-#include "utilities.h"
+#include "core/CPPMetalAssert.hpp"
 
 namespace vox {
 LightingSubpass::LightingSubpass(MTL::View *view)
@@ -61,7 +61,7 @@ void LightingSubpass::loadMetal() {
         
         m_lightPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
         
-        AAPLAssert(error == nullptr, error, "Failed to create lighting render pipeline state");
+        MTLAssert(error == nullptr, error, "Failed to create lighting render pipeline state");
     }
     
 #pragma mark GBuffer render pass descriptor setup
