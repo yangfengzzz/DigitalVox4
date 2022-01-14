@@ -92,7 +92,6 @@ private:
 
     MTL::RenderPassDescriptor m_shadowRenderPassDescriptor;
     std::unique_ptr<RenderPass> m_shadowRenderPass{nullptr};
-    ShadowSubpass* m_shadowSubpass{nullptr};
     
     MTL::RenderPassDescriptor m_GBufferRenderPassDescriptor;
     MTL::RenderPassDescriptor m_finalRenderPassDescriptor;

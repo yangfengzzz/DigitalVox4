@@ -106,9 +106,8 @@ bool Deferred::prepare(Engine &engine) {
         m_shadowRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
         m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
         m_shadowRenderPass = std::make_unique<RenderPass>(&m_shadowRenderPassDescriptor);
-        auto subpass = std::make_unique<ShadowSubpass>(&m_shadowRenderPassDescriptor, scene.get(), shaderLibrary, *device, m_meshes);
-        m_shadowSubpass = subpass.get();
-        m_shadowRenderPass->addSubpass(std::move(subpass));
+        m_shadowRenderPass->addSubpass(std::make_unique<ShadowSubpass>(&m_shadowRenderPassDescriptor, scene.get(),
+                                                                       shaderLibrary, *device, m_meshes));
     }
     
     {
@@ -169,7 +168,8 @@ void Deferred::update(float delta_time) {
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         MTL::RenderCommandEncoder renderEncoder = commandBuffer.renderCommandEncoderWithDescriptor(m_GBufferRenderPassDescriptor);
         renderEncoder.label("GBuffer Generation");
-        subpass->drawGBuffer(renderEncoder, m_meshes, m_uniformBuffers[m_frameDataBufferIndex], m_shadowSubpass->shadowMap());
+        subpass->drawGBuffer(renderEncoder, m_meshes, m_uniformBuffers[m_frameDataBufferIndex],
+                             m_shadowRenderPassDescriptor.depthAttachment.texture());
         renderEncoder.endEncoding();
         
         // Commit commands so that Metal can begin working on non-drawable dependant work without
