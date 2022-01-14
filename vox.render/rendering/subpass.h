@@ -67,12 +67,7 @@ public:
     // Open the Metal shader library
     MTL::Library makeShaderLibrary();
     
-    virtual void drawableSizeWillChange(MTL::View *view, const MTL::Size &size) = 0;
-    
-    virtual void drawInView(MTL::View *view) = 0;
-    
-protected:
-    
+#pragma mark -
     virtual void loadMetal();
     
     void loadScene();
@@ -123,8 +118,7 @@ protected:
     
     MTL::DepthStencilState *m_dontWriteDepthStencilState;
     
-private:
-    
+#pragma mark -
     void updateLights(const simd::float4x4 &modelViewMatrix);
     
     void updateWorldState();

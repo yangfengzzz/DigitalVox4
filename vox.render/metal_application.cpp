@@ -36,7 +36,6 @@ bool MetalApplication::prepare(Engine &engine) {
 
 void MetalApplication::update(float delta_time) {
     render_context->draw();
-    render_pipeline->drawInView(render_context.get());
 }
 
 bool MetalApplication::resize(const uint32_t width, const uint32_t height) {
@@ -49,7 +48,6 @@ void MetalApplication::framebuffer_resize(uint32_t width, uint32_t height) {
     Application::framebuffer_resize(width, height);
 
     render_context->resize(MTL::SizeMake(width, height, 0));
-    render_pipeline->drawableSizeWillChange(render_context.get(), MTL::SizeMake(width, height, 0));
 }
 
 void MetalApplication::input_event(const InputEvent &input_event) {}

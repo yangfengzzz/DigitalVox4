@@ -19,15 +19,8 @@ public:
     
     virtual ~LightingSubpass();
     
-    void drawInView(MTL::View *view);
-    
-    void drawableSizeWillChange(MTL::View *view, const MTL::Size &size);
-    
-private:
+#pragma mark -
     MTL::RenderPipelineState m_lightPipelineState;
-    
-    MTL::RenderPassDescriptor m_GBufferRenderPassDescriptor;
-    MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
     
     void loadMetal();
     

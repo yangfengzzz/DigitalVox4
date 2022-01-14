@@ -26,6 +26,12 @@ public:
      * @brief Main loop sample events
      */
     virtual void update(float delta_time) override;
+    
+    virtual void framebuffer_resize(uint32_t width, uint32_t height) override;
+    
+private:
+    MTL::RenderPassDescriptor m_GBufferRenderPassDescriptor;
+    MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
 };
 
 }
