@@ -45,7 +45,6 @@ public:
                       MTL::UInteger indexBufferSize);
     
 private:
-    
     MTL::Buffer m_buffer;
     MTL::UInteger m_length;
     MTL::UInteger m_offset;

@@ -46,7 +46,6 @@ public:
     const std::vector<MTL::Texture> &textures() const;
     
 private:
-    
     MTL::PrimitiveType m_primitiveType;
     
     MTL::IndexType m_indexType;

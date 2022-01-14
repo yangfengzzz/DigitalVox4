@@ -16,15 +16,6 @@ std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
                                            const MTL::VertexDescriptor &vertexDescriptor,
                                            CFErrorRef *error);
 
-
-Mesh makeSphereMesh(MTL::Device &device,
-                    const MTL::VertexDescriptor &vertexDescriptor,
-                    int radialSegments, int verticalSegments, float radius);
-
-Mesh makeIcosahedronMesn(MTL::Device &device,
-                         const MTL::VertexDescriptor &vertexDescriptor,
-                         float radius);
-
 }
 
 #endif // Mesh_h

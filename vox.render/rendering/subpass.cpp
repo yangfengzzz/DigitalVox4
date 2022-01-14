@@ -15,6 +15,7 @@
 
 #include "subpass.h"
 #include "graphics/mesh_utilities.h"
+#include "graphics/primitive_mesh.h"
 #include "math_utilities.h"
 #include "utilities.h"
 
@@ -520,12 +521,12 @@ void Subpass::loadScene() {
         // Calculate radius such that minium radius of icosahedronDescriptor is 1
         const float icoshedronRadius = 1.0 / (sqrtf(3.0) / 12.0 * (3.0 + sqrtf(5.0)));
         
-        m_icosahedronMesh = makeIcosahedronMesn(m_device, icosahedronDescriptor, icoshedronRadius);
+        m_icosahedronMesh = PrimitiveMesh::makeIcosahedronMesn(m_device, icosahedronDescriptor, icoshedronRadius);
     }
     
     // Create a sphere for the skybox
     {
-        m_skyMesh = makeSphereMesh(m_device, m_skyVertexDescriptor, 20, 20, 150.0);
+        m_skyMesh = PrimitiveMesh::makeSphereMesh(m_device, m_skyVertexDescriptor, 20, 20, 150.0);
     }
     
     // Load textures for non mesh assets

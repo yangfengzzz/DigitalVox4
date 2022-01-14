@@ -297,6 +297,8 @@
 		044593E32790FBE400F04CE0 /* sub_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E12790FBE400F04CE0 /* sub_mesh.h */; };
 		044593E62791055900F04CE0 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E42791055900F04CE0 /* mesh.cpp */; };
 		044593E72791055900F04CE0 /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E52791055900F04CE0 /* mesh.h */; };
+		044593EA2791107600F04CE0 /* primitive_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E82791107600F04CE0 /* primitive_mesh.cpp */; };
+		044593EB2791107600F04CE0 /* primitive_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E92791107600F04CE0 /* primitive_mesh.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -683,6 +685,8 @@
 		044593E12790FBE400F04CE0 /* sub_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sub_mesh.h; sourceTree = "<group>"; };
 		044593E42791055900F04CE0 /* mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
 		044593E52791055900F04CE0 /* mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
+		044593E82791107600F04CE0 /* primitive_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = primitive_mesh.cpp; sourceTree = "<group>"; };
+		044593E92791107600F04CE0 /* primitive_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = primitive_mesh.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1252,6 +1256,8 @@
 				044593E02790FBE400F04CE0 /* sub_mesh.cpp */,
 				044593E52791055900F04CE0 /* mesh.h */,
 				044593E42791055900F04CE0 /* mesh.cpp */,
+				044593E92791107600F04CE0 /* primitive_mesh.h */,
+				044593E82791107600F04CE0 /* primitive_mesh.cpp */,
 				04459376278FFE3100F04CE0 /* mesh_utilities.h */,
 				04459380278FFE3100F04CE0 /* mesh_utilities.mm */,
 			);
@@ -1303,6 +1309,7 @@
 				04459237278E5FD700F04CE0 /* debug_info.h in Headers */,
 				04459286278E80DD00F04CE0 /* scene_forward.h in Headers */,
 				044592A4278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp in Headers */,
+				044593EB2791107600F04CE0 /* primitive_mesh.h in Headers */,
 				044591F1278E557C00F04CE0 /* align.h in Headers */,
 				04459361278FB14400F04CE0 /* static_collider.h in Headers */,
 				0445922A278E5F1100F04CE0 /* engine.h in Headers */,
@@ -1646,6 +1653,7 @@
 				044592A3278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm in Sources */,
 				042295AD278C32FB0090983F /* CPPMetalLibrary.mm in Sources */,
 				044592A5278EB92800F04CE0 /* shader_macro_collection.cpp in Sources */,
+				044593EA2791107600F04CE0 /* primitive_mesh.cpp in Sources */,
 				0445938D278FFE3200F04CE0 /* mesh_utilities.mm in Sources */,
 				04229590278C32FB0090983F /* CPPMetalCommandEncoder.mm in Sources */,
 				0445923A278E61B000F04CE0 /* input_events.cpp in Sources */,
