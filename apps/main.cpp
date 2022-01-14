@@ -7,14 +7,14 @@
 
 #include "unix_engine.h"
 #include "engine.h"
-#include "metal_application.h"
+#include "deferred.h"
 
 int main(int argc, char * argv[]) {
     vox::UnixEngine engine{vox::UnixType::Mac, argc, argv};
         
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.set_app(std::make_unique<vox::MetalApplication>());
+        engine.set_app(std::make_unique<vox::Deferred>());
         code = engine.main_loop();
     }
     
