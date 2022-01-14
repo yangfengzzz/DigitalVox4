@@ -263,28 +263,28 @@ void Deferred::update(float delta_time) {
             subpass->drawDirectionalLight(renderEncoder, m_quadVertexBuffer, m_uniformBuffers[m_frameDataBufferIndex],
                                           m_albedo_specular_GBuffer, m_normal_shadow_GBuffer, m_depth_GBuffer);
             
-            subpass->drawPointLightMask(renderEncoder, m_lightsData,
-                                        m_lightPositions[m_frameDataBufferIndex],
-                                        m_uniformBuffers[m_frameDataBufferIndex],
-                                        m_icosahedronMesh);
-            
-            subpass->drawPointLights(renderEncoder, m_lightsData,
-                                     m_lightPositions[m_frameDataBufferIndex],
-                                     m_uniformBuffers[m_frameDataBufferIndex],
-                                     m_icosahedronMesh,
-                                     m_albedo_specular_GBuffer,
-                                     m_normal_shadow_GBuffer,
-                                     m_depth_GBuffer);
-            
-            subpass->drawSky(renderEncoder,
-                             m_uniformBuffers[m_frameDataBufferIndex],
-                             m_skyMesh,
-                             m_skyMap);
-            
-            subpass->drawFairies(renderEncoder, m_lightsData,
-                                 m_lightPositions[m_frameDataBufferIndex],
-                                 m_uniformBuffers[m_frameDataBufferIndex],
-                                 m_fairy, m_fairyMap);
+//            subpass->drawPointLightMask(renderEncoder, m_lightsData,
+//                                        m_lightPositions[m_frameDataBufferIndex],
+//                                        m_uniformBuffers[m_frameDataBufferIndex],
+//                                        m_icosahedronMesh);
+//
+//            subpass->drawPointLights(renderEncoder, m_lightsData,
+//                                     m_lightPositions[m_frameDataBufferIndex],
+//                                     m_uniformBuffers[m_frameDataBufferIndex],
+//                                     m_icosahedronMesh,
+//                                     m_albedo_specular_GBuffer,
+//                                     m_normal_shadow_GBuffer,
+//                                     m_depth_GBuffer);
+//
+//            subpass->drawSky(renderEncoder,
+//                             m_uniformBuffers[m_frameDataBufferIndex],
+//                             m_skyMesh,
+//                             m_skyMap);
+//
+//            subpass->drawFairies(renderEncoder, m_lightsData,
+//                                 m_lightPositions[m_frameDataBufferIndex],
+//                                 m_uniformBuffers[m_frameDataBufferIndex],
+//                                 m_fairy, m_fairyMap);
             
             renderEncoder.endEncoding();
         }
