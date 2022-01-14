@@ -22,7 +22,6 @@ Header for C++ Metal wrapper
 #include "CPPMetalTexture.hpp"
 #include "CPPMetalVertexDescriptor.hpp"
 
-#include "CPPMetalKitTextureLoader.hpp"
 #include "CPPMetalView.hpp"
 
 #endif // CPPMetal_hpp

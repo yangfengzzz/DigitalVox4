@@ -6,14 +6,14 @@
  */
 
 #include <Metal/Metal.h>
-#include "CPPMetalKitTextureLoader.hpp"
+#include "texture_loader.h"
 #include "CPPMetalDevice.hpp"
 #include <string>
 #include <array>
 
 using namespace MTL;
-using namespace MTK;
 
+namespace vox {
 TextureLoader::TextureLoader(MTL::Device &device)
 : m_objCObj([[MTKTextureLoader alloc] initWithDevice:device.objCObj()]), m_device(&device) {
     // Member initialization only
@@ -188,4 +188,6 @@ MTL::Texture TextureLoader::loadTexture(const std::string &path, const std::stri
     }
     
     return Texture(texture, *m_device);
+}
+
 }

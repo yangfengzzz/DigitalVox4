@@ -16,7 +16,7 @@ namespace MTL {
 class Device;
 }
 
-namespace MTK {
+namespace vox {
 struct TextureLoaderOptions {
     MTL::TextureUsage usage;
     MTL::StorageMode storageMode;
@@ -70,6 +70,6 @@ private:
 };
 
 
-} // namespace MTK
+} // namespace vox
 
 #endif // CPPMetalKitTextureLoader_hpp

@@ -11,15 +11,16 @@
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
-#include "mesh_utilities.h"
+#include "mesh_loader.h"
 #include "rendering/utilities.h"
+#include "material/texture_loader.h"
 
 using namespace MTL;
 
 namespace vox {
 static Texture createTextureFromMaterial(MDLMaterial *material,
                                          MDLMaterialSemantic materialSemantic,
-                                         MTK::TextureLoader &textureLoader) {
+                                         TextureLoader &textureLoader) {
     NSArray<MDLMaterialProperty *> *propertiesWithSemantic =
     [material propertiesWithSemantic:materialSemantic];
     
@@ -27,7 +28,7 @@ static Texture createTextureFromMaterial(MDLMaterial *material,
         if (property.type == MDLMaterialPropertyTypeString ||
             property.type == MDLMaterialPropertyTypeURL) {
             // Load the textures with shader read using private storage
-            MTK::TextureLoaderOptions options;
+            TextureLoaderOptions options;
             options.usage = MTL::TextureUsageShaderRead;
             options.storageMode = MTL::StorageModePrivate;
             
@@ -90,7 +91,7 @@ static Texture createTextureFromMaterial(MDLMaterial *material,
 static Submesh createSubmesh(MDLSubmesh *modelIOSubmesh,
                              MTKSubmesh *metalKitSubmesh,
                              MTL::Device &device,
-                             MTK::TextureLoader &textureLoader) {
+                             TextureLoader &textureLoader) {
     
     // Set each index in the array with the appropriate material semantic specified in the
     //   submesh's material property
@@ -129,7 +130,7 @@ static Submesh createSubmesh(MDLSubmesh *modelIOSubmesh,
 
 Mesh createMeshFromModelIOMesh(MDLMesh *modelIOMesh,
                                MDLVertexDescriptor *vertexDescriptor,
-                               MTK::TextureLoader &textureLoader,
+                               TextureLoader &textureLoader,
                                MTL::Device &device,
                                NSError *__nullable *__nullable error) {
     
@@ -200,7 +201,7 @@ Mesh createMeshFromModelIOMesh(MDLMesh *modelIOMesh,
 
 static std::vector<Mesh> createMeshesFromModelIOObject(MDLObject *object,
                                                        MDLVertexDescriptor *vertexDescriptor,
-                                                       MTK::TextureLoader &textureLoader,
+                                                       TextureLoader &textureLoader,
                                                        MTL::Device &device,
                                                        NSError *__nullable *__nullable error) {
     std::vector<Mesh> newMeshes;
@@ -272,7 +273,7 @@ std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
     
     // Create a MetalKit texture loader to load material textures from files or the asset catalog
     //   into Metal textures
-    MTK::TextureLoader textureLoader(device);
+    TextureLoader textureLoader(device);
     
     std::vector<Mesh> *newMeshes = new std::vector<Mesh>();
     

@@ -14,7 +14,8 @@
 #include <string>
 
 #include "subpass.h"
-#include "graphics/mesh_utilities.h"
+#include "material/texture_loader.h"
+#include "graphics/mesh_loader.h"
 #include "graphics/primitive_mesh.h"
 #include "math_utilities.h"
 #include "utilities.h"
@@ -531,9 +532,9 @@ void Subpass::loadScene() {
     
     // Load textures for non mesh assets
     {
-        MTK::TextureLoader textureLoader(m_device);
+        TextureLoader textureLoader(m_device);
         
-        MTK::TextureLoaderOptions textureLoaderOptions;
+        TextureLoaderOptions textureLoaderOptions;
         
         textureLoaderOptions.usage = MTL::TextureUsageShaderRead;
         textureLoaderOptions.storageMode = MTL::StorageModePrivate;
