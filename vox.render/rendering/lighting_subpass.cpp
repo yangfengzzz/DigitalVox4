@@ -28,86 +28,24 @@ namespace vox {
 // Number of vertices in our 2D fairy model
 static const uint32_t NumFairyVertices = 7;
 
-// 30% of lights are around the tree
-// 40% of lights are on the ground inside the columns
-// 30% of lights are around the outside of the columns
-static const uint32_t TreeLights = 0 + 0.30 * NumLights;
-static const uint32_t GroundLights = TreeLights + 0.40 * NumLights;
-static const uint32_t ColumnLights = GroundLights + 0.30 * NumLights;
-
 LightingSubpass::LightingSubpass(MTL::View* view)
 : m_view(view),
-m_device(view->device()),
-m_originalLightPositions(nullptr),
-m_frameDataBufferIndex(0),
-m_frameNumber(0) {
-    loadMetal();
-    loadScene();
+m_device(view->device())
+{
 }
 
 LightingSubpass::~LightingSubpass() {
-    delete[] m_originalLightPositions;
-    
-    delete m_meshes;    
 }
 
 /// Create Metal render state objects
-void LightingSubpass::loadMetal() {
+void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor,
+                                MTL::VertexDescriptor& m_skyVertexDescriptor) {
     // Create and load the basic Metal state objects
     CFErrorRef error = nullptr;
     
     printf("Selected Device: %s\n", m_view->device().name());
     
-    for (uint8_t i = 0; i < MaxFramesInFlight; i++) {
-        // Indicate shared storage so that both the CPU can access the buffers
-        static const MTL::ResourceOptions storageMode = MTL::ResourceStorageModeShared;
-        
-        m_uniformBuffers[i] = m_device.makeBuffer(sizeof(FrameData), storageMode);
-        
-        m_uniformBuffers[i].label("UniformBuffer");
-        
-        m_lightPositions[i] = m_device.makeBuffer(sizeof(float4) * NumLights, storageMode);
-        
-        m_uniformBuffers[i].label("LightPositions");
-    }
-    
     MTL::Library shaderLibrary = makeShaderLibrary();
-    
-    // Positions.
-    
-    m_defaultVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
-    m_defaultVertexDescriptor.attributes[VertexAttributePosition].offset(0);
-    m_defaultVertexDescriptor.attributes[VertexAttributePosition].bufferIndex(BufferIndexMeshPositions);
-    
-    // Texture coordinates.
-    m_defaultVertexDescriptor.attributes[VertexAttributeTexcoord].format(MTL::VertexFormatFloat2);
-    m_defaultVertexDescriptor.attributes[VertexAttributeTexcoord].offset(0);
-    m_defaultVertexDescriptor.attributes[VertexAttributeTexcoord].bufferIndex(BufferIndexMeshGenerics);
-    
-    // Normals.
-    m_defaultVertexDescriptor.attributes[VertexAttributeNormal].format(MTL::VertexFormatHalf4);
-    m_defaultVertexDescriptor.attributes[VertexAttributeNormal].offset(8);
-    m_defaultVertexDescriptor.attributes[VertexAttributeNormal].bufferIndex(BufferIndexMeshGenerics);
-    
-    // Tangents
-    m_defaultVertexDescriptor.attributes[VertexAttributeTangent].format(MTL::VertexFormatHalf4);
-    m_defaultVertexDescriptor.attributes[VertexAttributeTangent].offset(16);
-    m_defaultVertexDescriptor.attributes[VertexAttributeTangent].bufferIndex(BufferIndexMeshGenerics);
-    
-    // Bitangents
-    m_defaultVertexDescriptor.attributes[VertexAttributeBitangent].format(MTL::VertexFormatHalf4);
-    m_defaultVertexDescriptor.attributes[VertexAttributeBitangent].offset(24);
-    m_defaultVertexDescriptor.attributes[VertexAttributeBitangent].bufferIndex(BufferIndexMeshGenerics);
-    
-    // Position Buffer Layout
-    m_defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stride(12);
-    m_defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepRate(1);
-    m_defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepFunction(MTL::VertexStepFunctionPerVertex);
-    
-    // Generic Attribute Buffer Layout
-    m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stride(32);
-    m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepRate(1);
-    m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepFunction(MTL::VertexStepFunctionPerVertex);
     
     m_view->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
     m_view->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
@@ -244,15 +182,6 @@ void LightingSubpass::loadMetal() {
     
 #pragma mark Sky render pipeline setup
     {
-        m_skyVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
-        m_skyVertexDescriptor.attributes[VertexAttributePosition].offset(0);
-        m_skyVertexDescriptor.attributes[VertexAttributePosition].bufferIndex(BufferIndexMeshPositions);
-        m_skyVertexDescriptor.layouts[BufferIndexMeshPositions].stride(12);
-        m_skyVertexDescriptor.attributes[VertexAttributeNormal].format(MTL::VertexFormatFloat3);
-        m_skyVertexDescriptor.attributes[VertexAttributeNormal].offset(0);
-        m_skyVertexDescriptor.attributes[VertexAttributeNormal].bufferIndex(BufferIndexMeshGenerics);
-        m_skyVertexDescriptor.layouts[BufferIndexMeshGenerics].stride(12);
-        
         MTL::Function skyboxVertexFunction = shaderLibrary.makeFunction("skybox_vertex");
         MTL::Function skyboxFragmentFunction = shaderLibrary.makeFunction("skybox_fragment");
         
@@ -330,11 +259,6 @@ void LightingSubpass::loadMetal() {
             m_shadowRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
             m_shadowRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
             m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
-        }
-        
-        // Calculate projection matrix to render shadows
-        {
-            m_shadowProjectionMatrix = matrix_ortho_left_hand(-53, 53, -33, 53, -53, 53);
         }
     }
     
@@ -436,297 +360,8 @@ void LightingSubpass::loadMetal() {
     }
 }
 
-/// Load models/textures, etc.
-void LightingSubpass::loadScene() {
-    // Create and load assets into Metal objects including meshes and textures
-    CFErrorRef error = nullptr;
-    
-    m_meshes = newMeshesFromBundlePath("../assets/Models", "Temple.obj",
-                                       m_device, m_defaultVertexDescriptor, &error);
-    
-    MTLAssert(m_meshes, error, "Could not create meshes from model file");
-    
-    // Generate data
-    {
-        m_lightsData = m_device.makeBuffer(sizeof(PointLight) * NumLights);
-        
-        m_lightsData.label("LightData");
-        
-        populateLights();
-    }
-    
-    // Create quad for fullscreen composition drawing
-    {
-        static const SimpleVertex QuadVertices[] =
-        {
-            {{-1.0f, -1.0f,}},
-            {{-1.0f, 1.0f,}},
-            {{1.0f, -1.0f,}},
-            
-            {{1.0f, -1.0f,}},
-            {{-1.0f, 1.0f,}},
-            {{1.0f, 1.0f,}},
-        };
-        
-        m_quadVertexBuffer = m_device.makeBuffer(QuadVertices, sizeof(QuadVertices));
-        
-        m_quadVertexBuffer.label("Quad Vertices");
-    }
-    
-    // Create a simple 2D triangle strip circle mesh for fairies
-    {
-        SimpleVertex fairyVertices[NumFairyVertices];
-        const float angle = 2 * M_PI / (float) NumFairyVertices;
-        for (int vtx = 0; vtx < NumFairyVertices; vtx++) {
-            int point = (vtx % 2) ? (vtx + 1) / 2 : -vtx / 2;
-            float2 position = {sin(point * angle), cos(point * angle)};
-            fairyVertices[vtx].position = position;
-        }
-        
-        m_fairy = m_device.makeBuffer(fairyVertices, sizeof(fairyVertices));
-        
-        m_fairy.label("Fairy Vertices");
-    }
-    
-    // Create an icosahedron mesh for fairy light volumes
-    {
-        // Create vertex descriptor with layout for icoshedron
-        MTL::VertexDescriptor icosahedronDescriptor;
-        icosahedronDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat4);
-        icosahedronDescriptor.attributes[VertexAttributePosition].offset(0);
-        icosahedronDescriptor.attributes[VertexAttributePosition].bufferIndex(BufferIndexMeshPositions);
-        
-        icosahedronDescriptor.layouts[BufferIndexMeshPositions].stride(sizeof(float4));
-        
-        // Calculate radius such that minium radius of icosahedronDescriptor is 1
-        const float icoshedronRadius = 1.0 / (sqrtf(3.0) / 12.0 * (3.0 + sqrtf(5.0)));
-        
-        m_icosahedronMesh = PrimitiveMesh::makeIcosahedronMesn(m_device, icosahedronDescriptor, icoshedronRadius);
-    }
-    
-    // Create a sphere for the skybox
-    {
-        m_skyMesh = PrimitiveMesh::makeSphereMesh(m_device, m_skyVertexDescriptor, 20, 20, 150.0);
-    }
-    
-    // Load textures for non mesh assets
-    {
-        TextureLoader textureLoader(m_device);
-        
-        TextureLoaderOptions textureLoaderOptions;
-        
-        textureLoaderOptions.usage = MTL::TextureUsageShaderRead;
-        textureLoaderOptions.storageMode = MTL::StorageModePrivate;
-        
-        const std::array<std::string, 6> images = {"X+.png", "X-.png", "Y+.png", "Y-.png", "Z+.png", "Z-.png"};
-        m_skyMap = textureLoader.loadCubeTexture("../assets/SkyMap", images, true);
-        
-//        m_skyMap = textureLoader.makeTexture("SkyMap",
-//                                             1.0,
-//                                             textureLoaderOptions,
-//                                             &error);
-        
-        MTLAssert(error == nullptr, error, "Could not load sky texture");
-        
-        m_skyMap.label("Sky Map");
-        
-        m_fairyMap = textureLoader.loadTexture("../assets/Textures/", "fairy.png", true);
-        
-//        m_fairyMap = textureLoader.makeTexture("file://../assets/Textures/fairy.png",
-//                                               textureLoaderOptions,
-//                                               &error);
-        
-        MTLAssert(error == nullptr, error, "Could not load fairy texture");
-        
-        m_fairyMap.label("Fairy Map");
-    }
-}
-
-/// Initialize light positions and colors
-void LightingSubpass::populateLights() {
-    PointLight *light_data = (PointLight *) m_lightsData.contents();
-    
-    m_originalLightPositions = new float4[NumLights];
-    
-    float4 *light_position = m_originalLightPositions;
-    
-    srandom(0x134e5348);
-    
-    for (uint32_t lightId = 0; lightId < NumLights; lightId++) {
-        float distance = 0;
-        float height = 0;
-        float angle = 0;
-        float speed = 0;
-        
-        if (lightId < TreeLights) {
-            distance = random_float(38, 42);
-            height = random_float(0, 1);
-            angle = random_float(0, M_PI * 2);
-            speed = random_float(0.003, 0.014);
-        } else if (lightId < GroundLights) {
-            distance = random_float(140, 260);
-            height = random_float(140, 150);
-            angle = random_float(0, M_PI * 2);
-            speed = random_float(0.006, 0.027);
-            speed *= (random() % 2) * 2 - 1;
-        } else if (lightId < ColumnLights) {
-            distance = random_float(365, 380);
-            height = random_float(150, 190);
-            angle = random_float(0, M_PI * 2);
-            speed = random_float(0.004, 0.014);
-            speed *= (random() % 2) * 2 - 1;
-        }
-        
-        speed *= .5;
-        *light_position = (float4) {distance * sinf(angle), height, distance * cosf(angle), 1};
-        light_data->light_radius = random_float(25, 35) / 10.0;
-        light_data->light_speed = speed;
-        
-        int colorId = random() % 3;
-        if (colorId == 0) {
-            light_data->light_color = (float3) {random_float(4, 6), random_float(0, 4), random_float(0, 4)};
-        } else if (colorId == 1) {
-            light_data->light_color = (float3) {random_float(0, 4), random_float(4, 6), random_float(0, 4)};
-        } else {
-            light_data->light_color = (float3) {random_float(0, 4), random_float(0, 4), random_float(4, 6)};
-        }
-        
-        light_data++;
-        light_position++;
-    }
-}
-
-/// Update light positions
-void LightingSubpass::updateLights(const float4x4 &modelViewMatrix) {
-    PointLight *lightData = (PointLight *) m_lightsData.contents();
-    
-    float4 *currentBuffer =
-    (float4 *) m_lightPositions[m_frameDataBufferIndex].contents();
-    
-    float4 *originalLightPositions = (float4 *) m_originalLightPositions;
-    
-    for (int i = 0; i < NumLights; i++) {
-        float4 currentPosition;
-        
-        if (i < TreeLights) {
-            double lightPeriod = lightData[i].light_speed * m_frameNumber;
-            lightPeriod += originalLightPositions[i].y;
-            lightPeriod -= floor(lightPeriod);  // Get fractional part
-            
-            // Use pow to slowly move the light outward as it reaches the branches of the tree
-            float r = 1.2 + 10.0 * powf(lightPeriod, 5.0);
-            
-            currentPosition.x = originalLightPositions[i].x * r;
-            currentPosition.y = 200.0f + lightPeriod * 400.0f;
-            currentPosition.z = originalLightPositions[i].z * r;
-            currentPosition.w = 1;
-        } else {
-            float rotationRadians = lightData[i].light_speed * m_frameNumber;
-            float4x4 rotation = matrix4x4_rotation(rotationRadians, 0, 1, 0);
-            currentPosition = rotation * originalLightPositions[i];
-        }
-        
-        currentPosition = modelViewMatrix * currentPosition;
-        currentBuffer[i] = currentPosition;
-    }
-}
-
-/// Update application state for the current frame
-void LightingSubpass::updateWorldState() {
-    m_frameNumber++;
-    m_frameDataBufferIndex = (m_frameDataBufferIndex + 1) % MaxFramesInFlight;
-    
-    FrameData *frameData = (FrameData *) (m_uniformBuffers[m_frameDataBufferIndex].contents());
-    
-    // Set projection matrix and calculate inverted projection matrix
-    frameData->projection_matrix = m_projection_matrix;
-    frameData->projection_matrix_inverse = matrix_invert(m_projection_matrix);
-    
-    // Set screen dimensions
-    frameData->framebuffer_width = (uint) m_albedo_specular_GBuffer.width();
-    frameData->framebuffer_height = (uint) m_albedo_specular_GBuffer.height();
-    
-    frameData->shininess_factor = 1;
-    frameData->fairy_specular_intensity = 32;
-    
-    float cameraRotationRadians = m_frameNumber * 0.0025f + M_PI;
-    
-    float3 cameraRotationAxis = {0, 1, 0};
-    float4x4 cameraRotationMatrix = matrix4x4_rotation(cameraRotationRadians, cameraRotationAxis);
-    
-    float4x4 view_matrix = matrix_look_at_left_hand(0, 18, -50,
-                                                    0, 5, 0,
-                                                    0, 1, 0);
-    
-    view_matrix = view_matrix * cameraRotationMatrix;
-    
-    frameData->view_matrix = view_matrix;
-    
-    float4x4 templeScaleMatrix = matrix4x4_scale(0.1, 0.1, 0.1);
-    float4x4 templeTranslateMatrix = matrix4x4_translation(0, -10, 0);
-    float4x4 templeModelMatrix = templeTranslateMatrix * templeScaleMatrix;
-    frameData->temple_model_matrix = templeModelMatrix;
-    frameData->temple_modelview_matrix = frameData->view_matrix * templeModelMatrix;
-    frameData->temple_normal_matrix = matrix3x3_upper_left(frameData->temple_model_matrix);
-    
-    float skyRotation = m_frameNumber * 0.005f - (M_PI_4 * 3);
-    
-    float3 skyRotationAxis = {0, 1, 0};
-    float4x4 skyModelMatrix = matrix4x4_rotation(skyRotation, skyRotationAxis);
-    frameData->sky_modelview_matrix = cameraRotationMatrix * skyModelMatrix;
-    
-    // Update directional light color
-    float4 sun_color = {0.5, 0.5, 0.5, 1.0};
-    frameData->sun_color = sun_color;
-    frameData->sun_specular_intensity = 1;
-    
-    // Update sun direction in view space
-    float4 sunModelPosition = {-0.25, -0.5, 1.0, 0.0};
-    
-    float4 sunWorldPosition = skyModelMatrix * sunModelPosition;
-    
-    float4 sunWorldDirection = -sunWorldPosition;
-    
-    frameData->sun_eye_direction = view_matrix * sunWorldDirection;
-    
-    {
-        float4 directionalLightUpVector = {0.0, 1.0, 1.0, 1.0};
-        
-        directionalLightUpVector = skyModelMatrix * directionalLightUpVector;
-        directionalLightUpVector.xyz = normalize(directionalLightUpVector.xyz);
-        
-        float4x4 shadowViewMatrix = matrix_look_at_left_hand(sunWorldDirection.xyz / 10,
-                                                             (float3) {0, 0, 0},
-                                                             directionalLightUpVector.xyz);
-        
-        float4x4 shadowModelViewMatrix = shadowViewMatrix * templeModelMatrix;
-        
-        frameData->shadow_mvp_matrix = m_shadowProjectionMatrix * shadowModelViewMatrix;
-    }
-    
-    {
-        // When calculating texture coordinates to sample from shadow map, flip the y/t coordinate and
-        // convert from the [-1, 1] range of clip coordinates to [0, 1] range of
-        // used for texture sampling
-        float4x4 shadowScale = matrix4x4_scale(0.5f, -0.5f, 1.0);
-        float4x4 shadowTranslate = matrix4x4_translation(0.5, 0.5, 0);
-        float4x4 shadowTransform = shadowTranslate * shadowScale;
-        
-        frameData->shadow_mvp_xform_matrix = shadowTransform * frameData->shadow_mvp_matrix;
-    }
-    
-    frameData->fairy_size = .4;
-    
-    updateLights(frameData->temple_modelview_matrix);
-}
-
 /// Called whenever view changes orientation or layout is changed
-void LightingSubpass::drawableSizeWillChange(MTL::Size size, MTL::StorageMode GBufferStorageMode) {
-    // When reshape is called, update the aspect ratio and projection matrix since the view
-    //   orientation or size has changed
-    float aspect = (float) size.width / (float) size.height;
-    m_projection_matrix = matrix_perspective_left_hand(65.0f * (M_PI / 180.0f), aspect, NearPlane, FarPlane);
-    
+void LightingSubpass::drawableSizeWillChange(MTL::Size size, MTL::StorageMode GBufferStorageMode) {    
     MTL::TextureDescriptor GBufferTextureDesc;
     
     GBufferTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
@@ -760,7 +395,7 @@ void LightingSubpass::drawableSizeWillChange(MTL::Size size, MTL::StorageMode GB
 #pragma mark Common Rendering Code
 
 /// Draw the Mesh objects with the given renderEncoder
-void LightingSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
+void LightingSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder, std::vector<Mesh> *m_meshes) {
     for (auto &mesh: *m_meshes) {
         for (auto &meshBuffer: mesh.vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),
@@ -818,7 +453,7 @@ void LightingSubpass::endFrame(MTL::CommandBuffer &commandBuffer) {
 }
 
 /// Draw to the depth texture from the directional lights point of view to generate the shadow map
-void LightingSubpass::drawShadow(MTL::CommandBuffer &commandBuffer) {
+void LightingSubpass::drawShadow(MTL::CommandBuffer &commandBuffer, std::vector<Mesh> *m_meshes, MTL::Buffer& m_uniformBuffer) {
     MTL::RenderCommandEncoder encoder = commandBuffer.renderCommandEncoderWithDescriptor(m_shadowRenderPassDescriptor);
     
     encoder.label("Shadow Map Pass");
@@ -828,31 +463,31 @@ void LightingSubpass::drawShadow(MTL::CommandBuffer &commandBuffer) {
     encoder.setCullMode(MTL::CullModeBack);
     encoder.setDepthBias(0.015, 7, 0.02);
     
-    encoder.setVertexBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
+    encoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
     
-    drawMeshes(encoder);
+    drawMeshes(encoder, m_meshes);
     
     encoder.endEncoding();
 }
 
 /// Draw to the three textures which compose the GBuffer
-void LightingSubpass::drawGBuffer(MTL::RenderCommandEncoder &renderEncoder) {
+void LightingSubpass::drawGBuffer(MTL::RenderCommandEncoder &renderEncoder, std::vector<Mesh> *m_meshes, MTL::Buffer& m_uniformBuffer) {
     renderEncoder.pushDebugGroup("Draw G-Buffer");
     renderEncoder.setCullMode(MTL::CullModeBack);
     renderEncoder.setRenderPipelineState(m_GBufferPipelineState);
     renderEncoder.setDepthStencilState(m_GBufferDepthStencilState);
     renderEncoder.setStencilReferenceValue(128);
-    renderEncoder.setVertexBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
-    renderEncoder.setFragmentBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
+    renderEncoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
+    renderEncoder.setFragmentBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
     renderEncoder.setFragmentTexture(m_shadowMap, TextureIndexShadow);
     
-    drawMeshes(renderEncoder);
+    drawMeshes(renderEncoder, m_meshes);
     renderEncoder.popDebugGroup();
 }
 
 /// Draw the directional ("sun") light in deferred pass.  Use stencil buffer to limit execution
 /// of the shader to only those pixels that should be lit
-void LightingSubpass::drawDirectionalLight(MTL::RenderCommandEncoder &renderEncoder) {
+void LightingSubpass::drawDirectionalLight(MTL::RenderCommandEncoder &renderEncoder, MTL::Buffer& m_quadVertexBuffer, MTL::Buffer& m_uniformBuffer) {
     renderEncoder.pushDebugGroup("Draw Directional Light");
     renderEncoder.setFragmentTexture(m_albedo_specular_GBuffer, RenderTargetAlbedo);
     renderEncoder.setFragmentTexture(m_normal_shadow_GBuffer, RenderTargetNormal);
@@ -864,8 +499,8 @@ void LightingSubpass::drawDirectionalLight(MTL::RenderCommandEncoder &renderEnco
     renderEncoder.setRenderPipelineState(m_directionalLightPipelineState);
     renderEncoder.setDepthStencilState(m_directionLightDepthStencilState);
     renderEncoder.setVertexBuffer(m_quadVertexBuffer, 0, BufferIndexMeshPositions);
-    renderEncoder.setVertexBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
-    renderEncoder.setFragmentBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
+    renderEncoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
+    renderEncoder.setFragmentBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
     
     // Draw full screen quad
     renderEncoder.drawPrimitives(MTL::PrimitiveTypeTriangle, 0, 6);
@@ -874,7 +509,11 @@ void LightingSubpass::drawDirectionalLight(MTL::RenderCommandEncoder &renderEnco
 
 /// Render to stencil buffer only to increment stencil on that fragments in front
 /// of the backside of each light volume
-void LightingSubpass::drawPointLightMask(MTL::RenderCommandEncoder &renderEncoder) {
+void LightingSubpass::drawPointLightMask(MTL::RenderCommandEncoder &renderEncoder,
+                                         MTL::Buffer& m_lightsData,
+                                         MTL::Buffer& m_lightPosition,
+                                         MTL::Buffer& m_uniformBuffer,
+                                         Mesh& m_icosahedronMesh) {
 #if LIGHT_STENCIL_CULLING
     renderEncoder.pushDebugGroup("Draw Light Mask");
     renderEncoder.setRenderPipelineState(m_lightMaskPipelineState);
@@ -883,10 +522,10 @@ void LightingSubpass::drawPointLightMask(MTL::RenderCommandEncoder &renderEncode
     renderEncoder.setStencilReferenceValue(128);
     renderEncoder.setCullMode(MTL::CullModeFront);
     
-    renderEncoder.setVertexBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
-    renderEncoder.setFragmentBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
+    renderEncoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
+    renderEncoder.setFragmentBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
     renderEncoder.setVertexBuffer(m_lightsData, 0, BufferIndexLightsData);
-    renderEncoder.setVertexBuffer(m_lightPositions[m_frameDataBufferIndex], 0, BufferIndexLightsPosition);
+    renderEncoder.setVertexBuffer(m_lightPosition, 0, BufferIndexLightsPosition);
     
     const std::vector<MeshBuffer> &vertexBuffers = m_icosahedronMesh.vertexBuffers();
     renderEncoder.setVertexBuffer(vertexBuffers[0].buffer(), vertexBuffers[0].offset(), BufferIndexMeshPositions);
@@ -907,7 +546,11 @@ void LightingSubpass::drawPointLightMask(MTL::RenderCommandEncoder &renderEncode
 /// Performs operations common to both single-pass and traditional deferred renders for drawing point lights.
 /// Called by derived subpass classes  after they have set up any subpass specific specific state
 /// (such as setting GBuffer textures with the traditional deferred subpass not needed for the single-pass subpass)
-void LightingSubpass::drawPointLights(MTL::RenderCommandEncoder &renderEncoder) {
+void LightingSubpass::drawPointLights(MTL::RenderCommandEncoder &renderEncoder,
+                                      MTL::Buffer& m_lightsData,
+                                      MTL::Buffer& m_lightPosition,
+                                      MTL::Buffer& m_uniformBuffer,
+                                      Mesh& m_icosahedronMesh) {
     renderEncoder.pushDebugGroup("Draw Point Lights");
     
     renderEncoder.setRenderPipelineState(m_lightPipelineState);
@@ -921,13 +564,13 @@ void LightingSubpass::drawPointLights(MTL::RenderCommandEncoder &renderEncoder) 
     renderEncoder.setStencilReferenceValue(128);
     renderEncoder.setCullMode(MTL::CullModeBack);
     
-    renderEncoder.setVertexBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
+    renderEncoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
     renderEncoder.setVertexBuffer(m_lightsData, 0, BufferIndexLightsData);
-    renderEncoder.setVertexBuffer(m_lightPositions[m_frameDataBufferIndex], 0, BufferIndexLightsPosition);
+    renderEncoder.setVertexBuffer(m_lightPosition, 0, BufferIndexLightsPosition);
     
-    renderEncoder.setFragmentBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
+    renderEncoder.setFragmentBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
     renderEncoder.setFragmentBuffer(m_lightsData, 0, BufferIndexLightsData);
-    renderEncoder.setFragmentBuffer(m_lightPositions[m_frameDataBufferIndex], 0, BufferIndexLightsPosition);
+    renderEncoder.setFragmentBuffer(m_lightPosition, 0, BufferIndexLightsPosition);
     
     const std::vector<MeshBuffer> &vertexBuffers = m_icosahedronMesh.vertexBuffers();
     renderEncoder.setVertexBuffer(vertexBuffers[0].buffer(), vertexBuffers[0].offset(), BufferIndexMeshPositions);
@@ -945,15 +588,20 @@ void LightingSubpass::drawPointLights(MTL::RenderCommandEncoder &renderEncoder) 
 
 /// Draw the "fairies" at the center of the point lights with a 2D disk using a texture to perform
 /// smooth alpha blending on the edges
-void LightingSubpass::drawFairies(MTL::RenderCommandEncoder &renderEncoder) {
+void LightingSubpass::drawFairies(MTL::RenderCommandEncoder &renderEncoder,
+                                  MTL::Buffer& m_lightsData,
+                                  MTL::Buffer& m_lightPosition,
+                                  MTL::Buffer& m_uniformBuffer,
+                                  MTL::Buffer& m_fairy,
+                                  MTL::Texture& m_fairyMap) {
     renderEncoder.pushDebugGroup("Draw Fairies");
     renderEncoder.setRenderPipelineState(m_fairyPipelineState);
     renderEncoder.setDepthStencilState(*m_dontWriteDepthStencilState);
     renderEncoder.setCullMode(MTL::CullModeBack);
-    renderEncoder.setVertexBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
+    renderEncoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
     renderEncoder.setVertexBuffer(m_fairy, 0, BufferIndexMeshPositions);
     renderEncoder.setVertexBuffer(m_lightsData, 0, BufferIndexLightsData);
-    renderEncoder.setVertexBuffer(m_lightPositions[m_frameDataBufferIndex], 0, BufferIndexLightsPosition);
+    renderEncoder.setVertexBuffer(m_lightPosition, 0, BufferIndexLightsPosition);
     renderEncoder.setFragmentTexture(m_fairyMap, TextureIndexAlpha);
     renderEncoder.drawPrimitives(MTL::PrimitiveTypeTriangleStrip, 0, NumFairyVertices, NumLights);
     renderEncoder.popDebugGroup();
@@ -961,13 +609,16 @@ void LightingSubpass::drawFairies(MTL::RenderCommandEncoder &renderEncoder) {
 
 /// Draw the sky dome behind all other geometry (testing against depth buffer generated in
 ///  GBuffer pass)
-void LightingSubpass::drawSky(MTL::RenderCommandEncoder &renderEncoder) {
+void LightingSubpass::drawSky(MTL::RenderCommandEncoder &renderEncoder,
+                              MTL::Buffer& m_uniformBuffer,
+                              Mesh& m_skyMesh,
+                              MTL::Texture& m_skyMap) {
     renderEncoder.pushDebugGroup("Draw Sky");
     renderEncoder.setRenderPipelineState(m_skyboxPipelineState);
     renderEncoder.setDepthStencilState(*m_dontWriteDepthStencilState);
     renderEncoder.setCullMode(MTL::CullModeFront);
     
-    renderEncoder.setVertexBuffer(m_uniformBuffers[m_frameDataBufferIndex], 0, BufferIndexFrameData);
+    renderEncoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
     renderEncoder.setFragmentTexture(m_skyMap, TextureIndexBaseColor);
     
     for (auto &meshBuffer: m_skyMesh.vertexBuffers()) {

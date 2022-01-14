@@ -63,12 +63,25 @@ bool Deferred::prepare(Engine &engine) {
         m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
     }
     
-    render_pipeline = std::make_unique<LightingSubpass>(render_context.get());
-    
-    auto extent = engine.get_window().get_extent();
-    framebuffer_resize(extent.width*2, extent.height*2);
-    
 #pragma mark VertexDescriptor
+    for (uint8_t i = 0; i < MaxFramesInFlight; i++) {
+        // Indicate shared storage so that both the CPU can access the buffers
+        static const MTL::ResourceOptions storageMode = MTL::ResourceStorageModeShared;
+        
+        m_uniformBuffers[i] = device->makeBuffer(sizeof(FrameData), storageMode);
+        
+        m_uniformBuffers[i].label("UniformBuffer");
+        
+        m_lightPositions[i] = device->makeBuffer(sizeof(float4) * NumLights, storageMode);
+        
+        m_uniformBuffers[i].label("LightPositions");
+    }
+    
+    // Calculate projection matrix to render shadows
+    {
+        m_shadowProjectionMatrix = matrix_ortho_left_hand(-53, 53, -33, 53, -53, 53);
+    }
+    
     {
         // Positions.
         m_defaultVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
@@ -115,6 +128,13 @@ bool Deferred::prepare(Engine &engine) {
         m_skyVertexDescriptor.layouts[BufferIndexMeshGenerics].stride(12);
     }
     
+    render_pipeline = std::make_unique<LightingSubpass>(render_context.get());
+    render_pipeline->loadMetal(m_defaultVertexDescriptor, m_skyVertexDescriptor);
+    loadScene();
+    
+    auto extent = engine.get_window().get_extent();
+    framebuffer_resize(extent.width*2, extent.height*2);
+    
     return true;
 }
 
@@ -130,8 +150,9 @@ void Deferred::update(float delta_time) {
         MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
         commandBuffer.label("Shadow & GBuffer Commands");
         
-        subpass->updateWorldState();
-        subpass->drawShadow(commandBuffer);
+        updateWorldState(static_cast<uint32_t>(render_context->drawableSize().width),
+                         static_cast<uint32_t>(render_context->drawableSize().height));
+        subpass->drawShadow(commandBuffer, m_meshes, m_uniformBuffers[m_frameDataBufferIndex]);
         
         m_GBufferRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
@@ -140,7 +161,7 @@ void Deferred::update(float delta_time) {
         commandBuffer.renderCommandEncoderWithDescriptor(m_GBufferRenderPassDescriptor);
         renderEncoder.label("GBuffer Generation");
         
-        subpass->drawGBuffer(renderEncoder);
+        subpass->drawGBuffer(renderEncoder, m_meshes, m_uniformBuffers[m_frameDataBufferIndex]);
         
         renderEncoder.endEncoding();
         
@@ -187,15 +208,27 @@ void Deferred::update(float delta_time) {
             commandBuffer.renderCommandEncoderWithDescriptor(m_finalRenderPassDescriptor);
             renderEncoder.label("Lighting & Composition Pass");
             
-            subpass->drawDirectionalLight(renderEncoder);
+            subpass->drawDirectionalLight(renderEncoder, m_quadVertexBuffer, m_uniformBuffers[m_frameDataBufferIndex]);
             
-            subpass->drawPointLightMask(renderEncoder);
+            subpass->drawPointLightMask(renderEncoder, m_lightsData,
+                                        m_lightPositions[m_frameDataBufferIndex],
+                                        m_uniformBuffers[m_frameDataBufferIndex],
+                                        m_icosahedronMesh);
             
-            subpass->drawPointLights(renderEncoder);
+            subpass->drawPointLights(renderEncoder, m_lightsData,
+                                     m_lightPositions[m_frameDataBufferIndex],
+                                     m_uniformBuffers[m_frameDataBufferIndex],
+                                     m_icosahedronMesh);
             
-            subpass->drawSky(renderEncoder);
+            subpass->drawSky(renderEncoder,
+                             m_uniformBuffers[m_frameDataBufferIndex],
+                             m_skyMesh,
+                             m_skyMap);
             
-            subpass->drawFairies(renderEncoder);
+            subpass->drawFairies(renderEncoder, m_lightsData,
+                                 m_lightPositions[m_frameDataBufferIndex],
+                                 m_uniformBuffers[m_frameDataBufferIndex],
+                                 m_fairy, m_fairyMap);
             
             renderEncoder.endEncoding();
         }
@@ -206,6 +239,11 @@ void Deferred::update(float delta_time) {
 
 void Deferred::framebuffer_resize(uint32_t width, uint32_t height) {
     MetalApplication::framebuffer_resize(width, height);
+    
+    // When reshape is called, update the aspect ratio and projection matrix since the view
+    //   orientation or size has changed
+    float aspect = (float) width / (float) height;
+    m_projection_matrix = matrix_perspective_left_hand(65.0f * (M_PI / 180.0f), aspect, NearPlane, FarPlane);
     
     auto subpass = static_cast<LightingSubpass*>(render_pipeline.get());
     // The subpass base class allocates all GBuffers >except< lighting GBuffer (since with the

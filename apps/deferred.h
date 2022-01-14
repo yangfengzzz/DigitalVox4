@@ -11,6 +11,12 @@
 #include "metal_application.h"
 
 namespace vox {
+// The max number of command buffers in flight
+static const uint8_t MaxFramesInFlight = 3;
+
+static const float NearPlane = 1;
+static const float FarPlane = 150;
+
 class Deferred: public MetalApplication {
 public:
     Deferred() = default;
