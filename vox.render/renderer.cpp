@@ -163,22 +163,23 @@ void Renderer::setMaterials(const std::vector<MaterialPtr> &materials) {
 //        opaqueQueue.push_back(element);
 //    }
 //}
-//
-//void Renderer::_updateShaderData(RenderContext &context) {
-//    Matrix worldMatrix = entity()->transform->worldMatrix();
-//    _mvMatrix = context.camera()->viewMatrix() * worldMatrix;
-//    _mvpMatrix = context.viewProjectMatrix() * worldMatrix;
-//    _mvInvMatrix = invert(_mvMatrix);
-//    _normalMatrix = invert(worldMatrix);
-//    _normalMatrix = transpose(_normalMatrix);
-//    
-//    shaderData.setData(Renderer::_localMatrixProperty, entity()->transform->localMatrix());
-//    shaderData.setData(Renderer::_worldMatrixProperty, worldMatrix);
-//    shaderData.setData(Renderer::_mvMatrixProperty, _mvMatrix);
-//    shaderData.setData(Renderer::_mvpMatrixProperty, _mvpMatrix);
-//    shaderData.setData(Renderer::_mvInvMatrixProperty, _mvInvMatrix);
-//    shaderData.setData(Renderer::_normalMatrixProperty, _normalMatrix);
-//}
+
+void Renderer::_updateShaderData(const Imath::M44f& viewMat,
+                                 const Imath::M44f& projMat) {
+    auto worldMatrix = entity()->transform->worldMatrix();
+    _mvMatrix = worldMatrix * viewMat;
+    _mvpMatrix = worldMatrix * viewMat * projMat;
+    _mvInvMatrix = _mvMatrix.invert();
+    _normalMatrix = worldMatrix.invert();
+    _normalMatrix = _normalMatrix.transpose();
+    
+    shaderData.setData(Renderer::_localMatrixProperty, entity()->transform->localMatrix());
+    shaderData.setData(Renderer::_worldMatrixProperty, worldMatrix);
+    shaderData.setData(Renderer::_mvMatrixProperty, _mvMatrix);
+    shaderData.setData(Renderer::_mvpMatrixProperty, _mvpMatrix);
+    shaderData.setData(Renderer::_mvInvMatrixProperty, _mvInvMatrix);
+    shaderData.setData(Renderer::_normalMatrixProperty, _normalMatrix);
+}
 
 MaterialPtr Renderer::_createInstanceMaterial(const MaterialPtr &material, size_t index) {
     return nullptr;

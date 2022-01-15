@@ -114,9 +114,10 @@ protected:
     virtual void update(float deltaTime) {
     }
     
-protected:
-//    void _updateShaderData(RenderContext &context);
+    void _updateShaderData(const Imath::M44f& viewMat,
+                           const Imath::M44f& projMat);
     
+protected:
     MaterialPtr _createInstanceMaterial(const MaterialPtr &material, size_t index);
     
     float _distanceForSort = 0;
@@ -132,7 +133,7 @@ protected:
     
 private:
     friend class ComponentsManager;
-
+    
     ShaderProperty _localMatrixProperty;
     ShaderProperty _worldMatrixProperty;
     ShaderProperty _mvMatrixProperty;

@@ -75,10 +75,13 @@ void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
 }
 
 void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
+    Imath::M44f viewMat;
+    Imath::M44f projMat;
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
-    scene->_componentsManager.callRender(opaqueQueue, alphaTestQueue, transparentQueue);
+    scene->_componentsManager.callRender(viewMat, projMat,
+                                         opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
         // reflection

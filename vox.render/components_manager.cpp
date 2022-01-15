@@ -147,11 +147,14 @@ void ComponentsManager::callRendererOnUpdate(float deltaTime) {
     }
 }
 
-void ComponentsManager::callRender(std::vector<RenderElement> &opaqueQueue,
+void ComponentsManager::callRender(const Imath::M44f& viewMat,
+                                   const Imath::M44f& projMat,
+                                   std::vector<RenderElement> &opaqueQueue,
                                    std::vector<RenderElement> &alphaTestQueue,
                                    std::vector<RenderElement> &transparentQueue) {
     for (size_t i = 0; i < _renderers.size(); i++) {
         const auto &element = _renderers[i];
+        element->_updateShaderData(viewMat, projMat);
         element->_render(opaqueQueue, alphaTestQueue, transparentQueue);
     }
 }
