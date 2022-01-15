@@ -310,6 +310,8 @@
 		044594082792472800F04CE0 /* point_light_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594062792472800F04CE0 /* point_light_subpass.h */; };
 		0445940B2792500900F04CE0 /* skybox_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594092792500900F04CE0 /* skybox_subpass.cpp */; };
 		0445940C2792500900F04CE0 /* skybox_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940A2792500900F04CE0 /* skybox_subpass.h */; };
+		0445940F2792545E00F04CE0 /* particle_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445940D2792545E00F04CE0 /* particle_subpass.cpp */; };
+		044594102792545E00F04CE0 /* particle_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940E2792545E00F04CE0 /* particle_subpass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -712,6 +714,8 @@
 		044594062792472800F04CE0 /* point_light_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = point_light_subpass.h; sourceTree = "<group>"; };
 		044594092792500900F04CE0 /* skybox_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skybox_subpass.cpp; sourceTree = "<group>"; };
 		0445940A2792500900F04CE0 /* skybox_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skybox_subpass.h; sourceTree = "<group>"; };
+		0445940D2792545E00F04CE0 /* particle_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = particle_subpass.cpp; sourceTree = "<group>"; };
+		0445940E2792545E00F04CE0 /* particle_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_subpass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1307,6 +1311,8 @@
 				044594052792472800F04CE0 /* point_light_subpass.cpp */,
 				0445940A2792500900F04CE0 /* skybox_subpass.h */,
 				044594092792500900F04CE0 /* skybox_subpass.cpp */,
+				0445940E2792545E00F04CE0 /* particle_subpass.h */,
+				0445940D2792545E00F04CE0 /* particle_subpass.cpp */,
 			);
 			path = subpasses;
 			sourceTree = "<group>";
@@ -1423,6 +1429,7 @@
 				044592D6278ED0FB00F04CE0 /* render_face.h in Headers */,
 				0445938A278FFE3200F04CE0 /* math_utilities.h in Headers */,
 				0445932A278FAA7900F04CE0 /* sphere_collider_shape.h in Headers */,
+				044594102792545E00F04CE0 /* particle_subpass.h in Headers */,
 				04459255278E6D4700F04CE0 /* glfw_window.h in Headers */,
 				0445936C278FB37C00F04CE0 /* orbit_control.h in Headers */,
 				042295B9278C33090090983F /* CPPMetalDispatchTableCache.h in Headers */,
@@ -1694,6 +1701,7 @@
 				044593F127914EFF00F04CE0 /* render_pass.cpp in Sources */,
 				04459358278FAF9800F04CE0 /* joint.cpp in Sources */,
 				04459368278FB27D00F04CE0 /* physics_manager.cpp in Sources */,
+				0445940F2792545E00F04CE0 /* particle_subpass.cpp in Sources */,
 				044592F4278EDA3300F04CE0 /* pbr_specular_material.cpp in Sources */,
 				0445924B278E63FA00F04CE0 /* application.cpp in Sources */,
 				044592CF278EC79200F04CE0 /* blend_state.cpp in Sources */,
