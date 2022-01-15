@@ -39,26 +39,7 @@ public:
     MTL::DepthStencilState &pointLightDepthStencilState();
     
 #pragma mark -
-    virtual void loadMetal(MTL::VertexDescriptor& m_defaultVertexDescriptor,
-                           MTL::VertexDescriptor& m_skyVertexDescriptor,
-                           MTL::PixelFormat m_albedo_specular_GBufferFormat,
-                           MTL::PixelFormat m_normal_shadow_GBufferFormat,
-                           MTL::PixelFormat m_depth_GBufferFormat);
-        
-    void drawPointLightMask(MTL::RenderCommandEncoder &renderEncoder,
-                            MTL::Buffer& m_lightsData,
-                            MTL::Buffer& m_lightPosition,
-                            MTL::Buffer& m_uniformBuffer,
-                            Mesh& m_icosahedronMesh);
-    
-    void drawPointLights(MTL::RenderCommandEncoder &renderEncoder,
-                         MTL::Buffer& m_lightsData,
-                         MTL::Buffer& m_lightPosition,
-                         MTL::Buffer& m_uniformBuffer,
-                         Mesh& m_icosahedronMesh,
-                         MTL::Texture& m_albedo_specular_GBuffer,
-                         MTL::Texture& m_normal_shadow_GBuffer,
-                         MTL::Texture& m_depth_GBuffer);
+    virtual void loadMetal(MTL::VertexDescriptor& m_skyVertexDescriptor);
     
     void drawFairies(MTL::RenderCommandEncoder &renderEncoder,
                      MTL::Buffer& m_lightsData,
@@ -82,16 +63,6 @@ public:
     // Pipeline states
     MTL::RenderPipelineState m_fairyPipelineState;
     MTL::RenderPipelineState m_skyboxPipelineState;
-    
-    MTL::RenderPipelineState m_lightPipelineState;
-    
-    // Depht Stencitl States
-    MTL::DepthStencilState m_pointLightDepthStencilState;
-    
-#if LIGHT_STENCIL_CULLING
-    MTL::RenderPipelineState m_lightMaskPipelineState;
-    MTL::DepthStencilState m_lightMaskDepthStencilState;
-#endif
 };
 
 
@@ -113,10 +84,6 @@ inline MTL::PixelFormat LightingSubpass::depthStencilTargetPixelFormat() const {
 
 inline MTL::Texture &LightingSubpass::depthStencilTexture() {
     return *(m_view->depthStencilTexture());
-}
-
-inline MTL::DepthStencilState &LightingSubpass::pointLightDepthStencilState() {
-    return m_pointLightDepthStencilState;
 }
 
 }

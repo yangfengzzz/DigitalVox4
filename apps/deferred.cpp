@@ -12,6 +12,7 @@
 #include "rendering/subpasses/shadow_subpass.h"
 #include "rendering/subpasses/deferred_subpass.h"
 #include "rendering/subpasses/compose_subpass.h"
+#include "rendering/subpasses/point_light_subpass.h"
 #include "engine.h"
 #include "core/CPPMetalAssert.hpp"
 #include "material/texture_loader.h"
@@ -106,7 +107,7 @@ bool Deferred::prepare(Engine &engine) {
     Shader::createProperty("frameData", ShaderDataGroup::Scene);
     Shader::createProperty("lightsData", ShaderDataGroup::Scene);
     Shader::createProperty("lightPosition", ShaderDataGroup::Scene);
-
+    
 #pragma mark Shadow render pass descriptor setup
     {
         MTL::TextureDescriptor shadowTextureDesc;
@@ -192,6 +193,9 @@ bool Deferred::prepare(Engine &engine) {
         m_finalRenderPass->addSubpass(std::make_unique<ComposeSubpass>(&m_finalRenderPassDescriptor, scene.get(),
                                                                        shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
                                                                        m_quadVertexBuffer, &m_GBufferRenderPassDescriptor));
+        m_finalRenderPass->addSubpass(std::make_unique<PointLightSubpass>(&m_finalRenderPassDescriptor, scene.get(),
+                                                                          shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
+                                                                          m_icosahedronMesh, &m_GBufferRenderPassDescriptor, NumLights));
     }
     framebuffer_resize(extent.width*2, extent.height*2);
     
@@ -209,7 +213,7 @@ void Deferred::update(float delta_time) {
     scene->shaderData.setData("frameData", m_uniformBuffers[m_frameDataBufferIndex]);
     scene->shaderData.setData("lightsData", m_lightsData);
     scene->shaderData.setData("lightPosition", m_lightPositions[m_frameDataBufferIndex]);
-
+    
     {
         // Create a new command buffer for each render pass to the current drawable
         MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
@@ -258,18 +262,6 @@ void Deferred::update(float delta_time) {
             m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
             m_finalRenderPass->draw(commandBuffer, "Lighting & Composition Pass");
             
-//            subpass->drawPointLightMask(renderEncoder, m_lightsData,
-//                                        m_lightPositions[m_frameDataBufferIndex],
-//                                        m_uniformBuffers[m_frameDataBufferIndex],
-//                                        m_icosahedronMesh);
-//
-//            subpass->drawPointLights(renderEncoder, m_lightsData,
-//                                     m_lightPositions[m_frameDataBufferIndex],
-//                                     m_uniformBuffers[m_frameDataBufferIndex],
-//                                     m_icosahedronMesh,
-//                                     m_albedo_specular_GBuffer,
-//                                     m_normal_shadow_GBuffer,
-//                                     m_depth_GBuffer);
 //
 //            subpass->drawSky(renderEncoder,
 //                             m_uniformBuffers[m_frameDataBufferIndex],
@@ -279,7 +271,7 @@ void Deferred::update(float delta_time) {
 //            subpass->drawFairies(renderEncoder, m_lightsData,
 //                                 m_lightPositions[m_frameDataBufferIndex],
 //                                 m_uniformBuffers[m_frameDataBufferIndex],
-//                                 m_fairy, m_fairyMap);            
+//                                 m_fairy, m_fairyMap);
         }
         
         // Schedule a present once the framebuffer is complete using the current drawable
