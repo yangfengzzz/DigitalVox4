@@ -11,6 +11,40 @@
 #include "material/material.h"
 
 namespace vox {
+/**
+ * SkyboxMaterial
+ */
+class SkyBoxMaterial : public Material {
+public:
+    /**
+     * Whether to decode from texture with RGBM format.
+     */
+    bool textureDecodeRGBM();
+    
+    void setTextureDecodeRGBM(bool value);
+    
+    /**
+     * RGBM decode factor, default 5.0.
+     */
+    float RGBMDecodeFactor();
+    
+    void setRGBMDecodeFactor(float value);
+    
+    /**
+     * Texture cube map of the sky box material.
+     */
+    std::shared_ptr<MTL::Texture> textureCubeMap();
+    
+    void setTextureCubeMap(std::shared_ptr<MTL::Texture> v);
+    
+    SkyBoxMaterial();
+    
+private:
+    ShaderProperty _skyboxTextureProp;
+    ShaderProperty _mvpNoscaleProp;
+    
+    Imath::V2f _decodeParam = Imath::V2f(0, 5);
+};
 
 }
 
