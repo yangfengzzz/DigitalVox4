@@ -104,7 +104,9 @@ bool Deferred::prepare(Engine &engine) {
     
     loadScene();
     Shader::createProperty("frameData", ShaderDataGroup::Scene);
-    
+    Shader::createProperty("lightsData", ShaderDataGroup::Scene);
+    Shader::createProperty("lightPosition", ShaderDataGroup::Scene);
+
 #pragma mark Shadow render pass descriptor setup
     {
         MTL::TextureDescriptor shadowTextureDesc;
@@ -205,7 +207,9 @@ void Deferred::update(float delta_time) {
     updateWorldState(static_cast<uint32_t>(render_context->drawableSize().width),
                      static_cast<uint32_t>(render_context->drawableSize().height));
     scene->shaderData.setData("frameData", m_uniformBuffers[m_frameDataBufferIndex]);
-    
+    scene->shaderData.setData("lightsData", m_lightsData);
+    scene->shaderData.setData("lightPosition", m_lightPositions[m_frameDataBufferIndex]);
+
     {
         // Create a new command buffer for each render pass to the current drawable
         MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
