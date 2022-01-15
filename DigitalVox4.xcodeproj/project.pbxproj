@@ -319,6 +319,8 @@
 		0445941F279292E000F04CE0 /* mesh_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941D279292E000F04CE0 /* mesh_renderer.h */; };
 		0445942227929A3300F04CE0 /* render_element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942027929A3300F04CE0 /* render_element.cpp */; };
 		0445942327929A3300F04CE0 /* render_element.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445942127929A3300F04CE0 /* render_element.h */; };
+		044594262792B8B000F04CE0 /* resource_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594242792B8AF00F04CE0 /* resource_cache.cpp */; };
+		044594272792B8B000F04CE0 /* resource_cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594252792B8B000F04CE0 /* resource_cache.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -729,6 +731,8 @@
 		0445941D279292E000F04CE0 /* mesh_renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh_renderer.h; sourceTree = "<group>"; };
 		0445942027929A3300F04CE0 /* render_element.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = render_element.cpp; sourceTree = "<group>"; };
 		0445942127929A3300F04CE0 /* render_element.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render_element.h; sourceTree = "<group>"; };
+		044594242792B8AF00F04CE0 /* resource_cache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = resource_cache.cpp; sourceTree = "<group>"; };
+		044594252792B8B000F04CE0 /* resource_cache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource_cache.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -923,6 +927,8 @@
 				0422955E278C32C30090983F /* internal */,
 				04459373278FE8F600F04CE0 /* metal_view.h */,
 				04459372278FE8F600F04CE0 /* metal_view.mm */,
+				044594252792B8B000F04CE0 /* resource_cache.h */,
+				044594242792B8AF00F04CE0 /* resource_cache.cpp */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1426,6 +1432,7 @@
 				042295B4278C32FB0090983F /* CPPMetalImplementation.hpp in Headers */,
 				04459202278E591A00F04CE0 /* imstb_rectpack.h in Headers */,
 				0445934F278FAF9800F04CE0 /* joint.h in Headers */,
+				044594272792B8B000F04CE0 /* resource_cache.h in Headers */,
 				04459205278E591A00F04CE0 /* imstb_truetype.h in Headers */,
 				04459350278FAF9800F04CE0 /* hinge_joint.h in Headers */,
 				044591CB278E551100F04CE0 /* unique_ptr.h in Headers */,
@@ -1715,6 +1722,7 @@
 				0422958D278C32FB0090983F /* CPPMetalRenderPipeline.mm in Sources */,
 				0445927B278E80DD00F04CE0 /* updateFlag_manager.cpp in Sources */,
 				0445932D278FAA7900F04CE0 /* plane_collider_shape.cpp in Sources */,
+				044594262792B8B000F04CE0 /* resource_cache.cpp in Sources */,
 				04459208278E591A00F04CE0 /* imgui.cpp in Sources */,
 				04459338278FAE0C00F04CE0 /* character_controller.cpp in Sources */,
 				04459355278FAF9800F04CE0 /* spring_joint.cpp in Sources */,

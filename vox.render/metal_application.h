@@ -140,7 +140,7 @@ protected:
     /**
      * @brief Context used for rendering, it is responsible for managing the frames and their underlying images
      */
-    std::unique_ptr<MTL::View> render_context{nullptr};
+    std::unique_ptr<View> render_context{nullptr};
 
     /**
      * @brief Pipeline used for rendering, it should be set up by the concrete sample

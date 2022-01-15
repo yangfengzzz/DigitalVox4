@@ -7,7 +7,9 @@
 
 #include "metal_view.h"
 
-namespace MTL {
+namespace vox {
+using namespace MTL;
+
 View::View(MTL::Device &device) :
 m_objCObj([CAMetalLayer layer]),
 m_device(&device),

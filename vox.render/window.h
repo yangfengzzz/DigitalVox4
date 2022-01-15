@@ -78,7 +78,7 @@ public:
      * @brief Gets a handle from the engine's Metal layer
      * @param view View handle, for use by the application
      */
-    virtual void set_view(const MTL::View& view) = 0;
+    virtual void set_view(const View& view) = 0;
     
     /**
      * @brief Checks if the window should be closed

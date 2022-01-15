@@ -293,7 +293,7 @@ GlfwWindow::~GlfwWindow() {
     glfwTerminate();
 }
 
-void GlfwWindow::set_view(const MTL::View& view) {
+void GlfwWindow::set_view(const View& view) {
     NSWindow *nswin = glfwGetCocoaWindow(handle);
     nswin.contentView.layer = view.objCObj();
     nswin.contentView.wantsLayer = YES;

@@ -33,7 +33,7 @@ public:
     
     virtual ~GlfwWindow();
     
-    virtual void set_view(const MTL::View& view) override;
+    virtual void set_view(const View& view) override;
     
     virtual bool should_close() override;
     

@@ -14,7 +14,7 @@
 #include "CPPMetalPixelFormat.hpp"
 #include "CPPMetalRenderPass.hpp"
 
-namespace MTL {
+namespace vox {
 class View {
 public:
     View() = delete;
