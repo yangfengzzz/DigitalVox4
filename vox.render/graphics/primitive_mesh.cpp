@@ -234,7 +234,7 @@ Mesh PrimitiveMesh::makeSphereMesh(MTL::Device &device,
                     indexCount,
                     indexBuffer);
     
-    return Mesh(submesh, vertexBuffers);
+    return Mesh(submesh, vertexBuffers, vertexDescriptor);
 }
 
 
@@ -320,7 +320,7 @@ Mesh PrimitiveMesh::makeIcosahedronMesn(MTL::Device &device,
                     indexCount,
                     indexBuffer);
     
-    return Mesh(submesh, vertexBuffers);
+    return Mesh(submesh, vertexBuffers, vertexDescriptor);
 }
 
 }

@@ -14,15 +14,20 @@ Mesh::Mesh() {
 
 
 Mesh::Mesh(const std::vector<Submesh> &submeshes,
-           const std::vector<MeshBuffer> &vertexBuffers)
-: m_submeshes(submeshes), m_vertexBuffers(vertexBuffers) {
+           const std::vector<MeshBuffer> &vertexBuffers,
+           MTL::VertexDescriptor vertexDescriptor)
+: m_submeshes(submeshes),
+m_vertexBuffers(vertexBuffers),
+m_vertexDescriptor(vertexDescriptor) {
     // Member initialization only
 }
 
 
 Mesh::Mesh(const Submesh &submesh,
-           const std::vector<MeshBuffer> &vertexBuffers)
-: m_vertexBuffers(vertexBuffers) {
+           const std::vector<MeshBuffer> &vertexBuffers,
+           MTL::VertexDescriptor vertexDescriptor)
+: m_vertexBuffers(vertexBuffers),
+m_vertexDescriptor(vertexDescriptor) {
     m_submeshes.emplace_back(submesh);
 }
 

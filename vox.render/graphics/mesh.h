@@ -16,10 +16,12 @@ public:
     Mesh();
     
     Mesh(const std::vector<Submesh> &submeshes,
-         const std::vector<MeshBuffer> &vertexBuffers);
+         const std::vector<MeshBuffer> &vertexBuffers,
+         MTL::VertexDescriptor vertexDescriptor);
     
     Mesh(const Submesh &submesh,
-         const std::vector<MeshBuffer> &vertexBuffers);
+         const std::vector<MeshBuffer> &vertexBuffers,
+         MTL::VertexDescriptor vertexDescriptor);
     
     Mesh(const Mesh &rhs) = default;
     
@@ -39,6 +41,8 @@ private:
     std::vector<Submesh> m_submeshes;
     
     std::vector<MeshBuffer> m_vertexBuffers;
+    
+    MTL::VertexDescriptor m_vertexDescriptor;
 };
 
 inline const std::vector<Submesh> &Mesh::submeshes() const {
