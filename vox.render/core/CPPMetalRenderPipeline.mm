@@ -246,7 +246,7 @@ void RenderPipelineDescriptor::vertexDescriptor(const VertexDescriptor *descript
     }
 }
 
-VertexDescriptor *RenderPipelineDescriptor::vertexDescriptor() {
+const VertexDescriptor *RenderPipelineDescriptor::vertexDescriptor() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
     
     if (m_objCObj.vertexDescriptor == nil) {

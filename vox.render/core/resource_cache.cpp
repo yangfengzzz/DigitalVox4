@@ -6,22 +6,61 @@
 //
 
 #include "resource_cache.h"
+#include "helpers.h"
 #include <utility>
 
 using namespace MTL;
 
 namespace std {
+using namespace vox;
+
 template<>
 struct hash<RenderPipelineDescriptor> {
     std::size_t operator()(const RenderPipelineDescriptor &descriptor) const {
-        return 0;
+        std::size_t result = 0;
+        
+        hash_combine(result, descriptor.vertexDescriptor()->objCObj()); // internal address
+        hash_combine(result, descriptor.sampleCount());
+        hash_combine(result, descriptor.isAlphaToCoverageEnabled());
+        hash_combine(result, descriptor.depthAttachmentPixelFormat());
+        hash_combine(result, descriptor.stencilAttachmentPixelFormat());
+        if (descriptor.colorAttachments[0].pixelFormat() != MTL::PixelFormatInvalid) {
+            hash_combine(result, descriptor.colorAttachments[0].pixelFormat());
+            hash_combine(result, descriptor.colorAttachments[0].isBlendingEnabled());
+            hash_combine(result, descriptor.colorAttachments[0].sourceRGBBlendFactor());
+            hash_combine(result, descriptor.colorAttachments[0].destinationRGBBlendFactor());
+            hash_combine(result, descriptor.colorAttachments[0].rgbBlendOperation());
+            hash_combine(result, descriptor.colorAttachments[0].sourceAlphaBlendFactor());
+            hash_combine(result, descriptor.colorAttachments[0].destinationAlphaBlendFactor());
+            hash_combine(result, descriptor.colorAttachments[0].alphaBlendOperation());
+            hash_combine(result, descriptor.colorAttachments[0].writeMask());
+        }
+        
+        return result;
     }
 };
 
 template<>
 struct hash<DepthStencilDescriptor> {
     std::size_t operator()(const DepthStencilDescriptor &descriptor) const {
-        return 0;
+        std::size_t result = 0;
+        
+        hash_combine(result, descriptor.depthCompareFunction());
+        hash_combine(result, descriptor.isDepthWriteEnabled());
+        hash_combine(result, descriptor.frontFaceStencil.stencilCompareFunction());
+        hash_combine(result, descriptor.frontFaceStencil.stencilFailureOperation());
+        hash_combine(result, descriptor.frontFaceStencil.depthFailureOperation());
+        hash_combine(result, descriptor.frontFaceStencil.depthStencilPassOperation());
+        hash_combine(result, descriptor.frontFaceStencil.readMask());
+        hash_combine(result, descriptor.frontFaceStencil.writeMask());
+        hash_combine(result, descriptor.backFaceStencil.stencilCompareFunction());
+        hash_combine(result, descriptor.backFaceStencil.stencilFailureOperation());
+        hash_combine(result, descriptor.backFaceStencil.depthFailureOperation());
+        hash_combine(result, descriptor.backFaceStencil.depthStencilPassOperation());
+        hash_combine(result, descriptor.backFaceStencil.readMask());
+        hash_combine(result, descriptor.backFaceStencil.writeMask());
+        
+        return result;
     }
 };
 
@@ -43,7 +82,7 @@ device{device} {
 MTL::RenderPipelineState &ResourceCache::requestRenderPipelineState(MTL::RenderPipelineDescriptor &descriptor) {
     std::hash<RenderPipelineDescriptor> hasher;
     size_t hash = hasher(descriptor);
-
+    
     auto iter = state.renderPipelineStates.find(hash);
     if (iter == state.renderPipelineStates.end()) {
         auto pipelineState = device.makeRenderPipelineState(descriptor);

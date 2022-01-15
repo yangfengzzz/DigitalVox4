@@ -201,7 +201,7 @@ public:
     
     void fragmentFunction(const Function *function);
     
-    VertexDescriptor *vertexDescriptor();
+    const VertexDescriptor *vertexDescriptor() const;
     
     void vertexDescriptor(const VertexDescriptor *descriptor);
     
