@@ -5,7 +5,7 @@
 //  Created by 杨丰 on 2022/1/13.
 //
 
-#include "CPPMetalView.hpp"
+#include "metal_view.h"
 
 namespace MTL {
 View::View(MTL::Device &device) :

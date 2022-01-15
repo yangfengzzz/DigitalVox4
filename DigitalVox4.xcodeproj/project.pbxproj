@@ -265,8 +265,8 @@
 		0445936C278FB37C00F04CE0 /* orbit_control.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445936A278FB37C00F04CE0 /* orbit_control.h */; };
 		0445936F278FBCCA00F04CE0 /* free_control.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445936D278FBCCA00F04CE0 /* free_control.h */; };
 		04459371278FBCDB00F04CE0 /* free_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445936E278FBCCA00F04CE0 /* free_control.cpp */; };
-		04459374278FE8F600F04CE0 /* CPPMetalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459372278FE8F600F04CE0 /* CPPMetalView.mm */; };
-		04459375278FE8F600F04CE0 /* CPPMetalView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 04459373278FE8F600F04CE0 /* CPPMetalView.hpp */; };
+		04459374278FE8F600F04CE0 /* metal_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459372278FE8F600F04CE0 /* metal_view.mm */; };
+		04459375278FE8F600F04CE0 /* metal_view.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459373278FE8F600F04CE0 /* metal_view.h */; };
 		04459383278FFE3200F04CE0 /* mesh_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459376278FFE3100F04CE0 /* mesh_loader.h */; };
 		04459385278FFE3200F04CE0 /* math_utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459378278FFE3100F04CE0 /* math_utilities.cpp */; };
 		0445938A278FFE3200F04CE0 /* math_utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445937D278FFE3100F04CE0 /* math_utilities.h */; };
@@ -667,8 +667,8 @@
 		0445936A278FB37C00F04CE0 /* orbit_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orbit_control.h; sourceTree = "<group>"; };
 		0445936D278FBCCA00F04CE0 /* free_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = free_control.h; sourceTree = "<group>"; };
 		0445936E278FBCCA00F04CE0 /* free_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = free_control.cpp; sourceTree = "<group>"; };
-		04459372278FE8F600F04CE0 /* CPPMetalView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPMetalView.mm; sourceTree = "<group>"; };
-		04459373278FE8F600F04CE0 /* CPPMetalView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalView.hpp; sourceTree = "<group>"; };
+		04459372278FE8F600F04CE0 /* metal_view.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_view.mm; sourceTree = "<group>"; };
+		04459373278FE8F600F04CE0 /* metal_view.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metal_view.h; sourceTree = "<group>"; };
 		04459376278FFE3100F04CE0 /* mesh_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh_loader.h; sourceTree = "<group>"; };
 		04459378278FFE3100F04CE0 /* math_utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = math_utilities.cpp; sourceTree = "<group>"; };
 		0445937D278FFE3100F04CE0 /* math_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utilities.h; sourceTree = "<group>"; };
@@ -921,8 +921,8 @@
 				044592A1278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm */,
 				04229589278C32FB0090983F /* CPPMetalImplementation.hpp */,
 				0422955E278C32C30090983F /* internal */,
-				04459373278FE8F600F04CE0 /* CPPMetalView.hpp */,
-				04459372278FE8F600F04CE0 /* CPPMetalView.mm */,
+				04459373278FE8F600F04CE0 /* metal_view.h */,
+				04459372278FE8F600F04CE0 /* metal_view.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1380,7 +1380,7 @@
 				04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */,
 				0445930A278F14BD00F04CE0 /* renderer.h in Headers */,
 				044593F627914F7500F04CE0 /* subpass.h in Headers */,
-				04459375278FE8F600F04CE0 /* CPPMetalView.hpp in Headers */,
+				04459375278FE8F600F04CE0 /* metal_view.h in Headers */,
 				0445925D278E7C8600F04CE0 /* metal_application.h in Headers */,
 				0445928E278EA37D00F04CE0 /* script.h in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
@@ -1753,7 +1753,7 @@
 				04459289278E84DE00F04CE0 /* transform.cpp in Sources */,
 				0422959A278C32FB0090983F /* CPPMetalResource.mm in Sources */,
 				04459203278E591A00F04CE0 /* imgui_draw.cpp in Sources */,
-				04459374278FE8F600F04CE0 /* CPPMetalView.mm in Sources */,
+				04459374278FE8F600F04CE0 /* metal_view.mm in Sources */,
 				044592A3278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm in Sources */,
 				042295AD278C32FB0090983F /* CPPMetalLibrary.mm in Sources */,
 				044592A5278EB92800F04CE0 /* shader_macro_collection.cpp in Sources */,

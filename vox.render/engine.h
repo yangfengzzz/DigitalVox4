@@ -26,7 +26,7 @@
 #include "filesystem.h"
 #include "window.h"
 #include "core/CPPMetalDevice.hpp"
-#include "core/CPPMetalView.hpp"
+#include "core/metal_view.h"
 
 namespace vox {
 enum class ExitCode {

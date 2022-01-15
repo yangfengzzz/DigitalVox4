@@ -19,7 +19,7 @@
 
 #include <optional>
 #include <string>
-#include "core/CPPMetalView.hpp"
+#include "core/metal_view.h"
 
 namespace vox {
 /**
