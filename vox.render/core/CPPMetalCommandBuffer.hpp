@@ -15,8 +15,6 @@
 
 
 namespace MTL {
-
-
 class Device;
 
 class RenderPassDescriptor;
@@ -54,7 +52,7 @@ public:
     
     void label(const CFStringRef string);
     
-    Device device() const;
+    const Device* device() const;
     
     RenderCommandEncoder renderCommandEncoderWithDescriptor(const RenderPassDescriptor &descriptor) const;
     
@@ -81,7 +79,6 @@ public: // Public methods for CPPMetal internal implementation
 };
 
 
-//========================================================
 #pragma mark - CommandBuffer inline method implementations
 
 CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(CommandBuffer);

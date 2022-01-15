@@ -14,10 +14,8 @@
 #include "CPPMetalRenderPipeline.hpp"
 #include "CPPMetalTexture.hpp"
 
-
 #include "CPPMetalDeviceInternals.h"
 #include "CPPMetalInternalMacros.h"
-
 
 using namespace MTL;
 
@@ -44,8 +42,20 @@ Device *CreateSystemDefaultDevice(Allocator *allocator) {
 
 }
 
+Device::Device(Device &&rhs)
+: m_objCObj(rhs.m_objCObj),
+m_internals(rhs.m_internals),
+m_allocator(rhs.m_allocator),
+m_resourceCache(vox::ResourceCache(*this)) {
+    rhs.m_objCObj = nullptr;
+    rhs.m_internals = nullptr;
+}
+
 Device::Device(CPPMetalInternal::Device objCObj, Allocator *allocator)
-: m_objCObj(objCObj), m_internals(), m_allocator(allocator) {
+: m_objCObj(objCObj),
+m_internals(),
+m_allocator(allocator),
+m_resourceCache(vox::ResourceCache(*this)) {
     auto deleter = [allocator](CPPMetalInternal::DeviceInternals *ptr) {
         allocator->destroy(ptr);
     };
@@ -60,19 +70,11 @@ Device::Device(CPPMetalInternal::Device objCObj, Allocator *allocator)
 }
 
 Device::Device()
-: m_objCObj(nil), m_internals(nullptr), m_allocator(nullptr) {
+: m_objCObj(nil),
+m_internals(nullptr),
+m_allocator(nullptr),
+m_resourceCache(vox::ResourceCache(*this)) {
     
-}
-
-Device::Device(const Device &rhs)
-: m_objCObj(rhs.m_objCObj), m_internals(rhs.m_internals), m_allocator(rhs.m_allocator) {
-}
-
-Device &Device::operator=(const Device &rhs) {
-    m_objCObj = rhs.m_objCObj;
-    m_internals = rhs.m_internals;
-    m_allocator = rhs.m_allocator;
-    return *this;
 }
 
 Device::~Device() {

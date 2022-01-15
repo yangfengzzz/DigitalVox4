@@ -15,13 +15,10 @@
 
 
 namespace MTL {
-
-
 class Device;
 
 class CommandEncoder {
 public:
-    
     CommandEncoder() = delete;
     
     CommandEncoder(const CommandEncoder &rhs);
@@ -48,10 +45,9 @@ public:
     
     void popDebugGroup();
     
-    Device device() const;
+    const Device* device() const;
     
 protected:
-    
     CommandEncoder(CPPMetalInternal::CommandEncoder objCObj, Device &device);
     
     Device *m_device;
@@ -60,7 +56,6 @@ protected:
     
 };
 
-//=========================================================
 #pragma mark - CommandEncoder inline method implementations
 
 CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(CommandEncoder);

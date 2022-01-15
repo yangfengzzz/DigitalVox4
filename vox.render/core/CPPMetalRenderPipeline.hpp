@@ -258,7 +258,7 @@ public:
     
     const char *label() const;
     
-    Device device() const;
+    const Device* device() const;
     
 private:
     
@@ -274,17 +274,13 @@ public: // Public methods for CPPMetal internal implementation
     
 };
 
-//===========================================================================
 #pragma mark - RenderPipelineColorAttachmentDescriptor inline implementations
-
 inline CPPMetalInternal::RenderPipelineColorAttachmentDescriptor RenderPipelineColorAttachmentDescriptor::objCObj() const {
     return m_objCObj;
 }
 
 
-//================================================================================
 #pragma mark - RenderPipelineColorAttachmentDescriptorArray inline implementations
-
 inline RenderPipelineColorAttachmentDescriptor RenderPipelineColorAttachmentDescriptorArray::operator[](int i) const {
     return m_colorAttachments[i];
 }
@@ -298,9 +294,7 @@ inline CPPMetalInternal::RenderPipelineColorAttachmentDescriptorArray RenderPipe
 }
 
 
-//============================================================
 #pragma mark - RenderPipelineDescriptor inline implementations
-
 inline void RenderPipelineDescriptor::label(const char *string) {
     CPP_METAL_PROCESS_LABEL(string, label);
 }
@@ -310,9 +304,7 @@ inline CPPMetalInternal::RenderPipelineDescriptor RenderPipelineDescriptor::objC
 }
 
 
-//=======================================================
 #pragma mark - RenderPipelineState inline implementations
-
 CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(RenderPipelineState);
 
 CPP_METAL_OBJCOBJ_GETTER_IMPLEMENATATION(RenderPipelineState);

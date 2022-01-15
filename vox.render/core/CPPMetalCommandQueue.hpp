@@ -14,16 +14,12 @@
 
 
 namespace MTL {
-
-
 class Device;
 
 class CommandBuffer;
 
 class CommandQueue {
-    
 public:
-    
     CommandQueue();
     
     CommandQueue(const CommandQueue &rhs);
@@ -44,26 +40,22 @@ public:
     
     void label(const CFStringRef string);
     
-    Device device() const;
+    const Device* device() const;
     
     CommandBuffer commandBuffer();
     
 private:
-    
     CPPMetalInternal::CommandQueue m_objCObj;
     
     Device *m_device;
     
 public: // Public methods for CPPMetal internal implementation
-    
     CommandQueue(CPPMetalInternal::CommandQueue objCObj, Device &device);
     
     CPPMetalInternal::CommandQueue objCObj() const;
     
 };
 
-
-//=======================================================
 #pragma mark - CommandQueue inline method implementations
 
 CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(CommandQueue);

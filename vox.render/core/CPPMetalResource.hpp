@@ -14,13 +14,10 @@
 
 
 namespace MTL {
-
-
 class Device;
 
 class Resource {
 public:
-    
     Resource();
     
     Resource(const Resource &rhs);
@@ -41,7 +38,7 @@ public:
     
     void label(const char *string);
     
-    Device device() const;
+    const Device* device() const;
     
     CPUCacheMode cpuCacheMode() const;
     
@@ -52,18 +49,15 @@ public:
     ResourceOptions resourceOptions() const;
     
 protected:
-    
     Resource(CPPMetalInternal::Resource objCObj,
              Device &device);
     
     CPPMetalInternal::Resource m_objCObj;
     
     Device *m_device;
-    
 };
 
 
-//============================================
 #pragma mark - Resource inline implementations
 
 CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(Resource);

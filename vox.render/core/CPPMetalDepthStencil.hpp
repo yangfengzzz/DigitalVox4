@@ -17,8 +17,6 @@
 
 
 namespace MTL {
-
-
 typedef enum CompareFunction {
     CompareFunctionNever = 0,
     CompareFunctionLess = 1,
@@ -47,7 +45,6 @@ class DepthStencilDescriptor;
 
 struct StencilDescriptor {
 public:
-    
     StencilDescriptor();
     
     StencilDescriptor(const StencilDescriptor &rhs);
@@ -81,7 +78,6 @@ public:
     void writeMask(uint32_t mask);
     
 private:
-    
     CPPMetalInternal::StencilDescriptor m_objCObj;
     
     CPPMetalInternal::DepthStencilDescriptor m_objCContainer;
@@ -97,14 +93,12 @@ private:
     friend DepthStencilDescriptor;
     
 public: // Public methods for CPPMetal internal implementation
-    
     CPPMetalInternal::StencilDescriptor objCObj() const;
     
 };
 
 class DepthStencilDescriptor {
 private:
-    
     // CPPMetal Internal Implementation Note:
     // The class must declare the 'm_objCObj' member before the 'frontFaceStencil' and
     // 'backFaceStencil" members.  The constructor of these members depend on the value of
@@ -114,7 +108,6 @@ private:
     CPPMetalInternal::DepthStencilDescriptor m_objCObj;
     
 public:
-    
     DepthStencilDescriptor();
     
     DepthStencilDescriptor(const DepthStencilDescriptor &rhs);
@@ -149,7 +142,6 @@ public: // Public methods for CPPMetal internal implementation
 
 class DepthStencilState {
 public:
-    
     DepthStencilState();
     
     DepthStencilState(const DepthStencilState &rhs);
@@ -166,16 +158,14 @@ public:
     
     const char *label() const;
     
-    Device device() const;
+    const Device* device() const;
     
 private:
-    
     CPPMetalInternal::DepthStencilState m_objCObj;
     
     Device *m_device;
     
 public: // Public methods for CPPMetal internal implementation
-    
     DepthStencilState(CPPMetalInternal::DepthStencilState objCObj, Device &device);
     
     CPPMetalInternal::DepthStencilState objCObj() const;
@@ -183,15 +173,11 @@ public: // Public methods for CPPMetal internal implementation
 };
 
 
-//============================================================
 #pragma mark - StencilDescriptor inline method implementations
-
 CPP_METAL_OBJCOBJ_GETTER_IMPLEMENATATION(StencilDescriptor);
 
 
-//=================================================================
 #pragma mark - DepthStencilDescriptor inline method implementations
-
 inline void DepthStencilDescriptor::label(const char *string) {
     CPP_METAL_PROCESS_LABEL(string, label);
 }
@@ -199,9 +185,7 @@ inline void DepthStencilDescriptor::label(const char *string) {
 CPP_METAL_OBJCOBJ_GETTER_IMPLEMENATATION(DepthStencilDescriptor);
 
 
-//============================================================
 #pragma mark - DepthStencilState inline method implementations
-
 CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(DepthStencilState);
 
 CPP_METAL_OBJCOBJ_GETTER_IMPLEMENATATION(DepthStencilState);

@@ -8,9 +8,23 @@
 #ifndef resource_cache_hpp
 #define resource_cache_hpp
 
-#include "CPPMetal.hpp"
+//#include "CPPMetal.hpp"
 #include "shader/shader_macro_collection.h"
 #include <unordered_map>
+
+namespace MTL {
+class Device;
+
+class RenderPipelineState;
+
+class RenderPipelineDescriptor;
+
+class DepthStencilState;
+
+class DepthStencilDescriptor;
+
+class Function;
+}
 
 namespace vox {
 /**

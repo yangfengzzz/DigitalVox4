@@ -105,8 +105,8 @@ void classname::label(const CFStringRef string)                      \
 }
 
 #define CPP_METAL_DEVICE_GETTER_IMPLEMENTATION(classname) \
-Device classname::device() const                          \
+const Device* classname::device() const                   \
 {                                                         \
     CPP_METAL_VALIDATE_WRAPPED_NIL();                     \
-    return *m_device;                                     \
+    return m_device;                                      \
 }

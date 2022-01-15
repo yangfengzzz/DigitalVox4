@@ -14,10 +14,9 @@
 #include "CPPMetalResourceEnum.hpp"
 #include "CPPMetalAllocator.hpp"
 
+#include "resource_cache.h"
 
 namespace MTL {
-
-
 class Device;
 
 class Allocator;
@@ -68,16 +67,9 @@ typedef enum GPUFamily {
 
 class Device {
 public:
-    
     Device();
     
-    Device(const Device &rhs);
-    
     Device(Device &&rhs);
-    
-    Device &operator=(const Device &rhs);
-    
-    Device &operator=(Device &&rhs);
     
     CPP_METAL_VIRTUAL ~Device();
     
@@ -127,6 +119,8 @@ public:
     
     const char *name() const;
     
+    vox::ResourceCache &resourceCache();
+    
 private:
     
     CPPMetalInternal::Device m_objCObj;
@@ -143,29 +137,13 @@ public: // Public methods for CPPMetal internal implementation
     
     CPPMetalInternal::DeviceInternals &internals();
     
+    vox::ResourceCache m_resourceCache;
 };
 
 
-//=================================================
 #pragma mark - Device inline method implementations
 
 CPP_METAL_OBJCOBJ_GETTER_IMPLEMENATATION(Device);
-
-inline Device::Device(Device &&rhs)
-: m_objCObj(rhs.m_objCObj), m_internals(rhs.m_internals), m_allocator(rhs.m_allocator) {
-    rhs.m_objCObj = nullptr;
-    rhs.m_internals = nullptr;
-}
-
-inline Device &Device::operator=(Device &&rhs) {
-    m_objCObj = rhs.m_objCObj;
-    m_internals = rhs.m_internals;
-    m_allocator = rhs.m_allocator;
-    rhs.m_objCObj = nullptr;
-    rhs.m_internals = nullptr;
-    
-    return *this;
-}
 
 inline CPPMetalInternal::DeviceInternals &Device::internals() {
     return *m_internals;
@@ -173,6 +151,10 @@ inline CPPMetalInternal::DeviceInternals &Device::internals() {
 
 inline Allocator &Device::allocator() {
     return *m_allocator;
+}
+
+inline vox::ResourceCache &Device::resourceCache() {
+    return m_resourceCache;
 }
 
 } // namespace MTL

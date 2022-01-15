@@ -38,7 +38,6 @@ typedef enum TextureUsage {
 
 struct TextureDescriptor {
 public:
-    
     TextureDescriptor();
     
     TextureDescriptor(const TextureDescriptor &rhs);
@@ -98,18 +97,15 @@ public:
     void usage(UInteger value);
     
 private:
-    
     CPPMetalInternal::TextureDescriptor m_objCObj;
     
 public: // Public methods for CPPMetal internal implementation
-    
     CPPMetalInternal::TextureDescriptor objCObj() const;
     
 };
 
 class Texture : public Resource {
 public:
-    
     Texture();
     
     Texture(const Texture &rhs);
@@ -164,10 +160,9 @@ public:
                   const Region &sourceRegion,
                   UInteger mipmapLevel);
     
-    Device device() const;
+    const Device* device() const;
     
 public: // Public methods for CPPMetal internal implementation
-    
     Texture(CPPMetalInternal::Texture objCObj, Device &device);
     
     CPPMetalInternal::Texture objCObj() const;
@@ -175,7 +170,6 @@ public: // Public methods for CPPMetal internal implementation
 };
 using TexturePtr = std::shared_ptr<Texture>;
 
-//============================================================
 #pragma mark - TextureDescriptor inline method implementations
 
 inline CPPMetalInternal::TextureDescriptor TextureDescriptor::objCObj() const {
@@ -183,7 +177,6 @@ inline CPPMetalInternal::TextureDescriptor TextureDescriptor::objCObj() const {
 }
 
 
-//==================================================
 #pragma mark - Texture inline method implementations
 
 inline Texture::Texture() {

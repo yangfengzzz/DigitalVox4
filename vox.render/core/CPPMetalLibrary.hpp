@@ -14,13 +14,10 @@
 #include "CPPMetalFunctionConstantValues.hpp"
 
 namespace MTL {
-
-
 class Function;
 
 class Library {
 public:
-    
     Library();
     
     Library(const Library &rhs);
@@ -39,16 +36,14 @@ public:
     
     Function makeFunction(const char *name, const MTL::FunctionConstantValues& constantValues);
     
-    Device device() const;
+    const Device* device() const;
     
 private:
-    
     CPPMetalInternal::Library m_objCObj;
     
     Device *m_device;
     
 public: // Public methods for CPPMetal internal implementation
-    
     Library(CPPMetalInternal::Library objCObj, Device &device);
     
 };
@@ -59,7 +54,6 @@ class RenderPipelineDescriptor;
 
 class Function {
 public:
-    
     Function();
     
     Function(const Function &rhs);
@@ -74,7 +68,7 @@ public:
     
     const char *name() const;
     
-    Device device() const;
+    const Device* device() const;
     
 private:
     
@@ -91,12 +85,10 @@ public: // Public methods for CPPMetal internal implementation
 };
 
 
-//==================================================
 #pragma mark - Library inline method implementations
 
 CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(Library);
 
-//===================================================
 #pragma mark - Function inline method implementations
 
 CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(Function);

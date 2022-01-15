@@ -31,8 +31,8 @@ bool CommandBuffer::operator==(const CommandBuffer &rhs) {
     return [m_objCObj isEqual:rhs.m_objCObj];
 }
 
-Device CommandBuffer::device() const {
-    return *m_device;
+const Device* CommandBuffer::device() const {
+    return m_device;
 }
 
 CPP_METAL_READWRITE_LABEL_PROPERTY_IMPLEMENTATION(CommandBuffer)

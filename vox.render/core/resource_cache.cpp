@@ -6,6 +6,7 @@
 //
 
 #include "resource_cache.h"
+#include "CPPMetal.hpp"
 #include "helpers.h"
 #include <utility>
 
@@ -20,6 +21,8 @@ struct hash<RenderPipelineDescriptor> {
         std::size_t result = 0;
         
         hash_combine(result, descriptor.vertexDescriptor()->objCObj()); // internal address
+        hash_combine(result, descriptor.vertexFunction()->objCObj()); // internal address
+        hash_combine(result, descriptor.fragmentFunction()->objCObj()); // internal address
         hash_combine(result, descriptor.sampleCount());
         hash_combine(result, descriptor.isAlphaToCoverageEnabled());
         hash_combine(result, descriptor.depthAttachmentPixelFormat());
