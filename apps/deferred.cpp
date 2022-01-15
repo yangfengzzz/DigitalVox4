@@ -130,7 +130,7 @@ bool Deferred::prepare(Engine &engine) {
         m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
         m_shadowRenderPass = std::make_unique<RenderPass>(&m_shadowRenderPassDescriptor);
         m_shadowRenderPass->addSubpass(std::make_unique<ShadowSubpass>(&m_shadowRenderPassDescriptor, scene.get(),
-                                                                       shaderLibrary, *device, m_meshes));
+                                                                       shaderLibrary, *device));
     }
     
 #pragma mark GBuffer render pass descriptor setup
@@ -180,7 +180,7 @@ bool Deferred::prepare(Engine &engine) {
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         m_GBufferRenderPass = std::make_unique<RenderPass>(&m_GBufferRenderPassDescriptor);
         m_GBufferRenderPass->addSubpass(std::make_unique<DeferredSubpass>(&m_GBufferRenderPassDescriptor, scene.get(),
-                                                                          shaderLibrary, *device, m_meshes,
+                                                                          shaderLibrary, *device,
                                                                           m_defaultVertexDescriptor, &m_shadowRenderPassDescriptor));
     }
     
@@ -459,14 +459,9 @@ void Deferred::updateLights(const float4x4 &modelViewMatrix) {
 
 /// Load models/textures, etc.
 void Deferred::loadScene() {
-    // Create and load assets into Metal objects including meshes and textures
-    CFErrorRef error = nullptr;
-    
-    m_meshes = newMeshesFromBundlePath("../assets/Models", "Temple.obj",
-                                       *device, m_defaultVertexDescriptor, &error);
-    
-    MTLAssert(m_meshes, error, "Could not create meshes from model file");
-    
+    newMeshesFromBundlePath("../assets/Models", "Temple.obj",
+                            *device, scene.get(), m_defaultVertexDescriptor);
+        
     // Generate data
     {
         m_lightsData = device->makeBuffer(sizeof(PointLight) * NumLights);
@@ -538,7 +533,7 @@ void Deferred::loadScene() {
         auto skyMat = std::make_shared<SkyBoxMaterial>();
         skyMat->setTextureCubeMap(textureLoader.loadCubeTexture("../assets/SkyMap", images, true));
         scene->background.sky.material = skyMat;
-                        
+        
         m_fairyMap = textureLoader.loadTexture("../assets/Textures/", "fairy.png", true);
         m_fairyMap.label("Fairy Map");
     }

@@ -7,15 +7,16 @@
 #ifndef Mesh_h
 #define Mesh_h
 
-#include "mesh.h"
+#include "entity.h"
+#include "scene.h"
+#include "core/CPPMetal.hpp"
 
 namespace vox {
-std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
-                                           const char *meshFile,
-                                           MTL::Device &device,
-                                           const MTL::VertexDescriptor &vertexDescriptor,
-                                           CFErrorRef *error);
-
+EntityPtr newMeshesFromBundlePath(const char *bundlePath,
+                                  const char *meshFile,
+                                  MTL::Device &device,
+                                  Scene* scene,
+                                  const MTL::VertexDescriptor &vertexDescriptor);
 }
 
 #endif // Mesh_h

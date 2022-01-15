@@ -36,6 +36,7 @@ public:
      */
     Material(Shader *shader);
 };
+using MaterialPtr = std::shared_ptr<Material>;
 
 }
 

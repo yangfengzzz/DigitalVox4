@@ -10,6 +10,7 @@
 
 #include "component.h"
 #include "shader/shader_data.h"
+#include "rendering/render_element.h"
 #include "bounding_box3.h"
 #include "ImathMatrix.h"
 #include "updateFlag.h"
@@ -103,9 +104,9 @@ protected:
     
     void _onDestroy() override;
     
-//    virtual void _render(std::vector<RenderElement> &opaqueQueue,
-//                         std::vector<RenderElement> &alphaTestQueue,
-//                         std::vector<RenderElement> &transparentQueue) = 0;
+    virtual void _render(std::vector<RenderElement> &opaqueQueue,
+                         std::vector<RenderElement> &alphaTestQueue,
+                         std::vector<RenderElement> &transparentQueue) = 0;
     
     virtual void _updateBounds(Imath::BoundingBox3f &worldBounds) {
     }

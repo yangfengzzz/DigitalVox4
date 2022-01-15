@@ -315,6 +315,10 @@
 		0445941627926D1600F04CE0 /* background.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941427926D1600F04CE0 /* background.h */; };
 		0445941927926E3300F04CE0 /* skybox_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445941727926E3300F04CE0 /* skybox_material.cpp */; };
 		0445941A27926E3300F04CE0 /* skybox_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941827926E3300F04CE0 /* skybox_material.h */; };
+		0445941E279292E000F04CE0 /* mesh_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445941C279292E000F04CE0 /* mesh_renderer.cpp */; };
+		0445941F279292E000F04CE0 /* mesh_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941D279292E000F04CE0 /* mesh_renderer.h */; };
+		0445942227929A3300F04CE0 /* render_element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942027929A3300F04CE0 /* render_element.cpp */; };
+		0445942327929A3300F04CE0 /* render_element.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445942127929A3300F04CE0 /* render_element.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -721,6 +725,10 @@
 		0445941427926D1600F04CE0 /* background.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = background.h; sourceTree = "<group>"; };
 		0445941727926E3300F04CE0 /* skybox_material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skybox_material.cpp; sourceTree = "<group>"; };
 		0445941827926E3300F04CE0 /* skybox_material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skybox_material.h; sourceTree = "<group>"; };
+		0445941C279292E000F04CE0 /* mesh_renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mesh_renderer.cpp; sourceTree = "<group>"; };
+		0445941D279292E000F04CE0 /* mesh_renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh_renderer.h; sourceTree = "<group>"; };
+		0445942027929A3300F04CE0 /* render_element.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = render_element.cpp; sourceTree = "<group>"; };
+		0445942127929A3300F04CE0 /* render_element.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render_element.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -831,6 +839,7 @@
 				0445925B278E7C8600F04CE0 /* metal_application.h */,
 				0445925A278E7C8600F04CE0 /* metal_application.cpp */,
 				044593DB2790F97000F04CE0 /* graphics */,
+				0445941B2792926500F04CE0 /* mesh */,
 				0445925E278E7F3300F04CE0 /* rendering */,
 				0445928F278EB27F00F04CE0 /* shader */,
 				044592D1278ED03000F04CE0 /* material */,
@@ -1095,6 +1104,8 @@
 				044593F427914F7500F04CE0 /* subpass.h */,
 				044593F327914F7500F04CE0 /* subpass.cpp */,
 				044593F72791580900F04CE0 /* subpasses */,
+				0445942127929A3300F04CE0 /* render_element.h */,
+				0445942027929A3300F04CE0 /* render_element.cpp */,
 				0445937D278FFE3100F04CE0 /* math_utilities.h */,
 				04459378278FFE3100F04CE0 /* math_utilities.cpp */,
 			);
@@ -1332,6 +1343,15 @@
 			path = sky;
 			sourceTree = "<group>";
 		};
+		0445941B2792926500F04CE0 /* mesh */ = {
+			isa = PBXGroup;
+			children = (
+				0445941D279292E000F04CE0 /* mesh_renderer.h */,
+				0445941C279292E000F04CE0 /* mesh_renderer.cpp */,
+			);
+			path = mesh;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1367,6 +1387,7 @@
 				0445941A27926E3300F04CE0 /* skybox_material.h in Headers */,
 				04459225278E5F1100F04CE0 /* configuration.h in Headers */,
 				044592EF278ED88400F04CE0 /* pbr_base_material.h in Headers */,
+				0445942327929A3300F04CE0 /* render_element.h in Headers */,
 				044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */,
 				044593E72791055900F04CE0 /* mesh.h in Headers */,
 				044592EB278ED82300F04CE0 /* pbr_material.h in Headers */,
@@ -1449,6 +1470,7 @@
 				044594102792545E00F04CE0 /* particle_subpass.h in Headers */,
 				04459255278E6D4700F04CE0 /* glfw_window.h in Headers */,
 				0445936C278FB37C00F04CE0 /* orbit_control.h in Headers */,
+				0445941F279292E000F04CE0 /* mesh_renderer.h in Headers */,
 				042295B9278C33090090983F /* CPPMetalDispatchTableCache.h in Headers */,
 				04459363278FB14400F04CE0 /* physics_manager.h in Headers */,
 				044593FF2791A58A00F04CE0 /* deferred_subpass.h in Headers */,
@@ -1710,6 +1732,7 @@
 				0445930E278F170100F04CE0 /* spherical.cpp in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
 				04459339278FAE0C00F04CE0 /* capsule_character_controller.cpp in Sources */,
+				0445941E279292E000F04CE0 /* mesh_renderer.cpp in Sources */,
 				044592DC278ED11F00F04CE0 /* material.cpp in Sources */,
 				0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */,
 				0445932F278FAA7900F04CE0 /* box_collider_shape.cpp in Sources */,
@@ -1791,6 +1814,7 @@
 				0445923B278E61C500F04CE0 /* configuration.cpp in Sources */,
 				042295A1278C32FB0090983F /* CPPMetalCommandBuffer.mm in Sources */,
 				044592C4278EC60C00F04CE0 /* stencil_state.cpp in Sources */,
+				0445942227929A3300F04CE0 /* render_element.cpp in Sources */,
 				0445924D278E653300F04CE0 /* engine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

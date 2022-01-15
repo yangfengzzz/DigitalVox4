@@ -147,6 +147,15 @@ void ComponentsManager::callRendererOnUpdate(float deltaTime) {
     }
 }
 
+void ComponentsManager::callRender(std::vector<RenderElement> &opaqueQueue,
+                                   std::vector<RenderElement> &alphaTestQueue,
+                                   std::vector<RenderElement> &transparentQueue) {
+    for (size_t i = 0; i < _renderers.size(); i++) {
+        const auto &element = _renderers[i];
+        element->_render(opaqueQueue, alphaTestQueue, transparentQueue);
+    }
+}
+
 //void ComponentsManager::callRender(RenderContext &context,
 //                                   std::vector<RenderElement> &opaqueQueue,
 //                                   std::vector<RenderElement> &alphaTestQueue,

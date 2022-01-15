@@ -19,7 +19,6 @@ public:
                     Scene* scene,
                     MTL::Library& shaderLibrary,
                     MTL::Device& m_device,
-                    std::vector<Mesh> *m_meshes,
                     MTL::VertexDescriptor& m_defaultVertexDescriptor,
                     MTL::RenderPassDescriptor* shadow_desc);
     
@@ -31,7 +30,6 @@ private:
     MTL::RenderPipelineState m_GBufferPipelineState;
     MTL::DepthStencilState m_GBufferDepthStencilState;
     
-    std::vector<Mesh> *m_meshes;
     MTL::RenderPassDescriptor* shadow_desc;
 };
 

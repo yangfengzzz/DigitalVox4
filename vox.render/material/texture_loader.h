@@ -36,23 +36,14 @@ public:
     
     CPP_METAL_VIRTUAL ~TextureLoader();
     
-    MTL::Texture *newTextureWithName(const char *name,
-                                     float catalogScaleFactor,
-                                     const TextureLoaderOptions &options,
-                                     CFErrorRef *error = nullptr);
+    MTL::TexturePtr makeTexture(const char *name,
+                                float catalogScaleFactor,
+                                const TextureLoaderOptions &options,
+                                CFErrorRef *error = nullptr);
     
-    MTL::Texture makeTexture(const char *name,
-                             float screenScaleFactor,
-                             const TextureLoaderOptions &options,
-                             CFErrorRef *error = nullptr);
-    
-    MTL::Texture *newTextureWithContentsOfURL(const char *URLString,
-                                              const TextureLoaderOptions &options,
-                                              CFErrorRef *error = nullptr);
-    
-    MTL::Texture makeTexture(const char *URLString,
-                             const TextureLoaderOptions &options,
-                             CFErrorRef *error = nullptr);
+    MTL::TexturePtr makeTexture(const char *URLString,
+                                const TextureLoaderOptions &options,
+                                CFErrorRef *error = nullptr);
     
 public:
     MTL::TexturePtr loadCubeTexture(const std::string &path,

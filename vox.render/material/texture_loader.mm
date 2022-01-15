@@ -34,10 +34,10 @@ NSDictionary *textureLoaderDictionary(const TextureLoaderOptions &options) {
     return [textureLoaderOptions copyWithZone:nil];
 }
 
-MTL::Texture *TextureLoader::newTextureWithName(const char *name,
-                                                float screenScaleFactor,
-                                                const TextureLoaderOptions &options,
-                                                CFErrorRef *error) {
+MTL::TexturePtr TextureLoader::makeTexture(const char *name,
+                                            float screenScaleFactor,
+                                            const TextureLoaderOptions &options,
+                                            CFErrorRef *error) {
     NSString *nsname = [[NSString alloc] initWithUTF8String:name];
     NSError *nserror;
     
@@ -53,77 +53,29 @@ MTL::Texture *TextureLoader::newTextureWithName(const char *name,
         }
         return nullptr;
     }
-    
-    Texture *texture = construct<Texture>(m_device->allocator(), objCTexture, *m_device);
-    
-    return texture;
-}
-
-MTL::Texture TextureLoader::makeTexture(const char *name,
-                                        float screenScaleFactor,
-                                        const TextureLoaderOptions &options,
-                                        CFErrorRef *error) {
-    NSString *nsname = [[NSString alloc] initWithUTF8String:name];
-    NSError *nserror;
-    
-    id <MTLTexture> objCTexture = [m_objCObj newTextureWithName:nsname
-                                                    scaleFactor:1.0
-                                                         bundle:nil
-                                                        options:textureLoaderDictionary(options)
-                                                          error:&nserror];
-    
-    if (!objCTexture) {
-        if (error) {
-            *error = (__bridge CFErrorRef) nserror;
-        }
-    }
-    
-    return Texture(objCTexture, *m_device);
-}
-
-MTL::Texture *TextureLoader::newTextureWithContentsOfURL(const char *URLString,
-                                                         const TextureLoaderOptions &options,
-                                                         CFErrorRef *error) {
-    NSString *nsURLString = [[NSString alloc] initWithUTF8String:URLString];
-    NSURL *URL = [[NSURL alloc] initWithString:nsURLString];
-    NSError *nserror;
-    
-    id <MTLTexture> objCTexture = [m_objCObj newTextureWithContentsOfURL:URL
-                                                                 options:textureLoaderDictionary(options)
-                                                                   error:&nserror];
-    
-    if (!objCTexture) {
-        if (error) {
-            *error = (__bridge CFErrorRef) nserror;
-        }
-        return nullptr;
-    }
-    
-    Texture *texture = construct<Texture>(m_device->allocator(), objCTexture, *m_device);
-    
-    return texture;
-}
-
-MTL::Texture TextureLoader::makeTexture(const char *URLString,
-                                        const TextureLoaderOptions &options,
-                                        CFErrorRef *error) {
-    NSString *nsURLString = [[NSString alloc] initWithUTF8String:URLString];
-    NSURL *URL = [[NSURL alloc] initWithString:nsURLString];
-    NSError *nserror;
-    
-    id <MTLTexture> objCTexture = [m_objCObj newTextureWithContentsOfURL:URL
-                                                                 options:textureLoaderDictionary(options)
-                                                                   error:&nserror];
-    
-    if (!objCTexture) {
-        if (error) {
-            *error = (__bridge CFErrorRef) nserror;
-        }
         
-        return Texture();
+    return std::make_shared<Texture>(objCTexture, *m_device);
+}
+
+MTL::TexturePtr TextureLoader::makeTexture(const char *URLString,
+                                            const TextureLoaderOptions &options,
+                                            CFErrorRef *error) {
+    NSString *nsURLString = [[NSString alloc] initWithUTF8String:URLString];
+    NSURL *URL = [[NSURL alloc] initWithString:nsURLString];
+    NSError *nserror;
+    
+    id <MTLTexture> objCTexture = [m_objCObj newTextureWithContentsOfURL:URL
+                                                                 options:textureLoaderDictionary(options)
+                                                                   error:&nserror];
+    
+    if (!objCTexture) {
+        if (error) {
+            *error = (__bridge CFErrorRef) nserror;
+        }
+        return nullptr;
     }
     
-    return Texture(objCTexture, *m_device);
+    return std::make_shared<Texture>(objCTexture, *m_device);
 }
 
 TexturePtr TextureLoader::loadCubeTexture(const std::string &path,

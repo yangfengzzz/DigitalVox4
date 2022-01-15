@@ -17,12 +17,6 @@ public:
     Submesh(MTL::PrimitiveType primitiveType,
             MTL::IndexType indexType,
             MTL::UInteger indexCount,
-            const MeshBuffer indexBuffer,
-            const std::vector<MTL::Texture> &textures);
-    
-    Submesh(MTL::PrimitiveType primitiveType,
-            MTL::IndexType indexType,
-            MTL::UInteger indexCount,
             MeshBuffer indexBuffer);
     
     Submesh(const Submesh &rhs) = default;
@@ -42,9 +36,7 @@ public:
     MTL::UInteger indexCount() const;
     
     const MeshBuffer &indexBuffer() const;
-    
-    const std::vector<MTL::Texture> &textures() const;
-    
+        
 private:
     MTL::PrimitiveType m_primitiveType;
     
@@ -53,8 +45,6 @@ private:
     MTL::UInteger m_indexCount;
     
     MeshBuffer m_indexBuffer;
-    
-    std::vector<MTL::Texture> m_textures;
 };
 
 inline MTL::PrimitiveType Submesh::primitiveType() const {
@@ -71,10 +61,6 @@ inline MTL::UInteger Submesh::indexCount() const {
 
 inline const MeshBuffer &Submesh::indexBuffer() const {
     return m_indexBuffer;
-}
-
-inline const std::vector<MTL::Texture> &Submesh::textures() const {
-    return m_textures;
 }
 
 }

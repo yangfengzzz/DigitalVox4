@@ -18,8 +18,7 @@ public:
     ShadowSubpass(MTL::RenderPassDescriptor* desc,
                   Scene* scene,
                   MTL::Library& shaderLibrary,
-                  MTL::Device& m_device,
-                  std::vector<Mesh> *m_meshes);
+                  MTL::Device& m_device);
 
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
         
@@ -28,8 +27,6 @@ private:
 
     MTL::RenderPipelineState m_shadowGenPipelineState;
     MTL::DepthStencilState m_shadowDepthStencilState;
-    
-    std::vector<Mesh> *m_meshes;
 };
 
 }

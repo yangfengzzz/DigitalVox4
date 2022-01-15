@@ -6,7 +6,7 @@
 //
 
 #include "shadow_subpass.h"
-
+#include "material/material.h"
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
@@ -14,12 +14,10 @@ namespace vox {
 ShadowSubpass::ShadowSubpass(MTL::RenderPassDescriptor* desc,
                              Scene* scene,
                              MTL::Library& shaderLibrary,
-                             MTL::Device& m_device,
-                             std::vector<Mesh> *m_meshes):
-Subpass(desc, scene),
-m_meshes(m_meshes) {
+                             MTL::Device& m_device):
+Subpass(desc, scene) {
     CFErrorRef error = nullptr;
-
+    
 #pragma mark Shadow pass render pipeline setup
     {
         MTL::Function *shadowVertexFunction = shaderLibrary.newFunctionWithName("shadow_vertex");
@@ -59,29 +57,30 @@ void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
 }
 
 void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
-    for (auto &mesh: *m_meshes) {
-        for (auto &meshBuffer: mesh.vertexBuffers()) {
+    std::vector<RenderElement> opaqueQueue;
+    std::vector<RenderElement> alphaTestQueue;
+    std::vector<RenderElement> transparentQueue;
+    scene->_componentsManager.callRender(opaqueQueue, alphaTestQueue, transparentQueue);
+    
+    for (auto &element : opaqueQueue) {
+        auto& mesh = element.mesh;
+        for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),
                                           meshBuffer.offset(),
                                           meshBuffer.argumentIndex());
         }
         
-        for (auto &submesh: mesh.submeshes()) {
-            // Set any textures read/sampled from the render pipeline
-            const std::vector<MTL::Texture> &submeshTextures = submesh.textures();
-            
-            renderEncoder.setFragmentTexture(submeshTextures[TextureIndexBaseColor], TextureIndexBaseColor);
-            
-            renderEncoder.setFragmentTexture(submeshTextures[TextureIndexNormal], TextureIndexNormal);
-            
-            renderEncoder.setFragmentTexture(submeshTextures[TextureIndexSpecular], TextureIndexSpecular);
-            
-            renderEncoder.drawIndexedPrimitives(submesh.primitiveType(),
-                                                submesh.indexCount(),
-                                                submesh.indexType(),
-                                                submesh.indexBuffer().buffer(),
-                                                submesh.indexBuffer().offset());
-        }
+        auto& submesh = element.subMesh;
+        auto& mat = element.material;
+        renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_diffuseTexture")), TextureIndexBaseColor);
+        renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_normalTexture")), TextureIndexNormal);
+        renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_specularTexture")), TextureIndexSpecular);
+        
+        renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
+                                            submesh->indexCount(),
+                                            submesh->indexType(),
+                                            submesh->indexBuffer().buffer(),
+                                            submesh->indexBuffer().offset());
     }
 }
 

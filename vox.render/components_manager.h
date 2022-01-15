@@ -9,6 +9,7 @@
 #define component_manager_hpp
 
 #include "scene_forward.h"
+#include "rendering/render_element.h"
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
@@ -77,10 +78,9 @@ public:
     void callCameraOnEndRender(Camera *camera);
     
 public:
-//    void callRender(RenderContext &context,
-//                    std::vector<RenderElement> &opaqueQueue,
-//                    std::vector<RenderElement> &alphaTestQueue,
-//                    std::vector<RenderElement> &transparentQueue);
+    void callRender(std::vector<RenderElement> &opaqueQueue,
+                    std::vector<RenderElement> &alphaTestQueue,
+                    std::vector<RenderElement> &transparentQueue);
 //
 //    void callRender(const BoundingFrustum &frustrum,
 //                    std::vector<RenderElement> &opaqueQueue,

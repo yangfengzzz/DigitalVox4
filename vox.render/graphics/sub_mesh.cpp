@@ -8,19 +8,6 @@
 #include "sub_mesh.h"
 
 namespace vox {
-Submesh::Submesh(MTL::PrimitiveType primitiveType,
-                 MTL::IndexType indexType,
-                 MTL::UInteger indexCount,
-                 const MeshBuffer indexBuffer,
-                 const std::vector<MTL::Texture> &textures)
-: m_primitiveType(primitiveType),
-m_indexType(indexType),
-m_indexCount(indexCount),
-m_indexBuffer(indexBuffer),
-m_textures(textures) {
-    // Member initialization only
-}
-
 // Initialize a submesh without textures
 Submesh::Submesh(MTL::PrimitiveType primitiveType,
                  MTL::IndexType indexType,

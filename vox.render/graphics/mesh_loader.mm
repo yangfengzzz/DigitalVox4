@@ -14,13 +14,17 @@
 #include "shader_types.h"
 #include "mesh_loader.h"
 #include "material/texture_loader.h"
+#include "material/blinn_phong_material.h"
+#include "graphics/mesh.h"
+#include "mesh/mesh_renderer.h"
 
 using namespace MTL;
 
 namespace vox {
-static Texture createTextureFromMaterial(MDLMaterial *material,
-                                         MDLMaterialSemantic materialSemantic,
-                                         TextureLoader &textureLoader) {
+namespace {
+TexturePtr createTextureFromMaterial(MDLMaterial *material,
+                                     MDLMaterialSemantic materialSemantic,
+                                     TextureLoader &textureLoader) {
     NSArray<MDLMaterialProperty *> *propertiesWithSemantic =
     [material propertiesWithSemantic:materialSemantic];
     
@@ -45,11 +49,11 @@ static Texture createTextureFromMaterial(MDLMaterial *material,
             }
             
             // Attempt to load the texture from the file system
-            MTL::Texture texture = textureLoader.makeTexture(URLString.UTF8String,
-                                                             options);
+            MTL::TexturePtr texture = textureLoader.makeTexture(URLString.UTF8String,
+                                                                options);
             
             // If the texture has been found for a material using the string as a file path name...
-            if (texture.objCObj()) {
+            if (texture->objCObj()) {
                 // ...return it
                 return texture;
             }
@@ -62,7 +66,7 @@ static Texture createTextureFromMaterial(MDLMaterial *material,
                                                 options);
             
             // If a texture with the by interpreting the URL as an asset catalog name
-            if (texture.objCObj()) {
+            if (texture->objCObj()) {
                 // ...return it
                 return texture;
             }
@@ -85,50 +89,39 @@ static Texture createTextureFromMaterial(MDLMaterial *material,
     [NSException raise:@"No appropriate material property from which to create texture"
                 format:@"Requested material property semantic: %lu", materialSemantic];
     
-    return Texture();
+    return nullptr;
 }
 
-static Submesh createSubmesh(MDLSubmesh *modelIOSubmesh,
-                             MTKSubmesh *metalKitSubmesh,
-                             MTL::Device &device,
-                             TextureLoader &textureLoader) {
-    
-    // Set each index in the array with the appropriate material semantic specified in the
-    //   submesh's material property
-    
-    // Create a vector with 3 dummy (unusable) texture that will be immediate replaced
-    std::vector<MTL::Texture> textures(NumMeshTextures, Texture());
-    
-    // Now that createSubmesh has added dummy elements, it can replace indices in the vector
-    // With real textures
-    
-    textures[TextureIndexBaseColor] = createTextureFromMaterial(modelIOSubmesh.material,
-                                                                MDLMaterialSemanticBaseColor,
-                                                                textureLoader);
-    
-    textures[TextureIndexSpecular] = createTextureFromMaterial(modelIOSubmesh.material,
-                                                               MDLMaterialSemanticSpecular,
-                                                               textureLoader);
-    
-    textures[TextureIndexNormal] = createTextureFromMaterial(modelIOSubmesh.material,
-                                                             MDLMaterialSemanticTangentSpaceNormal,
-                                                             textureLoader);
+std::pair<Submesh, std::shared_ptr<BlinnPhongMaterial>>
+createSubmesh(MDLSubmesh *modelIOSubmesh,
+              MTKSubmesh *metalKitSubmesh,
+              MTL::Device &device,
+              TextureLoader &textureLoader) {
+    auto mat = std::make_shared<BlinnPhongMaterial>();
+    mat->setBaseTexture(createTextureFromMaterial(modelIOSubmesh.material,
+                                                  MDLMaterialSemanticBaseColor,
+                                                  textureLoader));
+    mat->setSpecularTexture(createTextureFromMaterial(modelIOSubmesh.material,
+                                                      MDLMaterialSemanticSpecular,
+                                                      textureLoader));
+    mat->setNormalTexture(createTextureFromMaterial(modelIOSubmesh.material,
+                                                    MDLMaterialSemanticTangentSpaceNormal,
+                                                    textureLoader));
     
     MTL::Buffer metalIndexBuffer(metalKitSubmesh.indexBuffer.buffer, device);
-    
     MeshBuffer indexBuffer(metalIndexBuffer, metalKitSubmesh.indexBuffer.offset, metalKitSubmesh.indexBuffer.length);
     
     Submesh submesh((PrimitiveType) metalKitSubmesh.primitiveType,
                     (IndexType) metalKitSubmesh.indexType,
                     metalKitSubmesh.indexCount,
-                    indexBuffer,
-                    textures);
+                    indexBuffer);
     
-    return submesh;
+    return std::make_pair(submesh, mat);
 }
 
 
-Mesh createMeshFromModelIOMesh(MDLMesh *modelIOMesh,
+void createMeshFromModelIOMesh(EntityPtr entity,
+                               MDLMesh *modelIOMesh,
                                MDLVertexDescriptor *vertexDescriptor,
                                TextureLoader &textureLoader,
                                MTL::Device &device,
@@ -181,16 +174,17 @@ Mesh createMeshFromModelIOMesh(MDLMesh *modelIOMesh,
     }
     
     std::vector<Submesh> submeshes;
-    
+    std::vector<MaterialPtr> materials;
     // Create an Submesh object for each submesh and a add it to the submesh's array
     for (NSUInteger index = 0; index < metalKitMesh.submeshes.count; index++) {
         // Create an app specific submesh to hold the MetalKit submesh
-        Submesh submesh = createSubmesh(modelIOMesh.submeshes[index],
-                                        metalKitMesh.submeshes[index],
-                                        device,
-                                        textureLoader);
+        auto submesh = createSubmesh(modelIOMesh.submeshes[index],
+                                     metalKitMesh.submeshes[index],
+                                     device,
+                                     textureLoader);
         
-        submeshes.emplace_back(submesh);
+        submeshes.emplace_back(submesh.first);
+        materials.emplace_back(submesh.second);
     }
     
     auto desc = MTL::VertexDescriptor();
@@ -225,50 +219,50 @@ Mesh createMeshFromModelIOMesh(MDLMesh *modelIOMesh,
     // Generic Attribute Buffer Layout
     desc.layouts[BufferIndexMeshGenerics].stride(metalKitMesh.vertexDescriptor.layouts[BufferIndexMeshGenerics].stride);
     
-    Mesh mesh(submeshes, vertexBuffers, desc);
-    
-    return mesh;
+    auto renderer = entity->addComponent<MeshRenderer>();
+    renderer->setMesh(std::make_shared<Mesh>(submeshes, vertexBuffers, desc));
+    for (int i = 0; i < materials.size(); i++) {
+        renderer->setMaterial(i, materials[i]);
+    }
 }
 
-static std::vector<Mesh> createMeshesFromModelIOObject(MDLObject *object,
-                                                       MDLVertexDescriptor *vertexDescriptor,
-                                                       TextureLoader &textureLoader,
-                                                       MTL::Device &device,
-                                                       NSError *__nullable *__nullable error) {
-    std::vector<Mesh> newMeshes;
-    
+void createMeshesFromModelIOObject(EntityPtr entity,
+                                   MDLObject *object,
+                                   MDLVertexDescriptor *vertexDescriptor,
+                                   TextureLoader &textureLoader,
+                                   MTL::Device &device,
+                                   NSError *__nullable *__nullable error) {
     // If this ModelIO object is a mesh object (not a camera, light, or something else)...
     if ([object isKindOfClass:[MDLMesh class]]) {
         //...create an app-specific Mesh object from it
         MDLMesh *modelIOMesh = (MDLMesh *) object;
         
-        Mesh newMesh = createMeshFromModelIOMesh(modelIOMesh,
-                                                 vertexDescriptor,
-                                                 textureLoader,
-                                                 device,
-                                                 error);
-        
-        newMeshes.emplace_back(newMesh);
+        createMeshFromModelIOMesh(entity,
+                                  modelIOMesh,
+                                  vertexDescriptor,
+                                  textureLoader,
+                                  device,
+                                  error);
     }
     
     // Recursively traverse the ModelIO asset hierarchy to find ModelIO meshes that are children
     // of this ModelIO object and create app-specific Mesh objects from those ModelIO meshes
     for (MDLObject *child in object.children) {
-        std::vector<Mesh> childMeshes;
-        
-        childMeshes = createMeshesFromModelIOObject(child, vertexDescriptor, textureLoader, device, error);
-        
-        newMeshes.insert(newMeshes.end(), childMeshes.begin(), childMeshes.end());
+        createMeshesFromModelIOObject(entity->createChild(), child,
+                                      vertexDescriptor, textureLoader, device, error);
     }
-    
-    return newMeshes;
 }
 
-std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
-                                           const char *meshFile,
-                                           MTL::Device &device,
-                                           const MTL::VertexDescriptor &vertexDescriptor,
-                                           CFErrorRef *error) {
+} // namespace
+
+//MARK: - Entry
+EntityPtr newMeshesFromBundlePath(const char *bundlePath,
+                                  const char *meshFile,
+                                  MTL::Device &device,
+                                  Scene* scene,
+                                  const MTL::VertexDescriptor &vertexDescriptor) {
+    auto entity = scene->createRootEntity();
+    
     // Create a ModelIO vertexDescriptor so that the format/layout of the ModelIO mesh vertices
     //   cah be made to match Metal render pipeline's vertex descriptor layout
     MDLVertexDescriptor *modelIOVertexDescriptor =
@@ -305,30 +299,21 @@ std::vector<Mesh> *newMeshesFromBundlePath(const char *bundlePath,
     // Create a MetalKit texture loader to load material textures from files or the asset catalog
     //   into Metal textures
     TextureLoader textureLoader(device);
-    
-    std::vector<Mesh> *newMeshes = new std::vector<Mesh>();
-    
     NSError *nserror;
     
     // Traverse the ModelIO asset hierarchy to find ModelIO meshes and create app-specific
     // Mesh objects from those ModelIO meshes
     for (MDLObject *object in asset) {
-        std::vector<Mesh> assetMeshes;
-        
-        assetMeshes = createMeshesFromModelIOObject(object,
-                                                    modelIOVertexDescriptor,
-                                                    textureLoader,
-                                                    device,
-                                                    &nserror);
-        
-        newMeshes->insert(newMeshes->end(), assetMeshes.begin(), assetMeshes.end());
+        createMeshesFromModelIOObject(entity, object,
+                                      modelIOVertexDescriptor,
+                                      textureLoader,
+                                      device,
+                                      &nserror);
     }
     
-    if (nserror && error) {
-        *error = (__bridge CFErrorRef) nserror;
-    }
+    MTLAssert(!nserror, (__bridge CFErrorRef) nserror, "");
     
-    return newMeshes;
+    return entity;
 }
 
 
