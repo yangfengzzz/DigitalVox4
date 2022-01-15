@@ -96,11 +96,6 @@ private:
     // Texture to create smooth round particles
     MTL::Texture m_fairyMap;
     
-    // Mesh for sphere use to render the skybox
-    MeshPtr m_skyMesh;
-    // Texture for skybox
-    MTL::Texture m_skyMap;
-    
 private:
     dispatch_semaphore_t m_inFlightSemaphore;
     MTL::CommandBufferHandler *m_completedHandler{nullptr};

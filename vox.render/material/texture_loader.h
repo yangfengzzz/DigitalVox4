@@ -55,9 +55,9 @@ public:
                              CFErrorRef *error = nullptr);
     
 public:
-    MTL::Texture loadCubeTexture(const std::string &path,
-                                 const std::array<std::string, 6> &imageName,
-                                 bool isTopLeft);
+    MTL::TexturePtr loadCubeTexture(const std::string &path,
+                                    const std::array<std::string, 6> &imageName,
+                                    bool isTopLeft);
     
     MTL::Texture loadTexture(const std::string &path,
                              const std::string &imageName,

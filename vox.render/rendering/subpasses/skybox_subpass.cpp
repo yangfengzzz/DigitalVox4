@@ -7,6 +7,7 @@
 
 #include "skybox_subpass.h"
 #include "core/CPPMetalAssert.hpp"
+#include "material/material.h"
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
@@ -16,13 +17,8 @@ SkyboxSubpass::SkyboxSubpass(MTL::RenderPassDescriptor* desc,
                              Scene* scene,
                              MTL::Library& shaderLibrary,
                              MTL::Device& m_device,
-                             MTL::PixelFormat colorPixelFormat,
-                             MeshPtr m_skyMesh,
-                             MTL::VertexDescriptor& m_skyVertexDescriptor,
-                             MTL::Texture& m_skyMap):
-Subpass(desc, scene),
-m_skyMesh(m_skyMesh),
-m_skyMap(m_skyMap) {
+                             MTL::PixelFormat colorPixelFormat):
+Subpass(desc, scene) {
     CFErrorRef error = nullptr;
     
 #pragma mark Sky render pipeline setup
@@ -32,7 +28,7 @@ m_skyMap(m_skyMap) {
         
         MTL::RenderPipelineDescriptor renderPipelineDescriptor;
         renderPipelineDescriptor.label("Sky");
-        renderPipelineDescriptor.vertexDescriptor(&m_skyVertexDescriptor);
+        renderPipelineDescriptor.vertexDescriptor(&(scene->background.sky.mesh->vertexDescriptor()));
         renderPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
         renderPipelineDescriptor.fragmentFunction(&skyboxFragmentFunction);
         renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(colorPixelFormat);
@@ -63,16 +59,17 @@ void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     
     commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData"))
                                    , 0, BufferIndexFrameData);
-    commandEncoder.setFragmentTexture(m_skyMap, TextureIndexBaseColor);
+    commandEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(scene->background.sky.material->shaderData.getData("u_skybox")),
+                                      TextureIndexBaseColor);
     
-    for (auto &meshBuffer: m_skyMesh->vertexBuffers()) {
+    for (auto &meshBuffer: scene->background.sky.mesh->vertexBuffers()) {
         commandEncoder.setVertexBuffer(meshBuffer.buffer(),
                                        meshBuffer.offset(),
                                        meshBuffer.argumentIndex());
     }
     
     
-    for (auto &submesh: m_skyMesh->submeshes()) {
+    for (auto &submesh: scene->background.sky.mesh->submeshes()) {
         commandEncoder.drawIndexedPrimitives(submesh.primitiveType(),
                                              submesh.indexCount(),
                                              submesh.indexType(),

@@ -126,9 +126,9 @@ MTL::Texture TextureLoader::makeTexture(const char *URLString,
     return Texture(objCTexture, *m_device);
 }
 
-MTL::Texture TextureLoader::loadCubeTexture(const std::string &path,
-                                            const std::array<std::string, 6> &imageName,
-                                            bool isTopLeft) {
+TexturePtr TextureLoader::loadCubeTexture(const std::string &path,
+                                          const std::array<std::string, 6> &imageName,
+                                          bool isTopLeft) {
     NSString *pathName = [[NSString alloc] initWithUTF8String:path.c_str()];
     NSString *textureName1 = [[NSString alloc] initWithUTF8String:imageName[0].c_str()];
     NSString *textureName2 = [[NSString alloc] initWithUTF8String:imageName[1].c_str()];
@@ -162,7 +162,7 @@ MTL::Texture TextureLoader::loadCubeTexture(const std::string &path,
         NSLog(@"Error: failed to create MTLTexture: %@", error);
     }
     
-    return Texture(mtlTexture, *m_device);
+    return std::make_shared<Texture>(mtlTexture, *m_device);
 }
 
 MTL::Texture TextureLoader::loadTexture(const std::string &path, const std::string &imageName, bool isTopLeft) {

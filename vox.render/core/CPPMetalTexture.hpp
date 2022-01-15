@@ -11,11 +11,9 @@
 #include "CPPMetalPixelFormat.hpp"
 #include "CPPMetalResource.hpp"
 #include "CPPMetalTypes.hpp"
-
+#include <memory>
 
 namespace MTL {
-
-
 typedef enum TextureType {
     TextureType1D = 0,
     TextureType1DArray = 1,
@@ -175,6 +173,7 @@ public: // Public methods for CPPMetal internal implementation
     CPPMetalInternal::Texture objCObj() const;
     
 };
+using TexturePtr = std::shared_ptr<Texture>;
 
 //============================================================
 #pragma mark - TextureDescriptor inline method implementations

@@ -234,7 +234,7 @@ const Function *RenderPipelineDescriptor::fragmentFunction() const {
     return &m_fragmentFunction;
 }
 
-void RenderPipelineDescriptor::vertexDescriptor(VertexDescriptor *descriptor) {
+void RenderPipelineDescriptor::vertexDescriptor(const VertexDescriptor *descriptor) {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
     
     if (descriptor) {

@@ -203,7 +203,7 @@ public:
     
     VertexDescriptor *vertexDescriptor();
     
-    void vertexDescriptor(VertexDescriptor *descriptor);
+    void vertexDescriptor(const VertexDescriptor *descriptor);
     
     UInteger sampleCount() const;
     

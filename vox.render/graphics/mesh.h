@@ -37,6 +37,8 @@ public:
     
     const std::vector<MeshBuffer> &vertexBuffers() const;
     
+    const MTL::VertexDescriptor& vertexDescriptor() const;
+    
 private:
     std::vector<Submesh> m_submeshes;
     
@@ -53,6 +55,11 @@ inline const std::vector<Submesh> &Mesh::submeshes() const {
 inline const std::vector<MeshBuffer> &Mesh::vertexBuffers() const {
     return m_vertexBuffers;
 }
+
+inline const MTL::VertexDescriptor& Mesh::vertexDescriptor() const {
+    return m_vertexDescriptor;
+}
+
 
 }
 

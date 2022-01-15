@@ -18,19 +18,13 @@ public:
                   Scene* scene,
                   MTL::Library& shaderLibrary,
                   MTL::Device& m_device,
-                  MTL::PixelFormat colorPixelFormat,
-                  MeshPtr m_skyMesh,
-                  MTL::VertexDescriptor& m_skyVertexDescriptor,
-                  MTL::Texture& m_skyMap);
+                  MTL::PixelFormat colorPixelFormat);
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
     MTL::DepthStencilState m_dontWriteDepthStencilState;
     MTL::RenderPipelineState m_skyboxPipelineState;
-    
-    MeshPtr m_skyMesh;
-    MTL::Texture& m_skyMap;
 };
 
 }

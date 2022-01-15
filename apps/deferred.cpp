@@ -15,6 +15,8 @@
 #include "rendering/subpasses/point_light_subpass.h"
 #include "rendering/subpasses/skybox_subpass.h"
 #include "rendering/subpasses/particle_subpass.h"
+#include "sky/skybox_material.h"
+
 #include "engine.h"
 #include "core/CPPMetalAssert.hpp"
 #include "material/texture_loader.h"
@@ -199,8 +201,7 @@ bool Deferred::prepare(Engine &engine) {
                                                                           shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
                                                                           m_icosahedronMesh, &m_GBufferRenderPassDescriptor, NumLights));
         m_finalRenderPass->addSubpass(std::make_unique<SkyboxSubpass>(&m_finalRenderPassDescriptor, scene.get(),
-                                                                      shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
-                                                                      m_skyMesh, m_skyVertexDescriptor, m_skyMap));
+                                                                      shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB));
         m_finalRenderPass->addSubpass(std::make_unique<ParticleSubpass>(&m_finalRenderPassDescriptor, scene.get(),
                                                                         shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
                                                                         m_fairy, m_fairyMap, NumLights, NumFairyVertices));
@@ -526,38 +527,19 @@ void Deferred::loadScene() {
     
     // Create a sphere for the skybox
     {
-        m_skyMesh = PrimitiveMesh::makeSphereMesh(*device, m_skyVertexDescriptor, 20, 20, 150.0);
+        scene->background.sky.mesh = PrimitiveMesh::makeSphereMesh(*device, m_skyVertexDescriptor, 20, 20, 150.0);
     }
     
     // Load textures for non mesh assets
     {
         TextureLoader textureLoader(*device);
         
-        TextureLoaderOptions textureLoaderOptions;
-        
-        textureLoaderOptions.usage = MTL::TextureUsageShaderRead;
-        textureLoaderOptions.storageMode = MTL::StorageModePrivate;
-        
         const std::array<std::string, 6> images = {"X+.png", "X-.png", "Y+.png", "Y-.png", "Z+.png", "Z-.png"};
-        m_skyMap = textureLoader.loadCubeTexture("../assets/SkyMap", images, true);
-        
-//        m_skyMap = textureLoader.makeTexture("SkyMap",
-//                                             1.0,
-//                                             textureLoaderOptions,
-//                                             &error);
-        
-        MTLAssert(error == nullptr, error, "Could not load sky texture");
-        
-        m_skyMap.label("Sky Map");
-        
+        auto skyMat = std::make_shared<SkyBoxMaterial>();
+        skyMat->setTextureCubeMap(textureLoader.loadCubeTexture("../assets/SkyMap", images, true));
+        scene->background.sky.material = skyMat;
+                        
         m_fairyMap = textureLoader.loadTexture("../assets/Textures/", "fairy.png", true);
-        
-//        m_fairyMap = textureLoader.makeTexture("file://../assets/Textures/fairy.png",
-//                                               textureLoaderOptions,
-//                                               &error);
-        
-        MTLAssert(error == nullptr, error, "Could not load fairy texture");
-        
         m_fairyMap.label("Fairy Map");
     }
 }
