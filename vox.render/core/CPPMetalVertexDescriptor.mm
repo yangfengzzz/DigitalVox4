@@ -246,14 +246,14 @@ attributes(m_objCObj.attributes) {
 }
 
 VertexDescriptor::VertexDescriptor(const VertexDescriptor &rhs) :
-m_objCObj([rhs.objCObj() copyWithZone:nil]),
+m_objCObj(rhs.objCObj()),
 layouts(m_objCObj.layouts),
 attributes(m_objCObj.attributes) {
     // Member initialization only
 }
 
 VertexDescriptor &VertexDescriptor::operator=(const VertexDescriptor &rhs) {
-    m_objCObj = [rhs.objCObj() copyWithZone:nil];
+    m_objCObj = rhs.objCObj();
     
     layouts.reinitialize(m_objCObj.layouts);
     

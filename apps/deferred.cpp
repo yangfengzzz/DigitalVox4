@@ -180,8 +180,7 @@ bool Deferred::prepare(Engine &engine) {
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         m_GBufferRenderPass = std::make_unique<RenderPass>(&m_GBufferRenderPassDescriptor);
         m_GBufferRenderPass->addSubpass(std::make_unique<DeferredSubpass>(&m_GBufferRenderPassDescriptor, scene.get(),
-                                                                          shaderLibrary, *device,
-                                                                          m_defaultVertexDescriptor, &m_shadowRenderPassDescriptor));
+                                                                          shaderLibrary, *device, &m_shadowRenderPassDescriptor));
     }
     
 #pragma mark Compositor render pass descriptor setup

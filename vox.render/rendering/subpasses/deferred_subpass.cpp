@@ -18,7 +18,6 @@ DeferredSubpass::DeferredSubpass(MTL::RenderPassDescriptor* desc,
                                  Scene* scene,
                                  MTL::Library& shaderLibrary,
                                  MTL::Device& m_device,
-                                 MTL::VertexDescriptor& m_defaultVertexDescriptor,
                                  MTL::RenderPassDescriptor* shadow_desc):
 Subpass(desc, m_device, scene),
 shadow_desc(shadow_desc) {
@@ -29,7 +28,6 @@ shadow_desc(shadow_desc) {
         MTL::Function GBufferFragmentFunction = shaderLibrary.makeFunction("gbuffer_fragment");
                 
         m_GBufferPipelineDescriptor.label("G-buffer Creation");
-        m_GBufferPipelineDescriptor.vertexDescriptor(&m_defaultVertexDescriptor);
         m_GBufferPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(MTL::PixelFormatInvalid);
         m_GBufferPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(desc->colorAttachments[RenderTargetAlbedo].texture().pixelFormat());
         m_GBufferPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(desc->colorAttachments[RenderTargetNormal].texture().pixelFormat());
@@ -67,11 +65,9 @@ shadow_desc(shadow_desc) {
 }
 
 void DeferredSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
-    auto m_GBufferPipelineState = m_device.resourceCache().requestRenderPipelineState(m_GBufferPipelineDescriptor);
     
     commandEncoder.pushDebugGroup("Draw G-Buffer");
     commandEncoder.setCullMode(MTL::CullModeBack);
-    commandEncoder.setRenderPipelineState(m_GBufferPipelineState);
     commandEncoder.setDepthStencilState(m_GBufferDepthStencilState);
     commandEncoder.setStencilReferenceValue(128);
     commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
@@ -98,6 +94,9 @@ void DeferredSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         
         // manully
         auto& mesh = element.mesh;
+        m_GBufferPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
+        auto m_GBufferPipelineState = m_device.resourceCache().requestRenderPipelineState(m_GBufferPipelineDescriptor);
+        renderEncoder.setRenderPipelineState(m_GBufferPipelineState);
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),
                                           meshBuffer.offset(),

@@ -19,7 +19,6 @@ public:
                     Scene* scene,
                     MTL::Library& shaderLibrary,
                     MTL::Device& m_device,
-                    MTL::VertexDescriptor& m_defaultVertexDescriptor,
                     MTL::RenderPassDescriptor* shadow_desc);
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;

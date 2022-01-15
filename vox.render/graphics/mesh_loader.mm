@@ -187,31 +187,32 @@ void createMeshFromModelIOMesh(EntityPtr entity,
         materials.emplace_back(submesh.second);
     }
     
+    auto mtlVertexDescriptor = MTKMetalVertexDescriptorFromModelIO(vertexDescriptor);
     auto desc = MTL::VertexDescriptor();
     // Positions.
-    desc.attributes[VertexAttributePosition].format((MTL::VertexFormat)metalKitMesh.vertexDescriptor.attributes[VertexAttributePosition].format);
-    desc.attributes[VertexAttributePosition].offset(metalKitMesh.vertexDescriptor.attributes[VertexAttributePosition].offset);
-    desc.attributes[VertexAttributePosition].bufferIndex(metalKitMesh.vertexDescriptor.attributes[VertexAttributePosition].bufferIndex);
+    desc.attributes[VertexAttributePosition].format((MTL::VertexFormat)mtlVertexDescriptor.attributes[VertexAttributePosition].format);
+    desc.attributes[VertexAttributePosition].offset(mtlVertexDescriptor.attributes[VertexAttributePosition].offset);
+    desc.attributes[VertexAttributePosition].bufferIndex(mtlVertexDescriptor.attributes[VertexAttributePosition].bufferIndex);
     
     // Texture coordinates.
-    desc.attributes[VertexAttributeTexcoord].format((MTL::VertexFormat)metalKitMesh.vertexDescriptor.attributes[VertexAttributeTexcoord].format);
-    desc.attributes[VertexAttributeTexcoord].offset(metalKitMesh.vertexDescriptor.attributes[VertexAttributeTexcoord].offset);
-    desc.attributes[VertexAttributeTexcoord].bufferIndex(metalKitMesh.vertexDescriptor.attributes[VertexAttributeTexcoord].bufferIndex);
+    desc.attributes[VertexAttributeTexcoord].format((MTL::VertexFormat)mtlVertexDescriptor.attributes[VertexAttributeTexcoord].format);
+    desc.attributes[VertexAttributeTexcoord].offset(mtlVertexDescriptor.attributes[VertexAttributeTexcoord].offset);
+    desc.attributes[VertexAttributeTexcoord].bufferIndex(mtlVertexDescriptor.attributes[VertexAttributeTexcoord].bufferIndex);
     
     // Normals.
-    desc.attributes[VertexAttributeNormal].format((MTL::VertexFormat)metalKitMesh.vertexDescriptor.attributes[VertexAttributeNormal].format);
-    desc.attributes[VertexAttributeNormal].offset(metalKitMesh.vertexDescriptor.attributes[VertexAttributeNormal].offset);
-    desc.attributes[VertexAttributeNormal].bufferIndex(metalKitMesh.vertexDescriptor.attributes[VertexAttributeNormal].bufferIndex);
+    desc.attributes[VertexAttributeNormal].format((MTL::VertexFormat)mtlVertexDescriptor.attributes[VertexAttributeNormal].format);
+    desc.attributes[VertexAttributeNormal].offset(mtlVertexDescriptor.attributes[VertexAttributeNormal].offset);
+    desc.attributes[VertexAttributeNormal].bufferIndex(mtlVertexDescriptor.attributes[VertexAttributeNormal].bufferIndex);
     
     // Tangents
-    desc.attributes[VertexAttributeTangent].format((MTL::VertexFormat)metalKitMesh.vertexDescriptor.attributes[VertexAttributeTangent].format);
-    desc.attributes[VertexAttributeTangent].offset(metalKitMesh.vertexDescriptor.attributes[VertexAttributeTangent].offset);
-    desc.attributes[VertexAttributeTangent].bufferIndex(metalKitMesh.vertexDescriptor.attributes[VertexAttributeTangent].bufferIndex);
+    desc.attributes[VertexAttributeTangent].format((MTL::VertexFormat)mtlVertexDescriptor.attributes[VertexAttributeTangent].format);
+    desc.attributes[VertexAttributeTangent].offset(mtlVertexDescriptor.attributes[VertexAttributeTangent].offset);
+    desc.attributes[VertexAttributeTangent].bufferIndex(mtlVertexDescriptor.attributes[VertexAttributeTangent].bufferIndex);
     
     // Bitangents
-    desc.attributes[VertexAttributeBitangent].format((MTL::VertexFormat)metalKitMesh.vertexDescriptor.attributes[VertexAttributeBitangent].format);
-    desc.attributes[VertexAttributeBitangent].offset(metalKitMesh.vertexDescriptor.attributes[VertexAttributeBitangent].offset);
-    desc.attributes[VertexAttributeBitangent].bufferIndex(metalKitMesh.vertexDescriptor.attributes[VertexAttributeBitangent].bufferIndex);
+    desc.attributes[VertexAttributeBitangent].format((MTL::VertexFormat)mtlVertexDescriptor.attributes[VertexAttributeBitangent].format);
+    desc.attributes[VertexAttributeBitangent].offset(mtlVertexDescriptor.attributes[VertexAttributeBitangent].offset);
+    desc.attributes[VertexAttributeBitangent].bufferIndex(mtlVertexDescriptor.attributes[VertexAttributeBitangent].bufferIndex);
     
     // Position Buffer Layout
     desc.layouts[BufferIndexMeshPositions].stride(metalKitMesh.vertexDescriptor.layouts[BufferIndexMeshPositions].stride);
