@@ -19,7 +19,7 @@ public:
                   MTL::Library& shaderLibrary,
                   MTL::Device& m_device,
                   MTL::PixelFormat colorPixelFormat,
-                  Mesh& m_skyMesh,
+                  MeshPtr m_skyMesh,
                   MTL::VertexDescriptor& m_skyVertexDescriptor,
                   MTL::Texture& m_skyMap);
     
@@ -29,7 +29,7 @@ private:
     MTL::DepthStencilState m_dontWriteDepthStencilState;
     MTL::RenderPipelineState m_skyboxPipelineState;
     
-    Mesh& m_skyMesh;
+    MeshPtr m_skyMesh;
     MTL::Texture& m_skyMap;
 };
 

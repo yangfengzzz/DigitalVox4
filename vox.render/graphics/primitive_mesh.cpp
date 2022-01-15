@@ -73,7 +73,7 @@ void packVertexData(void *output, VertexFormat format, vector_float4 value) {
 
 } // namespace
 
-Mesh PrimitiveMesh::makeSphereMesh(MTL::Device &device,
+MeshPtr PrimitiveMesh::makeSphereMesh(MTL::Device &device,
                                    const MTL::VertexDescriptor &vertexDescriptor,
                                    int radialSegments, int verticalSegments, float radius) {
     const UInteger vertexCount = 2 + (radialSegments) * (verticalSegments - 1);
@@ -234,11 +234,11 @@ Mesh PrimitiveMesh::makeSphereMesh(MTL::Device &device,
                     indexCount,
                     indexBuffer);
     
-    return Mesh(submesh, vertexBuffers, vertexDescriptor);
+    return std::make_shared<Mesh>(submesh, vertexBuffers, vertexDescriptor);
 }
 
 
-Mesh PrimitiveMesh::makeIcosahedronMesn(MTL::Device &device,
+MeshPtr PrimitiveMesh::makeIcosahedronMesn(MTL::Device &device,
                                         const MTL::VertexDescriptor &vertexDescriptor,
                                         float radius) {
     const float Z = radius;
@@ -320,7 +320,7 @@ Mesh PrimitiveMesh::makeIcosahedronMesn(MTL::Device &device,
                     indexCount,
                     indexBuffer);
     
-    return Mesh(submesh, vertexBuffers, vertexDescriptor);
+    return std::make_shared<Mesh>(submesh, vertexBuffers, vertexDescriptor);
 }
 
 }

@@ -44,6 +44,7 @@ private:
     
     MTL::VertexDescriptor m_vertexDescriptor;
 };
+using MeshPtr = std::shared_ptr<Mesh>;
 
 inline const std::vector<Submesh> &Mesh::submeshes() const {
     return m_submeshes;

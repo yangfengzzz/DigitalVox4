@@ -19,7 +19,7 @@ public:
                       MTL::Library& shaderLibrary,
                       MTL::Device& m_device,
                       MTL::PixelFormat colorPixelFormat,
-                      Mesh& m_icosahedronMesh,
+                      MeshPtr m_icosahedronMesh,
                       MTL::RenderPassDescriptor* gbuffer_desc,
                       const uint32_t NumLights);
     
@@ -36,7 +36,7 @@ private:
     MTL::RenderPipelineState m_lightPipelineState;
     MTL::DepthStencilState m_pointLightDepthStencilState;
     
-    Mesh& m_icosahedronMesh;
+    MeshPtr m_icosahedronMesh;
     MTL::RenderPassDescriptor* gbuffer_desc;
     const uint32_t NumLights;
 };

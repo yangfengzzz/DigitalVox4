@@ -17,7 +17,7 @@ SkyboxSubpass::SkyboxSubpass(MTL::RenderPassDescriptor* desc,
                              MTL::Library& shaderLibrary,
                              MTL::Device& m_device,
                              MTL::PixelFormat colorPixelFormat,
-                             Mesh& m_skyMesh,
+                             MeshPtr m_skyMesh,
                              MTL::VertexDescriptor& m_skyVertexDescriptor,
                              MTL::Texture& m_skyMap):
 Subpass(desc, scene),
@@ -65,14 +65,14 @@ void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
                                    , 0, BufferIndexFrameData);
     commandEncoder.setFragmentTexture(m_skyMap, TextureIndexBaseColor);
     
-    for (auto &meshBuffer: m_skyMesh.vertexBuffers()) {
+    for (auto &meshBuffer: m_skyMesh->vertexBuffers()) {
         commandEncoder.setVertexBuffer(meshBuffer.buffer(),
                                        meshBuffer.offset(),
                                        meshBuffer.argumentIndex());
     }
     
     
-    for (auto &submesh: m_skyMesh.submeshes()) {
+    for (auto &submesh: m_skyMesh->submeshes()) {
         commandEncoder.drawIndexedPrimitives(submesh.primitiveType(),
                                              submesh.indexCount(),
                                              submesh.indexType(),

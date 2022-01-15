@@ -16,13 +16,13 @@ namespace vox {
  */
 class PrimitiveMesh {
 public:
-    static Mesh makeSphereMesh(MTL::Device &device,
-                               const MTL::VertexDescriptor &vertexDescriptor,
-                               int radialSegments, int verticalSegments, float radius);
+    static MeshPtr makeSphereMesh(MTL::Device &device,
+                                  const MTL::VertexDescriptor &vertexDescriptor,
+                                  int radialSegments, int verticalSegments, float radius);
     
-    static Mesh makeIcosahedronMesn(MTL::Device &device,
-                                    const MTL::VertexDescriptor &vertexDescriptor,
-                                    float radius);
+    static MeshPtr makeIcosahedronMesn(MTL::Device &device,
+                                       const MTL::VertexDescriptor &vertexDescriptor,
+                                       float radius);
 };
 
 }

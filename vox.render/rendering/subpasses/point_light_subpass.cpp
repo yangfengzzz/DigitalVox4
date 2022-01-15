@@ -17,7 +17,7 @@ PointLightSubpass::PointLightSubpass(MTL::RenderPassDescriptor* desc,
                                      MTL::Library& shaderLibrary,
                                      MTL::Device& m_device,
                                      MTL::PixelFormat colorPixelFormat,
-                                     Mesh& m_icosahedronMesh,
+                                     MeshPtr m_icosahedronMesh,
                                      MTL::RenderPassDescriptor* gbuffer_desc,
                                      const uint32_t NumLights):
 Subpass(desc, scene),
@@ -143,10 +143,10 @@ void PointLightSubpass::drawPointLightMask(MTL::RenderCommandEncoder &commandEnc
     commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightsData")), 0, BufferIndexLightsData);
     commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightPosition")), 0, BufferIndexLightsPosition);
     
-    const std::vector<MeshBuffer> &vertexBuffers = m_icosahedronMesh.vertexBuffers();
+    const std::vector<MeshBuffer> &vertexBuffers = m_icosahedronMesh->vertexBuffers();
     commandEncoder.setVertexBuffer(vertexBuffers[0].buffer(), vertexBuffers[0].offset(), BufferIndexMeshPositions);
     
-    const std::vector<Submesh> &icosahedronSubmesh = m_icosahedronMesh.submeshes();
+    const std::vector<Submesh> &icosahedronSubmesh = m_icosahedronMesh->submeshes();
     
     commandEncoder.drawIndexedPrimitives(icosahedronSubmesh[0].primitiveType(),
                                          icosahedronSubmesh[0].indexCount(),
@@ -181,10 +181,10 @@ void PointLightSubpass::drawPointLights(MTL::RenderCommandEncoder &commandEncode
     commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightsData")), 0, BufferIndexLightsData);
     commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightPosition")), 0, BufferIndexLightsPosition);
     
-    const std::vector<MeshBuffer> &vertexBuffers = m_icosahedronMesh.vertexBuffers();
+    const std::vector<MeshBuffer> &vertexBuffers = m_icosahedronMesh->vertexBuffers();
     commandEncoder.setVertexBuffer(vertexBuffers[0].buffer(), vertexBuffers[0].offset(), BufferIndexMeshPositions);
     
-    const std::vector<Submesh> &icosahedronSubmesh = m_icosahedronMesh.submeshes();
+    const std::vector<Submesh> &icosahedronSubmesh = m_icosahedronMesh->submeshes();
     
     commandEncoder.drawIndexedPrimitives(icosahedronSubmesh[0].primitiveType(),
                                          icosahedronSubmesh[0].indexCount(),

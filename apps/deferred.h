@@ -69,7 +69,7 @@ private:
     // Array of meshes loaded from the model file
     std::vector<Mesh> *m_meshes;
     // Mesh for an icosahedron used for rendering point lights
-    Mesh m_icosahedronMesh;
+    MeshPtr m_icosahedronMesh;
     
     // Projection matrix calculated as a function of view size
     simd::float4x4 m_projection_matrix;
@@ -97,7 +97,7 @@ private:
     MTL::Texture m_fairyMap;
     
     // Mesh for sphere use to render the skybox
-    Mesh m_skyMesh;
+    MeshPtr m_skyMesh;
     // Texture for skybox
     MTL::Texture m_skyMap;
     
