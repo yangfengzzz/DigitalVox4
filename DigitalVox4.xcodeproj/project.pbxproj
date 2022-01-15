@@ -308,6 +308,8 @@
 		044594042791C04200F04CE0 /* compose_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594022791C04200F04CE0 /* compose_subpass.h */; };
 		044594072792472800F04CE0 /* point_light_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594052792472800F04CE0 /* point_light_subpass.cpp */; };
 		044594082792472800F04CE0 /* point_light_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594062792472800F04CE0 /* point_light_subpass.h */; };
+		0445940B2792500900F04CE0 /* skybox_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594092792500900F04CE0 /* skybox_subpass.cpp */; };
+		0445940C2792500900F04CE0 /* skybox_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940A2792500900F04CE0 /* skybox_subpass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -708,6 +710,8 @@
 		044594022791C04200F04CE0 /* compose_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compose_subpass.h; sourceTree = "<group>"; };
 		044594052792472800F04CE0 /* point_light_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = point_light_subpass.cpp; sourceTree = "<group>"; };
 		044594062792472800F04CE0 /* point_light_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = point_light_subpass.h; sourceTree = "<group>"; };
+		044594092792500900F04CE0 /* skybox_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skybox_subpass.cpp; sourceTree = "<group>"; };
+		0445940A2792500900F04CE0 /* skybox_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skybox_subpass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1301,6 +1305,8 @@
 				044594012791C04200F04CE0 /* compose_subpass.cpp */,
 				044594062792472800F04CE0 /* point_light_subpass.h */,
 				044594052792472800F04CE0 /* point_light_subpass.cpp */,
+				0445940A2792500900F04CE0 /* skybox_subpass.h */,
+				044594092792500900F04CE0 /* skybox_subpass.cpp */,
 			);
 			path = subpasses;
 			sourceTree = "<group>";
@@ -1372,6 +1378,7 @@
 				04459320278F1B7900F04CE0 /* collider_shape.h in Headers */,
 				042295AC278C32FB0090983F /* CPPMetalRenderPass.hpp in Headers */,
 				04459297278EB2EB00F04CE0 /* shader_macro_collection.h in Headers */,
+				0445940C2792500900F04CE0 /* skybox_subpass.h in Headers */,
 				042295B4278C32FB0090983F /* CPPMetalImplementation.hpp in Headers */,
 				04459202278E591A00F04CE0 /* imstb_rectpack.h in Headers */,
 				0445934F278FAF9800F04CE0 /* joint.h in Headers */,
@@ -1674,6 +1681,7 @@
 				044593E62791055900F04CE0 /* mesh.cpp in Sources */,
 				044593F527914F7500F04CE0 /* subpass.cpp in Sources */,
 				044592A8278EB9DF00F04CE0 /* shader_data.cpp in Sources */,
+				0445940B2792500900F04CE0 /* skybox_subpass.cpp in Sources */,
 				044593FA2791581900F04CE0 /* shadow_subpass.cpp in Sources */,
 				0445930E278F170100F04CE0 /* spherical.cpp in Sources */,
 				044591C9278E551100F04CE0 /* allocator.cc in Sources */,
