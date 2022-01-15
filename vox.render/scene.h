@@ -26,6 +26,7 @@
 #include "components_manager.h"
 #include "physics/physics_manager.h"
 #include "shader/shader_data.h"
+#include "background.h"
 //#include "scene_graph/components/light.h"
 //#include "scene_graph/components/texture.h"
 
@@ -41,9 +42,8 @@ public:
     ComponentsManager _componentsManager;
     physics::PhysicsManager _physicsManager;
 
-    
     /** The background of the scene. */
-//    Background background = Background(_engine);
+    Background background = Background();
     
     /** Scene-related shader data. */
     ShaderData shaderData = ShaderData();

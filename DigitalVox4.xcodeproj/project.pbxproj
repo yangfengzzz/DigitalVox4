@@ -312,6 +312,7 @@
 		0445940C2792500900F04CE0 /* skybox_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940A2792500900F04CE0 /* skybox_subpass.h */; };
 		0445940F2792545E00F04CE0 /* particle_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445940D2792545E00F04CE0 /* particle_subpass.cpp */; };
 		044594102792545E00F04CE0 /* particle_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940E2792545E00F04CE0 /* particle_subpass.h */; };
+		0445941627926D1600F04CE0 /* background.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941427926D1600F04CE0 /* background.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -714,6 +715,8 @@
 		0445940A2792500900F04CE0 /* skybox_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skybox_subpass.h; sourceTree = "<group>"; };
 		0445940D2792545E00F04CE0 /* particle_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = particle_subpass.cpp; sourceTree = "<group>"; };
 		0445940E2792545E00F04CE0 /* particle_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_subpass.h; sourceTree = "<group>"; };
+		0445941227926CFF00F04CE0 /* sky.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.h; sourceTree = "<group>"; };
+		0445941427926D1600F04CE0 /* background.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = background.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -827,6 +830,8 @@
 				0445925E278E7F3300F04CE0 /* rendering */,
 				0445928F278EB27F00F04CE0 /* shader */,
 				044592D1278ED03000F04CE0 /* material */,
+				0445941127926CE400F04CE0 /* sky */,
+				0445941427926D1600F04CE0 /* background.h */,
 				04459271278E80DC00F04CE0 /* layer.h */,
 				0445926B278E80DC00F04CE0 /* updateFlag.h */,
 				04459272278E80DC00F04CE0 /* updateFlag.cpp */,
@@ -1313,6 +1318,14 @@
 			path = subpasses;
 			sourceTree = "<group>";
 		};
+		0445941127926CE400F04CE0 /* sky */ = {
+			isa = PBXGroup;
+			children = (
+				0445941227926CFF00F04CE0 /* sky.h */,
+			);
+			path = sky;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1380,6 +1393,7 @@
 				04459320278F1B7900F04CE0 /* collider_shape.h in Headers */,
 				042295AC278C32FB0090983F /* CPPMetalRenderPass.hpp in Headers */,
 				04459297278EB2EB00F04CE0 /* shader_macro_collection.h in Headers */,
+				0445941627926D1600F04CE0 /* background.h in Headers */,
 				0445940C2792500900F04CE0 /* skybox_subpass.h in Headers */,
 				042295B4278C32FB0090983F /* CPPMetalImplementation.hpp in Headers */,
 				04459202278E591A00F04CE0 /* imstb_rectpack.h in Headers */,
