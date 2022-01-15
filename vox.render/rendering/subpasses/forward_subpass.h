@@ -22,8 +22,10 @@ public:
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
-    MTL::RenderPipelineState m_directionalLightPipelineState;
-    MTL::DepthStencilState m_directionLightDepthStencilState;
+    void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
+    
+    MTL::RenderPipelineDescriptor m_forwardPipelineDescriptor;
+    MTL::DepthStencilState m_forwardDepthStencilState;
 };
 
 }
