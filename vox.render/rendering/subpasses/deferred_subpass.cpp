@@ -93,19 +93,20 @@ void DeferredSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     scene->_componentsManager.callRender(opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
-        auto& mesh = element.mesh;
-        for (auto &meshBuffer: mesh->vertexBuffers()) {
-            renderEncoder.setVertexBuffer(meshBuffer.buffer(),
-                                          meshBuffer.offset(),
-                                          meshBuffer.argumentIndex());
-        }
-        
+        // reflection
         auto& submesh = element.subMesh;
         auto& mat = element.material;
         renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_diffuseTexture")), TextureIndexBaseColor);
         renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_normalTexture")), TextureIndexNormal);
         renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_specularTexture")), TextureIndexSpecular);
         
+        // manully
+        auto& mesh = element.mesh;
+        for (auto &meshBuffer: mesh->vertexBuffers()) {
+            renderEncoder.setVertexBuffer(meshBuffer.buffer(),
+                                          meshBuffer.offset(),
+                                          meshBuffer.argumentIndex());
+        }
         renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
                                             submesh->indexCount(),
                                             submesh->indexType(),

@@ -86,8 +86,6 @@ private:
     MTL::Buffer m_lightPositions[MaxFramesInFlight];
     // Buffer for constant light data
     MTL::Buffer m_lightsData;
-    // Mesh buffer for simple Quad
-    MTL::Buffer m_quadVertexBuffer;
     // Light positions before transformation to positions in current frame
     simd::float4 *m_originalLightPositions;
     

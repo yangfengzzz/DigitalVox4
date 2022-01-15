@@ -17,10 +17,8 @@ ComposeSubpass::ComposeSubpass(MTL::RenderPassDescriptor* desc,
                                MTL::Library& shaderLibrary,
                                MTL::Device& m_device,
                                MTL::PixelFormat colorPixelFormat,
-                               MTL::Buffer &m_quadVertexBuffer,
                                MTL::RenderPassDescriptor* gbuffer_desc):
 Subpass(desc, scene),
-m_quadVertexBuffer(m_quadVertexBuffer),
 gbuffer_desc(gbuffer_desc) {
     CFErrorRef error = nullptr;
 
@@ -68,6 +66,23 @@ gbuffer_desc(gbuffer_desc) {
         depthStencilDesc.backFaceStencil = stencilStateDesc;
         
         m_directionLightDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
+    }
+    
+#pragma mark Create quad for fullscreen composition drawing
+    {
+        static const SimpleVertex QuadVertices[] =
+        {
+            {{-1.0f, -1.0f,}},
+            {{-1.0f, 1.0f,}},
+            {{1.0f, -1.0f,}},
+            
+            {{1.0f, -1.0f,}},
+            {{-1.0f, 1.0f,}},
+            {{1.0f, 1.0f,}},
+        };
+        
+        m_quadVertexBuffer = m_device.makeBuffer(QuadVertices, sizeof(QuadVertices));
+        m_quadVertexBuffer.label("Quad Vertices");
     }
 }
 

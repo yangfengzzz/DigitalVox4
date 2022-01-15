@@ -18,7 +18,6 @@ public:
                    MTL::Library& shaderLibrary,
                    MTL::Device& m_device,
                    MTL::PixelFormat colorPixelFormat,
-                   MTL::Buffer &m_quadVertexBuffer,
                    MTL::RenderPassDescriptor* gbuffer_desc);
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
@@ -27,7 +26,7 @@ private:
     MTL::RenderPipelineState m_directionalLightPipelineState;
     MTL::DepthStencilState m_directionLightDepthStencilState;
     
-    MTL::Buffer &m_quadVertexBuffer;
+    MTL::Buffer m_quadVertexBuffer;
     MTL::RenderPassDescriptor* gbuffer_desc;
 };
 

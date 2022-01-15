@@ -196,7 +196,7 @@ bool Deferred::prepare(Engine &engine) {
         m_finalRenderPass = std::make_unique<RenderPass>(&m_finalRenderPassDescriptor);
         m_finalRenderPass->addSubpass(std::make_unique<ComposeSubpass>(&m_finalRenderPassDescriptor, scene.get(),
                                                                        shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
-                                                                       m_quadVertexBuffer, &m_GBufferRenderPassDescriptor));
+                                                                       &m_GBufferRenderPassDescriptor));
         m_finalRenderPass->addSubpass(std::make_unique<PointLightSubpass>(&m_finalRenderPassDescriptor, scene.get(),
                                                                           shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
                                                                           m_icosahedronMesh, &m_GBufferRenderPassDescriptor, NumLights));
@@ -469,24 +469,6 @@ void Deferred::loadScene() {
         m_lightsData.label("LightData");
         
         populateLights();
-    }
-    
-    // Create quad for fullscreen composition drawing
-    {
-        static const SimpleVertex QuadVertices[] =
-        {
-            {{-1.0f, -1.0f,}},
-            {{-1.0f, 1.0f,}},
-            {{1.0f, -1.0f,}},
-            
-            {{1.0f, -1.0f,}},
-            {{-1.0f, 1.0f,}},
-            {{1.0f, 1.0f,}},
-        };
-        
-        m_quadVertexBuffer = device->makeBuffer(QuadVertices, sizeof(QuadVertices));
-        
-        m_quadVertexBuffer.label("Quad Vertices");
     }
     
     // Create a simple 2D triangle strip circle mesh for fairies
