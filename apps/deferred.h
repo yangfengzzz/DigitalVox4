@@ -9,7 +9,10 @@
 #define deferred_hpp
 
 #include "metal_application.h"
-#include "rendering/render_pass.h"
+
+#include "config.h"
+#include "mesh.h"
+#include "math_utilities.h"
 
 namespace vox {
 // The max number of command buffers in flight
@@ -17,6 +20,19 @@ static const uint8_t MaxFramesInFlight = 3;
 
 static const float NearPlane = 1;
 static const float FarPlane = 150;
+
+// Number of "fairy" lights in scene
+static const uint32_t NumLights = 256;
+
+// Number of vertices in our 2D fairy model
+static const uint32_t NumFairyVertices = 7;
+
+// 30% of lights are around the tree
+// 40% of lights are on the ground inside the columns
+// 30% of lights are around the outside of the columns
+static const uint32_t TreeLights   = 0            + 0.30 * NumLights;
+static const uint32_t GroundLights = TreeLights   + 0.40 * NumLights;
+static const uint32_t ColumnLights = GroundLights + 0.30 * NumLights;
 
 class Deferred: public MetalApplication {
 public:
@@ -44,7 +60,7 @@ private:
     void loadScene();
     
     void populateLights();
-
+    
     // Vertex descriptor for models loaded with MetalKit
     MTL::VertexDescriptor m_defaultVertexDescriptor;
     // Vertex descriptor for models loaded with MetalKit
@@ -88,11 +104,11 @@ private:
 private:
     dispatch_semaphore_t m_inFlightSemaphore;
     MTL::CommandBufferHandler *m_completedHandler{nullptr};
-
+    
     MTL::RenderPassDescriptor m_shadowRenderPassDescriptor;
     std::unique_ptr<RenderPass> m_shadowRenderPass{nullptr};
     MTL::Texture m_shadowMap;
-
+    
     MTL::RenderPassDescriptor m_GBufferRenderPassDescriptor;
     std::unique_ptr<RenderPass> m_GBufferRenderPass{nullptr};
     MTL::PixelFormat m_albedo_specular_GBufferFormat;

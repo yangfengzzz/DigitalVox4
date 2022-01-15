@@ -10,8 +10,7 @@
 
 #include "application.h"
 #include "core/CPPMetal.hpp"
-
-#include "rendering/lighting_subpass.h"
+#include "rendering/render_pass.h"
 #include "scene.h"
 
 namespace vox {
@@ -146,7 +145,7 @@ protected:
     /**
      * @brief Pipeline used for rendering, it should be set up by the concrete sample
      */
-    std::unique_ptr<LightingSubpass> render_pipeline{nullptr};
+    std::unique_ptr<RenderPass> render_pipeline{nullptr};
 
     /**
      * @brief Holds all scene information

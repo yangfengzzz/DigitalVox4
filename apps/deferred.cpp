@@ -14,6 +14,7 @@
 #include "rendering/subpasses/compose_subpass.h"
 #include "rendering/subpasses/point_light_subpass.h"
 #include "rendering/subpasses/skybox_subpass.h"
+#include "rendering/subpasses/particle_subpass.h"
 #include "engine.h"
 #include "core/CPPMetalAssert.hpp"
 #include "material/texture_loader.h"
@@ -200,6 +201,9 @@ bool Deferred::prepare(Engine &engine) {
         m_finalRenderPass->addSubpass(std::make_unique<SkyboxSubpass>(&m_finalRenderPassDescriptor, scene.get(),
                                                                       shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
                                                                       m_skyMesh, m_skyVertexDescriptor, m_skyMap));
+        m_finalRenderPass->addSubpass(std::make_unique<ParticleSubpass>(&m_finalRenderPassDescriptor, scene.get(),
+                                                                        shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
+                                                                        m_fairy, m_fairyMap, NumLights, NumFairyVertices));
     }
     framebuffer_resize(extent.width*2, extent.height*2);
     
@@ -265,11 +269,6 @@ void Deferred::update(float delta_time) {
             m_finalRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
             m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
             m_finalRenderPass->draw(commandBuffer, "Lighting & Composition Pass");
-         
-//            subpass->drawFairies(renderEncoder, m_lightsData,
-//                                 m_lightPositions[m_frameDataBufferIndex],
-//                                 m_uniformBuffers[m_frameDataBufferIndex],
-//                                 m_fairy, m_fairyMap);
         }
         
         // Schedule a present once the framebuffer is complete using the current drawable
@@ -333,15 +332,6 @@ void Deferred::framebuffer_resize(uint32_t width, uint32_t height) {
 }
 
 //MARK: - TODO Warpper into Scene and Script
-// Number of vertices in our 2D fairy model
-static const uint32_t NumFairyVertices = 7;
-// 30% of lights are around the tree
-// 40% of lights are on the ground inside the columns
-// 30% of lights are around the outside of the columns
-static const uint32_t TreeLights = 0 + 0.30 * NumLights;
-static const uint32_t GroundLights = TreeLights + 0.40 * NumLights;
-static const uint32_t ColumnLights = GroundLights + 0.30 * NumLights;
-
 /// Update application state for the current frame
 void Deferred::updateWorldState(uint32_t width, uint32_t height) {
     m_frameNumber++;

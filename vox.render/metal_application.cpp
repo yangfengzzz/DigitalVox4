@@ -7,7 +7,6 @@
 
 #include "metal_application.h"
 #include "engine.h"
-#include "rendering/lighting_subpass.h"
 #include "core/CPPMetalAssert.hpp"
 #include <glog/logging.h>
 
