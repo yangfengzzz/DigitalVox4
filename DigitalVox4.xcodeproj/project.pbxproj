@@ -321,6 +321,8 @@
 		0445942327929A3300F04CE0 /* render_element.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445942127929A3300F04CE0 /* render_element.h */; };
 		044594262792B8B000F04CE0 /* resource_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594242792B8AF00F04CE0 /* resource_cache.cpp */; };
 		044594272792B8B000F04CE0 /* resource_cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594252792B8B000F04CE0 /* resource_cache.h */; };
+		0445942A2793134C00F04CE0 /* forward_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594282793134C00F04CE0 /* forward_subpass.cpp */; };
+		0445942B2793134C00F04CE0 /* forward_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594292793134C00F04CE0 /* forward_subpass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -733,6 +735,8 @@
 		0445942127929A3300F04CE0 /* render_element.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render_element.h; sourceTree = "<group>"; };
 		044594242792B8AF00F04CE0 /* resource_cache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = resource_cache.cpp; sourceTree = "<group>"; };
 		044594252792B8B000F04CE0 /* resource_cache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource_cache.h; sourceTree = "<group>"; };
+		044594282793134C00F04CE0 /* forward_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = forward_subpass.cpp; sourceTree = "<group>"; };
+		044594292793134C00F04CE0 /* forward_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forward_subpass.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1335,6 +1339,8 @@
 				044594092792500900F04CE0 /* skybox_subpass.cpp */,
 				0445940E2792545E00F04CE0 /* particle_subpass.h */,
 				0445940D2792545E00F04CE0 /* particle_subpass.cpp */,
+				044594292793134C00F04CE0 /* forward_subpass.h */,
+				044594282793134C00F04CE0 /* forward_subpass.cpp */,
 			);
 			path = subpasses;
 			sourceTree = "<group>";
@@ -1430,6 +1436,7 @@
 				0445941627926D1600F04CE0 /* background.h in Headers */,
 				0445940C2792500900F04CE0 /* skybox_subpass.h in Headers */,
 				042295B4278C32FB0090983F /* CPPMetalImplementation.hpp in Headers */,
+				0445942B2793134C00F04CE0 /* forward_subpass.h in Headers */,
 				04459202278E591A00F04CE0 /* imstb_rectpack.h in Headers */,
 				0445934F278FAF9800F04CE0 /* joint.h in Headers */,
 				044594272792B8B000F04CE0 /* resource_cache.h in Headers */,
@@ -1821,6 +1828,7 @@
 				04459354278FAF9800F04CE0 /* configurable_joint.cpp in Sources */,
 				0445923B278E61C500F04CE0 /* configuration.cpp in Sources */,
 				042295A1278C32FB0090983F /* CPPMetalCommandBuffer.mm in Sources */,
+				0445942A2793134C00F04CE0 /* forward_subpass.cpp in Sources */,
 				044592C4278EC60C00F04CE0 /* stencil_state.cpp in Sources */,
 				0445942227929A3300F04CE0 /* render_element.cpp in Sources */,
 				0445924D278E653300F04CE0 /* engine.cpp in Sources */,
