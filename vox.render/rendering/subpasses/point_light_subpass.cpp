@@ -20,7 +20,7 @@ PointLightSubpass::PointLightSubpass(MTL::RenderPassDescriptor* desc,
                                      MeshPtr m_icosahedronMesh,
                                      MTL::RenderPassDescriptor* gbuffer_desc,
                                      const uint32_t NumLights):
-Subpass(desc, scene),
+Subpass(desc, m_device, scene),
 m_icosahedronMesh(m_icosahedronMesh),
 gbuffer_desc(gbuffer_desc),
 NumLights(NumLights) {

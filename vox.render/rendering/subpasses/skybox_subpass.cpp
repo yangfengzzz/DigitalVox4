@@ -18,7 +18,7 @@ SkyboxSubpass::SkyboxSubpass(MTL::RenderPassDescriptor* desc,
                              MTL::Library& shaderLibrary,
                              MTL::Device& m_device,
                              MTL::PixelFormat colorPixelFormat):
-Subpass(desc, scene) {
+Subpass(desc, m_device, scene) {
     CFErrorRef error = nullptr;
     
 #pragma mark Sky render pipeline setup

@@ -18,7 +18,7 @@ ComposeSubpass::ComposeSubpass(MTL::RenderPassDescriptor* desc,
                                MTL::Device& m_device,
                                MTL::PixelFormat colorPixelFormat,
                                MTL::RenderPassDescriptor* gbuffer_desc):
-Subpass(desc, scene),
+Subpass(desc, m_device, scene),
 gbuffer_desc(gbuffer_desc) {
     CFErrorRef error = nullptr;
 

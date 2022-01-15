@@ -9,7 +9,9 @@
 
 namespace vox {
 Subpass::Subpass(MTL::RenderPassDescriptor* desc,
+                 MTL::Device& m_device,
                  Scene* scene):
+m_device(m_device),
 scene(scene) {
 }
 

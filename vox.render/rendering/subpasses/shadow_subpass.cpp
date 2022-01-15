@@ -15,7 +15,7 @@ ShadowSubpass::ShadowSubpass(MTL::RenderPassDescriptor* desc,
                              Scene* scene,
                              MTL::Library& shaderLibrary,
                              MTL::Device& m_device):
-Subpass(desc, scene) {
+Subpass(desc, m_device, scene) {
     CFErrorRef error = nullptr;
     
 #pragma mark Shadow pass render pipeline setup

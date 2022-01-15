@@ -15,6 +15,7 @@ namespace vox {
 class Subpass {
 public:
     Subpass(MTL::RenderPassDescriptor* desc,
+            MTL::Device& m_device,
             Scene* scene);
     
     Subpass(const Subpass &) = delete;
@@ -34,6 +35,7 @@ public:
     virtual void draw(MTL::RenderCommandEncoder& commandEncoder) = 0;
     
 protected:
+    MTL::Device& m_device;
     Scene* scene;
 };
 

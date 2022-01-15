@@ -21,7 +21,7 @@ ParticleSubpass::ParticleSubpass(MTL::RenderPassDescriptor* desc,
                                  MTL::Texture &m_fairyMap,
                                  const uint32_t NumLights,
                                  const uint32_t NumFairyVertices):
-Subpass(desc, scene),
+Subpass(desc, m_device, scene),
 m_fairy(m_fairy),
 m_fairyMap(m_fairyMap),
 NumLights(NumLights),
