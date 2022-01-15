@@ -222,24 +222,6 @@ Ray3f Camera::screenPointToRay(const Imath::V2f &point) {
     return viewportPointToRay(viewportPoint);
 }
 
-//void Camera::render() {
-//    // compute cull frustum.
-//    auto &context = engine()->_renderContext;
-//    context.resetContext(scene(), this);
-//    if (enableFrustumCulling && (_frustumViewChangeFlag->flag || _isFrustumProjectDirty)) {
-//        _frustum.calculateFromMatrix(context.viewProjectMatrix());
-//        _frustumViewChangeFlag->flag = false;
-//        _isFrustumProjectDirty = false;
-//    }
-//
-//    _updateShaderData(context);
-//
-//    // union scene and camera macro.
-//    shaderData.mergeMacro(scene()->_globalShaderMacro, _globalShaderMacro);
-//
-//    _renderPipeline->render(context, cubeFace, mipLevel);
-//}
-
 void Camera::_onActive() {
     entity()->scene()->attachRenderCamera(this);
 }
@@ -269,14 +251,14 @@ Imath::V3f Camera::_innerViewportToWorldPoint(const Imath::V3f &point, const Ima
     return clipPoint;
 }
 
-//void Camera::_updateShaderData(const RenderContext &context) {
-//    shaderData.setData(Camera::_viewMatrixProperty, viewMatrix());
-//    shaderData.setData(Camera::_projectionMatrixProperty, projectionMatrix());
-//    shaderData.setData(Camera::_vpMatrixProperty, context.viewProjectMatrix());
-//    shaderData.setData(Camera::_inverseViewMatrixProperty, _transform->worldMatrix());
-//    shaderData.setData(Camera::_inverseProjectionMatrixProperty, inverseProjectionMatrix());
-//    shaderData.setData(Camera::_cameraPositionProperty, _transform->worldPosition());
-//}
+void Camera::updateShaderData() {
+    shaderData.setData(Camera::_viewMatrixProperty, viewMatrix());
+    shaderData.setData(Camera::_projectionMatrixProperty, projectionMatrix());
+    shaderData.setData(Camera::_vpMatrixProperty, viewMatrix() * projectionMatrix());
+    shaderData.setData(Camera::_inverseViewMatrixProperty, _transform->worldMatrix());
+    shaderData.setData(Camera::_inverseProjectionMatrixProperty, inverseProjectionMatrix());
+    shaderData.setData(Camera::_cameraPositionProperty, _transform->worldPosition());
+}
 
 Imath::M44f Camera::invViewProjMat() {
     if (_isInvViewProjDirty->flag) {

@@ -118,6 +118,8 @@ public:
     
     void detachRenderCamera(Camera *camera);
     
+    void update(float deltaTime);
+    
 private:
     void _processActive(bool active);
     

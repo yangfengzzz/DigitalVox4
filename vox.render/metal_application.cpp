@@ -34,6 +34,7 @@ bool MetalApplication::prepare(Engine &engine) {
 }
 
 void MetalApplication::update(float delta_time) {
+    scene->update(delta_time);
     render_context->draw();
 }
 

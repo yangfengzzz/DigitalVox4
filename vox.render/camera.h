@@ -208,12 +208,9 @@ public:
      */
     Imath::Ray3f screenPointToRay(const Imath::V2f &point);
     
-    /**
-     * Manually call the rendering of the camera.
-     */
-    void render();
-    
     void resize(uint32_t width, uint32_t height);
+    
+    void updateShaderData();
     
 public:
     void _onActive() override;
@@ -228,9 +225,7 @@ private:
     void _projMatChange();
     
     Imath::V3f _innerViewportToWorldPoint(const Imath::V3f &point, const Imath::M44f &invViewProjMat);
-    
-//    void _updateShaderData(const RenderContext &context);
-    
+        
     /**
      * The inverse matrix of view projection matrix.
      */

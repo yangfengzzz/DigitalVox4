@@ -20,6 +20,7 @@
 #include <queue>
 #include <glog/logging.h>
 #include "entity.h"
+#include "camera.h"
 
 namespace vox {
 Scene::Scene(std::string name) :
@@ -158,5 +159,23 @@ void Scene::_removeEntity(EntityPtr entity) {
                                       oldRootEntities.end(), entity), oldRootEntities.end());
 }
 
+void Scene::update(float deltaTime) {
+    _componentsManager.callScriptOnStart();
+    
+    _physicsManager.callColliderOnUpdate();
+    _physicsManager.update(deltaTime);
+    _physicsManager.callColliderOnLateUpdate();
+    _physicsManager.callCharacterControllerOnLateUpdate();
+    
+    _componentsManager.callScriptOnUpdate(deltaTime);
+//    _componentsManager.callAnimatorUpdate(deltaTime);
+//    _componentsManager.callSceneAnimatorUpdate(deltaTime);
+    _componentsManager.callScriptOnLateUpdate(deltaTime);
+    
+    _updateShaderData();
+    for (auto& camera : _activeCameras) {
+        camera->updateShaderData();
+    }
+}
 
 }        // namespace vox
