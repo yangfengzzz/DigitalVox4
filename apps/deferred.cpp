@@ -13,6 +13,7 @@
 #include "rendering/subpasses/deferred_subpass.h"
 #include "rendering/subpasses/compose_subpass.h"
 #include "rendering/subpasses/point_light_subpass.h"
+#include "rendering/subpasses/skybox_subpass.h"
 #include "engine.h"
 #include "core/CPPMetalAssert.hpp"
 #include "material/texture_loader.h"
@@ -196,6 +197,9 @@ bool Deferred::prepare(Engine &engine) {
         m_finalRenderPass->addSubpass(std::make_unique<PointLightSubpass>(&m_finalRenderPassDescriptor, scene.get(),
                                                                           shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
                                                                           m_icosahedronMesh, &m_GBufferRenderPassDescriptor, NumLights));
+        m_finalRenderPass->addSubpass(std::make_unique<SkyboxSubpass>(&m_finalRenderPassDescriptor, scene.get(),
+                                                                      shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
+                                                                      m_skyMesh, m_skyVertexDescriptor, m_skyMap));
     }
     framebuffer_resize(extent.width*2, extent.height*2);
     
@@ -261,13 +265,7 @@ void Deferred::update(float delta_time) {
             m_finalRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
             m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
             m_finalRenderPass->draw(commandBuffer, "Lighting & Composition Pass");
-            
-//
-//            subpass->drawSky(renderEncoder,
-//                             m_uniformBuffers[m_frameDataBufferIndex],
-//                             m_skyMesh,
-//                             m_skyMap);
-//
+         
 //            subpass->drawFairies(renderEncoder, m_lightsData,
 //                                 m_lightPositions[m_frameDataBufferIndex],
 //                                 m_uniformBuffers[m_frameDataBufferIndex],

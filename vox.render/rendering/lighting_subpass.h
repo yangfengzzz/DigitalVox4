@@ -47,11 +47,6 @@ public:
                      MTL::Buffer& m_uniformBuffer,
                      MTL::Buffer& m_fairy,
                      MTL::Texture& m_fairyMap);
-    
-    void drawSky(MTL::RenderCommandEncoder &renderEncoder,
-                 MTL::Buffer& m_uniformBuffer,
-                 Mesh& m_skyMesh,
-                 MTL::Texture& m_skyMap);
         
     MTL::Device m_device;
     
@@ -62,7 +57,6 @@ public:
 #pragma mark -    
     // Pipeline states
     MTL::RenderPipelineState m_fairyPipelineState;
-    MTL::RenderPipelineState m_skyboxPipelineState;
 };
 
 

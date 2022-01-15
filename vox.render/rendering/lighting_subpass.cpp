@@ -71,25 +71,6 @@ void LightingSubpass::loadMetal(MTL::VertexDescriptor& m_skyVertexDescriptor) {
         MTLAssert(error == nullptr, error, "Failed to create fairy render pipeline state: %@");
     }
     
-#pragma mark Sky render pipeline setup
-    {
-        MTL::Function skyboxVertexFunction = shaderLibrary.makeFunction("skybox_vertex");
-        MTL::Function skyboxFragmentFunction = shaderLibrary.makeFunction("skybox_fragment");
-        
-        MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-        renderPipelineDescriptor.label("Sky");
-        renderPipelineDescriptor.vertexDescriptor(&m_skyVertexDescriptor);
-        renderPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
-        renderPipelineDescriptor.fragmentFunction(&skyboxFragmentFunction);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(m_view->colorPixelFormat());
-        renderPipelineDescriptor.depthAttachmentPixelFormat(m_view->depthStencilPixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(m_view->depthStencilPixelFormat());
-        
-        m_skyboxPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
-        
-        MTLAssert(error == nullptr, error, "Failed to create skybox render pipeline state: %@");
-    }
-    
 #pragma mark Post lighting depth state setup
     {
         MTL::DepthStencilDescriptor depthStencilDesc;
@@ -120,37 +101,6 @@ void LightingSubpass::drawFairies(MTL::RenderCommandEncoder &renderEncoder,
     renderEncoder.setVertexBuffer(m_lightPosition, 0, BufferIndexLightsPosition);
     renderEncoder.setFragmentTexture(m_fairyMap, TextureIndexAlpha);
     renderEncoder.drawPrimitives(MTL::PrimitiveTypeTriangleStrip, 0, NumFairyVertices, NumLights);
-    renderEncoder.popDebugGroup();
-}
-
-/// Draw the sky dome behind all other geometry (testing against depth buffer generated in
-///  GBuffer pass)
-void LightingSubpass::drawSky(MTL::RenderCommandEncoder &renderEncoder,
-                              MTL::Buffer& m_uniformBuffer,
-                              Mesh& m_skyMesh,
-                              MTL::Texture& m_skyMap) {
-    renderEncoder.pushDebugGroup("Draw Sky");
-    renderEncoder.setRenderPipelineState(m_skyboxPipelineState);
-    renderEncoder.setDepthStencilState(*m_dontWriteDepthStencilState);
-    renderEncoder.setCullMode(MTL::CullModeFront);
-    
-    renderEncoder.setVertexBuffer(m_uniformBuffer, 0, BufferIndexFrameData);
-    renderEncoder.setFragmentTexture(m_skyMap, TextureIndexBaseColor);
-    
-    for (auto &meshBuffer: m_skyMesh.vertexBuffers()) {
-        renderEncoder.setVertexBuffer(meshBuffer.buffer(),
-                                      meshBuffer.offset(),
-                                      meshBuffer.argumentIndex());
-    }
-    
-    
-    for (auto &submesh: m_skyMesh.submeshes()) {
-        renderEncoder.drawIndexedPrimitives(submesh.primitiveType(),
-                                            submesh.indexCount(),
-                                            submesh.indexType(),
-                                            submesh.indexBuffer().buffer(),
-                                            submesh.indexBuffer().offset());
-    }
     renderEncoder.popDebugGroup();
 }
 
