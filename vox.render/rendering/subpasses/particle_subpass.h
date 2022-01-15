@@ -17,12 +17,25 @@ public:
                     sg::Scene* scene,
                     MTL::Library& shaderLibrary,
                     MTL::Device& m_device,
-                    MTL::PixelFormat colorPixelFormat);
+                    MTL::PixelFormat colorPixelFormat,
+                    MTL::Buffer &m_fairy,
+                    MTL::Texture &m_fairyMap,
+                    const uint32_t NumLights,
+                    const uint32_t NumFairyVertices);
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
+    MTL::DepthStencilState m_dontWriteDepthStencilState;
+    MTL::RenderPipelineState m_fairyPipelineState;
     
+    // Mesh buffer for fairies
+    MTL::Buffer &m_fairy;
+    // Texture to create smooth round particles
+    MTL::Texture &m_fairyMap;
+    
+    const uint32_t NumLights;
+    const uint32_t NumFairyVertices;
 };
 
 }
