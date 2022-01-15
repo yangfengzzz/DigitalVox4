@@ -18,7 +18,6 @@ class ColliderShape;
 using ColliderShapePtr = std::shared_ptr<ColliderShape>;
 }
 
-namespace sg {
 /**
  * Script class, used for logic writing.
  */
@@ -142,7 +141,6 @@ private:
     ssize_t _entityCacheIndex = -1;
 };
 
-}
 }
 
 #endif /* script_hpp */

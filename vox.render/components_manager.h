@@ -14,7 +14,6 @@
 #include <vector>
 
 namespace vox {
-namespace sg {
 /**
  * The manager of the components.
  */
@@ -113,7 +112,6 @@ private:
     std::vector<std::vector<Component *>> _componentsContainerPool;
 };
 
-}        // namespace sg
 }        // namespace vox
 
 #endif /* component_manager_hpp */

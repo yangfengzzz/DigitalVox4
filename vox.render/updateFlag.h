@@ -11,7 +11,6 @@
 #include <stdio.h>
 
 namespace vox {
-namespace sg {
 class UpdateFlagManager;
 
 /**
@@ -32,7 +31,6 @@ private:
     UpdateFlagManager *_flags;
 };
 
-}        // namespace sg
 }        // namespace vox
 
 #endif /* updateFlag_hpp */

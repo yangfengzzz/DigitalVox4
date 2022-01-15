@@ -15,8 +15,6 @@
 
 namespace vox {
 namespace control {
-using namespace sg;
-
 /**
  * The camera's track controller, can rotate, zoom, pan, support mouse and touch events.
  */

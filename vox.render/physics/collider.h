@@ -15,8 +15,6 @@
 
 namespace vox {
 namespace physics {
-using namespace sg;
-
 class Collider : public Component {
 public:
     Collider(Entity *entity);

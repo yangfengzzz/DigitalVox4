@@ -22,7 +22,6 @@
 #include "entity.h"
 
 namespace vox {
-namespace sg {
 Scene::Scene(std::string name) :
 name(name)
 //_ambientLight(this),
@@ -160,6 +159,4 @@ void Scene::_removeEntity(EntityPtr entity) {
 }
 
 
-
-}        // namespace sg
 }        // namespace vox

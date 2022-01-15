@@ -15,7 +15,6 @@
 #include "updateFlag.h"
 
 namespace vox {
-namespace sg {
 /**
  * Renderable component.
  */
@@ -156,7 +155,6 @@ private:
 };
 
 
-}
 }
 
 #endif /* renderer_hpp */

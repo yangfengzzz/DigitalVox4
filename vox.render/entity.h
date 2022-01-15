@@ -28,7 +28,6 @@
 //#include "scene_graph/components/transform.h"
 
 namespace vox {
-namespace sg {
 class Component;
 
 /// @brief A leaf of the tree structure which can have children and a single parent.
@@ -257,5 +256,4 @@ private:
     std::unique_ptr<UpdateFlag> _inverseWorldMatFlag = nullptr;
 };
 
-}        // namespace sg
 }        // namespace vox

@@ -23,7 +23,6 @@
 //#include "components/transform.h"
 
 namespace vox {
-namespace sg {
 EntityPtr Entity::_findChildByName(Entity *root, const std::string &name) {
     const auto &children = root->_children;
     for (size_t i = 0; i < children.size(); i++) {
@@ -305,5 +304,4 @@ std::vector<Script *> Entity::scripts() {
     return _scripts;
 }
 
-}        // namespace sg
 }        // namespace vox

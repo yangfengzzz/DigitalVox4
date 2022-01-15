@@ -11,7 +11,6 @@
 #include <memory>
 
 namespace vox {
-namespace sg {
 class Scene;
 
 using ScenePtr = std::shared_ptr<Scene>;
@@ -68,13 +67,12 @@ class SceneAnimator;
 
 class Light;
 
-class PointLight;
+//class PointLight;
 
 class SpotLight;
 
 class DirectLight;
 
-}
 }
 
 #endif /* scene_forward_h */

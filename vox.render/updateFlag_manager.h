@@ -13,7 +13,6 @@
 #include "updateFlag.h"
 
 namespace vox {
-namespace sg {
 class UpdateFlagManager {
 public:
     std::unique_ptr<UpdateFlag> registration();
@@ -26,6 +25,5 @@ private:
     std::vector<UpdateFlag *> _updateFlags;
 };
 
-}        // namespace sg
 }        // namespace vox
 #endif /* updateFlag_manager_hpp */

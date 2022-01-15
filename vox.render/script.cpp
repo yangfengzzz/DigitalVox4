@@ -10,7 +10,6 @@
 #include "scene.h"
 
 namespace vox {
-namespace sg {
 Script::Script(Entity *entity) :
 Component(entity) {
     
@@ -59,5 +58,4 @@ void Script::_onDestroy() {
     entity()->scene()->_componentsManager.addDestroyComponent(this);
 }
 
-}
 }

@@ -24,7 +24,6 @@
 #include <vector>
 
 namespace vox {
-namespace sg {
 /**
  * The base class of the components.
  */
@@ -94,5 +93,5 @@ private:
     bool _enabled = true;
     bool _awoken = false;
 };
-}        // namespace sg
+
 }        // namespace vox

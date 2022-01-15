@@ -16,7 +16,6 @@
 #include "ImathEuler.h"
 
 namespace vox {
-namespace sg {
 using namespace Imath;
 /**
  * Dirty flag of transform.
@@ -350,7 +349,6 @@ private:
 };
 
 
-}
 }
 
 #endif /* transform_hpp */

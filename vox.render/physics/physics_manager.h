@@ -67,7 +67,7 @@ public:
      * @param layerMask - Layer mask that is used to selectively ignore Colliders when casting
      * @returns Returns True if the ray intersects with a collider, otherwise false
      */
-    bool raycast(const Imath::Ray3f &ray, float distance, sg::Layer layerMask);
+    bool raycast(const Imath::Ray3f &ray, float distance, Layer layerMask);
     
     /**
      * Casts a ray through the Scene and returns the first hit.
@@ -77,7 +77,7 @@ public:
      * @param outHitResult - If true is returned, outHitResult will contain more detailed collision information
      * @returns Returns True if the ray intersects with a collider, otherwise false.
      */
-    bool raycast(const Imath::Ray3f &ray, float distance, sg::Layer layerMask, HitResult &outHitResult);
+    bool raycast(const Imath::Ray3f &ray, float distance, Layer layerMask, HitResult &outHitResult);
     
 public:
     /**

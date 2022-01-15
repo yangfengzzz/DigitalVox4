@@ -12,7 +12,6 @@
 #include "ImathRightHand.h"
 
 namespace vox {
-namespace sg {
 Transform::Transform(Entity *entity) : Component(entity) {
 }
 
@@ -419,5 +418,4 @@ void Transform::_rotateXYZ(float x, float y, float z, bool relativeToLocal) {
     _rotateByQuat(rotQuat, relativeToLocal);
 }
 
-}
 }

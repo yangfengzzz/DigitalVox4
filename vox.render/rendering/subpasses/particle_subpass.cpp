@@ -13,7 +13,7 @@
 
 namespace vox {
 ParticleSubpass::ParticleSubpass(MTL::RenderPassDescriptor* desc,
-                                 sg::Scene* scene,
+                                 Scene* scene,
                                  MTL::Library& shaderLibrary,
                                  MTL::Device& m_device,
                                  MTL::PixelFormat colorPixelFormat,

@@ -9,8 +9,6 @@
 #define layer_h
 
 namespace vox {
-namespace sg {
-
 /**
  * Layer, used for bit operations.
  */
@@ -85,7 +83,6 @@ enum Layer {
     Nothing = 0x0
 };
 
-}        // namespace sg
 }        // namespace vox
 
 #endif /* layer_h */

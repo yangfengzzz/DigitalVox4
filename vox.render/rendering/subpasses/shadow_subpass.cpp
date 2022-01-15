@@ -12,7 +12,7 @@
 
 namespace vox {
 ShadowSubpass::ShadowSubpass(MTL::RenderPassDescriptor* desc,
-                             sg::Scene* scene,
+                             Scene* scene,
                              MTL::Library& shaderLibrary,
                              MTL::Device& m_device,
                              std::vector<Mesh> *m_meshes):

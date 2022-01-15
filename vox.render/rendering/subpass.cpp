@@ -9,7 +9,7 @@
 
 namespace vox {
 Subpass::Subpass(MTL::RenderPassDescriptor* desc,
-                 sg::Scene* scene):
+                 Scene* scene):
 scene(scene) {
 }
 

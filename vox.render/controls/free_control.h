@@ -15,8 +15,6 @@
 
 namespace vox {
 namespace control {
-using namespace sg;
-
 /**
  * The camera's roaming controller, can move up and down, left and right, and rotate the viewing angle.
  */

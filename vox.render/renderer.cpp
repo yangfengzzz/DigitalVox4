@@ -11,7 +11,6 @@
 #include "shader/shader.h"
 
 namespace vox {
-namespace sg {
 size_t Renderer::materialCount() {
     return _materials.size();
 }
@@ -185,5 +184,4 @@ MaterialPtr Renderer::_createInstanceMaterial(const MaterialPtr &material, size_
     return nullptr;
 }
 
-}
 }

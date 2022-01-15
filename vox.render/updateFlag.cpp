@@ -9,7 +9,6 @@
 #include "updateFlag_manager.h"
 
 namespace vox {
-namespace sg {
 UpdateFlag::UpdateFlag(UpdateFlagManager *_flags) : _flags(_flags) {
     _flags->_updateFlags.push_back(this);
 }
@@ -19,5 +18,4 @@ void UpdateFlag::destroy() {
                                            _flags->_updateFlags.end(), this), _flags->_updateFlags.end());
 }
 
-}        // namespace sg
 }        // namespace vox

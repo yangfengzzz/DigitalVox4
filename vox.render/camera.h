@@ -17,7 +17,6 @@
 #include "updateFlag.h"
 
 namespace vox {
-namespace sg {
 /**
  * Camera clear flags enumeration.
  */
@@ -279,7 +278,6 @@ private:
 };
 
 
-}
 }
 
 #endif /* camera_hpp */

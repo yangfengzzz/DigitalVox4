@@ -12,7 +12,6 @@
 #include "camera.h"
 
 namespace vox {
-namespace sg {
 void ComponentsManager::addOnStartScript(Script *script) {
     script->_onStartIndex = _onStartScripts.size();
     _onStartScripts.push_back(script);
@@ -257,5 +256,4 @@ void ComponentsManager::putActiveChangedTempList(std::vector<Component *> &compo
     _componentsContainerPool.push_back(componentContainer);
 }
 
-}        // namespace sg
 }        // namespace vox

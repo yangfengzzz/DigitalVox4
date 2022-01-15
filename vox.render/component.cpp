@@ -22,7 +22,6 @@
 #include "entity.h"
 
 namespace vox {
-namespace sg {
 Component::Component(Entity *entity) : _entity(entity) {
 }
 
@@ -94,6 +93,4 @@ void Component::_setActive(bool value) {
     }
 }
 
-
-}        // namespace sg
 }        // namespace vox

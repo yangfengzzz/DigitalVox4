@@ -31,7 +31,6 @@
 //#include "scene_graph/components/texture.h"
 
 namespace vox {
-namespace sg {
 /// @brief A collection of entities organized in a tree structure.
 ///		   It can contain more than one root entity.
 class Scene {
@@ -133,5 +132,5 @@ private:
     std::vector<EntityPtr> _rootEntities;
 //    AmbientLight _ambientLight;
 };
-}        // namespace sg
+
 }        // namespace vox

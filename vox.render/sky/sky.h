@@ -16,9 +16,9 @@ namespace vox {
  */
 struct Sky {
     /** Material of the sky. */
-    sg::MaterialPtr material{nullptr};
+    MaterialPtr material{nullptr};
     /** Mesh of the sky. */
-    sg::MeshPtr mesh{nullptr};
+    MeshPtr mesh{nullptr};
 };
 
 }

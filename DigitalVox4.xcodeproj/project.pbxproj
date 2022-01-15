@@ -313,6 +313,8 @@
 		0445940F2792545E00F04CE0 /* particle_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445940D2792545E00F04CE0 /* particle_subpass.cpp */; };
 		044594102792545E00F04CE0 /* particle_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940E2792545E00F04CE0 /* particle_subpass.h */; };
 		0445941627926D1600F04CE0 /* background.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941427926D1600F04CE0 /* background.h */; };
+		0445941927926E3300F04CE0 /* skybox_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445941727926E3300F04CE0 /* skybox_material.cpp */; };
+		0445941A27926E3300F04CE0 /* skybox_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941827926E3300F04CE0 /* skybox_material.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -717,6 +719,8 @@
 		0445940E2792545E00F04CE0 /* particle_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_subpass.h; sourceTree = "<group>"; };
 		0445941227926CFF00F04CE0 /* sky.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.h; sourceTree = "<group>"; };
 		0445941427926D1600F04CE0 /* background.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = background.h; sourceTree = "<group>"; };
+		0445941727926E3300F04CE0 /* skybox_material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skybox_material.cpp; sourceTree = "<group>"; };
+		0445941827926E3300F04CE0 /* skybox_material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skybox_material.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1322,6 +1326,8 @@
 			isa = PBXGroup;
 			children = (
 				0445941227926CFF00F04CE0 /* sky.h */,
+				0445941827926E3300F04CE0 /* skybox_material.h */,
+				0445941727926E3300F04CE0 /* skybox_material.cpp */,
 			);
 			path = sky;
 			sourceTree = "<group>";
@@ -1358,6 +1364,7 @@
 				0445925D278E7C8600F04CE0 /* metal_application.h in Headers */,
 				0445928E278EA37D00F04CE0 /* script.h in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
+				0445941A27926E3300F04CE0 /* skybox_material.h in Headers */,
 				04459225278E5F1100F04CE0 /* configuration.h in Headers */,
 				044592EF278ED88400F04CE0 /* pbr_base_material.h in Headers */,
 				044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */,
@@ -1747,6 +1754,7 @@
 				044592F0278ED88400F04CE0 /* pbr_base_material.cpp in Sources */,
 				044592B7278EBFC600F04CE0 /* shader_program.cpp in Sources */,
 				0445924C278E63FF00F04CE0 /* filesystem.cpp in Sources */,
+				0445941927926E3300F04CE0 /* skybox_material.cpp in Sources */,
 				044592F7278EFEC700F04CE0 /* camera.cpp in Sources */,
 				042295B0278C32FB0090983F /* CPPMetalDevice.mm in Sources */,
 				042295A9278C32FB0090983F /* CPPMetalRenderCommandEncoder.mm in Sources */,

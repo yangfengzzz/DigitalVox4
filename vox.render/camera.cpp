@@ -12,7 +12,6 @@
 #include "shader/shader.h"
 
 namespace vox {
-namespace sg {
 Camera::Camera(Entity *entity) :
 Component(entity),
 _viewMatrixProperty(Shader::createProperty("u_viewMat", ShaderDataGroup::Camera)),
@@ -295,5 +294,4 @@ Imath::M44f Camera::inverseProjectionMatrix() {
     return _inverseProjectionMatrix;
 }
 
-}
 }

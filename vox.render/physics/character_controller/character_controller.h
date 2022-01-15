@@ -13,7 +13,6 @@
 
 namespace vox {
 namespace physics {
-using namespace sg;
 
 class CharacterController : public Component {
 public:

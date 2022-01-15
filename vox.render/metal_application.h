@@ -37,9 +37,9 @@ namespace vox {
  * - creating the Swapchain
  * - creating the RenderContext (or child class)
  * - preparing the RenderContext
- * - loading the sg::Scene
+ * - loading the Scene
  * - creating the RenderPipeline with ShaderModule (s)
- * - creating the sg::Camera
+ * - creating the Camera
  * - creating the Gui
  *
  * @section frame_rendering Frame rendering
@@ -53,7 +53,7 @@ namespace vox {
  * A series of steps are performed, some of which can be customized (it will be
  * highlighted when that's the case):
  *
- * - calling sg::Script::update() for all sg::Script (s)
+ * - calling Script::update() for all Script (s)
  * - beginning a frame in RenderContext (does the necessary waiting on fences and
  *   acquires an core::Image)
  * - requesting a CommandBuffer
@@ -125,7 +125,7 @@ public:
 //
 //    Configuration &get_configuration();
 //
-//    sg::Scene &get_scene();
+//    Scene &get_scene();
     
     bool has_scene();
     
@@ -150,7 +150,7 @@ protected:
     /**
      * @brief Holds all scene information
      */
-    std::unique_ptr<sg::Scene> scene{nullptr};
+    std::unique_ptr<Scene> scene{nullptr};
 
 //    std::unique_ptr<Gui> gui{nullptr};
 //
