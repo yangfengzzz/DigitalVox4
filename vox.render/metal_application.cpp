@@ -24,6 +24,8 @@ bool MetalApplication::prepare(Engine &engine) {
     LOG(INFO) << "Initializing Metal Application";
     
     device = std::unique_ptr<MTL::Device>(MTL::CreateSystemDefaultDevice());
+    printf("Selected Device: %s\n", device->name());
+
     m_commandQueue = device->makeCommandQueue();
 
     render_context = engine.create_render_context(*device);

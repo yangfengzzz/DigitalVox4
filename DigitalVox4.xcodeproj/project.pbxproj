@@ -664,9 +664,7 @@
 		04459373278FE8F600F04CE0 /* CPPMetalView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalView.hpp; sourceTree = "<group>"; };
 		04459376278FFE3100F04CE0 /* mesh_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh_loader.h; sourceTree = "<group>"; };
 		04459378278FFE3100F04CE0 /* math_utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = math_utilities.cpp; sourceTree = "<group>"; };
-		04459379278FFE3100F04CE0 /* lighting_subpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lighting_subpass.h; sourceTree = "<group>"; };
 		0445937D278FFE3100F04CE0 /* math_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utilities.h; sourceTree = "<group>"; };
-		0445937F278FFE3100F04CE0 /* lighting_subpass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lighting_subpass.cpp; sourceTree = "<group>"; };
 		04459380278FFE3100F04CE0 /* mesh_loader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mesh_loader.mm; sourceTree = "<group>"; };
 		04459382278FFE3200F04CE0 /* CPPMetalAssert.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPPMetalAssert.hpp; sourceTree = "<group>"; };
 		04459391278FFF6E00F04CE0 /* shader_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_types.h; sourceTree = "<group>"; };
@@ -1090,8 +1088,6 @@
 				044593F72791580900F04CE0 /* subpasses */,
 				0445937D278FFE3100F04CE0 /* math_utilities.h */,
 				04459378278FFE3100F04CE0 /* math_utilities.cpp */,
-				04459379278FFE3100F04CE0 /* lighting_subpass.h */,
-				0445937F278FFE3100F04CE0 /* lighting_subpass.cpp */,
 			);
 			path = rendering;
 			sourceTree = "<group>";
