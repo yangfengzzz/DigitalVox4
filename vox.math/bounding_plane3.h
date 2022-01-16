@@ -9,7 +9,7 @@
 #define plane3_h
 
 #include "vector3.h"
-#include "plane.h"
+#include "bounding_plane.h"
 
 namespace vox {
 
@@ -19,7 +19,7 @@ namespace vox {
 //! \tparam     T     The value type.
 //!
 template <typename T>
-class Plane<T, 3> final {
+class BoundingPlane<T, 3> final {
 public:
     static_assert(std::is_floating_point<T>::value,
                   "Plane only can be instantiated with floating point types");
@@ -31,10 +31,10 @@ public:
     T distance;
     
     //! Constructs an empty plane that points (1, 0) from (0, 0).
-    Plane();
+    BoundingPlane();
     
     //! Constructs a plane with given origin and riection.
-    Plane(const Vector3<T>& newNormal, const T& newDistance);
+    BoundingPlane(const Vector3<T>& newNormal, const T& newDistance);
     
     /**
      * Calculate the plane that contains the three specified points.
@@ -42,16 +42,16 @@ public:
      * @param point1 - The second point
      * @param point2 - The third point
      */
-    Plane(const Vector3<T>& point0, const Vector3<T>& point1, const Vector3<T>& point2);
+    BoundingPlane(const Vector3<T>& point0, const Vector3<T>& point1, const Vector3<T>& point2);
     
     //! Copy constructor.
-    Plane(const Plane& other);
+    BoundingPlane(const BoundingPlane& other);
     
     /**
      * Normalize the normal vector of this plane.
      * @returns The plane after normalize
      */
-    Plane<T, 3> normalized() const;
+    BoundingPlane<T, 3> normalized() const;
     
     /**
      * Normalize the normal vector of this plane.
@@ -60,16 +60,16 @@ public:
 };
 
 //! Type alias for 3-D plane.
-template <typename T> using Plane3 = Plane<T, 3>;
+template <typename T> using BoundingPlane3 = BoundingPlane<T, 3>;
 
 //! Float-type 3-D plane.
-using Plane3F = Plane3<float>;
+using BoundingPlane3F = BoundingPlane3<float>;
 
 //! Double-type 3-D plane.
-using Plane3D = Plane3<double>;
+using BoundingPlane3D = BoundingPlane3<double>;
 
 }  // namespace vox
 
-#include "plane3-inl.h"
+#include "bounding_plane3-inl.h"
 
 #endif /* plane3_h */

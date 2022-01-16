@@ -10,11 +10,11 @@
 
 namespace vox {
 
-float distancePlaneAndPoint(const Plane3F &plane, const Point3F &point) {
+float distancePlaneAndPoint(const BoundingPlane3F &plane, const Point3F &point) {
     return point.dot(plane.normal) + plane.distance;
 }
 
-PlaneIntersectionType intersectsPlaneAndPoint(const Plane3F &plane, const Point3F &point) {
+PlaneIntersectionType intersectsPlaneAndPoint(const BoundingPlane3F &plane, const Point3F &point) {
     const auto distance = distancePlaneAndPoint(plane, point);
     if (distance > 0) {
         return PlaneIntersectionType::Front;
@@ -25,7 +25,7 @@ PlaneIntersectionType intersectsPlaneAndPoint(const Plane3F &plane, const Point3
     return PlaneIntersectionType::Intersecting;
 }
 
-PlaneIntersectionType intersectsPlaneAndBox(const Plane3F &plane, const BoundingBox3F &box) {
+PlaneIntersectionType intersectsPlaneAndBox(const BoundingPlane3F &plane, const BoundingBox3F &box) {
     const auto &min = box.lowerCorner;
     const auto &max = box.upperCorner;
     const auto &normal = plane.normal;
@@ -65,7 +65,7 @@ PlaneIntersectionType intersectsPlaneAndBox(const Plane3F &plane, const Bounding
     return PlaneIntersectionType::Intersecting;
 }
 
-float intersectsRayAndPlane(const Ray3F &ray, const Plane3F &plane) {
+float intersectsRayAndPlane(const Ray3F &ray, const BoundingPlane3F &plane) {
     const auto &normal = plane.normal;
     
     const auto dir = normal.dot(ray.direction);

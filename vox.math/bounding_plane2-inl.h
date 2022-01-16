@@ -10,29 +10,29 @@
 
 namespace vox {
 template <typename T>
-Plane<T, 2>::Plane() : Plane(Vector2<T>(), 0)  {
+BoundingPlane<T, 2>::BoundingPlane() : BoundingPlane(Vector2<T>(), 0)  {
     
 }
 
 template <typename T>
-Plane<T, 2>::Plane(const Vector2<T>& newNormal, const T& newDistance):
+BoundingPlane<T, 2>::BoundingPlane(const Vector2<T>& newNormal, const T& newDistance):
 normal(newNormal),
 distance(newDistance){
 }
 
 template <typename T>
-Plane<T, 2>::Plane(const Vector2<T>& point0, const Vector2<T>& point1) {
+BoundingPlane<T, 2>::BoundingPlane(const Vector2<T>& point0, const Vector2<T>& point1) {
     // TODO
 }
 
 template <typename T>
-Plane<T, 2>::Plane(const Plane& other):
+BoundingPlane<T, 2>::BoundingPlane(const Plane& other):
 normal(other.normal),
 distance(other.distance) {
 }
 
 template <typename T>
-Plane<T, 2> Plane<T, 2>::normalized() const {
+BoundingPlane<T, 2> BoundingPlane<T, 2>::normalized() const {
     T factor = 1.0 / normal.length();
 
     Vector2<T> outNormal(normal.x * factor,
@@ -41,7 +41,7 @@ Plane<T, 2> Plane<T, 2>::normalized() const {
 }
 
 template <typename T>
-void Plane<T, 2>::normalize() {
+void BoundingPlane<T, 2>::normalize() {
     T factor = 1.0 / normal.length();
 
     normal.x *= factor;

@@ -9,7 +9,7 @@
 #define plane2_h
 
 #include "vector2.h"
-#include "plane.h"
+#include "bounding_plane.h"
 
 namespace vox {
 
@@ -19,7 +19,7 @@ namespace vox {
 //! \tparam     T     The value type.
 //!
 template <typename T>
-class Plane<T, 2> final {
+class BoundingPlane<T, 2> final {
 public:
     static_assert(std::is_floating_point<T>::value,
                   "Plane only can be instantiated with floating point types");
@@ -31,10 +31,10 @@ public:
     T distance;
     
     //! Constructs an empty plane that points (1, 0) from (0, 0).
-    Plane();
+    BoundingPlane();
     
     //! Constructs a plane with given origin and riection.
-    Plane(const Vector2<T>& newNormal, const T& newDistance);
+    BoundingPlane(const Vector2<T>& newNormal, const T& newDistance);
     
     /**
      * Calculate the plane that contains the three specified points.
@@ -42,16 +42,16 @@ public:
      * @param point1 - The second point
      * @param point2 - The third point
      */
-    Plane(const Vector2<T>& point0, const Vector2<T>& point1);
+    BoundingPlane(const Vector2<T>& point0, const Vector2<T>& point1);
     
     //! Copy constructor.
-    Plane(const Plane& other);
+    BoundingPlane(const BoundingPlane& other);
     
     /**
      * Normalize the normal vector of this plane.
      * @returns The plane after normalize
      */
-    Plane<T, 2> normalized() const;
+    BoundingPlane<T, 2> normalized() const;
     
     /**
      * Normalize the normal vector of this plane.
@@ -60,16 +60,16 @@ public:
 };
 
 //! Type alias for 2-D plane.
-template <typename T> using Plane2 = Plane<T, 2>;
+template <typename T> using BoundingPlane2 = BoundingPlane<T, 2>;
 
 //! Float-type 2-D plane.
-using Plane2F = Plane2<float>;
+using BoundingPlane2F = BoundingPlane2<float>;
 
 //! Double-type 2-D plane.
-using Plane2D = Plane2<double>;
+using BoundingPlane2D = BoundingPlane2<double>;
 
 }  // namespace vox
 
-#include "plane2-inl.h"
+#include "bounding_plane2-inl.h"
 
 #endif /* plane2_h */

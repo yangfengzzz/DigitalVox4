@@ -13,16 +13,16 @@ BoundingFrustum::BoundingFrustum() {
 }
 
 BoundingFrustum::BoundingFrustum(const Matrix4x4F& matrix) {
-    near = Plane3F();
-    far = Plane3F();
-    left = Plane3F();
-    right = Plane3F();
-    top = Plane3F();
-    bottom = Plane3F();
+    near = BoundingPlane3F();
+    far = BoundingPlane3F();
+    left = BoundingPlane3F();
+    right = BoundingPlane3F();
+    top = BoundingPlane3F();
+    bottom = BoundingPlane3F();
     calculateFromMatrix(matrix);
 }
 
-Plane3F BoundingFrustum::getPlane(int index) const {
+BoundingPlane3F BoundingFrustum::getPlane(int index) const {
     switch (index) {
         case 0:
             return near;

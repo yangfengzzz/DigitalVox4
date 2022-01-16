@@ -11,24 +11,24 @@
 #include <cassert>
 #include <cmath>
 #include <optional>
-#include "plane3.h"
+#include "bounding_plane3.h"
 #include "bounding_box3.h"
 
 namespace vox {
 
 struct BoundingFrustum {
     /** The near plane of this frustum. */
-    Plane3F near;
+    BoundingPlane3F near;
     /** The far plane of this frustum. */
-    Plane3F far;
+    BoundingPlane3F far;
     /** The left plane of this frustum. */
-    Plane3F left;
+    BoundingPlane3F left;
     /** The right plane of this frustum. */
-    Plane3F right;
+    BoundingPlane3F right;
     /** The top plane of this frustum. */
-    Plane3F top;
+    BoundingPlane3F top;
     /** The bottom plane of this frustum. */
-    Plane3F bottom;
+    BoundingPlane3F bottom;
     
     BoundingFrustum();
     
@@ -52,7 +52,7 @@ struct BoundingFrustum {
      * @param index - The index
      * @returns The plane get
      */
-    Plane3F getPlane(int index) const;
+    BoundingPlane3F getPlane(int index) const;
     
     /**
      * Update all planes from the given matrix.

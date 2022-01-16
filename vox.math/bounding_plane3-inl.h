@@ -10,18 +10,18 @@
 
 namespace vox {
 template <typename T>
-Plane<T, 3>::Plane() : Plane(Vector3<T>(), 0)  {
+BoundingPlane<T, 3>::BoundingPlane() : BoundingPlane(Vector3<T>(), 0)  {
     
 }
 
 template <typename T>
-Plane<T, 3>::Plane(const Vector3<T>& newNormal, const T& newDistance):
+BoundingPlane<T, 3>::BoundingPlane(const Vector3<T>& newNormal, const T& newDistance):
 normal(newNormal),
 distance(newDistance){
 }
 
 template <typename T>
-Plane<T, 3>::Plane(const Vector3<T>& point0, const Vector3<T>& point1, const Vector3<T>& point2) {
+BoundingPlane<T, 3>::BoundingPlane(const Vector3<T>& point0, const Vector3<T>& point1, const Vector3<T>& point2) {
     T x0 = point0.x;
     T y0 = point0.y;
     T z0 = point0.z;
@@ -47,23 +47,23 @@ Plane<T, 3>::Plane(const Vector3<T>& point0, const Vector3<T>& point1, const Vec
 }
 
 template <typename T>
-Plane<T, 3>::Plane(const Plane& other):
+BoundingPlane<T, 3>::BoundingPlane(const BoundingPlane& other):
 normal(other.normal),
 distance(other.distance) {
 }
 
 template <typename T>
-Plane<T, 3> Plane<T, 3>::normalized() const {
+BoundingPlane<T, 3> BoundingPlane<T, 3>::normalized() const {
     T factor = 1.0 / normal.length();
 
     Vector3<T> outNormal(normal.x * factor,
                          normal.y * factor,
                          normal.z * factor);
-    return Plane<T, 3>(outNormal, distance * factor);
+    return BoundingPlane<T, 3>(outNormal, distance * factor);
 }
 
 template <typename T>
-void Plane<T, 3>::normalize() {
+void BoundingPlane<T, 3>::normalize() {
     T factor = 1.0 / normal.length();
 
     normal.x *= factor;

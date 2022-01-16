@@ -845,11 +845,11 @@
 		044594912793B98F00F04CE0 /* matrix2x2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix2x2_tests.cpp; sourceTree = "<group>"; };
 		044594922793B98F00F04CE0 /* matrix4x4_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix4x4_tests.cpp; sourceTree = "<group>"; };
 		044594A02793C44000F04CE0 /* matrix_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matrix_utils.h; sourceTree = "<group>"; };
-		044594A12793FEFB00F04CE0 /* plane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
-		044594A22793FF2800F04CE0 /* plane2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plane2.h; sourceTree = "<group>"; };
-		044594A32793FF3700F04CE0 /* plane2-inl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "plane2-inl.h"; sourceTree = "<group>"; };
-		044594A42794034500F04CE0 /* plane3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plane3.h; sourceTree = "<group>"; };
-		044594A52794035200F04CE0 /* plane3-inl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "plane3-inl.h"; sourceTree = "<group>"; };
+		044594A12793FEFB00F04CE0 /* bounding_plane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bounding_plane.h; sourceTree = "<group>"; };
+		044594A22793FF2800F04CE0 /* bounding_plane2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bounding_plane2.h; sourceTree = "<group>"; };
+		044594A32793FF3700F04CE0 /* bounding_plane2-inl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bounding_plane2-inl.h"; sourceTree = "<group>"; };
+		044594A42794034500F04CE0 /* bounding_plane3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bounding_plane3.h; sourceTree = "<group>"; };
+		044594A52794035200F04CE0 /* bounding_plane3-inl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bounding_plane3-inl.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1169,11 +1169,11 @@
 				04229669278D689B0090983F /* bounding_box2-inl.h */,
 				04229665278D689B0090983F /* bounding_box3.h */,
 				04229664278D689B0090983F /* bounding_box3-inl.h */,
-				044594A12793FEFB00F04CE0 /* plane.h */,
-				044594A22793FF2800F04CE0 /* plane2.h */,
-				044594A32793FF3700F04CE0 /* plane2-inl.h */,
-				044594A42794034500F04CE0 /* plane3.h */,
-				044594A52794035200F04CE0 /* plane3-inl.h */,
+				044594A12793FEFB00F04CE0 /* bounding_plane.h */,
+				044594A22793FF2800F04CE0 /* bounding_plane2.h */,
+				044594A32793FF3700F04CE0 /* bounding_plane2-inl.h */,
+				044594A42794034500F04CE0 /* bounding_plane3.h */,
+				044594A52794035200F04CE0 /* bounding_plane3-inl.h */,
 				044592FA278F023900F04CE0 /* bounding_frustum.h */,
 				044592FC278F023900F04CE0 /* bounding_frustum.cpp */,
 				044592F9278F023900F04CE0 /* collision_utils.h */,

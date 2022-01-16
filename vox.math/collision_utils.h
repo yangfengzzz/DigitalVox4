@@ -11,8 +11,8 @@
 #include <cassert>
 #include <cmath>
 #include <array>
-#include "plane3.h"
 #include "ray3.h"
+#include "bounding_plane3.h"
 #include "bounding_box3.h"
 #include "bounding_frustum.h"
 
@@ -47,7 +47,7 @@ enum class ContainmentType {
  * @param point - The point
  * @returns The distance from a point to a plane
  */
-float distancePlaneAndPoint(const Plane3F &plane, const Point3F &point);
+float distancePlaneAndPoint(const BoundingPlane3F &plane, const Point3F &point);
 
 /**
  * Get the intersection type between a plane and a point.
@@ -55,7 +55,7 @@ float distancePlaneAndPoint(const Plane3F &plane, const Point3F &point);
  * @param point - The point
  * @returns The intersection type
  */
-PlaneIntersectionType intersectsPlaneAndPoint(const Plane3F &plane, const Point3F &point);
+PlaneIntersectionType intersectsPlaneAndPoint(const BoundingPlane3F &plane, const Point3F &point);
 
 /**
  * Get the intersection type between a plane and a box (AABB).
@@ -63,7 +63,7 @@ PlaneIntersectionType intersectsPlaneAndPoint(const Plane3F &plane, const Point3
  * @param box - The box
  * @returns The intersection type
  */
-PlaneIntersectionType intersectsPlaneAndBox(const Plane3F &plane, const BoundingBox3F &box);
+PlaneIntersectionType intersectsPlaneAndBox(const BoundingPlane3F &plane, const BoundingBox3F &box);
 
 /**
  * Get the intersection type between a ray and a plane.
@@ -71,7 +71,7 @@ PlaneIntersectionType intersectsPlaneAndBox(const Plane3F &plane, const Bounding
  * @param plane - The plane
  * @returns The distance from ray to plane if intersecting, -1 otherwise
  */
-float intersectsRayAndPlane(const Ray3F &ray, const Plane3F &plane);
+float intersectsRayAndPlane(const Ray3F &ray, const BoundingPlane3F &plane);
 
 /**
  * Get the intersection type between a ray and a box (AABB).
