@@ -14,23 +14,23 @@ TEST(Point3, Constructors) {
     EXPECT_FLOAT_EQ(0.f, pt.x);
     EXPECT_FLOAT_EQ(0.f, pt.y);
     EXPECT_FLOAT_EQ(0.f, pt.z);
-
+    
     Point3F pt2(5.f, 3.f, 8.f);
     EXPECT_FLOAT_EQ(5.f, pt2.x);
     EXPECT_FLOAT_EQ(3.f, pt2.y);
     EXPECT_FLOAT_EQ(8.f, pt2.z);
-
+    
     Point2F pt3(4.f, 7.f);
     Point3F pt4(pt3, 9.f);
     EXPECT_FLOAT_EQ(4.f, pt4.x);
     EXPECT_FLOAT_EQ(7.f, pt4.y);
     EXPECT_FLOAT_EQ(9.f, pt4.z);
-
+    
     Point3F pt5 = { 7.f, 6.f, 1.f };
     EXPECT_FLOAT_EQ(7.f, pt5.x);
     EXPECT_FLOAT_EQ(6.f, pt5.y);
     EXPECT_FLOAT_EQ(1.f, pt5.z);
-
+    
     Point3F pt6(pt5);
     EXPECT_FLOAT_EQ(7.f, pt6.x);
     EXPECT_FLOAT_EQ(6.f, pt6.y);
@@ -43,18 +43,18 @@ TEST(Point3, SetMethods) {
     EXPECT_FLOAT_EQ(4.f, pt.x);
     EXPECT_FLOAT_EQ(2.f, pt.y);
     EXPECT_FLOAT_EQ(8.f, pt.z);
-
+    
     pt.set(Point2F(1.f, 3.f), 10.f);
     EXPECT_FLOAT_EQ(1.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
     EXPECT_FLOAT_EQ(10.f, pt.z);
-
+    
     auto lst = {0.f, 5.f, 6.f};
     pt.set(lst);
     EXPECT_FLOAT_EQ(0.f, pt.x);
     EXPECT_FLOAT_EQ(5.f, pt.y);
     EXPECT_FLOAT_EQ(6.f, pt.z);
-
+    
     pt.set(Point3F(9.f, 8.f, 2.f));
     EXPECT_FLOAT_EQ(9.f, pt.x);
     EXPECT_FLOAT_EQ(8.f, pt.y);
@@ -75,37 +75,37 @@ TEST(Point3, BinaryOperatorMethods) {
     EXPECT_FLOAT_EQ(7.f, pt.x);
     EXPECT_FLOAT_EQ(13.f, pt.y);
     EXPECT_FLOAT_EQ(8.f, pt.z);
-
-    pt = pt.add(Point3F(-2.f, 1.f, 5.f));
+    
+    pt = pt.add(Vector3F(-2.f, 1.f, 5.f));
     EXPECT_FLOAT_EQ(5.f, pt.x);
     EXPECT_FLOAT_EQ(14.f, pt.y);
     EXPECT_FLOAT_EQ(13.f, pt.z);
-
+    
     pt = pt.sub(8.f);
     EXPECT_FLOAT_EQ(-3.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
     EXPECT_FLOAT_EQ(5.f, pt.z);
-
-    pt = pt.sub(Point3F(-5.f, 3.f, 12.f));
+    
+    pt = pt.sub(Vector3F(-5.f, 3.f, 12.f));
     EXPECT_FLOAT_EQ(2.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
     EXPECT_FLOAT_EQ(-7.f, pt.z);
-
+    
     pt = pt.mul(2.f);
     EXPECT_FLOAT_EQ(4.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
     EXPECT_FLOAT_EQ(-14.f,pt.z);
-
+    
     pt = pt.mul(Point3F(3.f, -2.f, 0.5f));
     EXPECT_FLOAT_EQ(12.f, pt.x);
     EXPECT_FLOAT_EQ(-12.f, pt.y);
     EXPECT_FLOAT_EQ(-7.f, pt.z);
-
+    
     pt = pt.div(4.f);
     EXPECT_FLOAT_EQ(3.f, pt.x);
     EXPECT_FLOAT_EQ(-3.f, pt.y);
     EXPECT_FLOAT_EQ(-1.75f, pt.z);
-
+    
     pt = pt.div(Point3F(3.f, -1.f, 0.25f));
     EXPECT_FLOAT_EQ(1.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
@@ -118,18 +118,18 @@ TEST(Point3, BinaryInverseOperatorMethods) {
     EXPECT_FLOAT_EQ(3.f, pt.x);
     EXPECT_FLOAT_EQ(-6.f, pt.y);
     EXPECT_FLOAT_EQ(-5.f, pt.z);
-
-    pt = pt.rsub(Point3F(-5.f, 3.f, -1.f));
-    EXPECT_FLOAT_EQ(-8.f, pt.x);
-    EXPECT_FLOAT_EQ(9.f, pt.y);
-    EXPECT_FLOAT_EQ(4.f, pt.z);
-
+    
+    Vector3F dt = pt.rsub(Point3F(-5.f, 3.f, -1.f));
+    EXPECT_FLOAT_EQ(-8.f, dt.x);
+    EXPECT_FLOAT_EQ(9.f, dt.y);
+    EXPECT_FLOAT_EQ(4.f, dt.z);
+    
     pt = Point3F(-12.f, -9.f, 8.f);
     pt = pt.rdiv(36.f);
     EXPECT_FLOAT_EQ(-3.f, pt.x);
     EXPECT_FLOAT_EQ(-4.f, pt.y);
     EXPECT_FLOAT_EQ(4.5f, pt.z);
-
+    
     pt = pt.rdiv(Point3F(3.f, -16.f, 18.f));
     EXPECT_FLOAT_EQ(-1.f, pt.x);
     EXPECT_FLOAT_EQ(4.f, pt.y);
@@ -142,37 +142,37 @@ TEST(Point3, AugmentedOperatorMethods) {
     EXPECT_FLOAT_EQ(7.f, pt.x);
     EXPECT_FLOAT_EQ(13.f, pt.y);
     EXPECT_FLOAT_EQ(8.f, pt.z);
-
-    pt.iadd(Point3F(-2.f, 1.f, 5.f));
+    
+    pt.iadd(Vector3F(-2.f, 1.f, 5.f));
     EXPECT_FLOAT_EQ(5.f, pt.x);
     EXPECT_FLOAT_EQ(14.f, pt.y);
     EXPECT_FLOAT_EQ(13.f, pt.z);
-
+    
     pt.isub(8.f);
     EXPECT_FLOAT_EQ(-3.f,pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
     EXPECT_FLOAT_EQ(5.f, pt.z);
-
-    pt.isub(Point3F(-5.f, 3.f, 12.f));
+    
+    pt.isub(Vector3F(-5.f, 3.f, 12.f));
     EXPECT_FLOAT_EQ(2.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
     EXPECT_FLOAT_EQ(-7.f, pt.z);
-
+    
     pt.imul(2.f);
     EXPECT_FLOAT_EQ(4.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
     EXPECT_FLOAT_EQ(-14.f, pt.z);
-
+    
     pt.imul(Point3F(3.f, -2.f, 0.5f));
     EXPECT_FLOAT_EQ(12.f, pt.x);
     EXPECT_FLOAT_EQ(-12.f, pt.y);
     EXPECT_FLOAT_EQ(-7.f, pt.z);
-
+    
     pt.idiv(4.f);
     EXPECT_FLOAT_EQ(3.f, pt.x);
     EXPECT_FLOAT_EQ(-3.f, pt.y);
     EXPECT_FLOAT_EQ(-1.75f,pt.z);
-
+    
     pt.idiv(Point3F(3.f, -1.f, 0.25f));
     EXPECT_FLOAT_EQ(1.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
@@ -184,7 +184,7 @@ TEST(Point3, AtMethods) {
     EXPECT_FLOAT_EQ(8.f, pt.at(0));
     EXPECT_FLOAT_EQ(9.f, pt.at(1));
     EXPECT_FLOAT_EQ(1.f, pt.at(2));
-
+    
     pt.at(0) = 7.f;
     pt.at(1) = 6.f;
     pt.at(2) = 5.f;
@@ -195,25 +195,25 @@ TEST(Point3, AtMethods) {
 
 TEST(Point3, BasicGetterMethods) {
     Point3F pt(3.f, 7.f, -1.f), pt2(-3.f, -7.f, 1.f);
-
+    
     float sum = pt.sum();
     EXPECT_FLOAT_EQ(9.f, sum);
-
+    
     float min = pt.min();
     EXPECT_FLOAT_EQ(-1.f, min);
-
+    
     float max = pt.max();
     EXPECT_FLOAT_EQ(7.f, max);
-
+    
     float absmin = pt2.absmin();
     EXPECT_FLOAT_EQ(1.f, absmin);
-
+    
     float absmax = pt2.absmax();
     EXPECT_FLOAT_EQ(-7.f, absmax);
-
+    
     size_t daxis = pt.dominantAxis();
     EXPECT_EQ((size_t)1, daxis);
-
+    
     size_t saxis = pt.subminantAxis();
     EXPECT_EQ((size_t)2, saxis);
 }
@@ -223,7 +223,7 @@ TEST(Point3, BracketOperators) {
     EXPECT_FLOAT_EQ(8.f, pt[0]);
     EXPECT_FLOAT_EQ(9.f, pt[1]);
     EXPECT_FLOAT_EQ(1.f, pt[2]);
-
+    
     pt[0] = 7.f;
     pt[1] = 6.f;
     pt[2] = 5.f;
@@ -247,37 +247,37 @@ TEST(Point3, AugmentedOperators) {
     EXPECT_FLOAT_EQ(7.f, pt.x);
     EXPECT_FLOAT_EQ(13.f, pt.y);
     EXPECT_FLOAT_EQ(2.f, pt.z);
-
-    pt += Point3F(-2.f, 1.f, 5.f);
+    
+    pt += Vector3F(-2.f, 1.f, 5.f);
     EXPECT_FLOAT_EQ(5.f, pt.x);
     EXPECT_FLOAT_EQ(14.f, pt.y);
     EXPECT_FLOAT_EQ(7.f, pt.z);
-
+    
     pt -= 8.f;
     EXPECT_FLOAT_EQ(-3.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
     EXPECT_FLOAT_EQ(-1.f, pt.z);
-
-    pt -= Point3F(-5.f, 3.f, -6.f);
+    
+    pt -= Vector3F(-5.f, 3.f, -6.f);
     EXPECT_FLOAT_EQ(2.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
     EXPECT_FLOAT_EQ(5.f, pt.z);
-
+    
     pt *= 2.f;
     EXPECT_FLOAT_EQ(4.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
     EXPECT_FLOAT_EQ(10.f, pt.z);
-
+    
     pt *= Point3F(3.f, -2.f, 0.4f);
     EXPECT_FLOAT_EQ(12.f, pt.x);
     EXPECT_FLOAT_EQ(-12.f, pt.y);
     EXPECT_FLOAT_EQ(4.f, pt.z);
-
+    
     pt /= 4.f;
     EXPECT_FLOAT_EQ(3.f, pt.x);
     EXPECT_FLOAT_EQ(-3.f, pt.y);
     EXPECT_FLOAT_EQ(1.f, pt.z);
-
+    
     pt /= Point3F(3.f, -1.f, 2.f);
     EXPECT_FLOAT_EQ(1.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
@@ -313,7 +313,7 @@ TEST(Point3, CeilFloorFunctions) {
     Point3F pt(2.2f, 4.7f, -0.2f);
     Point3F ceilVec = ceil(pt);
     EXPECT_TRUE(ceilVec == Point3F(3.f, 5.f, 0.f));
-
+    
     Point3F floorVec = floor(pt);
     EXPECT_TRUE(floorVec == Point3F(2.f, 4.f, -1.f));
 }
@@ -324,39 +324,49 @@ TEST(Point3, BinaryOperators) {
     EXPECT_FLOAT_EQ(7.f, pt.x);
     EXPECT_FLOAT_EQ(13.f,pt.y);
     EXPECT_FLOAT_EQ(8.f, pt.z);
-
-    pt = pt + Point3F(-2.f, 1.f, 5.f);
+    
+    pt = pt + Vector3F(-2.f, 1.f, 5.f);
     EXPECT_FLOAT_EQ(5.f, pt.x);
     EXPECT_FLOAT_EQ(14.f, pt.y);
     EXPECT_FLOAT_EQ(13.f, pt.z);
-
+    
     pt = pt - 8.f;
     EXPECT_FLOAT_EQ(-3.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
     EXPECT_FLOAT_EQ(5.f, pt.z);
-
-    pt = pt - Point3F(-5.f, 3.f, 12.f);
+    
+    pt = pt - Vector3F(-5.f, 3.f, 12.f);
     EXPECT_FLOAT_EQ(2.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
     EXPECT_FLOAT_EQ(-7.f, pt.z);
-
+    
     pt = pt * 2.f;
     EXPECT_FLOAT_EQ(4.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
     EXPECT_FLOAT_EQ(-14.f, pt.z);
-
+    
     pt = pt * Point3F(3.f, -2.f, 0.5f);
     EXPECT_FLOAT_EQ(12.f, pt.x);
     EXPECT_FLOAT_EQ(-12.f, pt.y);
     EXPECT_FLOAT_EQ(-7.f, pt.z);
-
+    
     pt = pt / 4.f;
     EXPECT_FLOAT_EQ(3.f, pt.x);
     EXPECT_FLOAT_EQ(-3.f, pt.y);
     EXPECT_FLOAT_EQ(-1.75f, pt.z);
-
+    
     pt = pt / Point3F(3.f, -1.f, 0.25f);
     EXPECT_FLOAT_EQ(1.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
     EXPECT_FLOAT_EQ(-7.f, pt.z);
+    
+    Point3D v = Point3D(2.0, 1.0, 3.0);
+    Vector3D normal = Vector3D(1.0, 1.0, 1.0).normalized();
+    
+    Point3D reflected = v.reflected(normal);
+    Point3D reflectedAnswer = Point3D(-2.0, -3.0, -1.0);
+    EXPECT_NEAR(reflected.distanceTo(reflectedAnswer), 0.0, 1e-9);
+    
+    Point3D projected = v.projected(normal);
+    EXPECT_NEAR(projected.dot(normal), 0.0, 1e-9);
 }

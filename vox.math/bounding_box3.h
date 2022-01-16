@@ -10,6 +10,7 @@
 #include "bounding_box.h"
 #include "ray3.h"
 #include "vector3.h"
+#include "point3.h"
 #include "matrix4x4.h"
 #include <limits>
 
@@ -41,16 +42,16 @@ template <typename T>
 class BoundingBox<T, 3> {
 public:
     //! Lower corner of the bounding box.
-    Vector3<T> lowerCorner;
+    Point3<T> lowerCorner;
     
     //! Upper corner of the bounding box.
-    Vector3<T> upperCorner;
+    Point3<T> upperCorner;
     
     //! Default constructor.
     BoundingBox();
     
     //! Constructs a box that tightly covers two points.
-    BoundingBox(const Vector3<T>& point1, const Vector3<T>& point2);
+    BoundingBox(const Point3<T>& point1, const Point3<T>& point2);
     
     //! Constructs a box with other box instance.
     BoundingBox(const BoundingBox& other);
@@ -71,7 +72,7 @@ public:
     bool overlaps(const BoundingBox& other) const;
     
     //! Returns true if the input vector is inside of this box.
-    bool contains(const Vector3<T>& point) const;
+    bool contains(const Point3<T>& point) const;
     
     //! Returns true if the input ray is intersecting with this box.
     bool intersects(const Ray3<T>& ray) const;
@@ -83,7 +84,7 @@ public:
     BoundingBoxRayIntersection3<T> closestIntersection(const Ray3<T>& ray) const;
     
     //! Returns the mid-point of this box.
-    Vector3<T> midPoint() const;
+    Point3<T> midPoint() const;
     
     //! Returns diagonal length of this box.
     T diagonalLength() const;
@@ -95,7 +96,7 @@ public:
     void reset();
     
     //! Merges this and other point.
-    void merge(const Vector3<T>& point);
+    void merge(const Point3<T>& point);
     
     //! Merges this and other box.
     void merge(const BoundingBox& other);
@@ -118,11 +119,17 @@ public:
      */
     BoundingBox<T, 3> transform(Matrix<T, 4, 4> matrix) const;
     
+    /**
+     * Get the extent of this bounding box.
+     * @returns The extent of this bounding box
+     */
+    Vector3<T> extent() const;
+    
     //! Returns corner position. Index starts from x-first order.
-    Vector3<T> corner(size_t idx) const;
+    Point3<T> corner(size_t idx) const;
     
     //! Returns the clamped point.
-    Vector3<T> clamp(const Vector3<T>& point) const;
+    Point3<T> clamp(const Point3<T>& point) const;
     
     //! Returns true if the box is empty.
     bool isEmpty() const;

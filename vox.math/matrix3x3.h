@@ -9,6 +9,7 @@
 
 #include "matrix.h"
 #include "vector3.h"
+#include "point3.h"
 
 #include <array>
 #include <limits>
@@ -158,6 +159,9 @@ class Matrix<T, 3, 3> {
     //! Returns this matrix * input scalar.
     Matrix mul(T s) const;
 
+    //! Returns this matrix * input vector.
+    Point3<T> mul(const Point3<T>& v) const;
+    
     //! Returns this matrix * input vector.
     Vector3<T> mul(const Vector3<T>& v) const;
 
@@ -378,6 +382,10 @@ Matrix3x3<T> operator*(const Matrix3x3<T>& a, T b);
 //! Returns a' * b, where every element of matrix a' is a.
 template <typename T>
 Matrix3x3<T> operator*(T a, const Matrix3x3<T>& b);
+
+//! Returns a * b.
+template <typename T>
+Point3<T> operator*(const Matrix3x3<T>& a, const Point3<T>& b);
 
 //! Returns a * b.
 template <typename T>

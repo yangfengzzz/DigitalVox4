@@ -19,8 +19,8 @@ BoundingBox<T, 3>::BoundingBox() {
 }
 
 template <typename T>
-BoundingBox<T, 3>::BoundingBox(const Vector3<T>& point1,
-                               const Vector3<T>& point2) {
+BoundingBox<T, 3>::BoundingBox(const Point3<T>& point1,
+                               const Point3<T>& point2) {
     lowerCorner.x = std::min(point1.x, point2.x);
     lowerCorner.y = std::min(point1.y, point2.y);
     lowerCorner.z = std::min(point1.z, point2.z);
@@ -74,7 +74,7 @@ bool BoundingBox<T, 3>::overlaps(const BoundingBox& other) const {
 }
 
 template <typename T>
-bool BoundingBox<T, 3>::contains(const Vector3<T>& point) const {
+bool BoundingBox<T, 3>::contains(const Point3<T>& point) const {
     if (upperCorner.x < point.x || lowerCorner.x > point.x) {
         return false;
     }
@@ -146,8 +146,12 @@ BoundingBoxRayIntersection3<T> BoundingBox<T, 3>::closestIntersection(const Ray3
 }
 
 template <typename T>
-Vector3<T> BoundingBox<T, 3>::midPoint() const {
-    return (upperCorner + lowerCorner) / static_cast<T>(2);
+Point3<T> BoundingBox<T, 3>::midPoint() const {
+    Vector3<T> temp = upperCorner + lowerCorner;
+    
+    return Point3<T>(temp.x / static_cast<T>(2),
+                     temp.y / static_cast<T>(2),
+                     temp.z / static_cast<T>(2));
 }
 
 template <typename T>
@@ -171,7 +175,7 @@ void BoundingBox<T, 3>::reset() {
 }
 
 template <typename T>
-void BoundingBox<T, 3>::merge(const Vector3<T>& point) {
+void BoundingBox<T, 3>::merge(const Point3<T>& point) {
     lowerCorner.x = std::min(lowerCorner.x, point.x);
     lowerCorner.y = std::min(lowerCorner.y, point.y);
     lowerCorner.z = std::min(lowerCorner.z, point.z);
@@ -197,17 +201,43 @@ void BoundingBox<T, 3>::expand(T delta) {
 }
 
 template <typename T>
-Vector3<T> BoundingBox<T, 3>::corner(size_t idx) const {
+void BoundingBox<T, 3>::transform(Matrix<T, 4, 4> matrix) {
+    auto temp = midPoint();
+    Point3<T> center(temp.x, temp.y, temp.z);
+    Vector3<T> extent = extent();
+    center = matrix * center;
+
+    extent.x = std::abs(extent.x * matrix[0]) + std::abs(extent.y * matrix[4]) + std::abs(extent.z * matrix[8]);
+    extent.y = std::abs(extent.x * matrix[1]) + std::abs(extent.y * matrix[5]) + std::abs(extent.z * matrix[9]);
+    extent.z = std::abs(extent.x * matrix[2]) + std::abs(extent.y * matrix[6]) + std::abs(extent.z * matrix[10]);
+
+    // set min、max
+    lowerCorner = center - extent;
+    upperCorner = center + extent;
+}
+
+template <typename T>
+BoundingBox<T, 3> BoundingBox<T, 3>::transform(Matrix<T, 4, 4> matrix) const {
+    
+}
+
+template <typename T>
+Vector3<T> BoundingBox<T, 3>::extent() const {
+    return (upperCorner - lowerCorner) * 0.5;
+}
+
+template <typename T>
+Point3<T> BoundingBox<T, 3>::corner(size_t idx) const {
     static const T h = static_cast<T>(1) / 2;
     static const Vector3<T> offset[8] = {
         {-h, -h, -h}, {+h, -h, -h}, {-h, +h, -h}, {+h, +h, -h},
         {-h, -h, +h}, {+h, -h, +h}, {-h, +h, +h}, {+h, +h, +h}};
     
-    return Vector3<T>(width(), height(), depth()) * offset[idx] + midPoint();
+    return midPoint() + Vector3<T>(width(), height(), depth()) * offset[idx];
 }
 
 template <typename T>
-Vector3<T> BoundingBox<T, 3>::clamp(const Vector3<T>& pt) const {
+Point3<T> BoundingBox<T, 3>::clamp(const Point3<T>& pt) const {
     return ::vox::clamp(pt, lowerCorner, upperCorner);
 }
 

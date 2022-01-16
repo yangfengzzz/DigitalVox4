@@ -38,7 +38,7 @@ class Transform3 {
     void setOrientation(const QuaternionD& orientation);
 
     //! Transforms a point in world coordinate to the local frame.
-    Vector3D toLocal(const Vector3D& pointInWorld) const;
+    Point3D toLocal(const Point3D& pointInWorld) const;
 
     //! Transforms a direction in world coordinate to the local frame.
     Vector3D toLocalDirection(const Vector3D& dirInWorld) const;
@@ -50,7 +50,7 @@ class Transform3 {
     BoundingBox3D toLocal(const BoundingBox3D& bboxInWorld) const;
 
     //! Transforms a point in local space to the world coordinate.
-    Vector3D toWorld(const Vector3D& pointInLocal) const;
+    Point3D toWorld(const Point3D& pointInLocal) const;
 
     //! Transforms a direction in local space to the world coordinate.
     Vector3D toWorldDirection(const Vector3D& dirInLocal) const;

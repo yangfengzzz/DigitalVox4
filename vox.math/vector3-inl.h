@@ -283,28 +283,6 @@ T Vector<T, 3>::lengthSquared() const {
 }
 
 template <typename T>
-T Vector<T, 3>::distanceTo(const Vector<T, 3>& other) const {
-    return sub(other).length();
-}
-
-template <typename T>
-T Vector<T, 3>::distanceSquaredTo(const Vector<T, 3>& other) const {
-    return sub(other).lengthSquared();
-}
-
-template <typename T>
-Vector<T, 3> Vector<T, 3>::reflected(const Vector<T, 3>& normal) const {
-    // this - 2(this.n)n
-    return sub(normal.mul(2 * dot(normal)));
-}
-
-template <typename T>
-Vector<T, 3> Vector<T, 3>::projected(const Vector<T, 3>& normal) const {
-    // this - this.n n
-    return sub(normal.mul(dot(normal)));
-}
-
-template <typename T>
 std::tuple<Vector<T, 3>, Vector<T, 3>> Vector<T, 3>::tangential() const {
     Vector<T, 3> a =
         ((std::fabs(y) > 0 || std::fabs(z) > 0) ? Vector<T, 3>(1, 0, 0)

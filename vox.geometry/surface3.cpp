@@ -20,7 +20,7 @@ Surface3::Surface3(const Surface3& other)
 
 Surface3::~Surface3() {}
 
-Vector3D Surface3::closestPoint(const Vector3D& otherPoint) const {
+Point3D Surface3::closestPoint(const Point3D& otherPoint) const {
     return transform.toWorld(closestPointLocal(transform.toLocal(otherPoint)));
 }
 
@@ -32,7 +32,7 @@ bool Surface3::intersects(const Ray3D& ray) const {
     return intersectsLocal(transform.toLocal(ray));
 }
 
-double Surface3::closestDistance(const Vector3D& otherPoint) const {
+double Surface3::closestDistance(const Point3D& otherPoint) const {
     return closestDistanceLocal(transform.toLocal(otherPoint));
 }
 
@@ -44,7 +44,7 @@ SurfaceRayIntersection3 Surface3::closestIntersection(const Ray3D& ray) const {
     return result;
 }
 
-Vector3D Surface3::closestNormal(const Vector3D& otherPoint) const {
+Vector3D Surface3::closestNormal(const Point3D& otherPoint) const {
     auto result = transform.toWorldDirection(
         closestNormalLocal(transform.toLocal(otherPoint)));
     result *= (isNormalFlipped) ? -1.0 : 1.0;
@@ -64,16 +64,16 @@ bool Surface3::isBounded() const { return true; }
 
 bool Surface3::isValidGeometry() const { return true; }
 
-bool Surface3::isInside(const Vector3D& otherPoint) const {
+bool Surface3::isInside(const Point3D& otherPoint) const {
     return isNormalFlipped == !isInsideLocal(transform.toLocal(otherPoint));
 }
 
-double Surface3::closestDistanceLocal(const Vector3D& otherPointLocal) const {
+double Surface3::closestDistanceLocal(const Point3D& otherPointLocal) const {
     return otherPointLocal.distanceTo(closestPointLocal(otherPointLocal));
 }
 
-bool Surface3::isInsideLocal(const Vector3D& otherPointLocal) const {
-    Vector3D cpLocal = closestPointLocal(otherPointLocal);
+bool Surface3::isInsideLocal(const Point3D& otherPointLocal) const {
+    Point3D cpLocal = closestPointLocal(otherPointLocal);
     Vector3D normalLocal = closestNormalLocal(otherPointLocal);
     return (otherPointLocal - cpLocal).dot(normalLocal) < 0.0;
 }
