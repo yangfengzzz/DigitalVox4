@@ -68,7 +68,6 @@ void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.setDepthStencilState(m_forwardDepthStencilState);
     commandEncoder.setStencilReferenceValue(128);
     commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
     
     drawMeshes(commandEncoder);
     commandEncoder.popDebugGroup();

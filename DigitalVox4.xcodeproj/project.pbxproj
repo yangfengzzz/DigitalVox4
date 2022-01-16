@@ -324,6 +324,7 @@
 		0445942A2793134C00F04CE0 /* forward_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594282793134C00F04CE0 /* forward_subpass.cpp */; };
 		0445942B2793134C00F04CE0 /* forward_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594292793134C00F04CE0 /* forward_subpass.h */; };
 		0445942D279397C500F04CE0 /* forward.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445942C279397C500F04CE0 /* forward.metal */; };
+		044594302793A5D800F04CE0 /* forward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942E2793A5D800F04CE0 /* forward.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -739,6 +740,8 @@
 		044594282793134C00F04CE0 /* forward_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = forward_subpass.cpp; sourceTree = "<group>"; };
 		044594292793134C00F04CE0 /* forward_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forward_subpass.h; sourceTree = "<group>"; };
 		0445942C279397C500F04CE0 /* forward.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = forward.metal; sourceTree = "<group>"; };
+		0445942E2793A5D800F04CE0 /* forward.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = forward.cpp; sourceTree = "<group>"; };
+		0445942F2793A5D800F04CE0 /* forward.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forward.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1306,6 +1309,8 @@
 				044593B92790055100F04CE0 /* main.cpp */,
 				044593ED2791213E00F04CE0 /* deferred.h */,
 				044593EC2791213E00F04CE0 /* deferred.cpp */,
+				0445942F2793A5D800F04CE0 /* forward.h */,
+				0445942E2793A5D800F04CE0 /* forward.cpp */,
 			);
 			path = apps;
 			sourceTree = "<group>";
@@ -1895,6 +1900,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044594302793A5D800F04CE0 /* forward.cpp in Sources */,
 				044593EE2791213E00F04CE0 /* deferred.cpp in Sources */,
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
 			);

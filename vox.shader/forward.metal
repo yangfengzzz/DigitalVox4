@@ -29,15 +29,12 @@ struct DescriptorDefinedVertex {
 struct ColorInOut {
     float4 position [[position]];
     float2 tex_coord;
-    float2 shadow_uv;
-    half   shadow_depth;
-    float3 eye_position;
     half3  tangent;
     half3  bitangent;
     half3  normal;
 };
 
-vertex ColorInOut forward_vertex(DescriptorDefinedVertex in    [[ stage_in ]],
+vertex ColorInOut forward_vertex(DescriptorDefinedVertex in [[ stage_in ]],
                                  constant FrameData &frameData [[ buffer(BufferIndexFrameData) ]]) {
     ColorInOut out;
     
@@ -47,17 +44,8 @@ vertex ColorInOut forward_vertex(DescriptorDefinedVertex in    [[ stage_in ]],
     out.position = frameData.projection_matrix * eye_position;
     out.tex_coord = float2(in.tex_coord.x, 1-in.tex_coord.y);
     
-#if USE_EYE_DEPTH
-    out.eye_position = eye_position.xyz;
-#endif
-    
     // Rotate tangents, bitangents, and normals by the normal matrix
     half3x3 normalMatrix = half3x3(frameData.temple_normal_matrix);
-    
-    float3 shadow_coord = (frameData.shadow_mvp_xform_matrix * model_position ).xyz;
-    out.shadow_uv = shadow_coord.xy;
-    out.shadow_depth = half(shadow_coord.z);
-    
     // Calculate tangent, bitangent and normal in eye's space
     out.tangent = normalize(normalMatrix * in.tangent);
     out.bitangent = -normalize(normalMatrix * in.bitangent);
@@ -66,12 +54,10 @@ vertex ColorInOut forward_vertex(DescriptorDefinedVertex in    [[ stage_in ]],
     return out;
 }
 
-fragment half4 forward_fragment(ColorInOut               in           [[ stage_in ]],
-                                constant FrameData & frameData    [[ buffer(BufferIndexFrameData) ]],
-                                texture2d<half>          baseColorMap [[ texture(TextureIndexBaseColor) ]],
-                                texture2d<half>          normalMap    [[ texture(TextureIndexNormal) ]],
-                                texture2d<half>          specularMap  [[ texture(TextureIndexSpecular) ]],
-                                depth2d<float>           shadowMap    [[ texture(TextureIndexShadow) ]]) {
+fragment half4 forward_fragment(ColorInOut in [[ stage_in ]],
+                                texture2d<half> baseColorMap [[ texture(TextureIndexBaseColor) ]],
+                                texture2d<half> normalMap [[ texture(TextureIndexNormal) ]],
+                                texture2d<half> specularMap [[ texture(TextureIndexSpecular) ]]) {
     constexpr sampler linearSampler(mip_filter::linear,
                                     mag_filter::linear,
                                     min_filter::linear);
