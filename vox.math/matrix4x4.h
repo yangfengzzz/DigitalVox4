@@ -305,6 +305,47 @@ class Matrix<T, 4, 4> {
 
     //! Returns inverse matrix.
     Matrix inverse() const;
+    
+    /**
+     * The specified matrix rotates around an arbitrary axis.
+     * @param axis - The axis
+     * @param r - The rotation angle in radians
+     * @return The rotated matrix
+     */
+    Matrix rotateAxisAngle(const Vector3<T>& axis, T r) const;
+    
+    /**
+     * This matrix rotates around an arbitrary axis.
+     * @param axis - The axis
+     * @param r - The rotation angle in radians
+     */
+    void rotateAxisAngle(const Vector3<T>& axis, T r);
+    
+    /**
+     * Scale a matrix by a given vector.
+     * @param s - The given vector
+     * @return The scaled matrix
+     */
+    Matrix scale(const Vector3<T>& s) const;
+    
+    /**
+     * Scale this matrix by a given vector.
+     * @param s - The given vector
+     */
+    void scale(const Vector3<T>& s);
+    
+    /**
+     * Translate a matrix by a given vector.
+     * @param v - The given vector
+     * @return The translated matrix
+     */
+    Matrix translate(const Vector3<T>& v) const;
+    
+    /**
+     * Translate this matrix by a given vector.
+     * @param v - The given vector
+     */
+    void translate(const Vector3<T>& v);
 
     template <typename U>
     Matrix<U, 4, 4> castTo() const;
