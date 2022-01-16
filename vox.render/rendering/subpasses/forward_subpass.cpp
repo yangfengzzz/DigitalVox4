@@ -24,8 +24,8 @@ Subpass(desc, m_device, scene) {
     CFErrorRef error = nullptr;
     
     {
-        MTL::Function forwardVertexFunction = shaderLibrary.makeFunction("gbuffer_vertex");
-        MTL::Function forwardFragmentFunction = shaderLibrary.makeFunction("gbuffer_fragment");
+        MTL::Function forwardVertexFunction = shaderLibrary.makeFunction("forward_vertex");
+        MTL::Function forwardFragmentFunction = shaderLibrary.makeFunction("forward_fragment");
         
         m_forwardPipelineDescriptor.label("G-buffer Creation");
         m_forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(colorPixelFormat);

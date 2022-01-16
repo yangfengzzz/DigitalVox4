@@ -323,6 +323,7 @@
 		044594272792B8B000F04CE0 /* resource_cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594252792B8B000F04CE0 /* resource_cache.h */; };
 		0445942A2793134C00F04CE0 /* forward_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594282793134C00F04CE0 /* forward_subpass.cpp */; };
 		0445942B2793134C00F04CE0 /* forward_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594292793134C00F04CE0 /* forward_subpass.h */; };
+		0445942D279397C500F04CE0 /* forward.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445942C279397C500F04CE0 /* forward.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -737,6 +738,7 @@
 		044594252792B8B000F04CE0 /* resource_cache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource_cache.h; sourceTree = "<group>"; };
 		044594282793134C00F04CE0 /* forward_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = forward_subpass.cpp; sourceTree = "<group>"; };
 		044594292793134C00F04CE0 /* forward_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forward_subpass.h; sourceTree = "<group>"; };
+		0445942C279397C500F04CE0 /* forward.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = forward.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1292,6 +1294,7 @@
 				04459397278FFF6E00F04CE0 /* point_lights.metal */,
 				04459392278FFF6E00F04CE0 /* directional_light.metal */,
 				04459394278FFF6E00F04CE0 /* skybox.metal */,
+				0445942C279397C500F04CE0 /* forward.metal */,
 			);
 			path = vox.shader;
 			sourceTree = "<group>";
@@ -1883,6 +1886,7 @@
 				044593B0279002D500F04CE0 /* point_lights.metal in Sources */,
 				044593AE279002D500F04CE0 /* directional_light.metal in Sources */,
 				044593AD279002D500F04CE0 /* fairy.metal in Sources */,
+				0445942D279397C500F04CE0 /* forward.metal in Sources */,
 				044593B1279002D500F04CE0 /* shadow.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
