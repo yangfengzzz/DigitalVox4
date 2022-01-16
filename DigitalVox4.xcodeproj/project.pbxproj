@@ -53,45 +53,6 @@
 		042295BA278C33090090983F /* CPPMetalInternalMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 042295B7278C33080090983F /* CPPMetalInternalMacros.h */; };
 		04229696278D71760090983F /* surface3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229692278D71760090983F /* surface3.h */; };
 		04229697278D71760090983F /* surface2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229693278D71760090983F /* surface2.h */; };
-		042296D3278DAE7B0090983F /* ImathLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296AA278DAE790090983F /* ImathLine.h */; };
-		042296D4278DAE7B0090983F /* ImathMatrixAlgo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042296AB278DAE790090983F /* ImathMatrixAlgo.cpp */; };
-		042296D5278DAE7B0090983F /* ImathNamespace.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296AC278DAE790090983F /* ImathNamespace.h */; };
-		042296D6278DAE7B0090983F /* ImathInt64.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296AD278DAE7A0090983F /* ImathInt64.h */; };
-		042296D7278DAE7B0090983F /* ImathRightHand.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296AE278DAE7A0090983F /* ImathRightHand.h */; };
-		042296D8278DAE7C0090983F /* ImathTypeTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296AF278DAE7A0090983F /* ImathTypeTraits.h */; };
-		042296D9278DAE7C0090983F /* ImathSphere.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296B0278DAE7A0090983F /* ImathSphere.h */; };
-		042296DA278DAE7C0090983F /* ImathRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042296B1278DAE7A0090983F /* ImathRandom.cpp */; };
-		042296DB278DAE7C0090983F /* ImathVec.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296B2278DAE7A0090983F /* ImathVec.h */; };
-		042296DC278DAE7C0090983F /* ImathRandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296B3278DAE7A0090983F /* ImathRandom.h */; };
-		042296DD278DAE7C0090983F /* ImathBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296B4278DAE7A0090983F /* ImathBox.h */; };
-		042296DE278DAE7C0090983F /* ImathLineAlgo.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296B5278DAE7A0090983F /* ImathLineAlgo.h */; };
-		042296DF278DAE7C0090983F /* ImathInterval.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296B6278DAE7A0090983F /* ImathInterval.h */; };
-		042296E0278DAE7C0090983F /* ImathForward.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296B7278DAE7A0090983F /* ImathForward.h */; };
-		042296E1278DAE7C0090983F /* ImathExport.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296B8278DAE7A0090983F /* ImathExport.h */; };
-		042296E2278DAE7C0090983F /* ImathFrustumTest.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296B9278DAE7A0090983F /* ImathFrustumTest.h */; };
-		042296E3278DAE7C0090983F /* ImathFrustum.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296BA278DAE7A0090983F /* ImathFrustum.h */; };
-		042296E4278DAE7C0090983F /* ImathColorAlgo.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296BB278DAE7A0090983F /* ImathColorAlgo.h */; };
-		042296E5278DAE7C0090983F /* ImathShear.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296BC278DAE7A0090983F /* ImathShear.h */; };
-		042296E7278DAE7C0090983F /* ImathPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296BE278DAE7A0090983F /* ImathPlatform.h */; };
-		042296E9278DAE7C0090983F /* ImathColorAlgo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042296C0278DAE7A0090983F /* ImathColorAlgo.cpp */; };
-		042296EA278DAE7C0090983F /* halfFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296C1278DAE7B0090983F /* halfFunction.h */; };
-		042296EB278DAE7C0090983F /* ImathBoxAlgo.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296C2278DAE7B0090983F /* ImathBoxAlgo.h */; };
-		042296EC278DAE7C0090983F /* ImathFun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042296C3278DAE7B0090983F /* ImathFun.cpp */; };
-		042296ED278DAE7C0090983F /* ImathFun.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296C4278DAE7B0090983F /* ImathFun.h */; };
-		042296EE278DAE7C0090983F /* half.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 042296C5278DAE7B0090983F /* half.cpp */; };
-		042296EF278DAE7C0090983F /* half.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296C6278DAE7B0090983F /* half.h */; };
-		042296F0278DAE7C0090983F /* ImathPlane.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296C7278DAE7B0090983F /* ImathPlane.h */; };
-		042296F1278DAE7C0090983F /* ImathQuat.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296C8278DAE7B0090983F /* ImathQuat.h */; };
-		042296F2278DAE7C0090983F /* ImathFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296C9278DAE7B0090983F /* ImathFrame.h */; };
-		042296F3278DAE7C0090983F /* ImathColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296CA278DAE7B0090983F /* ImathColor.h */; };
-		042296F4278DAE7C0090983F /* ImathMatrixAlgo.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296CB278DAE7B0090983F /* ImathMatrixAlgo.h */; };
-		042296F5278DAE7C0090983F /* halfLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296CC278DAE7B0090983F /* halfLimits.h */; };
-		042296F6278DAE7C0090983F /* ImathRoots.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296CD278DAE7B0090983F /* ImathRoots.h */; };
-		042296F7278DAE7C0090983F /* ImathVecAlgo.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296CE278DAE7B0090983F /* ImathVecAlgo.h */; };
-		042296F9278DAE7C0090983F /* ImathMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296D0278DAE7B0090983F /* ImathMath.h */; };
-		042296FA278DAE7C0090983F /* ImathEuler.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296D1278DAE7B0090983F /* ImathEuler.h */; };
-		042296FB278DAE7C0090983F /* ImathMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296D2278DAE7B0090983F /* ImathMatrix.h */; };
-		042296FD278DAEB40090983F /* ImathConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 042296FC278DAEB40090983F /* ImathConfig.h */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -514,45 +475,6 @@
 		04229694278D71760090983F /* surface2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface2.cpp; sourceTree = "<group>"; };
 		04229695278D71760090983F /* surface3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface3.cpp; sourceTree = "<group>"; };
 		0422969F278DAE4E0090983F /* libvox.math.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.math.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		042296AA278DAE790090983F /* ImathLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathLine.h; sourceTree = "<group>"; };
-		042296AB278DAE790090983F /* ImathMatrixAlgo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImathMatrixAlgo.cpp; sourceTree = "<group>"; };
-		042296AC278DAE790090983F /* ImathNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathNamespace.h; sourceTree = "<group>"; };
-		042296AD278DAE7A0090983F /* ImathInt64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathInt64.h; sourceTree = "<group>"; };
-		042296AE278DAE7A0090983F /* ImathRightHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathRightHand.h; sourceTree = "<group>"; };
-		042296AF278DAE7A0090983F /* ImathTypeTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathTypeTraits.h; sourceTree = "<group>"; };
-		042296B0278DAE7A0090983F /* ImathSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathSphere.h; sourceTree = "<group>"; };
-		042296B1278DAE7A0090983F /* ImathRandom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImathRandom.cpp; sourceTree = "<group>"; };
-		042296B2278DAE7A0090983F /* ImathVec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathVec.h; sourceTree = "<group>"; };
-		042296B3278DAE7A0090983F /* ImathRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathRandom.h; sourceTree = "<group>"; };
-		042296B4278DAE7A0090983F /* ImathBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathBox.h; sourceTree = "<group>"; };
-		042296B5278DAE7A0090983F /* ImathLineAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathLineAlgo.h; sourceTree = "<group>"; };
-		042296B6278DAE7A0090983F /* ImathInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathInterval.h; sourceTree = "<group>"; };
-		042296B7278DAE7A0090983F /* ImathForward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathForward.h; sourceTree = "<group>"; };
-		042296B8278DAE7A0090983F /* ImathExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathExport.h; sourceTree = "<group>"; };
-		042296B9278DAE7A0090983F /* ImathFrustumTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathFrustumTest.h; sourceTree = "<group>"; };
-		042296BA278DAE7A0090983F /* ImathFrustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathFrustum.h; sourceTree = "<group>"; };
-		042296BB278DAE7A0090983F /* ImathColorAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathColorAlgo.h; sourceTree = "<group>"; };
-		042296BC278DAE7A0090983F /* ImathShear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathShear.h; sourceTree = "<group>"; };
-		042296BE278DAE7A0090983F /* ImathPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathPlatform.h; sourceTree = "<group>"; };
-		042296C0278DAE7A0090983F /* ImathColorAlgo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImathColorAlgo.cpp; sourceTree = "<group>"; };
-		042296C1278DAE7B0090983F /* halfFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = halfFunction.h; sourceTree = "<group>"; };
-		042296C2278DAE7B0090983F /* ImathBoxAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathBoxAlgo.h; sourceTree = "<group>"; };
-		042296C3278DAE7B0090983F /* ImathFun.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImathFun.cpp; sourceTree = "<group>"; };
-		042296C4278DAE7B0090983F /* ImathFun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathFun.h; sourceTree = "<group>"; };
-		042296C5278DAE7B0090983F /* half.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = half.cpp; sourceTree = "<group>"; };
-		042296C6278DAE7B0090983F /* half.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = half.h; sourceTree = "<group>"; };
-		042296C7278DAE7B0090983F /* ImathPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathPlane.h; sourceTree = "<group>"; };
-		042296C8278DAE7B0090983F /* ImathQuat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathQuat.h; sourceTree = "<group>"; };
-		042296C9278DAE7B0090983F /* ImathFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathFrame.h; sourceTree = "<group>"; };
-		042296CA278DAE7B0090983F /* ImathColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathColor.h; sourceTree = "<group>"; };
-		042296CB278DAE7B0090983F /* ImathMatrixAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathMatrixAlgo.h; sourceTree = "<group>"; };
-		042296CC278DAE7B0090983F /* halfLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = halfLimits.h; sourceTree = "<group>"; };
-		042296CD278DAE7B0090983F /* ImathRoots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathRoots.h; sourceTree = "<group>"; };
-		042296CE278DAE7B0090983F /* ImathVecAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathVecAlgo.h; sourceTree = "<group>"; };
-		042296D0278DAE7B0090983F /* ImathMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathMath.h; sourceTree = "<group>"; };
-		042296D1278DAE7B0090983F /* ImathEuler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathEuler.h; sourceTree = "<group>"; };
-		042296D2278DAE7B0090983F /* ImathMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathMatrix.h; sourceTree = "<group>"; };
-		042296FC278DAEB40090983F /* ImathConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImathConfig.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1185,45 +1107,6 @@
 				04229666278D689B0090983F /* ray3-inl.h */,
 				044592FE278F023A00F04CE0 /* spherical_harmonics3.h */,
 				044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */,
-				042296FC278DAEB40090983F /* ImathConfig.h */,
-				042296AC278DAE790090983F /* ImathNamespace.h */,
-				042296BE278DAE7A0090983F /* ImathPlatform.h */,
-				042296AF278DAE7A0090983F /* ImathTypeTraits.h */,
-				042296B8278DAE7A0090983F /* ImathExport.h */,
-				042296AD278DAE7A0090983F /* ImathInt64.h */,
-				042296B7278DAE7A0090983F /* ImathForward.h */,
-				042296D0278DAE7B0090983F /* ImathMath.h */,
-				042296C6278DAE7B0090983F /* half.h */,
-				042296C5278DAE7B0090983F /* half.cpp */,
-				042296CC278DAE7B0090983F /* halfLimits.h */,
-				042296C1278DAE7B0090983F /* halfFunction.h */,
-				042296C4278DAE7B0090983F /* ImathFun.h */,
-				042296C3278DAE7B0090983F /* ImathFun.cpp */,
-				042296B2278DAE7A0090983F /* ImathVec.h */,
-				042296CE278DAE7B0090983F /* ImathVecAlgo.h */,
-				042296D2278DAE7B0090983F /* ImathMatrix.h */,
-				042296CB278DAE7B0090983F /* ImathMatrixAlgo.h */,
-				042296AB278DAE790090983F /* ImathMatrixAlgo.cpp */,
-				042296CA278DAE7B0090983F /* ImathColor.h */,
-				042296C0278DAE7A0090983F /* ImathColorAlgo.cpp */,
-				042296BB278DAE7A0090983F /* ImathColorAlgo.h */,
-				042296D1278DAE7B0090983F /* ImathEuler.h */,
-				042296C8278DAE7B0090983F /* ImathQuat.h */,
-				042296AA278DAE790090983F /* ImathLine.h */,
-				042296B5278DAE7A0090983F /* ImathLineAlgo.h */,
-				042296B6278DAE7A0090983F /* ImathInterval.h */,
-				042296B4278DAE7A0090983F /* ImathBox.h */,
-				042296C2278DAE7B0090983F /* ImathBoxAlgo.h */,
-				042296B0278DAE7A0090983F /* ImathSphere.h */,
-				042296BA278DAE7A0090983F /* ImathFrustum.h */,
-				042296B9278DAE7A0090983F /* ImathFrustumTest.h */,
-				042296C9278DAE7B0090983F /* ImathFrame.h */,
-				042296C7278DAE7B0090983F /* ImathPlane.h */,
-				042296B3278DAE7A0090983F /* ImathRandom.h */,
-				042296B1278DAE7A0090983F /* ImathRandom.cpp */,
-				042296CD278DAE7B0090983F /* ImathRoots.h */,
-				042296BC278DAE7A0090983F /* ImathShear.h */,
-				042296AE278DAE7A0090983F /* ImathRightHand.h */,
 			);
 			path = vox.math;
 			sourceTree = "<group>";
@@ -1690,84 +1573,50 @@
 			buildActionMask = 2147483647;
 			files = (
 				044591B6278DB45D00F04CE0 /* ray2.h in Headers */,
-				042296E0278DAE7C0090983F /* ImathForward.h in Headers */,
 				044594622793B58800F04CE0 /* size2-inl.h in Headers */,
 				044591B5278DB45D00F04CE0 /* ray.h in Headers */,
 				0445946D2793B58800F04CE0 /* vector3.h in Headers */,
 				044594672793B58800F04CE0 /* matrix3x3.h in Headers */,
-				042296DB278DAE7C0090983F /* ImathVec.h in Headers */,
 				0445947A2793B58800F04CE0 /* vector_expression.h in Headers */,
-				042296F6278DAE7C0090983F /* ImathRoots.h in Headers */,
-				042296ED278DAE7C0090983F /* ImathFun.h in Headers */,
 				044594702793B58800F04CE0 /* vector3-inl.h in Headers */,
-				042296D6278DAE7B0090983F /* ImathInt64.h in Headers */,
 				044592FF278F023A00F04CE0 /* collision_utils.h in Headers */,
 				0445946E2793B58800F04CE0 /* size-inl.h in Headers */,
 				044594742793B58800F04CE0 /* vector.h in Headers */,
 				044594652793B58800F04CE0 /* vector4.h in Headers */,
 				044594782793B58800F04CE0 /* matrix_expression-inl.h in Headers */,
-				042296D8278DAE7C0090983F /* ImathTypeTraits.h in Headers */,
-				042296FA278DAE7C0090983F /* ImathEuler.h in Headers */,
 				044594752793B58800F04CE0 /* point3.h in Headers */,
-				042296F1278DAE7C0090983F /* ImathQuat.h in Headers */,
-				042296E1278DAE7C0090983F /* ImathExport.h in Headers */,
 				044594832793B7F000F04CE0 /* bounding_box-inl.h in Headers */,
-				042296EA278DAE7C0090983F /* halfFunction.h in Headers */,
 				044594662793B58800F04CE0 /* point3-inl.h in Headers */,
-				042296F2278DAE7C0090983F /* ImathFrame.h in Headers */,
 				0445945A2793B58800F04CE0 /* matrix4x4-inl.h in Headers */,
 				044594792793B58800F04CE0 /* matrix_expression.h in Headers */,
 				0445945B2793B58800F04CE0 /* point.h in Headers */,
-				042296E2278DAE7C0090983F /* ImathFrustumTest.h in Headers */,
-				042296F5278DAE7C0090983F /* halfLimits.h in Headers */,
 				044594692793B58800F04CE0 /* macros.h in Headers */,
-				042296F4278DAE7C0090983F /* ImathMatrixAlgo.h in Headers */,
-				042296E5278DAE7C0090983F /* ImathShear.h in Headers */,
 				044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */,
 				0445947E2793B58800F04CE0 /* matrix.h in Headers */,
 				04459304278F023A00F04CE0 /* spherical_harmonics3.h in Headers */,
 				044594722793B58800F04CE0 /* size3.h in Headers */,
 				0445945E2793B58800F04CE0 /* matrix2x2-inl.h in Headers */,
-				042296DD278DAE7C0090983F /* ImathBox.h in Headers */,
 				0445945F2793B58800F04CE0 /* point2.h in Headers */,
-				042296FD278DAEB40090983F /* ImathConfig.h in Headers */,
 				044594772793B58800F04CE0 /* vector-inl.h in Headers */,
-				042296F9278DAE7C0090983F /* ImathMath.h in Headers */,
-				042296EB278DAE7C0090983F /* ImathBoxAlgo.h in Headers */,
 				044594802793B58800F04CE0 /* functors-inl.h in Headers */,
-				042296F3278DAE7C0090983F /* ImathColor.h in Headers */,
 				044594612793B58800F04CE0 /* point-inl.h in Headers */,
 				0445946B2793B58800F04CE0 /* vector2-inl.h in Headers */,
-				042296D5278DAE7B0090983F /* ImathNamespace.h in Headers */,
-				042296D3278DAE7B0090983F /* ImathLine.h in Headers */,
-				042296F7278DAE7C0090983F /* ImathVecAlgo.h in Headers */,
 				04459300278F023A00F04CE0 /* bounding_frustum.h in Headers */,
 				044594762793B58800F04CE0 /* vector_expression-inl.h in Headers */,
 				044594632793B58800F04CE0 /* size3-inl.h in Headers */,
-				042296FB278DAE7C0090983F /* ImathMatrix.h in Headers */,
 				0445947C2793B58800F04CE0 /* matrix-inl.h in Headers */,
 				044594602793B58800F04CE0 /* matrix3x3-inl.h in Headers */,
 				044594592793B58800F04CE0 /* matrix2x2.h in Headers */,
 				0445947D2793B58800F04CE0 /* quaternion.h in Headers */,
-				042296F0278DAE7C0090983F /* ImathPlane.h in Headers */,
 				044594642793B58800F04CE0 /* vector2.h in Headers */,
 				0445945C2793B58800F04CE0 /* functors.h in Headers */,
 				044591B4278DB45D00F04CE0 /* ray2-inl.h in Headers */,
-				042296D7278DAE7B0090983F /* ImathRightHand.h in Headers */,
 				0445947B2793B58800F04CE0 /* quaternion-inl.h in Headers */,
-				042296EF278DAE7C0090983F /* half.h in Headers */,
-				042296E3278DAE7C0090983F /* ImathFrustum.h in Headers */,
 				0445946F2793B58800F04CE0 /* vector4-inl.h in Headers */,
-				042296E4278DAE7C0090983F /* ImathColorAlgo.h in Headers */,
-				042296E7278DAE7C0090983F /* ImathPlatform.h in Headers */,
 				0445946C2793B58800F04CE0 /* size.h in Headers */,
-				042296DF278DAE7C0090983F /* ImathInterval.h in Headers */,
 				044591B7278DB45D00F04CE0 /* ray3.h in Headers */,
 				044594842793B7F000F04CE0 /* type_helpers.h in Headers */,
 				0445946A2793B58800F04CE0 /* size2.h in Headers */,
-				042296DE278DAE7C0090983F /* ImathLineAlgo.h in Headers */,
-				042296D9278DAE7C0090983F /* ImathSphere.h in Headers */,
-				042296DC278DAE7C0090983F /* ImathRandom.h in Headers */,
 				044594682793B58800F04CE0 /* matrix4x4.h in Headers */,
 				0445945D2793B58800F04CE0 /* point2-inl.h in Headers */,
 			);
@@ -2090,11 +1939,6 @@
 			files = (
 				044594A727940B6D00F04CE0 /* collision_utils.cpp in Sources */,
 				044594A627940A3A00F04CE0 /* bounding_frustum.cpp in Sources */,
-				042296E9278DAE7C0090983F /* ImathColorAlgo.cpp in Sources */,
-				042296DA278DAE7C0090983F /* ImathRandom.cpp in Sources */,
-				042296EE278DAE7C0090983F /* half.cpp in Sources */,
-				042296D4278DAE7B0090983F /* ImathMatrixAlgo.cpp in Sources */,
-				042296EC278DAE7C0090983F /* ImathFun.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

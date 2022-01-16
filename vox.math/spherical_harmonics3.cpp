@@ -7,7 +7,7 @@
 
 #include "spherical_harmonics3.h"
 
-IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
+namespace vox {
 
 SphericalHarmonics3::SphericalHarmonics3() {}
 
@@ -18,7 +18,7 @@ const std::array<float, 27>& SphericalHarmonics3::coefficients() const {
     return _coefficients;
 }
 
-void SphericalHarmonics3::addLight(const V3f& direction, const Color4f& c, float deltaSolidAngle) {
+void SphericalHarmonics3::addLight(const Vector3F& direction, const Color4F& c, float deltaSolidAngle) {
     /**
      * Implements `EvalSHBasis` from [Projection from Cube maps] in http://www.ppsloan.org/publications/StupidSH36.pdf.
      *
@@ -62,7 +62,7 @@ void SphericalHarmonics3::addLight(const V3f& direction, const Color4f& c, float
     (coe[24] += color.r * bv8); (coe[25] += color.g * bv8); (coe[26] += color.b * bv8);
 }
 
-Color4f SphericalHarmonics3::operator()(const V3f& direction) {
+Color4F SphericalHarmonics3::operator()(const Vector3F& direction) {
     /**
      * Equations based on data from: http://ppsloan.org/publications/StupidSH36.pdf
      *
@@ -132,4 +132,4 @@ SphericalHarmonics3 SphericalHarmonics3::operator*(float s) {
     return SphericalHarmonics3(src);
 }
 
-IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
+}
