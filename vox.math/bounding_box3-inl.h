@@ -202,8 +202,7 @@ void BoundingBox<T, 3>::expand(T delta) {
 
 template <typename T>
 void BoundingBox<T, 3>::transform(Matrix<T, 4, 4> matrix) {
-    auto temp = midPoint();
-    Point3<T> center(temp.x, temp.y, temp.z);
+    Point3<T> center = midPoint();
     Vector3<T> extent = extent();
     center = matrix * center;
 
@@ -218,7 +217,16 @@ void BoundingBox<T, 3>::transform(Matrix<T, 4, 4> matrix) {
 
 template <typename T>
 BoundingBox<T, 3> BoundingBox<T, 3>::transform(Matrix<T, 4, 4> matrix) const {
-    
+    Point3<T> center = midPoint();
+    Vector3<T> extent = extent();
+    center = matrix * center;
+
+    extent.x = std::abs(extent.x * matrix[0]) + std::abs(extent.y * matrix[4]) + std::abs(extent.z * matrix[8]);
+    extent.y = std::abs(extent.x * matrix[1]) + std::abs(extent.y * matrix[5]) + std::abs(extent.z * matrix[9]);
+    extent.z = std::abs(extent.x * matrix[2]) + std::abs(extent.y * matrix[6]) + std::abs(extent.z * matrix[10]);
+
+    // set min、max
+    return BoundingBox<T, 3>(center - extent, center + extent);
 }
 
 template <typename T>

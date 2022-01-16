@@ -843,6 +843,9 @@
 		044594912793B98F00F04CE0 /* matrix2x2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix2x2_tests.cpp; sourceTree = "<group>"; };
 		044594922793B98F00F04CE0 /* matrix4x4_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix4x4_tests.cpp; sourceTree = "<group>"; };
 		044594A02793C44000F04CE0 /* matrix_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matrix_utils.h; sourceTree = "<group>"; };
+		044594A12793FEFB00F04CE0 /* plane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
+		044594A22793FF2800F04CE0 /* plane2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plane2.h; sourceTree = "<group>"; };
+		044594A32793FF3700F04CE0 /* plane2-inl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "plane2-inl.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1156,17 +1159,20 @@
 				04229688278D6F910090983F /* transform2-inl.h */,
 				04229689278D6F910090983F /* transform3.h */,
 				04229686278D6F910090983F /* transform3-inl.h */,
-				0422966D278D689C0090983F /* ray.h */,
-				04229663278D689B0090983F /* ray2.h */,
-				0422966A278D689B0090983F /* ray2-inl.h */,
-				04229668278D689B0090983F /* ray3.h */,
-				04229666278D689B0090983F /* ray3-inl.h */,
 				0422966B278D689C0090983F /* bounding_box.h */,
 				044594812793B7F000F04CE0 /* bounding_box-inl.h */,
 				0422966C278D689C0090983F /* bounding_box2.h */,
 				04229669278D689B0090983F /* bounding_box2-inl.h */,
 				04229665278D689B0090983F /* bounding_box3.h */,
 				04229664278D689B0090983F /* bounding_box3-inl.h */,
+				044594A12793FEFB00F04CE0 /* plane.h */,
+				044594A22793FF2800F04CE0 /* plane2.h */,
+				044594A32793FF3700F04CE0 /* plane2-inl.h */,
+				0422966D278D689C0090983F /* ray.h */,
+				04229663278D689B0090983F /* ray2.h */,
+				0422966A278D689B0090983F /* ray2-inl.h */,
+				04229668278D689B0090983F /* ray3.h */,
+				04229666278D689B0090983F /* ray3-inl.h */,
 				044592FA278F023900F04CE0 /* bounding_frustum.h */,
 				044592FC278F023900F04CE0 /* bounding_frustum.cpp */,
 				044592F9278F023900F04CE0 /* collision_util.h */,
