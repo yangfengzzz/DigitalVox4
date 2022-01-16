@@ -36,10 +36,10 @@ struct BoundingFrustum {
      * Constructor of BoundingFrustum.
      * @param matrix - The view-projection matrix
      */
-    BoundingFrustum(const Matrix4x4F& matrix);
+    BoundingFrustum(const Matrix4x4F &matrix);
     
     //! Copy constructor.
-    BoundingFrustum(const BoundingFrustum& other);
+    BoundingFrustum(const BoundingFrustum &other);
     
     /**
      * Get the plane by the given index.
@@ -58,7 +58,7 @@ struct BoundingFrustum {
      * Update all planes from the given matrix.
      * @param matrix - The given view-projection matrix
      */
-    void calculateFromMatrix(const Matrix4x4F&matrix);
+    void calculateFromMatrix(const Matrix4x4F &matrix);
     
     /**
      * Get whether or not a specified bounding box intersects with this frustum (Contains or Intersects).

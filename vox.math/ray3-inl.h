@@ -9,25 +9,25 @@
 
 namespace vox {
 
-template <typename T>
+template<typename T>
 Ray<T, 3>::Ray() : Ray(Point3<T>(), Vector3<T>(1, 0, 0)) {
 }
 
-template <typename T>
-Ray<T, 3>::Ray(const Point3<T>& newOrigin,
-               const Vector3<T>& newDirection) :
+template<typename T>
+Ray<T, 3>::Ray(const Point3 <T> &newOrigin,
+               const Vector3 <T> &newDirection) :
 origin(newOrigin),
 direction(newDirection.normalized()) {
 }
 
-template <typename T>
-Ray<T, 3>::Ray(const Ray& other) :
+template<typename T>
+Ray<T, 3>::Ray(const Ray &other) :
 origin(other.origin),
 direction(other.direction) {
 }
 
-template <typename T>
-Point3<T> Ray<T, 3>::pointAt(T t) const {
+template<typename T>
+Point3 <T> Ray<T, 3>::pointAt(T t) const {
     return origin + t * direction;
 }
 

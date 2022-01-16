@@ -12,7 +12,6 @@
 #include <algorithm>  // just make cpplint happy..
 
 namespace vox {
-
 //!
 //! \brief 3-D point class.
 //!
@@ -20,7 +19,7 @@ namespace vox {
 //!
 //! \tparam T - Type of the element
 //!
-template <typename T>
+template<typename T>
 class Point<T, 3> {
 public:
     static_assert(std::is_arithmetic<T>::value,
@@ -38,20 +37,24 @@ public:
     // MARK: - Constructors
     
     //! Constructs default point (0, 0, 0).
-    constexpr Point() : x(0), y(0), z(0) {}
+    constexpr Point() : x(0), y(0), z(0) {
+    }
     
     //! Constructs point with given parameters \p x_, \p y_, and \p z_.
-    constexpr Point(T x_, T y_, T z_) : x(x_), y(y_), z(z_) {}
+    constexpr Point(T x_, T y_, T z_) : x(x_), y(y_), z(z_) {
+    }
     
     //! Constructs point with a 2-D point and a scalar.
-    constexpr Point(const Point2<T>& v, T z_) : x(v.x), y(v.y), z(z_) {}
+    constexpr Point(const Point2<T> &v, T z_) : x(v.x), y(v.y), z(z_) {
+    }
     
     //! Constructs point with initializer list.
-    template <typename U>
-    Point(const std::initializer_list<U>& lst);
+    template<typename U>
+    Point(const std::initializer_list<U> &lst);
     
     //! Copy constructor.
-    constexpr Point(const Point& v) : x(v.x), y(v.y), z(v.z) {}
+    constexpr Point(const Point &v) : x(v.x), y(v.y), z(v.z) {
+    }
     
     // MARK: - Basic setters
     
@@ -62,14 +65,14 @@ public:
     void set(T x, T y, T z);
     
     //! Set x, y, and z components with given \p pt.x, \p pt.y, and \p z.
-    void set(const Point2<T>& pt, T z);
+    void set(const Point2<T> &pt, T z);
     
     //! Set x, y, and z components with given initializer list.
-    template <typename U>
-    void set(const std::initializer_list<U>& lst);
+    template<typename U>
+    void set(const std::initializer_list<U> &lst);
     
     //! Set x, y, and z with other point \p pt.
-    void set(const Point& v);
+    void set(const Point &v);
     
     //! Set both x, y, and z to zero.
     void setZero();
@@ -80,33 +83,34 @@ public:
     Point add(T v) const;
     
     //! Computes this + (v.x, v.y, v.z).
-    Vector3<T> add(const Point& v) const;
+    Vector3<T> add(const Point &v) const;
     
     //! Computes this + (v.x, v.y, v.z).
-    Point add(const Vector3<T>& v) const;
+    Point add(const Vector3<T> &v) const;
     
     //! Computes this - (v, v, v).
     Point sub(T v) const;
     
     //! Computes this - (v.x, v.y, v.z).
-    Vector3<T> sub(const Point& v) const;
+    Vector3<T> sub(const Point &v) const;
     
     //! Computes this - (v.x, v.y, v.z).
-    Point sub(const Vector3<T>& v) const;
+    Point sub(const Vector3<T> &v) const;
     
     //! Computes this * (v, v, v).
     Point mul(T v) const;
     
     //! Computes this * (v.x, v.y, v.z).
-    Point mul(const Point& v) const;
+    Point mul(const Point &v) const;
+    
     //! Computes this / (v, v, v).
     Point div(T v) const;
     
     //! Computes this / (v.x, v.y, v.z).
-    Point div(const Point& v) const;
+    Point div(const Point &v) const;
     
     //! Computes dot product.
-    T dot(const Vector3<T>& v) const;
+    T dot(const Vector3<T> &v) const;
     
     // MARK: - Binary operations: new instance = v (+) this
     
@@ -114,13 +118,13 @@ public:
     Point rsub(T v) const;
     
     //! Computes (v.x, v.y, v.z) - this.
-    Vector3<T> rsub(const Point& v) const;
+    Vector3<T> rsub(const Point &v) const;
     
     //! Computes (v, v, v) / this.
     Point rdiv(T v) const;
     
     //! Computes (v.x, v.y, v.z) / this.
-    Point rdiv(const Point& v) const;
+    Point rdiv(const Point &v) const;
     
     // MARK: - Augmented operations: this (+)= v
     
@@ -128,33 +132,33 @@ public:
     void iadd(T v);
     
     //! Computes this += (v.x, v.y, v.z).
-    void iadd(const Vector3<T>& v);
+    void iadd(const Vector3<T> &v);
     
     //! Computes this -= (v, v, v).
     void isub(T v);
     
     //! Computes this -= (v.x, v.y, v.z).
-    void isub(const Vector3<T>& v);
+    void isub(const Vector3<T> &v);
     
     //! Computes this *= (v, v, v).
     void imul(T v);
     
     //! Computes this *= (v.x, v.y, v.z).
-    void imul(const Point& v);
+    void imul(const Point &v);
     
     //! Computes this /= (v, v, v).
     void idiv(T v);
     
     //! Computes this /= (v.x, v.y, v.z).
-    void idiv(const Point& v);
+    void idiv(const Point &v);
     
     // MARK: - Basic getters
     
     //! Returns const reference to the \p i -th element of the point.
-    const T& at(size_t i) const;
+    const T &at(size_t i) const;
     
     //! Returns reference to the \p i -th element of the point.
-    T& at(size_t i);
+    T &at(size_t i);
     
     //! Returns the sum of all the components (i.e. x + y).
     T sum() const;
@@ -178,153 +182,153 @@ public:
     size_t subminantAxis() const;
     
     //! Returns a point with different value type.
-    template <typename U>
+    template<typename U>
     Point<U, 3> castTo() const;
     
     //! Returns true if \p other is the same as this point.
-    bool isEqual(const Point& other) const;
+    bool isEqual(const Point &other) const;
     
     //! Returns the distance to the other vector.
-    T distanceTo(const Point& other) const;
-
+    T distanceTo(const Point &other) const;
+    
     //! Returns the squared distance to the other vector.
-    T distanceSquaredTo(const Point& other) const;
+    T distanceSquaredTo(const Point &other) const;
     
     //! Returns the reflection vector to the surface with given surface normal.
-    Point reflected(const Vector3<T>& normal) const;
+    Point reflected(const Vector3<T> &normal) const;
     
     //! Returns the projected vector to the surface with given surface normal.
-    Point projected(const Vector3<T>& normal) const;
+    Point projected(const Vector3<T> &normal) const;
     
     // MARK: - Operators
     
     //! Returns reference to the \p i -th element of the point.
-    T& operator[](size_t i);
+    T &operator[](size_t i);
     
     //! Returns const reference to the \p i -th element of the point.
-    const T& operator[](size_t i) const;
+    const T &operator[](size_t i) const;
     
     //! Set x, y, and z components with given initializer list.
-    Point& operator=(const std::initializer_list<T>& lst);
+    Point &operator=(const std::initializer_list<T> &lst);
     
     //! Set x, y, and z with other point \p pt.
-    Point& operator=(const Point& v);
+    Point &operator=(const Point &v);
     
     //! Computes this += (v, v, v)
-    Point& operator+=(T v);
+    Point &operator+=(T v);
     
     //! Computes this += (v.x, v.y, v.z)
-    Point& operator+=(const Vector3<T>& v);
+    Point &operator+=(const Vector3<T> &v);
     
     //! Computes this -= (v, v, v)
-    Point& operator-=(T v);
+    Point &operator-=(T v);
     
     //! Computes this -= (v.x, v.y, v.z)
-    Point& operator-=(const Vector3<T>& v);
+    Point &operator-=(const Vector3<T> &v);
     
     //! Computes this *= (v, v, v)
-    Point& operator*=(T v);
+    Point &operator*=(T v);
     
     //! Computes this *= (v.x, v.y, v.z)
-    Point& operator*=(const Point& v);
+    Point &operator*=(const Point &v);
     
     //! Computes this /= (v, v, v)
-    Point& operator/=(T v);
+    Point &operator/=(T v);
     
     //! Computes this /= (v.x, v.y, v.z)
-    Point& operator/=(const Point& v);
+    Point &operator/=(const Point &v);
     
     //! Returns true if \p other is the same as this point.
-    bool operator==(const Point& v) const;
+    bool operator==(const Point &v) const;
     
     //! Returns true if \p other is the not same as this point.
-    bool operator!=(const Point& v) const;
+    bool operator!=(const Point &v) const;
 };
 
 //! Type alias for three dimensional point.
-template <typename T>
+template<typename T>
 using Point3 = Point<T, 3>;
 
 //! Positive sign operator.
-template <typename T>
-Point<T, 3> operator+(const Point<T, 3>& a);
+template<typename T>
+Point<T, 3> operator+(const Point<T, 3> &a);
 
 //! Negative sign operator.
-template <typename T>
-Point3<T> operator-(const Point3<T>& a);
+template<typename T>
+Point3<T> operator-(const Point3<T> &a);
 
 //! Computes (a, a, a) + (b.x, b.y, b.z).
-template <typename T>
-Point3<T> operator+(T a, const Point3<T>& b);
+template<typename T>
+Point3<T> operator+(T a, const Point3<T> &b);
 
 //! Computes (a.x, a.y, a.z) + (b.x, b.y, b.z).
-template <typename T>
-Vector3<T> operator+(const Point3<T>& a, const Point3<T>& b);
+template<typename T>
+Vector3<T> operator+(const Point3<T> &a, const Point3<T> &b);
 
 //! Computes (a.x, a.y, a.z) + (b.x, b.y, b.z).
-template <typename T>
-Point3<T> operator+(const Point3<T>& a, const Vector3<T>& b);
+template<typename T>
+Point3<T> operator+(const Point3<T> &a, const Vector3<T> &b);
 
 //! Computes (a.x, a.y, a.z) - (b, b, b).
-template <typename T>
-Point3<T> operator-(const Point3<T>& a, T b);
+template<typename T>
+Point3<T> operator-(const Point3<T> &a, T b);
 
 //! Computes (a, a, a) - (b.x, b.y, b.z).
-template <typename T>
-Point3<T> operator-(T a, const Point3<T>& b);
+template<typename T>
+Point3<T> operator-(T a, const Point3<T> &b);
 
 //! Computes (a.x, a.y, a.z) - (b.x, b.y, b.z).
-template <typename T>
-Vector3<T> operator-(const Point3<T>& a, const Point3<T>& b);
+template<typename T>
+Vector3<T> operator-(const Point3<T> &a, const Point3<T> &b);
 
 //! Computes (a.x, a.y, a.z) - (b.x, b.y, b.z).
-template <typename T>
-Point3<T> operator-(const Point3<T>& a, const Vector3<T>& b);
+template<typename T>
+Point3<T> operator-(const Point3<T> &a, const Vector3<T> &b);
 
 //! Computes (a.x, a.y, a.z) * (b, b, b).
-template <typename T>
-Point3<T> operator*(const Point3<T>& a, T b);
+template<typename T>
+Point3<T> operator*(const Point3<T> &a, T b);
 
 //! Computes (a, a, a) * (b.x, b.y, b.z).
-template <typename T>
-Point3<T> operator*(T a, const Point3<T>& b);
+template<typename T>
+Point3<T> operator*(T a, const Point3<T> &b);
 
 //! Computes (a.x, a.y, a.z) * (b.x, b.y, b.z).
-template <typename T>
-Point3<T> operator*(const Point3<T>& a, const Point3<T>& b);
+template<typename T>
+Point3<T> operator*(const Point3<T> &a, const Point3<T> &b);
 
 //! Computes (a.x, a.y, a.z) / (b, b, b).
-template <typename T>
-Point3<T> operator/(const Point3<T>& a, T b);
+template<typename T>
+Point3<T> operator/(const Point3<T> &a, T b);
 
 //! Computes (a, a, a) / (b.x, b.y, b.z).
-template <typename T>
-Point3<T> operator/(T a, const Point3<T>& b);
+template<typename T>
+Point3<T> operator/(T a, const Point3<T> &b);
 
 //! Computes (a.x, a.y, a.z) / (b.x, b.y, b.z).
-template <typename T>
-Point3<T> operator/(const Point3<T>& a, const Point3<T>& b);
+template<typename T>
+Point3<T> operator/(const Point3<T> &a, const Point3<T> &b);
 
 //! Returns element-wise min point.
-template <typename T>
-Point3<T> min(const Point3<T>& a, const Point3<T>& b);
+template<typename T>
+Point3<T> min(const Point3<T> &a, const Point3<T> &b);
 
 //! Returns element-wise max point.
-template <typename T>
-Point3<T> max(const Point3<T>& a, const Point3<T>& b);
+template<typename T>
+Point3<T> max(const Point3<T> &a, const Point3<T> &b);
 
 //! Returns element-wise clamped point.
-template <typename T>
-Point3<T> clamp(const Point3<T>& v, const Point3<T>& low,
-                const Point3<T>& high);
+template<typename T>
+Point3<T> clamp(const Point3<T> &v, const Point3<T> &low,
+                const Point3<T> &high);
 
 //! Returns element-wise ceiled point.
-template <typename T>
-Point3<T> ceil(const Point3<T>& a);
+template<typename T>
+Point3<T> ceil(const Point3<T> &a);
 
 //! Returns element-wise floored point.
-template <typename T>
-Point3<T> floor(const Point3<T>& a);
+template<typename T>
+Point3<T> floor(const Point3<T> &a);
 
 //! Float-type 3D point.
 using Point3F = Point3<float>;

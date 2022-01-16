@@ -10,7 +10,7 @@
 namespace vox {
 
 //! Returns the type of the value itself.
-template <typename T>
+template<typename T>
 struct ScalarType {
     using value = T;
 };

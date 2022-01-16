@@ -6,12 +6,12 @@ demand:
 
 1. DigitalVox2: Engine written in Swift, 3rd party library bridged by Objective-C++.
 2. DigitalVox3: Engine developed in C++, based on the math library provided by Ozz.
-3. **DigitalVox4** : The engine developed by C++ uses [Imath](https://github.com/AcademySoftwareFoundation/Imath)
-   provided by Industrial Light and Magic as the common mathematical bottom layer for rendering and simulation. The
-   rendering layer abstraction for Metal makes it possible to use the C++ compiler instead of Objective-C++ globally,
-   and encapsulates GLFW events to achieve cross-platform. Further, clean up the component system and eliminate the
-   global dependency on the Engine class. And make the rendering pipeline independent of the camera, so it is easier to
-   customize the rendering pipeline.
+3. **DigitalVox4** : This engine is based on C++, and the underlying mathematical library is templated to support the
+   precision requirements of rendering and physical simulation at the same time. The rendering layer abstraction for
+   Metal makes it possible to use the C++ compiler instead of Objective-C++ globally, and encapsulates GLFW events to
+   achieve cross-platform. Further, clean up the component system and eliminate the global dependency on the Engine
+   class. And make the rendering pipeline independent of the camera, so it is easier to customize the rendering
+   pipeline.
 
 ## Motivation
 

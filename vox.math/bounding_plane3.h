@@ -18,7 +18,7 @@ namespace vox {
 //!
 //! \tparam     T     The value type.
 //!
-template <typename T>
+template<typename T>
 class BoundingPlane<T, 3> final {
 public:
     static_assert(std::is_floating_point<T>::value,
@@ -34,7 +34,7 @@ public:
     BoundingPlane();
     
     //! Constructs a plane with given origin and riection.
-    BoundingPlane(const Vector3<T>& newNormal, const T& newDistance);
+    BoundingPlane(const Vector3<T> &newNormal, const T &newDistance);
     
     /**
      * Calculate the plane that contains the three specified points.
@@ -42,10 +42,10 @@ public:
      * @param point1 - The second point
      * @param point2 - The third point
      */
-    BoundingPlane(const Vector3<T>& point0, const Vector3<T>& point1, const Vector3<T>& point2);
+    BoundingPlane(const Vector3<T> &point0, const Vector3<T> &point1, const Vector3<T> &point2);
     
     //! Copy constructor.
-    BoundingPlane(const BoundingPlane& other);
+    BoundingPlane(const BoundingPlane &other);
     
     /**
      * Normalize the normal vector of this plane.
@@ -60,7 +60,7 @@ public:
 };
 
 //! Type alias for 3-D plane.
-template <typename T> using BoundingPlane3 = BoundingPlane<T, 3>;
+template<typename T> using BoundingPlane3 = BoundingPlane<T, 3>;
 
 //! Float-type 3-D plane.
 using BoundingPlane3F = BoundingPlane3<float>;

@@ -14,7 +14,7 @@
 
 namespace vox {
 //! Makes scale matrix.
-template <typename T>
+template<typename T>
 inline Matrix<T, 4, 4> makeScaleMatrix(T sx, T sy, T sz) {
     return Matrix<T, 4, 4>(sx, 0, 0, 0,
                            0, sy, 0, 0,
@@ -23,21 +23,21 @@ inline Matrix<T, 4, 4> makeScaleMatrix(T sx, T sy, T sz) {
 }
 
 //! Makes scale matrix.
-template <typename T>
-inline Matrix<T, 4, 4> makeScaleMatrix(const Vector3<T>& s) {
+template<typename T>
+inline Matrix<T, 4, 4> makeScaleMatrix(const Vector3<T> &s) {
     return ::vox::makeScaleMatrix(s.x, s.y, s.z);
 }
 
 //! Makes rotation matrix.
 //! \warning Input angle should be radian.
-template <typename T>
-inline Matrix<T, 4, 4> makeRotationMatrix(const Vector3<T>& axis, T rad) {
+template<typename T>
+inline Matrix<T, 4, 4> makeRotationMatrix(const Vector3<T> &axis, T rad) {
     return Matrix<T, 4, 4>(Matrix<T, 3, 3>::makeRotationMatrix(axis, rad));
 }
 
 //! Makes translation matrix.
-template <typename T>
-inline Matrix<T, 4, 4> makeTranslationMatrix(const Vector3<T>& t) {
+template<typename T>
+inline Matrix<T, 4, 4> makeTranslationMatrix(const Vector3<T> &t) {
     return Matrix<T, 4, 4>(1, 0, 0, 0,
                            0, 1, 0, 0,
                            0, 0, 1, 0,
@@ -45,8 +45,8 @@ inline Matrix<T, 4, 4> makeTranslationMatrix(const Vector3<T>& t) {
 }
 
 //! Makes rotation && translation matrix.
-template <typename T>
-inline Matrix<T, 4, 4> makeRotationTranslationMatrix(const Quaternion<T>& q, const Vector3<T>& t) {
+template<typename T>
+inline Matrix<T, 4, 4> makeRotationTranslationMatrix(const Quaternion<T> &q, const Vector3<T> &t) {
     auto mat = q.matrix4();
     mat[12] = t.x;
     mat[13] = t.y;
@@ -55,10 +55,10 @@ inline Matrix<T, 4, 4> makeRotationTranslationMatrix(const Quaternion<T>& q, con
 }
 
 //! Makes affine matrix.
-template <typename T>
-inline Matrix<T, 4, 4> makeAffineMatrix(const Vector3<T>& s,
-                                        const Quaternion<T>& q,
-                                        const Point3<T>& t) {
+template<typename T>
+inline Matrix<T, 4, 4> makeAffineMatrix(const Vector3<T> &s,
+                                        const Quaternion<T> &q,
+                                        const Point3<T> &t) {
     T x = q.x;
     T y = q.y;
     T z = q.z;
@@ -109,9 +109,9 @@ inline Matrix<T, 4, 4> makeAffineMatrix(const Vector3<T>& s,
  * @param target - The camera look-at target
  * @param up - The camera's up vector
  */
-template <typename T>
-inline Matrix<T, 4, 4> makeLookAtMatrix(const Point3<T>& eye,
-                                        const Point3<T>& target, const Vector3<T>& up) {
+template<typename T>
+inline Matrix<T, 4, 4> makeLookAtMatrix(const Point3<T> &eye,
+                                        const Point3<T> &target, const Vector3<T> &up) {
     Vector3<T> zAxis = eye - target;
     zAxis.normalize();
     Vector3<T> xAxis = up - zAxis;
@@ -148,11 +148,11 @@ inline Matrix<T, 4, 4> makeLookAtMatrix(const Point3<T>& eye,
  * @param near - The depth of the near plane
  * @param far - The depth of the far plane
  */
-template <typename T>
+template<typename T>
 inline Matrix<T, 4, 4> makeOrtho(T left, T right, T bottom, T top, T near, T far) {
-    T lr = (T)1 / (left - right);
-    T bt = (T)1 / (bottom - top);
-    T nf = (T)1 / (near - far);
+    T lr = (T) 1 / (left - right);
+    T bt = (T) 1 / (bottom - top);
+    T nf = (T) 1 / (near - far);
     
     return Matrix<T, 4, 4>(-2 * lr,
                            0,
@@ -182,10 +182,10 @@ inline Matrix<T, 4, 4> makeOrtho(T left, T right, T bottom, T top, T near, T far
  * @param near - The depth of the near plane
  * @param far - The depth of the far plane
  */
-template <typename T>
+template<typename T>
 inline Matrix<T, 4, 4> makepPerspective(T fovy, T aspect, T near, T far) {
-    T f = (T)1 / std::tan(fovy / 2);
-    T nf = (T)1 / (near - far);
+    T f = (T) 1 / std::tan(fovy / 2);
+    T nf = (T) 1 / (near - far);
     
     return Matrix<T, 4, 4>(f / aspect,
                            0,
@@ -216,11 +216,11 @@ inline Matrix<T, 4, 4> makepPerspective(T fovy, T aspect, T near, T far) {
  * @param scale - Scale vector as an output parameter
  * @returns True if this matrix can be decomposed, false otherwise
  */
-template <typename T>
-bool decompose(const Matrix<T, 4, 4>& matrix,
-               Point3<T>& translation,
-               Quaternion<T>& rotation,
-               Vector3<T>& scale) {
+template<typename T>
+bool decompose(const Matrix<T, 4, 4> &matrix,
+               Point3<T> &translation,
+               Quaternion<T> &rotation,
+               Vector3<T> &scale) {
     Matrix<T, 3, 3> rm;
     const auto &m11 = matrix[0];
     const auto &m12 = matrix[1];
@@ -279,8 +279,8 @@ bool decompose(const Matrix<T, 4, 4>& matrix,
  * Get rotation from this matrix.
  * @returns Rotation quaternion as an output parameter
  */
-template <typename T>
-Quaternion<T> getRotation(const Matrix<T, 4, 4>& matrix) {
+template<typename T>
+Quaternion<T> getRotation(const Matrix<T, 4, 4> &matrix) {
     T trace = matrix[0] + matrix[5] + matrix[10];
     Quaternion<T> quat;
     
@@ -317,8 +317,8 @@ Quaternion<T> getRotation(const Matrix<T, 4, 4>& matrix) {
  * Get scale from this matrix.
  * @returns Scale vector as an output parameter
  */
-template <typename T>
-Vector3<T> getScaling(const Matrix<T, 4, 4>& matrix) {
+template<typename T>
+Vector3<T> getScaling(const Matrix<T, 4, 4> &matrix) {
     T m11 = matrix[0],
     m12 = matrix[1],
     m13 = matrix[2];
@@ -341,8 +341,8 @@ Vector3<T> getScaling(const Matrix<T, 4, 4>& matrix) {
  * Get translation from this matrix.
  * @returns Translation vector as an output parameter
  */
-template <typename T>
-Point3<T> getTranslation(const Matrix<T, 4, 4>& matrix) {
+template<typename T>
+Point3<T> getTranslation(const Matrix<T, 4, 4> &matrix) {
     return Point3<T>(matrix[12], matrix[13], matrix[14]);
 }
 

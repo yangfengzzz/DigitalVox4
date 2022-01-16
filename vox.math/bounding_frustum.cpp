@@ -12,7 +12,7 @@ namespace vox {
 BoundingFrustum::BoundingFrustum() {
 }
 
-BoundingFrustum::BoundingFrustum(const Matrix4x4F& matrix) {
+BoundingFrustum::BoundingFrustum(const Matrix4x4F &matrix) {
     near = BoundingPlane3F();
     far = BoundingPlane3F();
     left = BoundingPlane3F();
@@ -41,7 +41,7 @@ BoundingPlane3F BoundingFrustum::getPlane(int index) const {
     }
 }
 
-void BoundingFrustum::calculateFromMatrix(const Matrix4x4F& matrix) {
+void BoundingFrustum::calculateFromMatrix(const Matrix4x4F &matrix) {
     const auto &m11 = matrix[0];
     const auto &m12 = matrix[1];
     const auto &m13 = matrix[2];

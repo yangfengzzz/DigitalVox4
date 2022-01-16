@@ -13,14 +13,14 @@
 
 namespace vox {
 
-template <typename T>
+template<typename T>
 BoundingBox<T, 3>::BoundingBox() {
     reset();
 }
 
-template <typename T>
-BoundingBox<T, 3>::BoundingBox(const Point3<T>& point1,
-                               const Point3<T>& point2) {
+template<typename T>
+BoundingBox<T, 3>::BoundingBox(const Point3 <T> &point1,
+                               const Point3 <T> &point2) {
     lowerCorner.x = std::min(point1.x, point2.x);
     lowerCorner.y = std::min(point1.y, point2.y);
     lowerCorner.z = std::min(point1.z, point2.z);
@@ -29,32 +29,33 @@ BoundingBox<T, 3>::BoundingBox(const Point3<T>& point1,
     upperCorner.z = std::max(point1.z, point2.z);
 }
 
-template <typename T>
-BoundingBox<T, 3>::BoundingBox(const BoundingBox& other)
-: lowerCorner(other.lowerCorner), upperCorner(other.upperCorner) {}
+template<typename T>
+BoundingBox<T, 3>::BoundingBox(const BoundingBox &other)
+: lowerCorner(other.lowerCorner), upperCorner(other.upperCorner) {
+}
 
-template <typename T>
+template<typename T>
 T BoundingBox<T, 3>::width() const {
     return upperCorner.x - lowerCorner.x;
 }
 
-template <typename T>
+template<typename T>
 T BoundingBox<T, 3>::height() const {
     return upperCorner.y - lowerCorner.y;
 }
 
-template <typename T>
+template<typename T>
 T BoundingBox<T, 3>::depth() const {
     return upperCorner.z - lowerCorner.z;
 }
 
-template <typename T>
+template<typename T>
 T BoundingBox<T, 3>::length(size_t axis) {
     return upperCorner[axis] - lowerCorner[axis];
 }
 
-template <typename T>
-bool BoundingBox<T, 3>::overlaps(const BoundingBox& other) const {
+template<typename T>
+bool BoundingBox<T, 3>::overlaps(const BoundingBox &other) const {
     if (upperCorner.x < other.lowerCorner.x ||
         lowerCorner.x > other.upperCorner.x) {
         return false;
@@ -73,8 +74,8 @@ bool BoundingBox<T, 3>::overlaps(const BoundingBox& other) const {
     return true;
 }
 
-template <typename T>
-bool BoundingBox<T, 3>::contains(const Point3<T>& point) const {
+template<typename T>
+bool BoundingBox<T, 3>::contains(const Point3 <T> &point) const {
     if (upperCorner.x < point.x || lowerCorner.x > point.x) {
         return false;
     }
@@ -90,11 +91,11 @@ bool BoundingBox<T, 3>::contains(const Point3<T>& point) const {
     return true;
 }
 
-template <typename T>
-bool BoundingBox<T, 3>::intersects(const Ray3<T>& ray) const {
+template<typename T>
+bool BoundingBox<T, 3>::intersects(const Ray3 <T> &ray) const {
     T tMin = 0;
     T tMax = std::numeric_limits<T>::max();
-    const Vector3<T>& rayInvDir = ray.direction.rdiv(1);
+    const Vector3<T> &rayInvDir = ray.direction.rdiv(1);
     
     for (int i = 0; i < 3; ++i) {
         T tNear = (lowerCorner[i] - ray.origin[i]) * rayInvDir[i];
@@ -110,13 +111,13 @@ bool BoundingBox<T, 3>::intersects(const Ray3<T>& ray) const {
     return true;
 }
 
-template <typename T>
-BoundingBoxRayIntersection3<T> BoundingBox<T, 3>::closestIntersection(const Ray3<T>& ray) const {
+template<typename T>
+BoundingBoxRayIntersection3 <T> BoundingBox<T, 3>::closestIntersection(const Ray3 <T> &ray) const {
     BoundingBoxRayIntersection3<T> intersection;
     
     T tMin = 0;
     T tMax = std::numeric_limits<T>::max();
-    const Vector3<T>& rayInvDir = ray.direction.rdiv(1);
+    const Vector3<T> &rayInvDir = ray.direction.rdiv(1);
     
     for (int i = 0; i < 3; ++i) {
         T tNear = (lowerCorner[i] - ray.origin[i]) * rayInvDir[i];
@@ -145,8 +146,8 @@ BoundingBoxRayIntersection3<T> BoundingBox<T, 3>::closestIntersection(const Ray3
     return intersection;
 }
 
-template <typename T>
-Point3<T> BoundingBox<T, 3>::midPoint() const {
+template<typename T>
+Point3 <T> BoundingBox<T, 3>::midPoint() const {
     Vector3<T> temp = upperCorner + lowerCorner;
     
     return Point3<T>(temp.x / static_cast<T>(2),
@@ -154,17 +155,17 @@ Point3<T> BoundingBox<T, 3>::midPoint() const {
                      temp.z / static_cast<T>(2));
 }
 
-template <typename T>
+template<typename T>
 T BoundingBox<T, 3>::diagonalLength() const {
     return (upperCorner - lowerCorner).length();
 }
 
-template <typename T>
+template<typename T>
 T BoundingBox<T, 3>::diagonalLengthSquared() const {
     return (upperCorner - lowerCorner).lengthSquared();
 }
 
-template <typename T>
+template<typename T>
 void BoundingBox<T, 3>::reset() {
     lowerCorner.x = std::numeric_limits<T>::max();
     lowerCorner.y = std::numeric_limits<T>::max();
@@ -174,8 +175,8 @@ void BoundingBox<T, 3>::reset() {
     upperCorner.z = -std::numeric_limits<T>::max();
 }
 
-template <typename T>
-void BoundingBox<T, 3>::merge(const Point3<T>& point) {
+template<typename T>
+void BoundingBox<T, 3>::merge(const Point3 <T> &point) {
     lowerCorner.x = std::min(lowerCorner.x, point.x);
     lowerCorner.y = std::min(lowerCorner.y, point.y);
     lowerCorner.z = std::min(lowerCorner.z, point.z);
@@ -184,8 +185,8 @@ void BoundingBox<T, 3>::merge(const Point3<T>& point) {
     upperCorner.z = std::max(upperCorner.z, point.z);
 }
 
-template <typename T>
-void BoundingBox<T, 3>::merge(const BoundingBox& other) {
+template<typename T>
+void BoundingBox<T, 3>::merge(const BoundingBox &other) {
     lowerCorner.x = std::min(lowerCorner.x, other.lowerCorner.x);
     lowerCorner.y = std::min(lowerCorner.y, other.lowerCorner.y);
     lowerCorner.z = std::min(lowerCorner.z, other.lowerCorner.z);
@@ -194,48 +195,48 @@ void BoundingBox<T, 3>::merge(const BoundingBox& other) {
     upperCorner.z = std::max(upperCorner.z, other.upperCorner.z);
 }
 
-template <typename T>
+template<typename T>
 void BoundingBox<T, 3>::expand(T delta) {
     lowerCorner -= delta;
     upperCorner += delta;
 }
 
-template <typename T>
+template<typename T>
 void BoundingBox<T, 3>::transform(Matrix<T, 4, 4> matrix) {
     Point3<T> center = midPoint();
     Vector3<T> extent = extent();
     center = matrix * center;
-
+    
     extent.x = std::abs(extent.x * matrix[0]) + std::abs(extent.y * matrix[4]) + std::abs(extent.z * matrix[8]);
     extent.y = std::abs(extent.x * matrix[1]) + std::abs(extent.y * matrix[5]) + std::abs(extent.z * matrix[9]);
     extent.z = std::abs(extent.x * matrix[2]) + std::abs(extent.y * matrix[6]) + std::abs(extent.z * matrix[10]);
-
+    
     // set min、max
     lowerCorner = center - extent;
     upperCorner = center + extent;
 }
 
-template <typename T>
+template<typename T>
 BoundingBox<T, 3> BoundingBox<T, 3>::transform(Matrix<T, 4, 4> matrix) const {
     Point3<T> center = midPoint();
     Vector3<T> extent = extent();
     center = matrix * center;
-
+    
     extent.x = std::abs(extent.x * matrix[0]) + std::abs(extent.y * matrix[4]) + std::abs(extent.z * matrix[8]);
     extent.y = std::abs(extent.x * matrix[1]) + std::abs(extent.y * matrix[5]) + std::abs(extent.z * matrix[9]);
     extent.z = std::abs(extent.x * matrix[2]) + std::abs(extent.y * matrix[6]) + std::abs(extent.z * matrix[10]);
-
+    
     // set min、max
     return BoundingBox<T, 3>(center - extent, center + extent);
 }
 
-template <typename T>
-Vector3<T> BoundingBox<T, 3>::extent() const {
+template<typename T>
+Vector3 <T> BoundingBox<T, 3>::extent() const {
     return (upperCorner - lowerCorner) * 0.5;
 }
 
-template <typename T>
-Point3<T> BoundingBox<T, 3>::corner(size_t idx) const {
+template<typename T>
+Point3 <T> BoundingBox<T, 3>::corner(size_t idx) const {
     static const T h = static_cast<T>(1) / 2;
     static const Vector3<T> offset[8] = {
         {-h, -h, -h}, {+h, -h, -h}, {-h, +h, -h}, {+h, +h, -h},
@@ -244,12 +245,12 @@ Point3<T> BoundingBox<T, 3>::corner(size_t idx) const {
     return midPoint() + Vector3<T>(width(), height(), depth()) * offset[idx];
 }
 
-template <typename T>
-Point3<T> BoundingBox<T, 3>::clamp(const Point3<T>& pt) const {
+template<typename T>
+Point3 <T> BoundingBox<T, 3>::clamp(const Point3 <T> &pt) const {
     return ::vox::clamp(pt, lowerCorner, upperCorner);
 }
 
-template <typename T>
+template<typename T>
 bool BoundingBox<T, 3>::isEmpty() const {
     return (lowerCorner.x >= upperCorner.x || lowerCorner.y >= upperCorner.y ||
             lowerCorner.z >= upperCorner.z);

@@ -21,7 +21,7 @@ namespace vox {
 //!
 //! \tparam     T     The value type.
 //!
-template <typename T>
+template<typename T>
 struct BoundingBoxRayIntersection3 {
     //! True if the box and ray intersects.
     bool isIntersecting = false;
@@ -38,7 +38,7 @@ struct BoundingBoxRayIntersection3 {
 //!
 //! \tparam T - Real number type.
 //!
-template <typename T>
+template<typename T>
 class BoundingBox<T, 3> {
 public:
     //! Lower corner of the bounding box.
@@ -51,10 +51,10 @@ public:
     BoundingBox();
     
     //! Constructs a box that tightly covers two points.
-    BoundingBox(const Point3<T>& point1, const Point3<T>& point2);
+    BoundingBox(const Point3<T> &point1, const Point3<T> &point2);
     
     //! Constructs a box with other box instance.
-    BoundingBox(const BoundingBox& other);
+    BoundingBox(const BoundingBox &other);
     
     //! Returns width of the box.
     T width() const;
@@ -69,19 +69,19 @@ public:
     T length(size_t axis);
     
     //! Returns true of this box and other box overlaps.
-    bool overlaps(const BoundingBox& other) const;
+    bool overlaps(const BoundingBox &other) const;
     
     //! Returns true if the input vector is inside of this box.
-    bool contains(const Point3<T>& point) const;
+    bool contains(const Point3<T> &point) const;
     
     //! Returns true if the input ray is intersecting with this box.
-    bool intersects(const Ray3<T>& ray) const;
+    bool intersects(const Ray3<T> &ray) const;
     
     //! Returns intersection.isIntersecting = true if the input ray is
     //! intersecting with this box. If interesects, intersection.tNear is
     //! assigned with distant to the closest intersecting point, and
     //! intersection.tFar with furthest.
-    BoundingBoxRayIntersection3<T> closestIntersection(const Ray3<T>& ray) const;
+    BoundingBoxRayIntersection3<T> closestIntersection(const Ray3<T> &ray) const;
     
     //! Returns the mid-point of this box.
     Point3<T> midPoint() const;
@@ -96,10 +96,10 @@ public:
     void reset();
     
     //! Merges this and other point.
-    void merge(const Point3<T>& point);
+    void merge(const Point3<T> &point);
     
     //! Merges this and other box.
-    void merge(const BoundingBox& other);
+    void merge(const BoundingBox &other);
     
     //! Expands this box by given delta to all direction.
     //! If the width of the box was x, expand(y) will result a box with
@@ -129,14 +129,14 @@ public:
     Point3<T> corner(size_t idx) const;
     
     //! Returns the clamped point.
-    Point3<T> clamp(const Point3<T>& point) const;
+    Point3<T> clamp(const Point3<T> &point) const;
     
     //! Returns true if the box is empty.
     bool isEmpty() const;
 };
 
 //! Type alias for 3-D BoundingBox.
-template <typename T>
+template<typename T>
 using BoundingBox3 = BoundingBox<T, 3>;
 
 //! Float-type 3-D BoundingBox.

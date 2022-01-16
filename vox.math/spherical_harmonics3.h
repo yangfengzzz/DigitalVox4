@@ -26,7 +26,7 @@ public:
     
     SphericalHarmonics3(std::array<float, 27> coefficients);
     
-    const std::array<float, 27>& coefficients() const;
+    const std::array<float, 27> &coefficients() const;
     
     /**
      * Add light to SphericalHarmonics3.
@@ -34,14 +34,14 @@ public:
      * @param color - Light color
      * @param deltaSolidAngle - The delta solid angle of the light
      */
-    void addLight(const Vector3F& direction, const Color& color, float deltaSolidAngle);
+    void addLight(const Vector3F &direction, const Color &color, float deltaSolidAngle);
     
     /**
      * Evaluates the color for the specified direction.
      * @param direction - Specified direction
      * @return out - Out color
      */
-    Color operator()(const Vector3F& direction);
+    Color operator()(const Vector3F &direction);
     
     /**
      * Scale the coefficients.
@@ -50,7 +50,7 @@ public:
     SphericalHarmonics3 operator*(float s);
     
 private:
-  /** The coefficients of SphericalHarmonics3. */
+    /** The coefficients of SphericalHarmonics3. */
     std::array<float, 27> _coefficients;
 };
 

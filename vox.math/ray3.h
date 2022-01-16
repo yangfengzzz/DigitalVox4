@@ -18,7 +18,7 @@ namespace vox {
 //!
 //! \tparam     T     The value type.
 //!
-template <typename T>
+template<typename T>
 class Ray<T, 3> final {
 public:
     static_assert(std::is_floating_point<T>::value,
@@ -34,17 +34,17 @@ public:
     Ray();
     
     //! Constructs a ray with given origin and riection.
-    Ray(const Point3<T>& newOrigin, const Vector3<T>& newDirection);
+    Ray(const Point3<T> &newOrigin, const Vector3<T> &newDirection);
     
     //! Copy constructor.
-    Ray(const Ray& other);
+    Ray(const Ray &other);
     
     //! Returns a point on the ray at distance \p t.
     Point3<T> pointAt(T t) const;
 };
 
 //! Type alias for 3-D ray.
-template <typename T> using Ray3 = Ray<T, 3>;
+template<typename T> using Ray3 = Ray<T, 3>;
 
 //! Float-type 3-D ray.
 using Ray3F = Ray3<float>;

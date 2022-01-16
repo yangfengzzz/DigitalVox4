@@ -9,16 +9,18 @@
 
 namespace vox {
 
-SphericalHarmonics3::SphericalHarmonics3() {}
+SphericalHarmonics3::SphericalHarmonics3() {
+}
 
-SphericalHarmonics3::SphericalHarmonics3(std::array<float, 27> coefficients):
-_coefficients(coefficients) {}
+SphericalHarmonics3::SphericalHarmonics3(std::array<float, 27> coefficients) :
+_coefficients(coefficients) {
+}
 
-const std::array<float, 27>& SphericalHarmonics3::coefficients() const {
+const std::array<float, 27> &SphericalHarmonics3::coefficients() const {
     return _coefficients;
 }
 
-void SphericalHarmonics3::addLight(const Vector3F& direction, const Color& c, float deltaSolidAngle) {
+void SphericalHarmonics3::addLight(const Vector3F &direction, const Color &c, float deltaSolidAngle) {
     /**
      * Implements `EvalSHBasis` from [Projection from Cube maps] in http://www.ppsloan.org/publications/StupidSH36.pdf.
      *
@@ -37,7 +39,7 @@ void SphericalHarmonics3::addLight(const Vector3F& direction, const Color& c, fl
      */
     
     auto color = c * deltaSolidAngle;
-    auto& coe = _coefficients;
+    auto &coe = _coefficients;
     
     const auto bv0 = 0.282095; // basis0 = 0.886227
     const auto bv1 = -0.488603 * direction.y; // basis1 = -0.488603
@@ -49,20 +51,38 @@ void SphericalHarmonics3::addLight(const Vector3F& direction, const Color& c, fl
     const auto bv7 = -1.092548 * (direction.x * direction.z); // basis7 = -1.092548
     const auto bv8 = 0.546274 * (direction.x * direction.x - direction.y * direction.y); // basis8 = 0.546274
     
-    (coe[0] += color.r * bv0); (coe[1] += color.g * bv0); (coe[2] += color.b * bv0);
+    (coe[0] += color.r * bv0);
+    (coe[1] += color.g * bv0);
+    (coe[2] += color.b * bv0);
     
-    (coe[3] += color.r * bv1); (coe[4] += color.g * bv1); (coe[5] += color.b * bv1);
-    (coe[6] += color.r * bv2); (coe[7] += color.g * bv2); (coe[8] += color.b * bv2);
-    (coe[9] += color.r * bv3); (coe[10] += color.g * bv3); (coe[11] += color.b * bv3);
+    (coe[3] += color.r * bv1);
+    (coe[4] += color.g * bv1);
+    (coe[5] += color.b * bv1);
+    (coe[6] += color.r * bv2);
+    (coe[7] += color.g * bv2);
+    (coe[8] += color.b * bv2);
+    (coe[9] += color.r * bv3);
+    (coe[10] += color.g * bv3);
+    (coe[11] += color.b * bv3);
     
-    (coe[12] += color.r * bv4); (coe[13] += color.g * bv4); (coe[14] += color.b * bv4);
-    (coe[15] += color.r * bv5); (coe[16] += color.g * bv5); (coe[17] += color.b * bv5);
-    (coe[18] += color.r * bv6); (coe[19] += color.g * bv6); (coe[20] += color.b * bv6);
-    (coe[21] += color.r * bv7); (coe[22] += color.g * bv7); (coe[23] += color.b * bv7);
-    (coe[24] += color.r * bv8); (coe[25] += color.g * bv8); (coe[26] += color.b * bv8);
+    (coe[12] += color.r * bv4);
+    (coe[13] += color.g * bv4);
+    (coe[14] += color.b * bv4);
+    (coe[15] += color.r * bv5);
+    (coe[16] += color.g * bv5);
+    (coe[17] += color.b * bv5);
+    (coe[18] += color.r * bv6);
+    (coe[19] += color.g * bv6);
+    (coe[20] += color.b * bv6);
+    (coe[21] += color.r * bv7);
+    (coe[22] += color.g * bv7);
+    (coe[23] += color.b * bv7);
+    (coe[24] += color.r * bv8);
+    (coe[25] += color.g * bv8);
+    (coe[26] += color.b * bv8);
 }
 
-Color SphericalHarmonics3::operator()(const Vector3F& direction) {
+Color SphericalHarmonics3::operator()(const Vector3F &direction) {
     /**
      * Equations based on data from: http://ppsloan.org/publications/StupidSH36.pdf
      *
@@ -87,7 +107,7 @@ Color SphericalHarmonics3::operator()(const Vector3F& direction) {
      * 2: Math.PI / 4
      */
     
-    const auto& coe = _coefficients;
+    const auto &coe = _coefficients;
     
     const auto bv0 = 0.886227; // kernel0 * basis0 = 0.886227
     const auto bv1 = -1.023327 * direction.y; // kernel1 * basis1 = -1.023327
@@ -120,15 +140,33 @@ Color SphericalHarmonics3::operator()(const Vector3F& direction) {
 SphericalHarmonics3 SphericalHarmonics3::operator*(float s) {
     auto src = _coefficients;
     
-    (src[0] *= s); (src[1] *= s); (src[2] *= s);
-    (src[3] *= s); (src[4] *= s); (src[5] *= s);
-    (src[6] *= s); (src[7] *= s); (src[8] *= s);
-    (src[9] *= s); (src[10] *= s); (src[11] *= s);
-    (src[12] *= s); (src[13] *= s); (src[14] *= s);
-    (src[15] *= s); (src[16] *= s); (src[17] *= s);
-    (src[18] *= s); (src[19] *= s); (src[20] *= s);
-    (src[21] *= s); (src[22] *= s); (src[23] *= s);
-    (src[24] *= s); (src[25] *= s); (src[26] *= s);
+    (src[0] *= s);
+    (src[1] *= s);
+    (src[2] *= s);
+    (src[3] *= s);
+    (src[4] *= s);
+    (src[5] *= s);
+    (src[6] *= s);
+    (src[7] *= s);
+    (src[8] *= s);
+    (src[9] *= s);
+    (src[10] *= s);
+    (src[11] *= s);
+    (src[12] *= s);
+    (src[13] *= s);
+    (src[14] *= s);
+    (src[15] *= s);
+    (src[16] *= s);
+    (src[17] *= s);
+    (src[18] *= s);
+    (src[19] *= s);
+    (src[20] *= s);
+    (src[21] *= s);
+    (src[22] *= s);
+    (src[23] *= s);
+    (src[24] *= s);
+    (src[25] *= s);
+    (src[26] *= s);
     return SphericalHarmonics3(src);
 }
 
