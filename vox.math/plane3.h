@@ -1,31 +1,31 @@
 //
-//  plane2.h
+//  plane3.h
 //  DigitalVox4
 //
 //  Created by 杨丰 on 2022/1/16.
 //
 
-#ifndef plane2_h
-#define plane2_h
+#ifndef plane3_h
+#define plane3_h
 
-#include "vector2.h"
+#include "vector3.h"
 #include "plane.h"
 
 namespace vox {
 
 //!
-//! \brief      Class for 2-D plane.
+//! \brief      Class for 3-D plane.
 //!
 //! \tparam     T     The value type.
 //!
 template <typename T>
-class Plane<T, 2> final {
+class Plane<T, 3> final {
 public:
     static_assert(std::is_floating_point<T>::value,
                   "Plane only can be instantiated with floating point types");
     
     //! The normal of the plane.
-    Vector2<T> normal;
+    Vector3<T> normal;
     
     //! The distance of the plane along its normal to the origin.
     T distance;
@@ -34,7 +34,7 @@ public:
     Plane();
     
     //! Constructs a plane with given origin and riection.
-    Plane(const Vector2<T>& newNormal, const T& newDistance);
+    Plane(const Vector3<T>& newNormal, const T& newDistance);
     
     /**
      * Calculate the plane that contains the three specified points.
@@ -42,7 +42,7 @@ public:
      * @param point1 - The second point
      * @param point2 - The third point
      */
-    Plane(const Vector2<T>& point0, const Vector2<T>& point1);
+    Plane(const Vector3<T>& point0, const Vector3<T>& point1, const Vector3<T>& point2);
     
     //! Copy constructor.
     Plane(const Plane& other);
@@ -51,7 +51,7 @@ public:
      * Normalize the normal vector of this plane.
      * @returns The plane after normalize
      */
-    Plane<T, 2> normalized() const;
+    Plane<T, 3> normalized() const;
     
     /**
      * Normalize the normal vector of this plane.
@@ -59,17 +59,17 @@ public:
     void normalize();
 };
 
-//! Type alias for 2-D plane.
-template <typename T> using Plane2 = Plane<T, 2>;
+//! Type alias for 3-D plane.
+template <typename T> using Plane3 = Plane<T, 3>;
 
-//! Float-type 2-D plane.
-using Plane2F = Plane2<float>;
+//! Float-type 3-D plane.
+using Plane3F = Plane3<float>;
 
-//! Double-type 2-D plane.
-using Plane2D = Plane2<double>;
+//! Double-type 3-D plane.
+using Plane3D = Plane3<double>;
 
 }  // namespace vox
 
-#include "plane2-inl.h"
+#include "plane3-inl.h"
 
-#endif /* plane2_h */
+#endif /* plane3_h */

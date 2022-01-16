@@ -846,6 +846,8 @@
 		044594A12793FEFB00F04CE0 /* plane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
 		044594A22793FF2800F04CE0 /* plane2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plane2.h; sourceTree = "<group>"; };
 		044594A32793FF3700F04CE0 /* plane2-inl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "plane2-inl.h"; sourceTree = "<group>"; };
+		044594A42794034500F04CE0 /* plane3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plane3.h; sourceTree = "<group>"; };
+		044594A52794035200F04CE0 /* plane3-inl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "plane3-inl.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1168,6 +1170,8 @@
 				044594A12793FEFB00F04CE0 /* plane.h */,
 				044594A22793FF2800F04CE0 /* plane2.h */,
 				044594A32793FF3700F04CE0 /* plane2-inl.h */,
+				044594A42794034500F04CE0 /* plane3.h */,
+				044594A52794035200F04CE0 /* plane3-inl.h */,
 				0422966D278D689C0090983F /* ray.h */,
 				04229663278D689B0090983F /* ray2.h */,
 				0422966A278D689B0090983F /* ray2-inl.h */,

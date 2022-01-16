@@ -6,7 +6,6 @@
 
 #include "ray2.h"
 #include <gtest/gtest.h>
-#include "plane2.h"
 
 using namespace vox;
 
