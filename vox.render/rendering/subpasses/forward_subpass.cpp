@@ -9,7 +9,7 @@
 #include "material/material.h"
 #include "graphics/mesh.h"
 #include "renderer.h"
-
+#include "camera.h"
 #include "core/CPPMetalAssert.hpp"
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
@@ -64,7 +64,6 @@ Subpass(desc, m_device, scene, camera) {
 }
 
 void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
-    
     commandEncoder.pushDebugGroup("Draw G-Buffer");
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setDepthStencilState(m_forwardDepthStencilState);
@@ -75,8 +74,8 @@ void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
 }
 
 void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
-    Imath::M44f viewMat;
-    Imath::M44f projMat;
+    Imath::M44f viewMat = camera->viewMatrix();
+    Imath::M44f projMat = camera->projectionMatrix();
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
