@@ -8,7 +8,7 @@
 #include "camera.h"
 #include "entity.h"
 #include "scene.h"
-#include "ImathRightHand.h"
+#include "matrix_utils.h"
 #include "shader/shader.h"
 
 namespace vox {
@@ -67,11 +67,11 @@ void Camera::setAspectRatio(float value) {
     _projMatChange();
 }
 
-Imath::V4f Camera::viewport() const {
+Vector4F Camera::viewport() const {
     return _viewport;
 }
 
-void Camera::setViewport(const Imath::V4f &value) {
+void Camera::setViewport(const Vector4F &value) {
     _viewport = value;
     _projMatChange();
 }
@@ -94,7 +94,7 @@ void Camera::setOrthographicSize(float value) {
     _projMatChange();
 }
 
-Imath::M44f Camera::viewMatrix() {
+Matrix4x4F Camera::viewMatrix() {
     // Remove scale
     if (_isViewMatrixDirty->flag) {
         _isViewMatrixDirty->flag = false;
@@ -103,13 +103,13 @@ Imath::M44f Camera::viewMatrix() {
     return _viewMatrix;
 }
 
-void Camera::setProjectionMatrix(const Imath::M44f &value) {
+void Camera::setProjectionMatrix(const Matrix4x4F &value) {
     _projectionMatrix = value;
     _isProjMatSetting = true;
     _projMatChange();
 }
 
-Imath::M44f Camera::projectionMatrix() {
+Matrix4x4F Camera::projectionMatrix() {
     if ((!_isProjectionDirty || _isProjMatSetting) &&
         _lastAspectSize.x == _width &&
         _lastAspectSize.y == _height) {
@@ -119,14 +119,14 @@ Imath::M44f Camera::projectionMatrix() {
     _lastAspectSize.x = _width;
     _lastAspectSize.y = _height;
     if (!_isOrthographic) {
-        _projectionMatrix = Imath::perspective(degreesToRadians(_fieldOfView),
+        _projectionMatrix = makepPerspective(degreesToRadians(_fieldOfView),
                                                 aspectRatio(),
                                                 _nearClipPlane,
                                                 _farClipPlane);
     } else {
         const auto width = _orthographicSize * aspectRatio();
         const auto height = _orthographicSize;
-        _projectionMatrix = Imath::ortho(-width, width, -height, height, _nearClipPlane, _farClipPlane);
+        _projectionMatrix = makeOrtho(-width, width, -height, height, _nearClipPlane, _farClipPlane);
     }
     return _projectionMatrix;
 }
@@ -149,76 +149,80 @@ void Camera::resetAspectRatio() {
     _projMatChange();
 }
 
-Imath::V4f Camera::worldToViewportPoint(const Imath::V3f &point) {
+Vector4F Camera::worldToViewportPoint(const Point3F &point) {
     auto tempMat4 = projectionMatrix() * viewMatrix();
-    auto tempVec = Imath::V3f(point.x, point.y, point.z);
-    const auto w = tempVec.x * tempMat4[0][3] + tempVec.y * tempMat4[1][3] + tempVec.z * tempMat4[2][3] + tempMat4[3][3];
-    tempMat4.multVecMatrix(tempVec, tempVec);
+    auto tempVec4 = Vector4F(point.x, point.y, point.z, 1.0);
+    tempVec4 = tempMat4 * tempVec4;
+    
+    const auto w = tempVec4.w;
+    const auto nx = tempVec4.x / w;
+    const auto ny = tempVec4.y / w;
+    const auto nz = tempVec4.z / w;
     
     // Transform of coordinate axis.
-    return Imath::V4f((tempVec.x + 1.0) * 0.5, (1.0 - tempVec.y) * 0.5, tempVec.z, w);
+    return Vector4F((nx + 1.0) * 0.5, (1.0 - ny) * 0.5, nz, w);
 }
 
-Imath::V3f Camera::viewportToWorldPoint(const Imath::V3f &point) {
+Point3F Camera::viewportToWorldPoint(const Vector3F &point) {
     return _innerViewportToWorldPoint(point, invViewProjMat());
 }
 
-Ray3f Camera::viewportPointToRay(const Imath::V2f &point) {
-    Ray3f out;
+Ray3F Camera::viewportPointToRay(const Vector2F &point) {
+    Ray3F out;
     // Use the intersection of the near clipping plane as the origin point.
-    Imath::V3f clipPoint = Imath::V3f(point.x, point.y, 0);
+    Vector3F clipPoint = Vector3F(point.x, point.y, 0);
     out.origin = viewportToWorldPoint(clipPoint);
     // Use the intersection of the far clipping plane as the origin point.
     clipPoint.z = 1.0;
-    Imath::V3f farPoint = _innerViewportToWorldPoint(clipPoint, _invViewProjMat);
+    Point3F farPoint = _innerViewportToWorldPoint(clipPoint, _invViewProjMat);
     out.direction = farPoint - out.origin;
-    out.direction = out.direction.normalize();
+    out.direction = out.direction.normalized();
     
     return out;
 }
 
-Imath::V2f Camera::screenToViewportPoint(const Imath::V2f &point) {
-    const Imath::V4f viewport = this->viewport();
-    return Imath::V2f((point.x / _width - viewport.x) / viewport.z,
+Vector2F Camera::screenToViewportPoint(const Vector2F &point) {
+    const Vector4F viewport = this->viewport();
+    return Vector2F((point.x / _width - viewport.x) / viewport.z,
                   (point.y / _height - viewport.y) / viewport.w);
 }
 
-Imath::V3f Camera::screenToViewportPoint(const Imath::V3f &point) {
-    const Imath::V4f viewport = this->viewport();
-    return Imath::V3f((point.x / _width - viewport.x) / viewport.z,
+Vector3F Camera::screenToViewportPoint(const Vector3F &point) {
+    const Vector4F viewport = this->viewport();
+    return Vector3F((point.x / _width - viewport.x) / viewport.z,
                   (point.y / _height - viewport.y) / viewport.w, 0);
 }
 
-Imath::V2f Camera::viewportToScreenPoint(const Imath::V2f &point) {
-    const Imath::V4f viewport = this->viewport();
-    return Imath::V2f((viewport.x + point.x * viewport.z) * _width,
+Vector2F Camera::viewportToScreenPoint(const Vector2F &point) {
+    const Vector4F viewport = this->viewport();
+    return Vector2F((viewport.x + point.x * viewport.z) * _width,
                   (viewport.y + point.y * viewport.w) * _height);
 }
 
-Imath::V3f Camera::viewportToScreenPoint(const Imath::V3f &point) {
-    const Imath::V4f viewport = this->viewport();
-    return Imath::V3f((viewport.x + point.x * viewport.z) * _width,
+Vector3F Camera::viewportToScreenPoint(const Vector3F &point) {
+    const Vector4F viewport = this->viewport();
+    return Vector3F((viewport.x + point.x * viewport.z) * _width,
                   (viewport.y + point.y * viewport.w) * _height, 0);
 }
 
-Imath::V4f Camera::viewportToScreenPoint(const Imath::V4f &point) {
-    const Imath::V4f viewport = this->viewport();
-    return Imath::V4f((viewport.x + point.x * viewport.z) * _width,
+Vector4F Camera::viewportToScreenPoint(const Vector4F &point) {
+    const Vector4F viewport = this->viewport();
+    return Vector4F((viewport.x + point.x * viewport.z) * _width,
                   (viewport.y + point.y * viewport.w) * _height, 0, 0);
 }
 
-Imath::V4f Camera::worldToScreenPoint(const Imath::V3f &point) {
+Vector4F Camera::worldToScreenPoint(const Point3F &point) {
     auto out = worldToViewportPoint(point);
     return viewportToScreenPoint(out);
 }
 
-Imath::V3f Camera::screenToWorldPoint(const Imath::V3f &point) {
+Point3F Camera::screenToWorldPoint(const Vector3F &point) {
     auto out = screenToViewportPoint(point);
     return viewportToWorldPoint(out);
 }
 
-Ray3f Camera::screenPointToRay(const Imath::V2f &point) {
-    Imath::V2f viewportPoint = screenToViewportPoint(point);
+Ray3F Camera::screenPointToRay(const Vector2F &point) {
+    Vector2F viewportPoint = screenToViewportPoint(point);
     return viewportPointToRay(viewportPoint);
 }
 
@@ -242,12 +246,12 @@ void Camera::_projMatChange() {
     _isInvViewProjDirty->flag = true;
 }
 
-Imath::V3f Camera::_innerViewportToWorldPoint(const Imath::V3f &point, const Imath::M44f &invViewProjMat) {
+Point3F Camera::_innerViewportToWorldPoint(const Vector3F &point, const Matrix4x4F &invViewProjMat) {
     // Depth is a normalized value, 0 is nearPlane, 1 is farClipPlane.
     const auto depth = point.z * 2 - 1;
     // Transform to clipping space matrix
-    Imath::V3f clipPoint = Imath::V3f(point.x * 2 - 1, 1 - point.y * 2, depth);
-    invViewProjMat.multVecMatrix(clipPoint, clipPoint);
+    Point3F clipPoint = Point3F(point.x * 2 - 1, 1 - point.y * 2, depth);
+    clipPoint = invViewProjMat * clipPoint;
     return clipPoint;
 }
 
@@ -260,7 +264,7 @@ void Camera::updateShaderData() {
     shaderData.setData(Camera::_cameraPositionProperty, _transform->worldPosition());
 }
 
-Imath::M44f Camera::invViewProjMat() {
+Matrix4x4F Camera::invViewProjMat() {
     if (_isInvViewProjDirty->flag) {
         _isInvViewProjDirty->flag = false;
         _invViewProjMat = _transform->worldMatrix() * inverseProjectionMatrix();
@@ -268,7 +272,7 @@ Imath::M44f Camera::invViewProjMat() {
     return _invViewProjMat;
 }
 
-Imath::M44f Camera::inverseProjectionMatrix() {
+Matrix4x4F Camera::inverseProjectionMatrix() {
     if (_isInvProjMatDirty) {
         _isInvProjMatDirty = false;
         _inverseProjectionMatrix = projectionMatrix().inverse();

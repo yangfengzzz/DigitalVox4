@@ -9,8 +9,9 @@
 #define orbit_control_hpp
 
 #include "../script.h"
-#include "ImathVec.h"
-#include "ImathMatrix.h"
+#include "vector3.h"
+#include "vector2.h"
+#include "matrix4x4.h"
 #include "spherical.h"
 
 namespace vox {
@@ -57,12 +58,12 @@ public:
     /**
      * Pan left.
      */
-    void panLeft(float distance, const Imath::M44f &worldMatrix);
+    void panLeft(float distance, const Matrix4x4F &worldMatrix);
     
     /**
      * Pan right.
      */
-    void panUp(float distance, const Imath::M44f &worldMatrix);
+    void panUp(float distance, const Matrix4x4F &worldMatrix);
     
     /**
      * Pan.
@@ -237,9 +238,9 @@ private:
     
     float fov = 45;
     // Target position.
-    Imath::V3f target;
+    Point3F target;
     // Up vector
-    Imath::V3f up = Imath::V3f(0, 1, 0);
+    Vector3F up = Vector3F(0, 1, 0);
     /**
      * The minimum distance, the default is 0.1, should be greater than 0.
      */
@@ -320,26 +321,26 @@ private:
     /** The radian of automatic rotation per second. */
     float autoRotateSpeed = M_PI;
     
-    Imath::V3f _position;
-    Imath::V3f _offset;
+    Point3F _position;
+    Vector3F _offset;
     Spherical _spherical;
     Spherical _sphericalDelta;
     Spherical _sphericalDump;
     float _zoomFrag = 0;
     float _scale = 1;
-    Imath::V3f _panOffset;
+    Vector3F _panOffset;
     bool _isMouseUp = true;
-    Imath::V3f _vPan;
+    Vector3F _vPan;
     STATE::Enum _state = STATE::Enum::NONE;
-    Imath::V2f _rotateStart;
-    Imath::V2f _rotateEnd;
-    Imath::V2f _rotateDelta;
-    Imath::V2f _panStart;
-    Imath::V2f _panEnd;
-    Imath::V2f _panDelta;
-    Imath::V2f _zoomStart;
-    Imath::V2f _zoomEnd;
-    Imath::V2f _zoomDelta;
+    Vector2F _rotateStart;
+    Vector2F _rotateEnd;
+    Vector2F _rotateDelta;
+    Vector2F _panStart;
+    Vector2F _panEnd;
+    Vector2F _panDelta;
+    Vector2F _zoomStart;
+    Vector2F _zoomEnd;
+    Vector2F _zoomDelta;
     
     bool _enableEvent = true;
     bool _enableMove = false;

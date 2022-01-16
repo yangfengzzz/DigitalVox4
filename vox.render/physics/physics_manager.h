@@ -33,7 +33,7 @@ public:
      * @param ray - The ray
      * @returns Returns True if the ray intersects with a collider, otherwise false
      */
-    bool raycast(const Imath::Ray3f &ray);
+    bool raycast(const Ray3F &ray);
     
     /**
      * Casts a ray through the Scene and returns the first hit.
@@ -41,7 +41,7 @@ public:
      * @param outHitResult - If true is returned, outHitResult will contain more detailed collision information
      * @returns Returns True if the ray intersects with a collider, otherwise false
      */
-    bool raycast(const Imath::Ray3f &ray, HitResult &outHitResult);
+    bool raycast(const Ray3F &ray, HitResult &outHitResult);
     
     /**
      * Casts a ray through the Scene and returns the first hit.
@@ -49,7 +49,7 @@ public:
      * @param distance - The max distance the ray should check
      * @returns Returns True if the ray intersects with a collider, otherwise false
      */
-    bool raycast(const Imath::Ray3f &ray, float distance);
+    bool raycast(const Ray3F &ray, float distance);
     
     /**
      * Casts a ray through the Scene and returns the first hit.
@@ -58,7 +58,7 @@ public:
      * @param outHitResult - If true is returned, outHitResult will contain more detailed collision information
      * @returns Returns True if the ray intersects with a collider, otherwise false
      */
-    bool raycast(const Imath::Ray3f &ray, float distance, HitResult &outHitResult);
+    bool raycast(const Ray3F &ray, float distance, HitResult &outHitResult);
     
     /**
      * Casts a ray through the Scene and returns the first hit.
@@ -67,7 +67,7 @@ public:
      * @param layerMask - Layer mask that is used to selectively ignore Colliders when casting
      * @returns Returns True if the ray intersects with a collider, otherwise false
      */
-    bool raycast(const Imath::Ray3f &ray, float distance, Layer layerMask);
+    bool raycast(const Ray3F &ray, float distance, Layer layerMask);
     
     /**
      * Casts a ray through the Scene and returns the first hit.
@@ -77,7 +77,7 @@ public:
      * @param outHitResult - If true is returned, outHitResult will contain more detailed collision information
      * @returns Returns True if the ray intersects with a collider, otherwise false.
      */
-    bool raycast(const Imath::Ray3f &ray, float distance, Layer layerMask, HitResult &outHitResult);
+    bool raycast(const Ray3F &ray, float distance, Layer layerMask, HitResult &outHitResult);
     
 public:
     /**
@@ -136,10 +136,10 @@ private:
      */
     void _removeCharacterController(CharacterController *characterController);
     
-    bool _raycast(const Imath::Ray3f &ray, float distance,
+    bool _raycast(const Ray3F &ray, float distance,
                   std::function<void(uint32_t, float,
-                                     const Imath::V3f &,
-                                     const Imath::V3f &)> outHitResult);
+                                     const Vector3F &,
+                                     const Point3F &)> outHitResult);
     
 private:
     PxControllerManager *_nativeCharacterControllerManager;

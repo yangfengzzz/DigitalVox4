@@ -22,7 +22,7 @@
 #include <vector>
 
 #include "helpers.h"
-#include "ImathVec.h"
+#include "vector3.h"
 
 namespace vox {
 namespace field {
@@ -92,7 +92,7 @@ template<typename T>
 struct Vector final : public Static<T> {
     T x, y, z;
     
-    Vector(const std::string &label, const Imath::V3f &vec) :
+    Vector(const std::string &label, const Vector3F &vec) :
     Vector(label, vec.x, vec.y, vec.z) {
     }
     

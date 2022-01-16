@@ -10,6 +10,7 @@
 
 #include "matrix4x4.h"
 #include "quaternion.h"
+#include "math_utils.h"
 
 namespace vox {
 //! Makes scale matrix.
@@ -57,7 +58,7 @@ inline Matrix<T, 4, 4> makeRotationTranslationMatrix(const Quaternion<T>& q, con
 template <typename T>
 inline Matrix<T, 4, 4> makeAffineMatrix(const Vector3<T>& s,
                                         const Quaternion<T>& q,
-                                        const Vector3<T>& t) {
+                                        const Point3<T>& t) {
     T x = q.x;
     T y = q.y;
     T z = q.z;
@@ -109,8 +110,8 @@ inline Matrix<T, 4, 4> makeAffineMatrix(const Vector3<T>& s,
  * @param up - The camera's up vector
  */
 template <typename T>
-inline Matrix<T, 4, 4> makeLookAtMatrix(const Vector3<T>& eye,
-                                        const Vector3<T>& target, const Vector3<T>& up) {
+inline Matrix<T, 4, 4> makeLookAtMatrix(const Point3<T>& eye,
+                                        const Point3<T>& target, const Vector3<T>& up) {
     Vector3<T> zAxis = eye - target;
     zAxis.normalize();
     Vector3<T> xAxis = up - zAxis;
@@ -132,9 +133,9 @@ inline Matrix<T, 4, 4> makeLookAtMatrix(const Vector3<T>& eye,
                            zAxis.z,
                            0,
                            
-                           -xAxis.dot(eye),
-                           -yAxis.dot(eye),
-                           -zAxis.dot(eye),
+                           -eye.dot(xAxis),
+                           -eye.dot(yAxis),
+                           -eye.dot(zAxis),
                            1);
 }
 
@@ -183,7 +184,7 @@ inline Matrix<T, 4, 4> makeOrtho(T left, T right, T bottom, T top, T near, T far
  */
 template <typename T>
 inline Matrix<T, 4, 4> makepPerspective(T fovy, T aspect, T near, T far) {
-    T f = (T)1 / std::tan<T>(fovy / 2);
+    T f = (T)1 / std::tan(fovy / 2);
     T nf = (T)1 / (near - far);
     
     return Matrix<T, 4, 4>(f / aspect,
@@ -217,7 +218,7 @@ inline Matrix<T, 4, 4> makepPerspective(T fovy, T aspect, T near, T far) {
  */
 template <typename T>
 bool decompose(const Matrix<T, 4, 4>& matrix,
-               Vector3<T>& translation,
+               Point3<T>& translation,
                Quaternion<T>& rotation,
                Vector3<T>& scale) {
     Matrix<T, 3, 3> rm;
@@ -238,9 +239,9 @@ bool decompose(const Matrix<T, 4, 4>& matrix,
     translation.y = matrix[13];
     translation.z = matrix[14];
     
-    const auto xs = sgn(m11 * m12 * m13 * m14);
-    const auto ys = sgn(m21 * m22 * m23 * m24);
-    const auto zs = sgn(m31 * m32 * m33 * m34);
+    const auto xs = sign(m11 * m12 * m13 * m14);
+    const auto ys = sign(m21 * m22 * m23 * m24);
+    const auto zs = sign(m31 * m32 * m33 * m34);
     
     const auto sx = xs * std::sqrt(m11 * m11 + m12 * m12 + m13 * m13);
     const auto sy = ys * std::sqrt(m21 * m21 + m22 * m22 + m23 * m23);
@@ -253,7 +254,7 @@ bool decompose(const Matrix<T, 4, 4>& matrix,
     if (std::abs(sx) < std::numeric_limits<T>::epsilon() ||
         std::abs(sy) < std::numeric_limits<T>::epsilon() ||
         std::abs(sz) < std::numeric_limits<T>::epsilon()) {
-        rotation.identity();
+        rotation = Quaternion<T>::makeIdentity();
         return false;
     } else {
         const auto invSX = 1 / sx;
@@ -341,8 +342,8 @@ Vector3<T> getScaling(const Matrix<T, 4, 4>& matrix) {
  * @returns Translation vector as an output parameter
  */
 template <typename T>
-Vector3<T> getTranslation(const Matrix<T, 4, 4>& matrix) {
-    return Vector3<T>(matrix[12], matrix[13], matrix[14]);
+Point3<T> getTranslation(const Matrix<T, 4, 4>& matrix) {
+    return Point3<T>(matrix[12], matrix[13], matrix[14]);
 }
 
 }

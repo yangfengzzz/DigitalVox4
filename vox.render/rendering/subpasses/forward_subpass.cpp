@@ -74,8 +74,8 @@ void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
 }
 
 void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
-    Imath::M44f viewMat = camera->viewMatrix();
-    Imath::M44f projMat = camera->projectionMatrix();
+    Matrix4x4F viewMat = camera->viewMatrix();
+    Matrix4x4F projMat = camera->projectionMatrix();
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
@@ -91,10 +91,10 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_specularTexture")), TextureIndexSpecular);
 
         auto& renderer = element.renderer;
-        auto mvpMat = std::any_cast<Imath::M44f>(renderer->shaderData.getData("u_MVPMat"));
-        renderEncoder.setVertexBytes(&mvpMat, sizeof(Imath::M44f), 5);
-        auto normalMat = std::any_cast<Imath::M44f>(renderer->shaderData.getData("u_normalMat"));
-        renderEncoder.setVertexBytes(&normalMat, sizeof(Imath::M44f), 6);
+        auto mvpMat = std::any_cast<Matrix4x4F>(renderer->shaderData.getData("u_MVPMat"));
+        renderEncoder.setVertexBytes(&mvpMat, sizeof(Matrix4x4F), 5);
+        auto normalMat = std::any_cast<Matrix4x4F>(renderer->shaderData.getData("u_normalMat"));
+        renderEncoder.setVertexBytes(&normalMat, sizeof(Matrix4x4F), 6);
         
         // manully
         auto& mesh = element.mesh;

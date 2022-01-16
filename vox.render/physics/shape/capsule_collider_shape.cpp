@@ -65,19 +65,19 @@ void CapsuleColliderShape::setUpAxis(ColliderShapeUpAxis::Enum value) {
     _upAxis = value;
     switch (_upAxis) {
         case ColliderShapeUpAxis::Enum::X:
-            _pose.setOrientation(Imath::Quatf(1, 0, 0, 0));
+            _pose.setOrientation(QuaternionF(1, 0, 0, 0));
             break;
         case ColliderShapeUpAxis::Enum::Y:
-            _pose.setOrientation(Imath::Quatf(ColliderShape::halfSqrt, 0, 0, ColliderShape::halfSqrt));
+            _pose.setOrientation(QuaternionF(ColliderShape::halfSqrt, 0, 0, ColliderShape::halfSqrt));
             break;
         case ColliderShapeUpAxis::Enum::Z:
-            _pose.setOrientation(Imath::Quatf(ColliderShape::halfSqrt, 0, ColliderShape::halfSqrt, 0));
+            _pose.setOrientation(QuaternionF(ColliderShape::halfSqrt, 0, ColliderShape::halfSqrt, 0));
             break;
     }
     setLocalPose(_pose);
 }
 
-void CapsuleColliderShape::setWorldScale(const Imath::V3f &scale) {
+void CapsuleColliderShape::setWorldScale(const Vector3F &scale) {
     switch (_upAxis) {
         case ColliderShapeUpAxis::Enum::X:
             static_cast<PxCapsuleGeometry *>(_nativeGeometry.get())->radius = _radius * std::max(scale.y, scale.z);

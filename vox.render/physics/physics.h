@@ -8,7 +8,7 @@
 #ifndef physics_hpp
 #define physics_hpp
 
-#include "ImathVec.h"
+#include "vector3.h"
 #include <PxPhysicsAPI.h>
 #include <memory>
 

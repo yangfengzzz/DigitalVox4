@@ -8,7 +8,7 @@
 #ifndef spherical_hpp
 #define spherical_hpp
 
-#include "ImathVec.h"
+#include "vector3.h"
 
 namespace vox {
 namespace control {
@@ -21,9 +21,9 @@ public:
     
     void makeSafe();
     
-    void setFromVec3(const Imath::V3f &v3);
+    void setFromVec3(const Vector3F &v3);
     
-    void setToVec3(Imath::V3f &v3);
+    void setToVec3(Vector3F &v3);
     
 private:
     friend class OrbitControl;

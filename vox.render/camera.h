@@ -12,7 +12,7 @@
 #include "shader/shader_data.h"
 #include "layer.h"
 #include "ray3.h"
-#include "ImathMatrix.h"
+#include "matrix4x4.h"
 #include "bounding_frustum.h"
 #include "updateFlag.h"
 
@@ -94,9 +94,9 @@ public:
      * Viewport, normalized expression, the upper left corner is (0, 0), and the lower right corner is (1, 1).
      * @remarks Re-assignment is required after modification to ensure that the modification takes effect.
      */
-    Imath::V4f viewport() const;
+    Vector4F viewport() const;
     
-    void setViewport(const Imath::V4f &value);
+    void setViewport(const Vector4F &value);
     
     /**
      * Whether it is orthogonal, the default is false. True will use orthographic projection, false will use perspective projection.
@@ -115,15 +115,15 @@ public:
     /**
      * View matrix.
      */
-    Imath::M44f viewMatrix();
+    Matrix4x4F viewMatrix();
     
     /**
      * The projection matrix is ​​calculated by the relevant parameters of the camera by default.
      * If it is manually set, the manual value will be maintained. Call resetProjectionMatrix() to restore it.
      */
-    void setProjectionMatrix(const Imath::M44f &value);
+    void setProjectionMatrix(const Matrix4x4F &value);
     
-    Imath::M44f projectionMatrix();
+    Matrix4x4F projectionMatrix();
     
     /**
      * Whether to enable HDR.
@@ -150,7 +150,7 @@ public:
      * @return out - A point in the viewport space, X and Y are the viewport space coordinates,
      * Z is the viewport depth, the near clipping plane is 0, the far clipping plane is 1, and W is the world unit distance from the camera
      */
-    Imath::V4f worldToViewportPoint(const Imath::V3f &point);
+    Vector4F worldToViewportPoint(const Point3F &point);
     
     /**
      * Transform a point from viewport space to world space.
@@ -158,55 +158,55 @@ public:
      * Z is the viewport depth. The near clipping plane is 0, and the far clipping plane is 1
      * @returns Point in world space
      */
-    Imath::V3f viewportToWorldPoint(const Imath::V3f &point);
+    Point3F viewportToWorldPoint(const Vector3F &point);
     
     /**
      * Generate a ray by a point in viewport.
      * @param point - Point in viewport space, which is represented by normalization
      * @returns Ray
      */
-    Imath::Ray3f viewportPointToRay(const Imath::V2f &point);
+    Ray3F viewportPointToRay(const Vector2F &point);
     
     /**
      * Transform the X and Y coordinates of a point from screen space to viewport space
      * @param point - Point in screen space
      * @returns Point in viewport space
      */
-    Imath::V2f screenToViewportPoint(const Imath::V2f &point);
+    Vector2F screenToViewportPoint(const Vector2F &point);
     
-    Imath::V3f screenToViewportPoint(const Imath::V3f &point);
+    Vector3F screenToViewportPoint(const Vector3F &point);
     
     /**
      * Transform the X and Y coordinates of a point from viewport space to screen space.
      * @param point - Point in viewport space
      * @returns Point in screen space
      */
-    Imath::V2f viewportToScreenPoint(const Imath::V2f &point);
+    Vector2F viewportToScreenPoint(const Vector2F &point);
     
-    Imath::V3f viewportToScreenPoint(const Imath::V3f &point);
+    Vector3F viewportToScreenPoint(const Vector3F &point);
     
-    Imath::V4f viewportToScreenPoint(const Imath::V4f &point);
+    Vector4F viewportToScreenPoint(const Vector4F &point);
     
     /**
      * Transform a point from world space to screen space.
      * @param point - Point in world space
      * @returns Point of screen space
      */
-    Imath::V4f worldToScreenPoint(const Imath::V3f &point);
+    Vector4F worldToScreenPoint(const Point3F &point);
     
     /**
      * Transform a point from screen space to world space.
      * @param point - Screen space point
      * @returns Point in world space
      */
-    Imath::V3f screenToWorldPoint(const Imath::V3f &point);
+    Point3F screenToWorldPoint(const Vector3F &point);
     
     /**
      * Generate a ray by a point in screen.
      * @param point - Point in screen space, the unit is pixel
      * @returns Ray
      */
-    Imath::Ray3f screenPointToRay(const Imath::V2f &point);
+    Ray3F screenPointToRay(const Vector2F &point);
     
     void resize(uint32_t width, uint32_t height);
     
@@ -224,17 +224,17 @@ private:
     
     void _projMatChange();
     
-    Imath::V3f _innerViewportToWorldPoint(const Imath::V3f &point, const Imath::M44f &invViewProjMat);
+    Point3F _innerViewportToWorldPoint(const Vector3F &point, const Matrix4x4F &invViewProjMat);
         
     /**
      * The inverse matrix of view projection matrix.
      */
-    Imath::M44f invViewProjMat();
+    Matrix4x4F invViewProjMat();
     
     /**
      * The inverse of the projection matrix.
      */
-    Imath::M44f inverseProjectionMatrix();
+    Matrix4x4F inverseProjectionMatrix();
     
     ShaderProperty _viewMatrixProperty;
     ShaderProperty _projectionMatrixProperty;
@@ -244,7 +244,7 @@ private:
     ShaderProperty _cameraPositionProperty;
     
     ShaderMacroCollection _globalShaderMacro = ShaderMacroCollection();
-    Imath::BoundingFrustum _frustum = Imath::BoundingFrustum();
+    BoundingFrustum _frustum = BoundingFrustum();
     
     bool _isOrthographic = false;
     bool _isProjMatSetting = false;
@@ -261,12 +261,12 @@ private:
     Transform *_transform;
     std::unique_ptr<UpdateFlag> _isViewMatrixDirty;
     std::unique_ptr<UpdateFlag> _isInvViewProjDirty;
-    Imath::M44f _projectionMatrix = Imath::M44f();
-    Imath::M44f _viewMatrix = Imath::M44f();
-    Imath::V4f _viewport = Imath::V4f(0, 0, 1, 1);
-    Imath::M44f _inverseProjectionMatrix = Imath::M44f();
-    Imath::V2f _lastAspectSize = Imath::V2f();
-    Imath::M44f _invViewProjMat = Imath::M44f();
+    Matrix4x4F _projectionMatrix = Matrix4x4F();
+    Matrix4x4F _viewMatrix = Matrix4x4F();
+    Vector4F _viewport = Vector4F(0, 0, 1, 1);
+    Matrix4x4F _inverseProjectionMatrix = Matrix4x4F();
+    Vector2F _lastAspectSize = Vector2F();
+    Matrix4x4F _invViewProjMat = Matrix4x4F();
     
     uint32_t _width;
     uint32_t _height;

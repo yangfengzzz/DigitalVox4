@@ -8,11 +8,11 @@
 #include "unlit_material.h"
 
 namespace vox {
-Imath::Color4f UnlitMaterial::baseColor() {
-    return std::any_cast<Imath::Color4f>(shaderData.getData(_baseColorProp));
+Color UnlitMaterial::baseColor() {
+    return std::any_cast<Color>(shaderData.getData(_baseColorProp));
 }
 
-void UnlitMaterial::setBaseColor(const Imath::Color4f &newValue) {
+void UnlitMaterial::setBaseColor(const Color &newValue) {
     shaderData.setData(UnlitMaterial::_baseColorProp, newValue);
 }
 
@@ -30,11 +30,11 @@ void UnlitMaterial::setBaseTexture(std::shared_ptr<MTL::Texture> newValue) {
     }
 }
 
-Imath::V4f UnlitMaterial::tilingOffset() {
-    return std::any_cast<Imath::V4f>(shaderData.getData(_tilingOffsetProp));
+Vector4F UnlitMaterial::tilingOffset() {
+    return std::any_cast<Vector4F>(shaderData.getData(_tilingOffsetProp));
 }
 
-void UnlitMaterial::setTilingOffset(const Imath::V4f &newValue) {
+void UnlitMaterial::setTilingOffset(const Vector4F &newValue) {
     shaderData.setData(UnlitMaterial::_tilingOffsetProp, newValue);
 }
 
@@ -46,8 +46,8 @@ _tilingOffsetProp(Shader::createProperty("u_tilingOffset", ShaderDataGroup::Mate
     shaderData.enableMacro(OMIT_NORMAL);
     shaderData.enableMacro(NEED_TILINGOFFSET);
     
-    shaderData.setData(_baseColorProp, Imath::Color4f(1, 1, 1, 1));
-    shaderData.setData(_tilingOffsetProp, Imath::V4f(1, 1, 0, 0));
+    shaderData.setData(_baseColorProp, Color(1, 1, 1, 1));
+    shaderData.setData(_tilingOffsetProp, Vector4F(1, 1, 0, 0));
 }
 
 }

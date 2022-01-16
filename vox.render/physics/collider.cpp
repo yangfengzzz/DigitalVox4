@@ -60,7 +60,7 @@ void Collider::_onUpdate() {
         const auto &p = transform->worldPosition();
         auto q = transform->worldRotationQuaternion();
         q.normalize();
-        _nativeActor->setGlobalPose(PxTransform(PxVec3(p.x, p.y, p.z), PxQuat(q.v.x, q.v.y, q.v.z, q.r)));
+        _nativeActor->setGlobalPose(PxTransform(PxVec3(p.x, p.y, p.z), PxQuat(q.x, q.y, q.z, q.w)));
         _updateFlag->flag = false;
         
         const auto worldScale = transform->lossyWorldScale();

@@ -10,13 +10,11 @@
 
 #include "component.h"
 #include "updateFlag_manager.h"
-#include "ImathVec.h"
-#include "ImathMatrix.h"
-#include "ImathQuat.h"
-#include "ImathEuler.h"
+#include "vector3.h"
+#include "matrix4x4.h"
+#include "quaternion.h"
 
 namespace vox {
-using namespace Imath;
 /**
  * Dirty flag of transform.
  */
@@ -55,82 +53,82 @@ public:
      * Local position.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    V3f position();
+    Point3F position();
     
-    void setPosition(const V3f &value);
+    void setPosition(const Point3F &value);
     
     /**
      * World position.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    V3f worldPosition();
+    Point3F worldPosition();
     
-    void setWorldPosition(const V3f &value);
+    void setWorldPosition(const Point3F &value);
     
     /**
      * Local rotation, defining the rotation value in degrees.
      * Rotations are performed around the Y axis, the X axis, and the Z axis, in that order.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    V3f rotation();
+    Vector3F rotation();
     
-    void setRotation(const V3f &value);
+    void setRotation(const Vector3F &value);
     
     /**
      * World rotation, defining the rotation value in degrees.
      * Rotations are performed around the Y axis, the X axis, and the Z axis, in that order.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    V3f worldRotation();
+    Vector3F worldRotation();
     
-    void setWorldRotation(const V3f &value);
+    void setWorldRotation(const Vector3F &value);
     
     /**
      * Local rotation, defining the rotation by using a unit quaternion.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    Quatf rotationQuaternion();
+    QuaternionF rotationQuaternion();
     
-    void setRotationQuaternion(const Quatf &value);
+    void setRotationQuaternion(const QuaternionF &value);
     
     /**
      * World rotation, defining the rotation by using a unit quaternion.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    Quatf worldRotationQuaternion();
+    QuaternionF worldRotationQuaternion();
     
-    void setWorldRotationQuaternion(const Quatf &value);
+    void setWorldRotationQuaternion(const QuaternionF &value);
     
     /**
      * Local scaling.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    V3f scale();
+    Vector3F scale();
     
-    void setScale(const V3f &value);
+    void setScale(const Vector3F &value);
     
     /**
      * Local lossy scaling.
      * @remarks The value obtained may not be correct under certain conditions(for example, the parent node has scaling,
      * and the child node has a rotation), the scaling will be tilted. Vector3 cannot be used to correctly represent the scaling. Must use Matrix3x3.
      */
-    V3f lossyWorldScale();
+    Vector3F lossyWorldScale();
     
     /**
      * Local matrix.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    M44f localMatrix();
+    Matrix4x4F localMatrix();
     
-    void setLocalMatrix(const M44f &value);
+    void setLocalMatrix(const Matrix4x4F &value);
     
     /**
      * World matrix.
      * @remarks Need to re-assign after modification to ensure that the modification takes effect.
      */
-    M44f worldMatrix();
+    Matrix4x4F worldMatrix();
     
-    void setWorldMatrix(const M44f &value);
+    void setWorldMatrix(const Matrix4x4F &value);
     
     /**
      * Set local position by X, Y, Z value.
@@ -195,26 +193,26 @@ public:
      * Get the forward direction in world space.
      * @returns Forward vector
      */
-    V3f worldForward();
+    Vector3F worldForward();
     
     /**
      * Get the right direction in world space.
      * @returns Right vector
      */
-    V3f worldRight();
+    Vector3F worldRight();
     
     /**
      * Get the up direction in world space.
      * @returns Up vector
      */
-    V3f worldUp();
+    Vector3F worldUp();
     
     /**
      * Translate along the passed Vector3.
      * @param translation - Direction and distance of translation
      * @param relativeToLocal - Relative to local space
      */
-    void translate(const V3f &translation, bool relativeToLocal = true);
+    void translate(const Vector3F &translation, bool relativeToLocal = true);
     
     /**
      * Translate along the passed X, Y, Z value.
@@ -230,7 +228,7 @@ public:
      * @param rotation - Euler angle in degrees
      * @param relativeToLocal - Relative to local space
      */
-    void rotate(const V3f &rotation, bool relativeToLocal = true);
+    void rotate(const Vector3F &rotation, bool relativeToLocal = true);
     
     /**
      * Rotate around the passed Vector3.
@@ -247,14 +245,14 @@ public:
      * @param angle - Rotate angle in degrees
      * @param relativeToLocal - Relative to local space
      */
-    void rotateByAxis(const V3f &axis, float angle, bool relativeToLocal = true);
+    void rotateByAxis(const Vector3F &axis, float angle, bool relativeToLocal = true);
     
     /**
      * Rotate and ensure that the world front vector points to the target world position.
      * @param worldPosition - Target world position
      * @param worldUp - Up direction in world space, default is Vector3(0, 1, 0)
      */
-    void lookAt(const V3f &worldPosition, const V3f &worldUp = V3f(0, 1, 0));
+    void lookAt(const Point3F &worldPosition, const Vector3F &worldUp = Vector3F(0, 1, 0));
     
     /**
      * Register world transform change flag.
@@ -316,6 +314,8 @@ private:
     
     Transform *_getParentTransform();
     
+    Matrix3x3F _getScaleMatrix();
+    
     bool _isContainDirtyFlags(int targetDirtyFlags);
     
     bool _isContainDirtyFlag(int type);
@@ -326,22 +326,22 @@ private:
     
     void _worldAssociatedChange(int type);
     
-    void _rotateByQuat(const Quatf &rotateQuat, bool relativeToLocal);
+    void _rotateByQuat(const QuaternionF &rotateQuat, bool relativeToLocal);
     
-    void _translate(const V3f &translation, bool relativeToLocal = true);
+    void _translate(const Vector3F &translation, bool relativeToLocal = true);
     
     void _rotateXYZ(float x, float y, float z, bool relativeToLocal = true);
     
-    V3f _position = V3f(0);
-    Eulerf _rotation = Eulerf();
-    Quatf _rotationQuaternion;
-    V3f _scale = V3f(1, 1, 1);
-    V3f _worldPosition = V3f(0);
-    Eulerf _worldRotation = Eulerf();
-    Quatf _worldRotationQuaternion;
-    V3f _lossyWorldScale = V3f(1, 1, 1);
-    M44f _localMatrix;
-    M44f _worldMatrix;
+    Point3F _position = Point3F();
+    Vector3F _rotation = Vector3F();
+    QuaternionF _rotationQuaternion;
+    Vector3F _scale = Vector3F(1, 1, 1);
+    Point3F _worldPosition = Point3F();
+    Vector3F _worldRotation = Vector3F();
+    QuaternionF _worldRotationQuaternion;
+    Vector3F _lossyWorldScale = Vector3F(1, 1, 1);
+    Matrix4x4F _localMatrix;
+    Matrix4x4F _worldMatrix;
     UpdateFlagManager _updateFlagManager;
     bool _isParentDirty = true;
     Transform *_parentTransformCache = nullptr;

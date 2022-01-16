@@ -87,32 +87,32 @@ PxD6JointDrive ConfigurableJoint::drive(PxD6Drive::Enum index) const {
     return static_cast<PxD6Joint *>(_nativeJoint)->getDrive(index);
 }
 
-void ConfigurableJoint::setDrivePosition(const Imath::Transform3 &pose, bool autowake) {
+void ConfigurableJoint::setDrivePosition(const Transform3F &pose, bool autowake) {
     const auto &p = pose.translation();
     const auto &q = pose.orientation();
     
     static_cast<PxD6Joint *>(_nativeJoint)->setDrivePosition(PxTransform(PxVec3(p.x, p.y, p.z),
-                                                                         PxQuat(q.v.x, q.v.y, q.v.z, q.r)), autowake);
+                                                                         PxQuat(q.x, q.y, q.z, q.w)), autowake);
 }
 
-Imath::Transform3 ConfigurableJoint::drivePosition() const {
+Transform3F ConfigurableJoint::drivePosition() const {
     const auto pose = static_cast<PxD6Joint *>(_nativeJoint)->getDrivePosition();
-    Imath::Transform3 trans;
-    trans.setTranslation(Imath::V3f(pose.p.x, pose.p.y, pose.p.z));
-    trans.setOrientation(Imath::Quatf(pose.q.w, pose.q.x, pose.q.y, pose.q.z));
+    Transform3F trans;
+    trans.setTranslation(Vector3F(pose.p.x, pose.p.y, pose.p.z));
+    trans.setOrientation(QuaternionF(pose.q.w, pose.q.x, pose.q.y, pose.q.z));
     return trans;
 }
 
-void ConfigurableJoint::setDriveVelocity(const Imath::V3f &linear, const Imath::V3f &angular, bool autowake) {
+void ConfigurableJoint::setDriveVelocity(const Vector3F &linear, const Vector3F &angular, bool autowake) {
     static_cast<PxD6Joint *>(_nativeJoint)->setDriveVelocity(PxVec3(linear.x, linear.y, linear.z),
                                                              PxVec3(angular.x, angular.y, angular.z), autowake);
 }
 
-void ConfigurableJoint::driveVelocity(Imath::V3f &linear, Imath::V3f &angular) const {
+void ConfigurableJoint::driveVelocity(Vector3F &linear, Vector3F &angular) const {
     PxVec3 l, a;
     static_cast<PxD6Joint *>(_nativeJoint)->getDriveVelocity(l, a);
-    linear = Imath::V3f(l.x, l.y, l.z);
-    angular = Imath::V3f(a.x, a.y, a.z);
+    linear = Vector3F(l.x, l.y, l.z);
+    angular = Vector3F(a.x, a.y, a.z);
 }
 
 void ConfigurableJoint::setProjectionLinearTolerance(float tolerance) {

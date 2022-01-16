@@ -7,7 +7,6 @@
 
 #include "spherical.h"
 #include "constants.h"
-#include "ImathFun.h"
 
 namespace vox {
 namespace control {
@@ -24,21 +23,21 @@ void Spherical::set(float radius, float phi, float theta) {
 }
 
 void Spherical::makeSafe() {
-    this->phi = Imath::clamp<float>(phi, Imath::kEpsilonF, M_PI - Imath::kEpsilonF);
+    this->phi = clamp<float>(phi, kEpsilonF, M_PI - kEpsilonF);
 }
 
-void Spherical::setFromVec3(const Imath::V3f &v3) {
+void Spherical::setFromVec3(const Vector3F &v3) {
     radius = v3.length();
     if (radius == 0) {
         theta = 0;
         phi = 0;
     } else {
         theta = std::atan2(v3.x, v3.z);
-        phi = std::acos(Imath::clamp<float>(v3.y / radius, -1, 1));
+        phi = std::acos(clamp<float>(v3.y / radius, -1, 1));
     }
 }
 
-void Spherical::setToVec3(Imath::V3f &v3) {
+void Spherical::setToVec3(Vector3F &v3) {
     const auto sinPhiRadius = std::sin(phi) * radius;
     
     v3.x = sinPhiRadius * std::sin(theta);

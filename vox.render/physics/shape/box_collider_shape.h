@@ -16,14 +16,14 @@ class BoxColliderShape : public ColliderShape {
 public:
     BoxColliderShape();
     
-    Imath::V3f size();
+    Vector3F size();
     
-    void setSize(const Imath::V3f &value);
+    void setSize(const Vector3F &value);
     
-    void setWorldScale(const Imath::V3f &scale) override;
+    void setWorldScale(const Vector3F &scale) override;
     
 private:
-    Imath::V3f _half = Imath::V3f(0.5, 0.5, 0.5);
+    Vector3F _half = Vector3F(0.5, 0.5, 0.5);
 };
 
 }

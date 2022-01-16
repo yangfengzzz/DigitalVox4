@@ -8,7 +8,8 @@
 #ifndef hit_result_hpp
 #define hit_result_hpp
 
-#include "ImathVec.h"
+#include "point3.h"
+#include "vector3.h"
 #include "../entity.h"
 
 namespace vox {
@@ -23,9 +24,9 @@ struct HitResult {
     /** The distance from the ray's origin to the impact point. */
     float distance = 0;
     /** The impact point in world space where the ray hit the collider. */
-    Imath::V3f point = Imath::V3f();
+    Point3F point = Point3F();
     /** The normal of the surface the ray hit. */
-    Imath::V3f normal = Imath::V3f();
+    Vector3F normal = Vector3F();
 };
 
 }

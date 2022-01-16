@@ -107,24 +107,6 @@
 		04459259278E708A00F04CE0 /* unix_engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459257278E708A00F04CE0 /* unix_engine.h */; };
 		0445925C278E7C8600F04CE0 /* metal_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445925A278E7C8600F04CE0 /* metal_application.cpp */; };
 		0445925D278E7C8600F04CE0 /* metal_application.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445925B278E7C8600F04CE0 /* metal_application.h */; };
-		04459279278E80DD00F04CE0 /* updateFlag.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926B278E80DC00F04CE0 /* updateFlag.h */; };
-		0445927A278E80DD00F04CE0 /* scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926C278E80DC00F04CE0 /* scene.h */; };
-		0445927B278E80DD00F04CE0 /* updateFlag_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445926D278E80DC00F04CE0 /* updateFlag_manager.cpp */; };
-		0445927C278E80DD00F04CE0 /* updateFlag_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926E278E80DC00F04CE0 /* updateFlag_manager.h */; };
-		0445927D278E80DD00F04CE0 /* components_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926F278E80DC00F04CE0 /* components_manager.h */; };
-		0445927E278E80DD00F04CE0 /* entity.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459270278E80DC00F04CE0 /* entity.h */; };
-		0445927F278E80DD00F04CE0 /* layer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459271278E80DC00F04CE0 /* layer.h */; };
-		04459280278E80DD00F04CE0 /* updateFlag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459272278E80DC00F04CE0 /* updateFlag.cpp */; };
-		04459281278E80DD00F04CE0 /* component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459273278E80DC00F04CE0 /* component.cpp */; };
-		04459282278E80DD00F04CE0 /* component.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459274278E80DC00F04CE0 /* component.h */; };
-		04459283278E80DD00F04CE0 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459275278E80DC00F04CE0 /* scene.cpp */; };
-		04459284278E80DD00F04CE0 /* entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459276278E80DC00F04CE0 /* entity.cpp */; };
-		04459285278E80DD00F04CE0 /* components_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459277278E80DD00F04CE0 /* components_manager.cpp */; };
-		04459286278E80DD00F04CE0 /* scene_forward.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459278278E80DD00F04CE0 /* scene_forward.h */; };
-		04459289278E84DE00F04CE0 /* transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459287278E84DE00F04CE0 /* transform.cpp */; };
-		0445928A278E84DE00F04CE0 /* transform.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459288278E84DE00F04CE0 /* transform.h */; };
-		0445928D278EA37D00F04CE0 /* script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445928B278EA37D00F04CE0 /* script.cpp */; };
-		0445928E278EA37D00F04CE0 /* script.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445928C278EA37D00F04CE0 /* script.h */; };
 		04459297278EB2EB00F04CE0 /* shader_macro_collection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459295278EB2EB00F04CE0 /* shader_macro_collection.h */; };
 		0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0445929C278EB45200F04CE0 /* CPPMetalDataType.mm */; };
 		0445929F278EB45200F04CE0 /* CPPMetalDataType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0445929D278EB45200F04CE0 /* CPPMetalDataType.hpp */; };
@@ -169,13 +151,9 @@
 		044592F0278ED88400F04CE0 /* pbr_base_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592EE278ED88400F04CE0 /* pbr_base_material.cpp */; };
 		044592F3278EDA3300F04CE0 /* pbr_specular_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F1278EDA3200F04CE0 /* pbr_specular_material.h */; };
 		044592F4278EDA3300F04CE0 /* pbr_specular_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */; };
-		044592F7278EFEC700F04CE0 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F5278EFEC700F04CE0 /* camera.cpp */; };
-		044592F8278EFEC700F04CE0 /* camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F6278EFEC700F04CE0 /* camera.h */; };
 		044592FF278F023A00F04CE0 /* collision_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F9278F023900F04CE0 /* collision_utils.h */; };
 		04459300278F023A00F04CE0 /* bounding_frustum.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FA278F023900F04CE0 /* bounding_frustum.h */; };
 		04459304278F023A00F04CE0 /* spherical_harmonics3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FE278F023A00F04CE0 /* spherical_harmonics3.h */; };
-		04459309278F14BD00F04CE0 /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459307278F14BD00F04CE0 /* renderer.cpp */; };
-		0445930A278F14BD00F04CE0 /* renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459308278F14BD00F04CE0 /* renderer.h */; };
 		0445930E278F170100F04CE0 /* spherical.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445930C278F170100F04CE0 /* spherical.cpp */; };
 		0445930F278F170100F04CE0 /* spherical.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445930D278F170100F04CE0 /* spherical.h */; };
 		04459316278F183500F04CE0 /* physics.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459314278F183500F04CE0 /* physics.h */; };
@@ -270,7 +248,6 @@
 		0445940C2792500900F04CE0 /* skybox_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940A2792500900F04CE0 /* skybox_subpass.h */; };
 		0445940F2792545E00F04CE0 /* particle_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445940D2792545E00F04CE0 /* particle_subpass.cpp */; };
 		044594102792545E00F04CE0 /* particle_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940E2792545E00F04CE0 /* particle_subpass.h */; };
-		0445941627926D1600F04CE0 /* background.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941427926D1600F04CE0 /* background.h */; };
 		0445941927926E3300F04CE0 /* skybox_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445941727926E3300F04CE0 /* skybox_material.cpp */; };
 		0445941A27926E3300F04CE0 /* skybox_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941827926E3300F04CE0 /* skybox_material.h */; };
 		0445941E279292E000F04CE0 /* mesh_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445941C279292E000F04CE0 /* mesh_renderer.cpp */; };
@@ -339,6 +316,29 @@
 		044594A727940B6D00F04CE0 /* collision_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FD278F023A00F04CE0 /* collision_utils.cpp */; };
 		044594AF2794115800F04CE0 /* color.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594AE2794115800F04CE0 /* color.h */; };
 		044594B02794119400F04CE0 /* spherical_harmonics3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */; };
+		044594B22794407200F04CE0 /* transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459287278E84DE00F04CE0 /* transform.cpp */; };
+		044594B3279444E200F04CE0 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F5278EFEC700F04CE0 /* camera.cpp */; };
+		044594B42794473F00F04CE0 /* updateFlag.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926B278E80DC00F04CE0 /* updateFlag.h */; };
+		044594B52794473F00F04CE0 /* entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459276278E80DC00F04CE0 /* entity.cpp */; };
+		044594B62794473F00F04CE0 /* script.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445928C278EA37D00F04CE0 /* script.h */; };
+		044594B72794473F00F04CE0 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459275278E80DC00F04CE0 /* scene.cpp */; };
+		044594B82794473F00F04CE0 /* renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459308278F14BD00F04CE0 /* renderer.h */; };
+		044594B92794473F00F04CE0 /* transform.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459288278E84DE00F04CE0 /* transform.h */; };
+		044594BA2794473F00F04CE0 /* component.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459274278E80DC00F04CE0 /* component.h */; };
+		044594BB2794473F00F04CE0 /* components_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926F278E80DC00F04CE0 /* components_manager.h */; };
+		044594BC2794473F00F04CE0 /* background.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941427926D1600F04CE0 /* background.h */; };
+		044594BD2794473F00F04CE0 /* layer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459271278E80DC00F04CE0 /* layer.h */; };
+		044594BE2794473F00F04CE0 /* camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F6278EFEC700F04CE0 /* camera.h */; };
+		044594BF2794473F00F04CE0 /* script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445928B278EA37D00F04CE0 /* script.cpp */; };
+		044594C02794473F00F04CE0 /* updateFlag_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445926D278E80DC00F04CE0 /* updateFlag_manager.cpp */; };
+		044594C12794473F00F04CE0 /* updateFlag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459272278E80DC00F04CE0 /* updateFlag.cpp */; };
+		044594C22794473F00F04CE0 /* components_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459277278E80DD00F04CE0 /* components_manager.cpp */; };
+		044594C32794473F00F04CE0 /* scene_forward.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459278278E80DD00F04CE0 /* scene_forward.h */; };
+		044594C42794473F00F04CE0 /* component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459273278E80DC00F04CE0 /* component.cpp */; };
+		044594C52794473F00F04CE0 /* scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926C278E80DC00F04CE0 /* scene.h */; };
+		044594C62794473F00F04CE0 /* entity.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459270278E80DC00F04CE0 /* entity.h */; };
+		044594C72794473F00F04CE0 /* updateFlag_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926E278E80DC00F04CE0 /* updateFlag_manager.h */; };
+		044594C82794473F00F04CE0 /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459307278F14BD00F04CE0 /* renderer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1438,27 +1438,26 @@
 				04459206278E591A00F04CE0 /* imstb_textedit.h in Headers */,
 				04459226278E5F1100F04CE0 /* window.h in Headers */,
 				042295AB278C32FB0090983F /* CPPMetalResource.hpp in Headers */,
+				044594C72794473F00F04CE0 /* updateFlag_manager.h in Headers */,
 				0422959E278C32FB0090983F /* CPPMetalVertexDescriptor.hpp in Headers */,
 				04459207278E591A00F04CE0 /* imgui_internal.h in Headers */,
 				042295AF278C32FB0090983F /* CPPMetal.hpp in Headers */,
 				0422959B278C32FB0090983F /* texture_loader.h in Headers */,
 				04459231278E5F1100F04CE0 /* filesystem.h in Headers */,
-				0445927E278E80DD00F04CE0 /* entity.h in Headers */,
 				0445932C278FAA7900F04CE0 /* plane_collider_shape.h in Headers */,
 				042295A0278C32FB0090983F /* CPPMetalRenderPipeline.hpp in Headers */,
 				04459351278FAF9800F04CE0 /* translational_joint.h in Headers */,
 				042295BA278C33090090983F /* CPPMetalInternalMacros.h in Headers */,
 				044593E32790FBE400F04CE0 /* sub_mesh.h in Headers */,
 				04229597278C32FB0090983F /* CPPMetalTypes.hpp in Headers */,
-				0445930A278F14BD00F04CE0 /* renderer.h in Headers */,
 				044593F627914F7500F04CE0 /* subpass.h in Headers */,
 				04459375278FE8F600F04CE0 /* metal_view.h in Headers */,
 				0445925D278E7C8600F04CE0 /* metal_application.h in Headers */,
-				0445928E278EA37D00F04CE0 /* script.h in Headers */,
 				042295B2278C32FB0090983F /* CPPMetalLibrary.hpp in Headers */,
 				0445941A27926E3300F04CE0 /* skybox_material.h in Headers */,
 				04459225278E5F1100F04CE0 /* configuration.h in Headers */,
 				044592EF278ED88400F04CE0 /* pbr_base_material.h in Headers */,
+				044594BE2794473F00F04CE0 /* camera.h in Headers */,
 				0445942327929A3300F04CE0 /* render_element.h in Headers */,
 				044592A9278EB9DF00F04CE0 /* shader_data.h in Headers */,
 				044593E72791055900F04CE0 /* mesh.h in Headers */,
@@ -1469,11 +1468,13 @@
 				044592B3278EBEE600F04CE0 /* shader.h in Headers */,
 				044592E7278ED6AE00F04CE0 /* blinn_phong_material.h in Headers */,
 				0445930F278F170100F04CE0 /* spherical.h in Headers */,
+				044594C52794473F00F04CE0 /* scene.h in Headers */,
 				04459237278E5FD700F04CE0 /* debug_info.h in Headers */,
-				04459286278E80DD00F04CE0 /* scene_forward.h in Headers */,
 				044592A4278EB69700F04CE0 /* CPPMetalFunctionConstantValues.hpp in Headers */,
+				044594B92794473F00F04CE0 /* transform.h in Headers */,
 				044593EB2791107600F04CE0 /* primitive_mesh.h in Headers */,
 				044591F1278E557C00F04CE0 /* align.h in Headers */,
+				044594BA2794473F00F04CE0 /* component.h in Headers */,
 				044594042791C04200F04CE0 /* compose_subpass.h in Headers */,
 				04459361278FB14400F04CE0 /* static_collider.h in Headers */,
 				0445922A278E5F1100F04CE0 /* engine.h in Headers */,
@@ -1483,21 +1484,22 @@
 				0445931F278F1A4A00F04CE0 /* collider.h in Headers */,
 				044593FB2791581900F04CE0 /* shadow_subpass.h in Headers */,
 				042295A3278C32FB0090983F /* CPPMetalPixelFormat.hpp in Headers */,
+				044594C32794473F00F04CE0 /* scene_forward.h in Headers */,
 				044592CE278EC79200F04CE0 /* blend_state.h in Headers */,
 				044592AD278EBEB900F04CE0 /* shader_uniform.h in Headers */,
 				044592E4278ED3D200F04CE0 /* unlit_material.h in Headers */,
-				04459282278E80DD00F04CE0 /* component.h in Headers */,
 				044593F227914EFF00F04CE0 /* render_pass.h in Headers */,
 				042295A2278C32FB0090983F /* CPPMetalDevice.hpp in Headers */,
 				044592B6278EBFC600F04CE0 /* shader_program.h in Headers */,
+				044594C62794473F00F04CE0 /* entity.h in Headers */,
 				04459320278F1B7900F04CE0 /* collider_shape.h in Headers */,
 				042295AC278C32FB0090983F /* CPPMetalRenderPass.hpp in Headers */,
 				04459297278EB2EB00F04CE0 /* shader_macro_collection.h in Headers */,
-				0445941627926D1600F04CE0 /* background.h in Headers */,
 				0445940C2792500900F04CE0 /* skybox_subpass.h in Headers */,
 				042295B4278C32FB0090983F /* CPPMetalImplementation.hpp in Headers */,
 				0445942B2793134C00F04CE0 /* forward_subpass.h in Headers */,
 				04459202278E591A00F04CE0 /* imstb_rectpack.h in Headers */,
+				044594B62794473F00F04CE0 /* script.h in Headers */,
 				0445934F278FAF9800F04CE0 /* joint.h in Headers */,
 				044594272792B8B000F04CE0 /* resource_cache.h in Headers */,
 				04459205278E591A00F04CE0 /* imstb_truetype.h in Headers */,
@@ -1508,15 +1510,15 @@
 				04229596278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.hpp in Headers */,
 				04459222278E5F1100F04CE0 /* input_events.h in Headers */,
 				044592A0278EB4D400F04CE0 /* shader_data_group.h in Headers */,
-				0445927C278E80DD00F04CE0 /* updateFlag_manager.h in Headers */,
+				044594BD2794473F00F04CE0 /* layer.h in Headers */,
 				042295B1278C32FB0090983F /* CPPMetalCommandBuffer.hpp in Headers */,
 				042295A8278C32FB0090983F /* CPPMetalBuffer.hpp in Headers */,
+				044594B82794473F00F04CE0 /* renderer.h in Headers */,
 				0445936F278FBCCA00F04CE0 /* free_control.h in Headers */,
 				044592F3278EDA3300F04CE0 /* pbr_specular_material.h in Headers */,
 				044591CA278E551100F04CE0 /* allocator.h in Headers */,
 				04229593278C32FB0090983F /* CPPMetalDrawable.hpp in Headers */,
 				044594082792472800F04CE0 /* point_light_subpass.h in Headers */,
-				044592F8278EFEC700F04CE0 /* camera.h in Headers */,
 				044593DF2790F99200F04CE0 /* mesh_buffer.h in Headers */,
 				0445922D278E5F1100F04CE0 /* application.h in Headers */,
 				042295A6278C32FB0090983F /* CPPMetalConstants.hpp in Headers */,
@@ -1528,7 +1530,6 @@
 				04459364278FB14400F04CE0 /* hit_result.h in Headers */,
 				044592DF278ED17E00F04CE0 /* base_material.h in Headers */,
 				044592BB278EC19E00F04CE0 /* stencil_state.h in Headers */,
-				0445927F278E80DD00F04CE0 /* layer.h in Headers */,
 				04229592278C32FB0090983F /* CPPMetalTexture.hpp in Headers */,
 				042295B3278C32FB0090983F /* CPPMetalRenderCommandEncoder.hpp in Headers */,
 				04459329278FAA7900F04CE0 /* capsule_collider_shape.h in Headers */,
@@ -1536,7 +1537,7 @@
 				0445933A278FAE0C00F04CE0 /* box_character_controller.h in Headers */,
 				04459204278E591A00F04CE0 /* imgui.h in Headers */,
 				0445933C278FAE0C00F04CE0 /* capsule_character_controller.h in Headers */,
-				0445928A278E84DE00F04CE0 /* transform.h in Headers */,
+				044594BB2794473F00F04CE0 /* components_manager.h in Headers */,
 				044592D7278ED0FB00F04CE0 /* render_queue_type.h in Headers */,
 				044592D6278ED0FB00F04CE0 /* render_face.h in Headers */,
 				0445938A278FFE3200F04CE0 /* math_utilities.h in Headers */,
@@ -1550,8 +1551,6 @@
 				044593FF2791A58A00F04CE0 /* deferred_subpass.h in Headers */,
 				0445934C278FAF9800F04CE0 /* fixed_joint.h in Headers */,
 				044592DB278ED11F00F04CE0 /* material.h in Headers */,
-				0445927A278E80DD00F04CE0 /* scene.h in Headers */,
-				0445927D278E80DD00F04CE0 /* components_manager.h in Headers */,
 				04459365278FB14400F04CE0 /* dynamic_collider.h in Headers */,
 				04459259278E708A00F04CE0 /* unix_engine.h in Headers */,
 				04459316278F183500F04CE0 /* physics.h in Headers */,
@@ -1559,7 +1558,8 @@
 				044592BF278EC58A00F04CE0 /* render_state.h in Headers */,
 				0422958F278C32FB0090983F /* CPPMetalCommandEncoder.hpp in Headers */,
 				04459233278E5F1100F04CE0 /* timer.h in Headers */,
-				04459279278E80DD00F04CE0 /* updateFlag.h in Headers */,
+				044594BC2794473F00F04CE0 /* background.h in Headers */,
+				044594B42794473F00F04CE0 /* updateFlag.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1791,15 +1791,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04459283278E80DD00F04CE0 /* scene.cpp in Sources */,
 				0422958D278C32FB0090983F /* CPPMetalRenderPipeline.mm in Sources */,
-				0445927B278E80DD00F04CE0 /* updateFlag_manager.cpp in Sources */,
 				0445932D278FAA7900F04CE0 /* plane_collider_shape.cpp in Sources */,
 				044594262792B8B000F04CE0 /* resource_cache.cpp in Sources */,
 				04459208278E591A00F04CE0 /* imgui.cpp in Sources */,
 				04459338278FAE0C00F04CE0 /* character_controller.cpp in Sources */,
 				04459355278FAF9800F04CE0 /* spring_joint.cpp in Sources */,
-				0445928D278EA37D00F04CE0 /* script.cpp in Sources */,
+				044594C22794473F00F04CE0 /* components_manager.cpp in Sources */,
+				044594C42794473F00F04CE0 /* component.cpp in Sources */,
+				044594BF2794473F00F04CE0 /* script.cpp in Sources */,
 				04459317278F183500F04CE0 /* physics.cpp in Sources */,
 				0445934D278FAF9800F04CE0 /* fixed_joint.cpp in Sources */,
 				044594032791C04200F04CE0 /* compose_subpass.cpp in Sources */,
@@ -1816,6 +1816,7 @@
 				0445941E279292E000F04CE0 /* mesh_renderer.cpp in Sources */,
 				044592DC278ED11F00F04CE0 /* material.cpp in Sources */,
 				0445929E278EB45200F04CE0 /* CPPMetalDataType.mm in Sources */,
+				044594B22794407200F04CE0 /* transform.cpp in Sources */,
 				0445932F278FAA7900F04CE0 /* box_collider_shape.cpp in Sources */,
 				042295AE278C32FB0090983F /* texture_loader.mm in Sources */,
 				0445936B278FB37C00F04CE0 /* orbit_control.cpp in Sources */,
@@ -1830,14 +1831,13 @@
 				0422958E278C32FB0090983F /* CPPMetalRenderCommandEncoder_DispatchTable.mm in Sources */,
 				042295AA278C32FB0090983F /* CPPMetalDrawable.mm in Sources */,
 				0445931E278F1A4A00F04CE0 /* collider.cpp in Sources */,
-				04459285278E80DD00F04CE0 /* components_manager.cpp in Sources */,
-				04459289278E84DE00F04CE0 /* transform.cpp in Sources */,
 				0422959A278C32FB0090983F /* CPPMetalResource.mm in Sources */,
 				04459203278E591A00F04CE0 /* imgui_draw.cpp in Sources */,
 				04459374278FE8F600F04CE0 /* metal_view.mm in Sources */,
 				044592A3278EB69700F04CE0 /* CPPMetalFunctionConstantValues.mm in Sources */,
 				042295AD278C32FB0090983F /* CPPMetalLibrary.mm in Sources */,
 				044592A5278EB92800F04CE0 /* shader_macro_collection.cpp in Sources */,
+				044594B72794473F00F04CE0 /* scene.cpp in Sources */,
 				044593EA2791107600F04CE0 /* primitive_mesh.cpp in Sources */,
 				044594002791B6BE00F04CE0 /* deferred_subpass.cpp in Sources */,
 				0445938D278FFE3200F04CE0 /* mesh_loader.mm in Sources */,
@@ -1850,16 +1850,15 @@
 				04459371278FBCDB00F04CE0 /* free_control.cpp in Sources */,
 				04459258278E708A00F04CE0 /* unix_engine.cpp in Sources */,
 				0445931B278F197600F04CE0 /* collider_shape.cpp in Sources */,
-				04459280278E80DD00F04CE0 /* updateFlag.cpp in Sources */,
-				04459309278F14BD00F04CE0 /* renderer.cpp in Sources */,
 				044594072792472800F04CE0 /* point_light_subpass.cpp in Sources */,
 				044593E22790FBE400F04CE0 /* sub_mesh.cpp in Sources */,
 				04459200278E591A00F04CE0 /* imgui_widgets.cpp in Sources */,
+				044594C82794473F00F04CE0 /* renderer.cpp in Sources */,
+				044594B3279444E200F04CE0 /* camera.cpp in Sources */,
 				044592F0278ED88400F04CE0 /* pbr_base_material.cpp in Sources */,
 				044592B7278EBFC600F04CE0 /* shader_program.cpp in Sources */,
 				0445924C278E63FF00F04CE0 /* filesystem.cpp in Sources */,
 				0445941927926E3300F04CE0 /* skybox_material.cpp in Sources */,
-				044592F7278EFEC700F04CE0 /* camera.cpp in Sources */,
 				042295B0278C32FB0090983F /* CPPMetalDevice.mm in Sources */,
 				042295A9278C32FB0090983F /* CPPMetalRenderCommandEncoder.mm in Sources */,
 				04459352278FAF9800F04CE0 /* hinge_joint.cpp in Sources */,
@@ -1877,18 +1876,19 @@
 				044592E0278ED17E00F04CE0 /* base_material.cpp in Sources */,
 				0422959F278C32FB0090983F /* CPPMetalTexture.mm in Sources */,
 				0445933B278FAE0C00F04CE0 /* box_character_controller.cpp in Sources */,
+				044594B52794473F00F04CE0 /* entity.cpp in Sources */,
 				0422959C278C32FB0090983F /* CPPMetalBuffer.mm in Sources */,
+				044594C12794473F00F04CE0 /* updateFlag.cpp in Sources */,
 				044592E8278ED6AE00F04CE0 /* blinn_phong_material.cpp in Sources */,
 				04459239278E617500F04CE0 /* window.cpp in Sources */,
 				044592C5278EC60E00F04CE0 /* depth_state.cpp in Sources */,
 				044591FE278E591A00F04CE0 /* imgui_tables.cpp in Sources */,
 				044593DE2790F99200F04CE0 /* mesh_buffer.cpp in Sources */,
 				044592E3278ED3D200F04CE0 /* unlit_material.cpp in Sources */,
+				044594C02794473F00F04CE0 /* updateFlag_manager.cpp in Sources */,
 				044592B2278EBEE600F04CE0 /* shader.cpp in Sources */,
-				04459284278E80DD00F04CE0 /* entity.cpp in Sources */,
 				044592C8278EC64A00F04CE0 /* raster_state.cpp in Sources */,
 				04459362278FB14400F04CE0 /* static_collider.cpp in Sources */,
-				04459281278E80DD00F04CE0 /* component.cpp in Sources */,
 				04459385278FFE3200F04CE0 /* math_utilities.cpp in Sources */,
 				0445932B278FAA7900F04CE0 /* capsule_collider_shape.cpp in Sources */,
 				04459354278FAF9800F04CE0 /* configurable_joint.cpp in Sources */,

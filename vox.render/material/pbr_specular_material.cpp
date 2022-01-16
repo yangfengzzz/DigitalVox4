@@ -8,11 +8,11 @@
 #include "pbr_specular_material.h"
 
 namespace vox {
-Imath::Color4f PBRSpecularMaterial::specularColor() {
-    return std::any_cast<Imath::Color4f>(shaderData.getData(PBRSpecularMaterial::_specularColorProp));
+Color PBRSpecularMaterial::specularColor() {
+    return std::any_cast<Color>(shaderData.getData(PBRSpecularMaterial::_specularColorProp));
 }
 
-void PBRSpecularMaterial::setSpecularColor(const Imath::Color4f &newValue) {
+void PBRSpecularMaterial::setSpecularColor(const Color &newValue) {
     shaderData.setData(PBRSpecularMaterial::_specularColorProp, newValue);
 }
 
@@ -42,7 +42,7 @@ PBRBaseMaterial(),
 _glossinessProp(Shader::createProperty("u_glossiness", ShaderDataGroup::Material)),
 _specularColorProp(Shader::createProperty("u_specularColor", ShaderDataGroup::Material)),
 _specularGlossinessTextureProp(Shader::createProperty("_specularGlossinessTexture", ShaderDataGroup::Material)) {
-    shaderData.setData(PBRSpecularMaterial::_specularColorProp, Imath::Color4f(1, 1, 1, 1));
+    shaderData.setData(PBRSpecularMaterial::_specularColorProp, Color(1, 1, 1, 1));
     shaderData.setData(PBRSpecularMaterial::_glossinessProp, 1.f);
 }
 

@@ -147,8 +147,8 @@ void ComponentsManager::callRendererOnUpdate(float deltaTime) {
     }
 }
 
-void ComponentsManager::callRender(const Imath::M44f& viewMat,
-                                   const Imath::M44f& projMat,
+void ComponentsManager::callRender(const Matrix4x4F& viewMat,
+                                   const Matrix4x4F& projMat,
                                    std::vector<RenderElement> &opaqueQueue,
                                    std::vector<RenderElement> &alphaTestQueue,
                                    std::vector<RenderElement> &transparentQueue) {

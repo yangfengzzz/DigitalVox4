@@ -22,6 +22,7 @@
 #include <mutex>
 #include <vector>
 #include <glog/logging.h>
+#include <iostream>
 
 #include "filesystem.h"
 

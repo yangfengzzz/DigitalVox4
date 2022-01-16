@@ -18,7 +18,7 @@ Collider(entity) {
     q.normalize();
     
     _nativeActor = PhysicsManager::_nativePhysics()->createRigidStatic(PxTransform(PxVec3(p.x, p.y, p.z),
-                                                                                   PxQuat(q.v.x, q.v.y, q.v.z, q.r)));
+                                                                                   PxQuat(q.x, q.y, q.z, q.w)));
 }
 
 }

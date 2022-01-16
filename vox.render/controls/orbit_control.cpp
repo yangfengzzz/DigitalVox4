@@ -63,8 +63,7 @@ void OrbitControl::onUpdate(float dtime) {
     if (!enabled()) return;
     
     const auto &position = camera->transform->position();
-    _offset = position;
-    _offset = _offset - target;
+    _offset = position - target;
     _spherical.setFromVec3(_offset);
     
     if (autoRotate && _state == STATE::NONE) {
@@ -110,7 +109,7 @@ void OrbitControl::onUpdate(float dtime) {
     }
     
     _scale = 1;
-    _panOffset = Imath::V3f(0, 0, 0);
+    _panOffset = Vector3F(0, 0, 0);
 }
 
 float OrbitControl::autoRotationAngle(float dtime) {
@@ -135,25 +134,22 @@ void OrbitControl::rotateUp(float radian) {
     }
 }
 
-void OrbitControl::panLeft(float distance, const Imath::M44f &worldMatrix) {
-    const auto &e = worldMatrix.getValue();
-    _vPan = Imath::V3f(e[0], e[1], e[2]);
+void OrbitControl::panLeft(float distance, const Matrix4x4F &worldMatrix) {
+    _vPan = Vector3F(worldMatrix[0], worldMatrix[1], worldMatrix[2]);
     _vPan = _vPan * distance;
     _panOffset = _panOffset + _vPan;
 }
 
-void OrbitControl::panUp(float distance, const Imath::M44f &worldMatrix) {
-    const auto &e = worldMatrix.getValue();
-    _vPan = Imath::V3f(e[4], e[5], e[6]);
+void OrbitControl::panUp(float distance, const Matrix4x4F &worldMatrix) {
+    _vPan = Vector3F(worldMatrix[4], worldMatrix[5], worldMatrix[6]);
     _vPan = _vPan * distance;
     _panOffset = _panOffset + _vPan;
 }
 
 void OrbitControl::pan(float deltaX, float deltaY) {
     // perspective only
-    Imath::V3f position = camera->transform->position();
-    _vPan = position;
-    _vPan = _vPan - target;
+    Point3F position = camera->transform->position();
+    _vPan = position - target;
     auto targetDistance = _vPan.length();
     
     targetDistance *= (fov / 2) * (M_PI / 180);
@@ -172,19 +168,19 @@ void OrbitControl::zoomOut(float zoomScale) {
 
 //MARK: - Mouse
 void OrbitControl::handleMouseDownRotate(double xpos, double ypos) {
-    _rotateStart = Imath::V2f(xpos, ypos);
+    _rotateStart = Vector2F(xpos, ypos);
 }
 
 void OrbitControl::handleMouseDownZoom(double xpos, double ypos) {
-    _zoomStart = Imath::V2f(xpos, ypos);
+    _zoomStart = Vector2F(xpos, ypos);
 }
 
 void OrbitControl::handleMouseDownPan(double xpos, double ypos) {
-    _panStart = Imath::V2f(xpos, ypos);
+    _panStart = Vector2F(xpos, ypos);
 }
 
 void OrbitControl::handleMouseMoveRotate(double xpos, double ypos) {
-    _rotateEnd = Imath::V2f(xpos, ypos);
+    _rotateEnd = Vector2F(xpos, ypos);
     _rotateDelta = _rotateEnd - _rotateStart;
     
     rotateLeft(2 * M_PI * (_rotateDelta.x / float(_width)) * rotateSpeed);
@@ -194,7 +190,7 @@ void OrbitControl::handleMouseMoveRotate(double xpos, double ypos) {
 }
 
 void OrbitControl::handleMouseMoveZoom(double xpos, double ypos) {
-    _zoomEnd = Imath::V2f(xpos, ypos);
+    _zoomEnd = Vector2F(xpos, ypos);
     _zoomDelta = _zoomEnd - _zoomStart;
     
     if (_zoomDelta.y > 0) {
@@ -207,7 +203,7 @@ void OrbitControl::handleMouseMoveZoom(double xpos, double ypos) {
 }
 
 void OrbitControl::handleMouseMovePan(double xpos, double ypos) {
-    _panEnd = Imath::V2f(xpos, ypos);
+    _panEnd = Vector2F(xpos, ypos);
     _panDelta = _panEnd - _panStart;
     
     pan(_panDelta.x, _panDelta.y);

@@ -9,7 +9,8 @@
 #define blinn_phong_material_hpp
 
 #include "base_material.h"
-#include "ImathColor.h"
+#include "color.h"
+#include "vector4.h"
 
 namespace vox {
 /**
@@ -20,9 +21,9 @@ public:
     /**
      * Base color.
      */
-    Imath::Color4f baseColor();
+    Color baseColor();
     
-    void setBaseColor(const Imath::Color4f &newValue);
+    void setBaseColor(const Color &newValue);
     
     /**
      * Base texture.
@@ -34,9 +35,9 @@ public:
     /**
      * Specular color.
      */
-    Imath::Color4f specularColor();
+    Color specularColor();
     
-    void setSpecularColor(const Imath::Color4f &newValue);
+    void setSpecularColor(const Color &newValue);
     
     /**
      * Specular texture.
@@ -48,9 +49,9 @@ public:
     /**
      * Emissive color.
      */
-    Imath::Color4f emissiveColor();
+    Color emissiveColor();
     
-    void setEmissiveColor(const Imath::Color4f &newValue);
+    void setEmissiveColor(const Color &newValue);
     
     /**
      * Emissive texture.
@@ -83,9 +84,9 @@ public:
     /**
      * Tiling and offset of main textures.
      */
-    Imath::V4f tilingOffset();
+    Vector4F tilingOffset();
     
-    void setTilingOffset(const Imath::V4f &newValue);
+    void setTilingOffset(const Vector4F &newValue);
     
     explicit BlinnPhongMaterial();
     

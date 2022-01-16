@@ -26,7 +26,7 @@ public:
     
     void setRadius(float value);
     
-    void setWorldScale(const Imath::V3f &scale) override;
+    void setWorldScale(const Vector3F &scale) override;
     
 private:
     float _radius = 1.0;

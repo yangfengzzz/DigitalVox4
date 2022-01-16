@@ -10,7 +10,6 @@
 
 #include "../physics.h"
 #include "transform3.h"
-#include "ImathEuler.h"
 #include <vector>
 
 namespace vox {
@@ -22,15 +21,15 @@ public:
     Collider *collider();
     
 public:
-    void setLocalPose(const Imath::Transform3 &pose);
+    void setLocalPose(const Transform3F &pose);
     
-    Imath::Transform3 localPose() const;
+    Transform3F localPose() const;
     
-    void setPosition(const Imath::V3f &pos);
+    void setPosition(const Vector3F &pos);
     
-    Imath::V3f position() const;
+    Vector3F position() const;
     
-    virtual void setWorldScale(const Imath::V3f &scale) = 0;
+    virtual void setWorldScale(const Vector3F &scale) = 0;
     
 public:
     void setMaterial(PxMaterial *materials);
@@ -68,8 +67,8 @@ protected:
     
     Collider *_collider = nullptr;
     
-    Imath::V3f _scale = Imath::V3f(1, 1, 1);
-    Imath::Transform3 _pose;
+    Vector3F _scale = Vector3F(1, 1, 1);
+    Transform3F _pose;
     static constexpr float halfSqrt = 0.70710678118655;
 };
 

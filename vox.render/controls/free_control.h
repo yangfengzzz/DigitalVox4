@@ -10,7 +10,7 @@
 
 #include "../script.h"
 #include "spherical.h"
-#include "ImathVec.h"
+#include "vector3.h"
 #include <array>
 
 namespace vox {
@@ -77,8 +77,8 @@ public:
     void updateSpherical();
     
 private:
-    Imath::V3f _forward;
-    Imath::V3f _right;
+    Vector3F _forward;
+    Vector3F _right;
     
     /**
      * Movement distance per second, the unit is the unit before MVP conversion.
@@ -120,7 +120,7 @@ private:
     bool _moveLeft = false;
     bool _moveRight = false;
     
-    Imath::V3f _v3Cache;
+    Vector3F _v3Cache;
     Spherical _spherical;
     std::array<double, 2> _rotateOri{};
     

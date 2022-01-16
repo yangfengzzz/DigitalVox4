@@ -19,7 +19,7 @@ namespace vox {
  * @param value - The value in gamma space
  * @returns The value in linear space
  */
-float gammaToLinearSpace(float value) {
+inline float gammaToLinearSpace(float value) {
     // https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_framebuffer_sRGB.txt
     // https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_texture_sRGB_decode.txt
     
@@ -34,7 +34,7 @@ float gammaToLinearSpace(float value) {
  * @param value - The value in linear space
  * @returns The value in gamma space
  */
-float linearToGammaSpace(float value) {
+inline float linearToGammaSpace(float value) {
     // https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_framebuffer_sRGB.txt
     // https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_texture_sRGB_decode.txt
     
@@ -83,7 +83,7 @@ struct Color {
     }
 };
 
-bool operator==(const Color &left, const Color &right) {
+inline bool operator==(const Color &left, const Color &right) {
     return (
             (left.r == right.r) &&
             (left.g == right.g) &&
@@ -92,14 +92,14 @@ bool operator==(const Color &left, const Color &right) {
             );
 }
 
-Color operator+(const Color &left, const Color &right) {
+inline Color operator+(const Color &left, const Color &right) {
     return Color(left.r + right.r,
                  left.g + right.g,
                  left.b + right.b,
                  left.a + right.a);
 }
 
-Color operator*(const Color &left, const float s) {
+inline Color operator*(const Color &left, const float s) {
     return Color(left.r * s,
                  left.g * s,
                  left.b * s,

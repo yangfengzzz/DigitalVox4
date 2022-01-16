@@ -15,26 +15,26 @@ CharacterController::CharacterController(Entity *entity) :
 Component(entity) {
 }
 
-PxControllerCollisionFlags CharacterController::move(const Imath::V3f &disp, float minDist, float elapsedTime) {
+PxControllerCollisionFlags CharacterController::move(const Vector3F &disp, float minDist, float elapsedTime) {
     return _nativeController->move(PxVec3(disp.x, disp.y, disp.z), minDist, elapsedTime, PxControllerFilters());
 }
 
-bool CharacterController::setPosition(const Imath::V3f &position) {
+bool CharacterController::setPosition(const Point3F &position) {
     return _nativeController->setPosition(PxExtendedVec3(position.x, position.y, position.z));
 }
 
-Imath::V3f CharacterController::position() const {
+Point3F CharacterController::position() const {
     auto pose = _nativeController->getPosition();
-    return Imath::V3f(pose.x, pose.y, pose.z);
+    return Point3F(pose.x, pose.y, pose.z);
 }
 
-bool CharacterController::setFootPosition(const Imath::V3f &position) {
+bool CharacterController::setFootPosition(const Vector3F &position) {
     return _nativeController->setFootPosition(PxExtendedVec3(position.x, position.y, position.z));
 }
 
-Imath::V3f CharacterController::footPosition() const {
+Vector3F CharacterController::footPosition() const {
     auto pose = _nativeController->getFootPosition();
-    return Imath::V3f(pose.x, pose.y, pose.z);
+    return Vector3F(pose.x, pose.y, pose.z);
 }
 
 void CharacterController::setStepOffset(const float offset) {
@@ -61,12 +61,12 @@ void CharacterController::setContactOffset(float offset) {
     _nativeController->setContactOffset(offset);
 }
 
-Imath::V3f CharacterController::upDirection() const {
+Vector3F CharacterController::upDirection() const {
     auto dir = _nativeController->getUpDirection();
-    return Imath::V3f(dir.x, dir.y, dir.z);
+    return Vector3F(dir.x, dir.y, dir.z);
 }
 
-void CharacterController::setUpDirection(const Imath::V3f &up) {
+void CharacterController::setUpDirection(const Vector3F &up) {
     _nativeController->setUpDirection(PxVec3(up.x, up.y, up.z));
 }
 

@@ -9,7 +9,7 @@
 #define blend_state_hpp
 
 #include "renderTarget_blend_state.h"
-#include "ImathColor.h"
+#include "color.h"
 #include "core/CPPMetalRenderCommandEncoder.hpp"
 
 namespace vox {
@@ -20,7 +20,7 @@ struct BlendState {
     /** The blend state of the render target. */
     RenderTargetBlendState targetBlendState = RenderTargetBlendState();
     /** Constant blend color. */
-    Imath::Color4f blendColor = Imath::Color4f(0, 0, 0, 0);
+    Color blendColor = Color(0, 0, 0, 0);
     /** Whether to use (Alpha-to-Coverage) technology. */
     bool alphaToCoverage = false;
     

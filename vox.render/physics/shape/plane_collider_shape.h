@@ -22,11 +22,11 @@ public:
     /**
      * The local rotation of this plane.
      */
-    Imath::Eulerf rotation();
+    Vector3F rotation();
     
-    void setRotation(const Imath::V3f &value);
+    void setRotation(const Vector3F &value);
     
-    void setWorldScale(const Imath::V3f &scale) {
+    void setWorldScale(const Vector3F &scale) {
     }
 };
 

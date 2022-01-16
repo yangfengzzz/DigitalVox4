@@ -34,16 +34,16 @@ public:
     /**
      * The linear velocity vector of the dynamic collider measured in world unit per second.
      */
-    Imath::V3f linearVelocity();
+    Vector3F linearVelocity();
     
-    void setLinearVelocity(const Imath::V3f &newValue);
+    void setLinearVelocity(const Vector3F &newValue);
     
     /**
      * The angular velocity vector of the dynamic collider measured in radians per second.
      */
-    Imath::V3f angularVelocity();
+    Vector3F angularVelocity();
     
-    void setAngularVelocity(const Imath::V3f &newValue);
+    void setAngularVelocity(const Vector3F &newValue);
     
     /**
      * The mass of the dynamic collider.
@@ -55,16 +55,16 @@ public:
     /**
      * The center of mass relative to the transform's origin.
      */
-    Imath::Transform3 centerOfMass();
+    Transform3F centerOfMass();
     
-    void setCenterOfMass(const Imath::Transform3 &newValue);
+    void setCenterOfMass(const Transform3F &newValue);
     
     /**
      * The diagonal inertia tensor of mass relative to the center of mass.
      */
-    Imath::V3f inertiaTensor();
+    Vector3F inertiaTensor();
     
-    void setInertiaTensor(const Imath::V3f &newValue);
+    void setInertiaTensor(const Vector3F &newValue);
     
     /**
      * The maximum angular velocity of the collider measured in radians per second. (Default 7) range { 0, infinity }.
@@ -130,19 +130,19 @@ public:
      * Apply a force to the DynamicCollider.
      * @param force - The force make the collider move
      */
-    void applyForce(const Imath::V3f &force);
+    void applyForce(const Vector3F &force);
     
     /**
      * Apply a torque to the DynamicCollider.
      * @param torque - The force make the collider rotate
      */
-    void applyTorque(const Imath::V3f &torque);
+    void applyTorque(const Vector3F &torque);
     
     /**
      * Moves kinematically controlled dynamic actors through the game world.
      * @param pose The desired pose for the kinematic actor
      */
-    void setKinematicTarget(const Imath::Transform3 &pose);
+    void setKinematicTarget(const Transform3F &pose);
     
     /**
      * Forces a collider to sleep at least one frame.

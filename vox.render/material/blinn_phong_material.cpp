@@ -8,11 +8,11 @@
 #include "blinn_phong_material.h"
 
 namespace vox {
-Imath::Color4f BlinnPhongMaterial::baseColor() {
-    return std::any_cast<Imath::Color4f>(shaderData.getData(BlinnPhongMaterial::_diffuseColorProp));
+Color BlinnPhongMaterial::baseColor() {
+    return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_diffuseColorProp));
 }
 
-void BlinnPhongMaterial::setBaseColor(const Imath::Color4f &newValue) {
+void BlinnPhongMaterial::setBaseColor(const Color &newValue) {
     shaderData.setData(BlinnPhongMaterial::_diffuseColorProp, newValue);
 }
 
@@ -29,11 +29,11 @@ void BlinnPhongMaterial::setBaseTexture(std::shared_ptr<MTL::Texture> newValue) 
     }
 }
 
-Imath::Color4f BlinnPhongMaterial::specularColor() {
-    return std::any_cast<Imath::Color4f>(shaderData.getData(BlinnPhongMaterial::_specularColorProp));
+Color BlinnPhongMaterial::specularColor() {
+    return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_specularColorProp));
 }
 
-void BlinnPhongMaterial::setSpecularColor(const Imath::Color4f &newValue) {
+void BlinnPhongMaterial::setSpecularColor(const Color &newValue) {
     shaderData.setData(BlinnPhongMaterial::_specularColorProp, newValue);
 }
 
@@ -50,11 +50,11 @@ void BlinnPhongMaterial::setSpecularTexture(std::shared_ptr<MTL::Texture> newVal
     }
 }
 
-Imath::Color4f BlinnPhongMaterial::emissiveColor() {
-    return std::any_cast<Imath::Color4f>(shaderData.getData(BlinnPhongMaterial::_emissiveColorProp));
+Color BlinnPhongMaterial::emissiveColor() {
+    return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_emissiveColorProp));
 }
 
-void BlinnPhongMaterial::setEmissiveColor(const Imath::Color4f &newValue) {
+void BlinnPhongMaterial::setEmissiveColor(const Color &newValue) {
     shaderData.setData(BlinnPhongMaterial::_emissiveColorProp, newValue);
 }
 
@@ -100,11 +100,11 @@ void BlinnPhongMaterial::setShininess(float newValue) {
     shaderData.setData(BlinnPhongMaterial::_shininessProp, newValue);
 }
 
-Imath::V4f BlinnPhongMaterial::tilingOffset() {
-    return std::any_cast<Imath::V4f>(shaderData.getData(BlinnPhongMaterial::_tilingOffsetProp));
+Vector4F BlinnPhongMaterial::tilingOffset() {
+    return std::any_cast<Vector4F>(shaderData.getData(BlinnPhongMaterial::_tilingOffsetProp));
 }
 
-void BlinnPhongMaterial::setTilingOffset(const Imath::V4f &newValue) {
+void BlinnPhongMaterial::setTilingOffset(const Vector4F &newValue) {
     shaderData.setData(BlinnPhongMaterial::_tilingOffsetProp, newValue);
 }
 
@@ -123,10 +123,10 @@ _normalTextureProp(Shader::createProperty("u_normalTexture", ShaderDataGroup::Ma
     shaderData.enableMacro(NEED_WORLDPOS);
     shaderData.enableMacro(NEED_TILINGOFFSET);
     
-    shaderData.setData(_diffuseColorProp, Imath::Color4f(1, 1, 1, 1));
-    shaderData.setData(_specularColorProp, Imath::Color4f(1, 1, 1, 1));
-    shaderData.setData(_emissiveColorProp, Imath::Color4f(0, 0, 0, 1));
-    shaderData.setData(_tilingOffsetProp, Imath::V4f(1, 1, 0, 0));
+    shaderData.setData(_diffuseColorProp, Color(1, 1, 1, 1));
+    shaderData.setData(_specularColorProp, Color(1, 1, 1, 1));
+    shaderData.setData(_emissiveColorProp, Color(0, 0, 0, 1));
+    shaderData.setData(_tilingOffsetProp, Vector4F(1, 1, 0, 0));
     shaderData.setData(_shininessProp, 16.f);
     shaderData.setData(_normalIntensityProp, 1.f);
 }

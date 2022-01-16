@@ -17,17 +17,13 @@ PlaneColliderShape::PlaneColliderShape() {
     setLocalPose(_pose);
 }
 
-Imath::Eulerf PlaneColliderShape::rotation() {
-    Imath::Eulerf euler;
-    euler.extract(_pose.orientation());
-    return euler;
+Vector3F PlaneColliderShape::rotation() {
+    return _pose.orientation().toEuler();
 }
 
-void PlaneColliderShape::setRotation(const Imath::V3f &value) {
-    auto rotation = Imath::Eulerf(value.x, value.y, value.z).toQuat();
-    Imath::Quatf rotateZ;
-    rotateZ.setAxisAngle(Imath::V3f(0, 0, 1), M_PI * 0.5);
-    rotation *= rotateZ;
+void PlaneColliderShape::setRotation(const Vector3F &value) {
+    auto rotation = QuaternionF::makeRotationEuler(value.x, value.y, value.z);
+    rotation.rotateZ(M_PI * 0.5);
     rotation.normalize();
     _pose.setOrientation(rotation);
     setLocalPose(_pose);

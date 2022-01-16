@@ -9,7 +9,7 @@
 #define background_hpp
 
 #include "sky/sky.h"
-#include "ImathColor.h"
+#include "color.h"
 
 namespace vox {
 /**
@@ -43,7 +43,7 @@ public:
      * @defaultValue `new Color(0.25, 0.25, 0.25, 1.0)`
      * @remarks When `mode` is `BackgroundMode.SolidColor`, the property will take effects.
      */
-    Imath::Color4f solidColor = Imath::Color4f(0.25, 0.25, 0.25, 1.0);
+    Color solidColor = Color(0.25, 0.25, 0.25, 1.0);
     
     /**
      * Background sky.

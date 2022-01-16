@@ -20,15 +20,15 @@ class Joint {
 public:
     void setActors(Collider *actor0, Collider *actor1);
     
-    void setLocalPose(PxJointActorIndex::Enum actor, const Imath::Transform3 &localPose);
+    void setLocalPose(PxJointActorIndex::Enum actor, const Transform3F &localPose);
     
-    Imath::Transform3 localPose(PxJointActorIndex::Enum actor) const;
+    Transform3F localPose(PxJointActorIndex::Enum actor) const;
     
-    Imath::Transform3 relativeTransform() const;
+    Transform3F relativeTransform() const;
     
-    Imath::V3f relativeLinearVelocity() const;
+    Vector3F relativeLinearVelocity() const;
     
-    Imath::V3f relativeAngularVelocity() const;
+    Vector3F relativeAngularVelocity() const;
     
     void setBreakForce(float force, float torque);
     

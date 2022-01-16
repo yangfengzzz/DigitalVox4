@@ -27,7 +27,7 @@ void SphereColliderShape::setRadius(float value) {
     _nativeShape->setGeometry(*_nativeGeometry);
 }
 
-void SphereColliderShape::setWorldScale(const Imath::V3f &scale) {
+void SphereColliderShape::setWorldScale(const Vector3F &scale) {
     _scale = scale;
     static_cast<PxSphereGeometry *>(_nativeGeometry.get())->radius = _radius * std::max(std::max(_scale.x, _scale.y), _scale.z);
     _nativeShape->setGeometry(*_nativeGeometry);

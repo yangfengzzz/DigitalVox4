@@ -12,31 +12,31 @@ namespace vox {
 namespace physics {
 ColliderShape::ColliderShape() :
 _nativeMaterial(PhysicsManager::_nativePhysics()->createMaterial(0, 0, 0)) {
-    _pose.setOrientation(Imath::Quatf(halfSqrt, 0, 0, halfSqrt));
+    _pose.setOrientation(QuaternionF(halfSqrt, 0, 0, halfSqrt));
 }
 
 Collider *ColliderShape::collider() {
     return _collider;
 }
 
-void ColliderShape::setLocalPose(const Imath::Transform3 &pose) {
+void ColliderShape::setLocalPose(const Transform3F &pose) {
     _pose = pose;
     
     const auto &p = pose.translation();
     const auto &q = pose.orientation();
-    _nativeShape->setLocalPose(PxTransform(PxVec3(p.x, p.y, p.z), PxQuat(q.v.x, q.v.y, q.v.z, q.r)));
+    _nativeShape->setLocalPose(PxTransform(PxVec3(p.x, p.y, p.z), PxQuat(q.x, q.y, q.z, q.w)));
 }
 
-Imath::Transform3 ColliderShape::localPose() const {
+Transform3F ColliderShape::localPose() const {
     return _pose;
 }
 
-void ColliderShape::setPosition(const Imath::V3f &pos) {
+void ColliderShape::setPosition(const Vector3F &pos) {
     _pose.setTranslation(pos);
     setLocalPose(_pose);
 }
 
-Imath::V3f ColliderShape::position() const {
+Vector3F ColliderShape::position() const {
     return _pose.translation();
 }
 

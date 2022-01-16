@@ -9,6 +9,7 @@
 #define skybox_material_hpp
 
 #include "material/material.h"
+#include "vector2.h"
 
 namespace vox {
 /**
@@ -43,7 +44,7 @@ private:
     ShaderProperty _skyboxTextureProp;
     ShaderProperty _mvpNoscaleProp;
     
-    Imath::V2f _decodeParam = Imath::V2f(0, 5);
+    Vector2F _decodeParam = Vector2F(0, 5);
 };
 
 }

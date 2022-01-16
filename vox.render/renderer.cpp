@@ -15,7 +15,7 @@ size_t Renderer::materialCount() {
     return _materials.size();
 }
 
-Imath::BoundingBox3f Renderer::bounds() {
+BoundingBox3F Renderer::bounds() {
     auto &changeFlag = _transformChangeFlag;
     if (changeFlag->flag) {
         _updateBounds(_bounds);
@@ -164,14 +164,14 @@ void Renderer::setMaterials(const std::vector<MaterialPtr> &materials) {
 //    }
 //}
 
-void Renderer::_updateShaderData(const Imath::M44f& viewMat,
-                                 const Imath::M44f& projMat) {
+void Renderer::_updateShaderData(const Matrix4x4F& viewMat,
+                                 const Matrix4x4F& projMat) {
     auto worldMatrix = entity()->transform->worldMatrix();
     _mvMatrix = worldMatrix * viewMat;
     _mvpMatrix = worldMatrix * viewMat * projMat;
-    _mvInvMatrix = _mvMatrix.invert();
-    _normalMatrix = worldMatrix.invert();
-    _normalMatrix = _normalMatrix.transpose();
+    _mvInvMatrix = _mvMatrix.inverse();
+    _normalMatrix = worldMatrix.inverse();
+    _normalMatrix = _normalMatrix.transposed();
     
     shaderData.setData(Renderer::_localMatrixProperty, entity()->transform->localMatrix());
     shaderData.setData(Renderer::_worldMatrixProperty, worldMatrix);

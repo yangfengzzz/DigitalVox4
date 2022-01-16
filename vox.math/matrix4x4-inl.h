@@ -377,12 +377,12 @@ Vector<T, 3> Matrix<T, 4, 4>::mul(const Vector<T, 3>& v) const {
 
 template <typename T>
 Point3<T> Matrix<T, 4, 4>::mul(const Point3<T>& v) const {
-    T w = _elements[12] * v.x + _elements[13] * v.y + _elements[14] * v.z + _elements[15] * v.w;
+    T w = _elements[12] * v.x + _elements[13] * v.y + _elements[14] * v.z + _elements[15];
     w = (T)1 / w;
     
-    return Point3<T>((_elements[0] * v.x + _elements[1] * v.y + _elements[2] * v.z + _elements[3] * v.w) * w,
-                     (_elements[4] * v.x + _elements[5] * v.y + _elements[6] * v.z + _elements[7] * v.w) * w,
-                     (_elements[8] * v.x + _elements[9] * v.y + _elements[10] * v.z + _elements[11] * v.w) * w);
+    return Point3<T>((_elements[0] * v.x + _elements[1] * v.y + _elements[2] * v.z + _elements[3]) * w,
+                     (_elements[4] * v.x + _elements[5] * v.y + _elements[6] * v.z + _elements[7]) * w,
+                     (_elements[8] * v.x + _elements[9] * v.y + _elements[10] * v.z + _elements[11]) * w);
 }
 
 template <typename T>

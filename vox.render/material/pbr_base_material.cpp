@@ -8,11 +8,11 @@
 #include "pbr_base_material.h"
 
 namespace vox {
-Imath::Color4f PBRBaseMaterial::baseColor() {
-    return std::any_cast<Imath::Color4f>(shaderData.getData(PBRBaseMaterial::_baseColorProp));
+Color PBRBaseMaterial::baseColor() {
+    return std::any_cast<Color>(shaderData.getData(PBRBaseMaterial::_baseColorProp));
 }
 
-void PBRBaseMaterial::setBaseColor(const Imath::Color4f &newValue) {
+void PBRBaseMaterial::setBaseColor(const Color &newValue) {
     shaderData.setData(PBRBaseMaterial::_baseColorProp, newValue);
 }
 
@@ -50,11 +50,11 @@ void PBRBaseMaterial::setNormalTextureIntensity(float newValue) {
     shaderData.setData(PBRBaseMaterial::_normalTextureIntensityProp, newValue);
 }
 
-Imath::Color4f PBRBaseMaterial::emissiveColor() {
-    return std::any_cast<Imath::Color4f>(shaderData.getData(PBRBaseMaterial::_emissiveColorProp));
+Color PBRBaseMaterial::emissiveColor() {
+    return std::any_cast<Color>(shaderData.getData(PBRBaseMaterial::_emissiveColorProp));
 }
 
-void PBRBaseMaterial::setEmissiveColor(const Imath::Color4f &newValue) {
+void PBRBaseMaterial::setEmissiveColor(const Color &newValue) {
     shaderData.setData(PBRBaseMaterial::_emissiveColorProp, newValue);
 }
 
@@ -92,11 +92,11 @@ void PBRBaseMaterial::setOcclusionTextureIntensity(float newValue) {
     shaderData.setData(PBRBaseMaterial::_occlusionTextureIntensityProp, newValue);
 }
 
-Imath::V4f PBRBaseMaterial::tilingOffset() {
-    return std::any_cast<Imath::V4f>(shaderData.getData(PBRBaseMaterial::_tilingOffsetProp));
+Vector4F PBRBaseMaterial::tilingOffset() {
+    return std::any_cast<Vector4F>(shaderData.getData(PBRBaseMaterial::_tilingOffsetProp));
 }
 
-void PBRBaseMaterial::setTilingOffset(const Imath::V4f &newValue) {
+void PBRBaseMaterial::setTilingOffset(const Vector4F &newValue) {
     shaderData.setData(PBRBaseMaterial::_tilingOffsetProp, newValue);
 }
 
@@ -114,9 +114,9 @@ _occlusionTextureProp(Shader::createProperty("u_occlusionTexture", ShaderDataGro
     shaderData.enableMacro(NEED_WORLDPOS);
     shaderData.enableMacro(NEED_TILINGOFFSET);
     
-    shaderData.setData(PBRBaseMaterial::_baseColorProp, Imath::Color4f(1, 1, 1, 1));
-    shaderData.setData(PBRBaseMaterial::_emissiveColorProp, Imath::Color4f(0, 0, 0, 1));
-    shaderData.setData(PBRBaseMaterial::_tilingOffsetProp, Imath::V4f(1, 1, 0, 0));
+    shaderData.setData(PBRBaseMaterial::_baseColorProp, Color(1, 1, 1, 1));
+    shaderData.setData(PBRBaseMaterial::_emissiveColorProp, Color(0, 0, 0, 1));
+    shaderData.setData(PBRBaseMaterial::_tilingOffsetProp, Vector4F(1, 1, 0, 0));
     
     shaderData.setData(PBRBaseMaterial::_normalTextureIntensityProp, 1.f);
     shaderData.setData(PBRBaseMaterial::_occlusionTextureIntensityProp, 1.f);

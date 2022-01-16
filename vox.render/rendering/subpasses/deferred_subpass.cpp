@@ -80,8 +80,8 @@ void DeferredSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
 }
 
 void DeferredSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
-    Imath::M44f viewMat;
-    Imath::M44f projMat;
+    Matrix4x4F viewMat;
+    Matrix4x4F projMat;
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;

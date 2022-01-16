@@ -436,7 +436,7 @@ void Deferred::updateLights(const float4x4 &modelViewMatrix) {
         if (i < TreeLights) {
             double lightPeriod = lightData[i].light_speed * m_frameNumber;
             lightPeriod += originalLightPositions[i].y;
-            lightPeriod -= floor(lightPeriod);  // Get fractional part
+            lightPeriod -= std::floor(lightPeriod);  // Get fractional part
             
             // Use pow to slowly move the light outward as it reaches the branches of the tree
             float r = 1.2 + 10.0 * powf(lightPeriod, 5.0);

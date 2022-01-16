@@ -140,14 +140,15 @@ void FreeControl::onMouseMove(double clientX, double clientY) {
 }
 
 void FreeControl::rotate(float alpha, float beta) {
-    _theta += Imath::degreesToRadians(alpha);
-    _phi += Imath::degreesToRadians(beta);
-    _phi = Imath::clamp<float>(_phi, 1e-6, M_PI - 1e-6);
+    _theta += degreesToRadians(alpha);
+    _phi += degreesToRadians(beta);
+    _phi = clamp<float>(_phi, 1e-6, M_PI - 1e-6);
     _spherical.theta = _theta;
     _spherical.phi = _phi;
     _spherical.setToVec3(_v3Cache);
-    _v3Cache = _v3Cache + entity()->transform->position();
-    entity()->transform->lookAt(_v3Cache, Imath::V3f(0, 1, 0));
+    Point3F offset = entity()->transform->position() + _v3Cache;
+    _v3Cache = Vector3F(offset.x, offset.y, offset.y);
+    entity()->transform->lookAt(offset, Vector3F(0, 1, 0));
 }
 
 void FreeControl::onUpdate(float delta) {
@@ -179,7 +180,7 @@ void FreeControl::onUpdate(float delta) {
 }
 
 void FreeControl::updateSpherical() {
-    _v3Cache = entity()->transform->rotationQuaternion().rotateVector(Imath::V3f(0, 0, -1));
+    _v3Cache = entity()->transform->rotationQuaternion() * Vector3F(0, 0, -1);
     _spherical.setFromVec3(_v3Cache);
     _theta = _spherical.theta;
     _phi = _spherical.phi;

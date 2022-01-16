@@ -12,7 +12,7 @@
 #include "shader/shader_data.h"
 #include "rendering/render_element.h"
 #include "bounding_box3.h"
-#include "ImathMatrix.h"
+#include "matrix4x4.h"
 #include "updateFlag.h"
 
 namespace vox {
@@ -40,7 +40,7 @@ public:
     /**
      * The bounding volume of the renderer.
      */
-    Imath::BoundingBox3f bounds();
+    BoundingBox3F bounds();
     
     explicit Renderer(Entity *entity);
     
@@ -108,14 +108,14 @@ protected:
                          std::vector<RenderElement> &alphaTestQueue,
                          std::vector<RenderElement> &transparentQueue) = 0;
     
-    virtual void _updateBounds(Imath::BoundingBox3f &worldBounds) {
+    virtual void _updateBounds(BoundingBox3F &worldBounds) {
     }
     
     virtual void update(float deltaTime) {
     }
     
-    void _updateShaderData(const Imath::M44f& viewMat,
-                           const Imath::M44f& projMat);
+    void _updateShaderData(const Matrix4x4F& viewMat,
+                           const Matrix4x4F& projMat);
     
 protected:
     MaterialPtr _createInstanceMaterial(const MaterialPtr &material, size_t index);
@@ -143,15 +143,15 @@ private:
     
     std::unique_ptr<UpdateFlag> _transformChangeFlag;
     // @deepClone
-    Imath::BoundingBox3f _bounds = Imath::BoundingBox3f();
+    BoundingBox3F _bounds = BoundingBox3F();
     // @ignoreClone
-    Imath::M44f _mvMatrix = Imath::M44f();
+    Matrix4x4F _mvMatrix = Matrix4x4F();
     // @ignoreClone
-    Imath::M44f _mvpMatrix = Imath::M44f();
+    Matrix4x4F _mvpMatrix = Matrix4x4F();
     // @ignoreClone
-    Imath::M44f _mvInvMatrix = Imath::M44f();
+    Matrix4x4F _mvInvMatrix = Matrix4x4F();
     // @ignoreClone
-    Imath::M44f _normalMatrix = Imath::M44f();
+    Matrix4x4F _normalMatrix = Matrix4x4F();
     // @ignoreClone
     std::vector<bool> _materialsInstanced;
 };

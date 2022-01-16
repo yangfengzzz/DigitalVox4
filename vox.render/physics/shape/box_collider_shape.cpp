@@ -18,18 +18,18 @@ BoxColliderShape::BoxColliderShape() : ColliderShape() {
     setLocalPose(_pose);
 }
 
-Imath::V3f BoxColliderShape::size() {
+Vector3F BoxColliderShape::size() {
     return _half;
 }
 
-void BoxColliderShape::setSize(const Imath::V3f &size) {
-    _half = size * 0.5;
+void BoxColliderShape::setSize(const Vector3F &size) {
+    _half = size * 0.5f;
     auto halfExtent = _half * _scale;
     static_cast<PxBoxGeometry *>(_nativeGeometry.get())->halfExtents = PxVec3(halfExtent.x, halfExtent.y, halfExtent.z);
     _nativeShape->setGeometry(*_nativeGeometry);
 }
 
-void BoxColliderShape::setWorldScale(const Imath::V3f &scale) {
+void BoxColliderShape::setWorldScale(const Vector3F &scale) {
     _scale = scale;
     auto halfExtent = _half * _scale;
     static_cast<PxBoxGeometry *>(_nativeGeometry.get())->halfExtents = PxVec3(halfExtent.x, halfExtent.y, halfExtent.z);

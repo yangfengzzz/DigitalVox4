@@ -10,6 +10,7 @@
 
 #include "../physics.h"
 #include "../../component.h"
+#include "point3.h"
 
 namespace vox {
 namespace physics {
@@ -18,15 +19,15 @@ class CharacterController : public Component {
 public:
     CharacterController(Entity *entity);
     
-    PxControllerCollisionFlags move(const Imath::V3f &disp, float minDist, float elapsedTime);
+    PxControllerCollisionFlags move(const Vector3F &disp, float minDist, float elapsedTime);
     
-    bool setPosition(const Imath::V3f &position);
+    bool setPosition(const Point3F &position);
     
-    Imath::V3f position() const;
+    Point3F position() const;
     
-    bool setFootPosition(const Imath::V3f &position);
+    bool setFootPosition(const Vector3F &position);
     
-    Imath::V3f footPosition() const;
+    Vector3F footPosition() const;
     
     void setStepOffset(const float offset);
     
@@ -40,9 +41,9 @@ public:
     
     void setContactOffset(float offset);
     
-    Imath::V3f upDirection() const;
+    Vector3F upDirection() const;
     
-    void setUpDirection(const Imath::V3f &up);
+    void setUpDirection(const Vector3F &up);
     
     float slopeLimit() const;
     

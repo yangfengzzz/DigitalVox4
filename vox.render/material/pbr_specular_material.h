@@ -19,9 +19,9 @@ public:
     /**
      * Specular color.
      */
-    Imath::Color4f specularColor();
+    Color specularColor();
     
-    void setSpecularColor(const Imath::Color4f &newValue);
+    void setSpecularColor(const Color &newValue);
     
     /**
      * Glossiness.
