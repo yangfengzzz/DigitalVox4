@@ -8,22 +8,21 @@
 #include "bounding_frustum.h"
 #include "collision_util.h"
 
-IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
-
-BoundingFrustum::BoundingFrustum(std::optional<M44f> matrix) {
-    near = Plane3f();
-    far = Plane3f();
-    left = Plane3f();
-    right = Plane3f();
-    top = Plane3f();
-    bottom = Plane3f();
-    
-    if (matrix) {
-        this->calculateFromMatrix(matrix.value());
-    }
+namespace vox {
+BoundingFrustum::BoundingFrustum() {
 }
 
-Plane3f BoundingFrustum::getPlane(int index) const {
+BoundingFrustum::BoundingFrustum(const Matrix4x4F& matrix) {
+    near = Plane3F();
+    far = Plane3F();
+    left = Plane3F();
+    right = Plane3F();
+    top = Plane3F();
+    bottom = Plane3F();
+    calculateFromMatrix(matrix);
+}
+
+Plane3F BoundingFrustum::getPlane(int index) const {
     switch (index) {
         case 0:
             return near;
@@ -42,24 +41,23 @@ Plane3f BoundingFrustum::getPlane(int index) const {
     }
 }
 
-void BoundingFrustum::calculateFromMatrix(const M44f &matrix) {
-    const auto &me = matrix.getValue();
-    const auto &m11 = me[0];
-    const auto &m12 = me[1];
-    const auto &m13 = me[2];
-    const auto &m14 = me[3];
-    const auto &m21 = me[4];
-    const auto &m22 = me[5];
-    const auto &m23 = me[6];
-    const auto &m24 = me[7];
-    const auto &m31 = me[8];
-    const auto &m32 = me[9];
-    const auto &m33 = me[10];
-    const auto &m34 = me[11];
-    const auto &m41 = me[12];
-    const auto &m42 = me[13];
-    const auto &m43 = me[14];
-    const auto &m44 = me[15];
+void BoundingFrustum::calculateFromMatrix(const Matrix4x4F& matrix) {
+    const auto &m11 = matrix[0];
+    const auto &m12 = matrix[1];
+    const auto &m13 = matrix[2];
+    const auto &m14 = matrix[3];
+    const auto &m21 = matrix[4];
+    const auto &m22 = matrix[5];
+    const auto &m23 = matrix[6];
+    const auto &m24 = matrix[7];
+    const auto &m31 = matrix[8];
+    const auto &m32 = matrix[9];
+    const auto &m33 = matrix[10];
+    const auto &m34 = matrix[11];
+    const auto &m41 = matrix[12];
+    const auto &m42 = matrix[13];
+    const auto &m43 = matrix[14];
+    const auto &m44 = matrix[15];
     
     // near
     auto &nearNormal = near.normal;
@@ -67,7 +65,7 @@ void BoundingFrustum::calculateFromMatrix(const M44f &matrix) {
     nearNormal.y = -m24 - m23;
     nearNormal.z = -m34 - m33;
     near.distance = -m44 - m43;
-    near = normalize(near);
+    near.normalize();
     
     // far
     auto &farNormal = far.normal;
@@ -75,7 +73,7 @@ void BoundingFrustum::calculateFromMatrix(const M44f &matrix) {
     farNormal.y = m23 - m24;
     farNormal.z = m33 - m34;
     far.distance = m43 - m44;
-    far = normalize(far);
+    far.normalize();
     
     // left
     auto &leftNormal = left.normal;
@@ -83,7 +81,7 @@ void BoundingFrustum::calculateFromMatrix(const M44f &matrix) {
     leftNormal.y = -m24 - m21;
     leftNormal.z = -m34 - m31;
     left.distance = -m44 - m41;
-    left = normalize(left);
+    left.normalize();
     
     // right
     auto &rightNormal = right.normal;
@@ -91,7 +89,7 @@ void BoundingFrustum::calculateFromMatrix(const M44f &matrix) {
     rightNormal.y = m21 - m24;
     rightNormal.z = m31 - m34;
     right.distance = m41 - m44;
-    right = normalize(right);
+    right.normalize();
     
     // top
     auto &topNormal = top.normal;
@@ -99,7 +97,7 @@ void BoundingFrustum::calculateFromMatrix(const M44f &matrix) {
     topNormal.y = m22 - m24;
     topNormal.z = m32 - m34;
     top.distance = m42 - m44;
-    top = normalize(top);
+    top.normalize();
     
     // bottom
     auto &bottomNormal = bottom.normal;
@@ -107,15 +105,11 @@ void BoundingFrustum::calculateFromMatrix(const M44f &matrix) {
     bottomNormal.y = -m24 - m22;
     bottomNormal.z = -m34 - m32;
     bottom.distance = -m44 - m42;
-    bottom = normalize(bottom);
+    bottom.normalize();
 }
 
-bool BoundingFrustum::intersectsBox(const BoundingBox3f &box) const {
+bool BoundingFrustum::intersectsBox(const BoundingBox3F &box) const {
     return intersectsFrustumAndBox(*this, box);
 }
 
-bool BoundingFrustum::intersectsSphere(const Sphere3f &sphere) const {
-    return frustumContainsSphere(*this, sphere) != ContainmentType::Disjoint;
 }
-
-IMATH_INTERNAL_NAMESPACE_HEADER_EXIT

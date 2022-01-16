@@ -374,6 +374,8 @@
 		0445949D2793B98F00F04CE0 /* math_utils_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594902793B98F00F04CE0 /* math_utils_tests.cpp */; };
 		0445949E2793B98F00F04CE0 /* matrix2x2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594912793B98F00F04CE0 /* matrix2x2_tests.cpp */; };
 		0445949F2793B98F00F04CE0 /* matrix4x4_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594922793B98F00F04CE0 /* matrix4x4_tests.cpp */; };
+		044594A627940A3A00F04CE0 /* bounding_frustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FC278F023900F04CE0 /* bounding_frustum.cpp */; };
+		044594A727940B6D00F04CE0 /* collision_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FD278F023A00F04CE0 /* collision_util.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1172,13 +1174,13 @@
 				044594A32793FF3700F04CE0 /* plane2-inl.h */,
 				044594A42794034500F04CE0 /* plane3.h */,
 				044594A52794035200F04CE0 /* plane3-inl.h */,
+				044592FA278F023900F04CE0 /* bounding_frustum.h */,
+				044592FC278F023900F04CE0 /* bounding_frustum.cpp */,
 				0422966D278D689C0090983F /* ray.h */,
 				04229663278D689B0090983F /* ray2.h */,
 				0422966A278D689B0090983F /* ray2-inl.h */,
 				04229668278D689B0090983F /* ray3.h */,
 				04229666278D689B0090983F /* ray3-inl.h */,
-				044592FA278F023900F04CE0 /* bounding_frustum.h */,
-				044592FC278F023900F04CE0 /* bounding_frustum.cpp */,
 				044592F9278F023900F04CE0 /* collision_util.h */,
 				044592FD278F023A00F04CE0 /* collision_util.cpp */,
 				044592FE278F023A00F04CE0 /* spherical_harmonics3.h */,
@@ -2086,6 +2088,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044594A727940B6D00F04CE0 /* collision_util.cpp in Sources */,
+				044594A627940A3A00F04CE0 /* bounding_frustum.cpp in Sources */,
 				042296E9278DAE7C0090983F /* ImathColorAlgo.cpp in Sources */,
 				042296DA278DAE7C0090983F /* ImathRandom.cpp in Sources */,
 				042296EE278DAE7C0090983F /* half.cpp in Sources */,

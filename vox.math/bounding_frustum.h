@@ -11,31 +11,35 @@
 #include <cassert>
 #include <cmath>
 #include <optional>
-#include "ImathPlane.h"
+#include "plane3.h"
 #include "bounding_box3.h"
-#include "ImathSphere.h"
 
-IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
+namespace vox {
 
 struct BoundingFrustum {
     /** The near plane of this frustum. */
-    Plane3f near;
+    Plane3F near;
     /** The far plane of this frustum. */
-    Plane3f far;
+    Plane3F far;
     /** The left plane of this frustum. */
-    Plane3f left;
+    Plane3F left;
     /** The right plane of this frustum. */
-    Plane3f right;
+    Plane3F right;
     /** The top plane of this frustum. */
-    Plane3f top;
+    Plane3F top;
     /** The bottom plane of this frustum. */
-    Plane3f bottom;
+    Plane3F bottom;
+    
+    BoundingFrustum();
     
     /**
      * Constructor of BoundingFrustum.
      * @param matrix - The view-projection matrix
      */
-    BoundingFrustum(std::optional<M44f> matrix = std::nullopt);
+    BoundingFrustum(const Matrix4x4F& matrix);
+    
+    //! Copy constructor.
+    BoundingFrustum(const BoundingFrustum& other);
     
     /**
      * Get the plane by the given index.
@@ -48,28 +52,21 @@ struct BoundingFrustum {
      * @param index - The index
      * @returns The plane get
      */
-    Plane3f getPlane(int index) const;
+    Plane3F getPlane(int index) const;
     
     /**
      * Update all planes from the given matrix.
      * @param matrix - The given view-projection matrix
      */
-    void calculateFromMatrix(const M44f &matrix);
+    void calculateFromMatrix(const Matrix4x4F&matrix);
     
     /**
      * Get whether or not a specified bounding box intersects with this frustum (Contains or Intersects).
      * @param box - The box for testing
      * @returns True if bounding box intersects with this frustum, false otherwise
      */
-    bool intersectsBox(const BoundingBox3f &box) const;
-    
-    /**
-     * Get whether or not a specified bounding sphere intersects with this frustum (Contains or Intersects).
-     * @param sphere - The sphere for testing
-     * @returns True if bounding sphere intersects with this frustum, false otherwise
-     */
-    bool intersectsSphere(const Sphere3f &sphere) const;
+    bool intersectsBox(const BoundingBox3F &box) const;
 };
 
-IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
+}
 #endif /* bounding_frustum_hpp */
