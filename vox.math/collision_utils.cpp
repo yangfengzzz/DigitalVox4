@@ -5,16 +5,16 @@
 //  Created by 杨丰 on 2021/11/25.
 //
 
-#include "collision_util.h"
+#include "collision_utils.h"
 #include "ray.h"
 
 namespace vox {
 
-float distancePlaneAndPoint(const Plane3F &plane, const Vector3F &point) {
-    return plane.normal.dot(point) + plane.distance;
+float distancePlaneAndPoint(const Plane3F &plane, const Point3F &point) {
+    return point.dot(plane.normal) + plane.distance;
 }
 
-PlaneIntersectionType intersectsPlaneAndPoint(const Plane3F &plane, const Vector3F &point) {
+PlaneIntersectionType intersectsPlaneAndPoint(const Plane3F &plane, const Point3F &point) {
     const auto distance = distancePlaneAndPoint(plane, point);
     if (distance > 0) {
         return PlaneIntersectionType::Front;
@@ -29,8 +29,8 @@ PlaneIntersectionType intersectsPlaneAndBox(const Plane3F &plane, const Bounding
     const auto &min = box.lowerCorner;
     const auto &max = box.upperCorner;
     const auto &normal = plane.normal;
-    Vector3F front;
-    Vector3F back;
+    Point3F front;
+    Point3F back;
     
     if (normal.x >= 0) {
         front.x = max.x;
@@ -209,8 +209,8 @@ bool intersectsFrustumAndBox(const BoundingFrustum &frustum, const BoundingBox3F
 ContainmentType frustumContainsBox(const BoundingFrustum &frustum, const BoundingBox3F &box) {
     const auto &min = box.lowerCorner;
     const auto &max = box.upperCorner;
-    Vector3F front;
-    Vector3F back;
+    Point3F front;
+    Point3F back;
     auto result = ContainmentType::Contains;
     
     for (int i = 0; i < 6; ++i) {

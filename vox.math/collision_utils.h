@@ -47,7 +47,7 @@ enum class ContainmentType {
  * @param point - The point
  * @returns The distance from a point to a plane
  */
-float distancePlaneAndPoint(const Plane3F &plane, const Vector3F &point);
+float distancePlaneAndPoint(const Plane3F &plane, const Point3F &point);
 
 /**
  * Get the intersection type between a plane and a point.
@@ -55,7 +55,7 @@ float distancePlaneAndPoint(const Plane3F &plane, const Vector3F &point);
  * @param point - The point
  * @returns The intersection type
  */
-PlaneIntersectionType intersectsPlaneAndPoint(const Plane3F &plane, const Vector3F &point);
+PlaneIntersectionType intersectsPlaneAndPoint(const Plane3F &plane, const Point3F &point);
 
 /**
  * Get the intersection type between a plane and a box (AABB).

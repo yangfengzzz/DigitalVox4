@@ -210,7 +210,7 @@
 		044592F4278EDA3300F04CE0 /* pbr_specular_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */; };
 		044592F7278EFEC700F04CE0 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F5278EFEC700F04CE0 /* camera.cpp */; };
 		044592F8278EFEC700F04CE0 /* camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F6278EFEC700F04CE0 /* camera.h */; };
-		044592FF278F023A00F04CE0 /* collision_util.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F9278F023900F04CE0 /* collision_util.h */; };
+		044592FF278F023A00F04CE0 /* collision_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F9278F023900F04CE0 /* collision_utils.h */; };
 		04459300278F023A00F04CE0 /* bounding_frustum.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FA278F023900F04CE0 /* bounding_frustum.h */; };
 		04459304278F023A00F04CE0 /* spherical_harmonics3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FE278F023A00F04CE0 /* spherical_harmonics3.h */; };
 		04459309278F14BD00F04CE0 /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459307278F14BD00F04CE0 /* renderer.cpp */; };
@@ -375,7 +375,7 @@
 		0445949E2793B98F00F04CE0 /* matrix2x2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594912793B98F00F04CE0 /* matrix2x2_tests.cpp */; };
 		0445949F2793B98F00F04CE0 /* matrix4x4_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594922793B98F00F04CE0 /* matrix4x4_tests.cpp */; };
 		044594A627940A3A00F04CE0 /* bounding_frustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FC278F023900F04CE0 /* bounding_frustum.cpp */; };
-		044594A727940B6D00F04CE0 /* collision_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FD278F023A00F04CE0 /* collision_util.cpp */; };
+		044594A727940B6D00F04CE0 /* collision_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FD278F023A00F04CE0 /* collision_utils.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -668,11 +668,11 @@
 		044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pbr_specular_material.cpp; sourceTree = "<group>"; };
 		044592F5278EFEC700F04CE0 /* camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
 		044592F6278EFEC700F04CE0 /* camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
-		044592F9278F023900F04CE0 /* collision_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collision_util.h; sourceTree = "<group>"; };
+		044592F9278F023900F04CE0 /* collision_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collision_utils.h; sourceTree = "<group>"; };
 		044592FA278F023900F04CE0 /* bounding_frustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bounding_frustum.h; sourceTree = "<group>"; };
 		044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spherical_harmonics3.cpp; sourceTree = "<group>"; };
 		044592FC278F023900F04CE0 /* bounding_frustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bounding_frustum.cpp; sourceTree = "<group>"; };
-		044592FD278F023A00F04CE0 /* collision_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision_util.cpp; sourceTree = "<group>"; };
+		044592FD278F023A00F04CE0 /* collision_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision_utils.cpp; sourceTree = "<group>"; };
 		044592FE278F023A00F04CE0 /* spherical_harmonics3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spherical_harmonics3.h; sourceTree = "<group>"; };
 		04459307278F14BD00F04CE0 /* renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = renderer.cpp; sourceTree = "<group>"; };
 		04459308278F14BD00F04CE0 /* renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = renderer.h; sourceTree = "<group>"; };
@@ -1176,13 +1176,13 @@
 				044594A52794035200F04CE0 /* plane3-inl.h */,
 				044592FA278F023900F04CE0 /* bounding_frustum.h */,
 				044592FC278F023900F04CE0 /* bounding_frustum.cpp */,
+				044592F9278F023900F04CE0 /* collision_utils.h */,
+				044592FD278F023A00F04CE0 /* collision_utils.cpp */,
 				0422966D278D689C0090983F /* ray.h */,
 				04229663278D689B0090983F /* ray2.h */,
 				0422966A278D689B0090983F /* ray2-inl.h */,
 				04229668278D689B0090983F /* ray3.h */,
 				04229666278D689B0090983F /* ray3-inl.h */,
-				044592F9278F023900F04CE0 /* collision_util.h */,
-				044592FD278F023A00F04CE0 /* collision_util.cpp */,
 				044592FE278F023A00F04CE0 /* spherical_harmonics3.h */,
 				044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */,
 				042296FC278DAEB40090983F /* ImathConfig.h */,
@@ -1701,7 +1701,7 @@
 				042296ED278DAE7C0090983F /* ImathFun.h in Headers */,
 				044594702793B58800F04CE0 /* vector3-inl.h in Headers */,
 				042296D6278DAE7B0090983F /* ImathInt64.h in Headers */,
-				044592FF278F023A00F04CE0 /* collision_util.h in Headers */,
+				044592FF278F023A00F04CE0 /* collision_utils.h in Headers */,
 				0445946E2793B58800F04CE0 /* size-inl.h in Headers */,
 				044594742793B58800F04CE0 /* vector.h in Headers */,
 				044594652793B58800F04CE0 /* vector4.h in Headers */,
@@ -2088,7 +2088,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				044594A727940B6D00F04CE0 /* collision_util.cpp in Sources */,
+				044594A727940B6D00F04CE0 /* collision_utils.cpp in Sources */,
 				044594A627940A3A00F04CE0 /* bounding_frustum.cpp in Sources */,
 				042296E9278DAE7C0090983F /* ImathColorAlgo.cpp in Sources */,
 				042296DA278DAE7C0090983F /* ImathRandom.cpp in Sources */,

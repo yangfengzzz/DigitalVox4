@@ -6,7 +6,7 @@
 //
 
 #include "bounding_frustum.h"
-#include "collision_util.h"
+#include "collision_utils.h"
 
 namespace vox {
 BoundingFrustum::BoundingFrustum() {
