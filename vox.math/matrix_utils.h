@@ -37,7 +37,7 @@ inline Matrix<T, 4, 4> makeRotationMatrix(const Vector3<T> &axis, T rad) {
 
 //! Makes translation matrix.
 template<typename T>
-inline Matrix<T, 4, 4> makeTranslationMatrix(const Vector3<T> &t) {
+inline Matrix<T, 4, 4> makeTranslationMatrix(const Point3<T> &t) {
     return Matrix<T, 4, 4>(1, 0, 0, 0,
                            0, 1, 0, 0,
                            0, 0, 1, 0,
@@ -46,7 +46,7 @@ inline Matrix<T, 4, 4> makeTranslationMatrix(const Vector3<T> &t) {
 
 //! Makes rotation && translation matrix.
 template<typename T>
-inline Matrix<T, 4, 4> makeRotationTranslationMatrix(const Quaternion<T> &q, const Vector3<T> &t) {
+inline Matrix<T, 4, 4> makeRotationTranslationMatrix(const Quaternion<T> &q, const Point3<T> &t) {
     auto mat = q.matrix4();
     mat[12] = t.x;
     mat[13] = t.y;
