@@ -18,8 +18,7 @@ inline Transform2<T>::Transform2() {
 }
 
 template<typename T>
-inline Transform2<T>::Transform2(
-                                 const Vector2 <T> &translation,
+inline Transform2<T>::Transform2(const Vector2 <T> &translation,
                                  double orientation)
 : _translation(translation), _orientation(orientation) {
     _cosAngle = std::cos(orientation);
@@ -49,26 +48,23 @@ inline void Transform2<T>::setOrientation(double orientation) {
 }
 
 template<typename T>
-inline Vector2 <T> Transform2<T>::toLocal(const Vector2 <T> &pointInWorld) const {
+inline Point2<T> Transform2<T>::toLocal(const Point2<T> &pointInWorld) const {
     // Convert to the local frame
-    Vector2<T> xmt = pointInWorld - _translation;
-    return Vector2<T>(
-                      _cosAngle * xmt.x + _sinAngle * xmt.y,
-                      -_sinAngle * xmt.x + _cosAngle * xmt.y);
+    Point2<T> xmt = pointInWorld - _translation;
+    return Point2<T>(_cosAngle * xmt.x + _sinAngle * xmt.y,
+                     -_sinAngle * xmt.x + _cosAngle * xmt.y);
 }
 
 template<typename T>
 inline Vector2 <T> Transform2<T>::toLocalDirection(const Vector2 <T> &dirInWorld) const {
     // Convert to the local frame
-    return Vector2<T>(
-                      _cosAngle * dirInWorld.x + _sinAngle * dirInWorld.y,
+    return Vector2<T>(_cosAngle * dirInWorld.x + _sinAngle * dirInWorld.y,
                       -_sinAngle * dirInWorld.x + _cosAngle * dirInWorld.y);
 }
 
 template<typename T>
 inline Ray2 <T> Transform2<T>::toLocal(const Ray2 <T> &rayInWorld) const {
-    return Ray2<T>(
-                   toLocal(rayInWorld.origin),
+    return Ray2<T>(toLocal(rayInWorld.origin),
                    toLocalDirection(rayInWorld.direction));
 }
 
@@ -86,19 +82,18 @@ inline BoundingBox2 <T> Transform2<T>::toLocal(const BoundingBox2 <T> &bboxInWor
 }
 
 template<typename T>
-inline Vector2 <T> Transform2<T>::toWorld(const Vector2 <T> &pointInLocal) const {
+inline Point2<T> Transform2<T>::toWorld(const Point2<T> &pointInLocal) const {
     // Convert to the world frame
-    return Vector2<T>(_cosAngle * pointInLocal.x - _sinAngle * pointInLocal.y
-                      + _translation.x,
-                      _sinAngle * pointInLocal.x + _cosAngle * pointInLocal.y
-                      + _translation.y);
+    return Point2<T>(_cosAngle * pointInLocal.x - _sinAngle * pointInLocal.y
+                     + _translation.x,
+                     _sinAngle * pointInLocal.x + _cosAngle * pointInLocal.y
+                     + _translation.y);
 }
 
 template<typename T>
 inline Vector2 <T> Transform2<T>::toWorldDirection(const Vector2 <T> &dirInLocal) const {
     // Convert to the world frame
-    return Vector2<T>(
-                      _cosAngle * dirInLocal.x - _sinAngle * dirInLocal.y,
+    return Vector2<T>(_cosAngle * dirInLocal.x - _sinAngle * dirInLocal.y,
                       _sinAngle * dirInLocal.x + _cosAngle * dirInLocal.y);
 }
 

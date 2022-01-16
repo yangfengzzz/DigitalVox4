@@ -564,7 +564,7 @@ TEST(Matrix4x4, Helpers) {
                                          0.48, 0.64, 0.6, 0,
                                          0, 0, 0, 1), 0.05));
     
-    mat = makeTranslationMatrix(Vector3D(-2.0, 5.0, 3.5));
+    mat = makeTranslationMatrix(Point3D(-2.0, 5.0, 3.5));
     EXPECT_TRUE(mat.isSimilar(Matrix4x4D(1.0, 0.0, 0.0, 0.0,
                                          0.0, 1.0, 0.0, 0.0,
                                          0.0, 0.0, 1.0, 0.0,

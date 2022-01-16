@@ -8,6 +8,7 @@
 #define INCLUDE_JET_POINT2_H_
 
 #include "point.h"
+#include "vector2.h"
 #include <algorithm>  // just make cpplint happy..
 
 namespace vox {
@@ -72,13 +73,19 @@ public:
     Point add(T v) const;
     
     //! Computes this + (v.x, v.y).
-    Point add(const Point &v) const;
+    Vector2<T> add(const Point &v) const;
+    
+    //! Computes this + (v.x, v.y).
+    Point add(const Vector2<T> &v) const;
     
     //! Computes this - (v, v).
     Point sub(T v) const;
     
     //! Computes this - (v.x, v.y).
-    Point sub(const Point &v) const;
+    Vector2<T> sub(const Point &v) const;
+
+    //! Computes this - (v.x, v.y).
+    Point sub(const Vector2<T> &v) const;
     
     //! Computes this * (v, v).
     Point mul(T v) const;
@@ -92,13 +99,16 @@ public:
     //! Computes this / (v.x, v.y).
     Point div(const Point &v) const;
     
+    //! Computes dot product.
+    T dot(const Vector2<T> &v) const;
+    
     // MARK: - Binary operations: new instance = v (+) this
     
     //! Computes (v, v) - this.
     Point rsub(T v) const;
     
     //! Computes (v.x, v.y) - this.
-    Point rsub(const Point &v) const;
+    Vector2<T> rsub(const Point &v) const;
     
     //! Computes (v, v) / this.
     Point rdiv(T v) const;
@@ -112,13 +122,13 @@ public:
     void iadd(T v);
     
     //! Computes this += (v.x, v.y).
-    void iadd(const Point &v);
+    void iadd(const Vector2<T> &v);
     
     //! Computes this -= (v, v).
     void isub(T v);
     
     //! Computes this -= (v.x, v.y).
-    void isub(const Point &v);
+    void isub(const Vector2<T> &v);
     
     //! Computes this *= (v, v).
     void imul(T v);
@@ -168,6 +178,18 @@ public:
     //! Returns true if \p other is the same as this point.
     bool isEqual(const Point &other) const;
     
+    //! Returns the distance to the other vector.
+    T distanceTo(const Point &other) const;
+    
+    //! Returns the squared distance to the other vector.
+    T distanceSquaredTo(const Point &other) const;
+    
+    //! Returns the reflection vector to the surface with given surface normal.
+    Point reflected(const Vector2<T> &normal) const;
+    
+    //! Returns the projected vector to the surface with given surface normal.
+    Point projected(const Vector2<T> &normal) const;
+    
     // MARK: - Operators
     
     //! Returns reference to the \p i -th element of the point.
@@ -186,13 +208,13 @@ public:
     Point &operator+=(T v);
     
     //! Computes this += (v.x, v.y)
-    Point &operator+=(const Point &v);
+    Point &operator+=(const Vector2<T> &v);
     
     //! Computes this -= (v, v)
     Point &operator-=(T v);
     
     //! Computes this -= (v.x, v.y)
-    Point &operator-=(const Point &v);
+    Point &operator-=(const Vector2<T> &v);
     
     //! Computes this *= (v, v)
     Point &operator*=(T v);
@@ -231,7 +253,11 @@ Point2<T> operator+(T a, const Point2<T> &b);
 
 //! Computes (a.x, a.y) + (b.x, b.y).
 template<typename T>
-Point2<T> operator+(const Point2<T> &a, const Point2<T> &b);
+Vector2<T> operator+(const Point2<T> &a, const Point2<T> &b);
+
+//! Computes (a.x, a.y) + (b.x, b.y).
+template<typename T>
+Point2<T> operator+(const Point2<T> &a, const Vector2<T> &b);
 
 //! Computes (a.x, a.y) - (b, b).
 template<typename T>
@@ -243,7 +269,11 @@ Point2<T> operator-(T a, const Point2<T> &b);
 
 //! Computes (a.x, a.y) - (b.x, b.y).
 template<typename T>
-Point2<T> operator-(const Point2<T> &a, const Point2<T> &b);
+Vector2<T> operator-(const Point2<T> &a, const Point2<T> &b);
+
+//! Computes (a.x, a.y) - (b.x, b.y).
+template<typename T>
+Point2<T> operator-(const Point2<T> &a, const Vector2<T> &b);
 
 //! Computes (a.x, a.y) * (b, b).
 template<typename T>

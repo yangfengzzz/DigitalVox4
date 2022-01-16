@@ -38,7 +38,7 @@ public:
     void setOrientation(double orientation);
     
     //! Transforms a point in world coordinate to the local frame.
-    Vector2<T> toLocal(const Vector2<T> &pointInWorld) const;
+    Point2<T> toLocal(const Point2<T> &pointInWorld) const;
     
     //! Transforms a direction in world coordinate to the local frame.
     Vector2<T> toLocalDirection(const Vector2<T> &dirInWorld) const;
@@ -50,7 +50,7 @@ public:
     BoundingBox2<T> toLocal(const BoundingBox2<T> &bboxInWorld) const;
     
     //! Transforms a point in local space to the world coordinate.
-    Vector2<T> toWorld(const Vector2<T> &pointInLocal) const;
+    Point2<T> toWorld(const Point2<T> &pointInLocal) const;
     
     //! Transforms a direction in local space to the world coordinate.
     Vector2<T> toWorldDirection(const Vector2<T> &dirInLocal) const;

@@ -10,13 +10,12 @@
 namespace vox {
 
 template<typename T>
-Ray<T, 2>::Ray() : Ray(Vector2<T>(), Vector2<T>(1, 0)) {
+Ray<T, 2>::Ray() : Ray(Point2<T>(), Vector2<T>(1, 0)) {
 }
 
 template<typename T>
-Ray<T, 2>::Ray(
-               const Vector2 <T> &newOrigin,
-               const Vector2 <T> &newDirection) :
+Ray<T, 2>::Ray(const Point2<T> &newOrigin,
+               const Vector2<T> &newDirection) :
 origin(newOrigin),
 direction(newDirection.normalized()) {
 }
@@ -28,7 +27,7 @@ direction(other.direction) {
 }
 
 template<typename T>
-Vector2 <T> Ray<T, 2>::pointAt(T t) const {
+Point2<T> Ray<T, 2>::pointAt(T t) const {
     return origin + t * direction;
 }
 

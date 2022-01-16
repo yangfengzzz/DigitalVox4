@@ -62,7 +62,12 @@ Point<T, 2> Point<T, 2>::add(T v) const {
 }
 
 template<typename T>
-Point<T, 2> Point<T, 2>::add(const Point &v) const {
+Vector2<T> Point<T, 2>::add(const Point &v) const {
+    return Vector2<T>(x + v.x, y + v.y);
+}
+
+template<typename T>
+Point<T, 2> Point<T, 2>::add(const Vector2<T> &v) const {
     return Point(x + v.x, y + v.y);
 }
 
@@ -72,7 +77,12 @@ Point<T, 2> Point<T, 2>::sub(T v) const {
 }
 
 template<typename T>
-Point<T, 2> Point<T, 2>::sub(const Point &v) const {
+Vector2<T> Point<T, 2>::sub(const Point &v) const {
+    return Vector2<T>(x - v.x, y - v.y);
+}
+
+template<typename T>
+Point<T, 2> Point<T, 2>::sub(const Vector2<T> &v) const {
     return Point(x - v.x, y - v.y);
 }
 
@@ -96,6 +106,11 @@ Point<T, 2> Point<T, 2>::div(const Point &v) const {
     return Point(x / v.x, y / v.y);
 }
 
+template<typename T>
+T Point<T, 2>::dot(const Vector2<T> &v) const {
+    return x * v.x + y * v.y;
+}
+
 // Binary operators: new instance = v (+) this
 template<typename T>
 Point<T, 2> Point<T, 2>::rsub(T v) const {
@@ -103,8 +118,8 @@ Point<T, 2> Point<T, 2>::rsub(T v) const {
 }
 
 template<typename T>
-Point<T, 2> Point<T, 2>::rsub(const Point &v) const {
-    return Point(v.x - x, v.y - y);
+Vector2<T> Point<T, 2>::rsub(const Point &v) const {
+    return Vector2<T>(v.x - x, v.y - y);
 }
 
 template<typename T>
@@ -125,7 +140,7 @@ void Point<T, 2>::iadd(T v) {
 }
 
 template<typename T>
-void Point<T, 2>::iadd(const Point &v) {
+void Point<T, 2>::iadd(const Vector2<T> &v) {
     x += v.x;
     y += v.y;
 }
@@ -137,7 +152,7 @@ void Point<T, 2>::isub(T v) {
 }
 
 template<typename T>
-void Point<T, 2>::isub(const Point &v) {
+void Point<T, 2>::isub(const Vector2<T> &v) {
     x -= v.x;
     y -= v.y;
 }
@@ -225,6 +240,28 @@ bool Point<T, 2>::isEqual(const Point &other) const {
     return (x == other.x && y == other.y);
 }
 
+template<typename T>
+T Point<T, 2>::distanceTo(const Point<T, 2> &other) const {
+    return sub(other).length();
+}
+
+template<typename T>
+T Point<T, 2>::distanceSquaredTo(const Point<T, 2> &other) const {
+    return sub(other).lengthSquared();
+}
+
+template<typename T>
+Point<T, 2> Point<T, 2>::reflected(const Vector<T, 2> &normal) const {
+    // this - 2(this.n)n
+    return sub(normal.mul(2 * dot(normal)));
+}
+
+template<typename T>
+Point<T, 2> Point<T, 2>::projected(const Vector<T, 2> &normal) const {
+    // this - this.n n
+    return sub(normal.mul(dot(normal)));
+}
+
 // Operators
 template<typename T>
 T &Point<T, 2>::operator[](size_t i) {
@@ -257,7 +294,7 @@ Point<T, 2> &Point<T, 2>::operator+=(T v) {
 }
 
 template<typename T>
-Point<T, 2> &Point<T, 2>::operator+=(const Point &v) {
+Point<T, 2> &Point<T, 2>::operator+=(const Vector2<T> &v) {
     iadd(v);
     return (*this);
 }
@@ -269,7 +306,7 @@ Point<T, 2> &Point<T, 2>::operator-=(T v) {
 }
 
 template<typename T>
-Point<T, 2> &Point<T, 2>::operator-=(const Point &v) {
+Point<T, 2> &Point<T, 2>::operator-=(const Vector2<T> &v) {
     isub(v);
     return (*this);
 }
@@ -330,7 +367,12 @@ Point<T, 2> operator+(T a, const Point<T, 2> &b) {
 }
 
 template<typename T>
-Point<T, 2> operator+(const Point<T, 2> &a, const Point<T, 2> &b) {
+Vector2<T> operator+(const Point<T, 2> &a, const Point<T, 2> &b) {
+    return a.add(b);
+}
+
+template<typename T>
+Point<T, 2> operator+(const Point<T, 2> &a, const Vector2<T> &b) {
     return a.add(b);
 }
 
@@ -345,7 +387,12 @@ Point<T, 2> operator-(T a, const Point<T, 2> &b) {
 }
 
 template<typename T>
-Point<T, 2> operator-(const Point<T, 2> &a, const Point<T, 2> &b) {
+Vector2<T> operator-(const Point<T, 2> &a, const Point<T, 2> &b) {
+    return a.sub(b);
+}
+
+template<typename T>
+Point<T, 2> operator-(const Point<T, 2> &a, const Vector2<T> &b) {
     return a.sub(b);
 }
 

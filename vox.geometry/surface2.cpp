@@ -23,7 +23,7 @@ Surface2::Surface2(const Surface2 &other)
 Surface2::~Surface2() {
 }
 
-Vector2D Surface2::closestPoint(const Vector2D &otherPoint) const {
+Point2D Surface2::closestPoint(const Point2D &otherPoint) const {
     return transform.toWorld(closestPointLocal(transform.toLocal(otherPoint)));
 }
 
@@ -35,7 +35,7 @@ bool Surface2::intersects(const Ray2D &ray) const {
     return intersectsLocal(transform.toLocal(ray));
 }
 
-double Surface2::closestDistance(const Vector2D &otherPoint) const {
+double Surface2::closestDistance(const Point2D &otherPoint) const {
     return closestDistanceLocal(transform.toLocal(otherPoint));
 }
 
@@ -47,9 +47,8 @@ SurfaceRayIntersection2 Surface2::closestIntersection(const Ray2D &ray) const {
     return result;
 }
 
-Vector2D Surface2::closestNormal(const Vector2D &otherPoint) const {
-    auto result = transform.toWorldDirection(
-                                             closestNormalLocal(transform.toLocal(otherPoint)));
+Vector2D Surface2::closestNormal(const Point2D &otherPoint) const {
+    auto result = transform.toWorldDirection(closestNormalLocal(transform.toLocal(otherPoint)));
     result *= (isNormalFlipped) ? -1.0 : 1.0;
     return result;
 }
@@ -66,7 +65,7 @@ bool Surface2::isValidGeometry() const {
     return true;
 }
 
-bool Surface2::isInside(const Vector2D &otherPoint) const {
+bool Surface2::isInside(const Point2D &otherPoint) const {
     return isNormalFlipped == !isInsideLocal(transform.toLocal(otherPoint));
 }
 
@@ -75,12 +74,12 @@ bool Surface2::intersectsLocal(const Ray2D &rayLocal) const {
     return result.isIntersecting;
 }
 
-double Surface2::closestDistanceLocal(const Vector2D &otherPointLocal) const {
+double Surface2::closestDistanceLocal(const Point2D &otherPointLocal) const {
     return otherPointLocal.distanceTo(closestPointLocal(otherPointLocal));
 }
 
-bool Surface2::isInsideLocal(const Vector2D &otherPointLocal) const {
-    Vector2D cpLocal = closestPointLocal(otherPointLocal);
+bool Surface2::isInsideLocal(const Point2D &otherPointLocal) const {
+    Point2D cpLocal = closestPointLocal(otherPointLocal);
     Vector2D normalLocal = closestNormalLocal(otherPointLocal);
     return (otherPointLocal - cpLocal).dot(normalLocal) < 0.0;
 }

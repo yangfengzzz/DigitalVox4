@@ -56,7 +56,7 @@ TEST(Point2, BinaryOperatorMethods) {
     EXPECT_FLOAT_EQ(7.f, pt.x);
     EXPECT_FLOAT_EQ(13.f, pt.y);
 
-    pt = pt.add(Point2F(-2.f, 1.f));
+    pt = pt.add(Vector2F(-2.f, 1.f));
     EXPECT_FLOAT_EQ(5.f, pt.x);
     EXPECT_FLOAT_EQ(14.f, pt.y);
 
@@ -64,7 +64,7 @@ TEST(Point2, BinaryOperatorMethods) {
     EXPECT_FLOAT_EQ(-3.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
 
-    pt = pt.sub(Point2F(-5.f, 3.f));
+    pt = pt.sub(Vector2F(-5.f, 3.f));
     EXPECT_FLOAT_EQ(2.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
 
@@ -91,9 +91,9 @@ TEST(Point2, BinaryInverseOperatorMethods) {
     EXPECT_FLOAT_EQ(5.f, pt.x);
     EXPECT_FLOAT_EQ(-1.f, pt.y);
 
-    pt = pt.rsub(Point2F(-5.f, 3.f));
-    EXPECT_FLOAT_EQ(-10.f, pt.x);
-    EXPECT_FLOAT_EQ(4.f, pt.y);
+    Vector2F dt = pt.rsub(Point2F(-5.f, 3.f));
+    EXPECT_FLOAT_EQ(-10.f, dt.x);
+    EXPECT_FLOAT_EQ(4.f, dt.y);
 
     pt = Point2F(-4.f, -3.f);
     pt = pt.rdiv(12.f);
@@ -111,7 +111,7 @@ TEST(Point2, AugmentedOperatorMethods) {
     EXPECT_FLOAT_EQ(7.f, pt.x);
     EXPECT_FLOAT_EQ(pt.y, 13.f);
 
-    pt.iadd(Point2F(-2.f, 1.f));
+    pt.iadd(Vector2F(-2.f, 1.f));
     EXPECT_FLOAT_EQ(5.f, pt.x);
     EXPECT_FLOAT_EQ(pt.y, 14.f);
 
@@ -119,7 +119,7 @@ TEST(Point2, AugmentedOperatorMethods) {
     EXPECT_FLOAT_EQ(-3.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
 
-    pt.isub(Point2F(-5.f, 3.f));
+    pt.isub(Vector2F(-5.f, 3.f));
     EXPECT_FLOAT_EQ(2.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
 
@@ -201,7 +201,7 @@ TEST(Point2, AugmentedOperators) {
     EXPECT_FLOAT_EQ(7.f, pt.x);
     EXPECT_FLOAT_EQ(pt.y, 13.f);
 
-    pt += Point2F(-2.f, 1.f);
+    pt += Vector2F(-2.f, 1.f);
     EXPECT_FLOAT_EQ(5.f, pt.x);
     EXPECT_FLOAT_EQ(pt.y, 14.f);
 
@@ -209,7 +209,7 @@ TEST(Point2, AugmentedOperators) {
     EXPECT_FLOAT_EQ(-3.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
 
-    pt -= Point2F(-5.f, 3.f);
+    pt -= Vector2F(-5.f, 3.f);
     EXPECT_FLOAT_EQ(2.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
 
@@ -270,7 +270,7 @@ TEST(Point2, BinaryOperators) {
     EXPECT_FLOAT_EQ(7.f, pt.x);
     EXPECT_FLOAT_EQ(pt.y, 13.f);
 
-    pt = pt + Point2F(-2.f, 1.f);
+    pt = pt + Vector2F(-2.f, 1.f);
     EXPECT_FLOAT_EQ(5.f, pt.x);
     EXPECT_FLOAT_EQ(pt.y, 14.f);
 
@@ -278,7 +278,7 @@ TEST(Point2, BinaryOperators) {
     EXPECT_FLOAT_EQ(-3.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
 
-    pt = pt - Point2F(-5.f, 3.f);
+    pt = pt - Vector2F(-5.f, 3.f);
     EXPECT_FLOAT_EQ(2.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
 
@@ -297,4 +297,14 @@ TEST(Point2, BinaryOperators) {
     pt = pt / Point2F(3.f, -1.f);
     EXPECT_FLOAT_EQ(1.f, pt.x);
     EXPECT_FLOAT_EQ(3.f, pt.y);
+    
+    Point2D v = Point2D(2.0, 1.0);
+    Vector2D normal = Vector2D(1.0, 1.0).normalized();
+
+    Point2D reflected = v.reflected(normal);
+    Point2D reflectedAnswer = Point2D(-1.0, -2.0);
+    EXPECT_NEAR(reflected.distanceTo(reflectedAnswer), 0.0, 1e-9);
+
+    Point2D projected = v.projected(normal);
+    EXPECT_NEAR(projected.dot(normal), 0.0, 1e-9);
 }

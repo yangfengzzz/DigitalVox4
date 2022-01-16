@@ -10,6 +10,7 @@
 #include "bounding_box.h"
 #include "ray2.h"
 #include "vector2.h"
+#include "point2.h"
 #include <limits>
 
 namespace vox {
@@ -40,16 +41,16 @@ template<typename T>
 class BoundingBox<T, 2> {
 public:
     //! Lower corner of the bounding box.
-    Vector2<T> lowerCorner;
+    Point2<T> lowerCorner;
     
     //! Upper corner of the bounding box.
-    Vector2<T> upperCorner;
+    Point2<T> upperCorner;
     
     //! Default constructor.
     BoundingBox();
     
     //! Constructs a box that tightly covers two points.
-    BoundingBox(const Vector2<T> &point1, const Vector2<T> &point2);
+    BoundingBox(const Point2<T> &point1, const Point2<T> &point2);
     
     //! Constructs a box with other box instance.
     BoundingBox(const BoundingBox &other);
@@ -67,7 +68,7 @@ public:
     bool overlaps(const BoundingBox &other) const;
     
     //! Returns true if the input point is inside of this box.
-    bool contains(const Vector2<T> &point) const;
+    bool contains(const Point2<T> &point) const;
     
     //! Returns true if the input ray is intersecting with this box.
     bool intersects(const Ray2<T> &ray) const;
@@ -76,11 +77,10 @@ public:
     //! intersecting with this box. If interesects, intersection.tNear is
     //! assigned with distant to the closest intersecting point, and
     //! intersection.tFar with furthest.
-    BoundingBoxRayIntersection2<T> closestIntersection(
-                                                       const Ray2<T> &ray) const;
+    BoundingBoxRayIntersection2<T> closestIntersection(const Ray2<T> &ray) const;
     
     //! Returns the mid-point of this box.
-    Vector2<T> midPoint() const;
+    Point2<T> midPoint() const;
     
     //! Returns diagonal length of this box.
     T diagonalLength() const;
@@ -92,7 +92,7 @@ public:
     void reset();
     
     //! Merges this and other point.
-    void merge(const Vector2<T> &point);
+    void merge(const Point2<T> &point);
     
     //! Merges this and other box.
     void merge(const BoundingBox &other);
@@ -103,10 +103,10 @@ public:
     void expand(T delta);
     
     //! Returns corner position. Index starts from x-first order.
-    Vector2<T> corner(size_t idx) const;
+    Point2<T> corner(size_t idx) const;
     
     //! Returns the clamped point.
-    Vector2<T> clamp(const Vector2<T> &pt) const;
+    Point2<T> clamp(const Point2<T> &pt) const;
     
     //! Returns true if the box is empty.
     bool isEmpty() const;

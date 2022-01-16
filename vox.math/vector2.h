@@ -187,18 +187,6 @@ public:
     //! Returns the squared length of the vector.
     T lengthSquared() const;
     
-    //! Returns the distance to the other vector.
-    T distanceTo(const Vector &other) const;
-    
-    //! Returns the squared distance to the other vector.
-    T distanceSquaredTo(const Vector &other) const;
-    
-    //! Returns the reflection vector to the surface with given surface normal.
-    Vector reflected(const Vector &normal) const;
-    
-    //! Returns the projected vector to the surface with given surface normal.
-    Vector projected(const Vector &normal) const;
-    
     //! Returns the tangential vector for this vector.
     Vector tangential() const;
     

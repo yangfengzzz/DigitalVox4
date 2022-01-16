@@ -328,16 +328,7 @@ TEST(Vector2, BinaryOperators) {
     EXPECT_FLOAT_EQ(1.f, vec.x);
     EXPECT_FLOAT_EQ(3.f, vec.y);
 
-    Vector2D v = Vector2D(2.0, 1.0).normalized();
     Vector2D normal = Vector2D(1.0, 1.0).normalized();
-
-    Vector2D reflected = v.reflected(normal);
-    Vector2D reflectedAnswer = Vector2D(-1.0, -2.0).normalized();
-    EXPECT_NEAR(reflected.distanceTo(reflectedAnswer), 0.0, 1e-9);
-
-    Vector2D projected = v.projected(normal);
-    EXPECT_NEAR(projected.dot(normal), 0.0, 1e-9);
-
     Vector2D tangential = normal.tangential();
     EXPECT_NEAR(tangential.dot(normal), 0.0, 1e-9);
 }

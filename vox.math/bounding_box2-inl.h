@@ -19,8 +19,8 @@ BoundingBox<T, 2>::BoundingBox() {
 }
 
 template<typename T>
-BoundingBox<T, 2>::BoundingBox(const Vector2 <T> &point1,
-                               const Vector2 <T> &point2) {
+BoundingBox<T, 2>::BoundingBox(const Point2 <T> &point1,
+                               const Point2 <T> &point2) {
     lowerCorner.x = std::min(point1.x, point2.x);
     lowerCorner.y = std::min(point1.y, point2.y);
     upperCorner.x = std::max(point1.x, point2.x);
@@ -63,7 +63,7 @@ bool BoundingBox<T, 2>::overlaps(const BoundingBox &other) const {
 }
 
 template<typename T>
-bool BoundingBox<T, 2>::contains(const Vector2 <T> &point) const {
+bool BoundingBox<T, 2>::contains(const Point2 <T> &point) const {
     if (upperCorner.x < point.x || lowerCorner.x > point.x) {
         return false;
     }
@@ -102,48 +102,50 @@ bool BoundingBox<T, 2>::intersects(const Ray2 <T> &ray) const {
 }
 
 template<typename T>
-BoundingBoxRayIntersection2 <T> BoundingBox<T, 2>::closestIntersection(
-                                                                       const Ray2 <T> &ray) const {
-                                                                           BoundingBoxRayIntersection2<T> intersection;
-                                                                           
-                                                                           T tMin = 0;
-                                                                           T tMax = std::numeric_limits<T>::max();
-                                                                           
-                                                                           const Vector2<T> &rayInvDir = ray.direction.rdiv(1);
-                                                                           
-                                                                           for (int i = 0; i < 2; ++i) {
-                                                                               T tNear = (lowerCorner[i] - ray.origin[i]) * rayInvDir[i];
-                                                                               T tFar = (upperCorner[i] - ray.origin[i]) * rayInvDir[i];
-                                                                               
-                                                                               if (tNear > tFar) {
-                                                                                   std::swap(tNear, tFar);
-                                                                               }
-                                                                               
-                                                                               tMin = std::max(tNear, tMin);
-                                                                               tMax = std::min(tFar, tMax);
-                                                                               
-                                                                               if (tMin > tMax) {
-                                                                                   intersection.isIntersecting = false;
-                                                                                   return intersection;
-                                                                               }
-                                                                           }
-                                                                           
-                                                                           intersection.isIntersecting = true;
-                                                                           
-                                                                           if (contains(ray.origin)) {
-                                                                               intersection.tNear = tMax;
-                                                                               intersection.tFar = std::numeric_limits<T>::max();
-                                                                           } else {
-                                                                               intersection.tNear = tMin;
-                                                                               intersection.tFar = tMax;
-                                                                           }
-                                                                           
-                                                                           return intersection;
-                                                                       }
+BoundingBoxRayIntersection2 <T> BoundingBox<T, 2>::closestIntersection(const Ray2 <T> &ray) const {
+    BoundingBoxRayIntersection2<T> intersection;
+    
+    T tMin = 0;
+    T tMax = std::numeric_limits<T>::max();
+    
+    const Vector2<T> &rayInvDir = ray.direction.rdiv(1);
+    
+    for (int i = 0; i < 2; ++i) {
+        T tNear = (lowerCorner[i] - ray.origin[i]) * rayInvDir[i];
+        T tFar = (upperCorner[i] - ray.origin[i]) * rayInvDir[i];
+        
+        if (tNear > tFar) {
+            std::swap(tNear, tFar);
+        }
+        
+        tMin = std::max(tNear, tMin);
+        tMax = std::min(tFar, tMax);
+        
+        if (tMin > tMax) {
+            intersection.isIntersecting = false;
+            return intersection;
+        }
+    }
+    
+    intersection.isIntersecting = true;
+    
+    if (contains(ray.origin)) {
+        intersection.tNear = tMax;
+        intersection.tFar = std::numeric_limits<T>::max();
+    } else {
+        intersection.tNear = tMin;
+        intersection.tFar = tMax;
+    }
+    
+    return intersection;
+}
 
 template<typename T>
-Vector2 <T> BoundingBox<T, 2>::midPoint() const {
-    return (upperCorner + lowerCorner) / static_cast<T>(2);
+Point2<T> BoundingBox<T, 2>::midPoint() const {
+    Vector2<T> temp = upperCorner + lowerCorner;
+    
+    return Point2<T>(temp.x / static_cast<T>(2),
+                     temp.y / static_cast<T>(2));    
 }
 
 template<typename T>
@@ -165,7 +167,7 @@ void BoundingBox<T, 2>::reset() {
 }
 
 template<typename T>
-void BoundingBox<T, 2>::merge(const Vector2 <T> &point) {
+void BoundingBox<T, 2>::merge(const Point2<T> &point) {
     lowerCorner.x = std::min(lowerCorner.x, point.x);
     lowerCorner.y = std::min(lowerCorner.y, point.y);
     upperCorner.x = std::max(upperCorner.x, point.x);
@@ -187,16 +189,16 @@ void BoundingBox<T, 2>::expand(T delta) {
 }
 
 template<typename T>
-Vector2 <T> BoundingBox<T, 2>::corner(size_t idx) const {
+Point2<T> BoundingBox<T, 2>::corner(size_t idx) const {
     static const T h = static_cast<T>(1) / 2;
     static const Vector2<T> offset[4] = {
         {-h, -h}, {+h, -h}, {-h, +h}, {+h, +h}};
     
-    return Vector2<T>(width(), height()) * offset[idx] + midPoint();
+    return midPoint() + Vector2<T>(width(), height()) * offset[idx];
 }
 
 template<typename T>
-Vector2 <T> BoundingBox<T, 2>::clamp(const Vector2 <T> &pt) const {
+Point2<T> BoundingBox<T, 2>::clamp(const Point2<T> &pt) const {
     return ::vox::clamp(pt, lowerCorner, upperCorner);
 }
 
