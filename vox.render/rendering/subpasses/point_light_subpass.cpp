@@ -14,13 +14,14 @@
 namespace vox {
 PointLightSubpass::PointLightSubpass(MTL::RenderPassDescriptor* desc,
                                      Scene* scene,
+                                     Camera* camera,
                                      MTL::Library& shaderLibrary,
                                      MTL::Device& m_device,
                                      MTL::PixelFormat colorPixelFormat,
                                      MeshPtr m_icosahedronMesh,
                                      MTL::RenderPassDescriptor* gbuffer_desc,
                                      const uint32_t NumLights):
-Subpass(desc, m_device, scene),
+Subpass(desc, m_device, scene, camera),
 m_icosahedronMesh(m_icosahedronMesh),
 gbuffer_desc(gbuffer_desc),
 NumLights(NumLights) {

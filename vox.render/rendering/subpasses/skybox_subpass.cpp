@@ -15,10 +15,11 @@
 namespace vox {
 SkyboxSubpass::SkyboxSubpass(MTL::RenderPassDescriptor* desc,
                              Scene* scene,
+                             Camera* camera,
                              MTL::Library& shaderLibrary,
                              MTL::Device& m_device,
                              MTL::PixelFormat colorPixelFormat):
-Subpass(desc, m_device, scene) {
+Subpass(desc, m_device, scene, camera) {
     CFErrorRef error = nullptr;
     
 #pragma mark Sky render pipeline setup

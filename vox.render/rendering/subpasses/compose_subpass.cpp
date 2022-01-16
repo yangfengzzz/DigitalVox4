@@ -14,11 +14,12 @@
 namespace vox {
 ComposeSubpass::ComposeSubpass(MTL::RenderPassDescriptor* desc,
                                Scene* scene,
+                               Camera* camera,
                                MTL::Library& shaderLibrary,
                                MTL::Device& m_device,
                                MTL::PixelFormat colorPixelFormat,
                                MTL::RenderPassDescriptor* gbuffer_desc):
-Subpass(desc, m_device, scene),
+Subpass(desc, m_device, scene, camera),
 gbuffer_desc(gbuffer_desc) {
     CFErrorRef error = nullptr;
 

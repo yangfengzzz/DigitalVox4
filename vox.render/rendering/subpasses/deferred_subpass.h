@@ -17,6 +17,7 @@ class DeferredSubpass: public Subpass {
 public:
     DeferredSubpass(MTL::RenderPassDescriptor* desc,
                     Scene* scene,
+                    Camera* camera,
                     MTL::Library& shaderLibrary,
                     MTL::Device& m_device,
                     MTL::RenderPassDescriptor* shadow_desc);

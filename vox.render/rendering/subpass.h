@@ -16,7 +16,8 @@ class Subpass {
 public:
     Subpass(MTL::RenderPassDescriptor* desc,
             MTL::Device& m_device,
-            Scene* scene);
+            Scene* scene,
+            Camera* camera);
     
     Subpass(const Subpass &) = delete;
     
@@ -37,6 +38,7 @@ public:
 protected:
     MTL::Device& m_device;
     Scene* scene;
+    Camera* camera;
 };
 
 }

@@ -129,7 +129,7 @@ bool Deferred::prepare(Engine &engine) {
         m_shadowRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
         m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
         m_shadowRenderPass = std::make_unique<RenderPass>(&m_shadowRenderPassDescriptor);
-        m_shadowRenderPass->addSubpass(std::make_unique<ShadowSubpass>(&m_shadowRenderPassDescriptor, scene.get(),
+        m_shadowRenderPass->addSubpass(std::make_unique<ShadowSubpass>(&m_shadowRenderPassDescriptor, scene.get(), nullptr,
                                                                        shaderLibrary, *device));
     }
     
@@ -179,7 +179,7 @@ bool Deferred::prepare(Engine &engine) {
         m_GBufferRenderPassDescriptor.stencilAttachment.storeAction(MTL::StoreActionStore);
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         m_GBufferRenderPass = std::make_unique<RenderPass>(&m_GBufferRenderPassDescriptor);
-        m_GBufferRenderPass->addSubpass(std::make_unique<DeferredSubpass>(&m_GBufferRenderPassDescriptor, scene.get(),
+        m_GBufferRenderPass->addSubpass(std::make_unique<DeferredSubpass>(&m_GBufferRenderPassDescriptor, scene.get(), nullptr,
                                                                           shaderLibrary, *device, &m_shadowRenderPassDescriptor));
     }
     
@@ -193,15 +193,15 @@ bool Deferred::prepare(Engine &engine) {
         m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
         m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         m_finalRenderPass = std::make_unique<RenderPass>(&m_finalRenderPassDescriptor);
-        m_finalRenderPass->addSubpass(std::make_unique<ComposeSubpass>(&m_finalRenderPassDescriptor, scene.get(),
+        m_finalRenderPass->addSubpass(std::make_unique<ComposeSubpass>(&m_finalRenderPassDescriptor, scene.get(), nullptr,
                                                                        shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
                                                                        &m_GBufferRenderPassDescriptor));
-        m_finalRenderPass->addSubpass(std::make_unique<PointLightSubpass>(&m_finalRenderPassDescriptor, scene.get(),
+        m_finalRenderPass->addSubpass(std::make_unique<PointLightSubpass>(&m_finalRenderPassDescriptor, scene.get(), nullptr,
                                                                           shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
                                                                           m_icosahedronMesh, &m_GBufferRenderPassDescriptor, NumLights));
-        m_finalRenderPass->addSubpass(std::make_unique<SkyboxSubpass>(&m_finalRenderPassDescriptor, scene.get(),
+        m_finalRenderPass->addSubpass(std::make_unique<SkyboxSubpass>(&m_finalRenderPassDescriptor, scene.get(), nullptr,
                                                                       shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB));
-        m_finalRenderPass->addSubpass(std::make_unique<ParticleSubpass>(&m_finalRenderPassDescriptor, scene.get(),
+        m_finalRenderPass->addSubpass(std::make_unique<ParticleSubpass>(&m_finalRenderPassDescriptor, scene.get(), nullptr,
                                                                         shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB,
                                                                         m_fairy, m_fairyMap, NumLights, NumFairyVertices));
     }

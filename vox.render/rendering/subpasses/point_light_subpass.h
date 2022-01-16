@@ -16,6 +16,7 @@ class PointLightSubpass: public Subpass {
 public:
     PointLightSubpass(MTL::RenderPassDescriptor* desc,
                       Scene* scene,
+                      Camera* camera,
                       MTL::Library& shaderLibrary,
                       MTL::Device& m_device,
                       MTL::PixelFormat colorPixelFormat,

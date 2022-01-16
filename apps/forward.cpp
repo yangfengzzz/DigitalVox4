@@ -18,6 +18,7 @@
 #include "graphics/mesh_loader.h"
 #include "graphics/primitive_mesh.h"
 #include "shader/shader.h"
+#include "camera.h"
 
 namespace vox {
 using namespace simd;
@@ -82,7 +83,7 @@ bool Forward::prepare(Engine &engine) {
         m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
         m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         m_finalRenderPass = std::make_unique<RenderPass>(&m_finalRenderPassDescriptor);
-        m_finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(&m_finalRenderPassDescriptor, scene.get(),
+        m_finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(&m_finalRenderPassDescriptor, scene.get(), m_camera,
                                                                        shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB));
     }
     framebuffer_resize(extent.width*2, extent.height*2);
@@ -91,8 +92,10 @@ bool Forward::prepare(Engine &engine) {
 }
 
 void Forward::loadScene() {
-    newMeshesFromBundlePath("../assets/Models", "Temple.obj",
-                            *device, scene.get(), m_defaultVertexDescriptor);
+    auto entity = newMeshesFromBundlePath("../assets/Models", "Temple.obj",
+                                          *device, scene.get(), m_defaultVertexDescriptor);
+    entity->transform->setPosition(0, 10, 0);
+    m_camera = scene->getRootEntity()->addComponent<Camera>();
 }
 
 void Forward::update(float delta_time) {
@@ -116,6 +119,8 @@ void Forward::update(float delta_time) {
 void Forward::framebuffer_resize(uint32_t width, uint32_t height) {
     // When reshape is called, update the aspect ratio and projection matrix since the view
     //   orientation or size has changed
+    m_camera->resize(width, height);
+    
 //    float aspect = (float) width / (float) height;
 //    m_projection_matrix = matrix_perspective_left_hand(65.0f * (M_PI / 180.0f), aspect, NearPlane, FarPlane);
     

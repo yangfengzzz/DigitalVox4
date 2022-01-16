@@ -14,6 +14,7 @@
 namespace vox {
 ParticleSubpass::ParticleSubpass(MTL::RenderPassDescriptor* desc,
                                  Scene* scene,
+                                 Camera* camera,
                                  MTL::Library& shaderLibrary,
                                  MTL::Device& m_device,
                                  MTL::PixelFormat colorPixelFormat,
@@ -21,7 +22,7 @@ ParticleSubpass::ParticleSubpass(MTL::RenderPassDescriptor* desc,
                                  MTL::Texture &m_fairyMap,
                                  const uint32_t NumLights,
                                  const uint32_t NumFairyVertices):
-Subpass(desc, m_device, scene),
+Subpass(desc, m_device, scene, camera),
 m_fairy(m_fairy),
 m_fairyMap(m_fairyMap),
 NumLights(NumLights),

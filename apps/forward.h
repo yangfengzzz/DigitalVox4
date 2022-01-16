@@ -34,6 +34,8 @@ private:
     // Vertex descriptor for models loaded with MetalKit
     MTL::VertexDescriptor m_defaultVertexDescriptor;
     
+    Camera* m_camera{nullptr};
+    
     MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
     std::unique_ptr<RenderPass> m_finalRenderPass{nullptr};
 };

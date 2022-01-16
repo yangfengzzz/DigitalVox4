@@ -16,10 +16,11 @@
 namespace vox {
 DeferredSubpass::DeferredSubpass(MTL::RenderPassDescriptor* desc,
                                  Scene* scene,
+                                 Camera* camera,
                                  MTL::Library& shaderLibrary,
                                  MTL::Device& m_device,
                                  MTL::RenderPassDescriptor* shadow_desc):
-Subpass(desc, m_device, scene),
+Subpass(desc, m_device, scene, camera),
 shadow_desc(shadow_desc) {
     CFErrorRef error = nullptr;
 

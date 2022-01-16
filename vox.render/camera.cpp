@@ -276,4 +276,9 @@ Imath::M44f Camera::inverseProjectionMatrix() {
     return _inverseProjectionMatrix;
 }
 
+void Camera::resize(uint32_t width, uint32_t height) {
+    this->_width = width;
+    this->_height = height;
+}
+
 }

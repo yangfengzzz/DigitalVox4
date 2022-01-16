@@ -15,6 +15,7 @@ class ComposeSubpass: public Subpass {
 public:
     ComposeSubpass(MTL::RenderPassDescriptor* desc,
                    Scene* scene,
+                   Camera* camera,
                    MTL::Library& shaderLibrary,
                    MTL::Device& m_device,
                    MTL::PixelFormat colorPixelFormat,
