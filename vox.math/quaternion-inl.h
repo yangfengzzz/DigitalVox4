@@ -271,6 +271,77 @@ inline void Quaternion<T>::normalize() {
     }
 }
 
+template <typename T>
+inline Quaternion<T> Quaternion<T>::rotateX(T rad) const {
+    rad *= 0.5;
+    T bx = std::sin(rad);
+    T bw = std::cos(rad);
+
+    return Quaternion<T>(w * bw - x * bx,
+                         x * bw + w * bx,
+                         y * bw + z * bx,
+                         z * bw - y * bx);
+}
+
+template <typename T>
+inline void Quaternion<T>::rotateX(T rad) {
+    rad *= 0.5;
+    T bx = std::sin(rad);
+    T bw = std::cos(rad);
+    
+    x = x * bw + w * bx;
+    y = y * bw + z * bx;
+    z = z * bw - y * bx;
+    w = w * bw - x * bx;
+}
+
+template <typename T>
+inline Quaternion<T> Quaternion<T>::rotateY(T rad) const {
+    rad *= 0.5;
+    T by = std::sin(rad);
+    T bw = std::cos(rad);
+
+    return Quaternion<T>(w * bw - y * by,
+                         x * bw - z * by,
+                         y * bw + w * by,
+                         z * bw + x * by);
+}
+
+template <typename T>
+inline void Quaternion<T>::rotateY(T rad) {
+    rad *= 0.5;
+    T by = std::sin(rad);
+    T bw = std::cos(rad);
+    
+    x = x * bw - z * by;
+    y = y * bw + w * by;
+    z = z * bw + x * by;
+    w = w * bw - y * by;
+}
+    
+template <typename T>
+inline Quaternion<T> Quaternion<T>::rotateZ(T rad) const {
+    rad *= 0.5;
+    T bz = std::sin(rad);
+    T bw = std::cos(rad);
+
+    return Quaternion<T>(w * bw - z * bz,
+                         x * bw + y * bz,
+                         y * bw - x * bz,
+                         z * bw + w * bz);
+}
+
+template <typename T>
+inline void Quaternion<T>::rotateZ(T rad) {
+    rad *= 0.5;
+    T bz = std::sin(rad);
+    T bw = std::cos(rad);
+    
+    x = x * bw + y * bz;
+    y = y * bw - x * bz;
+    z = z * bw + w * bz;
+    w = w * bw - z * bz;
+}
 
 // Complex getters
 template <typename T>
@@ -308,6 +379,55 @@ inline void Quaternion<T>::getAxisAngle(Vector3<T>* axis, T* angle) const {
         (*axis) = -(*axis);
         *angle = 2 * pi<T>() - (*angle);
     }
+}
+
+template <typename T>
+inline Vector3<T> Quaternion<T>::toEuler() const {
+    Vector3<T> euler = toYawPitchRoll();
+    T t = euler.x;
+    euler.x = euler.y;
+    euler.y = t;
+    return euler;
+}
+
+template <typename T>
+inline Vector3<T> Quaternion<T>::toYawPitchRoll() const {
+    T xx = x * x;
+    T yy = y * y;
+    T zz = z * z;
+    T xy = x * y;
+    T zw = z * w;
+    T zx = z * x;
+    T yw = y * w;
+    T yz = y * z;
+    T xw = x * w;
+
+    Vector3<T> euler;
+    euler.y = std::asin(2.0 * (xw - yz));
+    if (std::cos(euler.y) > std::numeric_limits<T>::epsilon()) {
+        euler.z = std::atan2(2.0 * (xy + zw), 1.0 - 2.0 * (zz + xx));
+        euler.x = std::atan2(2.0 * (zx + yw), 1.0 - 2.0 * (yy + xx));
+    } else {
+        euler.z = std::atan2(-2.0 * (xy - zw), 1.0 - 2.0 * (yy + zz));
+        euler.x = 0.0;
+    }
+
+    return euler;
+}
+
+template <typename T>
+inline Quaternion<T> Quaternion<T>::conjugate() const {
+    return Quaternion<T>(w, -x, -y, -z);
+}
+
+template <typename T>
+inline T Quaternion<T>::length() const {
+    return std::sqrt(x * x + y * y + z * z + w * w);
+}
+
+template <typename T>
+inline T Quaternion<T>::lengthSquared() const {
+    return x * x + y * y + z * z + w * w;
 }
 
 template <typename T>
@@ -406,6 +526,56 @@ Quaternion<T> Quaternion<T>::makeIdentity() {
     return Quaternion();
 }
 
+template <typename T>
+Quaternion<T> Quaternion<T>::makeRotationEuler(T pitch, T yaw, T roll) {
+    return Quaternion<T>::makeRotationYawPitchRoll(yaw, pitch, roll);
+}
+
+template <typename T>
+Quaternion<T> Quaternion<T>::makeRotationYawPitchRoll(T yaw, T pitch, T roll) {
+    T halfRoll = roll * 0.5;
+    T halfPitch = pitch * 0.5;
+    T halfYaw = yaw * 0.5;
+
+    T sinRoll = std::sin(halfRoll);
+    T cosRoll = std::cos(halfRoll);
+    T sinPitch = std::sin(halfPitch);
+    T cosPitch = std::cos(halfPitch);
+    T sinYaw = std::sin(halfYaw);
+    T cosYaw = std::cos(halfYaw);
+
+    T cosYawPitch = cosYaw * cosPitch;
+    T sinYawPitch = sinYaw * sinPitch;
+
+    return Quaternion<T>(cosYawPitch * cosRoll + sinYawPitch * sinRoll,
+                         cosYaw * sinPitch * cosRoll + sinYaw * cosPitch * sinRoll,
+                         sinYaw * cosPitch * cosRoll - cosYaw * sinPitch * sinRoll,
+                         cosYawPitch * sinRoll - sinYawPitch * cosRoll);
+}
+
+template <typename T>
+Quaternion<T> Quaternion<T>::makeRotationX(T rad) {
+    rad *= 0.5;
+    T s = std::sin(rad);
+    T c = std::cos(rad);
+    return Quaternion<T>(c, s, 0, 0);
+}
+
+template <typename T>
+Quaternion<T> Quaternion<T>::makeRotationY(T rad) {
+    rad *= 0.5;
+    T s = std::sin(rad);
+    T c = std::cos(rad);
+    return Quaternion<T>(c, 0, s, 0);
+}
+
+template <typename T>
+Quaternion<T> Quaternion<T>::makeRotationZ(T rad) {
+    rad *= 0.5;
+    T s = std::sin(rad);
+    T c = std::cos(rad);
+    return Quaternion<T>(c, 0, 0, s);
+}
 
 template <typename T>
 inline Quaternion<T> slerp(const Quaternion<T>& a,

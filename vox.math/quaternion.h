@@ -185,16 +185,13 @@ public:
      * Get the euler of this quaternion.
      * @returns Euler x->pitch y->yaw z->roll
      */
-    Vector3<T> toEuler();
+    Vector3<T> toEuler() const;
     
     /**
      * Get the euler of this quaternion.
      * @returns Euler x->yaw y->pitch z->roll
      */
-    Vector3<T> toYawPitchRoll();
-    
-    //! Returns the inverse quaternion.
-    Quaternion inverse() const;
+    Vector3<T> toYawPitchRoll() const;
     
     /**
      * Calculate quaternion that contains conjugated version of the specified quaternion.
@@ -206,13 +203,16 @@ public:
      * Calculate the length of this quaternion.
      * @returns The length of this quaternion
      */
-    T length();
+    T length() const;
 
     /**
      * Calculates the squared length of this quaternion.
      * @returns The squared length of this quaternion
      */
-    T lengthSquared();
+    T lengthSquared() const;
+    
+    //! Returns the inverse quaternion.
+    Quaternion inverse() const;
     
     //! Converts to the 3x3 rotation matrix.
     Matrix3x3<T> matrix3() const;
