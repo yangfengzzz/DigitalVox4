@@ -339,6 +339,11 @@
 		044594C62794473F00F04CE0 /* entity.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459270278E80DC00F04CE0 /* entity.h */; };
 		044594C72794473F00F04CE0 /* updateFlag_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926E278E80DC00F04CE0 /* updateFlag_manager.h */; };
 		044594C82794473F00F04CE0 /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459307278F14BD00F04CE0 /* renderer.cpp */; };
+		044594CD27945C6800F04CE0 /* plane2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594C927945C6800F04CE0 /* plane2.cpp */; };
+		044594CE27945C6800F04CE0 /* plane3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594CA27945C6800F04CE0 /* plane3.cpp */; };
+		044594CF27945C6800F04CE0 /* plane2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594CB27945C6800F04CE0 /* plane2.h */; };
+		044594D027945C6800F04CE0 /* plane3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594CC27945C6800F04CE0 /* plane3.h */; };
+		044594D227945E0600F04CE0 /* private_helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594D127945E0600F04CE0 /* private_helpers.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -775,6 +780,11 @@
 		044594A42794034500F04CE0 /* bounding_plane3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bounding_plane3.h; sourceTree = "<group>"; };
 		044594A52794035200F04CE0 /* bounding_plane3-inl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bounding_plane3-inl.h"; sourceTree = "<group>"; };
 		044594AE2794115800F04CE0 /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
+		044594C927945C6800F04CE0 /* plane2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane2.cpp; sourceTree = "<group>"; };
+		044594CA27945C6800F04CE0 /* plane3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane3.cpp; sourceTree = "<group>"; };
+		044594CB27945C6800F04CE0 /* plane2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane2.h; sourceTree = "<group>"; };
+		044594CC27945C6800F04CE0 /* plane3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane3.h; sourceTree = "<group>"; };
+		044594D127945E0600F04CE0 /* private_helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = private_helpers.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -988,10 +998,15 @@
 		042295DA278D121D0090983F /* vox.geometry */ = {
 			isa = PBXGroup;
 			children = (
+				044594D127945E0600F04CE0 /* private_helpers.h */,
 				04229693278D71760090983F /* surface2.h */,
 				04229694278D71760090983F /* surface2.cpp */,
 				04229692278D71760090983F /* surface3.h */,
 				04229695278D71760090983F /* surface3.cpp */,
+				044594CB27945C6800F04CE0 /* plane2.h */,
+				044594C927945C6800F04CE0 /* plane2.cpp */,
+				044594CC27945C6800F04CE0 /* plane3.h */,
+				044594CA27945C6800F04CE0 /* plane3.cpp */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -1567,8 +1582,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044594CF27945C6800F04CE0 /* plane2.h in Headers */,
+				044594D027945C6800F04CE0 /* plane3.h in Headers */,
 				04229697278D71760090983F /* surface2.h in Headers */,
 				04229696278D71760090983F /* surface3.h in Headers */,
+				044594D227945E0600F04CE0 /* private_helpers.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1905,7 +1923,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044594CD27945C6800F04CE0 /* plane2.cpp in Sources */,
 				044591C2278DD2F000F04CE0 /* surface2.cpp in Sources */,
+				044594CE27945C6800F04CE0 /* plane3.cpp in Sources */,
 				044591C3278DD39B00F04CE0 /* surface3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
