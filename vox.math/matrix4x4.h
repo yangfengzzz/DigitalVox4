@@ -9,7 +9,7 @@
 
 #include "matrix3x3.h"
 #include "vector4.h"
-
+#include "point3.h"
 #include <array>
 #include <limits>
 
@@ -189,6 +189,12 @@ class Matrix<T, 4, 4> {
     //! Returns this matrix * input vector.
     Vector4<T> mul(const Vector4<T>& v) const;
 
+    //! Returns this matrix * input vector.
+    Vector3<T> mul(const Vector3<T>& v) const;
+
+    //! Returns this matrix * input point.
+    Point3<T> mul(const Point3<T>& v) const;
+    
     //! Returns this matrix * input matrix.
     Matrix mul(const Matrix& m) const;
 
@@ -359,19 +365,6 @@ class Matrix<T, 4, 4> {
     //! Makes all diagonal elements to 1, and other elements to 0.
     static Matrix makeIdentity();
 
-    //! Makes scale matrix.
-    static Matrix makeScaleMatrix(T sx, T sy, T sz);
-
-    //! Makes scale matrix.
-    static Matrix makeScaleMatrix(const Vector3<T>& s);
-
-    //! Makes rotation matrix.
-    //! \warning Input angle should be radian.
-    static Matrix makeRotationMatrix(const Vector3<T>& axis, T rad);
-
-    //! Makes translation matrix.
-    static Matrix makeTranslationMatrix(const Vector3<T>& t);
-
  private:
     std::array<T, 16> _elements;
 };
@@ -416,6 +409,10 @@ Matrix4x4<T> operator*(const Matrix4x4<T>& a, T b);
 //! Returns a' * b, where every element of matrix a' is a.
 template <typename T>
 Matrix4x4<T> operator*(T a, const Matrix4x4<T>& b);
+
+//! Returns a * b.
+template <typename T>
+Point3<T> operator*(const Matrix4x4<T>& a, const Point3<T>& b);
 
 //! Returns a * b.
 template <typename T>

@@ -842,6 +842,7 @@
 		044594902793B98F00F04CE0 /* math_utils_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = math_utils_tests.cpp; sourceTree = "<group>"; };
 		044594912793B98F00F04CE0 /* matrix2x2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix2x2_tests.cpp; sourceTree = "<group>"; };
 		044594922793B98F00F04CE0 /* matrix4x4_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix4x4_tests.cpp; sourceTree = "<group>"; };
+		044594A02793C44000F04CE0 /* matrix_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matrix_utils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1150,6 +1151,7 @@
 				044594322793B58400F04CE0 /* matrix4x4-inl.h */,
 				044594552793B58700F04CE0 /* quaternion.h */,
 				044594532793B58700F04CE0 /* quaternion-inl.h */,
+				044594A02793C44000F04CE0 /* matrix_utils.h */,
 				04229687278D6F910090983F /* transform2.h */,
 				04229688278D6F910090983F /* transform2-inl.h */,
 				04229689278D6F910090983F /* transform3.h */,

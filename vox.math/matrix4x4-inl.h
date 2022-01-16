@@ -332,6 +332,25 @@ Vector<T, 4> Matrix<T, 4, 4>::mul(const Vector<T, 4>& v) const {
 }
 
 template <typename T>
+Vector<T, 3> Matrix<T, 4, 4>::mul(const Vector<T, 3>& v) const {
+    return Vector<T, 3>(
+        _elements[0] * v.x + _elements[1] * v.y + _elements[2] * v.z,
+        _elements[4] * v.x + _elements[5] * v.y + _elements[6] * v.z,
+        _elements[8] * v.x + _elements[9] * v.y + _elements[10] * v.z);
+}
+
+template <typename T>
+Point3<T> Matrix<T, 4, 4>::mul(const Point3<T>& v) const {
+    T w = _elements[12] * v.x + _elements[13] * v.y + _elements[14] * v.z + _elements[15] * v.w;
+    w = (T)1 / w;
+    
+    return Point3<T>(
+        (_elements[0] * v.x + _elements[1] * v.y + _elements[2] * v.z + _elements[3] * v.w) * w,
+        (_elements[4] * v.x + _elements[5] * v.y + _elements[6] * v.z + _elements[7] * v.w) * w,
+        (_elements[8] * v.x + _elements[9] * v.y + _elements[10] * v.z + _elements[11] * v.w) * w);
+}
+
+template <typename T>
 Matrix<T, 4, 4> Matrix<T, 4, 4>::mul(const Matrix& m) const {
     return Matrix(
         _elements[0] * m._elements[0] + _elements[1] * m._elements[4] + _elements[2] * m._elements[8] + _elements[3] * m._elements[12],
@@ -774,35 +793,6 @@ Matrix<T, 4, 4> Matrix<T, 4, 4>::makeIdentity() {
         0, 0, 0, 1);
 }
 
-template <typename T>
-Matrix<T, 4, 4> Matrix<T, 4, 4>::makeScaleMatrix(T sx, T sy, T sz) {
-    return Matrix(
-        sx, 0, 0, 0,
-        0, sy, 0, 0,
-        0, 0, sz, 0,
-        0, 0, 0, 1);
-}
-
-template <typename T>
-Matrix<T, 4, 4> Matrix<T, 4, 4>::makeScaleMatrix(const Vector<T, 3>& s) {
-    return makeScaleMatrix(s.x, s.y, s.z);
-}
-
-template <typename T>
-Matrix<T, 4, 4> Matrix<T, 4, 4>::makeRotationMatrix(
-    const Vector<T, 3>& axis, T rad) {
-    return Matrix(Matrix<T, 3, 3>::makeRotationMatrix(axis, rad));
-}
-
-template <typename T>
-Matrix<T, 4, 4> Matrix<T, 4, 4>::makeTranslationMatrix(const Vector<T, 3>& t) {
-    return Matrix(
-        1, 0, 0, t.x,
-        0, 1, 0, t.y,
-        0, 0, 1, t.z,
-        0, 0, 0, 1);
-}
-
 
 // MARK: Operator overloadings
 template <typename T>
@@ -848,6 +838,11 @@ Matrix<T, 4, 4> operator*(const Matrix<T, 4, 4>& a, T b) {
 template <typename T>
 Matrix<T, 4, 4> operator*(T a, const Matrix<T, 4, 4>& b) {
     return b.rmul(a);
+}
+
+template <typename T>
+Point3<T> operator*(const Matrix<T, 4, 4>& a, const Point3<T>& b) {
+    return a.mul(b);
 }
 
 template <typename T>
