@@ -232,6 +232,56 @@ Matrix<T, 3, 3> Matrix<T, 4, 4>::matrix3() const {
                            _elements[8], _elements[9], _elements[10]);
 }
 
+template <typename T>
+Matrix<T, 3, 3> Matrix<T, 4, 4>::normalMatrix() const {
+    T a11 = _elements[0],
+    a12 = _elements[1],
+    a13 = _elements[2],
+    a14 = _elements[3];
+    T a21 = _elements[4],
+    a22 = _elements[5],
+    a23 = _elements[6],
+    a24 = _elements[7];
+    T a31 = _elements[8],
+    a32 = _elements[9],
+    a33 = _elements[10],
+    a34 = _elements[11];
+    T a41 = _elements[12],
+    a42 = _elements[13],
+    a43 = _elements[14],
+    a44 = _elements[15];
+    
+    T b00 = a11 * a22 - a12 * a21;
+    T b01 = a11 * a23 - a13 * a21;
+    T b02 = a11 * a24 - a14 * a21;
+    T b03 = a12 * a23 - a13 * a22;
+    T b04 = a12 * a24 - a14 * a22;
+    T b05 = a13 * a24 - a14 * a23;
+    T b06 = a31 * a42 - a32 * a41;
+    T b07 = a31 * a43 - a33 * a41;
+    T b08 = a31 * a44 - a34 * a41;
+    T b09 = a32 * a43 - a33 * a42;
+    T b10 = a32 * a44 - a34 * a42;
+    T b11 = a33 * a44 - a34 * a43;
+    
+    T det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+    if (!det) {
+        return Matrix<T, 3, 3>();
+    }
+    det = 1.0 / det;
+    
+    return Matrix<T, 3, 3>((a22 * b11 - a23 * b10 + a24 * b09) * det,
+                           (a23 * b08 - a21 * b11 - a24 * b07) * det,
+                           (a21 * b10 - a22 * b08 + a24 * b06) * det,
+                           
+                           (a13 * b10 - a12 * b11 - a14 * b09) * det,
+                           (a11 * b11 - a13 * b08 + a14 * b07) * det,
+                           (a12 * b08 - a11 * b10 - a14 * b06) * det,
+                           
+                           (a42 * b05 - a43 * b04 + a44 * b03) * det,
+                           (a43 * b02 - a41 * b05 - a44 * b01) * det,
+                           (a41 * b04 - a42 * b02 + a44 * b00) * det);
+}
 
 // MARK: Binary operator methods - new instance = this instance (+) input
 template <typename T>
@@ -840,12 +890,12 @@ void Matrix<T, 4, 4>::rotateAxisAngle(const Vector3<T>& axis, T r) {
     _elements[1] = a12 * b11 + a22 * b12 + a32 * b13;
     _elements[2] = a13 * b11 + a23 * b12 + a33 * b13;
     _elements[3] = a14 * b11 + a24 * b12 + a34 * b13;
-
+    
     _elements[4] = a11 * b21 + a21 * b22 + a31 * b23;
     _elements[5] = a12 * b21 + a22 * b22 + a32 * b23;
     _elements[6] = a13 * b21 + a23 * b22 + a33 * b23;
     _elements[7] = a14 * b21 + a24 * b22 + a34 * b23;
-
+    
     _elements[8] = a11 * b31 + a21 * b32 + a31 * b33;
     _elements[9] = a12 * b31 + a22 * b32 + a32 * b33;
     _elements[10] = a13 * b31 + a23 * b32 + a33 * b33;
@@ -857,27 +907,27 @@ Matrix<T, 4, 4> Matrix<T, 4, 4>::scale(const Vector3<T>& s) const {
     T x = s.x;
     T y = s.y;
     T z = s.z;
-
+    
     return Matrix<T, 4, 4>(_elements[0] * x,
                            _elements[1] * x,
                            _elements[2] * x,
                            _elements[3] * x,
-
+                           
                            _elements[4] * y,
                            _elements[5] * y,
                            _elements[6] * y,
                            _elements[7] * y,
-
+                           
                            _elements[8] * z,
                            _elements[9] * z,
                            _elements[10] * z,
                            _elements[11] * z,
-
+                           
                            _elements[12],
                            _elements[13],
                            _elements[14],
                            _elements[15]);
-
+    
 }
 
 template <typename T>
@@ -890,12 +940,12 @@ void Matrix<T, 4, 4>::scale(const Vector3<T>& s) {
     _elements[1] *= x;
     _elements[2] *= x;
     _elements[3] *= x;
-
+    
     _elements[4] *= y;
     _elements[5] *= y;
     _elements[6] *= y;
     _elements[7] *= y;
-
+    
     _elements[8] *= z;
     _elements[9] *= z;
     _elements[10] *= z;
@@ -909,18 +959,18 @@ Matrix<T, 4, 4> Matrix<T, 4, 4>::translate(const Vector3<T>& v) const {
     T z = v.z;
     
     T a11 = _elements[0],
-      a12 = _elements[1],
-      a13 = _elements[2],
-      a14 = _elements[3];
+    a12 = _elements[1],
+    a13 = _elements[2],
+    a14 = _elements[3];
     T a21 = _elements[4],
-      a22 = _elements[5],
-      a23 = _elements[6],
-      a24 = _elements[7];
+    a22 = _elements[5],
+    a23 = _elements[6],
+    a24 = _elements[7];
     T a31 = _elements[8],
-      a32 = _elements[9],
-      a33 = _elements[10],
-      a34 = _elements[11];
-
+    a32 = _elements[9],
+    a33 = _elements[10],
+    a34 = _elements[11];
+    
     return Matrix<T, 4, 4>(a11,
                            a12,
                            a13,
