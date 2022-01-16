@@ -7,9 +7,9 @@
 #ifndef INCLUDE_JET_RAY_H_
 #define INCLUDE_JET_RAY_H_
 
-#include "ImathVec.h"
+#include "vector.h"
 
-IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
+namespace vox {
 
 //!
 //! \brief      Class for ray.
@@ -20,10 +20,11 @@ IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 template <typename T, size_t N>
 class Ray {
     static_assert(N != 2 && N != 3, "Not implemented.");
-    static_assert(std::is_floating_point<T>::value,
-                  "Ray only can be instantiated with floating point types");
+    static_assert(
+        std::is_floating_point<T>::value,
+        "Ray only can be instantiated with floating point types");
 };
 
-IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
+}  // namespace vox
 
 #endif  // INCLUDE_JET_RAY_H_

@@ -212,10 +212,7 @@
 		044592F8278EFEC700F04CE0 /* camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F6278EFEC700F04CE0 /* camera.h */; };
 		044592FF278F023A00F04CE0 /* collision_util.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F9278F023900F04CE0 /* collision_util.h */; };
 		04459300278F023A00F04CE0 /* bounding_frustum.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FA278F023900F04CE0 /* bounding_frustum.h */; };
-		04459301278F023A00F04CE0 /* spherical_harmonics3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */; };
 		04459304278F023A00F04CE0 /* spherical_harmonics3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592FE278F023A00F04CE0 /* spherical_harmonics3.h */; };
-		04459305278F036D00F04CE0 /* collision_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FD278F023A00F04CE0 /* collision_util.cpp */; };
-		04459306278F063E00F04CE0 /* bounding_frustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592FC278F023900F04CE0 /* bounding_frustum.cpp */; };
 		04459309278F14BD00F04CE0 /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459307278F14BD00F04CE0 /* renderer.cpp */; };
 		0445930A278F14BD00F04CE0 /* renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459308278F14BD00F04CE0 /* renderer.h */; };
 		0445930E278F170100F04CE0 /* spherical.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445930C278F170100F04CE0 /* spherical.cpp */; };
@@ -325,6 +322,58 @@
 		0445942B2793134C00F04CE0 /* forward_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594292793134C00F04CE0 /* forward_subpass.h */; };
 		0445942D279397C500F04CE0 /* forward.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445942C279397C500F04CE0 /* forward.metal */; };
 		044594302793A5D800F04CE0 /* forward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942E2793A5D800F04CE0 /* forward.cpp */; };
+		044594592793B58800F04CE0 /* matrix2x2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594312793B58400F04CE0 /* matrix2x2.h */; };
+		0445945A2793B58800F04CE0 /* matrix4x4-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594322793B58400F04CE0 /* matrix4x4-inl.h */; };
+		0445945B2793B58800F04CE0 /* point.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594332793B58400F04CE0 /* point.h */; };
+		0445945C2793B58800F04CE0 /* functors.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594342793B58400F04CE0 /* functors.h */; };
+		0445945D2793B58800F04CE0 /* point2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594352793B58400F04CE0 /* point2-inl.h */; };
+		0445945E2793B58800F04CE0 /* matrix2x2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594362793B58400F04CE0 /* matrix2x2-inl.h */; };
+		0445945F2793B58800F04CE0 /* point2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594372793B58400F04CE0 /* point2.h */; };
+		044594602793B58800F04CE0 /* matrix3x3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594382793B58500F04CE0 /* matrix3x3-inl.h */; };
+		044594612793B58800F04CE0 /* point-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594392793B58500F04CE0 /* point-inl.h */; };
+		044594622793B58800F04CE0 /* size2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445943A2793B58500F04CE0 /* size2-inl.h */; };
+		044594632793B58800F04CE0 /* size3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445943B2793B58500F04CE0 /* size3-inl.h */; };
+		044594642793B58800F04CE0 /* vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445943C2793B58500F04CE0 /* vector2.h */; };
+		044594652793B58800F04CE0 /* vector4.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445943D2793B58500F04CE0 /* vector4.h */; };
+		044594662793B58800F04CE0 /* point3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445943E2793B58500F04CE0 /* point3-inl.h */; };
+		044594672793B58800F04CE0 /* matrix3x3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445943F2793B58500F04CE0 /* matrix3x3.h */; };
+		044594682793B58800F04CE0 /* matrix4x4.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594402793B58500F04CE0 /* matrix4x4.h */; };
+		044594692793B58800F04CE0 /* macros.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594412793B58500F04CE0 /* macros.h */; };
+		0445946A2793B58800F04CE0 /* size2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594422793B58500F04CE0 /* size2.h */; };
+		0445946B2793B58800F04CE0 /* vector2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594432793B58600F04CE0 /* vector2-inl.h */; };
+		0445946C2793B58800F04CE0 /* size.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594442793B58600F04CE0 /* size.h */; };
+		0445946D2793B58800F04CE0 /* vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594452793B58600F04CE0 /* vector3.h */; };
+		0445946E2793B58800F04CE0 /* size-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594462793B58600F04CE0 /* size-inl.h */; };
+		0445946F2793B58800F04CE0 /* vector4-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594472793B58600F04CE0 /* vector4-inl.h */; };
+		044594702793B58800F04CE0 /* vector3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594482793B58600F04CE0 /* vector3-inl.h */; };
+		044594722793B58800F04CE0 /* size3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445944A2793B58600F04CE0 /* size3.h */; };
+		044594742793B58800F04CE0 /* vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445944C2793B58600F04CE0 /* vector.h */; };
+		044594752793B58800F04CE0 /* point3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445944D2793B58700F04CE0 /* point3.h */; };
+		044594762793B58800F04CE0 /* vector_expression-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445944E2793B58700F04CE0 /* vector_expression-inl.h */; };
+		044594772793B58800F04CE0 /* vector-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445944F2793B58700F04CE0 /* vector-inl.h */; };
+		044594782793B58800F04CE0 /* matrix_expression-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594502793B58700F04CE0 /* matrix_expression-inl.h */; };
+		044594792793B58800F04CE0 /* matrix_expression.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594512793B58700F04CE0 /* matrix_expression.h */; };
+		0445947A2793B58800F04CE0 /* vector_expression.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594522793B58700F04CE0 /* vector_expression.h */; };
+		0445947B2793B58800F04CE0 /* quaternion-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594532793B58700F04CE0 /* quaternion-inl.h */; };
+		0445947C2793B58800F04CE0 /* matrix-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594542793B58700F04CE0 /* matrix-inl.h */; };
+		0445947D2793B58800F04CE0 /* quaternion.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594552793B58700F04CE0 /* quaternion.h */; };
+		0445947E2793B58800F04CE0 /* matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594562793B58700F04CE0 /* matrix.h */; };
+		044594802793B58800F04CE0 /* functors-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594582793B58800F04CE0 /* functors-inl.h */; };
+		044594832793B7F000F04CE0 /* bounding_box-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594812793B7F000F04CE0 /* bounding_box-inl.h */; };
+		044594842793B7F000F04CE0 /* type_helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594822793B7F000F04CE0 /* type_helpers.h */; };
+		044594932793B98F00F04CE0 /* vector4_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594862793B98E00F04CE0 /* vector4_tests.cpp */; };
+		044594942793B98F00F04CE0 /* point3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594872793B98E00F04CE0 /* point3_tests.cpp */; };
+		044594952793B98F00F04CE0 /* vector3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594882793B98E00F04CE0 /* vector3_tests.cpp */; };
+		044594962793B98F00F04CE0 /* point_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594892793B98E00F04CE0 /* point_tests.cpp */; };
+		044594972793B98F00F04CE0 /* vector_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445948A2793B98E00F04CE0 /* vector_tests.cpp */; };
+		044594982793B98F00F04CE0 /* vector2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445948B2793B98E00F04CE0 /* vector2_tests.cpp */; };
+		044594992793B98F00F04CE0 /* quaternion_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445948C2793B98E00F04CE0 /* quaternion_tests.cpp */; };
+		0445949A2793B98F00F04CE0 /* matrix_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445948D2793B98E00F04CE0 /* matrix_tests.cpp */; };
+		0445949B2793B98F00F04CE0 /* matrix3x3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445948E2793B98F00F04CE0 /* matrix3x3_tests.cpp */; };
+		0445949C2793B98F00F04CE0 /* point2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445948F2793B98F00F04CE0 /* point2_tests.cpp */; };
+		0445949D2793B98F00F04CE0 /* math_utils_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594902793B98F00F04CE0 /* math_utils_tests.cpp */; };
+		0445949E2793B98F00F04CE0 /* matrix2x2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594912793B98F00F04CE0 /* matrix2x2_tests.cpp */; };
+		0445949F2793B98F00F04CE0 /* matrix4x4_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594922793B98F00F04CE0 /* matrix4x4_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -432,7 +481,6 @@
 		042295B7278C33080090983F /* CPPMetalInternalMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPMetalInternalMacros.h; sourceTree = "<group>"; };
 		042295D9278D121C0090983F /* libvox.geometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.geometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		042295E4278D17790090983F /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
-		042295E5278D17790090983F /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
 		04229601278D20680090983F /* math_utils-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "math_utils-inl.h"; sourceTree = "<group>"; };
 		04229602278D20680090983F /* math_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utils.h; sourceTree = "<group>"; };
 		04229609278D29760090983F /* unit_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unit_tests; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -742,6 +790,58 @@
 		0445942C279397C500F04CE0 /* forward.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = forward.metal; sourceTree = "<group>"; };
 		0445942E2793A5D800F04CE0 /* forward.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = forward.cpp; sourceTree = "<group>"; };
 		0445942F2793A5D800F04CE0 /* forward.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forward.h; sourceTree = "<group>"; };
+		044594312793B58400F04CE0 /* matrix2x2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix2x2.h; sourceTree = "<group>"; };
+		044594322793B58400F04CE0 /* matrix4x4-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix4x4-inl.h"; sourceTree = "<group>"; };
+		044594332793B58400F04CE0 /* point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point.h; sourceTree = "<group>"; };
+		044594342793B58400F04CE0 /* functors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = functors.h; sourceTree = "<group>"; };
+		044594352793B58400F04CE0 /* point2-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "point2-inl.h"; sourceTree = "<group>"; };
+		044594362793B58400F04CE0 /* matrix2x2-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix2x2-inl.h"; sourceTree = "<group>"; };
+		044594372793B58400F04CE0 /* point2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point2.h; sourceTree = "<group>"; };
+		044594382793B58500F04CE0 /* matrix3x3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix3x3-inl.h"; sourceTree = "<group>"; };
+		044594392793B58500F04CE0 /* point-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "point-inl.h"; sourceTree = "<group>"; };
+		0445943A2793B58500F04CE0 /* size2-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "size2-inl.h"; sourceTree = "<group>"; };
+		0445943B2793B58500F04CE0 /* size3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "size3-inl.h"; sourceTree = "<group>"; };
+		0445943C2793B58500F04CE0 /* vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector2.h; sourceTree = "<group>"; };
+		0445943D2793B58500F04CE0 /* vector4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector4.h; sourceTree = "<group>"; };
+		0445943E2793B58500F04CE0 /* point3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "point3-inl.h"; sourceTree = "<group>"; };
+		0445943F2793B58500F04CE0 /* matrix3x3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix3x3.h; sourceTree = "<group>"; };
+		044594402793B58500F04CE0 /* matrix4x4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix4x4.h; sourceTree = "<group>"; };
+		044594412793B58500F04CE0 /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
+		044594422793B58500F04CE0 /* size2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = size2.h; sourceTree = "<group>"; };
+		044594432793B58600F04CE0 /* vector2-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vector2-inl.h"; sourceTree = "<group>"; };
+		044594442793B58600F04CE0 /* size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = size.h; sourceTree = "<group>"; };
+		044594452793B58600F04CE0 /* vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector3.h; sourceTree = "<group>"; };
+		044594462793B58600F04CE0 /* size-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "size-inl.h"; sourceTree = "<group>"; };
+		044594472793B58600F04CE0 /* vector4-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vector4-inl.h"; sourceTree = "<group>"; };
+		044594482793B58600F04CE0 /* vector3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vector3-inl.h"; sourceTree = "<group>"; };
+		0445944A2793B58600F04CE0 /* size3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = size3.h; sourceTree = "<group>"; };
+		0445944C2793B58600F04CE0 /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
+		0445944D2793B58700F04CE0 /* point3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point3.h; sourceTree = "<group>"; };
+		0445944E2793B58700F04CE0 /* vector_expression-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vector_expression-inl.h"; sourceTree = "<group>"; };
+		0445944F2793B58700F04CE0 /* vector-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vector-inl.h"; sourceTree = "<group>"; };
+		044594502793B58700F04CE0 /* matrix_expression-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix_expression-inl.h"; sourceTree = "<group>"; };
+		044594512793B58700F04CE0 /* matrix_expression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix_expression.h; sourceTree = "<group>"; };
+		044594522793B58700F04CE0 /* vector_expression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector_expression.h; sourceTree = "<group>"; };
+		044594532793B58700F04CE0 /* quaternion-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "quaternion-inl.h"; sourceTree = "<group>"; };
+		044594542793B58700F04CE0 /* matrix-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix-inl.h"; sourceTree = "<group>"; };
+		044594552793B58700F04CE0 /* quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quaternion.h; sourceTree = "<group>"; };
+		044594562793B58700F04CE0 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
+		044594582793B58800F04CE0 /* functors-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "functors-inl.h"; sourceTree = "<group>"; };
+		044594812793B7F000F04CE0 /* bounding_box-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bounding_box-inl.h"; sourceTree = "<group>"; };
+		044594822793B7F000F04CE0 /* type_helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = type_helpers.h; sourceTree = "<group>"; };
+		044594862793B98E00F04CE0 /* vector4_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector4_tests.cpp; sourceTree = "<group>"; };
+		044594872793B98E00F04CE0 /* point3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point3_tests.cpp; sourceTree = "<group>"; };
+		044594882793B98E00F04CE0 /* vector3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector3_tests.cpp; sourceTree = "<group>"; };
+		044594892793B98E00F04CE0 /* point_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_tests.cpp; sourceTree = "<group>"; };
+		0445948A2793B98E00F04CE0 /* vector_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector_tests.cpp; sourceTree = "<group>"; };
+		0445948B2793B98E00F04CE0 /* vector2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector2_tests.cpp; sourceTree = "<group>"; };
+		0445948C2793B98E00F04CE0 /* quaternion_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = quaternion_tests.cpp; sourceTree = "<group>"; };
+		0445948D2793B98E00F04CE0 /* matrix_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix_tests.cpp; sourceTree = "<group>"; };
+		0445948E2793B98F00F04CE0 /* matrix3x3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix3x3_tests.cpp; sourceTree = "<group>"; };
+		0445948F2793B98F00F04CE0 /* point2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point2_tests.cpp; sourceTree = "<group>"; };
+		044594902793B98F00F04CE0 /* math_utils_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = math_utils_tests.cpp; sourceTree = "<group>"; };
+		044594912793B98F00F04CE0 /* matrix2x2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix2x2_tests.cpp; sourceTree = "<group>"; };
+		044594922793B98F00F04CE0 /* matrix4x4_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix4x4_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -955,7 +1055,6 @@
 		042295DA278D121D0090983F /* vox.geometry */ = {
 			isa = PBXGroup;
 			children = (
-				042295E5278D17790090983F /* macros.h */,
 				04229693278D71760090983F /* surface2.h */,
 				04229694278D71760090983F /* surface2.cpp */,
 				04229692278D71760090983F /* surface3.h */,
@@ -969,13 +1068,26 @@
 			children = (
 				04229683278D69AF0090983F /* unit_tests_utils.h */,
 				04229684278D69AF0090983F /* unit_tests_utils.cpp */,
+				044594902793B98F00F04CE0 /* math_utils_tests.cpp */,
+				044594892793B98E00F04CE0 /* point_tests.cpp */,
+				0445948F2793B98F00F04CE0 /* point2_tests.cpp */,
+				044594872793B98E00F04CE0 /* point3_tests.cpp */,
+				0445948A2793B98E00F04CE0 /* vector_tests.cpp */,
+				0445948B2793B98E00F04CE0 /* vector2_tests.cpp */,
+				044594882793B98E00F04CE0 /* vector3_tests.cpp */,
+				044594862793B98E00F04CE0 /* vector4_tests.cpp */,
+				0445948D2793B98E00F04CE0 /* matrix_tests.cpp */,
+				044594912793B98F00F04CE0 /* matrix2x2_tests.cpp */,
+				0445948E2793B98F00F04CE0 /* matrix3x3_tests.cpp */,
+				044594922793B98F00F04CE0 /* matrix4x4_tests.cpp */,
+				0445948C2793B98E00F04CE0 /* quaternion_tests.cpp */,
+				0422968E278D6FF30090983F /* transform2_tests.cpp */,
+				0422968F278D6FF30090983F /* transform3_tests.cpp */,
 				04229679278D697B0090983F /* ray2_tests.cpp */,
 				0422967B278D697B0090983F /* ray3_tests.cpp */,
 				0422967D278D697B0090983F /* bounding_box_tests.cpp */,
 				0422967C278D697B0090983F /* bounding_box2_tests.cpp */,
 				0422967A278D697B0090983F /* bounding_box3_tests.cpp */,
-				0422968E278D6FF30090983F /* transform2_tests.cpp */,
-				0422968F278D6FF30090983F /* transform3_tests.cpp */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -997,6 +1109,68 @@
 		042296A0278DAE4E0090983F /* vox.math */ = {
 			isa = PBXGroup;
 			children = (
+				044594412793B58500F04CE0 /* macros.h */,
+				042295E4278D17790090983F /* constants.h */,
+				044594822793B7F000F04CE0 /* type_helpers.h */,
+				044594342793B58400F04CE0 /* functors.h */,
+				044594582793B58800F04CE0 /* functors-inl.h */,
+				04229602278D20680090983F /* math_utils.h */,
+				04229601278D20680090983F /* math_utils-inl.h */,
+				044594332793B58400F04CE0 /* point.h */,
+				044594392793B58500F04CE0 /* point-inl.h */,
+				044594372793B58400F04CE0 /* point2.h */,
+				044594352793B58400F04CE0 /* point2-inl.h */,
+				0445944D2793B58700F04CE0 /* point3.h */,
+				0445943E2793B58500F04CE0 /* point3-inl.h */,
+				044594442793B58600F04CE0 /* size.h */,
+				044594462793B58600F04CE0 /* size-inl.h */,
+				044594422793B58500F04CE0 /* size2.h */,
+				0445943A2793B58500F04CE0 /* size2-inl.h */,
+				0445944A2793B58600F04CE0 /* size3.h */,
+				0445943B2793B58500F04CE0 /* size3-inl.h */,
+				044594522793B58700F04CE0 /* vector_expression.h */,
+				0445944E2793B58700F04CE0 /* vector_expression-inl.h */,
+				0445944C2793B58600F04CE0 /* vector.h */,
+				0445944F2793B58700F04CE0 /* vector-inl.h */,
+				0445943C2793B58500F04CE0 /* vector2.h */,
+				044594432793B58600F04CE0 /* vector2-inl.h */,
+				044594452793B58600F04CE0 /* vector3.h */,
+				044594482793B58600F04CE0 /* vector3-inl.h */,
+				0445943D2793B58500F04CE0 /* vector4.h */,
+				044594472793B58600F04CE0 /* vector4-inl.h */,
+				044594512793B58700F04CE0 /* matrix_expression.h */,
+				044594502793B58700F04CE0 /* matrix_expression-inl.h */,
+				044594562793B58700F04CE0 /* matrix.h */,
+				044594542793B58700F04CE0 /* matrix-inl.h */,
+				044594312793B58400F04CE0 /* matrix2x2.h */,
+				044594362793B58400F04CE0 /* matrix2x2-inl.h */,
+				0445943F2793B58500F04CE0 /* matrix3x3.h */,
+				044594382793B58500F04CE0 /* matrix3x3-inl.h */,
+				044594402793B58500F04CE0 /* matrix4x4.h */,
+				044594322793B58400F04CE0 /* matrix4x4-inl.h */,
+				044594552793B58700F04CE0 /* quaternion.h */,
+				044594532793B58700F04CE0 /* quaternion-inl.h */,
+				04229687278D6F910090983F /* transform2.h */,
+				04229688278D6F910090983F /* transform2-inl.h */,
+				04229689278D6F910090983F /* transform3.h */,
+				04229686278D6F910090983F /* transform3-inl.h */,
+				0422966D278D689C0090983F /* ray.h */,
+				04229663278D689B0090983F /* ray2.h */,
+				0422966A278D689B0090983F /* ray2-inl.h */,
+				04229668278D689B0090983F /* ray3.h */,
+				04229666278D689B0090983F /* ray3-inl.h */,
+				0422966B278D689C0090983F /* bounding_box.h */,
+				044594812793B7F000F04CE0 /* bounding_box-inl.h */,
+				0422966C278D689C0090983F /* bounding_box2.h */,
+				04229669278D689B0090983F /* bounding_box2-inl.h */,
+				04229665278D689B0090983F /* bounding_box3.h */,
+				04229664278D689B0090983F /* bounding_box3-inl.h */,
+				044592FA278F023900F04CE0 /* bounding_frustum.h */,
+				044592FC278F023900F04CE0 /* bounding_frustum.cpp */,
+				044592F9278F023900F04CE0 /* collision_util.h */,
+				044592FD278F023A00F04CE0 /* collision_util.cpp */,
+				044592FE278F023A00F04CE0 /* spherical_harmonics3.h */,
+				044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */,
 				042296FC278DAEB40090983F /* ImathConfig.h */,
 				042296AC278DAE790090983F /* ImathNamespace.h */,
 				042296BE278DAE7A0090983F /* ImathPlatform.h */,
@@ -1036,29 +1210,6 @@
 				042296CD278DAE7B0090983F /* ImathRoots.h */,
 				042296BC278DAE7A0090983F /* ImathShear.h */,
 				042296AE278DAE7A0090983F /* ImathRightHand.h */,
-				042295E4278D17790090983F /* constants.h */,
-				04229602278D20680090983F /* math_utils.h */,
-				04229601278D20680090983F /* math_utils-inl.h */,
-				0422966D278D689C0090983F /* ray.h */,
-				04229663278D689B0090983F /* ray2.h */,
-				0422966A278D689B0090983F /* ray2-inl.h */,
-				04229668278D689B0090983F /* ray3.h */,
-				04229666278D689B0090983F /* ray3-inl.h */,
-				0422966B278D689C0090983F /* bounding_box.h */,
-				0422966C278D689C0090983F /* bounding_box2.h */,
-				04229669278D689B0090983F /* bounding_box2-inl.h */,
-				04229665278D689B0090983F /* bounding_box3.h */,
-				04229664278D689B0090983F /* bounding_box3-inl.h */,
-				044592FA278F023900F04CE0 /* bounding_frustum.h */,
-				044592FC278F023900F04CE0 /* bounding_frustum.cpp */,
-				044592F9278F023900F04CE0 /* collision_util.h */,
-				044592FD278F023A00F04CE0 /* collision_util.cpp */,
-				044592FE278F023A00F04CE0 /* spherical_harmonics3.h */,
-				044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */,
-				04229687278D6F910090983F /* transform2.h */,
-				04229688278D6F910090983F /* transform2-inl.h */,
-				04229689278D6F910090983F /* transform3.h */,
-				04229686278D6F910090983F /* transform3-inl.h */,
 			);
 			path = vox.math;
 			sourceTree = "<group>";
@@ -1526,46 +1677,85 @@
 			files = (
 				044591B6278DB45D00F04CE0 /* ray2.h in Headers */,
 				042296E0278DAE7C0090983F /* ImathForward.h in Headers */,
+				044594622793B58800F04CE0 /* size2-inl.h in Headers */,
 				044591B5278DB45D00F04CE0 /* ray.h in Headers */,
+				0445946D2793B58800F04CE0 /* vector3.h in Headers */,
+				044594672793B58800F04CE0 /* matrix3x3.h in Headers */,
 				042296DB278DAE7C0090983F /* ImathVec.h in Headers */,
+				0445947A2793B58800F04CE0 /* vector_expression.h in Headers */,
 				042296F6278DAE7C0090983F /* ImathRoots.h in Headers */,
 				042296ED278DAE7C0090983F /* ImathFun.h in Headers */,
+				044594702793B58800F04CE0 /* vector3-inl.h in Headers */,
 				042296D6278DAE7B0090983F /* ImathInt64.h in Headers */,
 				044592FF278F023A00F04CE0 /* collision_util.h in Headers */,
+				0445946E2793B58800F04CE0 /* size-inl.h in Headers */,
+				044594742793B58800F04CE0 /* vector.h in Headers */,
+				044594652793B58800F04CE0 /* vector4.h in Headers */,
+				044594782793B58800F04CE0 /* matrix_expression-inl.h in Headers */,
 				042296D8278DAE7C0090983F /* ImathTypeTraits.h in Headers */,
 				042296FA278DAE7C0090983F /* ImathEuler.h in Headers */,
+				044594752793B58800F04CE0 /* point3.h in Headers */,
 				042296F1278DAE7C0090983F /* ImathQuat.h in Headers */,
 				042296E1278DAE7C0090983F /* ImathExport.h in Headers */,
+				044594832793B7F000F04CE0 /* bounding_box-inl.h in Headers */,
 				042296EA278DAE7C0090983F /* halfFunction.h in Headers */,
+				044594662793B58800F04CE0 /* point3-inl.h in Headers */,
 				042296F2278DAE7C0090983F /* ImathFrame.h in Headers */,
+				0445945A2793B58800F04CE0 /* matrix4x4-inl.h in Headers */,
+				044594792793B58800F04CE0 /* matrix_expression.h in Headers */,
+				0445945B2793B58800F04CE0 /* point.h in Headers */,
 				042296E2278DAE7C0090983F /* ImathFrustumTest.h in Headers */,
 				042296F5278DAE7C0090983F /* halfLimits.h in Headers */,
+				044594692793B58800F04CE0 /* macros.h in Headers */,
 				042296F4278DAE7C0090983F /* ImathMatrixAlgo.h in Headers */,
 				042296E5278DAE7C0090983F /* ImathShear.h in Headers */,
 				044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */,
+				0445947E2793B58800F04CE0 /* matrix.h in Headers */,
 				04459304278F023A00F04CE0 /* spherical_harmonics3.h in Headers */,
+				044594722793B58800F04CE0 /* size3.h in Headers */,
+				0445945E2793B58800F04CE0 /* matrix2x2-inl.h in Headers */,
 				042296DD278DAE7C0090983F /* ImathBox.h in Headers */,
+				0445945F2793B58800F04CE0 /* point2.h in Headers */,
 				042296FD278DAEB40090983F /* ImathConfig.h in Headers */,
+				044594772793B58800F04CE0 /* vector-inl.h in Headers */,
 				042296F9278DAE7C0090983F /* ImathMath.h in Headers */,
 				042296EB278DAE7C0090983F /* ImathBoxAlgo.h in Headers */,
+				044594802793B58800F04CE0 /* functors-inl.h in Headers */,
 				042296F3278DAE7C0090983F /* ImathColor.h in Headers */,
+				044594612793B58800F04CE0 /* point-inl.h in Headers */,
+				0445946B2793B58800F04CE0 /* vector2-inl.h in Headers */,
 				042296D5278DAE7B0090983F /* ImathNamespace.h in Headers */,
 				042296D3278DAE7B0090983F /* ImathLine.h in Headers */,
 				042296F7278DAE7C0090983F /* ImathVecAlgo.h in Headers */,
 				04459300278F023A00F04CE0 /* bounding_frustum.h in Headers */,
+				044594762793B58800F04CE0 /* vector_expression-inl.h in Headers */,
+				044594632793B58800F04CE0 /* size3-inl.h in Headers */,
 				042296FB278DAE7C0090983F /* ImathMatrix.h in Headers */,
+				0445947C2793B58800F04CE0 /* matrix-inl.h in Headers */,
+				044594602793B58800F04CE0 /* matrix3x3-inl.h in Headers */,
+				044594592793B58800F04CE0 /* matrix2x2.h in Headers */,
+				0445947D2793B58800F04CE0 /* quaternion.h in Headers */,
 				042296F0278DAE7C0090983F /* ImathPlane.h in Headers */,
+				044594642793B58800F04CE0 /* vector2.h in Headers */,
+				0445945C2793B58800F04CE0 /* functors.h in Headers */,
 				044591B4278DB45D00F04CE0 /* ray2-inl.h in Headers */,
 				042296D7278DAE7B0090983F /* ImathRightHand.h in Headers */,
+				0445947B2793B58800F04CE0 /* quaternion-inl.h in Headers */,
 				042296EF278DAE7C0090983F /* half.h in Headers */,
 				042296E3278DAE7C0090983F /* ImathFrustum.h in Headers */,
+				0445946F2793B58800F04CE0 /* vector4-inl.h in Headers */,
 				042296E4278DAE7C0090983F /* ImathColorAlgo.h in Headers */,
 				042296E7278DAE7C0090983F /* ImathPlatform.h in Headers */,
+				0445946C2793B58800F04CE0 /* size.h in Headers */,
 				042296DF278DAE7C0090983F /* ImathInterval.h in Headers */,
 				044591B7278DB45D00F04CE0 /* ray3.h in Headers */,
+				044594842793B7F000F04CE0 /* type_helpers.h in Headers */,
+				0445946A2793B58800F04CE0 /* size2.h in Headers */,
 				042296DE278DAE7C0090983F /* ImathLineAlgo.h in Headers */,
 				042296D9278DAE7C0090983F /* ImathSphere.h in Headers */,
 				042296DC278DAE7C0090983F /* ImathRandom.h in Headers */,
+				044594682793B58800F04CE0 /* matrix4x4.h in Headers */,
+				0445945D2793B58800F04CE0 /* point2-inl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1856,11 +2046,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044594972793B98F00F04CE0 /* vector_tests.cpp in Sources */,
+				044594982793B98F00F04CE0 /* vector2_tests.cpp in Sources */,
+				044594992793B98F00F04CE0 /* quaternion_tests.cpp in Sources */,
 				044591BB278DB90500F04CE0 /* bounding_box_tests.cpp in Sources */,
+				0445949D2793B98F00F04CE0 /* math_utils_tests.cpp in Sources */,
 				044591BC278DBA1B00F04CE0 /* bounding_box3_tests.cpp in Sources */,
+				044594952793B98F00F04CE0 /* vector3_tests.cpp in Sources */,
 				044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */,
 				044591B9278DB69500F04CE0 /* bounding_box2_tests.cpp in Sources */,
+				0445949B2793B98F00F04CE0 /* matrix3x3_tests.cpp in Sources */,
+				0445949A2793B98F00F04CE0 /* matrix_tests.cpp in Sources */,
+				044594942793B98F00F04CE0 /* point3_tests.cpp in Sources */,
+				044594932793B98F00F04CE0 /* vector4_tests.cpp in Sources */,
+				0445949F2793B98F00F04CE0 /* matrix4x4_tests.cpp in Sources */,
 				044591BD278DCBA500F04CE0 /* transform2_tests.cpp in Sources */,
+				0445949C2793B98F00F04CE0 /* point2_tests.cpp in Sources */,
+				0445949E2793B98F00F04CE0 /* matrix2x2_tests.cpp in Sources */,
+				044594962793B98F00F04CE0 /* point_tests.cpp in Sources */,
 				044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */,
 				044591BE278DCDDF00F04CE0 /* transform3_tests.cpp in Sources */,
 				044591BA278DB7A500F04CE0 /* unit_tests_utils.cpp in Sources */,
@@ -1871,11 +2074,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04459306278F063E00F04CE0 /* bounding_frustum.cpp in Sources */,
-				04459305278F036D00F04CE0 /* collision_util.cpp in Sources */,
 				042296E9278DAE7C0090983F /* ImathColorAlgo.cpp in Sources */,
 				042296DA278DAE7C0090983F /* ImathRandom.cpp in Sources */,
-				04459301278F023A00F04CE0 /* spherical_harmonics3.cpp in Sources */,
 				042296EE278DAE7C0090983F /* half.cpp in Sources */,
 				042296D4278DAE7B0090983F /* ImathMatrixAlgo.cpp in Sources */,
 				042296EC278DAE7C0090983F /* ImathFun.cpp in Sources */,

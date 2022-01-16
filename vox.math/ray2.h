@@ -7,10 +7,10 @@
 #ifndef INCLUDE_JET_RAY2_H_
 #define INCLUDE_JET_RAY2_H_
 
-#include "ImathVec.h"
+#include "vector2.h"
 #include "ray.h"
 
-IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
+namespace vox {
 
 //!
 //! \brief      Class for 2-D ray.
@@ -19,39 +19,40 @@ IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 //!
 template <typename T>
 class Ray<T, 2> final {
-public:
-    static_assert(std::is_floating_point<T>::value,
-                  "Ray only can be instantiated with floating point types");
-    
+ public:
+    static_assert(
+        std::is_floating_point<T>::value,
+        "Ray only can be instantiated with floating point types");
+
     //! The origin of the ray.
-    Vec2<T> origin;
-    
+    Vector2<T> origin;
+
     //! The direction of the ray.
-    Vec2<T> direction;
-    
+    Vector2<T> direction;
+
     //! Constructs an empty ray that points (1, 0) from (0, 0).
     Ray();
-    
+
     //! Constructs a ray with given origin and riection.
-    Ray(const Vec2<T>& newOrigin, const Vec2<T>& newDirection);
-    
+    Ray(const Vector2<T>& newOrigin, const Vector2<T>& newDirection);
+
     //! Copy constructor.
     Ray(const Ray& other);
-    
+
     //! Returns a point on the ray at distance \p t.
-    Vec2<T> pointAt(T t) const;
+    Vector2<T> pointAt(T t) const;
 };
 
 //! Type alias for 2-D ray.
 template <typename T> using Ray2 = Ray<T, 2>;
 
 //! Float-type 2-D ray.
-using Ray2f = Ray2<float>;
+typedef Ray2<float> Ray2F;
 
 //! Double-type 2-D ray.
-using Ray2d = Ray2<double>;
+typedef Ray2<double> Ray2D;
 
-IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
+}  // namespace vox
 
 #include "ray2-inl.h"
 

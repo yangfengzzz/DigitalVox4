@@ -14,119 +14,119 @@
 #include <memory>
 
 namespace vox {
-using namespace Imath;
 
 //! Struct that represents ray-surface intersection point.
 struct SurfaceRayIntersection2 {
     bool isIntersecting = false;
     double distance = kMaxD;
-    V2d point;
-    V2d normal;
+    Vector2D point;
+    Vector2D normal;
 };
 
 //! Abstract base class for 2-D surface.
 class Surface2 {
-public:
+ public:
     //! Local-to-world transform.
     Transform2 transform;
-    
+
     //! Flips normal.
     bool isNormalFlipped = false;
-    
+
     //! Constructs a surface with normal direction.
     Surface2(const Transform2& transform = Transform2(),
              bool isNormalFlipped = false);
-    
+
     //! Copy constructor.
     Surface2(const Surface2& other);
-    
+
     //! Default destructor.
     virtual ~Surface2();
-    
+
     //! Returns the closest point from the given point \p otherPoint to the
     //! surface.
-    V2d closestPoint(const V2d& otherPoint) const;
-    
+    Vector2D closestPoint(const Vector2D& otherPoint) const;
+
     //! Returns the bounding box of this surface object.
-    BoundingBox2d boundingBox() const;
-    
+    BoundingBox2D boundingBox() const;
+
     //! Returns true if the given \p ray intersects with this surface object.
-    bool intersects(const Ray2d& ray) const;
-    
+    bool intersects(const Ray2D& ray) const;
+
     //! Returns the closest distance from the given point \p otherPoint to the
     //! point on the surface.
-    double closestDistance(const V2d& otherPoint) const;
-    
+    double closestDistance(const Vector2D& otherPoint) const;
+
     //! Returns the closest intersection point for given \p ray.
-    SurfaceRayIntersection2 closestIntersection(const Ray2d& ray) const;
-    
+    SurfaceRayIntersection2 closestIntersection(const Ray2D& ray) const;
+
     //! Returns the normal to the closest point on the surface from the given
     //! point \p otherPoint.
-    V2d closestNormal(const V2d& otherPoint) const;
-    
+    Vector2D closestNormal(const Vector2D& otherPoint) const;
+
     //! Updates internal spatial query engine.
     virtual void updateQueryEngine();
-    
+
     //! Returns true if bounding box can be defined.
     virtual bool isBounded() const;
-    
+
     //! Returns true if the surface is a valid geometry.
     virtual bool isValidGeometry() const;
-    
+
     //! Returns true if \p otherPoint is inside the volume defined by the
     //! surface.
-    bool isInside(const V2d& otherPoint) const;
-    
-protected:
+    bool isInside(const Vector2D& otherPoint) const;
+
+ protected:
     //! Returns the closest point from the given point \p otherPoint to the
     //! surface in local frame.
-    virtual V2d closestPointLocal(const V2d& otherPoint) const = 0;
-    
+    virtual Vector2D closestPointLocal(const Vector2D& otherPoint) const = 0;
+
     //! Returns the bounding box of this surface object in local frame.
-    virtual BoundingBox2d boundingBoxLocal() const = 0;
-    
+    virtual BoundingBox2D boundingBoxLocal() const = 0;
+
     //! Returns the closest intersection point for given \p ray in local frame.
-    virtual SurfaceRayIntersection2 closestIntersectionLocal(const Ray2d& ray) const = 0;
-    
+    virtual SurfaceRayIntersection2 closestIntersectionLocal(
+        const Ray2D& ray) const = 0;
+
     //! Returns the normal to the closest point on the surface from the given
     //! point \p otherPoint in local frame.
-    virtual V2d closestNormalLocal(const V2d& otherPoint) const = 0;
-    
+    virtual Vector2D closestNormalLocal(const Vector2D& otherPoint) const = 0;
+
     //! Returns true if the given \p ray intersects with this surface object
     //! in local frame.
-    virtual bool intersectsLocal(const Ray2d& ray) const;
-    
+    virtual bool intersectsLocal(const Ray2D& ray) const;
+
     //! Returns the closest distance from the given point \p otherPoint to the
     //! point on the surface in local frame.
-    virtual double closestDistanceLocal(const V2d& otherPoint) const;
-    
+    virtual double closestDistanceLocal(const Vector2D& otherPoint) const;
+
     //! Returns true if \p otherPoint is inside by given \p depth the volume
     //! defined by the surface in local frame.
-    virtual bool isInsideLocal(const V2d& otherPoint) const;
+    virtual bool isInsideLocal(const Vector2D& otherPoint) const;
 };
 
 //! Shared pointer for the Surface2 type.
-using Surface2Ptr = std::shared_ptr<Surface2>;
+typedef std::shared_ptr<Surface2> Surface2Ptr;
 
 //!
 //! \brief Base class for 2-D surface builder.
 //!
 template <typename DerivedBuilder>
 class SurfaceBuilderBase2 {
-public:
+ public:
     //! Returns builder with flipped normal flag.
     DerivedBuilder& withIsNormalFlipped(bool isNormalFlipped);
-    
+
     //! Returns builder with translation.
-    DerivedBuilder& withTranslation(const V2d& translation);
-    
+    DerivedBuilder& withTranslation(const Vector2D& translation);
+
     //! Returns builder with orientation.
     DerivedBuilder& withOrientation(double orientation);
-    
+
     //! Returns builder with transform.
     DerivedBuilder& withTransform(const Transform2& transform);
-    
-protected:
+
+ protected:
     bool _isNormalFlipped = false;
     Transform2 _transform;
 };
@@ -138,7 +138,7 @@ T& SurfaceBuilderBase2<T>::withIsNormalFlipped(bool isNormalFlipped) {
 }
 
 template <typename T>
-T& SurfaceBuilderBase2<T>::withTranslation(const V2d& translation) {
+T& SurfaceBuilderBase2<T>::withTranslation(const Vector2D& translation) {
     _transform.setTranslation(translation);
     return static_cast<T&>(*this);
 }
@@ -155,6 +155,6 @@ T& SurfaceBuilderBase2<T>::withTransform(const Transform2& transform) {
     return static_cast<T&>(*this);
 }
 
-}  // namespace jet
+}  // namespace vox
 
 #endif  // INCLUDE_JET_SURFACE2_H_

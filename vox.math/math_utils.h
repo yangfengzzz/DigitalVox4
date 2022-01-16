@@ -11,7 +11,7 @@
 #include <cstddef>
 #include <limits>
 
-IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
+namespace vox {
 
 //!
 //! \brief      Returns true if \p x and \p y are similar.
@@ -146,6 +146,20 @@ template <typename T>
 inline T cubic(T x);
 
 //!
+//! \brief      Returns the clamped value.
+//!
+//! \param[in]  val   The value.
+//! \param[in]  low   The low value.
+//! \param[in]  high  The high value.
+//!
+//! \tparam     T     Value type.
+//!
+//! \return     The clamped value.
+//!
+template <typename T>
+inline T clamp(T val, T low, T high);
+
+//!
 //! \brief      Converts degrees to radians.
 //!
 //! \param[in]  angleInDegrees The angle in degrees.
@@ -218,7 +232,7 @@ template <typename T>
 inline T monotonicCatmullRom(const T& f0, const T& f1, const T& f2, const T& f3,
                              T t);
 
-IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
+}  // namespace vox
 
 #include "math_utils-inl.h"
 

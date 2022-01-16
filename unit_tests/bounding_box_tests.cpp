@@ -4,11 +4,11 @@
 // personal capacity and am not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "bounding_box2.h"
+#include "bounding_box.h"
 #include <gtest/gtest.h>
 #include <limits>
 
-using namespace Imath;
+using namespace vox;
 
 TEST(BoundingBox, Constructors) {
     {
@@ -73,7 +73,7 @@ TEST(BoundingBox, Contains) {
     // Not containing (x-axis is out)
     {
         BoundingBox<double, 2> box({-2.0, -2.0}, {4.0, 3.0});
-        V2d point({-3.0, 0.0});
+        Vector<double, 2> point({-3.0, 0.0});
 
         EXPECT_FALSE(box.contains(point));
     }
@@ -81,7 +81,7 @@ TEST(BoundingBox, Contains) {
     // Not containing (y-axis is out)
     {
         BoundingBox<double, 2> box({-2.0, -2.0}, {4.0, 3.0});
-        V2d point({2.0, 3.5});
+        Vector<double, 2> point({2.0, 3.5});
 
         EXPECT_FALSE(box.contains(point));
     }
@@ -89,7 +89,7 @@ TEST(BoundingBox, Contains) {
     // Containing
     {
         BoundingBox<double, 2> box({-2.0, -2.0}, {4.0, 3.0});
-        V2d point({2.0, 0.0});
+        Vector<double, 2> point({2.0, 0.0});
 
         EXPECT_TRUE(box.contains(point));
     }
@@ -97,7 +97,7 @@ TEST(BoundingBox, Contains) {
 
 TEST(BoundingBox, MidPoint) {
     BoundingBox<double, 2> box({-2.0, -2.0}, {4.0, 3.0});
-    V2d midPoint = box.midPoint();
+    Vector<double, 2> midPoint = box.midPoint();
 
     EXPECT_DOUBLE_EQ(1.0, midPoint[0]);
     EXPECT_DOUBLE_EQ(0.5, midPoint[1]);
@@ -134,7 +134,7 @@ TEST(BoundingBox, Merge) {
     // Merge with point
     {
         BoundingBox<double, 2> box({-2.0, -2.0}, {4.0, 3.0});
-        V2d point({5.0, 1.0});
+        Vector<double, 2> point({5.0, 1.0});
 
         box.merge(point);
 

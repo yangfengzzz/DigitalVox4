@@ -7,10 +7,10 @@
 #ifndef INCLUDE_JET_RAY3_H_
 #define INCLUDE_JET_RAY3_H_
 
-#include "ImathVec.h"
+#include "vector3.h"
 #include "ray.h"
 
-IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
+namespace vox {
 
 //!
 //! \brief      Class for 2-D ray.
@@ -19,40 +19,40 @@ IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
 //!
 template <typename T>
 class Ray<T, 3> final {
-public:
-    static_assert(std::is_floating_point<T>::value,
-                  "Ray only can be instantiated with floating point types");
-    
+ public:
+    static_assert(
+        std::is_floating_point<T>::value,
+        "Ray only can be instantiated with floating point types");
+
     //! The origin of the ray.
-    Vec3<T> origin;
-    
+    Vector3<T> origin;
+
     //! The direction of the ray.
-    Vec3<T> direction;
-    
+    Vector3<T> direction;
+
     //! Constructs an empty ray that points (1, 0, 0) from (0, 0, 0).
     Ray();
-    
+
     //! Constructs a ray with given origin and riection.
-    Ray(const Vec3<T>& newOrigin, const Vec3<T>& newDirection);
-    
+    Ray(const Vector3<T>& newOrigin, const Vector3<T>& newDirection);
+
     //! Copy constructor.
     Ray(const Ray& other);
-    
+
     //! Returns a point on the ray at distance \p t.
-    Vec3<T> pointAt(T t) const;
+    Vector3<T> pointAt(T t) const;
 };
 
 //! Type alias for 3-D ray.
-template <typename T>
-using Ray3 = Ray<T, 3>;
+template <typename T> using Ray3 = Ray<T, 3>;
 
 //! Float-type 3-D ray.
-using Ray3f = Ray3<float>;
+typedef Ray3<float> Ray3F;
 
 //! Double-type 3-D ray.
-using Ray3d = Ray3<double>;
+typedef Ray3<double> Ray3D;
 
-IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
+}  // namespace vox
 
 #include "ray3-inl.h"
 
