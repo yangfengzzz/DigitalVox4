@@ -27,13 +27,13 @@ struct SurfaceRayIntersection3 {
 class Surface3 {
 public:
     //! Local-to-world transform.
-    Transform3 transform;
+    Transform3D transform;
     
     //! Flips normal when calling Surface3::closestNormal(...).
     bool isNormalFlipped = false;
     
     //! Constructs a surface with normal direction.
-    Surface3(const Transform3& transform = Transform3(),
+    Surface3(const Transform3D& transform = Transform3D(),
              bool isNormalFlipped = false);
     
     //! Copy constructor.
@@ -123,11 +123,11 @@ public:
     DerivedBuilder& withOrientation(const QuaternionD& orientation);
     
     //! Returns builder with transform.
-    DerivedBuilder& withTransform(const Transform3& transform);
+    DerivedBuilder& withTransform(const Transform3D& transform);
     
 protected:
     bool _isNormalFlipped = false;
-    Transform3 _transform;
+    Transform3D _transform;
 };
 
 template <typename T>
@@ -149,7 +149,7 @@ T& SurfaceBuilderBase3<T>::withOrientation(const QuaternionD& orientation) {
 }
 
 template <typename T>
-T& SurfaceBuilderBase3<T>::withTransform(const Transform3& transform) {
+T& SurfaceBuilderBase3<T>::withTransform(const Transform3D& transform) {
     _transform = transform;
     return static_cast<T&>(*this);
 }

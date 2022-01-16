@@ -17,56 +17,63 @@ namespace vox {
 //!
 //! \brief Represents 3-D rigid body transform.
 //!
+template <typename T>
 class Transform3 {
  public:
     //! Constructs identity transform.
     Transform3();
 
     //! Constructs a transform with translation and orientation.
-    Transform3(const Vector3D& translation, const QuaternionD& orientation);
+    Transform3(const Vector3<T>& translation, const Quaternion<T>& orientation);
 
     //! Returns the translation.
-    const Vector3D& translation() const;
+    const Vector3<T>& translation() const;
 
     //! Sets the traslation.
-    void setTranslation(const Vector3D& translation);
+    void setTranslation(const Vector3<T>& translation);
 
     //! Returns the orientation.
-    const QuaternionD& orientation() const;
+    const Quaternion<T>& orientation() const;
 
     //! Sets the orientation.
-    void setOrientation(const QuaternionD& orientation);
+    void setOrientation(const Quaternion<T>& orientation);
 
     //! Transforms a point in world coordinate to the local frame.
-    Point3D toLocal(const Point3D& pointInWorld) const;
+    Point3<T> toLocal(const Point3<T>& pointInWorld) const;
 
     //! Transforms a direction in world coordinate to the local frame.
-    Vector3D toLocalDirection(const Vector3D& dirInWorld) const;
+    Vector3<T> toLocalDirection(const Vector3<T>& dirInWorld) const;
 
     //! Transforms a ray in world coordinate to the local frame.
-    Ray3D toLocal(const Ray3D& rayInWorld) const;
+    Ray3<T> toLocal(const Ray3<T>& rayInWorld) const;
 
     //! Transforms a bounding box in world coordinate to the local frame.
-    BoundingBox3D toLocal(const BoundingBox3D& bboxInWorld) const;
+    BoundingBox3<T> toLocal(const BoundingBox3<T>& bboxInWorld) const;
 
     //! Transforms a point in local space to the world coordinate.
-    Point3D toWorld(const Point3D& pointInLocal) const;
+    Point3<T> toWorld(const Point3<T>& pointInLocal) const;
 
     //! Transforms a direction in local space to the world coordinate.
-    Vector3D toWorldDirection(const Vector3D& dirInLocal) const;
+    Vector3<T> toWorldDirection(const Vector3<T>& dirInLocal) const;
 
     //! Transforms a ray in local space to the world coordinate.
-    Ray3D toWorld(const Ray3D& rayInLocal) const;
+    Ray3<T> toWorld(const Ray3<T>& rayInLocal) const;
 
     //! Transforms a bounding box in local space to the world coordinate.
-    BoundingBox3D toWorld(const BoundingBox3D& bboxInLocal) const;
+    BoundingBox3<T> toWorld(const BoundingBox3<T>& bboxInLocal) const;
 
  private:
-    Vector3D _translation;
-    QuaternionD _orientation;
-    Matrix3x3D _orientationMat3;
-    Matrix3x3D _inverseOrientationMat3;
+    Vector3<T> _translation;
+    Quaternion<T> _orientation;
+    Matrix3x3<T> _orientationMat3;
+    Matrix3x3<T> _inverseOrientationMat3;
 };
+
+//! Float-type 3-D Transform.
+using Transform3F = Transform3<float>;
+
+//! Double-type 3-D Transform.
+using Transform3D = Transform3<double>;
 
 }  // namespace vox
 

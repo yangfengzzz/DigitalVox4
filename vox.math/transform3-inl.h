@@ -13,50 +13,59 @@
 #include <cmath>
 
 namespace vox {
-
-inline Transform3::Transform3() {
+template <typename T>
+inline Transform3<T>::Transform3() {
 }
 
-inline Transform3::Transform3(const Vector3D& translation,
-                              const QuaternionD& orientation) {
+template <typename T>
+inline Transform3<T>::Transform3(const Vector3<T>& translation,
+                                 const Quaternion<T>& orientation) {
     setTranslation(translation);
     setOrientation(orientation);
 }
 
-inline const Vector3D& Transform3::translation() const {
+template <typename T>
+inline const Vector3<T>& Transform3<T>::translation() const {
     return _translation;
 }
 
-inline void Transform3::setTranslation(const Vector3D& translation) {
+template <typename T>
+inline void Transform3<T>::setTranslation(const Vector3<T>& translation) {
     _translation = translation;
 }
 
-inline const QuaternionD& Transform3::orientation() const {
+template <typename T>
+inline const Quaternion<T>& Transform3<T>::orientation() const {
     return _orientation;
 }
 
-inline void Transform3::setOrientation(const QuaternionD& orientation) {
+template <typename T>
+inline void Transform3<T>::setOrientation(const Quaternion<T>& orientation) {
     _orientation = orientation;
     _orientationMat3 = orientation.matrix3();
     _inverseOrientationMat3 = orientation.inverse().matrix3();
 }
 
-inline Point3D Transform3::toLocal(const Point3D& pointInWorld) const {
+template <typename T>
+inline Point3<T> Transform3<T>::toLocal(const Point3<T>& pointInWorld) const {
     return _inverseOrientationMat3 * (pointInWorld - _translation);
 }
 
-inline Vector3D Transform3::toLocalDirection(const Vector3D& dirInWorld) const {
+template <typename T>
+inline Vector3<T> Transform3<T>::toLocalDirection(const Vector3<T>& dirInWorld) const {
     return _inverseOrientationMat3 * dirInWorld;
 }
 
-inline Ray3D Transform3::toLocal(const Ray3D& rayInWorld) const {
-    return Ray3D(
-                 toLocal(rayInWorld.origin),
-                 toLocalDirection(rayInWorld.direction));
+template <typename T>
+inline Ray3<T> Transform3<T>::toLocal(const Ray3<T>& rayInWorld) const {
+    return Ray3<T>(
+                   toLocal(rayInWorld.origin),
+                   toLocalDirection(rayInWorld.direction));
 }
 
-inline BoundingBox3D Transform3::toLocal(const BoundingBox3D& bboxInWorld) const {
-    BoundingBox3D bboxInLocal;
+template <typename T>
+inline BoundingBox3<T> Transform3<T>::toLocal(const BoundingBox3<T>& bboxInWorld) const {
+    BoundingBox3<T> bboxInLocal;
     for (int i = 0; i < 8; ++i) {
         auto cornerInLocal = toLocal(bboxInWorld.corner(i));
         bboxInLocal.lowerCorner
@@ -67,22 +76,25 @@ inline BoundingBox3D Transform3::toLocal(const BoundingBox3D& bboxInWorld) const
     return bboxInLocal;
 }
 
-inline Point3D Transform3::toWorld(const Point3D& pointInLocal) const {
+template <typename T>
+inline Point3<T> Transform3<T>::toWorld(const Point3<T>& pointInLocal) const {
     return (_orientationMat3 * pointInLocal) + _translation;
 }
 
-inline Vector3D Transform3::toWorldDirection(const Vector3D& dirInLocal) const {
+template <typename T>
+inline Vector3<T> Transform3<T>::toWorldDirection(const Vector3<T>& dirInLocal) const {
     return _orientationMat3 * dirInLocal;
 }
 
-inline Ray3D Transform3::toWorld(const Ray3D& rayInLocal) const {
-    return Ray3D(
-                 toWorld(rayInLocal.origin),
-                 toWorldDirection(rayInLocal.direction));
+template <typename T>
+inline Ray3<T> Transform3<T>::toWorld(const Ray3<T>& rayInLocal) const {
+    return Ray3<T>(toWorld(rayInLocal.origin),
+                   toWorldDirection(rayInLocal.direction));
 }
 
-inline BoundingBox3D Transform3::toWorld(const BoundingBox3D& bboxInLocal) const {
-    BoundingBox3D bboxInWorld;
+template <typename T>
+inline BoundingBox3<T> Transform3<T>::toWorld(const BoundingBox3<T>& bboxInLocal) const {
+    BoundingBox3<T> bboxInWorld;
     for (int i = 0; i < 8; ++i) {
         auto cornerInWorld = toWorld(bboxInLocal.corner(i));
         bboxInWorld.lowerCorner

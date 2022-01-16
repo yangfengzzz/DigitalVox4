@@ -13,7 +13,7 @@
 using namespace vox;
 
 TEST(Transform3, Constructors) {
-    Transform3 t1;
+    Transform3D t1;
 
     EXPECT_EQ(Vector3D(), t1.translation());
     EXPECT_EQ(0.0, t1.orientation().angle());
@@ -26,7 +26,7 @@ TEST(Transform3, Constructors) {
 }
 
 TEST(Transform3, Transform) {
-    Transform3 t({2.0, -5.0, 1.0}, QuaternionD({0.0, 1.0, 0.0}, kHalfPiD));
+    Transform3D t({2.0, -5.0, 1.0}, QuaternionD({0.0, 1.0, 0.0}, kHalfPiD));
 
     auto r1 = t.toWorld({4.0, 1.0, -3.0});
     EXPECT_NEAR(-1.0, r1.x, 1e-9);

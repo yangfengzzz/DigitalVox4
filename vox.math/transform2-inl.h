@@ -13,102 +13,112 @@
 #include <cmath>
 
 namespace vox {
-
-inline Transform2::Transform2() {
+template <typename T>
+inline Transform2<T>::Transform2() {
 }
 
-inline Transform2::Transform2(
-    const Vector2D& translation,
-    double orientation)
+template <typename T>
+inline Transform2<T>::Transform2(
+                              const Vector2<T>& translation,
+                              double orientation)
 : _translation(translation)
 , _orientation(orientation) {
     _cosAngle = std::cos(orientation);
     _sinAngle = std::sin(orientation);
 }
 
-inline const Vector2D& Transform2::translation() const {
+template <typename T>
+inline const Vector2<T>& Transform2<T>::translation() const {
     return _translation;
 }
 
-inline void Transform2::setTranslation(const Vector2D& translation) {
+template <typename T>
+inline void Transform2<T>::setTranslation(const Vector2<T>& translation) {
     _translation = translation;
 }
 
-inline double Transform2::orientation() const {
+template <typename T>
+inline double Transform2<T>::orientation() const {
     return _orientation;
 }
 
-inline void Transform2::setOrientation(double orientation) {
+template <typename T>
+inline void Transform2<T>::setOrientation(double orientation) {
     _orientation = orientation;
     _cosAngle = std::cos(orientation);
     _sinAngle = std::sin(orientation);
 }
 
-inline Vector2D Transform2::toLocal(const Vector2D& pointInWorld) const {
+template <typename T>
+inline Vector2<T> Transform2<T>::toLocal(const Vector2<T>& pointInWorld) const {
     // Convert to the local frame
-    Vector2D xmt = pointInWorld - _translation;
-    return Vector2D(
-        _cosAngle * xmt.x + _sinAngle * xmt.y,
-       -_sinAngle * xmt.x + _cosAngle * xmt.y);
+    Vector2<T> xmt = pointInWorld - _translation;
+    return Vector2<T>(
+                    _cosAngle * xmt.x + _sinAngle * xmt.y,
+                    -_sinAngle * xmt.x + _cosAngle * xmt.y);
 }
 
-inline Vector2D Transform2::toLocalDirection(const Vector2D& dirInWorld) const {
+template <typename T>
+inline Vector2<T> Transform2<T>::toLocalDirection(const Vector2<T>& dirInWorld) const {
     // Convert to the local frame
-    return Vector2D(
-        _cosAngle * dirInWorld.x + _sinAngle * dirInWorld.y,
-       -_sinAngle * dirInWorld.x + _cosAngle * dirInWorld.y);
+    return Vector2<T>(
+                    _cosAngle * dirInWorld.x + _sinAngle * dirInWorld.y,
+                    -_sinAngle * dirInWorld.x + _cosAngle * dirInWorld.y);
 }
 
-inline Ray2D Transform2::toLocal(const Ray2D& rayInWorld) const {
-    return Ray2D(
-        toLocal(rayInWorld.origin),
-        toLocalDirection(rayInWorld.direction));
+template <typename T>
+inline Ray2<T> Transform2<T>::toLocal(const Ray2<T>& rayInWorld) const {
+    return Ray2<T>(
+                 toLocal(rayInWorld.origin),
+                 toLocalDirection(rayInWorld.direction));
 }
 
-inline BoundingBox2D Transform2::toLocal(
-    const BoundingBox2D& bboxInWorld) const {
-    BoundingBox2D bboxInLocal;
+template <typename T>
+inline BoundingBox2<T> Transform2<T>::toLocal(const BoundingBox2<T>& bboxInWorld) const {
+    BoundingBox2<T> bboxInLocal;
     for (int i = 0; i < 4; ++i) {
         auto cornerInLocal = toLocal(bboxInWorld.corner(i));
         bboxInLocal.lowerCorner
-            = min(bboxInLocal.lowerCorner, cornerInLocal);
+        = min(bboxInLocal.lowerCorner, cornerInLocal);
         bboxInLocal.upperCorner
-            = max(bboxInLocal.upperCorner, cornerInLocal);
+        = max(bboxInLocal.upperCorner, cornerInLocal);
     }
     return bboxInLocal;
 }
 
-inline Vector2D Transform2::toWorld(const Vector2D& pointInLocal) const {
+template <typename T>
+inline Vector2<T> Transform2<T>::toWorld(const Vector2<T>& pointInLocal) const {
     // Convert to the world frame
-    return Vector2D(
-        _cosAngle * pointInLocal.x - _sinAngle * pointInLocal.y
-            + _translation.x,
-        _sinAngle * pointInLocal.x + _cosAngle * pointInLocal.y
-            + _translation.y);
+    return Vector2<T>(_cosAngle * pointInLocal.x - _sinAngle * pointInLocal.y
+                    + _translation.x,
+                    _sinAngle * pointInLocal.x + _cosAngle * pointInLocal.y
+                    + _translation.y);
 }
 
-inline Vector2D Transform2::toWorldDirection(const Vector2D& dirInLocal) const {
+template <typename T>
+inline Vector2<T> Transform2<T>::toWorldDirection(const Vector2<T>& dirInLocal) const {
     // Convert to the world frame
-    return Vector2D(
-        _cosAngle * dirInLocal.x - _sinAngle * dirInLocal.y,
-        _sinAngle * dirInLocal.x + _cosAngle * dirInLocal.y);
+    return Vector2<T>(
+                    _cosAngle * dirInLocal.x - _sinAngle * dirInLocal.y,
+                    _sinAngle * dirInLocal.x + _cosAngle * dirInLocal.y);
 }
 
-inline Ray2D Transform2::toWorld(const Ray2D& rayInLocal) const {
-    return Ray2D(
-        toWorld(rayInLocal.origin),
-        toWorldDirection(rayInLocal.direction));
+template <typename T>
+inline Ray2<T> Transform2<T>::toWorld(const Ray2<T>& rayInLocal) const {
+    return Ray2<T>(
+                 toWorld(rayInLocal.origin),
+                 toWorldDirection(rayInLocal.direction));
 }
 
-inline BoundingBox2D Transform2::toWorld(
-    const BoundingBox2D& bboxInLocal) const {
-    BoundingBox2D bboxInWorld;
+template <typename T>
+inline BoundingBox2<T> Transform2<T>::toWorld(const BoundingBox2<T>& bboxInLocal) const {
+    BoundingBox2<T> bboxInWorld;
     for (int i = 0; i < 4; ++i) {
         auto cornerInWorld = toWorld(bboxInLocal.corner(i));
         bboxInWorld.lowerCorner
-            = min(bboxInWorld.lowerCorner, cornerInWorld);
+        = min(bboxInWorld.lowerCorner, cornerInWorld);
         bboxInWorld.upperCorner
-            = max(bboxInWorld.upperCorner, cornerInWorld);
+        = max(bboxInWorld.upperCorner, cornerInWorld);
     }
     return bboxInWorld;
 }

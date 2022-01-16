@@ -13,19 +13,19 @@
 using namespace vox;
 
 TEST(Transform2, Constructors) {
-    Transform2 t1;
+    Transform2D t1;
 
     EXPECT_EQ(Vector2D(), t1.translation());
     EXPECT_EQ(0.0, t1.orientation());
 
-    Transform2 t2({2.0, -5.0}, kQuarterPiD);
+    Transform2D t2({2.0, -5.0}, kQuarterPiD);
 
     EXPECT_EQ(Vector2D(2.0, -5.0), t2.translation());
     EXPECT_EQ(kQuarterPiD, t2.orientation());
 }
 
 TEST(Transform2, Transform) {
-    Transform2 t({2.0, -5.0}, kHalfPiD);
+    Transform2D t({2.0, -5.0}, kHalfPiD);
 
     auto r1 = t.toWorld({4.0, 1.0});
     EXPECT_DOUBLE_EQ(1.0, r1.x);

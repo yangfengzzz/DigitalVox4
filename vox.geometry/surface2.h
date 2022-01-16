@@ -27,13 +27,13 @@ struct SurfaceRayIntersection2 {
 class Surface2 {
  public:
     //! Local-to-world transform.
-    Transform2 transform;
+    Transform2D transform;
 
     //! Flips normal.
     bool isNormalFlipped = false;
 
     //! Constructs a surface with normal direction.
-    Surface2(const Transform2& transform = Transform2(),
+    Surface2(const Transform2D& transform = Transform2D(),
              bool isNormalFlipped = false);
 
     //! Copy constructor.
@@ -124,11 +124,11 @@ class SurfaceBuilderBase2 {
     DerivedBuilder& withOrientation(double orientation);
 
     //! Returns builder with transform.
-    DerivedBuilder& withTransform(const Transform2& transform);
+    DerivedBuilder& withTransform(const Transform2D& transform);
 
  protected:
     bool _isNormalFlipped = false;
-    Transform2 _transform;
+    Transform2D _transform;
 };
 
 template <typename T>
@@ -150,7 +150,7 @@ T& SurfaceBuilderBase2<T>::withOrientation(double orientation) {
 }
 
 template <typename T>
-T& SurfaceBuilderBase2<T>::withTransform(const Transform2& transform) {
+T& SurfaceBuilderBase2<T>::withTransform(const Transform2D& transform) {
     _transform = transform;
     return static_cast<T&>(*this);
 }

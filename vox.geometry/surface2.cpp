@@ -12,7 +12,7 @@
 
 using namespace vox;
 
-Surface2::Surface2(const Transform2& transform_, bool isNormalFlipped_)
+Surface2::Surface2(const Transform2D& transform_, bool isNormalFlipped_)
     : transform(transform_), isNormalFlipped(isNormalFlipped_) {}
 
 Surface2::Surface2(const Surface2& other)
