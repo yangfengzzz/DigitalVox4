@@ -8,6 +8,7 @@
 #include "forward_subpass.h"
 #include "material/material.h"
 #include "graphics/mesh.h"
+#include "renderer.h"
 
 #include "core/CPPMetalAssert.hpp"
 
@@ -67,7 +68,6 @@ void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setDepthStencilState(m_forwardDepthStencilState);
     commandEncoder.setStencilReferenceValue(128);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
     
     drawMeshes(commandEncoder);
     commandEncoder.popDebugGroup();
@@ -89,6 +89,12 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_diffuseTexture")), TextureIndexBaseColor);
         renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_normalTexture")), TextureIndexNormal);
         renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_specularTexture")), TextureIndexSpecular);
+
+        auto& renderer = element.renderer;
+        auto mvpMat = std::any_cast<Imath::M44f>(renderer->shaderData.getData("u_MVPMat"));
+        renderEncoder.setVertexBytes(&mvpMat, sizeof(Imath::M44f), 5);
+        auto normalMat = std::any_cast<Imath::M44f>(renderer->shaderData.getData("u_normalMat"));
+        renderEncoder.setVertexBytes(&normalMat, sizeof(Imath::M44f), 6);
         
         // manully
         auto& mesh = element.mesh;

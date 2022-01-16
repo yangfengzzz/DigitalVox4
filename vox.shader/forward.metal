@@ -35,17 +35,17 @@ struct ColorInOut {
 };
 
 vertex ColorInOut forward_vertex(DescriptorDefinedVertex in [[ stage_in ]],
-                                 constant FrameData &frameData [[ buffer(BufferIndexFrameData) ]]) {
+                                 constant simd_float4x4 &u_MVPMat [[ buffer(5) ]],
+                                 constant simd_float3x3 &u_normalMat [[buffer(6)]]) {
     ColorInOut out;
     
     float4 model_position = float4(in.position, 1.0);
     // Make position a float4 to perform 4x4 matrix math on it
-    float4 eye_position = frameData.temple_modelview_matrix * model_position;
-    out.position = frameData.projection_matrix * eye_position;
+    out.position = u_MVPMat * model_position;
     out.tex_coord = float2(in.tex_coord.x, 1-in.tex_coord.y);
     
     // Rotate tangents, bitangents, and normals by the normal matrix
-    half3x3 normalMatrix = half3x3(frameData.temple_normal_matrix);
+    half3x3 normalMatrix = half3x3(u_normalMat);
     // Calculate tangent, bitangent and normal in eye's space
     out.tangent = normalize(normalMatrix * in.tangent);
     out.bitangent = -normalize(normalMatrix * in.bitangent);

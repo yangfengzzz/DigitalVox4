@@ -90,6 +90,11 @@ bool Forward::prepare(Engine &engine) {
     return true;
 }
 
+void Forward::loadScene() {
+    newMeshesFromBundlePath("../assets/Models", "Temple.obj",
+                            *device, scene.get(), m_defaultVertexDescriptor);
+}
+
 void Forward::update(float delta_time) {
     MetalApplication::update(delta_time);
     
@@ -115,11 +120,6 @@ void Forward::framebuffer_resize(uint32_t width, uint32_t height) {
 //    m_projection_matrix = matrix_perspective_left_hand(65.0f * (M_PI / 180.0f), aspect, NearPlane, FarPlane);
     
     MetalApplication::framebuffer_resize(width, height);
-}
-
-void Forward::loadScene() {
-    newMeshesFromBundlePath("../assets/Models", "Temple.obj",
-                            *device, scene.get(), m_defaultVertexDescriptor);
 }
 
 }
