@@ -446,10 +446,10 @@ template <typename T>
 Matrix4x4<T> operator/(const T& a, const Matrix4x4<T>& b);
 
 //! Float-type 4x4 matrix.
-typedef Matrix4x4<float> Matrix4x4F;
+using Matrix4x4F = Matrix4x4<float>;
 
 //! Double-type 4x4 matrix.
-typedef Matrix4x4<double> Matrix4x4D;
+using Matrix4x4D = Matrix4x4<double>;
 
 }  // namespace vox
 

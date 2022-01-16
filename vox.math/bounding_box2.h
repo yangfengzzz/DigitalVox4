@@ -117,16 +117,16 @@ template <typename T>
 using BoundingBox2 = BoundingBox<T, 2>;
 
 //! Float-type 2-D BoundingBox.
-typedef BoundingBox2<float> BoundingBox2F;
+using BoundingBox2F = BoundingBox2<float>;
 
 //! Double-type 2-D BoundingBox.
-typedef BoundingBox2<double> BoundingBox2D;
+using BoundingBox2D = BoundingBox2<double>;
 
 //! Float-type 2-D box-ray intersection result.
-typedef BoundingBoxRayIntersection2<float> BoundingBoxRayIntersection2F;
+using BoundingBoxRayIntersection2F = BoundingBoxRayIntersection2<float>;
 
 //! Double-type 2-D box-ray intersection result.
-typedef BoundingBoxRayIntersection2<double> BoundingBoxRayIntersection2D;
+using BoundingBoxRayIntersection2D = BoundingBoxRayIntersection2<double>;
 
 }  // namespace vox
 

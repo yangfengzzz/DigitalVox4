@@ -396,10 +396,10 @@ template <typename T>
 Matrix3x3<T> operator/(T a, const Matrix3x3<T>& b);
 
 //! Float-type 3x3 matrix.
-typedef Matrix3x3<float> Matrix3x3F;
+using Matrix3x3F = Matrix3x3<float>;
 
 //! Double-type 3x3 matrix.
-typedef Matrix3x3<double> Matrix3x3D;
+using Matrix3x3D = Matrix3x3<double>;
 
 }  // namespace vox
 

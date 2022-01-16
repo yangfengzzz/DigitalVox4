@@ -393,10 +393,10 @@ template <typename T>
 Matrix2x2<T> operator/(const T& a, const Matrix2x2<T>& b);
 
 //! Float-type 2x2 matrix.
-typedef Matrix2x2<float> Matrix2x2F;
+using Matrix2x2F = Matrix2x2<float>;
 
 //! Double-type 2x2 matrix.
-typedef Matrix2x2<double> Matrix2x2D;
+using Matrix2x2D = Matrix2x2<double>;
 
 }  // namespace vox
 

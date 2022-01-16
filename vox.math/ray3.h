@@ -47,10 +47,10 @@ class Ray<T, 3> final {
 template <typename T> using Ray3 = Ray<T, 3>;
 
 //! Float-type 3-D ray.
-typedef Ray3<float> Ray3F;
+using Ray3F = Ray3<float>;
 
 //! Double-type 3-D ray.
-typedef Ray3<double> Ray3D;
+using Ray3D = Ray3<double>;
 
 }  // namespace vox
 

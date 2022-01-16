@@ -337,10 +337,12 @@ template <typename T>
 Vector4<T> floor(const Vector4<T>& a);
 
 //! Float-type 4D vector.
-typedef Vector4<float> Vector4F;
+using Vector4F = Vector4<float>;
+using Color4F = Vector4<float>;
 
 //! Double-type 4D vector.
-typedef Vector4<double> Vector4D;
+using Vector4D = Vector4<double>;
+using Color4D = Vector4<double>;
 
 // MARK: Extensions
 
@@ -359,7 +361,7 @@ constexpr Vector4D zero<Vector4D>() {
 //! Returns the type of the value itself.
 template <typename T>
 struct ScalarType<Vector4<T>> {
-    typedef T value;
+    using value = T;
 };
 
 //! Computes monotonic Catmull-Rom interpolation.

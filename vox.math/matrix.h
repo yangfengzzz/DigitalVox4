@@ -41,9 +41,9 @@ class Matrix final : public MatrixExpression<T, Matrix<T, M, N>> {
     static_assert(std::is_floating_point<T>::value,
                   "Matrix only can be instantiated with floating point types");
 
-    typedef std::array<T, M * N> ContainerType;
-    typedef typename ContainerType::iterator Iterator;
-    typedef typename ContainerType::const_iterator ConstIterator;
+    using ContainerType = std::array<T, M * N>;
+    using Iterator = typename ContainerType::iterator;
+    using ConstIterator = typename ContainerType::const_iterator;
 
     //! Default constructor.
     //! \warning This constructor will create zero matrix.

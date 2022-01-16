@@ -334,10 +334,10 @@ template <typename T>
 Vector2<T> floor(const Vector2<T>& a);
 
 //! Float-type 2D vector.
-typedef Vector2<float> Vector2F;
+using Vector2F = Vector2<float>;
 
 //! Double-type 2D vector.
-typedef Vector2<double> Vector2D;
+using Vector2D = Vector2<double>;
 
 // MARK: Extensions
 
@@ -356,7 +356,7 @@ constexpr Vector2D zero<Vector2D>() {
 //! Returns the type of the value itself.
 template <typename T>
 struct ScalarType<Vector2<T>> {
-    typedef T value;
+    using value = T;
 };
 
 //! Computes monotonic Catmull-Rom interpolation.

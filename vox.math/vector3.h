@@ -344,10 +344,12 @@ template <typename T>
 Vector3<T> floor(const Vector3<T>& a);
 
 //! Float-type 3D vector.
-typedef Vector3<float> Vector3F;
+using Vector3F = Vector3<float>;
+using Color3F = Vector3<float>;
 
 //! Double-type 3D vector.
-typedef Vector3<double> Vector3D;
+using Vector3D = Vector3<double>;
+using Color3D = Vector3<double>;
 
 // MARK: Extensions
 
@@ -366,7 +368,7 @@ constexpr Vector3D zero<Vector3D>() {
 //! Returns the type of the value itself.
 template <typename T>
 struct ScalarType<Vector3<T>> {
-    typedef T value;
+    using value = T;
 };
 
 //! Computes monotonic Catmull-Rom interpolation.

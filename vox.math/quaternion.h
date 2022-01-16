@@ -205,10 +205,10 @@ template <typename T>
 Quaternion<T> operator*(const Quaternion<T>& a, const Quaternion<T>& b);
 
 //! Float-type quaternion.
-typedef Quaternion<float> QuaternionF;
+using QuaternionF = Quaternion<float>;
 
 //! Double-type quaternion.
-typedef Quaternion<double> QuaternionD;
+using QuaternionD = Quaternion<double>;
 
 }  // namespace vox
 

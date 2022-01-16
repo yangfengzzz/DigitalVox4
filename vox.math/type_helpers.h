@@ -12,7 +12,7 @@ namespace vox {
 //! Returns the type of the value itself.
 template <typename T>
 struct ScalarType {
-    typedef T value;
+    using value = T;
 };
 
 }  // namespace vox
