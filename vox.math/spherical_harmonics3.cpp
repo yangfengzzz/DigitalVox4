@@ -18,7 +18,7 @@ const std::array<float, 27>& SphericalHarmonics3::coefficients() const {
     return _coefficients;
 }
 
-void SphericalHarmonics3::addLight(const Vector3F& direction, const Color4F& c, float deltaSolidAngle) {
+void SphericalHarmonics3::addLight(const Vector3F& direction, const Color& c, float deltaSolidAngle) {
     /**
      * Implements `EvalSHBasis` from [Projection from Cube maps] in http://www.ppsloan.org/publications/StupidSH36.pdf.
      *
@@ -62,7 +62,7 @@ void SphericalHarmonics3::addLight(const Vector3F& direction, const Color4F& c, 
     (coe[24] += color.r * bv8); (coe[25] += color.g * bv8); (coe[26] += color.b * bv8);
 }
 
-Color4F SphericalHarmonics3::operator()(const Vector3F& direction) {
+Color SphericalHarmonics3::operator()(const Vector3F& direction) {
     /**
      * Equations based on data from: http://ppsloan.org/publications/StupidSH36.pdf
      *
@@ -114,7 +114,7 @@ Color4F SphericalHarmonics3::operator()(const Vector3F& direction) {
     g += coe[13] * bv4 + coe[16] * bv5 + coe[19] * bv6 + coe[22] * bv7 + coe[25] * bv8;
     b += coe[14] * bv4 + coe[17] * bv5 + coe[20] * bv6 + coe[23] * bv7 + coe[26] * bv8;
     
-    return Color4f(r, g, b, 1.0);
+    return Color(r, g, b, 1.0);
 }
 
 SphericalHarmonics3 SphericalHarmonics3::operator*(float s) {

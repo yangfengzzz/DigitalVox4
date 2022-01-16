@@ -9,7 +9,7 @@
 #define spherical_harmonics3_hpp
 
 #include "vector3.h"
-#include "vector4.h"
+#include "color.h"
 #include <array>
 
 namespace vox {
@@ -34,14 +34,14 @@ public:
      * @param color - Light color
      * @param deltaSolidAngle - The delta solid angle of the light
      */
-    void addLight(const Vector3F& direction, const Color4F& color, float deltaSolidAngle);
+    void addLight(const Vector3F& direction, const Color& color, float deltaSolidAngle);
     
     /**
      * Evaluates the color for the specified direction.
      * @param direction - Specified direction
      * @return out - Out color
      */
-    Color4F operator()(const Vector3F& direction);
+    Color operator()(const Vector3F& direction);
     
     /**
      * Scale the coefficients.

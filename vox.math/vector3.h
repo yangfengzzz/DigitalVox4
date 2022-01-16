@@ -333,11 +333,9 @@ Vector3<T> floor(const Vector3<T>& a);
 
 //! Float-type 3D vector.
 using Vector3F = Vector3<float>;
-using Color3F = Vector3<float>;
 
 //! Double-type 3D vector.
 using Vector3D = Vector3<double>;
-using Color3D = Vector3<double>;
 
 // MARK: Extensions
 

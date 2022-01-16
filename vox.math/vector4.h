@@ -338,11 +338,9 @@ Vector4<T> floor(const Vector4<T>& a);
 
 //! Float-type 4D vector.
 using Vector4F = Vector4<float>;
-using Color4F = Vector4<float>;
 
 //! Double-type 4D vector.
 using Vector4D = Vector4<double>;
-using Color4D = Vector4<double>;
 
 // MARK: Extensions
 
