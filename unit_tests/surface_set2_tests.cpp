@@ -122,7 +122,8 @@ TEST(SurfaceSet2, ClosestPoint) {
         auto sph = Sphere2::builder()
             .withRadius(0.01)
             .withCenter({0, 0, 0})
-            .withTranslation(getSamplePoints2()[i])
+            .withTranslation(Vector2D(getSamplePoints2()[i].x,
+                                      getSamplePoints2()[i].y))
             .makeShared();
         sset2.addSurface(sph);
     }
@@ -180,7 +181,8 @@ TEST(SurfaceSet2, ClosestNormal) {
         auto sph = Sphere2::builder()
             .withRadius(0.01)
             .withCenter({0, 0, 0})
-            .withTranslation(getSamplePoints2()[i])
+            .withTranslation(Vector2D(getSamplePoints2()[i].x,
+                                      getSamplePoints2()[i].y))
             .makeShared();
         sset2.addSurface(sph);
     }
@@ -229,7 +231,8 @@ TEST(SurfaceSet2, ClosestDistance) {
         auto sph = Sphere2::builder()
             .withRadius(0.01)
             .withCenter({0, 0, 0})
-            .withTranslation(getSamplePoints2()[i])
+            .withTranslation(Vector2D(getSamplePoints2()[i].x,
+                                      getSamplePoints2()[i].y))
             .makeShared();
         sset2.addSurface(sph);
     }
@@ -277,7 +280,8 @@ TEST(SurfaceSet2, Intersects) {
         auto sph = Sphere2::builder()
             .withRadius(0.01)
             .withCenter({0, 0, 0})
-            .withTranslation(getSamplePoints2()[i])
+            .withTranslation(Vector2D(getSamplePoints2()[i].x,
+                                      getSamplePoints2()[i].y))
             .makeShared();
         sset2.addSurface(sph);
     }
@@ -331,7 +335,8 @@ TEST(SurfaceSet2, ClosestIntersection) {
         auto sph = Sphere2::builder()
             .withRadius(0.01)
             .withCenter({0, 0, 0})
-            .withTranslation(getSamplePoints2()[i])
+            .withTranslation(Vector2D(getSamplePoints2()[i].x,
+                                      getSamplePoints2()[i].y))
             .makeShared();
         sset2.addSurface(sph);
     }
@@ -372,7 +377,8 @@ TEST(SurfaceSet2, BoundingBox) {
         auto sph = Sphere2::builder()
             .withRadius(0.01)
             .withCenter({0, 0, 0})
-            .withTranslation(getSamplePoints2()[i])
+            .withTranslation(Vector2D(getSamplePoints2()[i].x,
+                                      getSamplePoints2()[i].y))
             .makeShared();
         sset2.addSurface(sph);
         
