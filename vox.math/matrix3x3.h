@@ -271,6 +271,19 @@ public:
     //! Returns inverse matrix.
     Matrix inverse() const;
     
+    /**
+     * The specified matrix rotates around an angle.
+     * @param r - The rotation angle in radians
+     * @return The rotated matrix
+     */
+    Matrix rotate(T r) const;
+    
+    /**
+     * The specified matrix rotates around an angle.
+     * @param r - The rotation angle in radians
+     */
+    void rotate(T r);
+    
     //! Returns Frobenius norm.
     T frobeniusNorm() const;
     

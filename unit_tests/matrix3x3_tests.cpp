@@ -5,6 +5,8 @@
 //  property of any third parties.
 
 #include "matrix3x3.h"
+#include "matrix4x4.h"
+#include "quaternion.h"
 #include <gtest/gtest.h>
 
 using namespace vox;
@@ -426,4 +428,93 @@ TEST(Matrix3x3, Helpers) {
     << mat(0, 0) << ' ' << mat(0, 1) << ' ' << mat(0, 2) << "\n"
     << mat(1, 0) << ' ' << mat(1, 1) << ' ' << mat(1, 2) << "\n"
     << mat(2, 0) << ' ' << mat(2, 1) << ' ' << mat(2, 2) << "\n";
+}
+
+//MARK: -
+TEST(Matrix3x3, add) {
+    const auto a = Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    const auto b = Matrix3x3D(9, 8, 7, 6, 5, 4, 3, 2, 1);
+    const auto out = a + b;
+    
+    EXPECT_TRUE(out.isSimilar(Matrix3x3D(10, 10, 10, 10, 10, 10, 10, 10, 10)));
+}
+
+TEST(Matrix3x3, subtract) {
+    const auto a = Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    const auto b = Matrix3x3D(9, 8, 7, 6, 5, 4, 3, 2, 1);
+    const auto out = a - b;
+    
+    EXPECT_TRUE(out.isSimilar(Matrix3x3D(-8, -6, -4, -2, 0, 2, 4, 6, 8)));
+}
+
+TEST(Matrix3x3, multiply) {
+    const auto a = Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    const auto b = Matrix3x3D(9, 8, 7, 6, 5, 4, 3, 2, 1);
+    const auto out = a * b;
+    
+    EXPECT_TRUE(out.isSimilar(Matrix3x3D(90, 114, 138, 54, 69, 84, 18, 24, 30)));
+}
+
+TEST(Matrix3x3, lerp) {
+    const auto a = Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    const auto b = Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    const auto c = lerp(a, b, 0.78);
+    
+    EXPECT_TRUE(c.isSimilar(Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9)));
+}
+
+TEST(Matrix3x3, fromXXX) {
+    const auto a = Matrix4x4D(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 0, 0, 1);
+    
+    // Matrix
+    Matrix3x3D out = a.matrix3();
+    EXPECT_TRUE(out.isSimilar(Matrix3x3D(1, 2, 3, 5, 6, 7, 9, 10, 11)));
+    
+    // quat
+    const auto q = QuaternionD(1, 2, 3, 4);
+    out = q.matrix3();
+    EXPECT_TRUE(out.isSimilar(Matrix3x3D(-25, 28, -10, -20, -19, 20, 22, 4, -9)));
+}
+
+TEST(Matrix3x3, invert) {
+    const auto mat3 = Matrix3x3D(1, 2, 3, 2, 2, 4, 3, 1, 3);
+    
+    Matrix3x3D out = mat3.inverse();
+    EXPECT_TRUE(out.isSimilar(Matrix3x3D(1, -1.5, 1, 3, -3, 1, -2, 2.5, -1)));
+}
+
+TEST(Matrix3x3, normalMatrix) {
+    const auto mat4 = Matrix4x4D(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 0, 0, 1);
+    
+    Matrix3x3D out = mat4.normalMatrix();
+    EXPECT_TRUE(out.isSimilar(Matrix3x3D(1, 0, 0, 0, 1, 0, 0, 0, 1)));
+}
+
+TEST(Matrix3x3, rotate) {
+    const auto mat3 = Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    
+    Matrix3x3D out = mat3.rotate(M_PI / 3);
+    EXPECT_TRUE(out.isSimilar(Matrix3x3D(3.9641016151377544,
+                                         5.3301270189221928,
+                                         6.696152422706632,
+                                         1.1339745962155618,
+                                         0.76794919243112325,
+                                         0.40192378864668488,
+                                         7,
+                                         8,
+                                         9)));
+}
+
+TEST(Matrix3x3, transpose) {
+    const auto mat3 = Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    
+    auto out = mat3.transposed();
+    EXPECT_TRUE(out.isSimilar(Matrix3x3D(1, 4, 7, 2, 5, 8, 3, 6, 9)));
+    out.transpose();
+    EXPECT_TRUE(out.isSimilar(Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9)));
+}
+
+TEST(Matrix3x3, determinant) {
+    const auto a = Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    EXPECT_FLOAT_EQ(a.determinant(), 0);
 }

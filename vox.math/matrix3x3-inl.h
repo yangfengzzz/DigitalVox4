@@ -498,6 +498,57 @@ Matrix<T, 3, 3> Matrix<T, 3, 3>::inverse() const {
 }
 
 template<typename T>
+Matrix<T, 3, 3> Matrix<T, 3, 3>::rotate(T r) const {
+    T s = std::sin(r);
+    T c = std::cos(r);
+    
+    const T& a11 = _elements[0],
+    a12 = _elements[1],
+    a13 = _elements[2];
+    const T& a21 = _elements[3],
+    a22 = _elements[4],
+    a23 = _elements[5];
+    const T& a31 = _elements[6],
+    a32 = _elements[7],
+    a33 = _elements[8];
+    
+    Matrix<T, 3, 3> result;
+    result[0] = c * a11 + s * a21;
+    result[1] = c * a12 + s * a22;
+    result[2] = c * a13 + s * a23;
+    
+    result[3] = c * a21 - s * a11;
+    result[4] = c * a22 - s * a12;
+    result[5] = c * a23 - s * a13;
+    
+    result[6] = a31;
+    result[7] = a32;
+    result[8] = a33;
+    return result;
+}
+
+template<typename T>
+void Matrix<T, 3, 3>::rotate(T r) {
+    T s = std::sin(r);
+    T c = std::cos(r);
+    
+    const T& a11 = _elements[0],
+    a12 = _elements[1],
+    a13 = _elements[2];
+    const T& a21 = _elements[3],
+    a22 = _elements[4],
+    a23 = _elements[5];
+    
+    _elements[0] = c * a11 + s * a21;
+    _elements[1] = c * a12 + s * a22;
+    _elements[2] = c * a13 + s * a23;
+    
+    _elements[3] = c * a21 - s * a11;
+    _elements[4] = c * a22 - s * a12;
+    _elements[5] = c * a23 - s * a13;
+}
+
+template<typename T>
 T Matrix<T, 3, 3>::frobeniusNorm() const {
     return std::sqrt(_elements[0] * _elements[0] + _elements[1] * _elements[1] +
                      _elements[2] * _elements[2] + _elements[3] * _elements[3] +
