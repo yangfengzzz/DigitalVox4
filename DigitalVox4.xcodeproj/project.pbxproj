@@ -371,6 +371,18 @@
 		0445953527950C8800F04CE0 /* surface_set3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445953127950C8700F04CE0 /* surface_set3.cpp */; };
 		0445953627950C8800F04CE0 /* surface_set2.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445953227950C8700F04CE0 /* surface_set2.h */; };
 		0445953727950C8800F04CE0 /* surface_set3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445953327950C8800F04CE0 /* surface_set3.h */; };
+		0445953C27950DF700F04CE0 /* implicit_surface2.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445953827950DF700F04CE0 /* implicit_surface2.h */; };
+		0445953D27950DF700F04CE0 /* implicit_surface2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445953927950DF700F04CE0 /* implicit_surface2.cpp */; };
+		0445953E27950DF700F04CE0 /* implicit_surface3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445953A27950DF700F04CE0 /* implicit_surface3.cpp */; };
+		0445953F27950DF700F04CE0 /* implicit_surface3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445953B27950DF700F04CE0 /* implicit_surface3.h */; };
+		0445954A27950F3D00F04CE0 /* implicit_surface_set2.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445954627950F3D00F04CE0 /* implicit_surface_set2.h */; };
+		0445954B27950F3D00F04CE0 /* implicit_surface_set3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445954727950F3D00F04CE0 /* implicit_surface_set3.h */; };
+		0445955127950F7400F04CE0 /* surface_to_implicit3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445954D27950F7300F04CE0 /* surface_to_implicit3.h */; };
+		0445955227950F7400F04CE0 /* surface_to_implicit2.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445954E27950F7300F04CE0 /* surface_to_implicit2.h */; };
+		0445955327950F7400F04CE0 /* surface_to_implicit2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445954F27950F7400F04CE0 /* surface_to_implicit2.cpp */; };
+		0445955427950F7400F04CE0 /* surface_to_implicit3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445955027950F7400F04CE0 /* surface_to_implicit3.cpp */; };
+		04459557279510AB00F04CE0 /* implicit_surface_set2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445954827950F3D00F04CE0 /* implicit_surface_set2.cpp */; };
+		04459558279510AB00F04CE0 /* implicit_surface_set3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445954527950F3C00F04CE0 /* implicit_surface_set3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -855,6 +867,20 @@
 		0445953127950C8700F04CE0 /* surface_set3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_set3.cpp; sourceTree = "<group>"; };
 		0445953227950C8700F04CE0 /* surface_set2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = surface_set2.h; sourceTree = "<group>"; };
 		0445953327950C8800F04CE0 /* surface_set3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = surface_set3.h; sourceTree = "<group>"; };
+		0445953827950DF700F04CE0 /* implicit_surface2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = implicit_surface2.h; sourceTree = "<group>"; };
+		0445953927950DF700F04CE0 /* implicit_surface2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = implicit_surface2.cpp; sourceTree = "<group>"; };
+		0445953A27950DF700F04CE0 /* implicit_surface3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = implicit_surface3.cpp; sourceTree = "<group>"; };
+		0445953B27950DF700F04CE0 /* implicit_surface3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = implicit_surface3.h; sourceTree = "<group>"; };
+		0445954027950E4C00F04CE0 /* level_set_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level_set_utils.h; sourceTree = "<group>"; };
+		0445954127950E4C00F04CE0 /* level_set_utils-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "level_set_utils-inl.h"; sourceTree = "<group>"; };
+		0445954527950F3C00F04CE0 /* implicit_surface_set3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = implicit_surface_set3.cpp; sourceTree = "<group>"; };
+		0445954627950F3D00F04CE0 /* implicit_surface_set2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = implicit_surface_set2.h; sourceTree = "<group>"; };
+		0445954727950F3D00F04CE0 /* implicit_surface_set3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = implicit_surface_set3.h; sourceTree = "<group>"; };
+		0445954827950F3D00F04CE0 /* implicit_surface_set2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = implicit_surface_set2.cpp; sourceTree = "<group>"; };
+		0445954D27950F7300F04CE0 /* surface_to_implicit3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = surface_to_implicit3.h; sourceTree = "<group>"; };
+		0445954E27950F7300F04CE0 /* surface_to_implicit2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = surface_to_implicit2.h; sourceTree = "<group>"; };
+		0445954F27950F7400F04CE0 /* surface_to_implicit2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_to_implicit2.cpp; sourceTree = "<group>"; };
+		0445955027950F7400F04CE0 /* surface_to_implicit3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_to_implicit3.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1073,28 +1099,12 @@
 				04229694278D71760090983F /* surface2.cpp */,
 				04229692278D71760090983F /* surface3.h */,
 				04229695278D71760090983F /* surface3.cpp */,
-				044594CB27945C6800F04CE0 /* plane2.h */,
-				044594C927945C6800F04CE0 /* plane2.cpp */,
-				044594CC27945C6800F04CE0 /* plane3.h */,
-				044594CA27945C6800F04CE0 /* plane3.cpp */,
-				044594D62794E41800F04CE0 /* box2.h */,
-				044594D52794E41800F04CE0 /* box2.cpp */,
-				044594D42794E41800F04CE0 /* box3.h */,
-				044594D32794E41800F04CE0 /* box3.cpp */,
-				044594DB2794E5AB00F04CE0 /* sphere2.h */,
-				044594DD2794E5AC00F04CE0 /* sphere2.cpp */,
-				044594DC2794E5AB00F04CE0 /* sphere3.h */,
-				044594DE2794E5AC00F04CE0 /* sphere3.cpp */,
-				044594E32794F17A00F04CE0 /* cylinder3.h */,
-				044594E42794F17A00F04CE0 /* cylinder3.cpp */,
-				044594E82794F2EF00F04CE0 /* triangle3.h */,
-				044594E72794F2EE00F04CE0 /* triangle3.cpp */,
-				044595262795018400F04CE0 /* triangle_mesh3.h */,
-				044595272795018400F04CE0 /* triangle_mesh3.cpp */,
-				0445953227950C8700F04CE0 /* surface_set2.h */,
-				0445953027950C8700F04CE0 /* surface_set2.cpp */,
-				0445953327950C8800F04CE0 /* surface_set3.h */,
-				0445953127950C8700F04CE0 /* surface_set3.cpp */,
+				0445954427950F0B00F04CE0 /* surfaces */,
+				0445953827950DF700F04CE0 /* implicit_surface2.h */,
+				0445953927950DF700F04CE0 /* implicit_surface2.cpp */,
+				0445953B27950DF700F04CE0 /* implicit_surface3.h */,
+				0445953A27950DF700F04CE0 /* implicit_surface3.cpp */,
+				044595592795118000F04CE0 /* implicit_surfaces */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -1216,6 +1226,8 @@
 				0422966A278D689B0090983F /* ray2-inl.h */,
 				04229668278D689B0090983F /* ray3.h */,
 				04229666278D689B0090983F /* ray3-inl.h */,
+				0445954027950E4C00F04CE0 /* level_set_utils.h */,
+				0445954127950E4C00F04CE0 /* level_set_utils-inl.h */,
 				044594F92794F79000F04CE0 /* intersection_query_engine2.h */,
 				044594FC2794F79100F04CE0 /* intersection_query_engine3.h */,
 				044594FA2794F79100F04CE0 /* nearest_neighbor_query_engine2.h */,
@@ -1560,6 +1572,50 @@
 			name = query_engines;
 			sourceTree = "<group>";
 		};
+		0445954427950F0B00F04CE0 /* surfaces */ = {
+			isa = PBXGroup;
+			children = (
+				044594CB27945C6800F04CE0 /* plane2.h */,
+				044594C927945C6800F04CE0 /* plane2.cpp */,
+				044594CC27945C6800F04CE0 /* plane3.h */,
+				044594CA27945C6800F04CE0 /* plane3.cpp */,
+				044594D62794E41800F04CE0 /* box2.h */,
+				044594D52794E41800F04CE0 /* box2.cpp */,
+				044594D42794E41800F04CE0 /* box3.h */,
+				044594D32794E41800F04CE0 /* box3.cpp */,
+				044594DB2794E5AB00F04CE0 /* sphere2.h */,
+				044594DD2794E5AC00F04CE0 /* sphere2.cpp */,
+				044594DC2794E5AB00F04CE0 /* sphere3.h */,
+				044594DE2794E5AC00F04CE0 /* sphere3.cpp */,
+				044594E32794F17A00F04CE0 /* cylinder3.h */,
+				044594E42794F17A00F04CE0 /* cylinder3.cpp */,
+				044594E82794F2EF00F04CE0 /* triangle3.h */,
+				044594E72794F2EE00F04CE0 /* triangle3.cpp */,
+				044595262795018400F04CE0 /* triangle_mesh3.h */,
+				044595272795018400F04CE0 /* triangle_mesh3.cpp */,
+				0445953227950C8700F04CE0 /* surface_set2.h */,
+				0445953027950C8700F04CE0 /* surface_set2.cpp */,
+				0445953327950C8800F04CE0 /* surface_set3.h */,
+				0445953127950C8700F04CE0 /* surface_set3.cpp */,
+			);
+			name = surfaces;
+			sourceTree = "<group>";
+		};
+		044595592795118000F04CE0 /* implicit_surfaces */ = {
+			isa = PBXGroup;
+			children = (
+				0445954E27950F7300F04CE0 /* surface_to_implicit2.h */,
+				0445954F27950F7400F04CE0 /* surface_to_implicit2.cpp */,
+				0445954D27950F7300F04CE0 /* surface_to_implicit3.h */,
+				0445955027950F7400F04CE0 /* surface_to_implicit3.cpp */,
+				0445954627950F3D00F04CE0 /* implicit_surface_set2.h */,
+				0445954827950F3D00F04CE0 /* implicit_surface_set2.cpp */,
+				0445954727950F3D00F04CE0 /* implicit_surface_set3.h */,
+				0445954527950F3C00F04CE0 /* implicit_surface_set3.cpp */,
+			);
+			name = implicit_surfaces;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1706,17 +1762,23 @@
 				044594DF2794E5AC00F04CE0 /* sphere2.h in Headers */,
 				044594E02794E5AC00F04CE0 /* sphere3.h in Headers */,
 				044594DA2794E41800F04CE0 /* box2.h in Headers */,
+				0445954A27950F3D00F04CE0 /* implicit_surface_set2.h in Headers */,
 				0445953727950C8800F04CE0 /* surface_set3.h in Headers */,
+				0445953C27950DF700F04CE0 /* implicit_surface2.h in Headers */,
 				044594CF27945C6800F04CE0 /* plane2.h in Headers */,
 				044594D027945C6800F04CE0 /* plane3.h in Headers */,
 				04229697278D71760090983F /* surface2.h in Headers */,
 				044594E52794F17A00F04CE0 /* cylinder3.h in Headers */,
 				0445953627950C8800F04CE0 /* surface_set2.h in Headers */,
+				0445955127950F7400F04CE0 /* surface_to_implicit3.h in Headers */,
 				04229696278D71760090983F /* surface3.h in Headers */,
 				044594EA2794F2EF00F04CE0 /* triangle3.h in Headers */,
 				044594D82794E41800F04CE0 /* box3.h in Headers */,
+				0445955227950F7400F04CE0 /* surface_to_implicit2.h in Headers */,
+				0445954B27950F3D00F04CE0 /* implicit_surface_set3.h in Headers */,
 				044594D227945E0600F04CE0 /* private_helpers.h in Headers */,
 				044595282795018400F04CE0 /* triangle_mesh3.h in Headers */,
+				0445953F27950DF700F04CE0 /* implicit_surface3.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2055,7 +2117,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0445955327950F7400F04CE0 /* surface_to_implicit2.cpp in Sources */,
 				044594E62794F17A00F04CE0 /* cylinder3.cpp in Sources */,
+				04459557279510AB00F04CE0 /* implicit_surface_set2.cpp in Sources */,
 				044594CD27945C6800F04CE0 /* plane2.cpp in Sources */,
 				044591C2278DD2F000F04CE0 /* surface2.cpp in Sources */,
 				044594E12794E5AC00F04CE0 /* sphere2.cpp in Sources */,
@@ -2064,10 +2128,14 @@
 				044594E92794F2EF00F04CE0 /* triangle3.cpp in Sources */,
 				0445953427950C8800F04CE0 /* surface_set2.cpp in Sources */,
 				0445953527950C8800F04CE0 /* surface_set3.cpp in Sources */,
+				0445953D27950DF700F04CE0 /* implicit_surface2.cpp in Sources */,
 				044594CE27945C6800F04CE0 /* plane3.cpp in Sources */,
+				04459558279510AB00F04CE0 /* implicit_surface_set3.cpp in Sources */,
 				044594D72794E41800F04CE0 /* box3.cpp in Sources */,
 				044594E22794E5AC00F04CE0 /* sphere3.cpp in Sources */,
+				0445955427950F7400F04CE0 /* surface_to_implicit3.cpp in Sources */,
 				044591C3278DD39B00F04CE0 /* surface3.cpp in Sources */,
+				0445953E27950DF700F04CE0 /* implicit_surface3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
