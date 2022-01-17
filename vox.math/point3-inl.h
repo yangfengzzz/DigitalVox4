@@ -122,6 +122,11 @@ T Point<T, 3>::dot(const Vector<T, 3> &v) const {
     return x * v.x + y * v.y + z * v.z;
 }
 
+template<typename T>
+Vector<T, 3> Point<T, 3>::cross(const Point &v) const {
+    return Vector<T, 3>(y * v.z - v.y * z, z * v.x - v.z * x, x * v.y - v.x * y);
+}
+
 // Binary operators: new instance = v (+) this
 template<typename T>
 Point<T, 3> Point<T, 3>::rsub(T v) const {

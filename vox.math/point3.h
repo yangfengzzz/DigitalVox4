@@ -112,6 +112,9 @@ public:
     //! Computes dot product.
     T dot(const Vector3<T> &v) const;
     
+    //! Computes cross product.
+    Vector3<T> cross(const Point &v) const;
+    
     // MARK: - Binary operations: new instance = v (+) this
     
     //! Computes (v, v, v) - this.

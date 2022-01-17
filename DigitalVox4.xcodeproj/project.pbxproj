@@ -362,6 +362,11 @@
 		044595102794FC0A00F04CE0 /* quadtree_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445950E2794FC0A00F04CE0 /* quadtree_tests.cpp */; };
 		044595232794FE8400F04CE0 /* bvh2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595212794FE8400F04CE0 /* bvh2_tests.cpp */; };
 		044595242794FE8400F04CE0 /* bvh3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595222794FE8400F04CE0 /* bvh3_tests.cpp */; };
+		044595282795018400F04CE0 /* triangle_mesh3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595262795018400F04CE0 /* triangle_mesh3.h */; };
+		044595292795018400F04CE0 /* triangle_mesh3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595272795018400F04CE0 /* triangle_mesh3.cpp */; };
+		0445952D279501DB00F04CE0 /* parallel-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445952A279501DB00F04CE0 /* parallel-inl.h */; };
+		0445952E279501DB00F04CE0 /* parallel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445952B279501DB00F04CE0 /* parallel.h */; };
+		0445952F279501DB00F04CE0 /* parallel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445952C279501DB00F04CE0 /* parallel.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -837,6 +842,11 @@
 		0445951C2794FE3300F04CE0 /* bvh3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bvh3-inl.h"; sourceTree = "<group>"; };
 		044595212794FE8400F04CE0 /* bvh2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bvh2_tests.cpp; sourceTree = "<group>"; };
 		044595222794FE8400F04CE0 /* bvh3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bvh3_tests.cpp; sourceTree = "<group>"; };
+		044595262795018400F04CE0 /* triangle_mesh3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangle_mesh3.h; sourceTree = "<group>"; };
+		044595272795018400F04CE0 /* triangle_mesh3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangle_mesh3.cpp; sourceTree = "<group>"; };
+		0445952A279501DB00F04CE0 /* parallel-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "parallel-inl.h"; sourceTree = "<group>"; };
+		0445952B279501DB00F04CE0 /* parallel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parallel.h; sourceTree = "<group>"; };
+		0445952C279501DB00F04CE0 /* parallel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parallel.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1071,6 +1081,8 @@
 				044594E42794F17A00F04CE0 /* cylinder3.cpp */,
 				044594E82794F2EF00F04CE0 /* triangle3.h */,
 				044594E72794F2EE00F04CE0 /* triangle3.cpp */,
+				044595262795018400F04CE0 /* triangle_mesh3.h */,
+				044595272795018400F04CE0 /* triangle_mesh3.cpp */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -1129,6 +1141,9 @@
 			children = (
 				044594412793B58500F04CE0 /* macros.h */,
 				042295E4278D17790090983F /* constants.h */,
+				0445952B279501DB00F04CE0 /* parallel.h */,
+				0445952A279501DB00F04CE0 /* parallel-inl.h */,
+				0445952C279501DB00F04CE0 /* parallel.cpp */,
 				044594822793B7F000F04CE0 /* type_helpers.h */,
 				044594342793B58400F04CE0 /* functors.h */,
 				044594582793B58800F04CE0 /* functors-inl.h */,
@@ -1687,6 +1702,7 @@
 				044594EA2794F2EF00F04CE0 /* triangle3.h in Headers */,
 				044594D82794E41800F04CE0 /* box3.h in Headers */,
 				044594D227945E0600F04CE0 /* private_helpers.h in Headers */,
+				044595282795018400F04CE0 /* triangle_mesh3.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1729,12 +1745,14 @@
 				044594632793B58800F04CE0 /* size3-inl.h in Headers */,
 				0445947C2793B58800F04CE0 /* matrix-inl.h in Headers */,
 				044594602793B58800F04CE0 /* matrix3x3-inl.h in Headers */,
+				0445952E279501DB00F04CE0 /* parallel.h in Headers */,
 				044594592793B58800F04CE0 /* matrix2x2.h in Headers */,
 				0445947D2793B58800F04CE0 /* quaternion.h in Headers */,
 				044594642793B58800F04CE0 /* vector2.h in Headers */,
 				0445945C2793B58800F04CE0 /* functors.h in Headers */,
 				044591B4278DB45D00F04CE0 /* ray2-inl.h in Headers */,
 				0445947B2793B58800F04CE0 /* quaternion-inl.h in Headers */,
+				0445952D279501DB00F04CE0 /* parallel-inl.h in Headers */,
 				0445946F2793B58800F04CE0 /* vector4-inl.h in Headers */,
 				0445946C2793B58800F04CE0 /* size.h in Headers */,
 				044591B7278DB45D00F04CE0 /* ray3.h in Headers */,
@@ -2027,6 +2045,7 @@
 				044594CD27945C6800F04CE0 /* plane2.cpp in Sources */,
 				044591C2278DD2F000F04CE0 /* surface2.cpp in Sources */,
 				044594E12794E5AC00F04CE0 /* sphere2.cpp in Sources */,
+				044595292795018400F04CE0 /* triangle_mesh3.cpp in Sources */,
 				044594D92794E41800F04CE0 /* box2.cpp in Sources */,
 				044594E92794F2EF00F04CE0 /* triangle3.cpp in Sources */,
 				044594CE27945C6800F04CE0 /* plane3.cpp in Sources */,
@@ -2076,6 +2095,7 @@
 			files = (
 				044594A727940B6D00F04CE0 /* collision_utils.cpp in Sources */,
 				044594A627940A3A00F04CE0 /* bounding_frustum.cpp in Sources */,
+				0445952F279501DB00F04CE0 /* parallel.cpp in Sources */,
 				044594B02794119400F04CE0 /* spherical_harmonics3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2369,7 +2389,12 @@
 				HEADER_SEARCH_PATHS = ./vox.math;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = ./third_party/eigen;
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					./third_party/eigen,
+					./third_party/tinyobj,
+					./third_party/glog/src,
+					./third_party/glog/build,
+				);
 			};
 			name = Debug;
 		};
@@ -2384,7 +2409,12 @@
 				HEADER_SEARCH_PATHS = ./vox.math;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SYSTEM_HEADER_SEARCH_PATHS = ./third_party/eigen;
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					./third_party/eigen,
+					./third_party/tinyobj,
+					./third_party/glog/src,
+					./third_party/glog/build,
+				);
 			};
 			name = Release;
 		};
@@ -2450,6 +2480,7 @@
 				GCC_ENABLE_CPP_RTTI = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -2463,6 +2494,7 @@
 				GCC_ENABLE_CPP_RTTI = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

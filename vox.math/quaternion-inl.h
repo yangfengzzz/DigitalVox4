@@ -211,6 +211,24 @@ inline Vector3 <T> Quaternion<T>::mul(const Vector3 <T> &v) const {
                       (_2xz - _2yw) * v.x + (_2yz + _2xw) * v.y + (1 - _2yy - _2xx) * v.z);
 }
 
+// Binary operator methods - new instance = this instance (+) input
+template<typename T>
+inline Point3 <T> Quaternion<T>::mul(const Point3 <T> &v) const {
+    T _2xx = 2 * x * x;
+    T _2yy = 2 * y * y;
+    T _2zz = 2 * z * z;
+    T _2xy = 2 * x * y;
+    T _2xz = 2 * x * z;
+    T _2xw = 2 * x * w;
+    T _2yz = 2 * y * z;
+    T _2yw = 2 * y * w;
+    T _2zw = 2 * z * w;
+    
+    return Point3<T>((1 - _2yy - _2zz) * v.x + (_2xy - _2zw) * v.y + (_2xz + _2yw) * v.z,
+                     (_2xy + _2zw) * v.x + (1 - _2zz - _2xx) * v.y + (_2yz - _2xw) * v.z,
+                     (_2xz - _2yw) * v.x + (_2yz + _2xw) * v.y + (1 - _2yy - _2xx) * v.z);
+}
+
 template<typename T>
 inline Quaternion <T> Quaternion<T>::mul(const Quaternion &other) const {
     return Quaternion(w * other.w - x * other.x - y * other.y - z * other.z,
@@ -616,6 +634,11 @@ inline Quaternion <T> slerp(const Quaternion <T> &a,
 // Operator overloadings
 template<typename T>
 inline Vector<T, 3> operator*(const Quaternion <T> &q, const Vector<T, 3> &v) {
+    return q.mul(v);
+}
+
+template<typename T>
+inline Point<T, 3> operator*(const Quaternion <T> &q, const Point<T, 3> &v) {
     return q.mul(v);
 }
 
