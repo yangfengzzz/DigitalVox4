@@ -9,6 +9,7 @@
 
 #include <gtest/gtest.h>
 #include "vector3.h"
+#include "point3.h"
 
 #define EXPECT_VECTOR2_EQ(expected, actual)     \
     EXPECT_DOUBLE_EQ((expected).x, (actual).x); \
@@ -58,11 +59,11 @@
 
 namespace vox {
 
-const Vector2D* getSamplePoints2();
+const Point2D* getSamplePoints2();
 
 size_t getNumberOfSamplePoints2();
 
-const Vector3D* getSamplePoints3();
+const Point3D* getSamplePoints3();
 
 size_t getNumberOfSamplePoints3();
 

@@ -356,6 +356,16 @@
 		044594E62794F17A00F04CE0 /* cylinder3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594E42794F17A00F04CE0 /* cylinder3.cpp */; };
 		044594E92794F2EF00F04CE0 /* triangle3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594E72794F2EE00F04CE0 /* triangle3.cpp */; };
 		044594EA2794F2EF00F04CE0 /* triangle3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594E82794F2EF00F04CE0 /* triangle3.h */; };
+		044594FD2794F79100F04CE0 /* intersection_query_engine2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594F92794F79000F04CE0 /* intersection_query_engine2.h */; };
+		044594FE2794F79100F04CE0 /* nearest_neighbor_query_engine2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594FA2794F79100F04CE0 /* nearest_neighbor_query_engine2.h */; };
+		044594FF2794F79100F04CE0 /* nearest_neighbor_query_engine3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594FB2794F79100F04CE0 /* nearest_neighbor_query_engine3.h */; };
+		044595002794F79100F04CE0 /* intersection_query_engine3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594FC2794F79100F04CE0 /* intersection_query_engine3.h */; };
+		044595052794F8B800F04CE0 /* list_query_engine2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595012794F8B800F04CE0 /* list_query_engine2.h */; };
+		044595062794F8B800F04CE0 /* list_query_engine3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595022794F8B800F04CE0 /* list_query_engine3.h */; };
+		044595072794F8B800F04CE0 /* list_query_engine3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595032794F8B800F04CE0 /* list_query_engine3-inl.h */; };
+		044595082794F8B800F04CE0 /* list_query_engine2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595042794F8B800F04CE0 /* list_query_engine2-inl.h */; };
+		0445950B2794F97400F04CE0 /* list_query_engine2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595092794F97300F04CE0 /* list_query_engine2_tests.cpp */; };
+		0445950C2794F97400F04CE0 /* list_query_engine3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445950A2794F97300F04CE0 /* list_query_engine3_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -809,6 +819,16 @@
 		044594E42794F17A00F04CE0 /* cylinder3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cylinder3.cpp; sourceTree = "<group>"; };
 		044594E72794F2EE00F04CE0 /* triangle3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangle3.cpp; sourceTree = "<group>"; };
 		044594E82794F2EF00F04CE0 /* triangle3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangle3.h; sourceTree = "<group>"; };
+		044594F92794F79000F04CE0 /* intersection_query_engine2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = intersection_query_engine2.h; sourceTree = "<group>"; };
+		044594FA2794F79100F04CE0 /* nearest_neighbor_query_engine2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nearest_neighbor_query_engine2.h; sourceTree = "<group>"; };
+		044594FB2794F79100F04CE0 /* nearest_neighbor_query_engine3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nearest_neighbor_query_engine3.h; sourceTree = "<group>"; };
+		044594FC2794F79100F04CE0 /* intersection_query_engine3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = intersection_query_engine3.h; sourceTree = "<group>"; };
+		044595012794F8B800F04CE0 /* list_query_engine2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list_query_engine2.h; sourceTree = "<group>"; };
+		044595022794F8B800F04CE0 /* list_query_engine3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list_query_engine3.h; sourceTree = "<group>"; };
+		044595032794F8B800F04CE0 /* list_query_engine3-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "list_query_engine3-inl.h"; sourceTree = "<group>"; };
+		044595042794F8B800F04CE0 /* list_query_engine2-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "list_query_engine2-inl.h"; sourceTree = "<group>"; };
+		044595092794F97300F04CE0 /* list_query_engine2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_query_engine2_tests.cpp; sourceTree = "<group>"; };
+		0445950A2794F97300F04CE0 /* list_query_engine3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_query_engine3_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1043,6 +1063,14 @@
 				044594E42794F17A00F04CE0 /* cylinder3.cpp */,
 				044594E82794F2EF00F04CE0 /* triangle3.h */,
 				044594E72794F2EE00F04CE0 /* triangle3.cpp */,
+				044594F92794F79000F04CE0 /* intersection_query_engine2.h */,
+				044594FC2794F79100F04CE0 /* intersection_query_engine3.h */,
+				044594FA2794F79100F04CE0 /* nearest_neighbor_query_engine2.h */,
+				044594FB2794F79100F04CE0 /* nearest_neighbor_query_engine3.h */,
+				044595012794F8B800F04CE0 /* list_query_engine2.h */,
+				044595042794F8B800F04CE0 /* list_query_engine2-inl.h */,
+				044595022794F8B800F04CE0 /* list_query_engine3.h */,
+				044595032794F8B800F04CE0 /* list_query_engine3-inl.h */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -1072,6 +1100,8 @@
 				0422967D278D697B0090983F /* bounding_box_tests.cpp */,
 				0422967C278D697B0090983F /* bounding_box2_tests.cpp */,
 				0422967A278D697B0090983F /* bounding_box3_tests.cpp */,
+				044595092794F97300F04CE0 /* list_query_engine2_tests.cpp */,
+				0445950A2794F97300F04CE0 /* list_query_engine3_tests.cpp */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -1619,13 +1649,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				044594DF2794E5AC00F04CE0 /* sphere2.h in Headers */,
+				044595002794F79100F04CE0 /* intersection_query_engine3.h in Headers */,
+				044595052794F8B800F04CE0 /* list_query_engine2.h in Headers */,
 				044594E02794E5AC00F04CE0 /* sphere3.h in Headers */,
+				044594FF2794F79100F04CE0 /* nearest_neighbor_query_engine3.h in Headers */,
 				044594DA2794E41800F04CE0 /* box2.h in Headers */,
+				044594FE2794F79100F04CE0 /* nearest_neighbor_query_engine2.h in Headers */,
+				044595072794F8B800F04CE0 /* list_query_engine3-inl.h in Headers */,
 				044594CF27945C6800F04CE0 /* plane2.h in Headers */,
+				044595062794F8B800F04CE0 /* list_query_engine3.h in Headers */,
 				044594D027945C6800F04CE0 /* plane3.h in Headers */,
+				044594FD2794F79100F04CE0 /* intersection_query_engine2.h in Headers */,
 				04229697278D71760090983F /* surface2.h in Headers */,
 				044594E52794F17A00F04CE0 /* cylinder3.h in Headers */,
 				04229696278D71760090983F /* surface3.h in Headers */,
+				044595082794F8B800F04CE0 /* list_query_engine2-inl.h in Headers */,
 				044594EA2794F2EF00F04CE0 /* triangle3.h in Headers */,
 				044594D82794E41800F04CE0 /* box3.h in Headers */,
 				044594D227945E0600F04CE0 /* private_helpers.h in Headers */,
@@ -1986,6 +2024,7 @@
 				044594982793B98F00F04CE0 /* vector2_tests.cpp in Sources */,
 				044594992793B98F00F04CE0 /* quaternion_tests.cpp in Sources */,
 				044591BB278DB90500F04CE0 /* bounding_box_tests.cpp in Sources */,
+				0445950C2794F97400F04CE0 /* list_query_engine3_tests.cpp in Sources */,
 				0445949D2793B98F00F04CE0 /* math_utils_tests.cpp in Sources */,
 				044591BC278DBA1B00F04CE0 /* bounding_box3_tests.cpp in Sources */,
 				044594952793B98F00F04CE0 /* vector3_tests.cpp in Sources */,
@@ -1997,6 +2036,7 @@
 				044594932793B98F00F04CE0 /* vector4_tests.cpp in Sources */,
 				0445949F2793B98F00F04CE0 /* matrix4x4_tests.cpp in Sources */,
 				044591BD278DCBA500F04CE0 /* transform2_tests.cpp in Sources */,
+				0445950B2794F97400F04CE0 /* list_query_engine2_tests.cpp in Sources */,
 				0445949C2793B98F00F04CE0 /* point2_tests.cpp in Sources */,
 				0445949E2793B98F00F04CE0 /* matrix2x2_tests.cpp in Sources */,
 				044594962793B98F00F04CE0 /* point_tests.cpp in Sources */,

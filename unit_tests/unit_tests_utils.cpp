@@ -6,12 +6,14 @@
 
 #include "vector2.h"
 #include "vector3.h"
+#include "point2.h"
+#include "point3.h"
 
 #define STR(s) #s
 
 namespace vox {
 
-const Vector2D kSamplePoints2[] = {
+const Point2D kSamplePoints2[] = {
     {0.345361, 0.379616},
     {0.689684, 0.981134},
     {0.178295, 0.775100},
@@ -217,7 +219,7 @@ const Vector2D kSampleDirs2[] = {
     {0.817585, -0.575807}
 };
 
-const Vector3D kSamplePoints3[] = {
+const Point3D kSamplePoints3[] = {
     {0.497400, 0.340319, 0.174018},
     {0.345847, 0.671895, 0.770077},
     {0.824750, 0.832587, 0.337455},
@@ -950,7 +952,7 @@ const char* kSphereTriMesh5x5Obj = STR(
     f 20/23/88 16/24/89 22/34/90\n
 );
 
-const Vector2D* getSamplePoints2() {
+const Point2D* getSamplePoints2() {
     return kSamplePoints2;
 }
 
@@ -958,7 +960,7 @@ size_t getNumberOfSamplePoints2() {
     return sizeof(kSamplePoints2) / sizeof(kSamplePoints2[0]);
 }
 
-const Vector3D* getSamplePoints3() {
+const Point3D* getSamplePoints3() {
     return kSamplePoints3;
 }
 
