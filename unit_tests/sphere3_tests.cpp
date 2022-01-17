@@ -16,15 +16,15 @@ TEST(Sphere3, Constructors) {
     EXPECT_DOUBLE_EQ(0.0, sph1.center.y);
     EXPECT_DOUBLE_EQ(0.0, sph1.center.z);
     EXPECT_DOUBLE_EQ(1.0, sph1.radius);
-
+    
     Sphere3 sph2({3.0, -1.0, 2.0}, 5.0);
     EXPECT_DOUBLE_EQ(3.0, sph2.center.x);
     EXPECT_DOUBLE_EQ(-1.0, sph2.center.y);
     EXPECT_DOUBLE_EQ(2.0, sph2.center.z);
     EXPECT_DOUBLE_EQ(5.0, sph2.radius);
-
+    
     sph2.isNormalFlipped = true;
-
+    
     Sphere3 sph3(sph2);
     EXPECT_DOUBLE_EQ(3.0, sph3.center.x);
     EXPECT_DOUBLE_EQ(-1.0, sph3.center.y);
@@ -35,17 +35,17 @@ TEST(Sphere3, Constructors) {
 
 TEST(Sphere3, ClosestPoint) {
     Sphere3 sph({3.0, -1.0, 2.0}, 5.0);
-
+    
     auto result1 = sph.closestPoint({10.0, -1.0, 2.0});
     EXPECT_DOUBLE_EQ(8.0, result1.x);
     EXPECT_DOUBLE_EQ(-1.0, result1.y);
     EXPECT_DOUBLE_EQ(2.0, result1.z);
-
+    
     auto result2 = sph.closestPoint({3.0, -10.0, 2.0});
     EXPECT_DOUBLE_EQ(3.0, result2.x);
     EXPECT_DOUBLE_EQ(-6.0, result2.y);
     EXPECT_DOUBLE_EQ(2.0, result2.z);
-
+    
     auto result3 = sph.closestPoint({3.0, 3.0, 2.0});
     EXPECT_DOUBLE_EQ(3.0, result3.x);
     EXPECT_DOUBLE_EQ(4.0, result3.y);
@@ -54,13 +54,13 @@ TEST(Sphere3, ClosestPoint) {
 
 TEST(Sphere3, ClosestDistance) {
     Sphere3 sph({3.0, -1.0, 2.0}, 5.0);
-
+    
     double result1 = sph.closestDistance({10.0, -1.0, 2.0});
     EXPECT_DOUBLE_EQ(2.0, result1);
-
+    
     double result2 = sph.closestDistance({3.0, -10.0, 2.0});
     EXPECT_DOUBLE_EQ(4.0, result2);
-
+    
     double result3 = sph.closestDistance({3.0, 3.0, 2.0});
     EXPECT_DOUBLE_EQ(1.0, result3);
 }
@@ -68,13 +68,13 @@ TEST(Sphere3, ClosestDistance) {
 TEST(Sphere3, Intersects) {
     Sphere3 sph({3.0, -1.0, 2.0}, 5.0);
     sph.isNormalFlipped = true;
-
+    
     bool result1 = sph.intersects(Ray3D({10.0, -1.0, 2.0}, {-1.0, 0.0, 0.0}));
     EXPECT_TRUE(result1);
-
+    
     bool result2 = sph.intersects(Ray3D({3.0, -10.0, 2.0}, {0.0, -1.0, 0.0}));
     EXPECT_FALSE(result2);
-
+    
     bool result3 = sph.intersects(Ray3D({3.0, 3.0, 2.0}, {1.0, 0.0, 0.0}));
     EXPECT_TRUE(result3);
 }
@@ -82,9 +82,9 @@ TEST(Sphere3, Intersects) {
 TEST(Sphere3, ClosestIntersection) {
     Sphere3 sph({3.0, -1.0, 2.0}, 5.0);
     sph.isNormalFlipped = true;
-
+    
     auto result1 =
-        sph.closestIntersection(Ray3D({10.0, -1.0, 2.0}, {-1.0, 0.0, 0.0}));
+    sph.closestIntersection(Ray3D({10.0, -1.0, 2.0}, {-1.0, 0.0, 0.0}));
     EXPECT_TRUE(result1.isIntersecting);
     EXPECT_DOUBLE_EQ(2.0, result1.distance);
     EXPECT_DOUBLE_EQ(8.0, result1.point.x);
@@ -93,13 +93,13 @@ TEST(Sphere3, ClosestIntersection) {
     EXPECT_DOUBLE_EQ(-1.0, result1.normal.x);
     EXPECT_DOUBLE_EQ(0.0, result1.normal.y);
     EXPECT_DOUBLE_EQ(0.0, result1.normal.z);
-
+    
     auto result2 =
-        sph.closestIntersection(Ray3D({3.0, -10.0, 2.0}, {0.0, -1.0, 0.0}));
+    sph.closestIntersection(Ray3D({3.0, -10.0, 2.0}, {0.0, -1.0, 0.0}));
     EXPECT_FALSE(result2.isIntersecting);
-
+    
     auto result3 =
-        sph.closestIntersection(Ray3D({3.0, 3.0, 2.0}, {0.0, 1.0, 0.0}));
+    sph.closestIntersection(Ray3D({3.0, 3.0, 2.0}, {0.0, 1.0, 0.0}));
     EXPECT_TRUE(result3.isIntersecting);
     EXPECT_DOUBLE_EQ(1.0, result3.distance);
     EXPECT_DOUBLE_EQ(3.0, result3.point.x);
@@ -113,7 +113,7 @@ TEST(Sphere3, ClosestIntersection) {
 TEST(Sphere3, BoundingBox) {
     Sphere3 sph({3.0, -1.0, 2.0}, 5.0);
     BoundingBox3D bbox = sph.boundingBox();
-
+    
     EXPECT_DOUBLE_EQ(-2.0, bbox.lowerCorner.x);
     EXPECT_DOUBLE_EQ(-6.0, bbox.lowerCorner.y);
     EXPECT_DOUBLE_EQ(-3.0, bbox.lowerCorner.z);
@@ -125,17 +125,17 @@ TEST(Sphere3, BoundingBox) {
 TEST(Sphere3, ClosestNormal) {
     Sphere3 sph({3.0, -1.0, 2.0}, 5.0);
     sph.isNormalFlipped = true;
-
+    
     auto result1 = sph.closestNormal({10.0, -1.0, 2.0});
     EXPECT_DOUBLE_EQ(-1.0, result1.x);
     EXPECT_DOUBLE_EQ(0.0, result1.y);
     EXPECT_DOUBLE_EQ(0.0, result1.z);
-
+    
     auto result2 = sph.closestNormal({3.0, -10.0, 2.0});
     EXPECT_DOUBLE_EQ(0.0, result2.x);
     EXPECT_DOUBLE_EQ(1.0, result2.y);
     EXPECT_DOUBLE_EQ(0.0, result2.z);
-
+    
     auto result3 = sph.closestNormal({3.0, 3.0, 2.0});
     EXPECT_DOUBLE_EQ(0.0, result3.x);
     EXPECT_DOUBLE_EQ(-1.0, result3.y);
@@ -144,10 +144,10 @@ TEST(Sphere3, ClosestNormal) {
 
 TEST(Sphere3, Builder) {
     Sphere3 sph = Sphere3::builder()
-                      .withCenter({3.0, -1.0, 2.0})
-                      .withRadius(5.0)
-                      .withIsNormalFlipped(true)
-                      .build();
+        .withCenter({3.0, -1.0, 2.0})
+        .withRadius(5.0)
+        .withIsNormalFlipped(true)
+        .build();
     EXPECT_DOUBLE_EQ(3.0, sph.center.x);
     EXPECT_DOUBLE_EQ(-1.0, sph.center.y);
     EXPECT_DOUBLE_EQ(2.0, sph.center.z);

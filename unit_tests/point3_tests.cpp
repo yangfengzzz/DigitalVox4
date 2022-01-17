@@ -26,7 +26,7 @@ TEST(Point3, Constructors) {
     EXPECT_FLOAT_EQ(7.f, pt4.y);
     EXPECT_FLOAT_EQ(9.f, pt4.z);
     
-    Point3F pt5 = { 7.f, 6.f, 1.f };
+    Point3F pt5 = {7.f, 6.f, 1.f};
     EXPECT_FLOAT_EQ(7.f, pt5.x);
     EXPECT_FLOAT_EQ(6.f, pt5.y);
     EXPECT_FLOAT_EQ(1.f, pt5.z);
@@ -94,7 +94,7 @@ TEST(Point3, BinaryOperatorMethods) {
     pt = pt.mul(2.f);
     EXPECT_FLOAT_EQ(4.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
-    EXPECT_FLOAT_EQ(-14.f,pt.z);
+    EXPECT_FLOAT_EQ(-14.f, pt.z);
     
     pt = pt.mul(Point3F(3.f, -2.f, 0.5f));
     EXPECT_FLOAT_EQ(12.f, pt.x);
@@ -149,7 +149,7 @@ TEST(Point3, AugmentedOperatorMethods) {
     EXPECT_FLOAT_EQ(13.f, pt.z);
     
     pt.isub(8.f);
-    EXPECT_FLOAT_EQ(-3.f,pt.x);
+    EXPECT_FLOAT_EQ(-3.f, pt.x);
     EXPECT_FLOAT_EQ(6.f, pt.y);
     EXPECT_FLOAT_EQ(5.f, pt.z);
     
@@ -171,7 +171,7 @@ TEST(Point3, AugmentedOperatorMethods) {
     pt.idiv(4.f);
     EXPECT_FLOAT_EQ(3.f, pt.x);
     EXPECT_FLOAT_EQ(-3.f, pt.y);
-    EXPECT_FLOAT_EQ(-1.75f,pt.z);
+    EXPECT_FLOAT_EQ(-1.75f, pt.z);
     
     pt.idiv(Point3F(3.f, -1.f, 0.25f));
     EXPECT_FLOAT_EQ(1.f, pt.x);
@@ -212,10 +212,10 @@ TEST(Point3, BasicGetterMethods) {
     EXPECT_FLOAT_EQ(-7.f, absmax);
     
     size_t daxis = pt.dominantAxis();
-    EXPECT_EQ((size_t)1, daxis);
+    EXPECT_EQ((size_t) 1, daxis);
     
     size_t saxis = pt.subminantAxis();
-    EXPECT_EQ((size_t)2, saxis);
+    EXPECT_EQ((size_t) 2, saxis);
 }
 
 TEST(Point3, BracketOperators) {
@@ -322,7 +322,7 @@ TEST(Point3, BinaryOperators) {
     Point3F pt(3.f, 9.f, 4.f);
     pt = pt + 4.f;
     EXPECT_FLOAT_EQ(7.f, pt.x);
-    EXPECT_FLOAT_EQ(13.f,pt.y);
+    EXPECT_FLOAT_EQ(13.f, pt.y);
     EXPECT_FLOAT_EQ(8.f, pt.z);
     
     pt = pt + Vector3F(-2.f, 1.f, 5.f);

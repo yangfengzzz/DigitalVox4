@@ -17,7 +17,7 @@ TEST(ListQueryEngine3, BoxIntersection) {
     ListQueryEngine3<Point3D> engine;
     engine.add(points);
     
-    auto testFunc = [](const Point3D& pt, const BoundingBox3D& bbox) {
+    auto testFunc = [](const Point3D &pt, const BoundingBox3D &bbox) {
         return bbox.contains(pt);
     };
     
@@ -40,7 +40,7 @@ TEST(ListQueryEngine3, BoxIntersection) {
     EXPECT_EQ(hasIntersection, engine.intersects(testBox2, testFunc));
     
     size_t measured = 0;
-    engine.forEachIntersectingItem(testBox2, testFunc, [&](const Point3D& pt) {
+    engine.forEachIntersectingItem(testBox2, testFunc, [&](const Point3D &pt) {
         EXPECT_TRUE(testFunc(pt, testBox2));
         ++measured;
     });
@@ -51,7 +51,7 @@ TEST(ListQueryEngine3, BoxIntersection) {
 TEST(ListQueryEngine3, RayIntersection) {
     ListQueryEngine3<BoundingBox3D> engine;
     
-    auto intersectsFunc = [](const BoundingBox3D& a, const Ray3D& ray) {
+    auto intersectsFunc = [](const BoundingBox3D &a, const Ray3D &ray) {
         return a.intersects(ray);
     };
     
@@ -89,7 +89,7 @@ TEST(ListQueryEngine3, RayIntersection) {
 TEST(ListQueryEngine3, ClosestIntersection) {
     ListQueryEngine3<BoundingBox3D> engine;
     
-    auto intersectsFunc = [](const BoundingBox3D& a, const Ray3D& ray) {
+    auto intersectsFunc = [](const BoundingBox3D &a, const Ray3D &ray) {
         auto bboxResult = a.closestIntersection(ray);
         return bboxResult.tNear;
     };
@@ -138,7 +138,7 @@ TEST(ListQueryEngine3, ClosestIntersection) {
 TEST(ListQueryEngine3, NearestNeighbor) {
     ListQueryEngine3<Point3D> engine;
     
-    auto distanceFunc = [](const Point3D& a, const Point3D& b) {
+    auto distanceFunc = [](const Point3D &a, const Point3D &b) {
         return a.distanceTo(b);
     };
     

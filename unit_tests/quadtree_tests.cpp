@@ -18,11 +18,11 @@ TEST(Quadtree, Constructors) {
 TEST(Quadtree, Nearest) {
     Quadtree<Point2D> quadtree;
     
-    auto overlapsFunc = [](const Point2D& pt, const BoundingBox2D& bbox) {
+    auto overlapsFunc = [](const Point2D &pt, const BoundingBox2D &bbox) {
         return bbox.contains(pt);
     };
     
-    auto distanceFunc = [](const Point2D& a, const Point2D& b) {
+    auto distanceFunc = [](const Point2D &a, const Point2D &b) {
         return a.distanceTo(b);
     };
     
@@ -75,7 +75,7 @@ TEST(Quadtree, Nearest) {
 TEST(Quadtree, BBoxIntersects) {
     Quadtree<Point2D> quadtree;
     
-    auto overlapsFunc = [](const Point2D& pt, const BoundingBox2D& bbox) {
+    auto overlapsFunc = [](const Point2D &pt, const BoundingBox2D &bbox) {
         return bbox.contains(pt);
     };
     
@@ -105,7 +105,7 @@ TEST(Quadtree, BBoxIntersects) {
 TEST(Quadtree, ForEachOverlappingItems) {
     Quadtree<Point2D> quadtree;
     
-    auto overlapsFunc = [](const Point2D& pt, const BoundingBox2D& bbox) {
+    auto overlapsFunc = [](const Point2D &pt, const BoundingBox2D &bbox) {
         return bbox.contains(pt);
     };
     
@@ -123,7 +123,7 @@ TEST(Quadtree, ForEachOverlappingItems) {
     
     size_t measured = 0;
     quadtree.forEachIntersectingItem(testBox, overlapsFunc,
-                                     [&](const Point2D& pt) {
+                                     [&](const Point2D &pt) {
         EXPECT_TRUE(overlapsFunc(pt, testBox));
         ++measured;
     });
@@ -134,11 +134,11 @@ TEST(Quadtree, ForEachOverlappingItems) {
 TEST(Quadtree, RayIntersects) {
     Quadtree<BoundingBox2D> quadtree;
     
-    auto overlapsFunc = [](const BoundingBox2D& a, const BoundingBox2D& bbox) {
+    auto overlapsFunc = [](const BoundingBox2D &a, const BoundingBox2D &bbox) {
         return bbox.overlaps(a);
     };
     
-    auto intersectsFunc = [](const BoundingBox2D& a, const Ray2D& ray) {
+    auto intersectsFunc = [](const BoundingBox2D &a, const Ray2D &ray) {
         return a.intersects(ray);
     };
     
@@ -176,11 +176,11 @@ TEST(Quadtree, RayIntersects) {
 TEST(Quadtree, ClosestIntersection) {
     Quadtree<BoundingBox2D> quadtree;
     
-    auto overlapsFunc = [](const BoundingBox2D& a, const BoundingBox2D& bbox) {
+    auto overlapsFunc = [](const BoundingBox2D &a, const BoundingBox2D &bbox) {
         return bbox.overlaps(a);
     };
     
-    auto intersectsFunc = [](const BoundingBox2D& a, const Ray2D& ray) {
+    auto intersectsFunc = [](const BoundingBox2D &a, const Ray2D &ray) {
         auto bboxResult = a.closestIntersection(ray);
         if (bboxResult.isIntersecting) {
             return bboxResult.tNear;

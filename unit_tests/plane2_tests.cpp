@@ -14,7 +14,7 @@ TEST(Plane2, Builder) {
         .withNormal({1, 0})
         .withPoint({2, 3})
         .build();
-
+    
     EXPECT_EQ(Vector2D(1, 0), plane.normal);
     EXPECT_EQ(Point2D(2, 3), plane.point);
 }

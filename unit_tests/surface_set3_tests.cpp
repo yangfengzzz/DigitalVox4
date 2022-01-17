@@ -97,7 +97,7 @@ TEST(SurfaceSet3, ClosestPoint) {
         sset1.addSurface(sph);
     }
     
-    const auto bruteForceSearch = [&](const Point3D& pt) {
+    const auto bruteForceSearch = [&](const Point3D &pt) {
         double minDist2 = kMaxD;
         Point3D result;
         for (size_t i = 0; i < numSamples / 2; ++i) {
@@ -143,7 +143,7 @@ TEST(SurfaceSet3, ClosestNormal) {
     // Test empty set
     Vector3D emptyNormal = sset1.closestNormal({1.0, 2.0, 3.0});
     // No expected value -- just see if it doesn't crash
-    (void)emptyNormal;
+    (void) emptyNormal;
     
     size_t numSamples = getNumberOfSamplePoints3();
     
@@ -156,7 +156,7 @@ TEST(SurfaceSet3, ClosestNormal) {
         sset1.addSurface(sph);
     }
     
-    const auto bruteForceSearch = [&](const Point3D& pt) {
+    const auto bruteForceSearch = [&](const Point3D &pt) {
         double minDist2 = kMaxD;
         Vector3D result;
         for (size_t i = 0; i < numSamples / 2; ++i) {
@@ -211,7 +211,7 @@ TEST(SurfaceSet3, ClosestDistance) {
         sset1.addSurface(sph);
     }
     
-    const auto bruteForceSearch = [&](const Point3D& pt) {
+    const auto bruteForceSearch = [&](const Point3D &pt) {
         double minDist = kMaxD;
         for (size_t i = 0; i < numSamples / 2; ++i) {
             double localDist = sset1.surfaceAt(i)->closestDistance(pt);
@@ -262,7 +262,7 @@ TEST(SurfaceSet3, Intersects) {
         sset1.addSurface(sph);
     }
     
-    const auto bruteForceTest = [&](const Ray3D& ray) {
+    const auto bruteForceTest = [&](const Ray3D &ray) {
         for (size_t i = 0; i < numSamples / 2; ++i) {
             if (sset1.surfaceAt(i)->intersects(ray)) {
                 return true;
@@ -313,7 +313,7 @@ TEST(SurfaceSet3, ClosestIntersection) {
         sset1.addSurface(sph);
     }
     
-    const auto bruteForceTest = [&](const Ray3D& ray) {
+    const auto bruteForceTest = [&](const Ray3D &ray) {
         SurfaceRayIntersection3 result{};
         for (size_t i = 0; i < numSamples / 2; ++i) {
             auto localResult = sset1.surfaceAt(i)->closestIntersection(ray);

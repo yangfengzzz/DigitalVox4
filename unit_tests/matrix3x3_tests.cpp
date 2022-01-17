@@ -184,7 +184,7 @@ TEST(Matrix3x3, BinaryOperators) {
     << mat2(2, 0) << ' ' << mat2(2, 1) << ' ' << mat2(2, 2) << "\n";
     
     mat2 = mat.rdiv(2.0);
-    EXPECT_TRUE(mat2.isSimilar(Matrix3x3D(2.0/9.0, -0.25, 2.0/7.0, -1.0/3.0, 0.4, -0.5, 2.0/3.0, -1.0, 2.0)));
+    EXPECT_TRUE(mat2.isSimilar(Matrix3x3D(2.0 / 9.0, -0.25, 2.0 / 7.0, -1.0 / 3.0, 0.4, -0.5, 2.0 / 3.0, -1.0, 2.0)));
 }
 
 TEST(Matrix3x3, AugmentedOperators) {
@@ -226,7 +226,7 @@ TEST(Matrix3x3, Modifiers) {
     
     mat.set(9.0, -8.0, 7.0, -6.0, 5.0, -4.0, 3.0, -2.0, 2.0);
     mat.invert();
-    EXPECT_TRUE(mat.isSimilar(Matrix3x3D(-2.0/3.0, -2.0/3.0, 1.0, 0.0, 1.0, 2.0, 1.0, 2.0, 1.0)));
+    EXPECT_TRUE(mat.isSimilar(Matrix3x3D(-2.0 / 3.0, -2.0 / 3.0, 1.0, 0.0, 1.0, 2.0, 1.0, 2.0, 1.0)));
 }
 
 TEST(Matrix3x3, ComplexGetters) {
@@ -279,7 +279,7 @@ TEST(Matrix3x3, ComplexGetters) {
     
     mat.set(9.0, -8.0, 7.0, -6.0, 5.0, -4.0, 3.0, -2.0, 2.0);
     mat2 = mat.inverse();
-    EXPECT_TRUE(mat2.isSimilar(Matrix3x3D(-2.0/3.0, -2.0/3.0, 1.0, 0.0, 1.0, 2.0, 1.0, 2.0, 1.0)));
+    EXPECT_TRUE(mat2.isSimilar(Matrix3x3D(-2.0 / 3.0, -2.0 / 3.0, 1.0, 0.0, 1.0, 2.0, 1.0, 2.0, 1.0)));
     
     mat.set(9.0, -8.0, 7.0, -6.0, 5.0, -4.0, 3.0, -2.0, 1.0);
     Matrix3x3F mat3 = mat.castTo<float>();
@@ -419,7 +419,7 @@ TEST(Matrix3x3, Helpers) {
                                          0.0, 5.0, 0.0,
                                          0.0, 0.0, 3.5)));
     
-    mat = Matrix3x3D::makeRotationMatrix(Vector3D(-1.0/3.0, 2.0/3.0, 2.0/3.0), -74.0 / 180.0 * kPiD);
+    mat = Matrix3x3D::makeRotationMatrix(Vector3D(-1.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0), -74.0 / 180.0 * kPiD);
     EXPECT_TRUE(mat.isSimilar(Matrix3x3D(0.36, -0.8, 0.48,
                                          0.48, 0.60, 0.64,
                                          -0.8, 0.0, 0.6), 0.05))

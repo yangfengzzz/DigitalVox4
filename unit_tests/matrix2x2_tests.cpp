@@ -172,7 +172,7 @@ TEST(Matrix2x2, BinaryOperators) {
     EXPECT_TRUE(mat2.isSimilar(Matrix2x2D(5.0, 4.0, 1.0, 0.0)));
     
     mat2 = mat.rdiv(2.0);
-    EXPECT_TRUE(mat2.isSimilar(Matrix2x2D(-0.5, 2.0/3.0, -1.0, 2.0)));
+    EXPECT_TRUE(mat2.isSimilar(Matrix2x2D(-0.5, 2.0 / 3.0, -1.0, 2.0)));
 }
 
 TEST(Matrix2x2, AugmentedOperators) {

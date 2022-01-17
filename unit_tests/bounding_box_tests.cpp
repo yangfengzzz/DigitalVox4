@@ -107,14 +107,14 @@ TEST(BoundingBox, DiagonalLength) {
     BoundingBox<double, 2> box({-2.0, -2.0}, {4.0, 3.0});
     double diagLen = box.diagonalLength();
     
-    EXPECT_DOUBLE_EQ(std::sqrt(6.0*6.0 + 5.0*5.0), diagLen);
+    EXPECT_DOUBLE_EQ(std::sqrt(6.0 * 6.0 + 5.0 * 5.0), diagLen);
 }
 
 TEST(BoundingBox, DiagonalLengthSquared) {
     BoundingBox<double, 2> box({-2.0, -2.0}, {4.0, 3.0});
     double diagLenSqr = box.diagonalLengthSquared();
     
-    EXPECT_DOUBLE_EQ(6.0*6.0 + 5.0*5.0, diagLenSqr);
+    EXPECT_DOUBLE_EQ(6.0 * 6.0 + 5.0 * 5.0, diagLenSqr);
 }
 
 TEST(BoundingBox, Reset) {

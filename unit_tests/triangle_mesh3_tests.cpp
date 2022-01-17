@@ -21,10 +21,10 @@ TEST(TriangleMesh3, Constructors) {
 TEST(TriangleMesh3, ReadObj) {
     std::string objStr = getCubeTriMesh3x3x3Obj();
     std::istringstream objStream(objStr);
-
+    
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
-
+    
     EXPECT_EQ(56u, mesh.numberOfPoints());
     EXPECT_EQ(96u, mesh.numberOfNormals());
     EXPECT_EQ(76u, mesh.numberOfUvs());
@@ -34,11 +34,11 @@ TEST(TriangleMesh3, ReadObj) {
 TEST(TriangleMesh3, ClosestPoint) {
     std::string objStr = getCubeTriMesh3x3x3Obj();
     std::istringstream objStream(objStr);
-
+    
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
-
-    const auto bruteForceSearch = [&](const Point3D& pt) {
+    
+    const auto bruteForceSearch = [&](const Point3D &pt) {
         double minDist2 = kMaxD;
         Point3D result;
         for (size_t i = 0; i < mesh.numberOfTriangles(); ++i) {
@@ -52,7 +52,7 @@ TEST(TriangleMesh3, ClosestPoint) {
         }
         return result;
     };
-
+    
     size_t numSamples = getNumberOfSamplePoints3();
     for (size_t i = 0; i < numSamples; ++i) {
         auto actual = mesh.closestPoint(getSamplePoints3()[i]);
@@ -64,11 +64,11 @@ TEST(TriangleMesh3, ClosestPoint) {
 TEST(TriangleMesh3, ClosestNormal) {
     std::string objStr = getSphereTriMesh5x5Obj();
     std::istringstream objStream(objStr);
-
+    
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
-
-    const auto bruteForceSearch = [&](const Point3D& pt) {
+    
+    const auto bruteForceSearch = [&](const Point3D &pt) {
         double minDist2 = kMaxD;
         Vector3D result;
         for (size_t i = 0; i < mesh.numberOfTriangles(); ++i) {
@@ -83,7 +83,7 @@ TEST(TriangleMesh3, ClosestNormal) {
         }
         return result;
     };
-
+    
     size_t numSamples = getNumberOfSamplePoints3();
     for (size_t i = 0; i < numSamples; ++i) {
         auto actual = mesh.closestNormal(getSamplePoints3()[i]);
@@ -95,11 +95,11 @@ TEST(TriangleMesh3, ClosestNormal) {
 TEST(TriangleMesh3, ClosestDistance) {
     std::string objStr = getCubeTriMesh3x3x3Obj();
     std::istringstream objStream(objStr);
-
+    
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
-
-    const auto bruteForceSearch = [&](const Point3D& pt) {
+    
+    const auto bruteForceSearch = [&](const Point3D &pt) {
         double minDist = kMaxD;
         for (size_t i = 0; i < mesh.numberOfTriangles(); ++i) {
             Triangle3 tri = mesh.triangle(i);
@@ -110,7 +110,7 @@ TEST(TriangleMesh3, ClosestDistance) {
         }
         return minDist;
     };
-
+    
     size_t numSamples = getNumberOfSamplePoints3();
     for (size_t i = 0; i < numSamples; ++i) {
         auto actual = mesh.closestDistance(getSamplePoints3()[i]);
@@ -123,13 +123,13 @@ TEST(TriangleMesh3, ClosestDistance) {
 TEST(TriangleMesh3, Intersects) {
     std::string objStr = getCubeTriMesh3x3x3Obj();
     std::istringstream objStream(objStr);
-
+    
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
-
+    
     size_t numSamples = getNumberOfSamplePoints3();
-
-    const auto bruteForceTest = [&](const Ray3D& ray) {
+    
+    const auto bruteForceTest = [&](const Ray3D &ray) {
         for (size_t i = 0; i < mesh.numberOfTriangles(); ++i) {
             Triangle3 tri = mesh.triangle(i);
             if (tri.intersects(ray)) {
@@ -138,7 +138,7 @@ TEST(TriangleMesh3, Intersects) {
         }
         return false;
     };
-
+    
     for (size_t i = 0; i < numSamples; ++i) {
         Ray3D ray(getSamplePoints3()[i], getSampleDirs3()[i]);
         bool actual = mesh.intersects(ray);
@@ -150,13 +150,13 @@ TEST(TriangleMesh3, Intersects) {
 TEST(TriangleMesh3, ClosestIntersection) {
     std::string objStr = getCubeTriMesh3x3x3Obj();
     std::istringstream objStream(objStr);
-
+    
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
-
+    
     size_t numSamples = getNumberOfSamplePoints3();
-
-    const auto bruteForceTest = [&](const Ray3D& ray) {
+    
+    const auto bruteForceTest = [&](const Ray3D &ray) {
         SurfaceRayIntersection3 result{};
         for (size_t i = 0; i < mesh.numberOfTriangles(); ++i) {
             Triangle3 tri = mesh.triangle(i);
@@ -167,7 +167,7 @@ TEST(TriangleMesh3, ClosestIntersection) {
         }
         return result;
     };
-
+    
     for (size_t i = 0; i < numSamples; ++i) {
         Ray3D ray(getSamplePoints3()[i], getSampleDirs3()[i]);
         auto actual = mesh.closestIntersection(ray);
@@ -182,12 +182,12 @@ TEST(TriangleMesh3, ClosestIntersection) {
 TEST(TriangleMesh3, IsInside) {
     std::string objStr = getCubeTriMesh3x3x3Obj();
     std::istringstream objStream(objStr);
-
+    
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
-
+    
     size_t numSamples = getNumberOfSamplePoints3();
-
+    
     for (size_t i = 0; i < numSamples; ++i) {
         Point3D p = getSamplePoints3()[i];
         auto actual = mesh.isInside(p);
@@ -199,13 +199,13 @@ TEST(TriangleMesh3, IsInside) {
 TEST(TriangleMesh3, BoundingBox) {
     std::string objStr = getCubeTriMesh3x3x3Obj();
     std::istringstream objStream(objStr);
-
+    
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
-
+    
     EXPECT_BOUNDING_BOX3_EQ(
-        BoundingBox3D({-0.5, -0.5, -0.5}, {0.5, 0.5, 0.5}),
-        mesh.boundingBox());
+                            BoundingBox3D({-0.5, -0.5, -0.5}, {0.5, 0.5, 0.5}),
+                            mesh.boundingBox());
 }
 
 TEST(TriangleMesh3, Builder) {
@@ -215,34 +215,34 @@ TEST(TriangleMesh3, Builder) {
         Point3D(7, 8, 9),
         Point3D(10, 11, 12)
     };
-
+    
     TriangleMesh3::NormalArray normals = {
         Vector3D(10, 11, 12),
         Vector3D(7, 8, 9),
         Vector3D(4, 5, 6),
         Vector3D(1, 2, 3)
     };
-
+    
     TriangleMesh3::UvArray uvs = {
         Vector2D(13, 14),
         Vector2D(15, 16)
     };
-
+    
     TriangleMesh3::IndexArray pointIndices = {
         Point3UI(0, 1, 2),
         Point3UI(0, 1, 3)
     };
-
+    
     TriangleMesh3::IndexArray normalIndices = {
         Point3UI(1, 2, 3),
         Point3UI(2, 1, 0)
     };
-
+    
     TriangleMesh3::IndexArray uvIndices = {
         Point3UI(1, 0, 2),
         Point3UI(3, 1, 0)
     };
-
+    
     TriangleMesh3 mesh = TriangleMesh3::builder()
         .withPoints(points)
         .withNormals(normals)
@@ -251,24 +251,24 @@ TEST(TriangleMesh3, Builder) {
         .withNormalIndices(normalIndices)
         .withUvIndices(uvIndices)
         .build();
-
+    
     EXPECT_EQ(4u, mesh.numberOfPoints());
     EXPECT_EQ(4u, mesh.numberOfNormals());
     EXPECT_EQ(2u, mesh.numberOfUvs());
     EXPECT_EQ(2u, mesh.numberOfTriangles());
-
+    
     for (size_t i = 0; i < mesh.numberOfPoints(); ++i) {
         EXPECT_EQ(points[i], mesh.point(i));
     }
-
+    
     for (size_t i = 0; i < mesh.numberOfNormals(); ++i) {
         EXPECT_EQ(normals[i], mesh.normal(i));
     }
-
+    
     for (size_t i = 0; i < mesh.numberOfUvs(); ++i) {
         EXPECT_EQ(uvs[i], mesh.uv(i));
     }
-
+    
     for (size_t i = 0; i < mesh.numberOfTriangles(); ++i) {
         EXPECT_EQ(pointIndices[i], mesh.pointIndex(i));
         EXPECT_EQ(normalIndices[i], mesh.normalIndex(i));

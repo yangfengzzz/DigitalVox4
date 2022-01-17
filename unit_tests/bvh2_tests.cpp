@@ -52,7 +52,7 @@ TEST(Bvh2, BasicGetters) {
 TEST(Bvh2, Nearest) {
     Bvh2<Point2D> bvh;
     
-    auto distanceFunc = [](const Point2D& a, const Point2D& b) {
+    auto distanceFunc = [](const Point2D &a, const Point2D &b) {
         return a.distanceTo(b);
     };
     
@@ -89,7 +89,7 @@ TEST(Bvh2, Nearest) {
 TEST(Bvh2, BBoxIntersects) {
     Bvh2<Point2D> bvh;
     
-    auto overlapsFunc = [](const Point2D& pt, const BoundingBox2D& bbox) {
+    auto overlapsFunc = [](const Point2D &pt, const BoundingBox2D &bbox) {
         BoundingBox2D box(pt, pt);
         box.expand(0.1);
         return bbox.overlaps(box);
@@ -130,7 +130,7 @@ TEST(Bvh2, BBoxIntersects) {
 TEST(Bvh2, RayIntersects) {
     Bvh2<BoundingBox2D> bvh;
     
-    auto intersectsFunc = [](const BoundingBox2D& a, const Ray2D& ray) {
+    auto intersectsFunc = [](const BoundingBox2D &a, const Ray2D &ray) {
         return a.intersects(ray);
     };
     
@@ -168,7 +168,7 @@ TEST(Bvh2, RayIntersects) {
 TEST(Bvh2, ClosestIntersection) {
     Bvh2<BoundingBox2D> bvh;
     
-    auto intersectsFunc = [](const BoundingBox2D& a, const Ray2D& ray) {
+    auto intersectsFunc = [](const BoundingBox2D &a, const Ray2D &ray) {
         auto bboxResult = a.closestIntersection(ray);
         if (bboxResult.isIntersecting) {
             return bboxResult.tNear;
@@ -213,7 +213,7 @@ TEST(Bvh2, ClosestIntersection) {
 TEST(Bvh2, ForEachOverlappingItems) {
     Bvh2<Point2D> bvh;
     
-    auto overlapsFunc = [](const Point2D& pt, const BoundingBox2D& bbox) {
+    auto overlapsFunc = [](const Point2D &pt, const BoundingBox2D &bbox) {
         return bbox.contains(pt);
     };
     
@@ -239,7 +239,7 @@ TEST(Bvh2, ForEachOverlappingItems) {
     }
     
     size_t measured = 0;
-    bvh.forEachIntersectingItem(testBox, overlapsFunc, [&](const Point2D& pt) {
+    bvh.forEachIntersectingItem(testBox, overlapsFunc, [&](const Point2D &pt) {
         EXPECT_TRUE(overlapsFunc(pt, testBox));
         ++measured;
     });

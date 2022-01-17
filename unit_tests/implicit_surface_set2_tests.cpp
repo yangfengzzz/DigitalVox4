@@ -193,7 +193,7 @@ TEST(ImplicitSurfaceSet2, ClosestNormal) {
     ImplicitSurfaceSet2Ptr sset = std::make_shared<ImplicitSurfaceSet2>();
     Vector2D emptyNormal = sset->closestNormal({1.0, 2.0});
     // No expected value -- just see if it doesn't crash
-    (void)emptyNormal;
+    (void) emptyNormal;
     
     sset->addExplicitSurface(box);
     

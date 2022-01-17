@@ -27,7 +27,7 @@ TEST(Vector3, Constructors) {
     EXPECT_FLOAT_EQ(7.f, vec4.y);
     EXPECT_FLOAT_EQ(9.f, vec4.z);
     
-    Vector3F vec5 = { 7.f, 6.f, 1.f };
+    Vector3F vec5 = {7.f, 6.f, 1.f};
     EXPECT_FLOAT_EQ(7.f, vec5.x);
     EXPECT_FLOAT_EQ(6.f, vec5.y);
     EXPECT_FLOAT_EQ(1.f, vec5.z);
@@ -234,10 +234,10 @@ TEST(Vector3, BasicGetterMethods) {
     EXPECT_FLOAT_EQ(-7.f, absmax);
     
     size_t daxis = vec.dominantAxis();
-    EXPECT_EQ((size_t)1, daxis);
+    EXPECT_EQ((size_t) 1, daxis);
     
     size_t saxis = vec.subminantAxis();
-    EXPECT_EQ((size_t)2, saxis);
+    EXPECT_EQ((size_t) 2, saxis);
     
     float eps = 1e-6f;
     vec2 = vec.normalized();

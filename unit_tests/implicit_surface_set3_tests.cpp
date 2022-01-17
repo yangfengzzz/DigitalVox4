@@ -197,7 +197,7 @@ TEST(ImplicitSurfaceSet3, ClosestNormal) {
     ImplicitSurfaceSet3Ptr sset = std::make_shared<ImplicitSurfaceSet3>();
     Vector3D emptyNormal = sset->closestNormal({1.0, 2.0, 3.0});
     // No expected value -- just see if it doesn't crash
-    (void)emptyNormal;
+    (void) emptyNormal;
     sset->addExplicitSurface(box);
     
     Point3D pt(0.5, 2.5, -1.0);

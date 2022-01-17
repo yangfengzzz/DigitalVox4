@@ -18,7 +18,7 @@ TEST(ListQueryEngine2, BoxIntersection) {
     ListQueryEngine2<Point2D> engine;
     engine.add(points);
     
-    auto testFunc = [](const Point2D& pt, const BoundingBox2D& bbox) {
+    auto testFunc = [](const Point2D &pt, const BoundingBox2D &bbox) {
         return bbox.contains(pt);
     };
     
@@ -41,7 +41,7 @@ TEST(ListQueryEngine2, BoxIntersection) {
     EXPECT_EQ(hasIntersection, engine.intersects(testBox2, testFunc));
     
     size_t measured = 0;
-    engine.forEachIntersectingItem(testBox2, testFunc, [&](const Point2D& pt) {
+    engine.forEachIntersectingItem(testBox2, testFunc, [&](const Point2D &pt) {
         EXPECT_TRUE(testFunc(pt, testBox2));
         ++measured;
     });
@@ -52,7 +52,7 @@ TEST(ListQueryEngine2, BoxIntersection) {
 TEST(ListQueryEngine2, RayIntersection) {
     ListQueryEngine2<BoundingBox2D> engine;
     
-    auto intersectsFunc = [](const BoundingBox2D& a, const Ray2D& ray) {
+    auto intersectsFunc = [](const BoundingBox2D &a, const Ray2D &ray) {
         return a.intersects(ray);
     };
     
@@ -90,7 +90,7 @@ TEST(ListQueryEngine2, RayIntersection) {
 TEST(ListQueryEngine2, ClosestIntersection) {
     ListQueryEngine2<BoundingBox2D> engine;
     
-    auto intersectsFunc = [](const BoundingBox2D& a, const Ray2D& ray) {
+    auto intersectsFunc = [](const BoundingBox2D &a, const Ray2D &ray) {
         auto bboxResult = a.closestIntersection(ray);
         return bboxResult.tNear;
     };
@@ -139,7 +139,7 @@ TEST(ListQueryEngine2, ClosestIntersection) {
 TEST(ListQueryEngine2, NearestNeighbor) {
     ListQueryEngine2<Point2D> engine;
     
-    auto distanceFunc = [](const Point2D& a, const Point2D& b) {
+    auto distanceFunc = [](const Point2D &a, const Point2D &b) {
         return a.distanceTo(b);
     };
     

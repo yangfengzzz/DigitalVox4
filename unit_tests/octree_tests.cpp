@@ -18,11 +18,11 @@ TEST(Octree, Constructors) {
 TEST(Octree, Nearest) {
     Octree<Point3D> octree;
     
-    auto overlapsFunc = [](const Point3D& pt, const BoundingBox3D& bbox) {
+    auto overlapsFunc = [](const Point3D &pt, const BoundingBox3D &bbox) {
         return bbox.contains(pt);
     };
     
-    auto distanceFunc = [](const Point3D& a, const Point3D& b) {
+    auto distanceFunc = [](const Point3D &a, const Point3D &b) {
         return a.distanceTo(b);
     };
     
@@ -74,7 +74,7 @@ TEST(Octree, Nearest) {
 TEST(Octree, BBoxIntersects) {
     Octree<Point3D> octree;
     
-    auto overlapsFunc = [](const Point3D& pt, const BoundingBox3D& bbox) {
+    auto overlapsFunc = [](const Point3D &pt, const BoundingBox3D &bbox) {
         return bbox.contains(pt);
     };
     
@@ -103,7 +103,7 @@ TEST(Octree, BBoxIntersects) {
 TEST(Octree, ForEachOverlappingItems) {
     Octree<Point3D> octree;
     
-    auto overlapsFunc = [](const Point3D& pt, const BoundingBox3D& bbox) {
+    auto overlapsFunc = [](const Point3D &pt, const BoundingBox3D &bbox) {
         return bbox.contains(pt);
     };
     
@@ -120,7 +120,7 @@ TEST(Octree, ForEachOverlappingItems) {
     
     size_t measured = 0;
     octree.forEachIntersectingItem(testBox, overlapsFunc,
-                                   [&](const Point3D& pt) {
+                                   [&](const Point3D &pt) {
         EXPECT_TRUE(overlapsFunc(pt, testBox));
         ++measured;
     });
@@ -131,11 +131,11 @@ TEST(Octree, ForEachOverlappingItems) {
 TEST(Octree, RayIntersects) {
     Octree<BoundingBox3D> octree;
     
-    auto overlapsFunc = [](const BoundingBox3D& a, const BoundingBox3D& bbox) {
+    auto overlapsFunc = [](const BoundingBox3D &a, const BoundingBox3D &bbox) {
         return bbox.overlaps(a);
     };
     
-    auto intersectsFunc = [](const BoundingBox3D& a, const Ray3D& ray) {
+    auto intersectsFunc = [](const BoundingBox3D &a, const Ray3D &ray) {
         return a.intersects(ray);
     };
     
@@ -173,11 +173,11 @@ TEST(Octree, RayIntersects) {
 TEST(Octree, ClosestIntersection) {
     Octree<BoundingBox3D> octree;
     
-    auto overlapsFunc = [](const BoundingBox3D& a, const BoundingBox3D& bbox) {
+    auto overlapsFunc = [](const BoundingBox3D &a, const BoundingBox3D &bbox) {
         return bbox.overlaps(a);
     };
     
-    auto intersectsFunc = [](const BoundingBox3D& a, const Ray3D& ray) {
+    auto intersectsFunc = [](const BoundingBox3D &a, const Ray3D &ray) {
         auto bboxResult = a.closestIntersection(ray);
         if (bboxResult.isIntersecting) {
             return bboxResult.tNear;
