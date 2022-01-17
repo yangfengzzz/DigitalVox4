@@ -356,26 +356,10 @@
 		044594E62794F17A00F04CE0 /* cylinder3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594E42794F17A00F04CE0 /* cylinder3.cpp */; };
 		044594E92794F2EF00F04CE0 /* triangle3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594E72794F2EE00F04CE0 /* triangle3.cpp */; };
 		044594EA2794F2EF00F04CE0 /* triangle3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594E82794F2EF00F04CE0 /* triangle3.h */; };
-		044594FD2794F79100F04CE0 /* intersection_query_engine2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594F92794F79000F04CE0 /* intersection_query_engine2.h */; };
-		044594FE2794F79100F04CE0 /* nearest_neighbor_query_engine2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594FA2794F79100F04CE0 /* nearest_neighbor_query_engine2.h */; };
-		044594FF2794F79100F04CE0 /* nearest_neighbor_query_engine3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594FB2794F79100F04CE0 /* nearest_neighbor_query_engine3.h */; };
-		044595002794F79100F04CE0 /* intersection_query_engine3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594FC2794F79100F04CE0 /* intersection_query_engine3.h */; };
-		044595052794F8B800F04CE0 /* list_query_engine2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595012794F8B800F04CE0 /* list_query_engine2.h */; };
-		044595062794F8B800F04CE0 /* list_query_engine3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595022794F8B800F04CE0 /* list_query_engine3.h */; };
-		044595072794F8B800F04CE0 /* list_query_engine3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595032794F8B800F04CE0 /* list_query_engine3-inl.h */; };
-		044595082794F8B800F04CE0 /* list_query_engine2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595042794F8B800F04CE0 /* list_query_engine2-inl.h */; };
 		0445950B2794F97400F04CE0 /* list_query_engine2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595092794F97300F04CE0 /* list_query_engine2_tests.cpp */; };
 		0445950C2794F97400F04CE0 /* list_query_engine3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445950A2794F97300F04CE0 /* list_query_engine3_tests.cpp */; };
 		0445950F2794FC0A00F04CE0 /* octree_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445950D2794FC0A00F04CE0 /* octree_tests.cpp */; };
 		044595102794FC0A00F04CE0 /* quadtree_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445950E2794FC0A00F04CE0 /* quadtree_tests.cpp */; };
-		044595152794FC1E00F04CE0 /* octree-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595112794FC1E00F04CE0 /* octree-inl.h */; };
-		044595162794FC1E00F04CE0 /* octree.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595122794FC1E00F04CE0 /* octree.h */; };
-		044595172794FC1E00F04CE0 /* quadtree-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595132794FC1E00F04CE0 /* quadtree-inl.h */; };
-		044595182794FC1E00F04CE0 /* quadtree.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595142794FC1E00F04CE0 /* quadtree.h */; };
-		0445951D2794FE3300F04CE0 /* bvh2-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595192794FE3300F04CE0 /* bvh2-inl.h */; };
-		0445951E2794FE3300F04CE0 /* bvh3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445951A2794FE3300F04CE0 /* bvh3.h */; };
-		0445951F2794FE3300F04CE0 /* bvh2.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445951B2794FE3300F04CE0 /* bvh2.h */; };
-		044595202794FE3300F04CE0 /* bvh3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445951C2794FE3300F04CE0 /* bvh3-inl.h */; };
 		044595232794FE8400F04CE0 /* bvh2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595212794FE8400F04CE0 /* bvh2_tests.cpp */; };
 		044595242794FE8400F04CE0 /* bvh3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595222794FE8400F04CE0 /* bvh3_tests.cpp */; };
 /* End PBXBuildFile section */
@@ -1087,22 +1071,6 @@
 				044594E42794F17A00F04CE0 /* cylinder3.cpp */,
 				044594E82794F2EF00F04CE0 /* triangle3.h */,
 				044594E72794F2EE00F04CE0 /* triangle3.cpp */,
-				044594F92794F79000F04CE0 /* intersection_query_engine2.h */,
-				044594FC2794F79100F04CE0 /* intersection_query_engine3.h */,
-				044594FA2794F79100F04CE0 /* nearest_neighbor_query_engine2.h */,
-				044594FB2794F79100F04CE0 /* nearest_neighbor_query_engine3.h */,
-				044595012794F8B800F04CE0 /* list_query_engine2.h */,
-				044595042794F8B800F04CE0 /* list_query_engine2-inl.h */,
-				044595022794F8B800F04CE0 /* list_query_engine3.h */,
-				044595032794F8B800F04CE0 /* list_query_engine3-inl.h */,
-				044595142794FC1E00F04CE0 /* quadtree.h */,
-				044595132794FC1E00F04CE0 /* quadtree-inl.h */,
-				044595122794FC1E00F04CE0 /* octree.h */,
-				044595112794FC1E00F04CE0 /* octree-inl.h */,
-				0445951B2794FE3300F04CE0 /* bvh2.h */,
-				044595192794FE3300F04CE0 /* bvh2-inl.h */,
-				0445951A2794FE3300F04CE0 /* bvh3.h */,
-				0445951C2794FE3300F04CE0 /* bvh3-inl.h */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -1216,15 +1184,20 @@
 				044594A32793FF3700F04CE0 /* bounding_plane2-inl.h */,
 				044594A42794034500F04CE0 /* bounding_plane3.h */,
 				044594A52794035200F04CE0 /* bounding_plane3-inl.h */,
-				044592FA278F023900F04CE0 /* bounding_frustum.h */,
-				044592FC278F023900F04CE0 /* bounding_frustum.cpp */,
-				044592F9278F023900F04CE0 /* collision_utils.h */,
-				044592FD278F023A00F04CE0 /* collision_utils.cpp */,
 				0422966D278D689C0090983F /* ray.h */,
 				04229663278D689B0090983F /* ray2.h */,
 				0422966A278D689B0090983F /* ray2-inl.h */,
 				04229668278D689B0090983F /* ray3.h */,
 				04229666278D689B0090983F /* ray3-inl.h */,
+				044594F92794F79000F04CE0 /* intersection_query_engine2.h */,
+				044594FC2794F79100F04CE0 /* intersection_query_engine3.h */,
+				044594FA2794F79100F04CE0 /* nearest_neighbor_query_engine2.h */,
+				044594FB2794F79100F04CE0 /* nearest_neighbor_query_engine3.h */,
+				044595252795007300F04CE0 /* query_engines */,
+				044592FA278F023900F04CE0 /* bounding_frustum.h */,
+				044592FC278F023900F04CE0 /* bounding_frustum.cpp */,
+				044592F9278F023900F04CE0 /* collision_utils.h */,
+				044592FD278F023A00F04CE0 /* collision_utils.cpp */,
 				044594AE2794115800F04CE0 /* color.h */,
 				044592FE278F023A00F04CE0 /* spherical_harmonics3.h */,
 				044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */,
@@ -1541,6 +1514,25 @@
 			path = mesh;
 			sourceTree = "<group>";
 		};
+		044595252795007300F04CE0 /* query_engines */ = {
+			isa = PBXGroup;
+			children = (
+				0445951B2794FE3300F04CE0 /* bvh2.h */,
+				044595192794FE3300F04CE0 /* bvh2-inl.h */,
+				0445951A2794FE3300F04CE0 /* bvh3.h */,
+				0445951C2794FE3300F04CE0 /* bvh3-inl.h */,
+				044595142794FC1E00F04CE0 /* quadtree.h */,
+				044595132794FC1E00F04CE0 /* quadtree-inl.h */,
+				044595122794FC1E00F04CE0 /* octree.h */,
+				044595112794FC1E00F04CE0 /* octree-inl.h */,
+				044595012794F8B800F04CE0 /* list_query_engine2.h */,
+				044595042794F8B800F04CE0 /* list_query_engine2-inl.h */,
+				044595022794F8B800F04CE0 /* list_query_engine3.h */,
+				044595032794F8B800F04CE0 /* list_query_engine3-inl.h */,
+			);
+			name = query_engines;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1684,30 +1676,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0445951F2794FE3300F04CE0 /* bvh2.h in Headers */,
-				044595152794FC1E00F04CE0 /* octree-inl.h in Headers */,
 				044594DF2794E5AC00F04CE0 /* sphere2.h in Headers */,
-				044595002794F79100F04CE0 /* intersection_query_engine3.h in Headers */,
-				044595182794FC1E00F04CE0 /* quadtree.h in Headers */,
-				044595052794F8B800F04CE0 /* list_query_engine2.h in Headers */,
-				044595202794FE3300F04CE0 /* bvh3-inl.h in Headers */,
 				044594E02794E5AC00F04CE0 /* sphere3.h in Headers */,
-				044595172794FC1E00F04CE0 /* quadtree-inl.h in Headers */,
-				044594FF2794F79100F04CE0 /* nearest_neighbor_query_engine3.h in Headers */,
 				044594DA2794E41800F04CE0 /* box2.h in Headers */,
-				044594FE2794F79100F04CE0 /* nearest_neighbor_query_engine2.h in Headers */,
-				044595072794F8B800F04CE0 /* list_query_engine3-inl.h in Headers */,
 				044594CF27945C6800F04CE0 /* plane2.h in Headers */,
-				044595062794F8B800F04CE0 /* list_query_engine3.h in Headers */,
 				044594D027945C6800F04CE0 /* plane3.h in Headers */,
-				044595162794FC1E00F04CE0 /* octree.h in Headers */,
-				0445951E2794FE3300F04CE0 /* bvh3.h in Headers */,
-				044594FD2794F79100F04CE0 /* intersection_query_engine2.h in Headers */,
 				04229697278D71760090983F /* surface2.h in Headers */,
 				044594E52794F17A00F04CE0 /* cylinder3.h in Headers */,
-				0445951D2794FE3300F04CE0 /* bvh2-inl.h in Headers */,
 				04229696278D71760090983F /* surface3.h in Headers */,
-				044595082794F8B800F04CE0 /* list_query_engine2-inl.h in Headers */,
 				044594EA2794F2EF00F04CE0 /* triangle3.h in Headers */,
 				044594D82794E41800F04CE0 /* box3.h in Headers */,
 				044594D227945E0600F04CE0 /* private_helpers.h in Headers */,
