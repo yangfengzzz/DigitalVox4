@@ -354,6 +354,8 @@
 		044594E22794E5AC00F04CE0 /* sphere3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594DE2794E5AC00F04CE0 /* sphere3.cpp */; };
 		044594E52794F17A00F04CE0 /* cylinder3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594E32794F17A00F04CE0 /* cylinder3.h */; };
 		044594E62794F17A00F04CE0 /* cylinder3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594E42794F17A00F04CE0 /* cylinder3.cpp */; };
+		044594E92794F2EF00F04CE0 /* triangle3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594E72794F2EE00F04CE0 /* triangle3.cpp */; };
+		044594EA2794F2EF00F04CE0 /* triangle3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594E82794F2EF00F04CE0 /* triangle3.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -805,6 +807,8 @@
 		044594DE2794E5AC00F04CE0 /* sphere3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere3.cpp; sourceTree = "<group>"; };
 		044594E32794F17A00F04CE0 /* cylinder3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cylinder3.h; sourceTree = "<group>"; };
 		044594E42794F17A00F04CE0 /* cylinder3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cylinder3.cpp; sourceTree = "<group>"; };
+		044594E72794F2EE00F04CE0 /* triangle3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangle3.cpp; sourceTree = "<group>"; };
+		044594E82794F2EF00F04CE0 /* triangle3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangle3.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1037,6 +1041,8 @@
 				044594DE2794E5AC00F04CE0 /* sphere3.cpp */,
 				044594E32794F17A00F04CE0 /* cylinder3.h */,
 				044594E42794F17A00F04CE0 /* cylinder3.cpp */,
+				044594E82794F2EF00F04CE0 /* triangle3.h */,
+				044594E72794F2EE00F04CE0 /* triangle3.cpp */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -1620,6 +1626,7 @@
 				04229697278D71760090983F /* surface2.h in Headers */,
 				044594E52794F17A00F04CE0 /* cylinder3.h in Headers */,
 				04229696278D71760090983F /* surface3.h in Headers */,
+				044594EA2794F2EF00F04CE0 /* triangle3.h in Headers */,
 				044594D82794E41800F04CE0 /* box3.h in Headers */,
 				044594D227945E0600F04CE0 /* private_helpers.h in Headers */,
 			);
@@ -1963,6 +1970,7 @@
 				044591C2278DD2F000F04CE0 /* surface2.cpp in Sources */,
 				044594E12794E5AC00F04CE0 /* sphere2.cpp in Sources */,
 				044594D92794E41800F04CE0 /* box2.cpp in Sources */,
+				044594E92794F2EF00F04CE0 /* triangle3.cpp in Sources */,
 				044594CE27945C6800F04CE0 /* plane3.cpp in Sources */,
 				044594D72794E41800F04CE0 /* box3.cpp in Sources */,
 				044594E22794E5AC00F04CE0 /* sphere3.cpp in Sources */,
