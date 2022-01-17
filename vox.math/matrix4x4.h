@@ -18,8 +18,8 @@ namespace vox {
 //!
 //! \brief 4-D matrix class.
 //!
-//! This class is a row-major 4-D matrix class, which means each element of
-//! the matrix is stored in order of (0,0), ... , (0,3), (1,0), ... , (3,3).
+//! This class is a column-major 4-D matrix class, which means each element of
+//! the matrix is stored in order of (0,0), ... , (3,0), (0,1), ... , (3,3).
 //! Also, this 4-D matrix is speciallized for geometric transformations.
 //! \tparam T - Type of the element.
 //!
@@ -40,13 +40,17 @@ public:
     //! Constructs a matrix with input elements.
     //! This constructor initialize 3x3 part, and other parts are set to 0
     //! except (3,3) which will be set to 1.
-    //! \warning Ordering of the input elements is row-major.
-    Matrix(T m00, T m01, T m02, T m10, T m11, T m12, T m20, T m21, T m22);
+    //! \warning Ordering of the input elements is column-major.
+    Matrix(T m00, T m10, T m20,
+           T m01, T m11, T m21,
+           T m02, T m12, T m22);
     
     //! Constructs a matrix with input elements.
-    //! \warning Ordering of the input elements is row-major.
-    Matrix(T m00, T m01, T m02, T m03, T m10, T m11, T m12, T m13, T m20, T m21,
-           T m22, T m23, T m30, T m31, T m32, T m33);
+    //! \warning Ordering of the input elements is column-major.
+    Matrix(T m00, T m10, T m20, T m30,
+           T m01, T m11, T m21, T m31,
+           T m02, T m12, T m22, T m32,
+           T m03, T m13, T m23, T m33);
     
     //!
     //! \brief Constructs a matrix with given initializer list \p lst.
@@ -79,7 +83,7 @@ public:
     Matrix(const Matrix &m);
     
     //! Constructs a matrix with input array.
-    //! \warning Ordering of the input elements is row-major.
+    //! \warning Ordering of the input elements is column-major.
     explicit Matrix(const T *arr);
     
     // MARK: - Basic setters
@@ -90,13 +94,17 @@ public:
     //! Sets this matrix with input elements.
     //! This method copies 3x3 part only, and other parts are set to 0
     //! except (3,3) which is set to 1.
-    //! \warning Ordering of the input elements is row-major.
-    void set(T m00, T m01, T m02, T m10, T m11, T m12, T m20, T m21, T m22);
+    //! \warning Ordering of the input elements is column-major.
+    void set(T m00, T m10, T m20,
+             T m01, T m11, T m21,
+             T m02, T m12, T m22);
     
     //! Sets this matrix with input elements.
-    //! \warning Ordering of the input elements is row-major.
-    void set(T m00, T m01, T m02, T m03, T m10, T m11, T m12, T m13, T m20,
-             T m21, T m22, T m23, T m30, T m31, T m32, T m33);
+    //! \warning Ordering of the input elements is column-major.
+    void set(T m00, T m10, T m20, T m30,
+             T m01, T m11, T m21, T m31,
+             T m02, T m12, T m22, T m32,
+             T m03, T m13, T m23, T m33);
     
     //!
     //! \brief Sets a matrix with given initializer list \p lst.
@@ -130,7 +138,7 @@ public:
     void set(const Matrix &m);
     
     //! Copies from input array.
-    //! \warning Ordering of the input elements is row-major.
+    //! \warning Ordering of the input elements is column-major.
     void set(const T *arr);
     
     //! Sets diagonal elements with input scalar.

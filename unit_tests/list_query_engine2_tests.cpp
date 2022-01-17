@@ -13,49 +13,49 @@ using namespace vox;
 TEST(ListQueryEngine2, BoxIntersection) {
     size_t numSamples = getNumberOfSamplePoints2();
     std::vector<Point2D> points(getSamplePoints2(),
-                                 getSamplePoints2() + numSamples);
-
+                                getSamplePoints2() + numSamples);
+    
     ListQueryEngine2<Point2D> engine;
     engine.add(points);
-
+    
     auto testFunc = [](const Point2D& pt, const BoundingBox2D& bbox) {
         return bbox.contains(pt);
     };
-
+    
     BoundingBox2D testBox({0.25, 0.2}, {0.5, 0.4});
     size_t numIntersections = 0;
     for (size_t i = 0; i < numSamples; ++i) {
         numIntersections += testFunc(getSamplePoints2()[i], testBox);
     }
     bool hasIntersection = numIntersections > 0;
-
+    
     EXPECT_EQ(hasIntersection, engine.intersects(testBox, testFunc));
-
+    
     BoundingBox2D testBox2({0.2, 0.2}, {0.6, 0.5});
     numIntersections = 0;
     for (size_t i = 0; i < numSamples; ++i) {
         numIntersections += testFunc(getSamplePoints2()[i], testBox2);
     }
     hasIntersection = numIntersections > 0;
-
+    
     EXPECT_EQ(hasIntersection, engine.intersects(testBox2, testFunc));
-
+    
     size_t measured = 0;
     engine.forEachIntersectingItem(testBox2, testFunc, [&](const Point2D& pt) {
         EXPECT_TRUE(testFunc(pt, testBox2));
         ++measured;
     });
-
+    
     EXPECT_EQ(numIntersections, measured);
 }
 
 TEST(ListQueryEngine2, RayIntersection) {
     ListQueryEngine2<BoundingBox2D> engine;
-
+    
     auto intersectsFunc = [](const BoundingBox2D& a, const Ray2D& ray) {
         return a.intersects(ray);
     };
-
+    
     size_t numSamples = getNumberOfSamplePoints2();
     std::vector<BoundingBox2D> items(numSamples / 2);
     size_t i = 0;
@@ -65,9 +65,9 @@ TEST(ListQueryEngine2, RayIntersection) {
         box.expand(0.1);
         return box;
     });
-
+    
     engine.add(items);
-
+    
     for (i = 0; i < numSamples / 2; ++i) {
         Ray2D ray(getSamplePoints2()[i + numSamples / 2],
                   getSampleDirs2()[i + numSamples / 2]);
@@ -79,22 +79,22 @@ TEST(ListQueryEngine2, RayIntersection) {
                 break;
             }
         }
-
+        
         // engine search
         bool engInts = engine.intersects(ray, intersectsFunc);
-
+        
         EXPECT_EQ(ansInts, engInts);
     }
 }
 
 TEST(ListQueryEngine2, ClosestIntersection) {
     ListQueryEngine2<BoundingBox2D> engine;
-
+    
     auto intersectsFunc = [](const BoundingBox2D& a, const Ray2D& ray) {
         auto bboxResult = a.closestIntersection(ray);
         return bboxResult.tNear;
     };
-
+    
     size_t numSamples = getNumberOfSamplePoints2();
     std::vector<BoundingBox2D> items(numSamples / 2);
     size_t i = 0;
@@ -104,9 +104,9 @@ TEST(ListQueryEngine2, ClosestIntersection) {
         box.expand(0.1);
         return box;
     });
-
+    
     engine.add(items);
-
+    
     for (i = 0; i < numSamples / 2; ++i) {
         Ray2D ray(getSamplePoints2()[i + numSamples / 2],
                   getSampleDirs2()[i + numSamples / 2]);
@@ -119,10 +119,10 @@ TEST(ListQueryEngine2, ClosestIntersection) {
                 ansInts.item = &items[j];
             }
         }
-
+        
         // engine search
         auto engInts = engine.closestIntersection(ray, intersectsFunc);
-
+        
         if (ansInts.item != nullptr && engInts.item != nullptr) {
             EXPECT_VECTOR2_EQ(ansInts.item->lowerCorner,
                               engInts.item->lowerCorner);
@@ -138,17 +138,17 @@ TEST(ListQueryEngine2, ClosestIntersection) {
 
 TEST(ListQueryEngine2, NearestNeighbor) {
     ListQueryEngine2<Point2D> engine;
-
+    
     auto distanceFunc = [](const Point2D& a, const Point2D& b) {
         return a.distanceTo(b);
     };
-
+    
     size_t numSamples = getNumberOfSamplePoints2();
     std::vector<Point2D> points(getSamplePoints2(),
-                                 getSamplePoints2() + numSamples);
-
+                                getSamplePoints2() + numSamples);
+    
     engine.add(points);
-
+    
     Point2D testPt(0.5, 0.5);
     auto closest = engine.nearest(testPt, distanceFunc);
     Point2D answer = getSamplePoints2()[0];
@@ -160,6 +160,6 @@ TEST(ListQueryEngine2, NearestNeighbor) {
             answer = getSamplePoints2()[i];
         }
     }
-
+    
     EXPECT_VECTOR2_EQ(answer, (*(closest.item)));
 }

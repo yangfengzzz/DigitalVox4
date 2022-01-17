@@ -18,7 +18,7 @@ namespace vox {
 //!
 //! \brief Static-sized M x N matrix class.
 //!
-//! This class defines M x N row-major matrix data where its size is determined
+//! This class defines M x N colum-major matrix data where its size is determined
 //! statically at compile time.
 //!
 //! \tparam T - Real number type.
@@ -59,9 +59,10 @@ public:
     //!
     //! \code{.cpp}
     //! Matrix<float, 3, 4> mat = {
-    //!     {1.f, 2.f, 4.f, 3.f},
-    //!     {9.f, 3.f, 5.f, 1.f},
-    //!     {4.f, 8.f, 1.f, 5.f}
+    //!     {1.f, 9.f, 4.f},
+    //!     {2.f, 3.f, 8.f},
+    //!     {4.f, 5.f, 1.f},
+    //!     {3.f, 1.f, 5.f}
     //! };
     //! \endcode
     //!
@@ -93,9 +94,10 @@ public:
     //! \code{.cpp}
     //! Matrix<float, 3, 4> mat;
     //! mat.set({
-    //!     {1.f, 2.f, 4.f, 3.f},
-    //!     {9.f, 3.f, 5.f, 1.f},
-    //!     {4.f, 8.f, 1.f, 5.f}
+    //!     {1.f, 9.f, 4.f},
+    //!     {2.f, 3.f, 8.f},
+    //!     {4.f, 5.f, 1.f},
+    //!     {3.f, 1.f, 5.f}
     //! });
     //! \endcode
     //!
@@ -374,8 +376,8 @@ public:
     //!
     //! \code{.cpp}
     //! MatrixMxN<double> mat(100, 200, 4.0);
-    //! for (size_t i = 0; i < mat.rows(); ++i) {
-    //!     for (size_t j = 0; j < mat.cols(); ++j) {
+    //! for (size_t j = 0; j < mat.cols(); ++j) {
+    //!     for (size_t i = 0; i < mat.rows(); ++i) {
     //!         func(mat(i, j));
     //!     }
     //! }
@@ -435,9 +437,9 @@ private:
     ContainerType _elements;
     
     template<typename... Params>
-    void setRowAt(size_t i, T v, Params... params);
+    void setColumnAt(size_t i, T v, Params... params);
     
-    void setRowAt(size_t i, T v);
+    void setColumnAt(size_t i, T v);
 };
 
 }  // namespace vox

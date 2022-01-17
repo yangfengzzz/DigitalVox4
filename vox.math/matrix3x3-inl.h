@@ -26,9 +26,8 @@ Matrix<T, 3, 3>::Matrix(T s) {
 }
 
 template<typename T>
-Matrix<T, 3, 3>::Matrix(T m00, T m01, T m02, T m10, T m11, T m12, T m20, T m21,
-                        T m22) {
-    set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+Matrix<T, 3, 3>::Matrix(T m00, T m10, T m20, T m01, T m11, T m21, T m02, T m12, T m22) {
+    set(m00, m10, m20, m01, m11, m21, m02, m12, m22);
 }
 
 template<typename T>
@@ -55,36 +54,35 @@ void Matrix<T, 3, 3>::set(T s) {
 }
 
 template<typename T>
-void Matrix<T, 3, 3>::set(T m00, T m01, T m02, T m10, T m11, T m12, T m20,
-                          T m21, T m22) {
+void Matrix<T, 3, 3>::set(T m00, T m10, T m20, T m01, T m11, T m21, T m02, T m12, T m22) {
     _elements[0] = m00;
-    _elements[1] = m01;
-    _elements[2] = m02;
-    _elements[3] = m10;
+    _elements[1] = m10;
+    _elements[2] = m20;
+    _elements[3] = m01;
     _elements[4] = m11;
-    _elements[5] = m12;
-    _elements[6] = m20;
-    _elements[7] = m21;
+    _elements[5] = m21;
+    _elements[6] = m02;
+    _elements[7] = m12;
     _elements[8] = m22;
 }
 
 template<typename T>
 template<typename U>
 void Matrix<T, 3, 3>::set(const std::initializer_list<std::initializer_list<U>> &lst) {
-    size_t height = lst.size();
-    size_t width = (height > 0) ? lst.begin()->size() : 0;
+    size_t width = lst.size();
+    size_t height = (width > 0) ? lst.begin()->size() : 0;
     JET_ASSERT(width == 3);
     JET_ASSERT(height == 3);
     
-    auto rowIter = lst.begin();
-    for (size_t i = 0; i < height; ++i) {
-        JET_ASSERT(width == rowIter->size());
-        auto colIter = rowIter->begin();
-        for (size_t j = 0; j < width; ++j) {
-            (*this)(i, j) = static_cast<T>(*colIter);
-            ++colIter;
+    auto colIter = lst.begin();
+    for (size_t i = 0; i < width; ++i) {
+        JET_ASSERT(height == colIter->size());
+        auto rowIter = colIter->begin();
+        for (size_t j = 0; j < height; ++j) {
+            (*this)(j, i) = static_cast<T>(*rowIter);
+            ++rowIter;
         }
-        ++rowIter;
+        ++colIter;
     }
 }
 
@@ -111,16 +109,16 @@ void Matrix<T, 3, 3>::setOffDiagonal(T s) {
 
 template<typename T>
 void Matrix<T, 3, 3>::setRow(size_t i, const Vector<T, 3> &row) {
-    _elements[3 * i] = row.x;
-    _elements[3 * i + 1] = row.y;
-    _elements[3 * i + 2] = row.z;
+    _elements[i] = row.x;
+    _elements[i + 3] = row.y;
+    _elements[i + 6] = row.z;
 }
 
 template<typename T>
 void Matrix<T, 3, 3>::setColumn(size_t j, const Vector<T, 3> &col) {
-    _elements[j] = col.x;
-    _elements[j + 3] = col.y;
-    _elements[j + 6] = col.z;
+    _elements[3 * j] = col.x;
+    _elements[3 * j + 1] = col.y;
+    _elements[3 * j + 2] = col.z;
 }
 
 // MARK: - Basic getters
@@ -204,40 +202,32 @@ Matrix<T, 3, 3> Matrix<T, 3, 3>::mul(T s) const {
 
 template<typename T>
 Point<T, 3> Matrix<T, 3, 3>::mul(const Point<T, 3> &v) const {
-    return Point<T, 3>(_elements[0] * v.x + _elements[1] * v.y + _elements[2] * v.z,
-                       _elements[3] * v.x + _elements[4] * v.y + _elements[5] * v.z,
-                       _elements[6] * v.x + _elements[7] * v.y + _elements[8] * v.z);
+    
+    return Point<T, 3>(_elements[0] * v.x + _elements[3] * v.y + _elements[6] * v.z,
+                       _elements[1] * v.x + _elements[4] * v.y + _elements[7] * v.z,
+                       _elements[2] * v.x + _elements[5] * v.y + _elements[8] * v.z);
 }
 
 template<typename T>
 Vector<T, 3> Matrix<T, 3, 3>::mul(const Vector<T, 3> &v) const {
-    return Vector<T, 3>(_elements[0] * v.x + _elements[1] * v.y + _elements[2] * v.z,
-                        _elements[3] * v.x + _elements[4] * v.y + _elements[5] * v.z,
-                        _elements[6] * v.x + _elements[7] * v.y + _elements[8] * v.z);
+    return Vector<T, 3>(_elements[0] * v.x + _elements[3] * v.y + _elements[6] * v.z,
+                        _elements[1] * v.x + _elements[4] * v.y + _elements[7] * v.z,
+                        _elements[2] * v.x + _elements[5] * v.y + _elements[8] * v.z);
 }
 
 template<typename T>
 Matrix<T, 3, 3> Matrix<T, 3, 3>::mul(const Matrix &m) const {
-    return Matrix(_elements[0] * m._elements[0] + _elements[1] * m._elements[3] +
-                  _elements[2] * m._elements[6],
-                  _elements[0] * m._elements[1] + _elements[1] * m._elements[4] +
-                  _elements[2] * m._elements[7],
-                  _elements[0] * m._elements[2] + _elements[1] * m._elements[5] +
-                  _elements[2] * m._elements[8],
+    return Matrix(_elements[0] * m._elements[0] + _elements[3] * m._elements[1] + _elements[6] * m._elements[2],
+                  _elements[1] * m._elements[0] + _elements[4] * m._elements[1] + _elements[7] * m._elements[2],
+                  _elements[2] * m._elements[0] + _elements[5] * m._elements[1] + _elements[8] * m._elements[2],
                   
-                  _elements[3] * m._elements[0] + _elements[4] * m._elements[3] +
-                  _elements[5] * m._elements[6],
-                  _elements[3] * m._elements[1] + _elements[4] * m._elements[4] +
-                  _elements[5] * m._elements[7],
-                  _elements[3] * m._elements[2] + _elements[4] * m._elements[5] +
-                  _elements[5] * m._elements[8],
+                  _elements[0] * m._elements[3] + _elements[3] * m._elements[4] + _elements[6] * m._elements[5],
+                  _elements[1] * m._elements[3] + _elements[4] * m._elements[4] + _elements[7] * m._elements[5],
+                  _elements[2] * m._elements[3] + _elements[5] * m._elements[4] + _elements[8] * m._elements[5],
                   
-                  _elements[6] * m._elements[0] + _elements[7] * m._elements[3] +
-                  _elements[8] * m._elements[6],
-                  _elements[6] * m._elements[1] + _elements[7] * m._elements[4] +
-                  _elements[8] * m._elements[7],
-                  _elements[6] * m._elements[2] + _elements[7] * m._elements[5] +
-                  _elements[8] * m._elements[8]);
+                  _elements[0] * m._elements[6] + _elements[3] * m._elements[7] + _elements[6] * m._elements[8],
+                  _elements[1] * m._elements[6] + _elements[4] * m._elements[7] + _elements[7] * m._elements[8],
+                  _elements[2] * m._elements[6] + _elements[5] * m._elements[7] + _elements[8] * m._elements[8]);
 }
 
 template<typename T>
@@ -473,24 +463,24 @@ Matrix<T, 3, 3> Matrix<T, 3, 3>::offDiagonal() const {
 
 template<typename T>
 Matrix<T, 3, 3> Matrix<T, 3, 3>::strictLowerTri() const {
-    return Matrix(0, 0, 0, _elements[3], 0, 0, _elements[6], _elements[7], 0);
-}
-
-template<typename T>
-Matrix<T, 3, 3> Matrix<T, 3, 3>::strictUpperTri() const {
     return Matrix(0, _elements[1], _elements[2], 0, 0, _elements[5], 0, 0, 0);
 }
 
 template<typename T>
+Matrix<T, 3, 3> Matrix<T, 3, 3>::strictUpperTri() const {
+    return Matrix(0, 0, 0, _elements[3], 0, 0, _elements[6], _elements[7], 0);
+}
+
+template<typename T>
 Matrix<T, 3, 3> Matrix<T, 3, 3>::lowerTri() const {
-    return Matrix(_elements[0], 0, 0, _elements[3], _elements[4], 0,
-                  _elements[6], _elements[7], _elements[8]);
+    return Matrix(_elements[0], _elements[1], _elements[2], 0, _elements[4],
+                  _elements[5], 0, 0, _elements[8]);
 }
 
 template<typename T>
 Matrix<T, 3, 3> Matrix<T, 3, 3>::upperTri() const {
-    return Matrix(_elements[0], _elements[1], _elements[2], 0, _elements[4],
-                  _elements[5], 0, 0, _elements[8]);
+    return Matrix(_elements[0], 0, 0, _elements[3], _elements[4], 0,
+                  _elements[6], _elements[7], _elements[8]);
 }
 
 template<typename T>
@@ -606,12 +596,12 @@ const T &Matrix<T, 3, 3>::operator[](size_t i) const {
 
 template<typename T>
 T &Matrix<T, 3, 3>::operator()(size_t i, size_t j) {
-    return _elements[3 * i + j];
+    return _elements[i + 3 * j];
 }
 
 template<typename T>
 const T &Matrix<T, 3, 3>::operator()(size_t i, size_t j) const {
-    return _elements[3 * i + j];
+    return _elements[i + 3 * j];
 }
 
 // MARK: - Helpers
@@ -639,15 +629,15 @@ template<typename T>
 Matrix<T, 3, 3> Matrix<T, 3, 3>::makeRotationMatrix(const Vector<T, 3> &axis,
                                                     T rad) {
     return Matrix(1 + (1 - std::cos(rad)) * (axis.x * axis.x - 1),
-                  -axis.z * std::sin(rad) + (1 - std::cos(rad)) * axis.x * axis.y,
-                  axis.y * std::sin(rad) + (1 - std::cos(rad)) * axis.x * axis.z,
-                  
                   axis.z * std::sin(rad) + (1 - std::cos(rad)) * axis.x * axis.y,
-                  1 + (1 - std::cos(rad)) * (axis.y * axis.y - 1),
-                  -axis.x * std::sin(rad) + (1 - std::cos(rad)) * axis.y * axis.z,
-                  
                   -axis.y * std::sin(rad) + (1 - std::cos(rad)) * axis.x * axis.z,
+                  
+                  -axis.z * std::sin(rad) + (1 - std::cos(rad)) * axis.x * axis.y,
+                  1 + (1 - std::cos(rad)) * (axis.y * axis.y - 1),
                   axis.x * std::sin(rad) + (1 - std::cos(rad)) * axis.y * axis.z,
+                  
+                  axis.y * std::sin(rad) + (1 - std::cos(rad)) * axis.x * axis.z,
+                  -axis.x * std::sin(rad) + (1 - std::cos(rad)) * axis.y * axis.z,
                   1 + (1 - std::cos(rad)) * (axis.z * axis.z - 1));
 }
 

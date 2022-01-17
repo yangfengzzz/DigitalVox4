@@ -18,8 +18,8 @@ namespace vox {
 //!
 //! \brief 2-D matrix class.
 //!
-//! This class is a row-major 2-D matrix class, which means each element of
-//! the matrix is stored in order of (0, 0), (0, 1), (1, 0) and (1, 1).
+//! This class is a column-major 2-D matrix class, which means each element of
+//! the matrix is stored in order of (0, 0), (1, 0), (0, 1) and (1, 1).
 //! \tparam T - Type of the element.
 //!
 template<typename T>
@@ -37,8 +37,8 @@ public:
     explicit Matrix(T s);
     
     //! Constructs a matrix with input elements.
-    //! \warning Ordering of the input elements is row-major.
-    Matrix(T m00, T m01, T m10, T m11);
+    //! \warning Ordering of the input elements is column-major.
+    Matrix(T m00, T m10, T m01, T m11);
     
     //!
     //! \brief Constructs a matrix with given initializer list \p lst.
@@ -48,8 +48,8 @@ public:
     //!
     //! \code{.cpp}
     //! Matrix<float, 2, 2> arr = {
-    //!     {1.f, 2.f},
-    //!     {9.f, 3.f}
+    //!     {1.f, 9.f},
+    //!     {2.f, 3.f}
     //! };
     //! \endcode
     //!
@@ -64,7 +64,7 @@ public:
     Matrix(const Matrix &m);
     
     //! Constructs a matrix with input array.
-    //! \warning Ordering of the input elements is row-major.
+    //! \warning Ordering of the input elements is column-major.
     explicit Matrix(const T *arr);
     
     // MARK: - Basic setters
@@ -73,7 +73,7 @@ public:
     void set(T s);
     
     //! Sets this matrix with input elements.
-    //! \warning Ordering of the input elements is row-major.
+    //! \warning Ordering of the input elements is column-major.
     void set(T m00, T m01, T m10, T m11);
     
     //!
@@ -101,7 +101,7 @@ public:
     void set(const Matrix &m);
     
     //! Copies from input array.
-    //! \warning Ordering of the input elements is row-major.
+    //! \warning Ordering of the input elements is column-major.
     void set(const T *arr);
     
     //! Sets diagonal elements with input scalar.

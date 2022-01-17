@@ -13,11 +13,11 @@ TEST(Ray2, Constructors) {
     Ray2D ray;
     EXPECT_EQ(Point2D(), ray.origin);
     EXPECT_EQ(Vector2D(1, 0), ray.direction);
-
+    
     Ray2D ray2({1, 2}, {3, 4});
     EXPECT_EQ(Point2D(1, 2), ray2.origin);
     EXPECT_EQ(Vector2D(3, 4).normalized(), ray2.direction);
-
+    
     Ray2D ray3(ray2);
     EXPECT_EQ(Point2D(1, 2), ray3.origin);
     EXPECT_EQ(Vector2D(3, 4).normalized(), ray3.direction);

@@ -24,7 +24,7 @@ template<typename... Params>
 Matrix<T, M, N>::Matrix(Params... params) {
     static_assert(sizeof...(params) == M * N, "Invalid number of elements.");
     
-    setRowAt(0, params...);
+    setColumnAt(0, params...);
 }
 
 template<typename T, size_t M, size_t N>
@@ -50,21 +50,21 @@ void Matrix<T, M, N>::set(const T &s) {
 
 template<typename T, size_t M, size_t N>
 void Matrix<T, M, N>::set(const std::initializer_list<std::initializer_list<T>> &lst) {
-    size_t rows = lst.size();
-    size_t cols = (rows > 0) ? lst.begin()->size() : 0;
+    size_t cols = lst.size();
+    size_t rows = (cols > 0) ? lst.begin()->size() : 0;
     
-    JET_ASSERT(rows == M);
     JET_ASSERT(cols == N);
+    JET_ASSERT(rows == M);
     
-    auto rowIter = lst.begin();
-    for (size_t i = 0; i < rows; ++i) {
-        JET_ASSERT(cols == rowIter->size());
-        auto colIter = rowIter->begin();
-        for (size_t j = 0; j < cols; ++j) {
-            (*this)(i, j) = *colIter;
-            ++colIter;
+    auto colIter = lst.begin();
+    for (size_t i = 0; i < cols; ++i) {
+        JET_ASSERT(rows == colIter->size());
+        auto rowIter = colIter->begin();
+        for (size_t j = 0; j < rows; ++j) {
+            (*this)(j, i) = *rowIter;
+            ++rowIter;
         }
-        ++rowIter;
+        ++colIter;
     }
 }
 
@@ -112,7 +112,7 @@ void Matrix<T, M, N>::setColumn(size_t j, const VectorExpression <T, E> &col) {
     
     const E &e = col();
     for (size_t i = 0; i < M; ++i) {
-        (*this)(i, j) = e[j];
+        (*this)(i, j) = e[i];
     }
 }
 
@@ -124,8 +124,8 @@ bool Matrix<T, M, N>::isEqual(const MatrixExpression <T, E> &other) const {
     }
     
     const E &e = other();
-    for (size_t i = 0; i < rows(); ++i) {
-        for (size_t j = 0; j < cols(); ++j) {
+    for (size_t j = 0; j < cols(); ++j) {
+        for (size_t i = 0; i < rows(); ++i) {
             if ((*this)(i, j) != e(i, j)) {
                 return false;
             }
@@ -144,8 +144,8 @@ bool Matrix<T, M, N>::isSimilar(const MatrixExpression <T, E> &other,
     }
     
     const E &e = other();
-    for (size_t i = 0; i < rows(); ++i) {
-        for (size_t j = 0; j < cols(); ++j) {
+    for (size_t i = 0; i < cols(); ++i) {
+        for (size_t j = 0; j < rows(); ++j) {
             if (std::fabs((*this)(i, j) - e(i, j)) > tol) {
                 return false;
             }
@@ -621,12 +621,12 @@ const T &Matrix<T, M, N>::operator[](size_t i) const {
 
 template<typename T, size_t M, size_t N>
 T &Matrix<T, M, N>::operator()(size_t i, size_t j) {
-    return _elements[i * N + j];
+    return _elements[i + j * M];
 }
 
 template<typename T, size_t M, size_t N>
 const T &Matrix<T, M, N>::operator()(size_t i, size_t j) const {
-    return _elements[i * N + j];
+    return _elements[i + j * M];
 }
 
 template<typename T, size_t M, size_t N>
@@ -644,8 +644,8 @@ bool Matrix<T, M, N>::operator!=(const MatrixExpression <T, E> &m) const {
 template<typename T, size_t M, size_t N>
 template<typename Callback>
 void Matrix<T, M, N>::forEach(Callback func) const {
-    for (size_t i = 0; i < rows(); ++i) {
-        for (size_t j = 0; j < cols(); ++j) {
+    for (size_t j = 0; j < cols(); ++j) {
+        for (size_t i = 0; i < rows(); ++i) {
             func((*this)(i, j));
         }
     }
@@ -654,8 +654,8 @@ void Matrix<T, M, N>::forEach(Callback func) const {
 template<typename T, size_t M, size_t N>
 template<typename Callback>
 void Matrix<T, M, N>::forEachIndex(Callback func) const {
-    for (size_t i = 0; i < rows(); ++i) {
-        for (size_t j = 0; j < cols(); ++j) {
+    for (size_t j = 0; j < cols(); ++j) {
+        for (size_t i = 0; i < rows(); ++i) {
             func(i, j);
         }
     }
@@ -674,13 +674,13 @@ MatrixIdentity <T> Matrix<T, M, N>::makeIdentity() {
 
 template<typename T, size_t M, size_t N>
 template<typename... Params>
-void Matrix<T, M, N>::setRowAt(size_t i, T v, Params... params) {
+void Matrix<T, M, N>::setColumnAt(size_t i, T v, Params... params) {
     _elements[i] = v;
-    setRowAt(i + 1, params...);
+    setColumnAt(i + 1, params...);
 }
 
 template<typename T, size_t M, size_t N>
-void Matrix<T, M, N>::setRowAt(size_t i, T v) {
+void Matrix<T, M, N>::setColumnAt(size_t i, T v) {
     _elements[i] = v;
 }
 

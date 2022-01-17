@@ -466,9 +466,9 @@ inline Matrix3x3 <T> Quaternion<T>::matrix3() const {
     T _2yw = 2 * y * w;
     T _2zw = 2 * z * w;
     
-    Matrix3x3<T> m(1 - _2yy - _2zz, _2xy - _2zw, _2xz + _2yw,
-                   _2xy + _2zw, 1 - _2zz - _2xx, _2yz - _2xw,
-                   _2xz - _2yw, _2yz + _2xw, 1 - _2yy - _2xx);
+    Matrix3x3<T> m(1 - _2yy - _2zz, _2xy + _2zw, _2xz - _2yw,
+                   _2xy - _2zw, 1 - _2zz - _2xx, _2yz + _2xw,
+                   _2xz + _2yw, _2yz - _2xw, 1 - _2yy - _2xx);
     
     return m;
 }
@@ -485,9 +485,9 @@ inline Matrix4x4 <T> Quaternion<T>::matrix4() const {
     T _2yw = 2 * y * w;
     T _2zw = 2 * z * w;
     
-    Matrix4x4<T> m(1 - _2yy - _2zz, _2xy - _2zw, _2xz + _2yw, 0,
-                   _2xy + _2zw, 1 - _2zz - _2xx, _2yz - _2xw, 0,
-                   _2xz - _2yw, _2yz + _2xw, 1 - _2yy - _2xx, 0,
+    Matrix4x4<T> m(1 - _2yy - _2zz, _2xy + _2zw, _2xz - _2yw, 0,
+                   _2xy - _2zw, 1 - _2zz - _2xx, _2yz + _2xw, 0,
+                   _2xz + _2yw, _2yz - _2xw, 1 - _2yy - _2xx, 0,
                    0, 0, 0, 1);
     
     return m;
