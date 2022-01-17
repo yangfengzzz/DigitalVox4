@@ -84,7 +84,7 @@ private:
     double _radius = 0.0;
 };
 
-}  // namespace jet
+}  // namespace vox
 
 
 #endif  // INCLUDE_JET_SPHERE2_H_

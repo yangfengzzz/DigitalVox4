@@ -105,6 +105,6 @@ private:
     std::array<Vector2D, 3> _uvs;
 };
 
-}  // namespace jet
+}  // namespace vox
 
 #endif  // INCLUDE_JET_TRIANGLE3_H_

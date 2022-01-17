@@ -94,7 +94,7 @@ private:
     double _height = 1.0;
 };
 
-}  // namespace jet
+}  // namespace vox
 
 
 #endif  // INCLUDE_JET_CYLINDER3_H_

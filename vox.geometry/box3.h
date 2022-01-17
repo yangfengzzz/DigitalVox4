@@ -90,7 +90,7 @@ private:
     Point3D _upperCorner{1, 1, 1};
 };
 
-}  // namespace jet
+}  // namespace vox
 
 
 #endif  // INCLUDE_JET_BOX3_H_

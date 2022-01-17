@@ -83,7 +83,7 @@ private:
     double _radius = 0.0;
 };
 
-}  // namespace jet
+}  // namespace vox
 
 
 #endif  // INCLUDE_JET_SPHERE3_H_
