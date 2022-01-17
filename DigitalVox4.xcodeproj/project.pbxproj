@@ -367,6 +367,10 @@
 		0445952D279501DB00F04CE0 /* parallel-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445952A279501DB00F04CE0 /* parallel-inl.h */; };
 		0445952E279501DB00F04CE0 /* parallel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445952B279501DB00F04CE0 /* parallel.h */; };
 		0445952F279501DB00F04CE0 /* parallel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445952C279501DB00F04CE0 /* parallel.cpp */; };
+		0445953427950C8800F04CE0 /* surface_set2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445953027950C8700F04CE0 /* surface_set2.cpp */; };
+		0445953527950C8800F04CE0 /* surface_set3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445953127950C8700F04CE0 /* surface_set3.cpp */; };
+		0445953627950C8800F04CE0 /* surface_set2.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445953227950C8700F04CE0 /* surface_set2.h */; };
+		0445953727950C8800F04CE0 /* surface_set3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445953327950C8800F04CE0 /* surface_set3.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -847,6 +851,10 @@
 		0445952A279501DB00F04CE0 /* parallel-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "parallel-inl.h"; sourceTree = "<group>"; };
 		0445952B279501DB00F04CE0 /* parallel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parallel.h; sourceTree = "<group>"; };
 		0445952C279501DB00F04CE0 /* parallel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parallel.cpp; sourceTree = "<group>"; };
+		0445953027950C8700F04CE0 /* surface_set2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_set2.cpp; sourceTree = "<group>"; };
+		0445953127950C8700F04CE0 /* surface_set3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_set3.cpp; sourceTree = "<group>"; };
+		0445953227950C8700F04CE0 /* surface_set2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = surface_set2.h; sourceTree = "<group>"; };
+		0445953327950C8800F04CE0 /* surface_set3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = surface_set3.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1083,6 +1091,10 @@
 				044594E72794F2EE00F04CE0 /* triangle3.cpp */,
 				044595262795018400F04CE0 /* triangle_mesh3.h */,
 				044595272795018400F04CE0 /* triangle_mesh3.cpp */,
+				0445953227950C8700F04CE0 /* surface_set2.h */,
+				0445953027950C8700F04CE0 /* surface_set2.cpp */,
+				0445953327950C8800F04CE0 /* surface_set3.h */,
+				0445953127950C8700F04CE0 /* surface_set3.cpp */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -1694,10 +1706,12 @@
 				044594DF2794E5AC00F04CE0 /* sphere2.h in Headers */,
 				044594E02794E5AC00F04CE0 /* sphere3.h in Headers */,
 				044594DA2794E41800F04CE0 /* box2.h in Headers */,
+				0445953727950C8800F04CE0 /* surface_set3.h in Headers */,
 				044594CF27945C6800F04CE0 /* plane2.h in Headers */,
 				044594D027945C6800F04CE0 /* plane3.h in Headers */,
 				04229697278D71760090983F /* surface2.h in Headers */,
 				044594E52794F17A00F04CE0 /* cylinder3.h in Headers */,
+				0445953627950C8800F04CE0 /* surface_set2.h in Headers */,
 				04229696278D71760090983F /* surface3.h in Headers */,
 				044594EA2794F2EF00F04CE0 /* triangle3.h in Headers */,
 				044594D82794E41800F04CE0 /* box3.h in Headers */,
@@ -2048,6 +2062,8 @@
 				044595292795018400F04CE0 /* triangle_mesh3.cpp in Sources */,
 				044594D92794E41800F04CE0 /* box2.cpp in Sources */,
 				044594E92794F2EF00F04CE0 /* triangle3.cpp in Sources */,
+				0445953427950C8800F04CE0 /* surface_set2.cpp in Sources */,
+				0445953527950C8800F04CE0 /* surface_set3.cpp in Sources */,
 				044594CE27945C6800F04CE0 /* plane3.cpp in Sources */,
 				044594D72794E41800F04CE0 /* box3.cpp in Sources */,
 				044594E22794E5AC00F04CE0 /* sphere3.cpp in Sources */,
