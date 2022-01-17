@@ -869,7 +869,7 @@ Matrix<T, 4, 4> Matrix<T, 4, 4>::rotateAxisAngle(const Vector3 <T> &axis, T r) c
     T len = std::sqrt(x * x + y * y + z * z);
     
     if (std::abs(len) < std::numeric_limits<T>::epsilon()) {
-        return;
+        return Matrix<T, 4, 4>::makeIdentity();
     }
     
     len = 1 / len;

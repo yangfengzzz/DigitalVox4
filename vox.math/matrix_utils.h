@@ -114,7 +114,7 @@ inline Matrix<T, 4, 4> makeLookAtMatrix(const Point3 <T> &eye,
                                         const Point3 <T> &target, const Vector3 <T> &up) {
     Vector3<T> zAxis = eye - target;
     zAxis.normalize();
-    Vector3<T> xAxis = up - zAxis;
+    Vector3<T> xAxis = up.cross(zAxis);
     xAxis.normalize();
     Vector3<T> yAxis = zAxis.cross(xAxis);
     

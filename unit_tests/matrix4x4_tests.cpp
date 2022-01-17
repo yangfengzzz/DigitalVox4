@@ -6,7 +6,7 @@
 
 #include "matrix4x4.h"
 #include "matrix_utils.h"
-#include <gtest/gtest.h>
+#include "unit_tests_utils.h"
 
 using namespace vox;
 
@@ -593,4 +593,159 @@ TEST(Matrix4x4, translation) {
     const auto v = Point3D(1, 2, 0.5);
     const auto out = makeTranslationMatrix(v);
     EXPECT_TRUE(out.isSimilar(Matrix4x4D(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 2, 0.5, 1)));
+}
+
+TEST(Matrix4x4, invert) {
+    const auto a = Matrix4x4D(1, 2, 3.3, 4, 5, 6, 7, 8, 9, 10.9, 11, 12, 13, 14, 15, 16);
+    const auto out = a.inverse();
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(-1.1111111111105691,
+                                         1.370370370369675,
+                                         -0.74074074074036778,
+                                         0.14814814814808058,
+                                         0,
+                                         -0.55555555555526703,
+                                         1.1111111111105605,
+                                         -0.55555555555528457,
+                                         3.3333333333317077,
+                                         -4.9999999999975442,
+                                         0,
+                                         1.666666666665845,
+                                         -2.2222222222211383,
+                                         4.0601851851831885,
+                                         -0.37037037037018389,
+                                         -1.1342592592587024
+                                         )));
+}
+
+TEST(Matrix4x4, lookAt) {
+    auto eye = Point3D(0, 0, -8);
+    auto target = Point3D(0, 0, 0);
+    auto up = Vector3D(0, 1, 0);
+    auto out = makeLookAtMatrix(eye, target, up);
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, -8, 1)));
+    
+    eye = Point3D(0, 0, 0);
+    target = Point3D(0, 1, -1);
+    up = Vector3D(0, 1, 0);
+    out = makeLookAtMatrix(eye, target, up);
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(
+                                         1,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         0.70710678118654746,
+                                         -0.70710678118654746,
+                                         0,
+                                         0,
+                                         0.70710678118654746,
+                                         0.70710678118654746,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         1
+                                         )));
+}
+
+TEST(Matrix4x4, ortho) {
+    const Matrix4x4D out = makeOrtho<double>(0, 2, -1, 1, 0.1, 100);
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -0.02002002002002002, 0, -1, 0, -1.002002002002002, 1)));
+}
+
+TEST(Matrix4x4, perspective) {
+    const Matrix4x4D out = makepPerspective<double>(1, 1.5, 0.1, 100);
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(
+                                         1.2203251478083013,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         1.830487721712452,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         -1.002002002002002,
+                                         -1,
+                                         0,
+                                         0,
+                                         -0.20020020020020018,
+                                         0
+                                         )));
+}
+
+TEST(Matrix4x4, rotateAxisAngle) {
+    const auto a = Matrix4x4D(1, 2, 3.3, 4, 5, 6, 7, 8, 9, 10.9, 11, 12, 13, 14, 15, 16);
+    const auto out = a.rotateAxisAngle(Vector3D(0, 1, 0), M_PI / 3);
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(
+                                         -7.294228634059947,
+                                         -8.439676901250381,
+                                         -7.876279441628824,
+                                         -8.392304845413264,
+                                         5,
+                                         6,
+                                         7,
+                                         8,
+                                         5.366025403784439,
+                                         7.182050807568878,
+                                         8.357883832488648,
+                                         9.464101615137757,
+                                         13,
+                                         14,
+                                         15,
+                                         16
+                                         )));
+}
+
+TEST(Matrix4x4, scale) {
+    const auto a = Matrix4x4D(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+    const auto out = a.scale(Vector3D(1, 2, 0.5));
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(1, 2, 3, 4, 10, 12, 14, 16, 4.5, 5, 5.5, 6, 13, 14, 15, 16)));
+}
+
+TEST(Matrix4x4, translate) {
+    const auto a = Matrix4x4D(1, 2, 3.3, 4, 5, 6, 7, 8, 9, 10.9, 11, 12, 13, 14, 15, 16);
+    const auto out = a.translate(Vector3D(1, 2, 0.5));
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(1, 2, 3.3, 4, 5, 6, 7, 8, 9, 10.9, 11, 12, 28.5, 33.45, 37.8, 42)));
+}
+
+TEST(Matrix4x4, transpose) {
+    const auto a = Matrix4x4D(1, 2, 3.3, 4, 5, 6, 7, 8, 9, 10.9, 11, 12, 13, 14, 15, 16);
+    const auto out = a.transposed();
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(1, 5, 9, 13, 2, 6, 10.9, 14, 3.3, 7, 11, 15, 4, 8, 12, 16)));
+}
+
+TEST(Matrix4x4, determinant) {
+    const auto a = Matrix4x4D(1, 2, 3, 4, 5, 6, 7, 8, 9, 10.9, 11, 12, 13, 14, 15, 16);
+    EXPECT_FLOAT_EQ(a.determinant(), 0);
+}
+
+TEST(Matrix4x4, decompose) {
+    const auto a = Matrix4x4D(1, 2, 3, 4, 5, 6, 7, 8, 9, 10.9, 11, 12, 13, 14, 15, 16);
+    // const a = new Matrix(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
+    auto pos = Point3D();
+    auto quat = QuaternionD();
+    auto scale = Vector3D();
+    
+    decompose(a, pos, quat, scale);
+    EXPECT_VECTOR3_EQ(pos, Point3D(13, 14, 15));
+    EXPECT_VECTOR4_EQ(quat, QuaternionD(0.018790394403601106, -0.095541305726454986, 0.018447618636927929, 0.78317953036995014));
+    EXPECT_VECTOR3_EQ(scale, Vector3D(3.7416573867739413, 10.488088481701515, 17.911169699380327));
+}
+
+TEST(Matrix4x4, getXXX) {
+    const auto a = Matrix4x4D(1, 2, 3, 4, 5, 6, 7, 8, 9, 10.9, 11, 12, 13, 14, 15, 16);
+    
+    // getRotation
+    auto quat = getRotation(a);
+    EXPECT_VECTOR4_EQ(quat, QuaternionD(-0.44736068104759547, 0.6882472016116852, -0.3441236008058426, 2.179449471770337));
+    
+    // getScaling
+    auto scale = getScaling(a);
+    EXPECT_VECTOR3_EQ(scale, Vector3D(3.7416573867739413, 10.488088481701515, 17.911169699380327));
+    
+    // getTranslation
+    auto translation = getTranslation(a);
+    EXPECT_VECTOR3_EQ(translation, Point3D(13, 14, 15));
 }
