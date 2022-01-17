@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_PLANE3_H_
-#define INCLUDE_JET_PLANE3_H_
+#ifndef INCLUDE_VOX_PLANE3_H_
+#define INCLUDE_VOX_PLANE3_H_
 
 #include "surface3.h"
 
@@ -28,25 +28,25 @@ public:
     Point3D point;
     
     //! Constructs a plane that crosses (0, 0, 0) with surface normal (0, 1, 0).
-    Plane3(const Transform3D& transform = Transform3D(),
+    Plane3(const Transform3D &transform = Transform3D(),
            bool isNormalFlipped = false);
     
     //! Constructs a plane that cross \p point with surface normal \p normal.
-    Plane3(const Vector3D& normal,
-           const Point3D& point,
-           const Transform3D& transform = Transform3D(),
+    Plane3(const Vector3D &normal,
+           const Point3D &point,
+           const Transform3D &transform = Transform3D(),
            bool isNormalFlipped = false);
     
     //! Constructs a plane with three points on the surface. The normal will be
     //! set using the counter clockwise direction.
-    Plane3(const Point3D& point0,
-           const Point3D& point1,
-           const Point3D& point2,
-           const Transform3D& transform = Transform3D(),
+    Plane3(const Point3D &point0,
+           const Point3D &point1,
+           const Point3D &point2,
+           const Transform3D &transform = Transform3D(),
            bool isNormalFlipped = false);
     
     //! Copy constructor.
-    Plane3(const Plane3& other);
+    Plane3(const Plane3 &other);
     
     //! Returns true if bounding box can be defined.
     bool isBounded() const override;
@@ -55,15 +55,15 @@ public:
     static Builder builder();
     
 protected:
-    Point3D closestPointLocal(const Point3D& otherPoint) const override;
+    Point3D closestPointLocal(const Point3D &otherPoint) const override;
     
-    bool intersectsLocal(const Ray3D& ray) const override;
+    bool intersectsLocal(const Ray3D &ray) const override;
     
     BoundingBox3D boundingBoxLocal() const override;
     
-    Vector3D closestNormalLocal(const Point3D& otherPoint) const override;
+    Vector3D closestNormalLocal(const Point3D &otherPoint) const override;
     
-    SurfaceRayIntersection3 closestIntersectionLocal(const Ray3D& ray) const override;
+    SurfaceRayIntersection3 closestIntersectionLocal(const Ray3D &ray) const override;
 };
 
 //! Shared pointer for the Plane3 type.
@@ -76,10 +76,10 @@ using Plane3Ptr = std::shared_ptr<Plane3>;
 class Plane3::Builder final : public SurfaceBuilderBase3<Plane3::Builder> {
 public:
     //! Returns builder with plane normal.
-    Builder& withNormal(const Vector3D& normal);
+    Builder &withNormal(const Vector3D &normal);
     
     //! Returns builder with point on the plane.
-    Builder& withPoint(const Point3D& point);
+    Builder &withPoint(const Point3D &point);
     
     //! Builds Plane3.
     Plane3 build() const;
@@ -94,4 +94,4 @@ private:
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_PLANE3_H_
+#endif  // INCLUDE_VOX_PLANE3_H_

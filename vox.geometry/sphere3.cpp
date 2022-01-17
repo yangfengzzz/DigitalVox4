@@ -1,8 +1,8 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 //#include <pch.h>
 
@@ -10,27 +10,30 @@
 
 using namespace vox;
 
-Sphere3::Sphere3(const Transform3D& transform_, bool isNormalFlipped_)
-: Surface3(transform_, isNormalFlipped_) {}
+Sphere3::Sphere3(const Transform3D &transform_, bool isNormalFlipped_)
+: Surface3(transform_, isNormalFlipped_) {
+}
 
-Sphere3::Sphere3(const Point3D& center_, double radius_,
-                 const Transform3D& transform_, bool isNormalFlipped_)
+Sphere3::Sphere3(const Point3D &center_, double radius_,
+                 const Transform3D &transform_, bool isNormalFlipped_)
 : Surface3(transform_, isNormalFlipped_),
 center(center_),
-radius(radius_) {}
+radius(radius_) {
+}
 
-Sphere3::Sphere3(const Sphere3& other)
-: Surface3(other), center(other.center), radius(other.radius) {}
+Sphere3::Sphere3(const Sphere3 &other)
+: Surface3(other), center(other.center), radius(other.radius) {
+}
 
-Point3D Sphere3::closestPointLocal(const Point3D& otherPoint) const {
+Point3D Sphere3::closestPointLocal(const Point3D &otherPoint) const {
     return center + radius * closestNormalLocal(otherPoint);
 }
 
-double Sphere3::closestDistanceLocal(const Point3D& otherPoint) const {
+double Sphere3::closestDistanceLocal(const Point3D &otherPoint) const {
     return std::fabs(center.distanceTo(otherPoint) - radius);
 }
 
-Vector3D Sphere3::closestNormalLocal(const Point3D& otherPoint) const {
+Vector3D Sphere3::closestNormalLocal(const Point3D &otherPoint) const {
     if (center.isSimilar(otherPoint)) {
         return Vector3D(1, 0, 0);
     } else {
@@ -38,7 +41,7 @@ Vector3D Sphere3::closestNormalLocal(const Point3D& otherPoint) const {
     }
 }
 
-bool Sphere3::intersectsLocal(const Ray3D& ray) const {
+bool Sphere3::intersectsLocal(const Ray3D &ray) const {
     Vector3D r = ray.origin - center;
     double b = ray.direction.dot(r);
     double c = r.lengthSquared() - square(radius);
@@ -61,7 +64,7 @@ bool Sphere3::intersectsLocal(const Ray3D& ray) const {
     return false;
 }
 
-SurfaceRayIntersection3 Sphere3::closestIntersectionLocal(const Ray3D& ray) const {
+SurfaceRayIntersection3 Sphere3::closestIntersectionLocal(const Ray3D &ray) const {
     SurfaceRayIntersection3 intersection;
     Vector3D r = ray.origin - center;
     double b = ray.direction.dot(r);
@@ -97,14 +100,16 @@ BoundingBox3D Sphere3::boundingBoxLocal() const {
     return BoundingBox3D(center - r, center + r);
 }
 
-Sphere3::Builder Sphere3::builder() { return Builder(); }
+Sphere3::Builder Sphere3::builder() {
+    return Builder();
+}
 
-Sphere3::Builder& Sphere3::Builder::withCenter(const Point3D& center) {
+Sphere3::Builder &Sphere3::Builder::withCenter(const Point3D &center) {
     _center = center;
     return *this;
 }
 
-Sphere3::Builder& Sphere3::Builder::withRadius(double radius) {
+Sphere3::Builder &Sphere3::Builder::withRadius(double radius) {
     _radius = radius;
     return *this;
 }
@@ -115,5 +120,7 @@ Sphere3 Sphere3::Builder::build() const {
 
 Sphere3Ptr Sphere3::Builder::makeShared() const {
     return std::shared_ptr<Sphere3>(new Sphere3(_center, _radius, _transform, _isNormalFlipped),
-                                    [](Sphere3* obj) { delete obj; });
+                                    [](Sphere3 *obj) {
+        delete obj;
+    });
 }

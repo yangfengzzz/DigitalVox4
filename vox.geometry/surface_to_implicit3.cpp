@@ -1,8 +1,8 @@
-// Copyright (c) 2019 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include <glog/logging.h>
 #include "surface_to_implicit3.h"
@@ -11,8 +11,8 @@
 
 using namespace vox;
 
-SurfaceToImplicit3::SurfaceToImplicit3(const Surface3Ptr& surface,
-                                       const Transform3D& transform,
+SurfaceToImplicit3::SurfaceToImplicit3(const Surface3Ptr &surface,
+                                       const Transform3D &transform,
                                        bool isNormalFlipped)
 : ImplicitSurface3(transform, isNormalFlipped), _surface(surface) {
     if (std::dynamic_pointer_cast<TriangleMesh3>(surface) != nullptr) {
@@ -22,38 +22,47 @@ SurfaceToImplicit3::SurfaceToImplicit3(const Surface3Ptr& surface,
     }
 }
 
-SurfaceToImplicit3::SurfaceToImplicit3(const SurfaceToImplicit3& other)
-: ImplicitSurface3(other), _surface(other._surface) {}
+SurfaceToImplicit3::SurfaceToImplicit3(const SurfaceToImplicit3 &other)
+: ImplicitSurface3(other), _surface(other._surface) {
+}
 
-bool SurfaceToImplicit3::isBounded() const { return _surface->isBounded(); }
+bool SurfaceToImplicit3::isBounded() const {
+    return _surface->isBounded();
+}
 
-void SurfaceToImplicit3::updateQueryEngine() { _surface->updateQueryEngine(); }
+void SurfaceToImplicit3::updateQueryEngine() {
+    _surface->updateQueryEngine();
+}
 
 bool SurfaceToImplicit3::isValidGeometry() const {
     return _surface->isValidGeometry();
 }
 
-Surface3Ptr SurfaceToImplicit3::surface() const { return _surface; }
+Surface3Ptr SurfaceToImplicit3::surface() const {
+    return _surface;
+}
 
-SurfaceToImplicit3::Builder SurfaceToImplicit3::builder() { return Builder(); }
+SurfaceToImplicit3::Builder SurfaceToImplicit3::builder() {
+    return Builder();
+}
 
-Point3D SurfaceToImplicit3::closestPointLocal(const Point3D& otherPoint) const {
+Point3D SurfaceToImplicit3::closestPointLocal(const Point3D &otherPoint) const {
     return _surface->closestPoint(otherPoint);
 }
 
-Vector3D SurfaceToImplicit3::closestNormalLocal(const Point3D& otherPoint) const {
+Vector3D SurfaceToImplicit3::closestNormalLocal(const Point3D &otherPoint) const {
     return _surface->closestNormal(otherPoint);
 }
 
-double SurfaceToImplicit3::closestDistanceLocal(const Point3D& otherPoint) const {
+double SurfaceToImplicit3::closestDistanceLocal(const Point3D &otherPoint) const {
     return _surface->closestDistance(otherPoint);
 }
 
-bool SurfaceToImplicit3::intersectsLocal(const Ray3D& ray) const {
+bool SurfaceToImplicit3::intersectsLocal(const Ray3D &ray) const {
     return _surface->intersects(ray);
 }
 
-SurfaceRayIntersection3 SurfaceToImplicit3::closestIntersectionLocal(const Ray3D& ray) const {
+SurfaceRayIntersection3 SurfaceToImplicit3::closestIntersectionLocal(const Ray3D &ray) const {
     return _surface->closestIntersection(ray);
 }
 
@@ -61,17 +70,17 @@ BoundingBox3D SurfaceToImplicit3::boundingBoxLocal() const {
     return _surface->boundingBox();
 }
 
-double SurfaceToImplicit3::signedDistanceLocal(const Point3D& otherPoint) const {
+double SurfaceToImplicit3::signedDistanceLocal(const Point3D &otherPoint) const {
     Point3D x = _surface->closestPoint(otherPoint);
     bool inside = _surface->isInside(otherPoint);
     return (inside) ? -x.distanceTo(otherPoint) : x.distanceTo(otherPoint);
 }
 
-bool SurfaceToImplicit3::isInsideLocal(const Point3D& otherPoint) const {
+bool SurfaceToImplicit3::isInsideLocal(const Point3D &otherPoint) const {
     return _surface->isInside(otherPoint);
 }
 
-SurfaceToImplicit3::Builder& SurfaceToImplicit3::Builder::withSurface(const Surface3Ptr& surface) {
+SurfaceToImplicit3::Builder &SurfaceToImplicit3::Builder::withSurface(const Surface3Ptr &surface) {
     _surface = surface;
     return *this;
 }
@@ -82,5 +91,7 @@ SurfaceToImplicit3 SurfaceToImplicit3::Builder::build() const {
 
 SurfaceToImplicit3Ptr SurfaceToImplicit3::Builder::makeShared() const {
     return std::shared_ptr<SurfaceToImplicit3>(new SurfaceToImplicit3(_surface, _transform, _isNormalFlipped),
-                                               [](SurfaceToImplicit3* obj) { delete obj; });
+                                               [](SurfaceToImplicit3 *obj) {
+        delete obj;
+    });
 }

@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  collision_util.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/11/25.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef collision_util_hpp
 #define collision_util_hpp

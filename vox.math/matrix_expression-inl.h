@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_DETAIL_JET_MATRIX_EXPRESSION_INL_H_
-#define INCLUDE_DETAIL_JET_MATRIX_EXPRESSION_INL_H_
+#ifndef INCLUDE_DETAIL_VOX_MATRIX_EXPRESSION_INL_H_
+#define INCLUDE_DETAIL_VOX_MATRIX_EXPRESSION_INL_H_
 
 #include "matrix_expression.h"
 
@@ -182,7 +182,7 @@ T MatrixTriangular<T, E>::operator()(size_t i, size_t j) const {
 template<typename T, typename E1, typename E2, typename Op>
 MatrixBinaryOp<T, E1, E2, Op>::MatrixBinaryOp(const E1 &u, const E2 &v)
 : _u(u), _v(v) {
-    JET_ASSERT(u.size() == v.size());
+    VOX_ASSERT(u.size() == v.size());
 }
 
 template<typename T, typename E1, typename E2, typename Op>
@@ -237,7 +237,7 @@ T MatrixScalarBinaryOp<T, E, Op>::operator()(size_t i, size_t j) const {
 template<typename T, typename ME, typename VE>
 MatrixVectorMul<T, ME, VE>::MatrixVectorMul(const ME &m, const VE &v)
 : _m(m), _v(v) {
-    JET_ASSERT(_m.cols() == _v.size());
+    VOX_ASSERT(_m.cols() == _v.size());
 }
 
 template<typename T, typename ME, typename VE>
@@ -259,7 +259,7 @@ T MatrixVectorMul<T, ME, VE>::operator[](size_t i) const {
 
 template<typename T, typename E1, typename E2>
 MatrixMul<T, E1, E2>::MatrixMul(const E1 &u, const E2 &v) : _u(u), _v(v) {
-    JET_ASSERT(_u.cols() == _v.rows());
+    VOX_ASSERT(_u.cols() == _v.rows());
 }
 
 template<typename T, typename E1, typename E2>
@@ -361,4 +361,4 @@ MatrixScalarRDiv <T, E> operator/(T a, const MatrixExpression <T, E> &b) {
 
 }  // namespace vox
 
-#endif  // INCLUDE_DETAIL_JET_MATRIX_EXPRESSION_INL_H_
+#endif  // INCLUDE_DETAIL_VOX_MATRIX_EXPRESSION_INL_H_

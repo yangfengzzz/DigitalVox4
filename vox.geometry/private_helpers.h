@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef SRC_JET_PRIVATE_HELPERS_H_
-#define SRC_JET_PRIVATE_HELPERS_H_
+#ifndef SRC_VOX_PRIVATE_HELPERS_H_
+#define SRC_VOX_PRIVATE_HELPERS_H_
 
 #include "macros.h"
 
@@ -22,7 +22,7 @@
             });
 #endif
 
-#ifdef JET_WINDOWS
+#ifdef VOX_WINDOWS
 
 #define WIN32_LEAN_AND_MEAN  // Exclude rarely-used stuff from Windows headers
 #ifndef WIN32_LEAN_AND_MEAN
@@ -57,6 +57,6 @@ inline void throwIfFailed(HRESULT hr) {
         }
 #endif
 
-#endif  // JET_WINDOWS
+#endif  // VOX_WINDOWS
 
-#endif  // SRC_JET_PRIVATE_HELPERS_H_
+#endif  // SRC_VOX_PRIVATE_HELPERS_H_

@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_POINT3_H_
-#define INCLUDE_JET_POINT3_H_
+#ifndef INCLUDE_VOX_POINT3_H_
+#define INCLUDE_VOX_POINT3_H_
 
 #include "vector3.h"
 #include "point2.h"
@@ -353,4 +353,4 @@ using Point3UI = Point3<size_t>;
 
 #include "point3-inl.h"
 
-#endif  // INCLUDE_JET_POINT3_H_
+#endif  // INCLUDE_VOX_POINT3_H_

@@ -1,27 +1,26 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 //#include <pch.h>
 #include "rigid_body_collider3.h"
 
 using namespace vox;
 
-RigidBodyCollider3::RigidBodyCollider3(const Surface3Ptr& surface) {
+RigidBodyCollider3::RigidBodyCollider3(const Surface3Ptr &surface) {
     setSurface(surface);
 }
 
-RigidBodyCollider3::RigidBodyCollider3(const Surface3Ptr& surface,
-                                       const Vector3D& linearVelocity_,
-                                       const Vector3D& angularVelocity_)
-: linearVelocity(linearVelocity_)
-, angularVelocity(angularVelocity_) {
+RigidBodyCollider3::RigidBodyCollider3(const Surface3Ptr &surface,
+                                       const Vector3D &linearVelocity_,
+                                       const Vector3D &angularVelocity_)
+: linearVelocity(linearVelocity_), angularVelocity(angularVelocity_) {
     setSurface(surface);
 }
 
-Vector3D RigidBodyCollider3::velocityAt(const Point3D& point) const {
+Vector3D RigidBodyCollider3::velocityAt(const Point3D &point) const {
     Point3D r = point - surface()->transform.translation();
     return linearVelocity + angularVelocity.cross(Vector3D(r.x, r.y, r.z));
 }
@@ -30,20 +29,20 @@ RigidBodyCollider3::Builder RigidBodyCollider3::builder() {
     return Builder();
 }
 
-RigidBodyCollider3::Builder&
-RigidBodyCollider3::Builder::withSurface(const Surface3Ptr& surface) {
+RigidBodyCollider3::Builder &
+RigidBodyCollider3::Builder::withSurface(const Surface3Ptr &surface) {
     _surface = surface;
     return *this;
 }
 
-RigidBodyCollider3::Builder&
-RigidBodyCollider3::Builder::withLinearVelocity(const Vector3D& linearVelocity) {
+RigidBodyCollider3::Builder &
+RigidBodyCollider3::Builder::withLinearVelocity(const Vector3D &linearVelocity) {
     _linearVelocity = linearVelocity;
     return *this;
 }
 
-RigidBodyCollider3::Builder&
-RigidBodyCollider3::Builder::withAngularVelocity(const Vector3D& angularVelocity) {
+RigidBodyCollider3::Builder &
+RigidBodyCollider3::Builder::withAngularVelocity(const Vector3D &angularVelocity) {
     _angularVelocity = angularVelocity;
     return *this;
 }
@@ -59,7 +58,7 @@ RigidBodyCollider3Ptr RigidBodyCollider3::Builder::makeShared() const {
     return std::shared_ptr<RigidBodyCollider3>(new RigidBodyCollider3(_surface,
                                                                       _linearVelocity,
                                                                       _angularVelocity),
-                                               [] (RigidBodyCollider3* obj) {
+                                               [](RigidBodyCollider3 *obj) {
         delete obj;
     });
 }

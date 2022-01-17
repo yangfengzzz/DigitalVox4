@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_LEVEL_SET_UTILS_H_
-#define INCLUDE_JET_LEVEL_SET_UTILS_H_
+#ifndef INCLUDE_VOX_LEVEL_SET_UTILS_H_
+#define INCLUDE_VOX_LEVEL_SET_UTILS_H_
 
 #include "macros.h"
 
@@ -20,7 +20,7 @@ namespace vox {
 //!
 //! \return     True if inside the implicit surface, false otherwise.
 //!
-template <typename T>
+template<typename T>
 bool isInsideSdf(T phi);
 
 //!
@@ -38,7 +38,7 @@ bool isInsideSdf(T phi);
 //!
 //! \return     Smeared Heaviside function.
 //!
-template <typename T>
+template<typename T>
 T smearedHeavisideSdf(T phi);
 
 //!
@@ -55,7 +55,7 @@ T smearedHeavisideSdf(T phi);
 //!
 //! \return     Smeared delta function.
 //!
-template <typename T>
+template<typename T>
 T smearedDeltaSdf(T phi);
 
 //!
@@ -77,7 +77,7 @@ T smearedDeltaSdf(T phi);
 //!
 //! \return     The fraction occupied by the implicit surface.
 //!
-template <typename T>
+template<typename T>
 T fractionInsideSdf(T phi0, T phi1);
 
 //!
@@ -97,7 +97,7 @@ T fractionInsideSdf(T phi0, T phi1);
 //!
 //! \return                 The fraction occupied by the implicit surface.
 //!
-template <typename T>
+template<typename T>
 T fractionInside(T phiBottomLeft, T phiBottomRight,
                  T phiTopLeft, T phiTopRight);
 
@@ -105,4 +105,4 @@ T fractionInside(T phiBottomLeft, T phiBottomRight,
 
 #include "level_set_utils-inl.h"
 
-#endif  // INCLUDE_JET_LEVEL_SET_UTILS_H_
+#endif  // INCLUDE_VOX_LEVEL_SET_UTILS_H_

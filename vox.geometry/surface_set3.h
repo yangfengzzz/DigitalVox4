@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_SURFACE_SET3_H_
-#define INCLUDE_JET_SURFACE_SET3_H_
+#ifndef INCLUDE_VOX_SURFACE_SET3_H_
+#define INCLUDE_VOX_SURFACE_SET3_H_
 
 #include "bvh3.h"
 #include "surface3.h"
@@ -29,12 +29,12 @@ public:
     SurfaceSet3();
     
     //! Constructs with a list of other surfaces.
-    explicit SurfaceSet3(const std::vector<Surface3Ptr>& others,
-                         const Transform3D& transform = Transform3D(),
+    explicit SurfaceSet3(const std::vector<Surface3Ptr> &others,
+                         const Transform3D &transform = Transform3D(),
                          bool isNormalFlipped = false);
     
     //! Copy constructor.
-    SurfaceSet3(const SurfaceSet3& other);
+    SurfaceSet3(const SurfaceSet3 &other);
     
     //! Updates internal spatial query engine.
     void updateQueryEngine() override;
@@ -49,10 +49,10 @@ public:
     size_t numberOfSurfaces() const;
     
     //! Returns the i-th surface.
-    const Surface3Ptr& surfaceAt(size_t i) const;
+    const Surface3Ptr &surfaceAt(size_t i) const;
     
     //! Adds a surface instance.
-    void addSurface(const Surface3Ptr& surface);
+    void addSurface(const Surface3Ptr &surface);
     
     //! Returns builder for SurfaceSet3.
     static Builder builder();
@@ -65,20 +65,20 @@ private:
     
     // Surface3 implementations
     
-    Point3D closestPointLocal(const Point3D& otherPoint) const override;
+    Point3D closestPointLocal(const Point3D &otherPoint) const override;
     
     BoundingBox3D boundingBoxLocal() const override;
     
-    double closestDistanceLocal(const Point3D& otherPoint) const override;
+    double closestDistanceLocal(const Point3D &otherPoint) const override;
     
-    bool intersectsLocal(const Ray3D& ray) const override;
+    bool intersectsLocal(const Ray3D &ray) const override;
     
-    Vector3D closestNormalLocal(const Point3D& otherPoint) const override;
+    Vector3D closestNormalLocal(const Point3D &otherPoint) const override;
     
     SurfaceRayIntersection3 closestIntersectionLocal(
-                                                     const Ray3D& ray) const override;
+                                                     const Ray3D &ray) const override;
     
-    bool isInsideLocal(const Point3D& otherPoint) const override;
+    bool isInsideLocal(const Point3D &otherPoint) const override;
     
     void invalidateBvh();
     
@@ -95,7 +95,7 @@ class SurfaceSet3::Builder final
 : public SurfaceBuilderBase3<SurfaceSet3::Builder> {
 public:
     //! Returns builder with other surfaces.
-    Builder& withSurfaces(const std::vector<Surface3Ptr>& others);
+    Builder &withSurfaces(const std::vector<Surface3Ptr> &others);
     
     //! Builds SurfaceSet3.
     SurfaceSet3 build() const;
@@ -109,4 +109,4 @@ private:
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_SURFACE_SET3_H_
+#endif  // INCLUDE_VOX_SURFACE_SET3_H_

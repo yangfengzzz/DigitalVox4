@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_MATH_UTILS_H_
-#define INCLUDE_JET_MATH_UTILS_H_
+#ifndef INCLUDE_VOX_MATH_UTILS_H_
+#define INCLUDE_VOX_MATH_UTILS_H_
 
 #include "macros.h"
 #include <cstddef>
@@ -229,11 +229,10 @@ inline S catmullRom(const S &f0, const S &f1, const S &f2, const S &f3, T t);
 
 //! \brief      Computes monotonic Catmull-Rom interpolation.
 template<typename T>
-inline T monotonicCatmullRom(const T &f0, const T &f1, const T &f2, const T &f3,
-                             T t);
+inline T monotonicCatmullRom(const T &f0, const T &f1, const T &f2, const T &f3, T t);
 
 }  // namespace vox
 
 #include "math_utils-inl.h"
 
-#endif  // INCLUDE_JET_MATH_UTILS_H_
+#endif  // INCLUDE_VOX_MATH_UTILS_H_

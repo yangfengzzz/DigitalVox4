@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_SIZE2_INL_H_
-#define INCLUDE_JET_DETAIL_SIZE2_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_SIZE2_INL_H_
+#define INCLUDE_VOX_DETAIL_SIZE2_INL_H_
 
 #include "math_utils.h"
 #include "size2.h"
@@ -308,4 +308,4 @@ inline Size2 clamp(const Size2 &v, const Size2 &low, const Size2 &high) {
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_SIZE2_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_SIZE2_INL_H_

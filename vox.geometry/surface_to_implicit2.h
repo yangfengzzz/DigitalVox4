@@ -1,11 +1,11 @@
-// Copyright (c) 2019 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_SURFACE_TO_IMPLICIT2_H_
-#define INCLUDE_JET_SURFACE_TO_IMPLICIT2_H_
+#ifndef INCLUDE_VOX_SURFACE_TO_IMPLICIT2_H_
+#define INCLUDE_VOX_SURFACE_TO_IMPLICIT2_H_
 
 #include "implicit_surface2.h"
 #include <memory>
@@ -26,12 +26,12 @@ public:
     class Builder;
     
     //! Constructs an instance with generic Surface2 instance.
-    SurfaceToImplicit2(const Surface2Ptr& surface,
-                       const Transform2D& transform = Transform2D(),
+    SurfaceToImplicit2(const Surface2Ptr &surface,
+                       const Transform2D &transform = Transform2D(),
                        bool isNormalFlipped = false);
     
     //! Copy constructor.
-    SurfaceToImplicit2(const SurfaceToImplicit2& other);
+    SurfaceToImplicit2(const SurfaceToImplicit2 &other);
     
     //! Updates internal spatial query engine.
     void updateQueryEngine() override;
@@ -49,21 +49,21 @@ public:
     static Builder builder();
     
 protected:
-    Point2D closestPointLocal(const Point2D& otherPoint) const override;
+    Point2D closestPointLocal(const Point2D &otherPoint) const override;
     
-    double closestDistanceLocal(const Point2D& otherPoint) const override;
+    double closestDistanceLocal(const Point2D &otherPoint) const override;
     
-    bool intersectsLocal(const Ray2D& ray) const override;
+    bool intersectsLocal(const Ray2D &ray) const override;
     
     BoundingBox2D boundingBoxLocal() const override;
     
-    Vector2D closestNormalLocal(const Point2D& otherPoint) const override;
+    Vector2D closestNormalLocal(const Point2D &otherPoint) const override;
     
-    double signedDistanceLocal(const Point2D& otherPoint) const override;
+    double signedDistanceLocal(const Point2D &otherPoint) const override;
     
-    SurfaceRayIntersection2 closestIntersectionLocal(const Ray2D& ray) const override;
+    SurfaceRayIntersection2 closestIntersectionLocal(const Ray2D &ray) const override;
     
-    bool isInsideLocal(const Point2D& otherPoint) const override;
+    bool isInsideLocal(const Point2D &otherPoint) const override;
     
 private:
     Surface2Ptr _surface;
@@ -80,7 +80,7 @@ class SurfaceToImplicit2::Builder final
 : public SurfaceBuilderBase2<SurfaceToImplicit2::Builder> {
 public:
     //! Returns builder with surface.
-    Builder& withSurface(const Surface2Ptr& surface);
+    Builder &withSurface(const Surface2Ptr &surface);
     
     //! Builds SurfaceToImplicit2.
     SurfaceToImplicit2 build() const;
@@ -94,4 +94,4 @@ private:
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_SURFACE_TO_IMPLICIT2_H_
+#endif  // INCLUDE_VOX_SURFACE_TO_IMPLICIT2_H_

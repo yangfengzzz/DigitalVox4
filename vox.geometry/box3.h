@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_BOX3_H_
-#define INCLUDE_JET_BOX3_H_
+#ifndef INCLUDE_VOX_BOX3_H_
+#define INCLUDE_VOX_BOX3_H_
 
 #include "surface3.h"
 #include "bounding_box3.h"
@@ -27,22 +27,22 @@ public:
     BoundingBox3D bound = BoundingBox3D(Point3D(), Point3D(1.0, 1.0, 1.0));
     
     //! Constructs (0, 0, 0) x (1, 1, 1) box.
-    Box3(const Transform3D& transform = Transform3D(),
+    Box3(const Transform3D &transform = Transform3D(),
          bool isNormalFlipped = false);
     
     //! Constructs a box with given \p lowerCorner and \p upperCorner.
-    Box3(const Point3D& lowerCorner,
-         const Point3D& upperCorner,
-         const Transform3D& transform = Transform3D(),
+    Box3(const Point3D &lowerCorner,
+         const Point3D &upperCorner,
+         const Transform3D &transform = Transform3D(),
          bool isNormalFlipped = false);
     
     //! Constructs a box with BoundingBox3D instance.
-    explicit Box3(const BoundingBox3D& boundingBox,
-                  const Transform3D& transform = Transform3D(),
+    explicit Box3(const BoundingBox3D &boundingBox,
+                  const Transform3D &transform = Transform3D(),
                   bool isNormalFlipped = false);
     
     //! Copy constructor.
-    Box3(const Box3& other);
+    Box3(const Box3 &other);
     
     //! Returns builder fox Box3.
     static Builder builder();
@@ -50,15 +50,15 @@ public:
 protected:
     // Surface3 implementations
     
-    Point3D closestPointLocal(const Point3D& otherPoint) const override;
+    Point3D closestPointLocal(const Point3D &otherPoint) const override;
     
-    bool intersectsLocal(const Ray3D& ray) const override;
+    bool intersectsLocal(const Ray3D &ray) const override;
     
     BoundingBox3D boundingBoxLocal() const override;
     
-    Vector3D closestNormalLocal(const Point3D& otherPoint) const override;
+    Vector3D closestNormalLocal(const Point3D &otherPoint) const override;
     
-    SurfaceRayIntersection3 closestIntersectionLocal(const Ray3D& ray) const override;
+    SurfaceRayIntersection3 closestIntersectionLocal(const Ray3D &ray) const override;
 };
 
 //! Shared pointer type for the Box3.
@@ -71,13 +71,13 @@ using Box3Ptr = std::shared_ptr<Box3>;
 class Box3::Builder final : public SurfaceBuilderBase3<Box3::Builder> {
 public:
     //! Returns builder with lower corner set.
-    Builder& withLowerCorner(const Point3D& pt);
+    Builder &withLowerCorner(const Point3D &pt);
     
     //! Returns builder with upper corner set.
-    Builder& withUpperCorner(const Point3D& pt);
+    Builder &withUpperCorner(const Point3D &pt);
     
     //! Returns builder with bounding box.
-    Builder& withBoundingBox(const BoundingBox3D& bbox);
+    Builder &withBoundingBox(const BoundingBox3D &bbox);
     
     //! Builds Box3.
     Box3 build() const;
@@ -93,4 +93,4 @@ private:
 }  // namespace vox
 
 
-#endif  // INCLUDE_JET_BOX3_H_
+#endif  // INCLUDE_VOX_BOX3_H_

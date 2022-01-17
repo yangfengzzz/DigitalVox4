@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_POINT2_INL_H_
-#define INCLUDE_JET_DETAIL_POINT2_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_POINT2_INL_H_
+#define INCLUDE_VOX_DETAIL_POINT2_INL_H_
 
 #include "macros.h"
 #include "math_utils.h"
@@ -37,7 +37,7 @@ void Point<T, 2>::set(T newX, T newY) {
 template<typename T>
 template<typename U>
 void Point<T, 2>::set(const std::initializer_list<U> &lst) {
-    JET_ASSERT(lst.size() >= 2);
+    VOX_ASSERT(lst.size() >= 2);
     
     auto inputElem = lst.begin();
     x = static_cast<T>(*inputElem);
@@ -62,12 +62,12 @@ Point<T, 2> Point<T, 2>::add(T v) const {
 }
 
 template<typename T>
-Vector2<T> Point<T, 2>::add(const Point &v) const {
+Vector2 <T> Point<T, 2>::add(const Point &v) const {
     return Vector2<T>(x + v.x, y + v.y);
 }
 
 template<typename T>
-Point<T, 2> Point<T, 2>::add(const Vector2<T> &v) const {
+Point<T, 2> Point<T, 2>::add(const Vector2 <T> &v) const {
     return Point(x + v.x, y + v.y);
 }
 
@@ -77,12 +77,12 @@ Point<T, 2> Point<T, 2>::sub(T v) const {
 }
 
 template<typename T>
-Vector2<T> Point<T, 2>::sub(const Point &v) const {
+Vector2 <T> Point<T, 2>::sub(const Point &v) const {
     return Vector2<T>(x - v.x, y - v.y);
 }
 
 template<typename T>
-Point<T, 2> Point<T, 2>::sub(const Vector2<T> &v) const {
+Point<T, 2> Point<T, 2>::sub(const Vector2 <T> &v) const {
     return Point(x - v.x, y - v.y);
 }
 
@@ -107,7 +107,7 @@ Point<T, 2> Point<T, 2>::div(const Point &v) const {
 }
 
 template<typename T>
-T Point<T, 2>::dot(const Vector2<T> &v) const {
+T Point<T, 2>::dot(const Vector2 <T> &v) const {
     return x * v.x + y * v.y;
 }
 
@@ -118,7 +118,7 @@ Point<T, 2> Point<T, 2>::rsub(T v) const {
 }
 
 template<typename T>
-Vector2<T> Point<T, 2>::rsub(const Point &v) const {
+Vector2 <T> Point<T, 2>::rsub(const Point &v) const {
     return Vector2<T>(v.x - x, v.y - y);
 }
 
@@ -140,7 +140,7 @@ void Point<T, 2>::iadd(T v) {
 }
 
 template<typename T>
-void Point<T, 2>::iadd(const Vector2<T> &v) {
+void Point<T, 2>::iadd(const Vector2 <T> &v) {
     x += v.x;
     y += v.y;
 }
@@ -152,7 +152,7 @@ void Point<T, 2>::isub(T v) {
 }
 
 template<typename T>
-void Point<T, 2>::isub(const Vector2<T> &v) {
+void Point<T, 2>::isub(const Vector2 <T> &v) {
     x -= v.x;
     y -= v.y;
 }
@@ -300,7 +300,7 @@ Point<T, 2> &Point<T, 2>::operator+=(T v) {
 }
 
 template<typename T>
-Point<T, 2> &Point<T, 2>::operator+=(const Vector2<T> &v) {
+Point<T, 2> &Point<T, 2>::operator+=(const Vector2 <T> &v) {
     iadd(v);
     return (*this);
 }
@@ -312,7 +312,7 @@ Point<T, 2> &Point<T, 2>::operator-=(T v) {
 }
 
 template<typename T>
-Point<T, 2> &Point<T, 2>::operator-=(const Vector2<T> &v) {
+Point<T, 2> &Point<T, 2>::operator-=(const Vector2 <T> &v) {
     isub(v);
     return (*this);
 }
@@ -373,12 +373,12 @@ Point<T, 2> operator+(T a, const Point<T, 2> &b) {
 }
 
 template<typename T>
-Vector2<T> operator+(const Point<T, 2> &a, const Point<T, 2> &b) {
+Vector2 <T> operator+(const Point<T, 2> &a, const Point<T, 2> &b) {
     return a.add(b);
 }
 
 template<typename T>
-Point<T, 2> operator+(const Point<T, 2> &a, const Vector2<T> &b) {
+Point<T, 2> operator+(const Point<T, 2> &a, const Vector2 <T> &b) {
     return a.add(b);
 }
 
@@ -393,12 +393,12 @@ Point<T, 2> operator-(T a, const Point<T, 2> &b) {
 }
 
 template<typename T>
-Vector2<T> operator-(const Point<T, 2> &a, const Point<T, 2> &b) {
+Vector2 <T> operator-(const Point<T, 2> &a, const Point<T, 2> &b) {
     return a.sub(b);
 }
 
 template<typename T>
-Point<T, 2> operator-(const Point<T, 2> &a, const Vector2<T> &b) {
+Point<T, 2> operator-(const Point<T, 2> &a, const Vector2 <T> &b) {
     return a.sub(b);
 }
 
@@ -460,4 +460,4 @@ Point<T, 2> floor(const Point<T, 2> &a) {
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_POINT2_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_POINT2_INL_H_

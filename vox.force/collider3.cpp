@@ -1,8 +1,8 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 //#include <pch.h>
 
@@ -12,13 +12,15 @@
 
 using namespace vox;
 
-Collider3::Collider3() {}
+Collider3::Collider3() {
+}
 
-Collider3::~Collider3() {}
+Collider3::~Collider3() {
+}
 
 void Collider3::resolveCollision(double radius, double restitutionCoefficient,
-                                 Point3D* newPosition, Vector3D* newVelocity) {
-    JET_ASSERT(_surface);
+                                 Point3D *newPosition, Vector3D *newVelocity) {
+    VOX_ASSERT(_surface);
     
     if (!_surface->isValidGeometry()) {
         return;
@@ -73,29 +75,33 @@ void Collider3::resolveCollision(double radius, double restitutionCoefficient,
     }
 }
 
-double Collider3::frictionCoefficient() const { return _frictionCoeffient; }
+double Collider3::frictionCoefficient() const {
+    return _frictionCoeffient;
+}
 
 void Collider3::setFrictionCoefficient(double newFrictionCoeffient) {
     _frictionCoeffient = std::max(newFrictionCoeffient, 0.0);
 }
 
-const Surface3Ptr& Collider3::surface() const { return _surface; }
+const Surface3Ptr &Collider3::surface() const {
+    return _surface;
+}
 
-void Collider3::setSurface(const Surface3Ptr& newSurface) {
+void Collider3::setSurface(const Surface3Ptr &newSurface) {
     _surface = newSurface;
 }
 
-void Collider3::getClosestPoint(const Surface3Ptr& surface,
-                                const Point3D& queryPoint,
-                                ColliderQueryResult* result) const {
+void Collider3::getClosestPoint(const Surface3Ptr &surface,
+                                const Point3D &queryPoint,
+                                ColliderQueryResult *result) const {
     result->distance = surface->closestDistance(queryPoint);
     result->point = surface->closestPoint(queryPoint);
     result->normal = surface->closestNormal(queryPoint);
     result->velocity = velocityAt(queryPoint);
 }
 
-bool Collider3::isPenetrating(const ColliderQueryResult& colliderPoint,
-                              const Point3D& position, double radius) {
+bool Collider3::isPenetrating(const ColliderQueryResult &colliderPoint,
+                              const Point3D &position, double radius) {
     // If the new candidate position of the particle is inside
     // the volume defined by the surface OR the new distance to the surface is
     // less than the particle's radius, this particle is in colliding state.
@@ -104,7 +110,7 @@ bool Collider3::isPenetrating(const ColliderQueryResult& colliderPoint,
 
 void Collider3::update(double currentTimeInSeconds,
                        double timeIntervalInSeconds) {
-    JET_ASSERT(_surface);
+    VOX_ASSERT(_surface);
     
     if (!_surface->isValidGeometry()) {
         return;
@@ -118,6 +124,6 @@ void Collider3::update(double currentTimeInSeconds,
 }
 
 void Collider3::setOnBeginUpdateCallback(
-                                         const OnBeginUpdateCallback& callback) {
+                                         const OnBeginUpdateCallback &callback) {
     _onUpdateCallback = callback;
 }

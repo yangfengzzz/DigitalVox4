@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_FUNCTORS_H_
-#define INCLUDE_JET_FUNCTORS_H_
+#ifndef INCLUDE_VOX_FUNCTORS_H_
+#define INCLUDE_VOX_FUNCTORS_H_
 
 #include <functional>
 
@@ -32,4 +32,4 @@ struct RDivides {
 
 #include "functors-inl.h"
 
-#endif  // INCLUDE_JET_FUNCTORS_H_
+#endif  // INCLUDE_VOX_FUNCTORS_H_

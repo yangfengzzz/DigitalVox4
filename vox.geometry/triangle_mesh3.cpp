@@ -1,8 +1,8 @@
-// Copyright (c) 2019 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include <glog/logging.h>
 
@@ -11,6 +11,7 @@
 
 #define TINYOBJLOADER_IMPLEMENTATION
 #define TINYOBJLOADER_USE_DOUBLE
+
 #include <tiny_obj_loader.h>
 
 #include <fstream>
@@ -26,7 +27,7 @@ struct WindingNumberGatherData {
     Vector3D areaWeightedNormalSums;
     Vector3D areaWeightedPositionSums;
     
-    WindingNumberGatherData operator+(const WindingNumberGatherData& other) const {
+    WindingNumberGatherData operator+(const WindingNumberGatherData &other) const {
         WindingNumberGatherData sum;
         sum.areaSums = areaSums + other.areaSums;
         sum.areaWeightedNormalSums = areaWeightedNormalSums + other.areaWeightedNormalSums;
@@ -36,11 +37,11 @@ struct WindingNumberGatherData {
     }
 };
 
-template <typename GatherFunc, typename LeafGatherFunc>
+template<typename GatherFunc, typename LeafGatherFunc>
 WindingNumberGatherData postOrderTraversal(
-                                           const Bvh3<size_t>& bvh, size_t nodeIndex, const GatherFunc& visitorFunc,
-                                           const LeafGatherFunc& leafFunc,
-                                           const WindingNumberGatherData& initGatherData) {
+                                           const Bvh3<size_t> &bvh, size_t nodeIndex, const GatherFunc &visitorFunc,
+                                           const LeafGatherFunc &leafFunc,
+                                           const WindingNumberGatherData &initGatherData) {
     WindingNumberGatherData data = initGatherData;
     
     if (bvh.isLeaf(nodeIndex)) {
@@ -57,33 +58,34 @@ WindingNumberGatherData postOrderTraversal(
     return data;
 }
 
-inline std::ostream& operator<<(std::ostream& strm, const Vector2D& v) {
+inline std::ostream &operator<<(std::ostream &strm, const Vector2D &v) {
     strm << v.x << ' ' << v.y;
     return strm;
 }
 
-inline std::ostream& operator<<(std::ostream& strm, const Vector3D& v) {
+inline std::ostream &operator<<(std::ostream &strm, const Vector3D &v) {
     strm << v.x << ' ' << v.y << ' ' << v.z;
     return strm;
 }
 
-inline std::ostream& operator<<(std::ostream& strm, const Point3D& v) {
+inline std::ostream &operator<<(std::ostream &strm, const Point3D &v) {
     strm << v.x << ' ' << v.y << ' ' << v.z;
     return strm;
 }
 
 }  // namespace
 
-TriangleMesh3::TriangleMesh3(const Transform3D& transform_,
+TriangleMesh3::TriangleMesh3(const Transform3D &transform_,
                              bool isNormalFlipped_)
-: Surface3(transform_, isNormalFlipped_) {}
+: Surface3(transform_, isNormalFlipped_) {
+}
 
-TriangleMesh3::TriangleMesh3(const PointArray& points,
-                             const NormalArray& normals, const UvArray& uvs,
-                             const IndexArray& pointIndices,
-                             const IndexArray& normalIndices,
-                             const IndexArray& uvIndices,
-                             const Transform3D& transform_,
+TriangleMesh3::TriangleMesh3(const PointArray &points,
+                             const NormalArray &normals, const UvArray &uvs,
+                             const IndexArray &pointIndices,
+                             const IndexArray &normalIndices,
+                             const IndexArray &uvIndices,
+                             const Transform3D &transform_,
                              bool isNormalFlipped_)
 : Surface3(transform_, isNormalFlipped_),
 _points(points),
@@ -91,9 +93,10 @@ _normals(normals),
 _uvs(uvs),
 _pointIndices(pointIndices),
 _normalIndices(normalIndices),
-_uvIndices(uvIndices) {}
+_uvIndices(uvIndices) {
+}
 
-TriangleMesh3::TriangleMesh3(const TriangleMesh3& other) : Surface3(other) {
+TriangleMesh3::TriangleMesh3(const TriangleMesh3 &other) : Surface3(other) {
     set(other);
 }
 
@@ -107,10 +110,10 @@ void TriangleMesh3::updateQueryEngine() const {
     buildWindingNumbers();
 }
 
-Point3D TriangleMesh3::closestPointLocal(const Point3D& otherPoint) const {
+Point3D TriangleMesh3::closestPointLocal(const Point3D &otherPoint) const {
     buildBvh();
     
-    const auto distanceFunc = [this](const size_t& triIdx, const Point3D& pt) {
+    const auto distanceFunc = [this](const size_t &triIdx, const Point3D &pt) {
         Triangle3 tri = triangle(triIdx);
         return tri.closestDistance(pt);
     };
@@ -119,10 +122,10 @@ Point3D TriangleMesh3::closestPointLocal(const Point3D& otherPoint) const {
     return triangle(*queryResult.item).closestPoint(otherPoint);
 }
 
-Vector3D TriangleMesh3::closestNormalLocal(const Point3D& otherPoint) const {
+Vector3D TriangleMesh3::closestNormalLocal(const Point3D &otherPoint) const {
     buildBvh();
     
-    const auto distanceFunc = [this](const size_t& triIdx, const Point3D& pt) {
+    const auto distanceFunc = [this](const size_t &triIdx, const Point3D &pt) {
         Triangle3 tri = triangle(triIdx);
         return tri.closestDistance(pt);
     };
@@ -132,10 +135,10 @@ Vector3D TriangleMesh3::closestNormalLocal(const Point3D& otherPoint) const {
     return triangle(*queryResult.item).closestNormal(otherPoint);
 }
 
-SurfaceRayIntersection3 TriangleMesh3::closestIntersectionLocal(const Ray3D& ray) const {
+SurfaceRayIntersection3 TriangleMesh3::closestIntersectionLocal(const Ray3D &ray) const {
     buildBvh();
     
-    const auto testFunc = [this](const size_t& triIdx, const Ray3D& ray) {
+    const auto testFunc = [this](const size_t &triIdx, const Ray3D &ray) {
         Triangle3 tri = triangle(triIdx);
         SurfaceRayIntersection3 result = tri.closestIntersection(ray);
         return result.distance;
@@ -152,7 +155,7 @@ SurfaceRayIntersection3 TriangleMesh3::closestIntersectionLocal(const Ray3D& ray
     return result;
 }
 
-bool TriangleMesh3::isInsideLocal(const Point3D& otherPoint) const {
+bool TriangleMesh3::isInsideLocal(const Point3D &otherPoint) const {
     return fastWindingNumber(otherPoint, kDefaultFastWindingNumberAccuracy) >
     0.5;
 }
@@ -163,10 +166,10 @@ BoundingBox3D TriangleMesh3::boundingBoxLocal() const {
     return _bvh.boundingBox();
 }
 
-bool TriangleMesh3::intersectsLocal(const Ray3D& ray) const {
+bool TriangleMesh3::intersectsLocal(const Ray3D &ray) const {
     buildBvh();
     
-    const auto testFunc = [this](const size_t& triIdx, const Ray3D& ray) {
+    const auto testFunc = [this](const size_t &triIdx, const Ray3D &ray) {
         Triangle3 tri = triangle(triIdx);
         return tri.intersects(ray);
     };
@@ -174,10 +177,10 @@ bool TriangleMesh3::intersectsLocal(const Ray3D& ray) const {
     return _bvh.intersects(ray, testFunc);
 }
 
-double TriangleMesh3::closestDistanceLocal(const Point3D& otherPoint) const {
+double TriangleMesh3::closestDistanceLocal(const Point3D &otherPoint) const {
     buildBvh();
     
-    const auto distanceFunc = [this](const size_t& triIdx, const Point3D& pt) {
+    const auto distanceFunc = [this](const size_t &triIdx, const Point3D &pt) {
         Triangle3 tri = triangle(triIdx);
         return tri.closestDistance(pt);
     };
@@ -197,7 +200,7 @@ void TriangleMesh3::clear() {
     invalidateCache();
 }
 
-void TriangleMesh3::set(const TriangleMesh3& other) {
+void TriangleMesh3::set(const TriangleMesh3 &other) {
     _points = other._points;
     _normals = other._normals;
     _uvs = other._uvs;
@@ -208,7 +211,7 @@ void TriangleMesh3::set(const TriangleMesh3& other) {
     invalidateCache();
 }
 
-void TriangleMesh3::swap(TriangleMesh3& other) {
+void TriangleMesh3::swap(TriangleMesh3 &other) {
     _points.swap(other._points);
     _normals.swap(other._normals);
     _uvs.swap(other._uvs);
@@ -235,36 +238,54 @@ double TriangleMesh3::volume() const {
     return vol;
 }
 
-const Point3D& TriangleMesh3::point(size_t i) const { return _points[i]; }
+const Point3D &TriangleMesh3::point(size_t i) const {
+    return _points[i];
+}
 
-Point3D& TriangleMesh3::point(size_t i) {
+Point3D &TriangleMesh3::point(size_t i) {
     invalidateCache();
     return _points[i];
 }
 
-const Vector3D& TriangleMesh3::normal(size_t i) const { return _normals[i]; }
+const Vector3D &TriangleMesh3::normal(size_t i) const {
+    return _normals[i];
+}
 
-Vector3D& TriangleMesh3::normal(size_t i) { return _normals[i]; }
+Vector3D &TriangleMesh3::normal(size_t i) {
+    return _normals[i];
+}
 
-const Vector2D& TriangleMesh3::uv(size_t i) const { return _uvs[i]; }
+const Vector2D &TriangleMesh3::uv(size_t i) const {
+    return _uvs[i];
+}
 
-Vector2D& TriangleMesh3::uv(size_t i) { return _uvs[i]; }
+Vector2D &TriangleMesh3::uv(size_t i) {
+    return _uvs[i];
+}
 
-const Point3UI& TriangleMesh3::pointIndex(size_t i) const {
+const Point3UI &TriangleMesh3::pointIndex(size_t i) const {
     return _pointIndices[i];
 }
 
-Point3UI& TriangleMesh3::pointIndex(size_t i) { return _pointIndices[i]; }
+Point3UI &TriangleMesh3::pointIndex(size_t i) {
+    return _pointIndices[i];
+}
 
-const Point3UI& TriangleMesh3::normalIndex(size_t i) const {
+const Point3UI &TriangleMesh3::normalIndex(size_t i) const {
     return _normalIndices[i];
 }
 
-Point3UI& TriangleMesh3::normalIndex(size_t i) { return _normalIndices[i]; }
+Point3UI &TriangleMesh3::normalIndex(size_t i) {
+    return _normalIndices[i];
+}
 
-const Point3UI& TriangleMesh3::uvIndex(size_t i) const { return _uvIndices[i]; }
+const Point3UI &TriangleMesh3::uvIndex(size_t i) const {
+    return _uvIndices[i];
+}
 
-Point3UI& TriangleMesh3::uvIndex(size_t i) { return _uvIndices[i]; }
+Point3UI &TriangleMesh3::uvIndex(size_t i) {
+    return _uvIndices[i];
+}
 
 Triangle3 TriangleMesh3::triangle(size_t i) const {
     Triangle3 tri;
@@ -288,52 +309,70 @@ Triangle3 TriangleMesh3::triangle(size_t i) const {
     return tri;
 }
 
-size_t TriangleMesh3::numberOfPoints() const { return _points.size(); }
+size_t TriangleMesh3::numberOfPoints() const {
+    return _points.size();
+}
 
-size_t TriangleMesh3::numberOfNormals() const { return _normals.size(); }
+size_t TriangleMesh3::numberOfNormals() const {
+    return _normals.size();
+}
 
-size_t TriangleMesh3::numberOfUvs() const { return _uvs.size(); }
+size_t TriangleMesh3::numberOfUvs() const {
+    return _uvs.size();
+}
 
-size_t TriangleMesh3::numberOfTriangles() const { return _pointIndices.size(); }
+size_t TriangleMesh3::numberOfTriangles() const {
+    return _pointIndices.size();
+}
 
-bool TriangleMesh3::hasNormals() const { return _normals.size() > 0; }
+bool TriangleMesh3::hasNormals() const {
+    return _normals.size() > 0;
+}
 
-bool TriangleMesh3::hasUvs() const { return _uvs.size() > 0; }
+bool TriangleMesh3::hasUvs() const {
+    return _uvs.size() > 0;
+}
 
-void TriangleMesh3::addPoint(const Point3D& pt) { _points.push_back(pt); }
+void TriangleMesh3::addPoint(const Point3D &pt) {
+    _points.push_back(pt);
+}
 
-void TriangleMesh3::addNormal(const Vector3D& n) { _normals.push_back(n); }
+void TriangleMesh3::addNormal(const Vector3D &n) {
+    _normals.push_back(n);
+}
 
-void TriangleMesh3::addUv(const Vector2D& t) { _uvs.push_back(t); }
+void TriangleMesh3::addUv(const Vector2D &t) {
+    _uvs.push_back(t);
+}
 
-void TriangleMesh3::addPointTriangle(const Point3UI& newPointIndices) {
+void TriangleMesh3::addPointTriangle(const Point3UI &newPointIndices) {
     _pointIndices.push_back(newPointIndices);
     invalidateCache();
 }
 
-void TriangleMesh3::addNormalTriangle(const Point3UI& newNormalIndices) {
+void TriangleMesh3::addNormalTriangle(const Point3UI &newNormalIndices) {
     _normalIndices.push_back(newNormalIndices);
     
     invalidateCache();
 }
 
-void TriangleMesh3::addUvTriangle(const Point3UI& newUvIndices) {
+void TriangleMesh3::addUvTriangle(const Point3UI &newUvIndices) {
     _uvIndices.push_back(newUvIndices);
     
     invalidateCache();
 }
 
-void TriangleMesh3::addPointNormalTriangle(const Point3UI& newPointIndices,
-                                           const Point3UI& newNormalIndices) {
+void TriangleMesh3::addPointNormalTriangle(const Point3UI &newPointIndices,
+                                           const Point3UI &newNormalIndices) {
     _pointIndices.push_back(newPointIndices);
     _normalIndices.push_back(newNormalIndices);
     
     invalidateCache();
 }
 
-void TriangleMesh3::addPointUvNormalTriangle(const Point3UI& newPointIndices,
-                                             const Point3UI& newUvIndices,
-                                             const Point3UI& newNormalIndices) {
+void TriangleMesh3::addPointUvNormalTriangle(const Point3UI &newPointIndices,
+                                             const Point3UI &newUvIndices,
+                                             const Point3UI &newNormalIndices) {
     _pointIndices.push_back(newPointIndices);
     _normalIndices.push_back(newNormalIndices);
     _uvIndices.push_back(newUvIndices);
@@ -341,15 +380,15 @@ void TriangleMesh3::addPointUvNormalTriangle(const Point3UI& newPointIndices,
     invalidateCache();
 }
 
-void TriangleMesh3::addPointUvTriangle(const Point3UI& newPointIndices,
-                                       const Point3UI& newUvIndices) {
+void TriangleMesh3::addPointUvTriangle(const Point3UI &newPointIndices,
+                                       const Point3UI &newUvIndices) {
     _pointIndices.push_back(newPointIndices);
     _uvIndices.push_back(newUvIndices);
     
     invalidateCache();
 }
 
-void TriangleMesh3::addTriangle(const Triangle3& tri) {
+void TriangleMesh3::addTriangle(const Triangle3 &tri) {
     size_t vStart = _points.size();
     size_t nStart = _normals.size();
     size_t tStart = _uvs.size();
@@ -458,39 +497,47 @@ void TriangleMesh3::setAngleWeightedVertexNormal() {
 
 void TriangleMesh3::scale(double factor) {
     parallelFor(kZeroSize, numberOfPoints(),
-                [this, factor](size_t i) { _points[i] *= factor; });
+                [this, factor](size_t i) {
+        _points[i] *= factor;
+    });
     invalidateCache();
 }
 
-void TriangleMesh3::translate(const Vector3D& t) {
+void TriangleMesh3::translate(const Vector3D &t) {
     parallelFor(kZeroSize, numberOfPoints(),
-                [this, t](size_t i) { _points[i] += t; });
+                [this, t](size_t i) {
+        _points[i] += t;
+    });
     invalidateCache();
 }
 
-void TriangleMesh3::rotate(const Quaternion<double>& q) {
+void TriangleMesh3::rotate(const Quaternion<double> &q) {
     parallelFor(kZeroSize, numberOfPoints(),
-                [this, q](size_t i) { _points[i] = q * _points[i]; });
+                [this, q](size_t i) {
+        _points[i] = q * _points[i];
+    });
     
     parallelFor(kZeroSize, numberOfNormals(),
-                [this, q](size_t i) { _normals[i] = q * _normals[i]; });
+                [this, q](size_t i) {
+        _normals[i] = q * _normals[i];
+    });
     
     invalidateCache();
 }
 
-void TriangleMesh3::writeObj(std::ostream* strm) const {
+void TriangleMesh3::writeObj(std::ostream *strm) const {
     // vertex
-    for (const auto& pt : _points) {
+    for (const auto &pt: _points) {
         (*strm) << "v " << pt << std::endl;
     }
     
     // uv coords
-    for (const auto& uv : _uvs) {
+    for (const auto &uv: _uvs) {
         (*strm) << "vt " << uv << std::endl;
     }
     
     // normals
-    for (const auto& n : _normals) {
+    for (const auto &n: _normals) {
         (*strm) << "vn " << n << std::endl;
     }
     
@@ -516,7 +563,7 @@ void TriangleMesh3::writeObj(std::ostream* strm) const {
     }
 }
 
-bool TriangleMesh3::writeObj(const std::string& filename) const {
+bool TriangleMesh3::writeObj(const std::string &filename) const {
     std::ofstream file(filename.c_str());
     if (file) {
         writeObj(&file);
@@ -528,7 +575,7 @@ bool TriangleMesh3::writeObj(const std::string& filename) const {
     }
 }
 
-bool TriangleMesh3::readObj(std::istream* strm) {
+bool TriangleMesh3::readObj(std::istream *strm) {
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
@@ -580,7 +627,7 @@ bool TriangleMesh3::readObj(std::istream* strm) {
     }
     
     // Read faces
-    for (auto& shape : shapes) {
+    for (auto &shape: shapes) {
         size_t idx = 0;
         
         for (size_t f = 0; f < shape.mesh.num_face_vertices.size(); ++f) {
@@ -615,7 +662,7 @@ bool TriangleMesh3::readObj(std::istream* strm) {
     return true;
 }
 
-bool TriangleMesh3::readObj(const std::string& filename) {
+bool TriangleMesh3::readObj(const std::string &filename) {
     std::ifstream file(filename.c_str());
     if (file) {
         bool result = readObj(&file);
@@ -627,12 +674,14 @@ bool TriangleMesh3::readObj(const std::string& filename) {
     }
 }
 
-TriangleMesh3& TriangleMesh3::operator=(const TriangleMesh3& other) {
+TriangleMesh3 &TriangleMesh3::operator=(const TriangleMesh3 &other) {
     set(other);
     return *this;
 }
 
-TriangleMesh3::Builder TriangleMesh3::builder() { return Builder(); }
+TriangleMesh3::Builder TriangleMesh3::builder() {
+    return Builder();
+}
 
 void TriangleMesh3::invalidateCache() {
     _bvhInvalidated = true;
@@ -664,7 +713,7 @@ void TriangleMesh3::buildWindingNumbers() const {
         _wnAreaWeightedAvgPositions.resize(nNodes);
         
         const auto visitorFunc = [&](size_t nodeIndex,
-                                     const WindingNumberGatherData& data) {
+                                     const WindingNumberGatherData &data) {
             _wnAreaWeightedNormalSums[nodeIndex] = data.areaWeightedNormalSums;
             _wnAreaWeightedAvgPositions[nodeIndex] = Point3D(data.areaWeightedPositionSums.x / data.areaSums,
                                                              data.areaWeightedPositionSums.y / data.areaSums,
@@ -675,7 +724,7 @@ void TriangleMesh3::buildWindingNumbers() const {
             WindingNumberGatherData result;
             
             auto iter = _bvh.itemOfNode(nodeIndex);
-            JET_ASSERT(iter != _bvh.end());
+            VOX_ASSERT(iter != _bvh.end());
             
             Triangle3 tri = triangle(*iter);
             double area = tri.area();
@@ -695,13 +744,13 @@ void TriangleMesh3::buildWindingNumbers() const {
     }
 }
 
-double TriangleMesh3::windingNumber(const Point3D& queryPoint,
+double TriangleMesh3::windingNumber(const Point3D &queryPoint,
                                     size_t triIndex) const {
     // Jacobson et al., Robust Inside-Outside Segmentation using Generalized
     // Winding Numbers, ACM SIGGRAPH 2013.
-    const Point3D& vi = _points[_pointIndices[triIndex][0]];
-    const Point3D& vj = _points[_pointIndices[triIndex][1]];
-    const Point3D& vk = _points[_pointIndices[triIndex][2]];
+    const Point3D &vi = _points[_pointIndices[triIndex][0]];
+    const Point3D &vj = _points[_pointIndices[triIndex][1]];
+    const Point3D &vk = _points[_pointIndices[triIndex][2]];
     const Vector3D va = vi - queryPoint;
     const Vector3D vb = vj - queryPoint;
     const Vector3D vc = vk - queryPoint;
@@ -719,22 +768,22 @@ double TriangleMesh3::windingNumber(const Point3D& queryPoint,
     return solidAngle;
 }
 
-double TriangleMesh3::fastWindingNumber(const Point3D& queryPoint,
+double TriangleMesh3::fastWindingNumber(const Point3D &queryPoint,
                                         double accuracy) const {
     buildWindingNumbers();
     
     return fastWindingNumber(queryPoint, 0, accuracy);
 }
 
-double TriangleMesh3::fastWindingNumber(const Point3D& q, size_t rootNodeIndex,
+double TriangleMesh3::fastWindingNumber(const Point3D &q, size_t rootNodeIndex,
                                         double accuracy) const {
     // Barill et al., Fast Winding Numbers for Soups and Clouds, ACM SIGGRAPH
     // 2018.
-    const Point3D& treeP = _wnAreaWeightedAvgPositions[rootNodeIndex];
+    const Point3D &treeP = _wnAreaWeightedAvgPositions[rootNodeIndex];
     const double qToP2 = q.distanceSquaredTo(treeP);
     
-    const Vector3D& treeN = _wnAreaWeightedNormalSums[rootNodeIndex];
-    const BoundingBox3D& treeBound = _bvh.nodeBound(rootNodeIndex);
+    const Vector3D &treeN = _wnAreaWeightedNormalSums[rootNodeIndex];
+    const BoundingBox3D &treeBound = _bvh.nodeBound(rootNodeIndex);
     const Vector3D treeRVec = max(treeP - treeBound.lowerCorner, treeBound.upperCorner - treeP);
     const double treeR = treeRVec.length();
     
@@ -762,32 +811,32 @@ double TriangleMesh3::fastWindingNumber(const Point3D& q, size_t rootNodeIndex,
 
 //
 
-TriangleMesh3::Builder& TriangleMesh3::Builder::withPoints(const PointArray& points) {
+TriangleMesh3::Builder &TriangleMesh3::Builder::withPoints(const PointArray &points) {
     _points = points;
     return *this;
 }
 
-TriangleMesh3::Builder& TriangleMesh3::Builder::withNormals(const NormalArray& normals) {
+TriangleMesh3::Builder &TriangleMesh3::Builder::withNormals(const NormalArray &normals) {
     _normals = normals;
     return *this;
 }
 
-TriangleMesh3::Builder& TriangleMesh3::Builder::withUvs(const UvArray& uvs) {
+TriangleMesh3::Builder &TriangleMesh3::Builder::withUvs(const UvArray &uvs) {
     _uvs = uvs;
     return *this;
 }
 
-TriangleMesh3::Builder& TriangleMesh3::Builder::withPointIndices(const IndexArray& pointIndices) {
+TriangleMesh3::Builder &TriangleMesh3::Builder::withPointIndices(const IndexArray &pointIndices) {
     _pointIndices = pointIndices;
     return *this;
 }
 
-TriangleMesh3::Builder& TriangleMesh3::Builder::withNormalIndices(const IndexArray& normalIndices) {
+TriangleMesh3::Builder &TriangleMesh3::Builder::withNormalIndices(const IndexArray &normalIndices) {
     _normalIndices = normalIndices;
     return *this;
 }
 
-TriangleMesh3::Builder& TriangleMesh3::Builder::withUvIndices(const IndexArray& uvIndices) {
+TriangleMesh3::Builder &TriangleMesh3::Builder::withUvIndices(const IndexArray &uvIndices) {
     _uvIndices = uvIndices;
     return *this;
 }
@@ -801,5 +850,7 @@ TriangleMesh3Ptr TriangleMesh3::Builder::makeShared() const {
     return std::shared_ptr<TriangleMesh3>(new TriangleMesh3(_points, _normals, _uvs, _pointIndices,
                                                             _normalIndices, _uvIndices, _transform,
                                                             _isNormalFlipped),
-                                          [](TriangleMesh3* obj) { delete obj; });
+                                          [](TriangleMesh3 *obj) {
+        delete obj;
+    });
 }

@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_SURFACE_SET2_H_
-#define INCLUDE_JET_SURFACE_SET2_H_
+#ifndef INCLUDE_VOX_SURFACE_SET2_H_
+#define INCLUDE_VOX_SURFACE_SET2_H_
 
 #include "bvh2.h"
 #include "surface2.h"
@@ -29,12 +29,12 @@ public:
     SurfaceSet2();
     
     //! Constructs with a list of other surfaces.
-    explicit SurfaceSet2(const std::vector<Surface2Ptr>& others,
-                         const Transform2D& transform = Transform2D(),
+    explicit SurfaceSet2(const std::vector<Surface2Ptr> &others,
+                         const Transform2D &transform = Transform2D(),
                          bool isNormalFlipped = false);
     
     //! Copy constructor.
-    SurfaceSet2(const SurfaceSet2& other);
+    SurfaceSet2(const SurfaceSet2 &other);
     
     //! Updates internal spatial query engine.
     void updateQueryEngine() override;
@@ -49,10 +49,10 @@ public:
     size_t numberOfSurfaces() const;
     
     //! Returns the i-th surface.
-    const Surface2Ptr& surfaceAt(size_t i) const;
+    const Surface2Ptr &surfaceAt(size_t i) const;
     
     //! Adds a surface instance.
-    void addSurface(const Surface2Ptr& surface);
+    void addSurface(const Surface2Ptr &surface);
     
     //! Returns builder for SurfaceSet2.
     static Builder builder();
@@ -65,19 +65,19 @@ private:
     
     // Surface2 implementations
     
-    Point2D closestPointLocal(const Point2D& otherPoint) const override;
+    Point2D closestPointLocal(const Point2D &otherPoint) const override;
     
     BoundingBox2D boundingBoxLocal() const override;
     
-    double closestDistanceLocal(const Point2D& otherPoint) const override;
+    double closestDistanceLocal(const Point2D &otherPoint) const override;
     
-    bool intersectsLocal(const Ray2D& ray) const override;
+    bool intersectsLocal(const Ray2D &ray) const override;
     
-    Vector2D closestNormalLocal(const Point2D& otherPoint) const override;
+    Vector2D closestNormalLocal(const Point2D &otherPoint) const override;
     
-    SurfaceRayIntersection2 closestIntersectionLocal(const Ray2D& ray) const override;
+    SurfaceRayIntersection2 closestIntersectionLocal(const Ray2D &ray) const override;
     
-    bool isInsideLocal(const Point2D& otherPoint) const override;
+    bool isInsideLocal(const Point2D &otherPoint) const override;
     
     void invalidateBvh();
     
@@ -94,7 +94,7 @@ class SurfaceSet2::Builder final
 : public SurfaceBuilderBase2<SurfaceSet2::Builder> {
 public:
     //! Returns builder with other surfaces.
-    Builder& withSurfaces(const std::vector<Surface2Ptr>& others);
+    Builder &withSurfaces(const std::vector<Surface2Ptr> &others);
     
     //! Builds SurfaceSet2.
     SurfaceSet2 build() const;
@@ -108,4 +108,4 @@ private:
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_SURFACE_SET2_H_
+#endif  // INCLUDE_VOX_SURFACE_SET2_H_

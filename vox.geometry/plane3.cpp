@@ -1,8 +1,8 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "private_helpers.h"
 
@@ -10,43 +10,46 @@
 
 using namespace vox;
 
-Plane3::Plane3(const Transform3D& transform_, bool isNormalFlipped_)
-: Surface3(transform_, isNormalFlipped_) {}
+Plane3::Plane3(const Transform3D &transform_, bool isNormalFlipped_)
+: Surface3(transform_, isNormalFlipped_) {
+}
 
-Plane3::Plane3(const Vector3D& normal, const Point3D& point,
-               const Transform3D& transform_, bool isNormalFlipped_)
-: Surface3(transform_, isNormalFlipped_), normal(normal), point(point) {}
+Plane3::Plane3(const Vector3D &normal, const Point3D &point,
+               const Transform3D &transform_, bool isNormalFlipped_)
+: Surface3(transform_, isNormalFlipped_), normal(normal), point(point) {
+}
 
-Plane3::Plane3(const Point3D& point0, const Point3D& point1,
-               const Point3D& point2, const Transform3D& transform_,
+Plane3::Plane3(const Point3D &point0, const Point3D &point1,
+               const Point3D &point2, const Transform3D &transform_,
                bool isNormalFlipped_)
 : Surface3(transform_, isNormalFlipped_) {
     normal = (point1 - point0).cross(point2 - point0).normalized();
     point = point0;
 }
 
-Plane3::Plane3(const Plane3& other)
-: Surface3(other), normal(other.normal), point(other.point) {}
+Plane3::Plane3(const Plane3 &other)
+: Surface3(other), normal(other.normal), point(other.point) {
+}
 
 bool Plane3::isBounded() const {
     return false;
 }
 
-Point3D Plane3::closestPointLocal(const Point3D& otherPoint) const {
+Point3D Plane3::closestPointLocal(const Point3D &otherPoint) const {
     Vector3D r = otherPoint - point;
     return point + r - normal.dot(r) * normal;
 }
 
-Vector3D Plane3::closestNormalLocal(const Point3D& otherPoint) const {
+Vector3D Plane3::closestNormalLocal(const Point3D &otherPoint) const {
     UNUSED_VARIABLE(otherPoint);
     return normal;
 }
 
-bool Plane3::intersectsLocal(const Ray3D& ray) const {
+bool Plane3::intersectsLocal(const Ray3D &ray) const {
     return std::fabs(ray.direction.dot(normal)) > 0;
 }
 
-SurfaceRayIntersection3 Plane3::closestIntersectionLocal(const Ray3D& ray) const {
+SurfaceRayIntersection3 Plane3::closestIntersectionLocal(const Ray3D &ray) const {
     SurfaceRayIntersection3 intersection;
     
     double dDotN = ray.direction.dot(normal);
@@ -84,14 +87,16 @@ BoundingBox3D Plane3::boundingBoxLocal() const {
     }
 }
 
-Plane3::Builder Plane3::builder() { return Builder(); }
+Plane3::Builder Plane3::builder() {
+    return Builder();
+}
 
-Plane3::Builder& Plane3::Builder::withNormal(const Vector3D& normal) {
+Plane3::Builder &Plane3::Builder::withNormal(const Vector3D &normal) {
     _normal = normal;
     return *this;
 }
 
-Plane3::Builder& Plane3::Builder::withPoint(const Point3D& point) {
+Plane3::Builder &Plane3::Builder::withPoint(const Point3D &point) {
     _point = point;
     return *this;
 }
@@ -103,5 +108,7 @@ Plane3 Plane3::Builder::build() const {
 Plane3Ptr Plane3::Builder::makeShared() const {
     return std::shared_ptr<Plane3>(
                                    new Plane3(_normal, _point, _transform, _isNormalFlipped),
-                                   [](Plane3* obj) { delete obj; });
+                                   [](Plane3 *obj) {
+                                       delete obj;
+                                   });
 }

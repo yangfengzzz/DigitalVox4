@@ -1,30 +1,30 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_LIST_QUERY_ENGINE2_INL_H_
-#define INCLUDE_JET_DETAIL_LIST_QUERY_ENGINE2_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_LIST_QUERY_ENGINE2_INL_H_
+#define INCLUDE_VOX_DETAIL_LIST_QUERY_ENGINE2_INL_H_
 
 #include "list_query_engine2.h"
 
 namespace vox {
 
-template <typename T>
-void ListQueryEngine2<T>::add(const T& item) {
+template<typename T>
+void ListQueryEngine2<T>::add(const T &item) {
     _items.push_back(item);
 }
 
-template <typename T>
-void ListQueryEngine2<T>::add(const std::vector<T>& items) {
+template<typename T>
+void ListQueryEngine2<T>::add(const std::vector<T> &items) {
     _items.insert(_items.end(), items.begin(), items.end());
 }
 
-template <typename T>
-bool ListQueryEngine2<T>::intersects(const BoundingBox2D& box,
-                                     const BoxIntersectionTestFunc2<T>& testFunc) const {
-    for (const auto& item : _items) {
+template<typename T>
+bool ListQueryEngine2<T>::intersects(const BoundingBox2D &box,
+                                     const BoxIntersectionTestFunc2 <T> &testFunc) const {
+    for (const auto &item: _items) {
         if (testFunc(item, box)) {
             return true;
         }
@@ -33,9 +33,9 @@ bool ListQueryEngine2<T>::intersects(const BoundingBox2D& box,
     return false;
 }
 
-template <typename T>
-bool ListQueryEngine2<T>::intersects(const Ray2D& ray, const RayIntersectionTestFunc2<T>& testFunc) const {
-    for (const auto& item : _items) {
+template<typename T>
+bool ListQueryEngine2<T>::intersects(const Ray2D &ray, const RayIntersectionTestFunc2 <T> &testFunc) const {
+    for (const auto &item: _items) {
         if (testFunc(item, ray)) {
             return true;
         }
@@ -44,31 +44,31 @@ bool ListQueryEngine2<T>::intersects(const Ray2D& ray, const RayIntersectionTest
     return false;
 }
 
-template <typename T>
-void ListQueryEngine2<T>::forEachIntersectingItem(const BoundingBox2D& box, const BoxIntersectionTestFunc2<T>& testFunc,
-                                                  const IntersectionVisitorFunc2<T>& visitorFunc) const {
-    for (const auto& item : _items) {
+template<typename T>
+void ListQueryEngine2<T>::forEachIntersectingItem(const BoundingBox2D &box, const BoxIntersectionTestFunc2 <T> &testFunc,
+                                                  const IntersectionVisitorFunc2 <T> &visitorFunc) const {
+    for (const auto &item: _items) {
         if (testFunc(item, box)) {
             visitorFunc(item);
         }
     }
 }
 
-template <typename T>
-void ListQueryEngine2<T>::forEachIntersectingItem(const Ray2D& ray, const RayIntersectionTestFunc2<T>& testFunc,
-                                                  const IntersectionVisitorFunc2<T>& visitorFunc) const {
-    for (const auto& item : _items) {
+template<typename T>
+void ListQueryEngine2<T>::forEachIntersectingItem(const Ray2D &ray, const RayIntersectionTestFunc2 <T> &testFunc,
+                                                  const IntersectionVisitorFunc2 <T> &visitorFunc) const {
+    for (const auto &item: _items) {
         if (testFunc(item, ray)) {
             visitorFunc(item);
         }
     }
 }
 
-template <typename T>
-ClosestIntersectionQueryResult2<T>
-ListQueryEngine2<T>::closestIntersection(const Ray2D& ray, const GetRayIntersectionFunc2<T>& testFunc) const {
+template<typename T>
+ClosestIntersectionQueryResult2 <T>
+ListQueryEngine2<T>::closestIntersection(const Ray2D &ray, const GetRayIntersectionFunc2 <T> &testFunc) const {
     ClosestIntersectionQueryResult2<T> best;
-    for (const auto& item : _items) {
+    for (const auto &item: _items) {
         double dist = testFunc(item, ray);
         if (dist < best.distance) {
             best.distance = dist;
@@ -79,11 +79,11 @@ ListQueryEngine2<T>::closestIntersection(const Ray2D& ray, const GetRayIntersect
     return best;
 }
 
-template <typename T>
-NearestNeighborQueryResult2<T>
-ListQueryEngine2<T>::nearest(const Point2D& pt, const NearestNeighborDistanceFunc2<T>& distanceFunc) const {
+template<typename T>
+NearestNeighborQueryResult2 <T>
+ListQueryEngine2<T>::nearest(const Point2D &pt, const NearestNeighborDistanceFunc2 <T> &distanceFunc) const {
     NearestNeighborQueryResult2<T> best;
-    for (const auto& item : _items) {
+    for (const auto &item: _items) {
         double dist = distanceFunc(item, pt);
         if (dist < best.distance) {
             best.item = &item;
@@ -96,4 +96,4 @@ ListQueryEngine2<T>::nearest(const Point2D& pt, const NearestNeighborDistanceFun
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_LIST_QUERY_ENGINE2_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_LIST_QUERY_ENGINE2_INL_H_

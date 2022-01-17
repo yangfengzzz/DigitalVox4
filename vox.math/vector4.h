@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_VECTOR4_H_
-#define INCLUDE_JET_VECTOR4_H_
+#ifndef INCLUDE_VOX_VECTOR4_H_
+#define INCLUDE_VOX_VECTOR4_H_
 
 #include "vector3.h"
 
@@ -374,4 +374,4 @@ Vector4<T> monotonicCatmullRom(const Vector4<T> &v0, const Vector4<T> &v1,
 
 #include "vector4-inl.h"
 
-#endif  // INCLUDE_JET_VECTOR4_H_
+#endif  // INCLUDE_VOX_VECTOR4_H_

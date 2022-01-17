@@ -1,11 +1,11 @@
-// Copyright (c) 2019 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_BVH2_H_
-#define INCLUDE_JET_BVH2_H_
+#ifndef INCLUDE_VOX_BVH2_H_
+#define INCLUDE_VOX_BVH2_H_
 
 #include "intersection_query_engine2.h"
 #include "nearest_neighbor_query_engine2.h"
@@ -22,7 +22,7 @@ namespace vox {
 //! intersection tests. Also, NearestNeighborQueryEngine2 is implemented to
 //! provide nearest neighbor query.
 //!
-template <typename T>
+template<typename T>
 class Bvh2 final : public IntersectionQueryEngine2<T>,
 public NearestNeighborQueryEngine2<T> {
 public:
@@ -34,8 +34,8 @@ public:
     Bvh2();
     
     //! Builds bounding volume hierarchy.
-    void build(const std::vector<T>& items,
-               const std::vector<BoundingBox2D>& itemsBounds);
+    void build(const std::vector<T> &items,
+               const std::vector<BoundingBox2D> &itemsBounds);
     
     //! Clears all the contents of this instance.
     void clear();
@@ -43,30 +43,30 @@ public:
     //! Returns the nearest neighbor for given point and distance measure
     //! function.
     NearestNeighborQueryResult2<T>
-    nearest(const Point2D& pt, const NearestNeighborDistanceFunc2<T>& distanceFunc) const override;
+    nearest(const Point2D &pt, const NearestNeighborDistanceFunc2<T> &distanceFunc) const override;
     
     //! Returns true if given \p box intersects with any of the stored items.
-    bool intersects(const BoundingBox2D& box,
-                    const BoxIntersectionTestFunc2<T>& testFunc) const override;
+    bool intersects(const BoundingBox2D &box,
+                    const BoxIntersectionTestFunc2<T> &testFunc) const override;
     
     //! Returns true if given \p ray intersects with any of the stored items.
-    bool intersects(const Ray2D& ray,
-                    const RayIntersectionTestFunc2<T>& testFunc) const override;
+    bool intersects(const Ray2D &ray,
+                    const RayIntersectionTestFunc2<T> &testFunc) const override;
     
     //! Invokes \p visitorFunc for every intersecting items.
-    void forEachIntersectingItem(const BoundingBox2D& box, const BoxIntersectionTestFunc2<T>& testFunc,
-                                 const IntersectionVisitorFunc2<T>& visitorFunc) const override;
+    void forEachIntersectingItem(const BoundingBox2D &box, const BoxIntersectionTestFunc2<T> &testFunc,
+                                 const IntersectionVisitorFunc2<T> &visitorFunc) const override;
     
     //! Invokes \p visitorFunc for every intersecting items.
-    void forEachIntersectingItem(const Ray2D& ray, const RayIntersectionTestFunc2<T>& testFunc,
-                                 const IntersectionVisitorFunc2<T>& visitorFunc) const override;
+    void forEachIntersectingItem(const Ray2D &ray, const RayIntersectionTestFunc2<T> &testFunc,
+                                 const IntersectionVisitorFunc2<T> &visitorFunc) const override;
     
     //! Returns the closest intersection for given \p ray.
     ClosestIntersectionQueryResult2<T>
-    closestIntersection(const Ray2D& ray, const GetRayIntersectionFunc2<T>& testFunc) const override;
+    closestIntersection(const Ray2D &ray, const GetRayIntersectionFunc2<T> &testFunc) const override;
     
     //! Returns bounding box of every items.
-    const BoundingBox2D& boundingBox() const;
+    const BoundingBox2D &boundingBox() const;
     
     //! Returns the begin iterator of the item.
     Iterator begin();
@@ -84,7 +84,7 @@ public:
     size_t numberOfItems() const;
     
     //! Returns the item at \p i.
-    const T& item(size_t i) const;
+    const T &item(size_t i) const;
     
     //! Returns the number of nodes.
     size_t numberOfNodes() const;
@@ -96,7 +96,7 @@ public:
     bool isLeaf(size_t i) const;
     
     //! Returns bounding box of \p i-th node.
-    const BoundingBox2D& nodeBound(size_t i) const;
+    const BoundingBox2D &nodeBound(size_t i) const;
     
     //! Returns item of \p i-th node.
     Iterator itemOfNode(size_t i);
@@ -114,8 +114,11 @@ private:
         BoundingBox2D bound;
         
         Node();
-        void initLeaf(size_t it, const BoundingBox2D& b);
-        void initInternal(uint8_t axis, size_t c, const BoundingBox2D& b);
+        
+        void initLeaf(size_t it, const BoundingBox2D &b);
+        
+        void initInternal(uint8_t axis, size_t c, const BoundingBox2D &b);
+        
         bool isLeaf() const;
     };
     
@@ -124,14 +127,14 @@ private:
     std::vector<BoundingBox2D> _itemBounds;
     std::vector<Node> _nodes;
     
-    size_t build(size_t nodeIndex, size_t* itemIndices, size_t nItems,
+    size_t build(size_t nodeIndex, size_t *itemIndices, size_t nItems,
                  size_t currentDepth);
     
-    size_t qsplit(size_t* itemIndices, size_t numItems, double pivot,
+    size_t qsplit(size_t *itemIndices, size_t numItems, double pivot,
                   uint8_t axis);
 };
 }  // namespace vox
 
 #include "bvh2-inl.h"
 
-#endif  // INCLUDE_JET_BVH2_H_
+#endif  // INCLUDE_VOX_BVH2_H_

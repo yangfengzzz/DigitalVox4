@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_BOUNDING_BOX2_INL_H_
-#define INCLUDE_JET_DETAIL_BOUNDING_BOX2_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_BOUNDING_BOX2_INL_H_
+#define INCLUDE_VOX_DETAIL_BOUNDING_BOX2_INL_H_
 
 #include <algorithm>
 #include <limits>
@@ -141,11 +141,11 @@ BoundingBoxRayIntersection2 <T> BoundingBox<T, 2>::closestIntersection(const Ray
 }
 
 template<typename T>
-Point2<T> BoundingBox<T, 2>::midPoint() const {
+Point2 <T> BoundingBox<T, 2>::midPoint() const {
     Vector2<T> temp = upperCorner + lowerCorner;
     
     return Point2<T>(temp.x / static_cast<T>(2),
-                     temp.y / static_cast<T>(2));    
+                     temp.y / static_cast<T>(2));
 }
 
 template<typename T>
@@ -167,7 +167,7 @@ void BoundingBox<T, 2>::reset() {
 }
 
 template<typename T>
-void BoundingBox<T, 2>::merge(const Point2<T> &point) {
+void BoundingBox<T, 2>::merge(const Point2 <T> &point) {
     lowerCorner.x = std::min(lowerCorner.x, point.x);
     lowerCorner.y = std::min(lowerCorner.y, point.y);
     upperCorner.x = std::max(upperCorner.x, point.x);
@@ -189,7 +189,7 @@ void BoundingBox<T, 2>::expand(T delta) {
 }
 
 template<typename T>
-Point2<T> BoundingBox<T, 2>::corner(size_t idx) const {
+Point2 <T> BoundingBox<T, 2>::corner(size_t idx) const {
     static const T h = static_cast<T>(1) / 2;
     static const Vector2<T> offset[4] = {
         {-h, -h}, {+h, -h}, {-h, +h}, {+h, +h}};
@@ -198,7 +198,7 @@ Point2<T> BoundingBox<T, 2>::corner(size_t idx) const {
 }
 
 template<typename T>
-Point2<T> BoundingBox<T, 2>::clamp(const Point2<T> &pt) const {
+Point2 <T> BoundingBox<T, 2>::clamp(const Point2 <T> &pt) const {
     return ::vox::clamp(pt, lowerCorner, upperCorner);
 }
 
@@ -209,4 +209,4 @@ bool BoundingBox<T, 2>::isEmpty() const {
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_BOUNDING_BOX2_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_BOUNDING_BOX2_INL_H_

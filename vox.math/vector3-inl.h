@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_VECTOR3_INL_H_
-#define INCLUDE_JET_DETAIL_VECTOR3_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_VECTOR3_INL_H_
+#define INCLUDE_VOX_DETAIL_VECTOR3_INL_H_
 
 #include "macros.h"
 #include "math_utils.h"
@@ -47,7 +47,7 @@ void Vector<T, 3>::set(const Vector2 <T> &pt, T newZ) {
 template<typename T>
 template<typename U>
 void Vector<T, 3>::set(const std::initializer_list<U> &lst) {
-    JET_ASSERT(lst.size() >= 3);
+    VOX_ASSERT(lst.size() >= 3);
     
     auto inputElem = lst.begin();
     x = static_cast<T>(*inputElem);
@@ -212,13 +212,13 @@ void Vector<T, 3>::idiv(const Vector &v) {
 // Basic getters
 template<typename T>
 const T &Vector<T, 3>::at(size_t i) const {
-    JET_ASSERT(i < 3);
+    VOX_ASSERT(i < 3);
     return (&x)[i];
 }
 
 template<typename T>
 T &Vector<T, 3>::at(size_t i) {
-    JET_ASSERT(i < 3);
+    VOX_ASSERT(i < 3);
     return (&x)[i];
 }
 
@@ -317,13 +317,13 @@ bool Vector<T, 3>::isSimilar(const Vector &other, T epsilon) const {
 // Operators
 template<typename T>
 T &Vector<T, 3>::operator[](size_t i) {
-    JET_ASSERT(i < 3);
+    VOX_ASSERT(i < 3);
     return (&x)[i];
 }
 
 template<typename T>
 const T &Vector<T, 3>::operator[](size_t i) const {
-    JET_ASSERT(i < 3);
+    VOX_ASSERT(i < 3);
     return (&x)[i];
 }
 
@@ -534,4 +534,4 @@ Vector<T, 3> monotonicCatmullRom(const Vector<T, 3> &v0, const Vector<T, 3> &v1,
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_VECTOR3_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_VECTOR3_INL_H_

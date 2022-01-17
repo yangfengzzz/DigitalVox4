@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_VECTOR2_H_
-#define INCLUDE_JET_VECTOR2_H_
+#ifndef INCLUDE_VOX_VECTOR2_H_
+#define INCLUDE_VOX_VECTOR2_H_
 
 #include "vector.h"
 #include <algorithm>  // just make cpplint happy..
@@ -359,4 +359,4 @@ Vector2<T> monotonicCatmullRom(const Vector2<T> &v0, const Vector2<T> &v1,
 
 #include "vector2-inl.h"
 
-#endif  // INCLUDE_JET_VECTOR2_H_
+#endif  // INCLUDE_VOX_VECTOR2_H_

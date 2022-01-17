@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_POINT2_H_
-#define INCLUDE_JET_POINT2_H_
+#ifndef INCLUDE_VOX_POINT2_H_
+#define INCLUDE_VOX_POINT2_H_
 
 #include "point.h"
 #include "vector2.h"
@@ -83,7 +83,7 @@ public:
     
     //! Computes this - (v.x, v.y).
     Vector2<T> sub(const Point &v) const;
-
+    
     //! Computes this - (v.x, v.y).
     Point sub(const Vector2<T> &v) const;
     
@@ -340,4 +340,4 @@ using Point2UI = Point2<size_t>;
 
 #include "point2-inl.h"
 
-#endif  // INCLUDE_JET_POINT2_H_
+#endif  // INCLUDE_VOX_POINT2_H_

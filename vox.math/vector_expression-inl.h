@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_VECTOR_EXPRESSION_INL_H
-#define INCLUDE_JET_DETAIL_VECTOR_EXPRESSION_INL_H
+#ifndef INCLUDE_VOX_DETAIL_VECTOR_EXPRESSION_INL_H
+#define INCLUDE_VOX_DETAIL_VECTOR_EXPRESSION_INL_H
 
 #include "vector_expression.h"
 
@@ -44,7 +44,7 @@ T VectorUnaryOp<T, E, Op>::operator[](size_t i) const {
 template<typename T, typename E1, typename E2, typename Op>
 VectorBinaryOp<T, E1, E2, Op>::VectorBinaryOp(const E1 &u, const E2 &v)
 : _u(u), _v(v) {
-    JET_ASSERT(u.size() == v.size());
+    VOX_ASSERT(u.size() == v.size());
 }
 
 template<typename T, typename E1, typename E2, typename Op>
@@ -140,4 +140,4 @@ VectorDiv <T, E1, E2> operator/(const VectorExpression <T, E1> &a,
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_VECTOR_EXPRESSION_INL_H
+#endif  // INCLUDE_VOX_DETAIL_VECTOR_EXPRESSION_INL_H

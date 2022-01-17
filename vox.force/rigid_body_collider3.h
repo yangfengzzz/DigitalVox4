@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_RIGID_BODY_COLLIDER3_H_
-#define INCLUDE_JET_RIGID_BODY_COLLIDER3_H_
+#ifndef INCLUDE_VOX_RIGID_BODY_COLLIDER3_H_
+#define INCLUDE_VOX_RIGID_BODY_COLLIDER3_H_
 
 #include "collider3.h"
 #include "quaternion.h"
@@ -29,22 +29,22 @@ public:
     Vector3D angularVelocity;
     
     //! Constructs a collider with a surface.
-    explicit RigidBodyCollider3(const Surface3Ptr& surface);
+    explicit RigidBodyCollider3(const Surface3Ptr &surface);
     
     //! Constructs a collider with a surface and other parameters.
-    RigidBodyCollider3(const Surface3Ptr& surface,
-                       const Vector3D& linearVelocity,
-                       const Vector3D& angularVelocity);
+    RigidBodyCollider3(const Surface3Ptr &surface,
+                       const Vector3D &linearVelocity,
+                       const Vector3D &angularVelocity);
     
     //! Returns the velocity of the collider at given \p point.
-    Vector3D velocityAt(const Point3D& point) const override;
+    Vector3D velocityAt(const Point3D &point) const override;
     
     //! Returns builder fox RigidBodyCollider3.
     static Builder builder();
 };
 
 //! Shared pointer for the RigidBodyCollider3 type.
-typedef std::shared_ptr<RigidBodyCollider3> RigidBodyCollider3Ptr;
+using RigidBodyCollider3Ptr = std::shared_ptr<RigidBodyCollider3>;
 
 
 //!
@@ -53,13 +53,13 @@ typedef std::shared_ptr<RigidBodyCollider3> RigidBodyCollider3Ptr;
 class RigidBodyCollider3::Builder final {
 public:
     //! Returns builder with surface.
-    Builder& withSurface(const Surface3Ptr& surface);
+    Builder &withSurface(const Surface3Ptr &surface);
     
     //! Returns builder with linear velocity.
-    Builder& withLinearVelocity(const Vector3D& linearVelocity);
+    Builder &withLinearVelocity(const Vector3D &linearVelocity);
     
     //! Returns builder with angular velocity.
-    Builder& withAngularVelocity(const Vector3D& angularVelocity);
+    Builder &withAngularVelocity(const Vector3D &angularVelocity);
     
     //! Builds RigidBodyCollider3.
     RigidBodyCollider3 build() const;
@@ -75,4 +75,4 @@ private:
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_RIGID_BODY_COLLIDER3_H_
+#endif  // INCLUDE_VOX_RIGID_BODY_COLLIDER3_H_

@@ -1,8 +1,8 @@
-// Copyright (c) 2020 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 //#include <pch.h>
 
@@ -11,21 +11,25 @@
 
 using namespace vox;
 
-Box3::Box3(const Transform3D& transform, bool isNormalFlipped)
-: Surface3(transform, isNormalFlipped) {}
+Box3::Box3(const Transform3D &transform, bool isNormalFlipped)
+: Surface3(transform, isNormalFlipped) {
+}
 
-Box3::Box3(const Point3D& lowerCorner, const Point3D& upperCorner,
-           const Transform3D& transform, bool isNormalFlipped)
+Box3::Box3(const Point3D &lowerCorner, const Point3D &upperCorner,
+           const Transform3D &transform, bool isNormalFlipped)
 : Box3(BoundingBox3D(lowerCorner, upperCorner), transform,
-       isNormalFlipped) {}
+       isNormalFlipped) {
+}
 
-Box3::Box3(const BoundingBox3D& boundingBox, const Transform3D& transform,
+Box3::Box3(const BoundingBox3D &boundingBox, const Transform3D &transform,
            bool isNormalFlipped)
-: Surface3(transform, isNormalFlipped), bound(boundingBox) {}
+: Surface3(transform, isNormalFlipped), bound(boundingBox) {
+}
 
-Box3::Box3(const Box3& other) : Surface3(other), bound(other.bound) {}
+Box3::Box3(const Box3 &other) : Surface3(other), bound(other.bound) {
+}
 
-Point3D Box3::closestPointLocal(const Point3D& otherPoint) const {
+Point3D Box3::closestPointLocal(const Point3D &otherPoint) const {
     if (bound.contains(otherPoint)) {
         Plane3 planes[6] = {Plane3(Vector3D(1, 0, 0), bound.upperCorner),
             Plane3(Vector3D(0, 1, 0), bound.upperCorner),
@@ -54,7 +58,7 @@ Point3D Box3::closestPointLocal(const Point3D& otherPoint) const {
     }
 }
 
-Vector3D Box3::closestNormalLocal(const Point3D& otherPoint) const {
+Vector3D Box3::closestNormalLocal(const Point3D &otherPoint) const {
     Plane3 planes[6] = {Plane3(Vector3D(1, 0, 0), bound.upperCorner),
         Plane3(Vector3D(0, 1, 0), bound.upperCorner),
         Plane3(Vector3D(0, 0, 1), bound.upperCorner),
@@ -97,11 +101,11 @@ Vector3D Box3::closestNormalLocal(const Point3D& otherPoint) const {
     }
 }
 
-bool Box3::intersectsLocal(const Ray3D& ray) const {
+bool Box3::intersectsLocal(const Ray3D &ray) const {
     return bound.intersects(ray);
 }
 
-SurfaceRayIntersection3 Box3::closestIntersectionLocal(const Ray3D& ray) const {
+SurfaceRayIntersection3 Box3::closestIntersectionLocal(const Ray3D &ray) const {
     SurfaceRayIntersection3 intersection;
     BoundingBoxRayIntersection3D bbRayIntersection =
     bound.closestIntersection(ray);
@@ -115,21 +119,25 @@ SurfaceRayIntersection3 Box3::closestIntersectionLocal(const Ray3D& ray) const {
     return intersection;
 }
 
-BoundingBox3D Box3::boundingBoxLocal() const { return bound; }
+BoundingBox3D Box3::boundingBoxLocal() const {
+    return bound;
+}
 
-Box3::Builder Box3::builder() { return Builder(); }
+Box3::Builder Box3::builder() {
+    return Builder();
+}
 
-Box3::Builder& Box3::Builder::withLowerCorner(const Point3D& pt) {
+Box3::Builder &Box3::Builder::withLowerCorner(const Point3D &pt) {
     _lowerCorner = pt;
     return *this;
 }
 
-Box3::Builder& Box3::Builder::withUpperCorner(const Point3D& pt) {
+Box3::Builder &Box3::Builder::withUpperCorner(const Point3D &pt) {
     _upperCorner = pt;
     return *this;
 }
 
-Box3::Builder& Box3::Builder::withBoundingBox(const BoundingBox3D& bbox) {
+Box3::Builder &Box3::Builder::withBoundingBox(const BoundingBox3D &bbox) {
     _lowerCorner = bbox.lowerCorner;
     _upperCorner = bbox.upperCorner;
     return *this;
@@ -141,5 +149,7 @@ Box3 Box3::Builder::build() const {
 
 Box3Ptr Box3::Builder::makeShared() const {
     return std::shared_ptr<Box3>(new Box3(_lowerCorner, _upperCorner, _transform, _isNormalFlipped),
-                                 [](Box3* obj) { delete obj; });
+                                 [](Box3 *obj) {
+        delete obj;
+    });
 }

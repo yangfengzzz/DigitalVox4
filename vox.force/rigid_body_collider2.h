@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_RIGID_BODY_COLLIDER2_H_
-#define INCLUDE_JET_RIGID_BODY_COLLIDER2_H_
+#ifndef INCLUDE_VOX_RIGID_BODY_COLLIDER2_H_
+#define INCLUDE_VOX_RIGID_BODY_COLLIDER2_H_
 
 #include "collider2.h"
 
@@ -28,15 +28,15 @@ public:
     double angularVelocity = 0.0;
     
     //! Constructs a collider with a surface.
-    explicit RigidBodyCollider2(const Surface2Ptr& surface);
+    explicit RigidBodyCollider2(const Surface2Ptr &surface);
     
     //! Constructs a collider with a surface and other parameters.
-    RigidBodyCollider2(const Surface2Ptr& surface,
-                       const Vector2D& linearVelocity,
+    RigidBodyCollider2(const Surface2Ptr &surface,
+                       const Vector2D &linearVelocity,
                        double angularVelocity);
     
     //! Returns the velocity of the collider at given \p point.
-    Vector2D velocityAt(const Point2D& point) const override;
+    Vector2D velocityAt(const Point2D &point) const override;
     
     //! Returns builder fox RigidBodyCollider2.
     static Builder builder();
@@ -52,13 +52,13 @@ using RigidBodyCollider2Ptr = std::shared_ptr<RigidBodyCollider2>;
 class RigidBodyCollider2::Builder final {
 public:
     //! Returns builder with surface.
-    Builder& withSurface(const Surface2Ptr& surface);
+    Builder &withSurface(const Surface2Ptr &surface);
     
     //! Returns builder with linear velocity.
-    Builder& withLinearVelocity(const Vector2D& linearVelocity);
+    Builder &withLinearVelocity(const Vector2D &linearVelocity);
     
     //! Returns builder with angular velocity.
-    Builder& withAngularVelocity(double angularVelocity);
+    Builder &withAngularVelocity(double angularVelocity);
     
     //! Builds RigidBodyCollider2.
     RigidBodyCollider2 build() const;
@@ -74,4 +74,4 @@ private:
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_RIGID_BODY_COLLIDER2_H_
+#endif  // INCLUDE_VOX_RIGID_BODY_COLLIDER2_H_

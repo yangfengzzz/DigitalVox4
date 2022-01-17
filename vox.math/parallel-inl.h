@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_PARALLEL_INL_H_
-#define INCLUDE_JET_DETAIL_PARALLEL_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_PARALLEL_INL_H_
+#define INCLUDE_VOX_DETAIL_PARALLEL_INL_H_
 
 #include "constants.h"
 #include "macros.h"
@@ -15,14 +15,14 @@
 #include <future>
 #include <vector>
 
-#define JET_TASKING_CPP11THREADS
+#define VOX_TASKING_CPP11THREADS
 
-#ifdef JET_TASKING_TBB
+#ifdef VOX_TASKING_TBB
 #include <tbb/parallel_for.h>
 #include <tbb/parallel_reduce.h>
 #include <tbb/parallel_sort.h>
 #include <tbb/task.h>
-#elif defined(JET_TASKING_CPP11THREADS)
+#elif defined(VOX_TASKING_CPP11THREADS)
 #include <thread>
 #endif
 
@@ -35,7 +35,7 @@ namespace internal {
 //        with the task itself.
 template <typename TASK_T>
 inline void schedule(TASK_T&& fcn) {
-#ifdef JET_TASKING_TBB
+#ifdef VOX_TASKING_TBB
     struct LocalTBBTask : public tbb::task {
         TASK_T func;
         tbb::task* execute() override {
@@ -48,7 +48,7 @@ inline void schedule(TASK_T&& fcn) {
     auto* tbb_node = new (tbb::task::allocate_root())
         LocalTBBTask(std::forward<TASK_T>(fcn));
     tbb::task::enqueue(*tbb_node);
-#elif defined(JET_TASKING_CPP11THREADS)
+#elif defined(VOX_TASKING_CPP11THREADS)
     std::thread thread(fcn);
     thread.detach();
 #else  // OpenMP or Serial --> synchronous!
@@ -175,7 +175,7 @@ void parallelFor(IndexType start, IndexType end, const Function& func,
         return;
     }
 
-#ifdef JET_TASKING_TBB
+#ifdef VOX_TASKING_TBB
     if (policy == ExecutionPolicy::kParallel) {
         tbb::parallel_for(start, end, func);
     } else {
@@ -184,7 +184,7 @@ void parallelFor(IndexType start, IndexType end, const Function& func,
         }
     }
 
-#elifdef JET_TASKING_CPP11THREADS
+#elifdef VOX_TASKING_CPP11THREADS
     // Estimate number of threads in the pool
     unsigned int numThreadsHint = maxNumberOfThreads();
     const unsigned int numThreads =
@@ -227,7 +227,7 @@ void parallelFor(IndexType start, IndexType end, const Function& func,
     }
 #else
 
-#ifdef JET_TASKING_OPENMP
+#ifdef VOX_TASKING_OPENMP
     if (policy == ExecutionPolicy::kParallel) {
 #pragma omp parallel for
 #if defined(_MSC_VER) && !defined(__INTEL_COMPILER)
@@ -242,11 +242,11 @@ void parallelFor(IndexType start, IndexType end, const Function& func,
             func(i);
         }
     }
-#else   // JET_TASKING_OPENMP
+#else   // VOX_TASKING_OPENMP
     for (auto i = start; i < end; ++i) {
         func(i);
     }
-#endif  // JET_TASKING_OPENMP
+#endif  // VOX_TASKING_OPENMP
 
 #endif
 }
@@ -258,7 +258,7 @@ void parallelRangeFor(IndexType start, IndexType end, const Function& func,
         return;
     }
 
-#ifdef JET_TASKING_TBB
+#ifdef VOX_TASKING_TBB
     if (policy == ExecutionPolicy::kParallel) {
         tbb::parallel_for(tbb::blocked_range<IndexType>(start, end),
                           [&func](const tbb::blocked_range<IndexType>& range) {
@@ -367,7 +367,7 @@ Value parallelReduce(IndexType start, IndexType end, const Value& identity,
         return identity;
     }
 
-#ifdef JET_TASKING_TBB
+#ifdef VOX_TASKING_TBB
     if (policy == ExecutionPolicy::kParallel) {
         return tbb::parallel_reduce(
             tbb::blocked_range<IndexType>(start, end), identity,
@@ -443,7 +443,7 @@ void parallelSort(RandomIterator begin, RandomIterator end,
         return;
     }
 
-#ifdef JET_TASKING_TBB
+#ifdef VOX_TASKING_TBB
     if (policy == ExecutionPolicy::kParallel) {
         tbb::parallel_sort(begin, end, compareFunction);
     } else {
@@ -480,4 +480,4 @@ void parallelSort(RandomIterator begin, RandomIterator end,
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_PARALLEL_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_PARALLEL_INL_H_

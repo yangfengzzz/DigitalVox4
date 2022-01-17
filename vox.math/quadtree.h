@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_QUADTREE_H_
-#define INCLUDE_JET_QUADTREE_H_
+#ifndef INCLUDE_VOX_QUADTREE_H_
+#define INCLUDE_VOX_QUADTREE_H_
 
 #include "intersection_query_engine2.h"
 #include "nearest_neighbor_query_engine2.h"
@@ -22,21 +22,21 @@ namespace vox {
 //!
 //! \tparam     T     Value type.
 //!
-template <typename T>
+template<typename T>
 class Quadtree final : public IntersectionQueryEngine2<T>,
 public NearestNeighborQueryEngine2<T> {
 public:
-    typedef std::vector<T> ContainerType;
-    typedef typename ContainerType::iterator Iterator;
-    typedef typename ContainerType::const_iterator ConstIterator;
+    using ContainerType = std::vector<T>;
+    using Iterator = typename ContainerType::iterator;
+    using ConstIterator = typename ContainerType::const_iterator;
     
     //! Default constructor.
     Quadtree();
     
     //! Builds an quadtree with given list of items, bounding box of the items,
     //! overlapping test function, and max depth of the tree.
-    void build(const std::vector<T>& items, const BoundingBox2D& bound,
-               const BoxIntersectionTestFunc2<T>& testFunc, size_t maxDepth);
+    void build(const std::vector<T> &items, const BoundingBox2D &bound,
+               const BoxIntersectionTestFunc2<T> &testFunc, size_t maxDepth);
     
     //! Clears all the contents of this instance.
     void clear();
@@ -44,29 +44,29 @@ public:
     //! Returns the nearest neighbor for given point and distance measure
     //! function.
     NearestNeighborQueryResult2<T>
-    nearest(const Point2D& pt, const NearestNeighborDistanceFunc2<T>& distanceFunc) const override;
+    nearest(const Point2D &pt, const NearestNeighborDistanceFunc2<T> &distanceFunc) const override;
     
     //! Returns true if given \p box intersects with any of the stored items.
-    bool intersects(const BoundingBox2D& box,
-                    const BoxIntersectionTestFunc2<T>& testFunc) const override;
+    bool intersects(const BoundingBox2D &box,
+                    const BoxIntersectionTestFunc2<T> &testFunc) const override;
     
     //! Returns true if given \p ray intersects with any of the stored items.
-    bool intersects(const Ray2D& ray,
-                    const RayIntersectionTestFunc2<T>& testFunc) const override;
+    bool intersects(const Ray2D &ray,
+                    const RayIntersectionTestFunc2<T> &testFunc) const override;
     
     //! Invokes \p visitorFunc for every intersecting items.
     void forEachIntersectingItem(
-                                 const BoundingBox2D& box, const BoxIntersectionTestFunc2<T>& testFunc,
-                                 const IntersectionVisitorFunc2<T>& visitorFunc) const override;
+                                 const BoundingBox2D &box, const BoxIntersectionTestFunc2<T> &testFunc,
+                                 const IntersectionVisitorFunc2<T> &visitorFunc) const override;
     
     //! Invokes \p visitorFunc for every intersecting items.
     void forEachIntersectingItem(
-                                 const Ray2D& ray, const RayIntersectionTestFunc2<T>& testFunc,
-                                 const IntersectionVisitorFunc2<T>& visitorFunc) const override;
+                                 const Ray2D &ray, const RayIntersectionTestFunc2<T> &testFunc,
+                                 const IntersectionVisitorFunc2<T> &visitorFunc) const override;
     
     //! Returns the closest intersection for given \p ray.
     ClosestIntersectionQueryResult2<T>
-    closestIntersection(const Ray2D& ray, const GetRayIntersectionFunc2<T>& testFunc) const override;
+    closestIntersection(const Ray2D &ray, const GetRayIntersectionFunc2<T> &testFunc) const override;
     
     //! Returns the begin iterator of the item.
     Iterator begin();
@@ -84,13 +84,13 @@ public:
     size_t numberOfItems() const;
     
     //! Returns the item at \p i.
-    const T& item(size_t i) const;
+    const T &item(size_t i) const;
     
     //! Returns the number of quadtree nodes.
     size_t numberOfNodes() const;
     
     //! Returns the list of the items for given noide index.
-    const std::vector<size_t>& itemsAtNode(size_t nodeIdx) const;
+    const std::vector<size_t> &itemsAtNode(size_t nodeIdx) const;
     
     //!
     //! \brief      Returns a child's index for given node.
@@ -107,7 +107,7 @@ public:
     size_t childIndex(size_t nodeIdx, size_t childIdx) const;
     
     //! Returns the bounding box of this quadtree.
-    const BoundingBox2D& boundingBox() const;
+    const BoundingBox2D &boundingBox() const;
     
     //! Returns the maximum depth of the tree.
     size_t maxDepth() const;
@@ -126,31 +126,31 @@ private:
     std::vector<Node> _nodes;
     
     void build(size_t nodeIdx, size_t currentDepth,
-               const BoundingBox2D& currentBound,
-               const BoxIntersectionTestFunc2<T>& overlapsFunc);
+               const BoundingBox2D &currentBound,
+               const BoxIntersectionTestFunc2<T> &overlapsFunc);
     
-    bool intersects(const BoundingBox2D& box,
-                    const BoxIntersectionTestFunc2<T>& testFunc, size_t nodeIdx,
-                    const BoundingBox2D& currentBound) const;
+    bool intersects(const BoundingBox2D &box,
+                    const BoxIntersectionTestFunc2<T> &testFunc, size_t nodeIdx,
+                    const BoundingBox2D &currentBound) const;
     
-    bool intersects(const Ray2D& ray,
-                    const RayIntersectionTestFunc2<T>& testFunc, size_t nodeIdx,
-                    const BoundingBox2D& currentBound) const;
+    bool intersects(const Ray2D &ray,
+                    const RayIntersectionTestFunc2<T> &testFunc, size_t nodeIdx,
+                    const BoundingBox2D &currentBound) const;
     
-    void forEachIntersectingItem(const BoundingBox2D& box,
-                                 const BoxIntersectionTestFunc2<T>& testFunc,
-                                 const IntersectionVisitorFunc2<T>& visitorFunc,
+    void forEachIntersectingItem(const BoundingBox2D &box,
+                                 const BoxIntersectionTestFunc2<T> &testFunc,
+                                 const IntersectionVisitorFunc2<T> &visitorFunc,
                                  size_t nodeIdx,
-                                 const BoundingBox2D& currentBound) const;
+                                 const BoundingBox2D &currentBound) const;
     
-    void forEachIntersectingItem(const Ray2D& ray,
-                                 const RayIntersectionTestFunc2<T>& testFunc,
-                                 const IntersectionVisitorFunc2<T>& visitorFunc,
+    void forEachIntersectingItem(const Ray2D &ray,
+                                 const RayIntersectionTestFunc2<T> &testFunc,
+                                 const IntersectionVisitorFunc2<T> &visitorFunc,
                                  size_t nodeIdx,
-                                 const BoundingBox2D& currentBound) const;
+                                 const BoundingBox2D &currentBound) const;
     
-    ClosestIntersectionQueryResult2<T> closestIntersection(const Ray2D& ray, const GetRayIntersectionFunc2<T>& testFunc,
-                                                           size_t nodeIdx, const BoundingBox2D& currentBound,
+    ClosestIntersectionQueryResult2<T> closestIntersection(const Ray2D &ray, const GetRayIntersectionFunc2<T> &testFunc,
+                                                           size_t nodeIdx, const BoundingBox2D &currentBound,
                                                            ClosestIntersectionQueryResult2<T> best) const;
 };
 
@@ -158,4 +158,4 @@ private:
 
 #include "quadtree-inl.h"
 
-#endif  // INCLUDE_JET_QUADTREE_H_
+#endif  // INCLUDE_VOX_QUADTREE_H_

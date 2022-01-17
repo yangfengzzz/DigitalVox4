@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_IMPLICIT_SURFACE_SET2_H_
-#define INCLUDE_JET_IMPLICIT_SURFACE_SET2_H_
+#ifndef INCLUDE_VOX_IMPLICIT_SURFACE_SET2_H_
+#define INCLUDE_VOX_IMPLICIT_SURFACE_SET2_H_
 
 #include "bvh2.h"
 #include "implicit_surface2.h"
@@ -29,17 +29,17 @@ public:
     ImplicitSurfaceSet2();
     
     //! Constructs an implicit surface set using list of other surfaces.
-    ImplicitSurfaceSet2(const std::vector<ImplicitSurface2Ptr>& surfaces,
-                        const Transform2D& transform = Transform2D(),
+    ImplicitSurfaceSet2(const std::vector<ImplicitSurface2Ptr> &surfaces,
+                        const Transform2D &transform = Transform2D(),
                         bool isNormalFlipped = false);
     
     //! Constructs an implicit surface set using list of other surfaces.
-    ImplicitSurfaceSet2(const std::vector<Surface2Ptr>& surfaces,
-                        const Transform2D& transform = Transform2D(),
+    ImplicitSurfaceSet2(const std::vector<Surface2Ptr> &surfaces,
+                        const Transform2D &transform = Transform2D(),
                         bool isNormalFlipped = false);
     
     //! Copy constructor.
-    ImplicitSurfaceSet2(const ImplicitSurfaceSet2& other);
+    ImplicitSurfaceSet2(const ImplicitSurfaceSet2 &other);
     
     //! Updates internal spatial query engine.
     void updateQueryEngine() override;
@@ -54,13 +54,13 @@ public:
     size_t numberOfSurfaces() const;
     
     //! Returns the i-th implicit surface.
-    const ImplicitSurface2Ptr& surfaceAt(size_t i) const;
+    const ImplicitSurface2Ptr &surfaceAt(size_t i) const;
     
     //! Adds an explicit surface instance.
-    void addExplicitSurface(const Surface2Ptr& surface);
+    void addExplicitSurface(const Surface2Ptr &surface);
     
     //! Adds an implicit surface instance.
-    void addSurface(const ImplicitSurface2Ptr& surface);
+    void addSurface(const ImplicitSurface2Ptr &surface);
     
     //! Returns builder fox ImplicitSurfaceSet2.
     static Builder builder();
@@ -73,23 +73,23 @@ private:
     
     // Surface2 implementations
     
-    Point2D closestPointLocal(const Point2D& otherPoint) const override;
+    Point2D closestPointLocal(const Point2D &otherPoint) const override;
     
     BoundingBox2D boundingBoxLocal() const override;
     
-    double closestDistanceLocal(const Point2D& otherPoint) const override;
+    double closestDistanceLocal(const Point2D &otherPoint) const override;
     
-    bool intersectsLocal(const Ray2D& ray) const override;
+    bool intersectsLocal(const Ray2D &ray) const override;
     
-    Vector2D closestNormalLocal(const Point2D& otherPoint) const override;
+    Vector2D closestNormalLocal(const Point2D &otherPoint) const override;
     
-    SurfaceRayIntersection2 closestIntersectionLocal(const Ray2D& ray) const override;
+    SurfaceRayIntersection2 closestIntersectionLocal(const Ray2D &ray) const override;
     
-    bool isInsideLocal(const Point2D& otherPoint) const override;
+    bool isInsideLocal(const Point2D &otherPoint) const override;
     
     // ImplicitSurface2 implementations
     
-    double signedDistanceLocal(const Point2D& otherPoint) const override;
+    double signedDistanceLocal(const Point2D &otherPoint) const override;
     
     void invalidateBvh();
     
@@ -106,10 +106,10 @@ class ImplicitSurfaceSet2::Builder final
 : public SurfaceBuilderBase2<ImplicitSurfaceSet2::Builder> {
 public:
     //! Returns builder with surfaces.
-    Builder& withSurfaces(const std::vector<ImplicitSurface2Ptr>& surfaces);
+    Builder &withSurfaces(const std::vector<ImplicitSurface2Ptr> &surfaces);
     
     //! Returns builder with explicit surfaces.
-    Builder& withExplicitSurfaces(const std::vector<Surface2Ptr>& surfaces);
+    Builder &withExplicitSurfaces(const std::vector<Surface2Ptr> &surfaces);
     
     //! Builds ImplicitSurfaceSet2.
     ImplicitSurfaceSet2 build() const;
@@ -124,4 +124,4 @@ private:
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_IMPLICIT_SURFACE_SET2_H_
+#endif  // INCLUDE_VOX_IMPLICIT_SURFACE_SET2_H_

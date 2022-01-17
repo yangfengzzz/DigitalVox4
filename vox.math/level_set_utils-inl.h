@@ -1,8 +1,8 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 //
 // Function fractionInside is originally from Christopher Batty's code:
 //
@@ -12,20 +12,20 @@
 //
 // https://github.com/christopherbatty/Fluid3D
 
-#ifndef INCLUDE_JET_DETAIL_LEVEL_SET_UTILS_INL_H_
-#define INCLUDE_JET_DETAIL_LEVEL_SET_UTILS_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_LEVEL_SET_UTILS_INL_H_
+#define INCLUDE_VOX_DETAIL_LEVEL_SET_UTILS_INL_H_
 
 #include "constants.h"
 #include <cmath>
 
 namespace vox {
 
-template <typename T>
+template<typename T>
 bool isInsideSdf(T phi) {
     return phi < 0;
 }
 
-template <typename T>
+template<typename T>
 inline T smearedHeavisideSdf(T phi) {
     if (phi > 1.5) {
         return 1;
@@ -39,7 +39,7 @@ inline T smearedHeavisideSdf(T phi) {
     }
 }
 
-template <typename T>
+template<typename T>
 inline T smearedDeltaSdf(T phi) {
     if (std::fabs(phi) > 1.5) {
         return 0;
@@ -48,7 +48,7 @@ inline T smearedDeltaSdf(T phi) {
     }
 }
 
-template <typename T>
+template<typename T>
 T fractionInsideSdf(T phi0, T phi1) {
     if (isInsideSdf(phi0) && isInsideSdf(phi1)) {
         return 1;
@@ -61,14 +61,14 @@ T fractionInsideSdf(T phi0, T phi1) {
     }
 }
 
-template <typename T>
-void cycleArray(T* arr, int size) {
+template<typename T>
+void cycleArray(T *arr, int size) {
     T t = arr[0];
     for (int i = 0; i < size - 1; ++i) arr[i] = arr[i + 1];
     arr[size - 1] = t;
 }
 
-template <typename T>
+template<typename T>
 T fractionInside(T phiBottomLeft, T phiBottomRight,
                  T phiTopLeft, T phiTopRight) {
     int inside_count = (phiBottomLeft < 0 ? 1 : 0) + (phiTopLeft < 0 ? 1 : 0) +
@@ -146,7 +146,7 @@ T fractionInside(T phiBottomLeft, T phiBottomRight,
     }
 }
 
-template <typename T>
+template<typename T>
 T distanceToZeroLevelSet(T phi0, T phi1) {
     if (std::fabs(phi0) + std::fabs(phi1) > kEpsilonD) {
         return std::fabs(phi0) / (std::fabs(phi0) + std::fabs(phi1));
@@ -157,4 +157,4 @@ T distanceToZeroLevelSet(T phi0, T phi1) {
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_LEVEL_SET_UTILS_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_LEVEL_SET_UTILS_INL_H_

@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  bounding_frustum.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/11/25.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef bounding_frustum_hpp
 #define bounding_frustum_hpp

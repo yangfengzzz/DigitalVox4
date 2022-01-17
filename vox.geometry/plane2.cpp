@@ -1,8 +1,8 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "private_helpers.h"
 
@@ -10,35 +10,38 @@
 
 using namespace vox;
 
-Plane2::Plane2(const Transform2D& transform_, bool isNormalFlipped_)
-: Surface2(transform_, isNormalFlipped_) {}
+Plane2::Plane2(const Transform2D &transform_, bool isNormalFlipped_)
+: Surface2(transform_, isNormalFlipped_) {
+}
 
-Plane2::Plane2(const Vector2D& normal_, const Point2D& point_,
-               const Transform2D& transform_, bool isNormalFlipped_)
-: Surface2(transform_, isNormalFlipped_), normal(normal_), point(point_) {}
+Plane2::Plane2(const Vector2D &normal_, const Point2D &point_,
+               const Transform2D &transform_, bool isNormalFlipped_)
+: Surface2(transform_, isNormalFlipped_), normal(normal_), point(point_) {
+}
 
-Plane2::Plane2(const Plane2& other)
-: Surface2(other), normal(other.normal), point(other.point) {}
+Plane2::Plane2(const Plane2 &other)
+: Surface2(other), normal(other.normal), point(other.point) {
+}
 
 bool Plane2::isBounded() const {
     return false;
 }
 
-Point2D Plane2::closestPointLocal(const Point2D& otherPoint) const {
+Point2D Plane2::closestPointLocal(const Point2D &otherPoint) const {
     Vector2D r = otherPoint - point;
     return point + r - normal.dot(r) * normal;
 }
 
-Vector2D Plane2::closestNormalLocal(const Point2D& otherPoint) const {
+Vector2D Plane2::closestNormalLocal(const Point2D &otherPoint) const {
     UNUSED_VARIABLE(otherPoint);
     return normal;
 }
 
-bool Plane2::intersectsLocal(const Ray2D& ray) const {
+bool Plane2::intersectsLocal(const Ray2D &ray) const {
     return std::fabs(ray.direction.dot(normal)) > 0;
 }
 
-SurfaceRayIntersection2 Plane2::closestIntersectionLocal(const Ray2D& ray) const {
+SurfaceRayIntersection2 Plane2::closestIntersectionLocal(const Ray2D &ray) const {
     SurfaceRayIntersection2 intersection;
     double dDotN = ray.direction.dot(normal);
     
@@ -68,14 +71,16 @@ BoundingBox2D Plane2::boundingBoxLocal() const {
     }
 }
 
-Plane2::Builder Plane2::builder() { return Builder(); }
+Plane2::Builder Plane2::builder() {
+    return Builder();
+}
 
-Plane2::Builder& Plane2::Builder::withNormal(const Vector2D& normal) {
+Plane2::Builder &Plane2::Builder::withNormal(const Vector2D &normal) {
     _normal = normal;
     return *this;
 }
 
-Plane2::Builder& Plane2::Builder::withPoint(const Point2D& point) {
+Plane2::Builder &Plane2::Builder::withPoint(const Point2D &point) {
     _point = point;
     return *this;
 }
@@ -86,5 +91,7 @@ Plane2 Plane2::Builder::build() const {
 
 Plane2Ptr Plane2::Builder::makeShared() const {
     return std::shared_ptr<Plane2>(new Plane2(_normal, _point, _transform, _isNormalFlipped),
-                                   [](Plane2* obj) { delete obj; });
+                                   [](Plane2 *obj) {
+        delete obj;
+    });
 }

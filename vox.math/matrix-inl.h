@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_MATRIX_INL_H_
-#define INCLUDE_JET_DETAIL_MATRIX_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_MATRIX_INL_H_
+#define INCLUDE_VOX_DETAIL_MATRIX_INL_H_
 
 #include "macros.h"
 #include "math_utils.h"
@@ -53,12 +53,12 @@ void Matrix<T, M, N>::set(const std::initializer_list<std::initializer_list<T>> 
     size_t cols = lst.size();
     size_t rows = (cols > 0) ? lst.begin()->size() : 0;
     
-    JET_ASSERT(cols == N);
-    JET_ASSERT(rows == M);
+    VOX_ASSERT(cols == N);
+    VOX_ASSERT(rows == M);
     
     auto colIter = lst.begin();
     for (size_t i = 0; i < cols; ++i) {
-        JET_ASSERT(rows == colIter->size());
+        VOX_ASSERT(rows == colIter->size());
         auto rowIter = colIter->begin();
         for (size_t j = 0; j < rows; ++j) {
             (*this)(j, i) = *rowIter;
@@ -97,7 +97,7 @@ void Matrix<T, M, N>::setOffDiagonal(const T &s) {
 template<typename T, size_t M, size_t N>
 template<typename E>
 void Matrix<T, M, N>::setRow(size_t i, const VectorExpression <T, E> &row) {
-    JET_ASSERT(cols() == row.size());
+    VOX_ASSERT(cols() == row.size());
     
     const E &e = row();
     for (size_t j = 0; j < N; ++j) {
@@ -108,7 +108,7 @@ void Matrix<T, M, N>::setRow(size_t i, const VectorExpression <T, E> &row) {
 template<typename T, size_t M, size_t N>
 template<typename E>
 void Matrix<T, M, N>::setColumn(size_t j, const VectorExpression <T, E> &col) {
-    JET_ASSERT(rows() == col.size());
+    VOX_ASSERT(rows() == col.size());
     
     const E &e = col();
     for (size_t i = 0; i < M; ++i) {
@@ -333,7 +333,7 @@ void Matrix<T, M, N>::transpose() {
 
 template<typename T, size_t M, size_t N>
 void Matrix<T, M, N>::invert() {
-    JET_ASSERT(isSquare());
+    VOX_ASSERT(isSquare());
     
     // Computes inverse matrix using Gaussian elimination method.
     // https://martin-thoma.com/solving-linear-equations-with-gaussian-elimination/
@@ -443,7 +443,7 @@ T Matrix<T, M, N>::absmax() const {
 
 template<typename T, size_t M, size_t N>
 T Matrix<T, M, N>::trace() const {
-    JET_ASSERT(isSquare());
+    VOX_ASSERT(isSquare());
     T ret = 0;
     for (size_t i = 0; i < M; ++i) {
         ret += (*this)(i, i);
@@ -453,7 +453,7 @@ T Matrix<T, M, N>::trace() const {
 
 template<typename T, size_t M, size_t N>
 T Matrix<T, M, N>::determinant() const {
-    JET_ASSERT(isSquare());
+    VOX_ASSERT(isSquare());
     
     // Computes inverse matrix using Gaussian elimination method.
     // https://martin-thoma.com/solving-linear-equations-with-gaussian-elimination/
@@ -686,4 +686,4 @@ void Matrix<T, M, N>::setColumnAt(size_t i, T v) {
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_MATRIX_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_MATRIX_INL_H_

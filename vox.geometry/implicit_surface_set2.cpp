@@ -1,8 +1,8 @@
-// Copyright (c) Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 //#include <pch.h>
 
@@ -11,13 +11,14 @@
 
 using namespace vox;
 
-ImplicitSurfaceSet2::ImplicitSurfaceSet2() {}
+ImplicitSurfaceSet2::ImplicitSurfaceSet2() {
+}
 
 ImplicitSurfaceSet2::ImplicitSurfaceSet2(
-                                         const std::vector<ImplicitSurface2Ptr>& surfaces,
-                                         const Transform2D& transform, bool isNormalFlipped)
+                                         const std::vector<ImplicitSurface2Ptr> &surfaces,
+                                         const Transform2D &transform, bool isNormalFlipped)
 : ImplicitSurface2(transform, isNormalFlipped), _surfaces(surfaces) {
-    for (auto surface : _surfaces) {
+    for (auto surface: _surfaces) {
         if (!surface->isBounded()) {
             _unboundedSurfaces.push_back(surface);
         }
@@ -25,19 +26,20 @@ ImplicitSurfaceSet2::ImplicitSurfaceSet2(
     invalidateBvh();
 }
 
-ImplicitSurfaceSet2::ImplicitSurfaceSet2(const std::vector<Surface2Ptr>& surfaces,
-                                         const Transform2D& transform,
+ImplicitSurfaceSet2::ImplicitSurfaceSet2(const std::vector<Surface2Ptr> &surfaces,
+                                         const Transform2D &transform,
                                          bool isNormalFlipped)
 : ImplicitSurface2(transform, isNormalFlipped) {
-    for (const auto& surface : surfaces) {
+    for (const auto &surface: surfaces) {
         addExplicitSurface(surface);
     }
 }
 
-ImplicitSurfaceSet2::ImplicitSurfaceSet2(const ImplicitSurfaceSet2& other)
+ImplicitSurfaceSet2::ImplicitSurfaceSet2(const ImplicitSurfaceSet2 &other)
 : ImplicitSurface2(other),
 _surfaces(other._surfaces),
-_unboundedSurfaces(other._unboundedSurfaces) {}
+_unboundedSurfaces(other._unboundedSurfaces) {
+}
 
 void ImplicitSurfaceSet2::updateQueryEngine() {
     invalidateBvh();
@@ -46,7 +48,7 @@ void ImplicitSurfaceSet2::updateQueryEngine() {
 
 bool ImplicitSurfaceSet2::isBounded() const {
     // All surfaces should be bounded.
-    for (auto surface : _surfaces) {
+    for (auto surface: _surfaces) {
         if (!surface->isBounded()) {
             return false;
         }
@@ -58,7 +60,7 @@ bool ImplicitSurfaceSet2::isBounded() const {
 
 bool ImplicitSurfaceSet2::isValidGeometry() const {
     // All surfaces should be valid.
-    for (auto surface : _surfaces) {
+    for (auto surface: _surfaces) {
         if (!surface->isValidGeometry()) {
             return false;
         }
@@ -72,15 +74,15 @@ size_t ImplicitSurfaceSet2::numberOfSurfaces() const {
     return _surfaces.size();
 }
 
-const ImplicitSurface2Ptr& ImplicitSurfaceSet2::surfaceAt(size_t i) const {
+const ImplicitSurface2Ptr &ImplicitSurfaceSet2::surfaceAt(size_t i) const {
     return _surfaces[i];
 }
 
-void ImplicitSurfaceSet2::addExplicitSurface(const Surface2Ptr& surface) {
+void ImplicitSurfaceSet2::addExplicitSurface(const Surface2Ptr &surface) {
     addSurface(std::make_shared<SurfaceToImplicit2>(surface));
 }
 
-void ImplicitSurfaceSet2::addSurface(const ImplicitSurface2Ptr& surface) {
+void ImplicitSurfaceSet2::addSurface(const ImplicitSurface2Ptr &surface) {
     _surfaces.push_back(surface);
     if (!surface->isBounded()) {
         _unboundedSurfaces.push_back(surface);
@@ -88,11 +90,11 @@ void ImplicitSurfaceSet2::addSurface(const ImplicitSurface2Ptr& surface) {
     invalidateBvh();
 }
 
-Point2D ImplicitSurfaceSet2::closestPointLocal(const Point2D& otherPoint) const {
+Point2D ImplicitSurfaceSet2::closestPointLocal(const Point2D &otherPoint) const {
     buildBvh();
     
-    const auto distanceFunc = [](const Surface2Ptr& surface,
-                                 const Point2D& pt) {
+    const auto distanceFunc = [](const Surface2Ptr &surface,
+                                 const Point2D &pt) {
         return surface->closestDistance(pt);
     };
     
@@ -103,7 +105,7 @@ Point2D ImplicitSurfaceSet2::closestPointLocal(const Point2D& otherPoint) const 
     }
     
     double minDist = queryResult.distance;
-    for (auto surface : _unboundedSurfaces) {
+    for (auto surface: _unboundedSurfaces) {
         auto pt = surface->closestPoint(otherPoint);
         double dist = pt.distanceTo(otherPoint);
         if (dist < minDist) {
@@ -115,18 +117,18 @@ Point2D ImplicitSurfaceSet2::closestPointLocal(const Point2D& otherPoint) const 
     return result;
 }
 
-double ImplicitSurfaceSet2::closestDistanceLocal(const Point2D& otherPoint) const {
+double ImplicitSurfaceSet2::closestDistanceLocal(const Point2D &otherPoint) const {
     buildBvh();
     
-    const auto distanceFunc = [](const Surface2Ptr& surface,
-                                 const Point2D& pt) {
+    const auto distanceFunc = [](const Surface2Ptr &surface,
+                                 const Point2D &pt) {
         return surface->closestDistance(pt);
     };
     
     const auto queryResult = _bvh.nearest(otherPoint, distanceFunc);
     
     double minDist = queryResult.distance;
-    for (auto surface : _unboundedSurfaces) {
+    for (auto surface: _unboundedSurfaces) {
         auto pt = surface->closestPoint(otherPoint);
         double dist = pt.distanceTo(otherPoint);
         if (dist < minDist) {
@@ -137,11 +139,11 @@ double ImplicitSurfaceSet2::closestDistanceLocal(const Point2D& otherPoint) cons
     return minDist;
 }
 
-Vector2D ImplicitSurfaceSet2::closestNormalLocal(const Point2D& otherPoint) const {
+Vector2D ImplicitSurfaceSet2::closestNormalLocal(const Point2D &otherPoint) const {
     buildBvh();
     
-    const auto distanceFunc = [](const Surface2Ptr& surface,
-                                 const Point2D& pt) {
+    const auto distanceFunc = [](const Surface2Ptr &surface,
+                                 const Point2D &pt) {
         return surface->closestDistance(pt);
     };
     
@@ -152,7 +154,7 @@ Vector2D ImplicitSurfaceSet2::closestNormalLocal(const Point2D& otherPoint) cons
     }
     
     double minDist = queryResult.distance;
-    for (auto surface : _unboundedSurfaces) {
+    for (auto surface: _unboundedSurfaces) {
         auto pt = surface->closestPoint(otherPoint);
         double dist = pt.distanceTo(otherPoint);
         if (dist < minDist) {
@@ -164,25 +166,25 @@ Vector2D ImplicitSurfaceSet2::closestNormalLocal(const Point2D& otherPoint) cons
     return result;
 }
 
-bool ImplicitSurfaceSet2::intersectsLocal(const Ray2D& ray) const {
+bool ImplicitSurfaceSet2::intersectsLocal(const Ray2D &ray) const {
     buildBvh();
     
-    const auto testFunc = [](const Surface2Ptr& surface, const Ray2D& ray) {
+    const auto testFunc = [](const Surface2Ptr &surface, const Ray2D &ray) {
         return surface->intersects(ray);
     };
     
     bool result = _bvh.intersects(ray, testFunc);
-    for (auto surface : _unboundedSurfaces) {
+    for (auto surface: _unboundedSurfaces) {
         result |= surface->intersects(ray);
     }
     
     return result;
 }
 
-SurfaceRayIntersection2 ImplicitSurfaceSet2::closestIntersectionLocal(const Ray2D& ray) const {
+SurfaceRayIntersection2 ImplicitSurfaceSet2::closestIntersectionLocal(const Ray2D &ray) const {
     buildBvh();
     
-    const auto testFunc = [](const Surface2Ptr& surface, const Ray2D& ray) {
+    const auto testFunc = [](const Surface2Ptr &surface, const Ray2D &ray) {
         SurfaceRayIntersection2 result = surface->closestIntersection(ray);
         return result.distance;
     };
@@ -196,7 +198,7 @@ SurfaceRayIntersection2 ImplicitSurfaceSet2::closestIntersectionLocal(const Ray2
         result.normal = (*queryResult.item)->closestNormal(result.point);
     }
     
-    for (auto surface : _unboundedSurfaces) {
+    for (auto surface: _unboundedSurfaces) {
         SurfaceRayIntersection2 localResult = surface->closestIntersection(ray);
         if (localResult.distance < result.distance) {
             result = localResult;
@@ -212,8 +214,8 @@ BoundingBox2D ImplicitSurfaceSet2::boundingBoxLocal() const {
     return _bvh.boundingBox();
 }
 
-bool ImplicitSurfaceSet2::isInsideLocal(const Point2D& otherPoint) const {
-    for (auto surface : _surfaces) {
+bool ImplicitSurfaceSet2::isInsideLocal(const Point2D &otherPoint) const {
+    for (auto surface: _surfaces) {
         if (surface->isInside(otherPoint)) {
             return true;
         }
@@ -222,16 +224,18 @@ bool ImplicitSurfaceSet2::isInsideLocal(const Point2D& otherPoint) const {
     return false;
 }
 
-double ImplicitSurfaceSet2::signedDistanceLocal(const Point2D& otherPoint) const {
+double ImplicitSurfaceSet2::signedDistanceLocal(const Point2D &otherPoint) const {
     double sdf = kMaxD;
-    for (const auto& surface : _surfaces) {
+    for (const auto &surface: _surfaces) {
         sdf = std::min(sdf, surface->signedDistance(otherPoint));
     }
     
     return sdf;
 }
 
-void ImplicitSurfaceSet2::invalidateBvh() { _bvhInvalidated = true; }
+void ImplicitSurfaceSet2::invalidateBvh() {
+    _bvhInvalidated = true;
+}
 
 void ImplicitSurfaceSet2::buildBvh() const {
     if (_bvhInvalidated) {
@@ -254,16 +258,16 @@ ImplicitSurfaceSet2::Builder ImplicitSurfaceSet2::builder() {
     return Builder();
 }
 
-ImplicitSurfaceSet2::Builder&
-ImplicitSurfaceSet2::Builder::withSurfaces(const std::vector<ImplicitSurface2Ptr>& surfaces) {
+ImplicitSurfaceSet2::Builder &
+ImplicitSurfaceSet2::Builder::withSurfaces(const std::vector<ImplicitSurface2Ptr> &surfaces) {
     _surfaces = surfaces;
     return *this;
 }
 
-ImplicitSurfaceSet2::Builder&
-ImplicitSurfaceSet2::Builder::withExplicitSurfaces(const std::vector<Surface2Ptr>& surfaces) {
+ImplicitSurfaceSet2::Builder &
+ImplicitSurfaceSet2::Builder::withExplicitSurfaces(const std::vector<Surface2Ptr> &surfaces) {
     _surfaces.clear();
-    for (const auto& surface : surfaces) {
+    for (const auto &surface: surfaces) {
         _surfaces.push_back(std::make_shared<SurfaceToImplicit2>(surface));
     }
     return *this;
@@ -275,5 +279,7 @@ ImplicitSurfaceSet2 ImplicitSurfaceSet2::Builder::build() const {
 
 ImplicitSurfaceSet2Ptr ImplicitSurfaceSet2::Builder::makeShared() const {
     return std::shared_ptr<ImplicitSurfaceSet2>(new ImplicitSurfaceSet2(_surfaces, _transform, _isNormalFlipped),
-                                                [](ImplicitSurfaceSet2* obj) { delete obj; });
+                                                [](ImplicitSurfaceSet2 *obj) {
+        delete obj;
+    });
 }

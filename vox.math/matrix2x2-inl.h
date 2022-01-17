@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_MATRIX2X2_INL_H_
-#define INCLUDE_JET_DETAIL_MATRIX2X2_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_MATRIX2X2_INL_H_
+#define INCLUDE_VOX_DETAIL_MATRIX2X2_INL_H_
 
 #include "math_utils.h"
 #include <algorithm>
@@ -65,12 +65,12 @@ template<typename U>
 void Matrix<T, 2, 2>::set(const std::initializer_list<std::initializer_list<U>> &lst) {
     size_t width = lst.size();
     size_t height = (width > 0) ? lst.begin()->size() : 0;
-    JET_ASSERT(width == 2);
-    JET_ASSERT(height == 2);
+    VOX_ASSERT(width == 2);
+    VOX_ASSERT(height == 2);
     
     auto colIter = lst.begin();
     for (size_t i = 0; i < width; ++i) {
-        JET_ASSERT(height == colIter->size());
+        VOX_ASSERT(height == colIter->size());
         auto rowIter = colIter->begin();
         for (size_t j = 0; j < height; ++j) {
             (*this)(j, i) = static_cast<T>(*rowIter);
@@ -597,4 +597,4 @@ Matrix<T, 2, 2> operator/(T a, const Matrix<T, 2, 2> &b) {
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_MATRIX2X2_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_MATRIX2X2_INL_H_

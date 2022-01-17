@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_TRANSFORM2_INL_H_
-#define INCLUDE_JET_DETAIL_TRANSFORM2_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_TRANSFORM2_INL_H_
+#define INCLUDE_VOX_DETAIL_TRANSFORM2_INL_H_
 
 #include "transform2.h"
 
@@ -48,7 +48,7 @@ inline void Transform2<T>::setOrientation(double orientation) {
 }
 
 template<typename T>
-inline Point2<T> Transform2<T>::toLocal(const Point2<T> &pointInWorld) const {
+inline Point2 <T> Transform2<T>::toLocal(const Point2 <T> &pointInWorld) const {
     // Convert to the local frame
     Point2<T> xmt = pointInWorld - _translation;
     return Point2<T>(_cosAngle * xmt.x + _sinAngle * xmt.y,
@@ -82,7 +82,7 @@ inline BoundingBox2 <T> Transform2<T>::toLocal(const BoundingBox2 <T> &bboxInWor
 }
 
 template<typename T>
-inline Point2<T> Transform2<T>::toWorld(const Point2<T> &pointInLocal) const {
+inline Point2 <T> Transform2<T>::toWorld(const Point2 <T> &pointInLocal) const {
     // Convert to the world frame
     return Point2<T>(_cosAngle * pointInLocal.x - _sinAngle * pointInLocal.y
                      + _translation.x,
@@ -119,4 +119,4 @@ inline BoundingBox2 <T> Transform2<T>::toWorld(const BoundingBox2 <T> &bboxInLoc
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_TRANSFORM2_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_TRANSFORM2_INL_H_

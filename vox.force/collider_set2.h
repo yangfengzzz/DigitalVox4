@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_COLLIDER_SET2_H_
-#define INCLUDE_JET_COLLIDER_SET2_H_
+#ifndef INCLUDE_VOX_COLLIDER_SET2_H_
+#define INCLUDE_VOX_COLLIDER_SET2_H_
 
 #include "collider2.h"
 #include "surface_set2.h"
@@ -22,13 +22,13 @@ public:
     ColliderSet2();
     
     //! Constructs with other colliders.
-    explicit ColliderSet2(const std::vector<Collider2Ptr>& others);
+    explicit ColliderSet2(const std::vector<Collider2Ptr> &others);
     
     //! Returns the velocity of the collider at given \p point.
-    Vector2D velocityAt(const Point2D& point) const override;
+    Vector2D velocityAt(const Point2D &point) const override;
     
     //! Adds a collider to the set.
-    void addCollider(const Collider2Ptr& collider);
+    void addCollider(const Collider2Ptr &collider);
     
     //! Returns number of colliders.
     size_t numberOfColliders() const;
@@ -53,7 +53,7 @@ using ColliderSet2Ptr = std::shared_ptr<ColliderSet2>;
 class ColliderSet2::Builder final {
 public:
     //! Returns builder with other colliders.
-    Builder& withColliders(const std::vector<Collider2Ptr>& others);
+    Builder &withColliders(const std::vector<Collider2Ptr> &others);
     
     //! Builds ColliderSet2.
     ColliderSet2 build() const;
@@ -67,4 +67,4 @@ private:
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_COLLIDER_SET2_H_
+#endif  // INCLUDE_VOX_COLLIDER_SET2_H_

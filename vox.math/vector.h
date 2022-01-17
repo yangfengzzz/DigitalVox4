@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_VECTOR_H_
-#define INCLUDE_JET_VECTOR_H_
+#ifndef INCLUDE_VOX_VECTOR_H_
+#define INCLUDE_VOX_VECTOR_H_
 
 #include "constants.h"
 #include "type_helpers.h"
@@ -345,4 +345,4 @@ struct ScalarType<Vector<T, N>> {
 
 #include "vector-inl.h"
 
-#endif  // INCLUDE_JET_VECTOR_H_
+#endif  // INCLUDE_VOX_VECTOR_H_

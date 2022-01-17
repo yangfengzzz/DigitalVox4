@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_CYLINDER3_H_
-#define INCLUDE_JET_CYLINDER3_H_
+#ifndef INCLUDE_VOX_CYLINDER3_H_
+#define INCLUDE_VOX_CYLINDER3_H_
 
 #include "surface3.h"
 
@@ -31,18 +31,18 @@ public:
     double height = 1.0;
     
     //! Constructs a cylinder with
-    Cylinder3(const Transform3D& transform = Transform3D(),
+    Cylinder3(const Transform3D &transform = Transform3D(),
               bool isNormalFlipped = false);
     
     //! Constructs a cylinder with \p center, \p radius, and \p height.
-    Cylinder3(const Point3D& center,
+    Cylinder3(const Point3D &center,
               double radius,
               double height,
-              const Transform3D& transform = Transform3D(),
+              const Transform3D &transform = Transform3D(),
               bool isNormalFlipped = false);
     
     //! Copy constructor.
-    Cylinder3(const Cylinder3& other);
+    Cylinder3(const Cylinder3 &other);
     
     //! Returns builder fox Cylinder3.
     static Builder builder();
@@ -50,17 +50,17 @@ public:
 protected:
     // Surface3 implementations
     
-    Point3D closestPointLocal(const Point3D& otherPoint) const override;
+    Point3D closestPointLocal(const Point3D &otherPoint) const override;
     
-    double closestDistanceLocal(const Point3D& otherPoint) const override;
+    double closestDistanceLocal(const Point3D &otherPoint) const override;
     
-    bool intersectsLocal(const Ray3D& ray) const override;
+    bool intersectsLocal(const Ray3D &ray) const override;
     
     BoundingBox3D boundingBoxLocal() const override;
     
-    Vector3D closestNormalLocal(const Point3D& otherPoint) const override;
+    Vector3D closestNormalLocal(const Point3D &otherPoint) const override;
     
-    SurfaceRayIntersection3 closestIntersectionLocal(const Ray3D& ray) const override;
+    SurfaceRayIntersection3 closestIntersectionLocal(const Ray3D &ray) const override;
 };
 
 //! Shared pointer type for the Cylinder3.
@@ -74,13 +74,13 @@ class Cylinder3::Builder final
 : public SurfaceBuilderBase3<Cylinder3::Builder> {
 public:
     //! Returns builder with center.
-    Builder& withCenter(const Point3D& center);
+    Builder &withCenter(const Point3D &center);
     
     //! Returns builder with radius.
-    Builder& withRadius(double radius);
+    Builder &withRadius(double radius);
     
     //! Returns builder with height.
-    Builder& withHeight(double height);
+    Builder &withHeight(double height);
     
     //! Builds Cylinder3.
     Cylinder3 build() const;
@@ -97,4 +97,4 @@ private:
 }  // namespace vox
 
 
-#endif  // INCLUDE_JET_CYLINDER3_H_
+#endif  // INCLUDE_VOX_CYLINDER3_H_

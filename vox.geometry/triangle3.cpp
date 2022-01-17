@@ -1,8 +1,8 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 //#include <pch.h>
 
@@ -10,8 +10,8 @@
 
 using namespace vox;
 
-inline Point3D closestPointOnLine(const Point3D& v0, const Point3D& v1,
-                                   const Point3D& pt) {
+inline Point3D closestPointOnLine(const Point3D &v0, const Point3D &v1,
+                                  const Point3D &pt) {
     const double lenSquared = (v1 - v0).lengthSquared();
     if (lenSquared < std::numeric_limits<double>::epsilon()) {
         return v0;
@@ -27,9 +27,9 @@ inline Point3D closestPointOnLine(const Point3D& v0, const Point3D& v1,
     return v0 + t * (v1 - v0);
 }
 
-inline Vector3D closestNormalOnLine(const Point3D& v0, const Point3D& v1,
-                                    const Vector3D& n0, const Vector3D& n1,
-                                    const Point3D& pt) {
+inline Vector3D closestNormalOnLine(const Point3D &v0, const Point3D &v1,
+                                    const Vector3D &n0, const Vector3D &n1,
+                                    const Point3D &pt) {
     const double lenSquared = (v1 - v0).lengthSquared();
     if (lenSquared < std::numeric_limits<double>::epsilon()) {
         return n0;
@@ -45,25 +45,28 @@ inline Vector3D closestNormalOnLine(const Point3D& v0, const Point3D& v1,
     return (n0 + t * (n1 - n0)).normalized();
 }
 
-Triangle3::Triangle3(const Transform3D& transform_, bool isNormalFlipped_)
-: Surface3(transform_, isNormalFlipped_) {}
+Triangle3::Triangle3(const Transform3D &transform_, bool isNormalFlipped_)
+: Surface3(transform_, isNormalFlipped_) {
+}
 
-Triangle3::Triangle3(const std::array<Point3D, 3>& newPoints,
-                     const std::array<Vector3D, 3>& newNormals,
-                     const std::array<Vector2D, 3>& newUvs,
-                     const Transform3D& transform_, bool isNormalFlipped_)
+Triangle3::Triangle3(const std::array<Point3D, 3> &newPoints,
+                     const std::array<Vector3D, 3> &newNormals,
+                     const std::array<Vector2D, 3> &newUvs,
+                     const Transform3D &transform_, bool isNormalFlipped_)
 : Surface3(transform_, isNormalFlipped_),
 points(newPoints),
 normals(newNormals),
-uvs(newUvs) {}
+uvs(newUvs) {
+}
 
-Triangle3::Triangle3(const Triangle3& other)
+Triangle3::Triangle3(const Triangle3 &other)
 : Surface3(other),
 points(other.points),
 normals(other.normals),
-uvs(other.uvs) {}
+uvs(other.uvs) {
+}
 
-Point3D Triangle3::closestPointLocal(const Point3D& otherPoint) const {
+Point3D Triangle3::closestPointLocal(const Point3D &otherPoint) const {
     Vector3D n = faceNormal();
     double nd = n.dot(n);
     double d = points[0].dot(n);
@@ -96,7 +99,7 @@ Point3D Triangle3::closestPointLocal(const Point3D& otherPoint) const {
                    b0 * points[0].z + b1 * points[1].z + b2 * points[2].z);
 }
 
-Vector3D Triangle3::closestNormalLocal(const Point3D& otherPoint) const {
+Vector3D Triangle3::closestNormalLocal(const Point3D &otherPoint) const {
     Vector3D n = faceNormal();
     double nd = n.dot(n);
     double d = points[0].dot(n);
@@ -127,7 +130,7 @@ Vector3D Triangle3::closestNormalLocal(const Point3D& otherPoint) const {
     return (b0 * normals[0] + b1 * normals[1] + b2 * normals[2]).normalized();
 }
 
-bool Triangle3::intersectsLocal(const Ray3D& ray) const {
+bool Triangle3::intersectsLocal(const Ray3D &ray) const {
     Vector3D n = faceNormal();
     double nd = n.dot(ray.direction);
     
@@ -162,7 +165,7 @@ bool Triangle3::intersectsLocal(const Ray3D& ray) const {
     return true;
 }
 
-SurfaceRayIntersection3 Triangle3::closestIntersectionLocal(const Ray3D& ray) const {
+SurfaceRayIntersection3 Triangle3::closestIntersectionLocal(const Ray3D &ray) const {
     SurfaceRayIntersection3 intersection;
     Vector3D n = faceNormal();
     double nd = n.dot(ray.direction);
@@ -225,8 +228,8 @@ double Triangle3::area() const {
     return 0.5 * (points[1] - points[0]).cross(points[2] - points[0]).length();
 }
 
-void Triangle3::getBarycentricCoords(const Point3D& pt, double* b0, double* b1,
-                                     double* b2) const {
+void Triangle3::getBarycentricCoords(const Point3D &pt, double *b0, double *b1,
+                                     double *b2) const {
     Vector3D q01 = (points[1] - points[0]).cross(pt - points[0]);
     Vector3D q12 = (points[2] - points[1]).cross(pt - points[1]);
     Vector3D q02 = (points[0] - points[2]).cross(pt - points[2]);
@@ -246,19 +249,21 @@ void Triangle3::setNormalsToFaceNormal() {
     normals[0] = normals[1] = normals[2] = faceNormal();
 }
 
-Triangle3::Builder Triangle3::builder() { return Builder(); }
+Triangle3::Builder Triangle3::builder() {
+    return Builder();
+}
 
-Triangle3::Builder& Triangle3::Builder::withPoints(const std::array<Point3D, 3>& points) {
+Triangle3::Builder &Triangle3::Builder::withPoints(const std::array<Point3D, 3> &points) {
     _points = points;
     return *this;
 }
 
-Triangle3::Builder& Triangle3::Builder::withNormals(const std::array<Vector3D, 3>& normals) {
+Triangle3::Builder &Triangle3::Builder::withNormals(const std::array<Vector3D, 3> &normals) {
     _normals = normals;
     return *this;
 }
 
-Triangle3::Builder& Triangle3::Builder::withUvs(const std::array<Vector2D, 3>& uvs) {
+Triangle3::Builder &Triangle3::Builder::withUvs(const std::array<Vector2D, 3> &uvs) {
     _uvs = uvs;
     return *this;
 }
@@ -269,5 +274,7 @@ Triangle3 Triangle3::Builder::build() const {
 
 Triangle3Ptr Triangle3::Builder::makeShared() const {
     return std::shared_ptr<Triangle3>(new Triangle3(_points, _normals, _uvs, _transform, _isNormalFlipped),
-                                      [](Triangle3* obj) { delete obj; });
+                                      [](Triangle3 *obj) {
+        delete obj;
+    });
 }

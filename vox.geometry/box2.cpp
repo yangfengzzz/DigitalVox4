@@ -1,8 +1,8 @@
-// Copyright (c) 2020 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 //#include <pch.h>
 
@@ -11,21 +11,25 @@
 
 using namespace vox;
 
-Box2::Box2(const Transform2D& transform, bool isNormalFlipped)
-: Surface2(transform, isNormalFlipped) {}
+Box2::Box2(const Transform2D &transform, bool isNormalFlipped)
+: Surface2(transform, isNormalFlipped) {
+}
 
-Box2::Box2(const Point2D& lowerCorner, const Point2D& upperCorner,
-           const Transform2D& transform, bool isNormalFlipped)
+Box2::Box2(const Point2D &lowerCorner, const Point2D &upperCorner,
+           const Transform2D &transform, bool isNormalFlipped)
 : Box2(BoundingBox2D(lowerCorner, upperCorner), transform,
-       isNormalFlipped) {}
+       isNormalFlipped) {
+}
 
-Box2::Box2(const BoundingBox2D& boundingBox, const Transform2D& transform,
+Box2::Box2(const BoundingBox2D &boundingBox, const Transform2D &transform,
            bool isNormalFlipped)
-: Surface2(transform, isNormalFlipped), bound(boundingBox) {}
+: Surface2(transform, isNormalFlipped), bound(boundingBox) {
+}
 
-Box2::Box2(const Box2& other) : Surface2(other), bound(other.bound) {}
+Box2::Box2(const Box2 &other) : Surface2(other), bound(other.bound) {
+}
 
-Point2D Box2::closestPointLocal(const Point2D& otherPoint) const {
+Point2D Box2::closestPointLocal(const Point2D &otherPoint) const {
     if (bound.contains(otherPoint)) {
         Plane2 planes[4] = {Plane2(Vector2D(1, 0), bound.upperCorner),
             Plane2(Vector2D(0, 1), bound.upperCorner),
@@ -52,7 +56,7 @@ Point2D Box2::closestPointLocal(const Point2D& otherPoint) const {
     }
 }
 
-Vector2D Box2::closestNormalLocal(const Point2D& otherPoint) const {
+Vector2D Box2::closestNormalLocal(const Point2D &otherPoint) const {
     Plane2 planes[4] = {Plane2(Vector2D(1, 0), bound.upperCorner),
         Plane2(Vector2D(0, 1), bound.upperCorner),
         Plane2(Vector2D(-1, 0), bound.lowerCorner),
@@ -94,11 +98,11 @@ Vector2D Box2::closestNormalLocal(const Point2D& otherPoint) const {
     }
 }
 
-bool Box2::intersectsLocal(const Ray2D& ray) const {
+bool Box2::intersectsLocal(const Ray2D &ray) const {
     return bound.intersects(ray);
 }
 
-SurfaceRayIntersection2 Box2::closestIntersectionLocal(const Ray2D& ray) const {
+SurfaceRayIntersection2 Box2::closestIntersectionLocal(const Ray2D &ray) const {
     SurfaceRayIntersection2 intersection;
     BoundingBoxRayIntersection2D bbRayIntersection =
     bound.closestIntersection(ray);
@@ -111,21 +115,25 @@ SurfaceRayIntersection2 Box2::closestIntersectionLocal(const Ray2D& ray) const {
     return intersection;
 }
 
-BoundingBox2D Box2::boundingBoxLocal() const { return bound; }
+BoundingBox2D Box2::boundingBoxLocal() const {
+    return bound;
+}
 
-Box2::Builder Box2::builder() { return Builder(); }
+Box2::Builder Box2::builder() {
+    return Builder();
+}
 
-Box2::Builder& Box2::Builder::withLowerCorner(const Point2D& pt) {
+Box2::Builder &Box2::Builder::withLowerCorner(const Point2D &pt) {
     _lowerCorner = pt;
     return *this;
 }
 
-Box2::Builder& Box2::Builder::withUpperCorner(const Point2D& pt) {
+Box2::Builder &Box2::Builder::withUpperCorner(const Point2D &pt) {
     _upperCorner = pt;
     return *this;
 }
 
-Box2::Builder& Box2::Builder::withBoundingBox(const BoundingBox2D& bbox) {
+Box2::Builder &Box2::Builder::withBoundingBox(const BoundingBox2D &bbox) {
     _lowerCorner = bbox.lowerCorner;
     _upperCorner = bbox.upperCorner;
     return *this;
@@ -137,5 +145,7 @@ Box2 Box2::Builder::build() const {
 
 Box2Ptr Box2::Builder::makeShared() const {
     return std::shared_ptr<Box2>(new Box2(_lowerCorner, _upperCorner, _transform, _isNormalFlipped),
-                                 [](Box2* obj) { delete obj; });
+                                 [](Box2 *obj) {
+        delete obj;
+    });
 }

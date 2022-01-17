@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_PLANE2_H_
-#define INCLUDE_JET_PLANE2_H_
+#ifndef INCLUDE_VOX_PLANE2_H_
+#define INCLUDE_VOX_PLANE2_H_
 
 #include "surface2.h"
 
@@ -28,17 +28,17 @@ public:
     Point2D point;
     
     //! Constructs a plane that crosses (0, 0) with surface normal (0, 1).
-    Plane2(const Transform2D& transform = Transform2D(),
+    Plane2(const Transform2D &transform = Transform2D(),
            bool isNormalFlipped = false);
     
     //! Constructs a plane that cross \p point with surface normal \p normal.
-    Plane2(const Vector2D& normal,
-           const Point2D& point,
-           const Transform2D& transform = Transform2D(),
+    Plane2(const Vector2D &normal,
+           const Point2D &point,
+           const Transform2D &transform = Transform2D(),
            bool isNormalFlipped = false);
     
     //! Copy constructor.
-    Plane2(const Plane2& other);
+    Plane2(const Plane2 &other);
     
     //! Returns true if bounding box can be defined.
     bool isBounded() const override;
@@ -47,15 +47,15 @@ public:
     static Builder builder();
     
 private:
-    Point2D closestPointLocal(const Point2D& otherPoint) const override;
+    Point2D closestPointLocal(const Point2D &otherPoint) const override;
     
-    bool intersectsLocal(const Ray2D& ray) const override;
+    bool intersectsLocal(const Ray2D &ray) const override;
     
     BoundingBox2D boundingBoxLocal() const override;
     
-    Vector2D closestNormalLocal(const Point2D& otherPoint) const override;
+    Vector2D closestNormalLocal(const Point2D &otherPoint) const override;
     
-    SurfaceRayIntersection2 closestIntersectionLocal(const Ray2D& ray) const override;
+    SurfaceRayIntersection2 closestIntersectionLocal(const Ray2D &ray) const override;
 };
 
 //! Shared pointer for the Plane2 type.
@@ -68,10 +68,10 @@ using Plane2Ptr = std::shared_ptr<Plane2>;
 class Plane2::Builder final : public SurfaceBuilderBase2<Plane2::Builder> {
 public:
     //! Returns builder with plane normal.
-    Builder& withNormal(const Vector2D& normal);
+    Builder &withNormal(const Vector2D &normal);
     
     //! Returns builder with point on the plane.
-    Builder& withPoint(const Point2D& point);
+    Builder &withPoint(const Point2D &point);
     
     //! Builds Plane2.
     Plane2 build() const;
@@ -86,4 +86,4 @@ private:
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_PLANE2_H_
+#endif  // INCLUDE_VOX_PLANE2_H_

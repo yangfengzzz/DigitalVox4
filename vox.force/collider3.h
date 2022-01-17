@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_COLLIDER3_H_
-#define INCLUDE_JET_COLLIDER3_H_
+#ifndef INCLUDE_VOX_COLLIDER3_H_
+#define INCLUDE_VOX_COLLIDER3_H_
 
 #include "surface3.h"
 #include <functional>
@@ -29,7 +29,7 @@ public:
     //! This type of callback function will take the collider pointer, current
     //! time, and time interval in seconds.
     //!
-    using OnBeginUpdateCallback = std::function<void(Collider3*, double, double)>;
+    using OnBeginUpdateCallback = std::function<void(Collider3 *, double, double)>;
     
     //! Default constructor.
     Collider3();
@@ -38,7 +38,7 @@ public:
     virtual ~Collider3();
     
     //! Returns the velocity of the collider at given \p point.
-    virtual Vector3D velocityAt(const Point3D& point) const = 0;
+    virtual Vector3D velocityAt(const Point3D &point) const = 0;
     
     //!
     //! Resolves collision for given point.
@@ -50,8 +50,8 @@ public:
     //!
     void resolveCollision(double radius,
                           double restitutionCoefficient,
-                          Point3D* position,
-                          Vector3D* velocity);
+                          Point3D *position,
+                          Vector3D *velocity);
     
     //! Returns friction coefficent.
     double frictionCoefficient() const;
@@ -65,7 +65,7 @@ public:
     void setFrictionCoefficient(double newFrictionCoeffient);
     
     //! Returns the surface instance.
-    const Surface3Ptr& surface() const;
+    const Surface3Ptr &surface() const;
     
     //! Updates the collider state.
     void update(double currentTimeInSeconds, double timeIntervalInSeconds);
@@ -80,7 +80,7 @@ public:
     //!
     //! \param[in]  callback The callback function.
     //!
-    void setOnBeginUpdateCallback(const OnBeginUpdateCallback& callback);
+    void setOnBeginUpdateCallback(const OnBeginUpdateCallback &callback);
     
 protected:
     //! Internal query result structure.
@@ -92,16 +92,16 @@ protected:
     };
     
     //! Assigns the surface instance from the subclass.
-    void setSurface(const Surface3Ptr& newSurface);
+    void setSurface(const Surface3Ptr &newSurface);
     
     //! Outputs closest point's information.
-    void getClosestPoint(const Surface3Ptr& surface,
-                         const Point3D& queryPoint,
-                         ColliderQueryResult* result) const;
+    void getClosestPoint(const Surface3Ptr &surface,
+                         const Point3D &queryPoint,
+                         ColliderQueryResult *result) const;
     
     //! Returns true if given point is in the opposite side of the surface.
-    bool isPenetrating(const ColliderQueryResult& colliderPoint,
-                       const Point3D& position,
+    bool isPenetrating(const ColliderQueryResult &colliderPoint,
+                       const Point3D &position,
                        double radius);
     
 private:
@@ -115,4 +115,4 @@ using Collider3Ptr = std::shared_ptr<Collider3>;
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_COLLIDER3_H_
+#endif  // INCLUDE_VOX_COLLIDER3_H_

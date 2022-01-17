@@ -1,11 +1,11 @@
-// Copyright (c) 2018 Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
-#ifndef INCLUDE_JET_DETAIL_VECTOR_INL_H_
-#define INCLUDE_JET_DETAIL_VECTOR_INL_H_
+#ifndef INCLUDE_VOX_DETAIL_VECTOR_INL_H_
+#define INCLUDE_VOX_DETAIL_VECTOR_INL_H_
 
 #include "macros.h"
 #include "math_utils.h"
@@ -52,7 +52,7 @@ void Vector<T, N>::set(const T &s) {
 template<typename T, size_t N>
 template<typename U>
 void Vector<T, N>::set(const std::initializer_list<U> &lst) {
-    JET_ASSERT(lst.size() >= N);
+    VOX_ASSERT(lst.size() >= N);
     
     size_t i = 0;
     for (const auto &inputElem: lst) {
@@ -64,7 +64,7 @@ void Vector<T, N>::set(const std::initializer_list<U> &lst) {
 template<typename T, size_t N>
 template<typename E>
 void Vector<T, N>::set(const VectorExpression<T, E> &other) {
-    JET_ASSERT(size() == other.size());
+    VOX_ASSERT(size() == other.size());
     
     // Parallel evaluation of the expression
     const E &expression = other();
@@ -225,7 +225,7 @@ T Vector<T, N>::distanceTo(const E &other) const {
 template<typename T, size_t N>
 template<typename E>
 T Vector<T, N>::distanceSquaredTo(const E &other) const {
-    JET_ASSERT(size() == other.size());
+    VOX_ASSERT(size() == other.size());
     
     T ret = 0;
     for (size_t i = 0; i < N; ++i) {
@@ -319,7 +319,7 @@ VectorScalarDiv<T, Vector<T, N>> Vector<T, N>::div(const T &s) const {
 template<typename T, size_t N>
 template<typename E>
 T Vector<T, N>::dot(const E &v) const {
-    JET_ASSERT(size() == v.size());
+    VOX_ASSERT(size() == v.size());
     
     T ret = 0;
     for (size_t i = 0; i < N; ++i) {
@@ -514,4 +514,4 @@ void Vector<T, N>::setAt(size_t i, T v) {
 
 }  // namespace vox
 
-#endif  // INCLUDE_JET_DETAIL_VECTOR_INL_H_
+#endif  // INCLUDE_VOX_DETAIL_VECTOR_INL_H_

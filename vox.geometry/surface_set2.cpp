@@ -1,8 +1,8 @@
-// Copyright (c) Doyub Kim
+//  Copyright (c) 2022 Feng Yang
 //
-// I am making my contributions/submissions to this project solely in my
-// personal capacity and am not conveying any rights to any intellectual
-// property of any third parties.
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 //#include <pch.h>
 
@@ -10,12 +10,13 @@
 
 using namespace vox;
 
-SurfaceSet2::SurfaceSet2() {}
+SurfaceSet2::SurfaceSet2() {
+}
 
-SurfaceSet2::SurfaceSet2(const std::vector<Surface2Ptr>& others,
-                         const Transform2D& transform, bool isNormalFlipped)
+SurfaceSet2::SurfaceSet2(const std::vector<Surface2Ptr> &others,
+                         const Transform2D &transform, bool isNormalFlipped)
 : Surface2(transform, isNormalFlipped), _surfaces(others) {
-    for (auto surface : _surfaces) {
+    for (auto surface: _surfaces) {
         if (!surface->isBounded()) {
             _unboundedSurfaces.push_back(surface);
         }
@@ -23,7 +24,7 @@ SurfaceSet2::SurfaceSet2(const std::vector<Surface2Ptr>& others,
     invalidateBvh();
 }
 
-SurfaceSet2::SurfaceSet2(const SurfaceSet2& other)
+SurfaceSet2::SurfaceSet2(const SurfaceSet2 &other)
 : Surface2(other),
 _surfaces(other._surfaces),
 _unboundedSurfaces(other._unboundedSurfaces) {
@@ -37,7 +38,7 @@ void SurfaceSet2::updateQueryEngine() {
 
 bool SurfaceSet2::isBounded() const {
     // All surfaces should be bounded.
-    for (auto surface : _surfaces) {
+    for (auto surface: _surfaces) {
         if (!surface->isBounded()) {
             return false;
         }
@@ -49,7 +50,7 @@ bool SurfaceSet2::isBounded() const {
 
 bool SurfaceSet2::isValidGeometry() const {
     // All surfaces should be valid.
-    for (auto surface : _surfaces) {
+    for (auto surface: _surfaces) {
         if (!surface->isValidGeometry()) {
             return false;
         }
@@ -59,13 +60,15 @@ bool SurfaceSet2::isValidGeometry() const {
     return !_surfaces.empty();
 }
 
-size_t SurfaceSet2::numberOfSurfaces() const { return _surfaces.size(); }
+size_t SurfaceSet2::numberOfSurfaces() const {
+    return _surfaces.size();
+}
 
-const Surface2Ptr& SurfaceSet2::surfaceAt(size_t i) const {
+const Surface2Ptr &SurfaceSet2::surfaceAt(size_t i) const {
     return _surfaces[i];
 }
 
-void SurfaceSet2::addSurface(const Surface2Ptr& surface) {
+void SurfaceSet2::addSurface(const Surface2Ptr &surface) {
     _surfaces.push_back(surface);
     if (!surface->isBounded()) {
         _unboundedSurfaces.push_back(surface);
@@ -73,11 +76,11 @@ void SurfaceSet2::addSurface(const Surface2Ptr& surface) {
     invalidateBvh();
 }
 
-Point2D SurfaceSet2::closestPointLocal(const Point2D& otherPoint) const {
+Point2D SurfaceSet2::closestPointLocal(const Point2D &otherPoint) const {
     buildBvh();
     
-    const auto distanceFunc = [](const Surface2Ptr& surface,
-                                 const Point2D& pt) {
+    const auto distanceFunc = [](const Surface2Ptr &surface,
+                                 const Point2D &pt) {
         return surface->closestDistance(pt);
     };
     
@@ -88,7 +91,7 @@ Point2D SurfaceSet2::closestPointLocal(const Point2D& otherPoint) const {
     }
     
     double minDist = queryResult.distance;
-    for (auto surface : _unboundedSurfaces) {
+    for (auto surface: _unboundedSurfaces) {
         auto pt = surface->closestPoint(otherPoint);
         double dist = pt.distanceTo(otherPoint);
         if (dist < minDist) {
@@ -100,11 +103,11 @@ Point2D SurfaceSet2::closestPointLocal(const Point2D& otherPoint) const {
     return result;
 }
 
-Vector2D SurfaceSet2::closestNormalLocal(const Point2D& otherPoint) const {
+Vector2D SurfaceSet2::closestNormalLocal(const Point2D &otherPoint) const {
     buildBvh();
     
-    const auto distanceFunc = [](const Surface2Ptr& surface,
-                                 const Point2D& pt) {
+    const auto distanceFunc = [](const Surface2Ptr &surface,
+                                 const Point2D &pt) {
         return surface->closestDistance(pt);
     };
     
@@ -115,7 +118,7 @@ Vector2D SurfaceSet2::closestNormalLocal(const Point2D& otherPoint) const {
     }
     
     double minDist = queryResult.distance;
-    for (auto surface : _unboundedSurfaces) {
+    for (auto surface: _unboundedSurfaces) {
         auto pt = surface->closestPoint(otherPoint);
         double dist = pt.distanceTo(otherPoint);
         if (dist < minDist) {
@@ -127,18 +130,18 @@ Vector2D SurfaceSet2::closestNormalLocal(const Point2D& otherPoint) const {
     return result;
 }
 
-double SurfaceSet2::closestDistanceLocal(const Point2D& otherPoint) const {
+double SurfaceSet2::closestDistanceLocal(const Point2D &otherPoint) const {
     buildBvh();
     
-    const auto distanceFunc = [](const Surface2Ptr& surface,
-                                 const Point2D& pt) {
+    const auto distanceFunc = [](const Surface2Ptr &surface,
+                                 const Point2D &pt) {
         return surface->closestDistance(pt);
     };
     
     const auto queryResult = _bvh.nearest(otherPoint, distanceFunc);
     
     double minDist = queryResult.distance;
-    for (auto surface : _unboundedSurfaces) {
+    for (auto surface: _unboundedSurfaces) {
         auto pt = surface->closestPoint(otherPoint);
         double dist = pt.distanceTo(otherPoint);
         if (dist < minDist) {
@@ -149,25 +152,25 @@ double SurfaceSet2::closestDistanceLocal(const Point2D& otherPoint) const {
     return minDist;
 }
 
-bool SurfaceSet2::intersectsLocal(const Ray2D& ray) const {
+bool SurfaceSet2::intersectsLocal(const Ray2D &ray) const {
     buildBvh();
     
-    const auto testFunc = [](const Surface2Ptr& surface, const Ray2D& ray) {
+    const auto testFunc = [](const Surface2Ptr &surface, const Ray2D &ray) {
         return surface->intersects(ray);
     };
     
     bool result = _bvh.intersects(ray, testFunc);
-    for (auto surface : _unboundedSurfaces) {
+    for (auto surface: _unboundedSurfaces) {
         result |= surface->intersects(ray);
     }
     
     return result;
 }
 
-SurfaceRayIntersection2 SurfaceSet2::closestIntersectionLocal(const Ray2D& ray) const {
+SurfaceRayIntersection2 SurfaceSet2::closestIntersectionLocal(const Ray2D &ray) const {
     buildBvh();
     
-    const auto testFunc = [](const Surface2Ptr& surface, const Ray2D& ray) {
+    const auto testFunc = [](const Surface2Ptr &surface, const Ray2D &ray) {
         SurfaceRayIntersection2 result = surface->closestIntersection(ray);
         return result.distance;
     };
@@ -181,7 +184,7 @@ SurfaceRayIntersection2 SurfaceSet2::closestIntersectionLocal(const Ray2D& ray) 
         result.normal = (*queryResult.item)->closestNormal(result.point);
     }
     
-    for (auto surface : _unboundedSurfaces) {
+    for (auto surface: _unboundedSurfaces) {
         SurfaceRayIntersection2 localResult = surface->closestIntersection(ray);
         if (localResult.distance < result.distance) {
             result = localResult;
@@ -197,8 +200,8 @@ BoundingBox2D SurfaceSet2::boundingBoxLocal() const {
     return _bvh.boundingBox();
 }
 
-bool SurfaceSet2::isInsideLocal(const Point2D& otherPoint) const {
-    for (auto surface : _surfaces) {
+bool SurfaceSet2::isInsideLocal(const Point2D &otherPoint) const {
+    for (auto surface: _surfaces) {
         if (surface->isInside(otherPoint)) {
             return true;
         }
@@ -207,7 +210,9 @@ bool SurfaceSet2::isInsideLocal(const Point2D& otherPoint) const {
     return false;
 }
 
-void SurfaceSet2::invalidateBvh() { _bvhInvalidated = true; }
+void SurfaceSet2::invalidateBvh() {
+    _bvhInvalidated = true;
+}
 
 void SurfaceSet2::buildBvh() const {
     if (_bvhInvalidated) {
@@ -226,9 +231,11 @@ void SurfaceSet2::buildBvh() const {
 
 // SurfaceSet2::Builder
 
-SurfaceSet2::Builder SurfaceSet2::builder() { return Builder(); }
+SurfaceSet2::Builder SurfaceSet2::builder() {
+    return Builder();
+}
 
-SurfaceSet2::Builder& SurfaceSet2::Builder::withSurfaces(const std::vector<Surface2Ptr>& others) {
+SurfaceSet2::Builder &SurfaceSet2::Builder::withSurfaces(const std::vector<Surface2Ptr> &others) {
     _surfaces = others;
     return *this;
 }
@@ -239,5 +246,7 @@ SurfaceSet2 SurfaceSet2::Builder::build() const {
 
 SurfaceSet2Ptr SurfaceSet2::Builder::makeShared() const {
     return std::shared_ptr<SurfaceSet2>(new SurfaceSet2(_surfaces, _transform, _isNormalFlipped),
-                                        [](SurfaceSet2* obj) { delete obj; });
+                                        [](SurfaceSet2 *obj) {
+        delete obj;
+    });
 }
