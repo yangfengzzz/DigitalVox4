@@ -383,6 +383,20 @@
 		0445955427950F7400F04CE0 /* surface_to_implicit3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445955027950F7400F04CE0 /* surface_to_implicit3.cpp */; };
 		04459557279510AB00F04CE0 /* implicit_surface_set2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445954827950F3D00F04CE0 /* implicit_surface_set2.cpp */; };
 		04459558279510AB00F04CE0 /* implicit_surface_set3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445954527950F3C00F04CE0 /* implicit_surface_set3.cpp */; };
+		044595782795128300F04CE0 /* plane2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595692795128300F04CE0 /* plane2_tests.cpp */; };
+		044595792795133B00F04CE0 /* libvox.geometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 042295D9278D121C0090983F /* libvox.geometry.a */; };
+		0445957A2795133B00F04CE0 /* libvox.math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422969F278DAE4E0090983F /* libvox.math.a */; };
+		0445957B2795134600F04CE0 /* plane3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445955D2795128100F04CE0 /* plane3_tests.cpp */; };
+		0445957C2795135700F04CE0 /* box2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595672795128300F04CE0 /* box2_tests.cpp */; };
+		0445957D279513A500F04CE0 /* box3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595622795128200F04CE0 /* box3_tests.cpp */; };
+		0445957E2795140200F04CE0 /* sphere2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595682795128300F04CE0 /* sphere2_tests.cpp */; };
+		0445957F2795140E00F04CE0 /* sphere3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595602795128200F04CE0 /* sphere3_tests.cpp */; };
+		044595802795141D00F04CE0 /* cylinder3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595612795128200F04CE0 /* cylinder3_tests.cpp */; };
+		044595812795144B00F04CE0 /* triangle3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595662795128300F04CE0 /* triangle3_tests.cpp */; };
+		044595842795156400F04CE0 /* surface_to_implicit2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445955C2795128100F04CE0 /* surface_to_implicit2_tests.cpp */; };
+		04459585279515E700F04CE0 /* surface_to_implicit3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595642795128200F04CE0 /* surface_to_implicit3_tests.cpp */; };
+		04459587279516CB00F04CE0 /* implicit_surface_set2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445955F2795128200F04CE0 /* implicit_surface_set2_tests.cpp */; };
+		044595882795172700F04CE0 /* implicit_surface_set3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595632795128200F04CE0 /* implicit_surface_set3_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -881,6 +895,22 @@
 		0445954E27950F7300F04CE0 /* surface_to_implicit2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = surface_to_implicit2.h; sourceTree = "<group>"; };
 		0445954F27950F7400F04CE0 /* surface_to_implicit2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_to_implicit2.cpp; sourceTree = "<group>"; };
 		0445955027950F7400F04CE0 /* surface_to_implicit3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_to_implicit3.cpp; sourceTree = "<group>"; };
+		0445955B2795128100F04CE0 /* triangle_mesh3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangle_mesh3_tests.cpp; sourceTree = "<group>"; };
+		0445955C2795128100F04CE0 /* surface_to_implicit2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_to_implicit2_tests.cpp; sourceTree = "<group>"; };
+		0445955D2795128100F04CE0 /* plane3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane3_tests.cpp; sourceTree = "<group>"; };
+		0445955E2795128200F04CE0 /* surface_set3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_set3_tests.cpp; sourceTree = "<group>"; };
+		0445955F2795128200F04CE0 /* implicit_surface_set2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = implicit_surface_set2_tests.cpp; sourceTree = "<group>"; };
+		044595602795128200F04CE0 /* sphere3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere3_tests.cpp; sourceTree = "<group>"; };
+		044595612795128200F04CE0 /* cylinder3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cylinder3_tests.cpp; sourceTree = "<group>"; };
+		044595622795128200F04CE0 /* box3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = box3_tests.cpp; sourceTree = "<group>"; };
+		044595632795128200F04CE0 /* implicit_surface_set3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = implicit_surface_set3_tests.cpp; sourceTree = "<group>"; };
+		044595642795128200F04CE0 /* surface_to_implicit3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_to_implicit3_tests.cpp; sourceTree = "<group>"; };
+		044595652795128200F04CE0 /* surface_set2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface_set2_tests.cpp; sourceTree = "<group>"; };
+		044595662795128300F04CE0 /* triangle3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangle3_tests.cpp; sourceTree = "<group>"; };
+		044595672795128300F04CE0 /* box2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = box2_tests.cpp; sourceTree = "<group>"; };
+		044595682795128300F04CE0 /* sphere2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere2_tests.cpp; sourceTree = "<group>"; };
+		044595692795128300F04CE0 /* plane2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane2_tests.cpp; sourceTree = "<group>"; };
+		044595862795166800F04CE0 /* unit_tests.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = unit_tests.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -904,6 +934,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044595792795133B00F04CE0 /* libvox.geometry.a in Frameworks */,
+				0445957A2795133B00F04CE0 /* libvox.math.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1112,6 +1144,7 @@
 		0422960A278D29760090983F /* unit_tests */ = {
 			isa = PBXGroup;
 			children = (
+				044595862795166800F04CE0 /* unit_tests.entitlements */,
 				04229683278D69AF0090983F /* unit_tests_utils.h */,
 				04229684278D69AF0090983F /* unit_tests_utils.cpp */,
 				044594902793B98F00F04CE0 /* math_utils_tests.cpp */,
@@ -1140,6 +1173,22 @@
 				0445950D2794FC0A00F04CE0 /* octree_tests.cpp */,
 				044595212794FE8400F04CE0 /* bvh2_tests.cpp */,
 				044595222794FE8400F04CE0 /* bvh3_tests.cpp */,
+				0445955A2795122200F04CE0 /* math */,
+				044595692795128300F04CE0 /* plane2_tests.cpp */,
+				0445955D2795128100F04CE0 /* plane3_tests.cpp */,
+				044595672795128300F04CE0 /* box2_tests.cpp */,
+				044595622795128200F04CE0 /* box3_tests.cpp */,
+				044595682795128300F04CE0 /* sphere2_tests.cpp */,
+				044595602795128200F04CE0 /* sphere3_tests.cpp */,
+				044595612795128200F04CE0 /* cylinder3_tests.cpp */,
+				044595662795128300F04CE0 /* triangle3_tests.cpp */,
+				0445955B2795128100F04CE0 /* triangle_mesh3_tests.cpp */,
+				044595652795128200F04CE0 /* surface_set2_tests.cpp */,
+				0445955E2795128200F04CE0 /* surface_set3_tests.cpp */,
+				0445955C2795128100F04CE0 /* surface_to_implicit2_tests.cpp */,
+				044595642795128200F04CE0 /* surface_to_implicit3_tests.cpp */,
+				0445955F2795128200F04CE0 /* implicit_surface_set2_tests.cpp */,
+				044595632795128200F04CE0 /* implicit_surface_set3_tests.cpp */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -1614,6 +1663,13 @@
 				0445954527950F3C00F04CE0 /* implicit_surface_set3.cpp */,
 			);
 			name = implicit_surfaces;
+			sourceTree = "<group>";
+		};
+		0445955A2795122200F04CE0 /* math */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = math;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2143,17 +2199,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0445957F2795140E00F04CE0 /* sphere3_tests.cpp in Sources */,
+				0445957C2795135700F04CE0 /* box2_tests.cpp in Sources */,
 				044594972793B98F00F04CE0 /* vector_tests.cpp in Sources */,
 				044594982793B98F00F04CE0 /* vector2_tests.cpp in Sources */,
 				044595102794FC0A00F04CE0 /* quadtree_tests.cpp in Sources */,
 				044594992793B98F00F04CE0 /* quaternion_tests.cpp in Sources */,
 				044591BB278DB90500F04CE0 /* bounding_box_tests.cpp in Sources */,
 				0445950C2794F97400F04CE0 /* list_query_engine3_tests.cpp in Sources */,
+				0445957D279513A500F04CE0 /* box3_tests.cpp in Sources */,
 				0445950F2794FC0A00F04CE0 /* octree_tests.cpp in Sources */,
 				0445949D2793B98F00F04CE0 /* math_utils_tests.cpp in Sources */,
 				044591BC278DBA1B00F04CE0 /* bounding_box3_tests.cpp in Sources */,
 				044594952793B98F00F04CE0 /* vector3_tests.cpp in Sources */,
+				044595882795172700F04CE0 /* implicit_surface_set3_tests.cpp in Sources */,
 				044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */,
+				0445957E2795140200F04CE0 /* sphere2_tests.cpp in Sources */,
+				044595812795144B00F04CE0 /* triangle3_tests.cpp in Sources */,
+				044595842795156400F04CE0 /* surface_to_implicit2_tests.cpp in Sources */,
 				044591B9278DB69500F04CE0 /* bounding_box2_tests.cpp in Sources */,
 				0445949B2793B98F00F04CE0 /* matrix3x3_tests.cpp in Sources */,
 				0445949A2793B98F00F04CE0 /* matrix_tests.cpp in Sources */,
@@ -2162,11 +2225,16 @@
 				0445949F2793B98F00F04CE0 /* matrix4x4_tests.cpp in Sources */,
 				044591BD278DCBA500F04CE0 /* transform2_tests.cpp in Sources */,
 				044595242794FE8400F04CE0 /* bvh3_tests.cpp in Sources */,
+				04459585279515E700F04CE0 /* surface_to_implicit3_tests.cpp in Sources */,
 				0445950B2794F97400F04CE0 /* list_query_engine2_tests.cpp in Sources */,
 				044595232794FE8400F04CE0 /* bvh2_tests.cpp in Sources */,
 				0445949C2793B98F00F04CE0 /* point2_tests.cpp in Sources */,
 				0445949E2793B98F00F04CE0 /* matrix2x2_tests.cpp in Sources */,
+				04459587279516CB00F04CE0 /* implicit_surface_set2_tests.cpp in Sources */,
+				044595802795141D00F04CE0 /* cylinder3_tests.cpp in Sources */,
 				044594962793B98F00F04CE0 /* point_tests.cpp in Sources */,
+				0445957B2795134600F04CE0 /* plane3_tests.cpp in Sources */,
+				044595782795128300F04CE0 /* plane2_tests.cpp in Sources */,
 				044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */,
 				044591BE278DCDDF00F04CE0 /* transform3_tests.cpp in Sources */,
 				044591BA278DB7A500F04CE0 /* unit_tests_utils.cpp in Sources */,
@@ -2505,6 +2573,7 @@
 		0422960E278D29770090983F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = unit_tests/unit_tests.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4SL5L673UU;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2514,10 +2583,16 @@
 					./vox.geometry,
 					./vox.math,
 				);
-				LIBRARY_SEARCH_PATHS = ./third_party/googletest/build/lib;
+				LD_RUNPATH_SEARCH_PATHS = ../third_party/glog/build;
+				LIBRARY_SEARCH_PATHS = (
+					./third_party/googletest/build/lib,
+					./third_party/glog/build,
+				);
 				OTHER_LDFLAGS = (
 					"-lgtest",
 					"-lgtest_main",
+					"-lgmock",
+					"-lglog",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -2531,6 +2606,7 @@
 		0422960F278D29770090983F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = unit_tests/unit_tests.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4SL5L673UU;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2540,10 +2616,16 @@
 					./vox.geometry,
 					./vox.math,
 				);
-				LIBRARY_SEARCH_PATHS = ./third_party/googletest/build/lib;
+				LD_RUNPATH_SEARCH_PATHS = ../third_party/glog/build;
+				LIBRARY_SEARCH_PATHS = (
+					./third_party/googletest/build/lib,
+					./third_party/glog/build,
+				);
 				OTHER_LDFLAGS = (
 					"-lgtest",
 					"-lgtest_main",
+					"-lgmock",
+					"-lglog",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
