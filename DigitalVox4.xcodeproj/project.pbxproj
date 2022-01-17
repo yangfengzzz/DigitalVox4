@@ -400,6 +400,18 @@
 		04459589279517B100F04CE0 /* triangle_mesh3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445955B2795128100F04CE0 /* triangle_mesh3_tests.cpp */; };
 		0445958A2795181100F04CE0 /* surface_set2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595652795128200F04CE0 /* surface_set2_tests.cpp */; };
 		0445958B2795189500F04CE0 /* surface_set3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445955E2795128200F04CE0 /* surface_set3_tests.cpp */; };
+		044595A72795193D00F04CE0 /* collider3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445959B2795193B00F04CE0 /* collider3.cpp */; };
+		044595AD2795193D00F04CE0 /* collider3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595A12795193C00F04CE0 /* collider3.h */; };
+		044595AE2795193D00F04CE0 /* collider2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595A22795193C00F04CE0 /* collider2.cpp */; };
+		044595AF2795193D00F04CE0 /* collider2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595A32795193C00F04CE0 /* collider2.h */; };
+		044595B927951B2200F04CE0 /* rigid_body_collider3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595A52795193D00F04CE0 /* rigid_body_collider3.cpp */; };
+		044595BA27951B2200F04CE0 /* rigid_body_collider2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595A42795193D00F04CE0 /* rigid_body_collider2.cpp */; };
+		044595BB27951B2200F04CE0 /* rigid_body_collider3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445959D2795193C00F04CE0 /* rigid_body_collider3.h */; };
+		044595BC27951B2200F04CE0 /* rigid_body_collider2.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445959C2795193B00F04CE0 /* rigid_body_collider2.h */; };
+		044595BD27951BBC00F04CE0 /* collider_set2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044595A62795193D00F04CE0 /* collider_set2.h */; };
+		044595BE27951BBC00F04CE0 /* collider_set3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445959E2795193C00F04CE0 /* collider_set3.h */; };
+		044595BF27951BBC00F04CE0 /* collider_set2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595A02795193C00F04CE0 /* collider_set2.cpp */; };
+		044595C027951BBC00F04CE0 /* collider_set3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445959F2795193C00F04CE0 /* collider_set3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -444,6 +456,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 044593A6279002C000F04CE0;
 			remoteInfo = vox.shader;
+		};
+		044595B32795196D00F04CE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 042295D8278D121C0090983F;
+			remoteInfo = vox.geometry;
+		};
+		044595B52795196D00F04CE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0422969E278DAE4E0090983F;
+			remoteInfo = vox.math;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -914,6 +940,19 @@
 		044595682795128300F04CE0 /* sphere2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere2_tests.cpp; sourceTree = "<group>"; };
 		044595692795128300F04CE0 /* plane2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane2_tests.cpp; sourceTree = "<group>"; };
 		044595862795166800F04CE0 /* unit_tests.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = unit_tests.entitlements; sourceTree = "<group>"; };
+		04459590279518FF00F04CE0 /* libvox.force.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.force.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0445959B2795193B00F04CE0 /* collider3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collider3.cpp; sourceTree = "<group>"; };
+		0445959C2795193B00F04CE0 /* rigid_body_collider2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rigid_body_collider2.h; sourceTree = "<group>"; };
+		0445959D2795193C00F04CE0 /* rigid_body_collider3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rigid_body_collider3.h; sourceTree = "<group>"; };
+		0445959E2795193C00F04CE0 /* collider_set3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collider_set3.h; sourceTree = "<group>"; };
+		0445959F2795193C00F04CE0 /* collider_set3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collider_set3.cpp; sourceTree = "<group>"; };
+		044595A02795193C00F04CE0 /* collider_set2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collider_set2.cpp; sourceTree = "<group>"; };
+		044595A12795193C00F04CE0 /* collider3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collider3.h; sourceTree = "<group>"; };
+		044595A22795193C00F04CE0 /* collider2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collider2.cpp; sourceTree = "<group>"; };
+		044595A32795193C00F04CE0 /* collider2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collider2.h; sourceTree = "<group>"; };
+		044595A42795193D00F04CE0 /* rigid_body_collider2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rigid_body_collider2.cpp; sourceTree = "<group>"; };
+		044595A52795193D00F04CE0 /* rigid_body_collider3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rigid_body_collider3.cpp; sourceTree = "<group>"; };
+		044595A62795193D00F04CE0 /* collider_set2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collider_set2.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -964,6 +1003,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0445958E279518FF00F04CE0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -974,6 +1020,7 @@
 				044593D8279011CA00F04CE0 /* Models */,
 				042296A0278DAE4E0090983F /* vox.math */,
 				042295DA278D121D0090983F /* vox.geometry */,
+				04459591279518FF00F04CE0 /* vox.force */,
 				044593A7279002C000F04CE0 /* vox.shader */,
 				04229551278C30840090983F /* vox.render */,
 				0422960A278D29760090983F /* unit_tests */,
@@ -991,6 +1038,7 @@
 				04229609278D29760090983F /* unit_tests */,
 				0422969F278DAE4E0090983F /* libvox.math.a */,
 				044593B72790055000F04CE0 /* apps */,
+				04459590279518FF00F04CE0 /* libvox.force.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1675,6 +1723,33 @@
 			name = math;
 			sourceTree = "<group>";
 		};
+		04459591279518FF00F04CE0 /* vox.force */ = {
+			isa = PBXGroup;
+			children = (
+				044595A32795193C00F04CE0 /* collider2.h */,
+				044595A22795193C00F04CE0 /* collider2.cpp */,
+				044595A12795193C00F04CE0 /* collider3.h */,
+				0445959B2795193B00F04CE0 /* collider3.cpp */,
+				044595C127951BF800F04CE0 /* colliders */,
+			);
+			path = vox.force;
+			sourceTree = "<group>";
+		};
+		044595C127951BF800F04CE0 /* colliders */ = {
+			isa = PBXGroup;
+			children = (
+				0445959C2795193B00F04CE0 /* rigid_body_collider2.h */,
+				044595A42795193D00F04CE0 /* rigid_body_collider2.cpp */,
+				0445959D2795193C00F04CE0 /* rigid_body_collider3.h */,
+				044595A52795193D00F04CE0 /* rigid_body_collider3.cpp */,
+				044595A62795193D00F04CE0 /* collider_set2.h */,
+				044595A02795193C00F04CE0 /* collider_set2.cpp */,
+				0445959E2795193C00F04CE0 /* collider_set3.h */,
+				0445959F2795193C00F04CE0 /* collider_set3.cpp */,
+			);
+			name = colliders;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1898,6 +1973,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0445958C279518FF00F04CE0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				044595AF2795193D00F04CE0 /* collider2.h in Headers */,
+				044595BD27951BBC00F04CE0 /* collider_set2.h in Headers */,
+				044595AD2795193D00F04CE0 /* collider3.h in Headers */,
+				044595BE27951BBC00F04CE0 /* collider_set3.h in Headers */,
+				044595BB27951B2200F04CE0 /* rigid_body_collider3.h in Headers */,
+				044595BC27951B2200F04CE0 /* rigid_body_collider2.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -2005,6 +2093,25 @@
 			productReference = 044593B72790055000F04CE0 /* apps */;
 			productType = "com.apple.product-type.tool";
 		};
+		0445958F279518FF00F04CE0 /* vox.force */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04459598279518FF00F04CE0 /* Build configuration list for PBXNativeTarget "vox.force" */;
+			buildPhases = (
+				0445958C279518FF00F04CE0 /* Headers */,
+				0445958D279518FF00F04CE0 /* Sources */,
+				0445958E279518FF00F04CE0 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				044595B42795196D00F04CE0 /* PBXTargetDependency */,
+				044595B62795196D00F04CE0 /* PBXTargetDependency */,
+			);
+			name = vox.force;
+			productName = vox.force;
+			productReference = 04459590279518FF00F04CE0 /* libvox.force.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2032,6 +2139,9 @@
 					044593B62790055000F04CE0 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
+					0445958F279518FF00F04CE0 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 				};
 			};
 			buildConfigurationList = 0422954A278C30840090983F /* Build configuration list for PBXProject "DigitalVox4" */;
@@ -2049,6 +2159,7 @@
 			targets = (
 				0422969E278DAE4E0090983F /* vox.math */,
 				042295D8278D121C0090983F /* vox.geometry */,
+				0445958F279518FF00F04CE0 /* vox.force */,
 				0422954E278C30840090983F /* vox.render */,
 				044593A6279002C000F04CE0 /* vox.shader */,
 				04229608278D29760090983F /* unit_tests */,
@@ -2282,6 +2393,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0445958D279518FF00F04CE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				044595C027951BBC00F04CE0 /* collider_set3.cpp in Sources */,
+				044595BA27951B2200F04CE0 /* rigid_body_collider2.cpp in Sources */,
+				044595AE2795193D00F04CE0 /* collider2.cpp in Sources */,
+				044595B927951B2200F04CE0 /* rigid_body_collider3.cpp in Sources */,
+				044595BF27951BBC00F04CE0 /* collider_set2.cpp in Sources */,
+				044595A72795193D00F04CE0 /* collider3.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2314,6 +2438,16 @@
 			isa = PBXTargetDependency;
 			target = 044593A6279002C000F04CE0 /* vox.shader */;
 			targetProxy = 044593C2279005F900F04CE0 /* PBXContainerItemProxy */;
+		};
+		044595B42795196D00F04CE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 042295D8278D121C0090983F /* vox.geometry */;
+			targetProxy = 044595B32795196D00F04CE0 /* PBXContainerItemProxy */;
+		};
+		044595B62795196D00F04CE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0422969E278DAE4E0090983F /* vox.math */;
+			targetProxy = 044595B52795196D00F04CE0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2819,6 +2953,32 @@
 			};
 			name = Release;
 		};
+		04459599279518FF00F04CE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		0445959A279518FF00F04CE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2881,6 +3041,15 @@
 			buildConfigurations = (
 				044593BC2790055100F04CE0 /* Debug */,
 				044593BD2790055100F04CE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04459598279518FF00F04CE0 /* Build configuration list for PBXNativeTarget "vox.force" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04459599279518FF00F04CE0 /* Debug */,
+				0445959A279518FF00F04CE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
