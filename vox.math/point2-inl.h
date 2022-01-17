@@ -241,6 +241,12 @@ bool Point<T, 2>::isEqual(const Point &other) const {
 }
 
 template<typename T>
+bool Point<T, 2>::isSimilar(const Point &other, T epsilon) const {
+    return (std::fabs(x - other.x) < epsilon) &&
+    (std::fabs(y - other.y) < epsilon);
+}
+
+template<typename T>
 T Point<T, 2>::distanceTo(const Point<T, 2> &other) const {
     return sub(other).length();
 }

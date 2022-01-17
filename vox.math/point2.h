@@ -178,6 +178,10 @@ public:
     //! Returns true if \p other is the same as this point.
     bool isEqual(const Point &other) const;
     
+    //! Returns true if \p other is similar to this vector.
+    bool isSimilar(const Point &other,
+                   T epsilon = std::numeric_limits<T>::epsilon()) const;
+    
     //! Returns the distance to the other vector.
     T distanceTo(const Point &other) const;
     

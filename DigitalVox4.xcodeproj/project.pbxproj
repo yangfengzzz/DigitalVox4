@@ -344,6 +344,16 @@
 		044594CF27945C6800F04CE0 /* plane2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594CB27945C6800F04CE0 /* plane2.h */; };
 		044594D027945C6800F04CE0 /* plane3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594CC27945C6800F04CE0 /* plane3.h */; };
 		044594D227945E0600F04CE0 /* private_helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594D127945E0600F04CE0 /* private_helpers.h */; };
+		044594D72794E41800F04CE0 /* box3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594D32794E41800F04CE0 /* box3.cpp */; };
+		044594D82794E41800F04CE0 /* box3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594D42794E41800F04CE0 /* box3.h */; };
+		044594D92794E41800F04CE0 /* box2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594D52794E41800F04CE0 /* box2.cpp */; };
+		044594DA2794E41800F04CE0 /* box2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594D62794E41800F04CE0 /* box2.h */; };
+		044594DF2794E5AC00F04CE0 /* sphere2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594DB2794E5AB00F04CE0 /* sphere2.h */; };
+		044594E02794E5AC00F04CE0 /* sphere3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594DC2794E5AB00F04CE0 /* sphere3.h */; };
+		044594E12794E5AC00F04CE0 /* sphere2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594DD2794E5AC00F04CE0 /* sphere2.cpp */; };
+		044594E22794E5AC00F04CE0 /* sphere3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594DE2794E5AC00F04CE0 /* sphere3.cpp */; };
+		044594E52794F17A00F04CE0 /* cylinder3.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594E32794F17A00F04CE0 /* cylinder3.h */; };
+		044594E62794F17A00F04CE0 /* cylinder3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594E42794F17A00F04CE0 /* cylinder3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -785,6 +795,16 @@
 		044594CB27945C6800F04CE0 /* plane2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane2.h; sourceTree = "<group>"; };
 		044594CC27945C6800F04CE0 /* plane3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane3.h; sourceTree = "<group>"; };
 		044594D127945E0600F04CE0 /* private_helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = private_helpers.h; sourceTree = "<group>"; };
+		044594D32794E41800F04CE0 /* box3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = box3.cpp; sourceTree = "<group>"; };
+		044594D42794E41800F04CE0 /* box3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = box3.h; sourceTree = "<group>"; };
+		044594D52794E41800F04CE0 /* box2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = box2.cpp; sourceTree = "<group>"; };
+		044594D62794E41800F04CE0 /* box2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = box2.h; sourceTree = "<group>"; };
+		044594DB2794E5AB00F04CE0 /* sphere2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sphere2.h; sourceTree = "<group>"; };
+		044594DC2794E5AB00F04CE0 /* sphere3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sphere3.h; sourceTree = "<group>"; };
+		044594DD2794E5AC00F04CE0 /* sphere2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere2.cpp; sourceTree = "<group>"; };
+		044594DE2794E5AC00F04CE0 /* sphere3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere3.cpp; sourceTree = "<group>"; };
+		044594E32794F17A00F04CE0 /* cylinder3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cylinder3.h; sourceTree = "<group>"; };
+		044594E42794F17A00F04CE0 /* cylinder3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cylinder3.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1007,6 +1027,16 @@
 				044594C927945C6800F04CE0 /* plane2.cpp */,
 				044594CC27945C6800F04CE0 /* plane3.h */,
 				044594CA27945C6800F04CE0 /* plane3.cpp */,
+				044594D62794E41800F04CE0 /* box2.h */,
+				044594D52794E41800F04CE0 /* box2.cpp */,
+				044594D42794E41800F04CE0 /* box3.h */,
+				044594D32794E41800F04CE0 /* box3.cpp */,
+				044594DB2794E5AB00F04CE0 /* sphere2.h */,
+				044594DD2794E5AC00F04CE0 /* sphere2.cpp */,
+				044594DC2794E5AB00F04CE0 /* sphere3.h */,
+				044594DE2794E5AC00F04CE0 /* sphere3.cpp */,
+				044594E32794F17A00F04CE0 /* cylinder3.h */,
+				044594E42794F17A00F04CE0 /* cylinder3.cpp */,
 			);
 			path = vox.geometry;
 			sourceTree = "<group>";
@@ -1582,10 +1612,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044594DF2794E5AC00F04CE0 /* sphere2.h in Headers */,
+				044594E02794E5AC00F04CE0 /* sphere3.h in Headers */,
+				044594DA2794E41800F04CE0 /* box2.h in Headers */,
 				044594CF27945C6800F04CE0 /* plane2.h in Headers */,
 				044594D027945C6800F04CE0 /* plane3.h in Headers */,
 				04229697278D71760090983F /* surface2.h in Headers */,
+				044594E52794F17A00F04CE0 /* cylinder3.h in Headers */,
 				04229696278D71760090983F /* surface3.h in Headers */,
+				044594D82794E41800F04CE0 /* box3.h in Headers */,
 				044594D227945E0600F04CE0 /* private_helpers.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1923,9 +1958,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044594E62794F17A00F04CE0 /* cylinder3.cpp in Sources */,
 				044594CD27945C6800F04CE0 /* plane2.cpp in Sources */,
 				044591C2278DD2F000F04CE0 /* surface2.cpp in Sources */,
+				044594E12794E5AC00F04CE0 /* sphere2.cpp in Sources */,
+				044594D92794E41800F04CE0 /* box2.cpp in Sources */,
 				044594CE27945C6800F04CE0 /* plane3.cpp in Sources */,
+				044594D72794E41800F04CE0 /* box3.cpp in Sources */,
+				044594E22794E5AC00F04CE0 /* sphere3.cpp in Sources */,
 				044591C3278DD39B00F04CE0 /* surface3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
