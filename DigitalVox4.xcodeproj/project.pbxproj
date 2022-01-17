@@ -412,6 +412,11 @@
 		044595BE27951BBC00F04CE0 /* collider_set3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445959E2795193C00F04CE0 /* collider_set3.h */; };
 		044595BF27951BBC00F04CE0 /* collider_set2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595A02795193C00F04CE0 /* collider_set2.cpp */; };
 		044595C027951BBC00F04CE0 /* collider_set3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445959F2795193C00F04CE0 /* collider_set3.cpp */; };
+		044595C727951C5000F04CE0 /* collider_set3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595C327951C4F00F04CE0 /* collider_set3_tests.cpp */; };
+		044595C827951C5000F04CE0 /* rigid_body_collider3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595C427951C4F00F04CE0 /* rigid_body_collider3_tests.cpp */; };
+		044595C927951C5000F04CE0 /* collider_set2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595C527951C4F00F04CE0 /* collider_set2_tests.cpp */; };
+		044595CA27951C5000F04CE0 /* rigid_body_collider2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595C627951C5000F04CE0 /* rigid_body_collider2_tests.cpp */; };
+		044595CD27951D2A00F04CE0 /* libvox.force.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04459590279518FF00F04CE0 /* libvox.force.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -470,6 +475,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0422969E278DAE4E0090983F;
 			remoteInfo = vox.math;
+		};
+		044595CB27951D2700F04CE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0445958F279518FF00F04CE0;
+			remoteInfo = vox.force;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -953,6 +965,10 @@
 		044595A42795193D00F04CE0 /* rigid_body_collider2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rigid_body_collider2.cpp; sourceTree = "<group>"; };
 		044595A52795193D00F04CE0 /* rigid_body_collider3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rigid_body_collider3.cpp; sourceTree = "<group>"; };
 		044595A62795193D00F04CE0 /* collider_set2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collider_set2.h; sourceTree = "<group>"; };
+		044595C327951C4F00F04CE0 /* collider_set3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collider_set3_tests.cpp; sourceTree = "<group>"; };
+		044595C427951C4F00F04CE0 /* rigid_body_collider3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rigid_body_collider3_tests.cpp; sourceTree = "<group>"; };
+		044595C527951C4F00F04CE0 /* collider_set2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collider_set2_tests.cpp; sourceTree = "<group>"; };
+		044595C627951C5000F04CE0 /* rigid_body_collider2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rigid_body_collider2_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -976,6 +992,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044595CD27951D2A00F04CE0 /* libvox.force.a in Frameworks */,
 				044595792795133B00F04CE0 /* libvox.geometry.a in Frameworks */,
 				0445957A2795133B00F04CE0 /* libvox.math.a in Frameworks */,
 			);
@@ -1240,6 +1257,11 @@
 				044595642795128200F04CE0 /* surface_to_implicit3_tests.cpp */,
 				0445955F2795128200F04CE0 /* implicit_surface_set2_tests.cpp */,
 				044595632795128200F04CE0 /* implicit_surface_set3_tests.cpp */,
+				044595C227951C2C00F04CE0 /* geometry */,
+				044595C627951C5000F04CE0 /* rigid_body_collider2_tests.cpp */,
+				044595C427951C4F00F04CE0 /* rigid_body_collider3_tests.cpp */,
+				044595C527951C4F00F04CE0 /* collider_set2_tests.cpp */,
+				044595C327951C4F00F04CE0 /* collider_set3_tests.cpp */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -1750,6 +1772,13 @@
 			name = colliders;
 			sourceTree = "<group>";
 		};
+		044595C227951C2C00F04CE0 /* geometry */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = geometry;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2036,6 +2065,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				044595CC27951D2700F04CE0 /* PBXTargetDependency */,
 				04229615278D2B300090983F /* PBXTargetDependency */,
 			);
 			name = unit_tests;
@@ -2317,8 +2347,10 @@
 				04459589279517B100F04CE0 /* triangle_mesh3_tests.cpp in Sources */,
 				0445957F2795140E00F04CE0 /* sphere3_tests.cpp in Sources */,
 				0445957C2795135700F04CE0 /* box2_tests.cpp in Sources */,
+				044595C927951C5000F04CE0 /* collider_set2_tests.cpp in Sources */,
 				044594972793B98F00F04CE0 /* vector_tests.cpp in Sources */,
 				044594982793B98F00F04CE0 /* vector2_tests.cpp in Sources */,
+				044595C727951C5000F04CE0 /* collider_set3_tests.cpp in Sources */,
 				044595102794FC0A00F04CE0 /* quadtree_tests.cpp in Sources */,
 				044594992793B98F00F04CE0 /* quaternion_tests.cpp in Sources */,
 				044591BB278DB90500F04CE0 /* bounding_box_tests.cpp in Sources */,
@@ -2329,6 +2361,7 @@
 				044591BC278DBA1B00F04CE0 /* bounding_box3_tests.cpp in Sources */,
 				044594952793B98F00F04CE0 /* vector3_tests.cpp in Sources */,
 				044595882795172700F04CE0 /* implicit_surface_set3_tests.cpp in Sources */,
+				044595CA27951C5000F04CE0 /* rigid_body_collider2_tests.cpp in Sources */,
 				044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */,
 				0445957E2795140200F04CE0 /* sphere2_tests.cpp in Sources */,
 				044595812795144B00F04CE0 /* triangle3_tests.cpp in Sources */,
@@ -2349,6 +2382,7 @@
 				0445949E2793B98F00F04CE0 /* matrix2x2_tests.cpp in Sources */,
 				04459587279516CB00F04CE0 /* implicit_surface_set2_tests.cpp in Sources */,
 				044595802795141D00F04CE0 /* cylinder3_tests.cpp in Sources */,
+				044595C827951C5000F04CE0 /* rigid_body_collider3_tests.cpp in Sources */,
 				044594962793B98F00F04CE0 /* point_tests.cpp in Sources */,
 				0445957B2795134600F04CE0 /* plane3_tests.cpp in Sources */,
 				044595782795128300F04CE0 /* plane2_tests.cpp in Sources */,
@@ -2448,6 +2482,11 @@
 			isa = PBXTargetDependency;
 			target = 0422969E278DAE4E0090983F /* vox.math */;
 			targetProxy = 044595B52795196D00F04CE0 /* PBXContainerItemProxy */;
+		};
+		044595CC27951D2700F04CE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0445958F279518FF00F04CE0 /* vox.force */;
+			targetProxy = 044595CB27951D2700F04CE0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
