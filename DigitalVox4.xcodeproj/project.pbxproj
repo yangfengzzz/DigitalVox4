@@ -397,6 +397,7 @@
 		04459585279515E700F04CE0 /* surface_to_implicit3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595642795128200F04CE0 /* surface_to_implicit3_tests.cpp */; };
 		04459587279516CB00F04CE0 /* implicit_surface_set2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445955F2795128200F04CE0 /* implicit_surface_set2_tests.cpp */; };
 		044595882795172700F04CE0 /* implicit_surface_set3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595632795128200F04CE0 /* implicit_surface_set3_tests.cpp */; };
+		04459589279517B100F04CE0 /* triangle_mesh3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445955B2795128100F04CE0 /* triangle_mesh3_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2199,6 +2200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04459589279517B100F04CE0 /* triangle_mesh3_tests.cpp in Sources */,
 				0445957F2795140E00F04CE0 /* sphere3_tests.cpp in Sources */,
 				0445957C2795135700F04CE0 /* box2_tests.cpp in Sources */,
 				044594972793B98F00F04CE0 /* vector_tests.cpp in Sources */,

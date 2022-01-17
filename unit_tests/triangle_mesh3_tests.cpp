@@ -4,9 +4,9 @@
 // personal capacity and am not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <unit_tests_utils.h>
+#include "unit_tests_utils.h"
 
-#include "triangle_mesh3.h>
+#include "triangle_mesh3.h"
 
 using namespace vox;
 
@@ -38,9 +38,9 @@ TEST(TriangleMesh3, ClosestPoint) {
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
 
-    const auto bruteForceSearch = [&](const Vector3D& pt) {
+    const auto bruteForceSearch = [&](const Point3D& pt) {
         double minDist2 = kMaxD;
-        Vector3D result;
+        Point3D result;
         for (size_t i = 0; i < mesh.numberOfTriangles(); ++i) {
             Triangle3 tri = mesh.triangle(i);
             auto localResult = tri.closestPoint(pt);
@@ -68,7 +68,7 @@ TEST(TriangleMesh3, ClosestNormal) {
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
 
-    const auto bruteForceSearch = [&](const Vector3D& pt) {
+    const auto bruteForceSearch = [&](const Point3D& pt) {
         double minDist2 = kMaxD;
         Vector3D result;
         for (size_t i = 0; i < mesh.numberOfTriangles(); ++i) {
@@ -99,7 +99,7 @@ TEST(TriangleMesh3, ClosestDistance) {
     TriangleMesh3 mesh;
     mesh.readObj(&objStream);
 
-    const auto bruteForceSearch = [&](const Vector3D& pt) {
+    const auto bruteForceSearch = [&](const Point3D& pt) {
         double minDist = kMaxD;
         for (size_t i = 0; i < mesh.numberOfTriangles(); ++i) {
             Triangle3 tri = mesh.triangle(i);
@@ -189,7 +189,7 @@ TEST(TriangleMesh3, IsInside) {
     size_t numSamples = getNumberOfSamplePoints3();
 
     for (size_t i = 0; i < numSamples; ++i) {
-        Vector3D p = getSamplePoints3()[i];
+        Point3D p = getSamplePoints3()[i];
         auto actual = mesh.isInside(p);
         auto expected = mesh.boundingBox().contains(p);
         EXPECT_EQ(expected, actual);
@@ -210,10 +210,10 @@ TEST(TriangleMesh3, BoundingBox) {
 
 TEST(TriangleMesh3, Builder) {
     TriangleMesh3::PointArray points = {
-        Vector3D(1, 2, 3),
-        Vector3D(4, 5, 6),
-        Vector3D(7, 8, 9),
-        Vector3D(10, 11, 12)
+        Point3D(1, 2, 3),
+        Point3D(4, 5, 6),
+        Point3D(7, 8, 9),
+        Point3D(10, 11, 12)
     };
 
     TriangleMesh3::NormalArray normals = {
