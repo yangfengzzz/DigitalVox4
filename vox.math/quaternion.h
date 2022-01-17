@@ -38,7 +38,7 @@ public:
     Quaternion();
     
     //! Constructs a quaternion with given elements.
-    Quaternion(T newW, T newX, T newY, T newZ);
+    Quaternion(T newX, T newY, T newZ, T newW);
     
     //! Constructs a quaternion with given elements.
     Quaternion(const std::initializer_list<T> &lst);
@@ -67,7 +67,7 @@ public:
     void set(const Quaternion &other);
     
     //! Sets the quaternion with given elements.
-    void set(T newW, T newX, T newY, T newZ);
+    void set(T newX, T newY, T newZ, T newW);
     
     //! Sets the quaternion with given elements.
     void set(const std::initializer_list<T> &lst);

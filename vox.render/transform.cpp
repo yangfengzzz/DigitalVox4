@@ -202,7 +202,7 @@ void Transform::setRotation(float x, float y, float z) {
 }
 
 void Transform::setRotationQuaternion(float x, float y, float z, float w) {
-    _rotationQuaternion = QuaternionF(w, x, y, z);
+    _rotationQuaternion = QuaternionF(x, y, z, w);
     setRotationQuaternion(_rotationQuaternion);
 }
 
@@ -222,7 +222,7 @@ void Transform::setWorldRotation(float x, float y, float z) {
 }
 
 void Transform::setWorldRotationQuaternion(float x, float y, float z, float w) {
-    _worldRotationQuaternion = QuaternionF(w, x, y, z);
+    _worldRotationQuaternion = QuaternionF(x, y, z, w);
     setWorldRotationQuaternion(_worldRotationQuaternion);
 }
 

@@ -65,13 +65,13 @@ void CapsuleColliderShape::setUpAxis(ColliderShapeUpAxis::Enum value) {
     _upAxis = value;
     switch (_upAxis) {
         case ColliderShapeUpAxis::Enum::X:
-            _pose.setOrientation(QuaternionF(1, 0, 0, 0));
+            _pose.setOrientation(QuaternionF(0, 0, 0, 1));
             break;
         case ColliderShapeUpAxis::Enum::Y:
-            _pose.setOrientation(QuaternionF(ColliderShape::halfSqrt, 0, 0, ColliderShape::halfSqrt));
+            _pose.setOrientation(QuaternionF(0, 0, ColliderShape::halfSqrt, ColliderShape::halfSqrt));
             break;
         case ColliderShapeUpAxis::Enum::Z:
-            _pose.setOrientation(QuaternionF(ColliderShape::halfSqrt, 0, ColliderShape::halfSqrt, 0));
+            _pose.setOrientation(QuaternionF(0, ColliderShape::halfSqrt, 0, ColliderShape::halfSqrt));
             break;
     }
     setLocalPose(_pose);

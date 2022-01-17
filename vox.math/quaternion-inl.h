@@ -18,8 +18,8 @@ inline Quaternion<T>::Quaternion() {
 }
 
 template<typename T>
-inline Quaternion<T>::Quaternion(T newW, T newX, T newY, T newZ) {
-    set(newW, newX, newY, newZ);
+inline Quaternion<T>::Quaternion(T newX, T newY, T newZ, T newW) {
+    set(newX, newY, newZ, newW);
 }
 
 template<typename T>
@@ -58,15 +58,15 @@ inline Quaternion<T>::Quaternion(const Quaternion &other) {
 // Basic setters
 template<typename T>
 inline void Quaternion<T>::set(const Quaternion &other) {
-    set(other.w, other.x, other.y, other.z);
+    set(other.x, other.y, other.z, other.w);
 }
 
 template<typename T>
-inline void Quaternion<T>::set(T newW, T newX, T newY, T newZ) {
-    w = newW;
+inline void Quaternion<T>::set(T newX, T newY, T newZ, T newW) {
     x = newX;
     y = newY;
     z = newZ;
+    w = newW;
 }
 
 template<typename T>
@@ -74,10 +74,10 @@ inline void Quaternion<T>::set(const std::initializer_list<T> &lst) {
     assert(lst.size() == 4);
     
     auto inputElem = lst.begin();
-    w = *inputElem;
-    x = *(++inputElem);
+    x = *inputElem;
     y = *(++inputElem);
     z = *(++inputElem);
+    w = *(++inputElem);
 }
 
 template<typename T>
@@ -120,7 +120,7 @@ inline void Quaternion<T>::set(const Vector3 <T> &from, const Vector3 <T> &to) {
             axis = std::get<0>(from.tangential());
         }
         
-        set(from.dot(to), axis.x, axis.y, axis.z);
+        set(axis.x, axis.y, axis.z, from.dot(to));
         w += l2Norm();
         
         normalize();
@@ -179,10 +179,10 @@ inline void Quaternion<T>::set(const Matrix3x3 <T> &m) {
 template<typename T>
 template<typename U>
 Quaternion <U> Quaternion<T>::castTo() const {
-    return Quaternion<U>(static_cast<U>(w),
-                         static_cast<U>(x),
+    return Quaternion<U>(static_cast<U>(x),
                          static_cast<U>(y),
-                         static_cast<U>(z));
+                         static_cast<U>(z),
+                         static_cast<U>(w));
 }
 
 //! Returns normalized quaternion.
@@ -231,10 +231,10 @@ inline Point3 <T> Quaternion<T>::mul(const Point3 <T> &v) const {
 
 template<typename T>
 inline Quaternion <T> Quaternion<T>::mul(const Quaternion &other) const {
-    return Quaternion(w * other.w - x * other.x - y * other.y - z * other.z,
-                      w * other.x + x * other.w + y * other.z - z * other.y,
+    return Quaternion(w * other.x + x * other.w + y * other.z - z * other.y,
                       w * other.y - x * other.z + y * other.w + z * other.x,
-                      w * other.z + x * other.y - y * other.x + z * other.w);
+                      w * other.z + x * other.y - y * other.x + z * other.w,
+                      w * other.w - x * other.x - y * other.y - z * other.z);
 }
 
 template<typename T>
@@ -245,10 +245,10 @@ inline T Quaternion<T>::dot(const Quaternion <T> &other) {
 // Binary operator methods - new instance = input (+) this instance
 template<typename T>
 inline Quaternion <T> Quaternion<T>::rmul(const Quaternion &other) const {
-    return Quaternion(other.w * w - other.x * x - other.y * y - other.z * z,
-                      other.w * x + other.x * w + other.y * z - other.z * y,
+    return Quaternion(other.w * x + other.x * w + other.y * z - other.z * y,
                       other.w * y - other.x * z + other.y * w + other.z * x,
-                      other.w * z + other.x * y - other.y * x + other.z * w);
+                      other.w * z + other.x * y - other.y * x + other.z * w,
+                      other.w * w - other.x * x - other.y * y - other.z * z);
 }
 
 
@@ -262,7 +262,7 @@ inline void Quaternion<T>::imul(const Quaternion &other) {
 // Modifiers
 template<typename T>
 inline void Quaternion<T>::setIdentity() {
-    set(1, 0, 0, 0);
+    set(0, 0, 0, 1);
 }
 
 template<typename T>
@@ -295,10 +295,10 @@ inline Quaternion <T> Quaternion<T>::rotateX(T rad) const {
     T bx = std::sin(rad);
     T bw = std::cos(rad);
     
-    return Quaternion<T>(w * bw - x * bx,
-                         x * bw + w * bx,
+    return Quaternion<T>(x * bw + w * bx,
                          y * bw + z * bx,
-                         z * bw - y * bx);
+                         z * bw - y * bx,
+                         w * bw - x * bx);
 }
 
 template<typename T>
@@ -319,10 +319,10 @@ inline Quaternion <T> Quaternion<T>::rotateY(T rad) const {
     T by = std::sin(rad);
     T bw = std::cos(rad);
     
-    return Quaternion<T>(w * bw - y * by,
-                         x * bw - z * by,
+    return Quaternion<T>(x * bw - z * by,
                          y * bw + w * by,
-                         z * bw + x * by);
+                         z * bw + x * by,
+                         w * bw - y * by);
 }
 
 template<typename T>
@@ -343,10 +343,10 @@ inline Quaternion <T> Quaternion<T>::rotateZ(T rad) const {
     T bz = std::sin(rad);
     T bw = std::cos(rad);
     
-    return Quaternion<T>(w * bw - z * bz,
-                         x * bw + y * bz,
+    return Quaternion<T>(x * bw + y * bz,
                          y * bw - x * bz,
-                         z * bw + w * bz);
+                         z * bw + w * bz,
+                         w * bw - z * bz);
 }
 
 template<typename T>
@@ -435,7 +435,7 @@ inline Vector3 <T> Quaternion<T>::toYawPitchRoll() const {
 
 template<typename T>
 inline Quaternion <T> Quaternion<T>::conjugate() const {
-    return Quaternion<T>(w, -x, -y, -z);
+    return Quaternion<T>(-x, -y, -z, w);
 }
 
 template<typename T>
@@ -451,7 +451,7 @@ inline T Quaternion<T>::lengthSquared() const {
 template<typename T>
 inline Quaternion <T> Quaternion<T>::inverse() const {
     T denom = w * w + x * x + y * y + z * z;
-    return Quaternion(w / denom, -x / denom, -y / denom, -z / denom);
+    return Quaternion(-x / denom, -y / denom, -z / denom, w / denom);
 }
 
 template<typename T>
@@ -565,10 +565,10 @@ Quaternion <T> Quaternion<T>::makeRotationYawPitchRoll(T yaw, T pitch, T roll) {
     T cosYawPitch = cosYaw * cosPitch;
     T sinYawPitch = sinYaw * sinPitch;
     
-    return Quaternion<T>(cosYawPitch * cosRoll + sinYawPitch * sinRoll,
-                         cosYaw * sinPitch * cosRoll + sinYaw * cosPitch * sinRoll,
+    return Quaternion<T>(cosYaw * sinPitch * cosRoll + sinYaw * cosPitch * sinRoll,
                          sinYaw * cosPitch * cosRoll - cosYaw * sinPitch * sinRoll,
-                         cosYawPitch * sinRoll - sinYawPitch * cosRoll);
+                         cosYawPitch * sinRoll - sinYawPitch * cosRoll,
+                         cosYawPitch * cosRoll + sinYawPitch * sinRoll);
 }
 
 template<typename T>
@@ -576,7 +576,7 @@ Quaternion <T> Quaternion<T>::makeRotationX(T rad) {
     rad *= 0.5;
     T s = std::sin(rad);
     T c = std::cos(rad);
-    return Quaternion<T>(c, s, 0, 0);
+    return Quaternion<T>(s, 0, 0, c);
 }
 
 template<typename T>
@@ -584,7 +584,7 @@ Quaternion <T> Quaternion<T>::makeRotationY(T rad) {
     rad *= 0.5;
     T s = std::sin(rad);
     T c = std::cos(rad);
-    return Quaternion<T>(c, 0, s, 0);
+    return Quaternion<T>(0, s, 0, c);
 }
 
 template<typename T>
@@ -592,7 +592,7 @@ Quaternion <T> Quaternion<T>::makeRotationZ(T rad) {
     rad *= 0.5;
     T s = std::sin(rad);
     T c = std::cos(rad);
-    return Quaternion<T>(c, 0, 0, s);
+    return Quaternion<T>(0, 0, s, c);
 }
 
 template<typename T>
@@ -624,10 +624,10 @@ inline Quaternion <T> slerp(const Quaternion <T> &a,
         }
     }
     
-    return Quaternion<T>(weightA * a.w + weightB * b.w,
-                         weightA * a.x + weightB * b.x,
+    return Quaternion<T>(weightA * a.x + weightB * b.x,
                          weightA * a.y + weightB * b.y,
-                         weightA * a.z + weightB * b.z);
+                         weightA * a.z + weightB * b.z,
+                         weightA * a.w + weightB * b.w);
 }
 
 

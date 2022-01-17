@@ -67,7 +67,7 @@ Transform3F DynamicCollider::centerOfMass() {
     const auto &pose = static_cast<PxRigidDynamic *>(_nativeActor)->getCMassLocalPose();
     Transform3F trans;
     trans.setTranslation(Vector3F(pose.p.x, pose.p.y, pose.p.z));
-    trans.setOrientation(QuaternionF(pose.q.w, pose.q.x, pose.q.y, pose.q.z));
+    trans.setOrientation(QuaternionF(pose.q.x, pose.q.y, pose.q.z, pose.q.w));
     return trans;
 }
 
@@ -197,7 +197,7 @@ void DynamicCollider::_onLateUpdate() {
     
     PxTransform pose = _nativeActor->getGlobalPose();
     transform->setWorldPosition(Point3F(pose.p.x, pose.p.y, pose.p.z));
-    transform->setWorldRotationQuaternion(QuaternionF(pose.q.w, pose.q.x, pose.q.y, pose.q.z));
+    transform->setWorldRotationQuaternion(QuaternionF(pose.q.x, pose.q.y, pose.q.z, pose.q.w));
     _updateFlag->flag = false;
 }
 

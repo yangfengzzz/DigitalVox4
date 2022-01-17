@@ -19,7 +19,7 @@ TEST(Quaternion, Constructors) {
         EXPECT_DOUBLE_EQ(0.0, q.z);
     }
     {
-        QuaternionD q(1, 2, 3, 4);
+        QuaternionD q(2, 3, 4, 1);
         
         EXPECT_DOUBLE_EQ(1.0, q.w);
         EXPECT_DOUBLE_EQ(2.0, q.x);
@@ -27,7 +27,7 @@ TEST(Quaternion, Constructors) {
         EXPECT_DOUBLE_EQ(4.0, q.z);
     }
     {
-        QuaternionD q(QuaternionD(1, 2, 3, 4));
+        QuaternionD q(QuaternionD(2, 3, 4, 1));
         
         EXPECT_DOUBLE_EQ(1.0, q.w);
         EXPECT_DOUBLE_EQ(2.0, q.x);
@@ -35,7 +35,7 @@ TEST(Quaternion, Constructors) {
         EXPECT_DOUBLE_EQ(4.0, q.z);
     }
     {
-        QuaternionD q({1, 2, 3, 4});
+        QuaternionD q({2, 3, 4, 1});
         
         EXPECT_DOUBLE_EQ(1.0, q.w);
         EXPECT_DOUBLE_EQ(2.0, q.x);
@@ -90,7 +90,7 @@ TEST(Quaternion, Constructors) {
 TEST(Quaternion, BasicSetters) {
     {
         QuaternionD q;
-        q.set(QuaternionD(1, 2, 3, 4));
+        q.set(QuaternionD(2, 3, 4, 1));
         
         EXPECT_DOUBLE_EQ(1.0, q.w);
         EXPECT_DOUBLE_EQ(2.0, q.x);
@@ -99,7 +99,7 @@ TEST(Quaternion, BasicSetters) {
     }
     {
         QuaternionD q;
-        q.set(1, 2, 3, 4);
+        q.set(2, 3, 4, 1);
         
         EXPECT_DOUBLE_EQ(1.0, q.w);
         EXPECT_DOUBLE_EQ(2.0, q.x);
@@ -108,7 +108,7 @@ TEST(Quaternion, BasicSetters) {
     }
     {
         QuaternionD q;
-        q.set({1, 2, 3, 4});
+        q.set({2, 3, 4, 1});
         
         EXPECT_DOUBLE_EQ(1.0, q.w);
         EXPECT_DOUBLE_EQ(2.0, q.x);
@@ -164,17 +164,17 @@ TEST(Quaternion, BasicSetters) {
 }
 
 TEST(Quaternion, CastTo) {
-    QuaternionD qd(1, 2, 3, 4);
+    QuaternionD qd(2, 3, 4, 1);
     QuaternionF qf = qd.castTo<float>();
     
-    EXPECT_FLOAT_EQ(1.f, qf.w);
     EXPECT_FLOAT_EQ(2.f, qf.x);
     EXPECT_FLOAT_EQ(3.f, qf.y);
     EXPECT_FLOAT_EQ(4.f, qf.z);
+    EXPECT_FLOAT_EQ(1.f, qf.w);
 }
 
 TEST(Quaternion, Normalized) {
-    QuaternionD q(1, 2, 3, 4);
+    QuaternionD q(2, 3, 4, 1);
     QuaternionD qn = q.normalized();
     
     double denom = std::sqrt(30.0);
@@ -185,8 +185,8 @@ TEST(Quaternion, Normalized) {
 }
 
 TEST(Quaternion, BinaryOperators) {
-    QuaternionD q1(1, 2, 3, 4);
-    QuaternionD q2(1, -2, -3, -4);
+    QuaternionD q1(2, 3, 4, 1);
+    QuaternionD q2(-2, -3, -4, 1);
     
     QuaternionD q3 = q1.mul(q2);
     
@@ -206,8 +206,8 @@ TEST(Quaternion, BinaryOperators) {
     EXPECT_DOUBLE_EQ(ans2.y, ans1.y);
     EXPECT_DOUBLE_EQ(ans2.z, ans1.z);
     
-    q1.set(1, 2, 3, 4);
-    q2.set(5, 6, 7, 8);
+    q1.set(2, 3, 4, 1);
+    q2.set(6, 7, 8, 5);
     EXPECT_DOUBLE_EQ(70.0, q1.dot(q2));
     
     q3 = q1.mul(q2);
@@ -217,7 +217,7 @@ TEST(Quaternion, BinaryOperators) {
 }
 
 TEST(Quaternion, Modifiers) {
-    QuaternionD q(4, 3, 2, 1);
+    QuaternionD q(3, 2, 1, 4);
     q.setIdentity();
     
     EXPECT_DOUBLE_EQ(1.0, q.w);
@@ -225,7 +225,7 @@ TEST(Quaternion, Modifiers) {
     EXPECT_DOUBLE_EQ(0.0, q.y);
     EXPECT_DOUBLE_EQ(0.0, q.z);
     
-    q.set(4, 3, 2, 1);
+    q.set(3, 2, 1, 4);
     q.normalize();
     
     double denom = std::sqrt(30.0);
@@ -245,7 +245,7 @@ TEST(Quaternion, Modifiers) {
 }
 
 TEST(Quaternion, ComplexGetters) {
-    QuaternionD q(1, 2, 3, 4);
+    QuaternionD q(2, 3, 4, 1);
     
     QuaternionD q2 = q.inverse();
     EXPECT_DOUBLE_EQ(1.0 / 30.0, q2.w);
@@ -253,7 +253,7 @@ TEST(Quaternion, ComplexGetters) {
     EXPECT_DOUBLE_EQ(-1.0 / 10.0, q2.y);
     EXPECT_DOUBLE_EQ(-2.0 / 15.0, q2.z);
     
-    q.set(1, 0, 5, 2);
+    q.set(0, 5, 2, 1);
     q.normalize();
     Matrix3x3D mat3 = q.matrix3();
     double solution3[9] = {
@@ -291,13 +291,13 @@ TEST(Quaternion, ComplexGetters) {
         EXPECT_DOUBLE_EQ(solution4[i], mat4[i]);
     }
     
-    q.set(1, 2, 3, 4);
+    q.set(2, 3, 4, 1);
     EXPECT_DOUBLE_EQ(std::sqrt(30.0), q.l2Norm());
 }
 
 TEST(Quaternion, SetterOperators) {
-    QuaternionD q(1, 2, 3, 4);
-    QuaternionD q2(5, 6, 7, 8);
+    QuaternionD q(2, 3, 4, 1);
+    QuaternionD q2(6, 7, 8, 1);
     
     q2 = q;
     EXPECT_EQ(1.0, q2.w);
@@ -305,7 +305,7 @@ TEST(Quaternion, SetterOperators) {
     EXPECT_EQ(3.0, q2.y);
     EXPECT_EQ(4.0, q2.z);
     
-    q2.set(5, 6, 7, 8);
+    q2.set(6, 7, 8, 5);
     
     q *= q2;
     
@@ -316,14 +316,14 @@ TEST(Quaternion, SetterOperators) {
 }
 
 TEST(Quaternion, GetterOperators) {
-    QuaternionD q(1, 2, 3, 4);
+    QuaternionD q(2, 3, 4, 1);
     
     EXPECT_EQ(1.0, q[0]);
     EXPECT_EQ(2.0, q[1]);
     EXPECT_EQ(3.0, q[2]);
     EXPECT_EQ(4.0, q[3]);
     
-    QuaternionD q2(1, 2, 3, 4);
+    QuaternionD q2(2, 3, 4, 1);
     EXPECT_TRUE(q == q2);
     
     q[0] = 5.0;

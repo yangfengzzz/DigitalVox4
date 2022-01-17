@@ -24,7 +24,7 @@ Transform3F Joint::localPose(PxJointActorIndex::Enum actor) const {
     const auto pose = _nativeJoint->getLocalPose(actor);
     Transform3F trans;
     trans.setTranslation(Vector3F(pose.p.x, pose.p.y, pose.p.z));
-    trans.setOrientation(QuaternionF(pose.q.w, pose.q.x, pose.q.y, pose.q.z));
+    trans.setOrientation(QuaternionF(pose.q.x, pose.q.y, pose.q.z, pose.q.w));
     return trans;
 }
 
@@ -32,7 +32,7 @@ Transform3F Joint::relativeTransform() const {
     const auto pose = _nativeJoint->getRelativeTransform();
     Transform3F trans;
     trans.setTranslation(Vector3F(pose.p.x, pose.p.y, pose.p.z));
-    trans.setOrientation(QuaternionF(pose.q.w, pose.q.x, pose.q.y, pose.q.z));
+    trans.setOrientation(QuaternionF(pose.q.x, pose.q.y, pose.q.z, pose.q.w));
     return trans;
 }
 

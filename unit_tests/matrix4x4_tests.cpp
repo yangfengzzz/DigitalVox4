@@ -510,3 +510,87 @@ TEST(Matrix4x4, Helpers) {
                                          0.0, 0.0, 1.0, 0.0,
                                          -2.0, 5.0, 3.5, 1.0)));
 }
+
+//MARK: -
+TEST(Matrix4x4, multiply) {
+    const auto a = Matrix4x4D(1, 2, 3.3, 4, 5, 6, 7, 8, 9, 10.9, 11, 12, 13, 14, 15, 16);
+    const auto b = Matrix4x4D(16, 15, 14, 13, 12, 11, 10, 9, 8.88, 7, 6, 5, 4, 3, 2, 1);
+    const Matrix4x4D out = a * b;
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(386,
+                                         456.60000000000002,
+                                         506.80000000000001,
+                                         560,
+                                         274,
+                                         325,
+                                         361.60000000000002,
+                                         400,
+                                         162.88,
+                                         195.16000000000003,
+                                         219.304,
+                                         243.52000000000001,
+                                         50,
+                                         61.799999999999997,
+                                         71.200000000000003,
+                                         80)));
+}
+
+TEST(Matrix4x4, lerp) {
+    const auto a = Matrix4x4D(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+    const auto b = Matrix4x4D(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+    const auto c = lerp(a, b, 0.7);
+    EXPECT_TRUE(c.isSimilar(Matrix4x4D(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)));
+}
+
+TEST(Matrix4x4, rotationQuaternion) {
+    const auto q = QuaternionD(1, 2, 3, 4);
+    const auto out = q.matrix4();
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(-25, 28, -10, 0, -20, -19, 20, 0, 22, 4, -9, 0, 0, 0, 0, 1)));
+}
+
+TEST(Matrix4x4, rotationAxisAngle) {
+    auto out = Matrix4x4D();
+    out.rotateAxisAngle(Vector3D(0, 1, 0), M_PI / 3);
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(0.5000000000000001,
+                                         0,
+                                         -0.8660254037844386,
+                                         0,
+                                         0,
+                                         1,
+                                         0,
+                                         0,
+                                         0.8660254037844386,
+                                         0,
+                                         0.5000000000000001,
+                                         0,
+                                         0,
+                                         0,
+                                         0,
+                                         1)));
+}
+
+TEST(Matrix4x4, rotationTranslation) {
+    const auto q = QuaternionD(1, 0.5, 2, 1);
+    const auto v = Point3D(1, 1, 1);
+    const auto out = makeRotationTranslationMatrix(q, v);
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(-7.5, 5, 3, 0, -3, -9, 4, 0, 5, 0, -1.5, 0, 1, 1, 1, 1)));
+}
+
+TEST(Matrix4x4, affineTransformation) {
+    const auto q = QuaternionD(1, 0.5, 2, 1);
+    const auto v = Point3D(1, 1, 1);
+    const auto s = Vector3D(1, 0.5, 2);
+    const auto out = makeAffineMatrix(s, q, v);
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(-7.5, 5, 3, 0, -1.5, -4.5, 2, 0, 10, 0, -3, 0, 1, 1, 1, 1)));
+}
+
+TEST(Matrix4x4, scaling) {
+    const auto a = Matrix4x4D();
+    auto out = a.scale(Vector3D(1, 2, 0.5));
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 1)));
+}
+
+TEST(Matrix4x4, translation) {
+    const auto v = Point3D(1, 2, 0.5);
+    const auto out = makeTranslationMatrix(v);
+    EXPECT_TRUE(out.isSimilar(Matrix4x4D(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 2, 0.5, 1)));
+}

@@ -99,7 +99,7 @@ Transform3F ConfigurableJoint::drivePosition() const {
     const auto pose = static_cast<PxD6Joint *>(_nativeJoint)->getDrivePosition();
     Transform3F trans;
     trans.setTranslation(Vector3F(pose.p.x, pose.p.y, pose.p.z));
-    trans.setOrientation(QuaternionF(pose.q.w, pose.q.x, pose.q.y, pose.q.z));
+    trans.setOrientation(QuaternionF(pose.q.x, pose.q.y, pose.q.z, pose.q.w));
     return trans;
 }
 
