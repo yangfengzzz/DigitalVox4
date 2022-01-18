@@ -1,9 +1,8 @@
-/*
- See LICENSE folder for this sample’s licensing information.
- 
- Abstract:
- Header for C++ MetalKit texture loader class wrapper
- */
+//  Copyright (c) 2022 Feng Yang
+//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef cpp_mtl_KitTextureLoader_hpp
 #define cpp_mtl_KitTextureLoader_hpp
@@ -55,9 +54,9 @@ public:
                              bool isTopLeft);
     
 private:
-    cpp_mtl_internal::TextureLoader m_objCObj;
+    cpp_mtl_internal::TextureLoader _objCObj;
     
-    MTL::Device *m_device;
+    MTL::Device *_device;
 };
 
 

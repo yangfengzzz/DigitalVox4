@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  depth_state.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/11/27.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef depth_state_hpp
 #define depth_state_hpp

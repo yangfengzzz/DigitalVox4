@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  unlit_material.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/11/29.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef unlit_material_hpp
 #define unlit_material_hpp

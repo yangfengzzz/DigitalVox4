@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  base_material.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/11/29.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef base_material_hpp
 #define base_material_hpp

@@ -297,6 +297,52 @@
 		044596602796F75900F04CE0 /* particle_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445940D2792545E00F04CE0 /* particle_subpass.cpp */; };
 		044596612796F7C800F04CE0 /* forward_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594292793134C00F04CE0 /* forward_subpass.h */; };
 		044596622796F7C800F04CE0 /* forward_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594282793134C00F04CE0 /* forward_subpass.cpp */; };
+		044596632796F85C00F04CE0 /* stencil_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B9278EC19E00F04CE0 /* stencil_state.h */; };
+		044596642796F85C00F04CE0 /* shader_property.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592AB278EBEB900F04CE0 /* shader_property.h */; };
+		044596652796F85C00F04CE0 /* shader_macro_collection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459295278EB2EB00F04CE0 /* shader_macro_collection.h */; };
+		044596662796F85C00F04CE0 /* shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B1278EBEE600F04CE0 /* shader.h */; };
+		044596672796F85C00F04CE0 /* depth_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592C0278EC5A200F04CE0 /* depth_state.h */; };
+		044596682796F85C00F04CE0 /* depth_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592C1278EC5A200F04CE0 /* depth_state.cpp */; };
+		044596692796F85C00F04CE0 /* shader_program.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B4278EBFC600F04CE0 /* shader_program.h */; };
+		0445966A2796F85C00F04CE0 /* blend_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592CC278EC79200F04CE0 /* blend_state.h */; };
+		0445966B2796F85C00F04CE0 /* raster_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592C7278EC64A00F04CE0 /* raster_state.h */; };
+		0445966C2796F85C00F04CE0 /* shader_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592AC278EBEB900F04CE0 /* shader_property.cpp */; };
+		0445966D2796F85C00F04CE0 /* shader_uniform.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592AA278EBEB900F04CE0 /* shader_uniform.h */; };
+		0445966E2796F85C00F04CE0 /* macro_name.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445929B278EB31400F04CE0 /* macro_name.h */; };
+		0445966F2796F85C00F04CE0 /* shader_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B5278EBFC600F04CE0 /* shader_program.cpp */; };
+		044596702796F85C00F04CE0 /* shader_data_group.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459299278EB2F900F04CE0 /* shader_data_group.h */; };
+		044596712796F85C00F04CE0 /* raster_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592C6278EC64A00F04CE0 /* raster_state.cpp */; };
+		044596722796F85C00F04CE0 /* shader_macro_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */; };
+		044596732796F85C00F04CE0 /* stencil_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B8278EC19E00F04CE0 /* stencil_state.cpp */; };
+		044596742796F85C00F04CE0 /* blend_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592CD278EC79200F04CE0 /* blend_state.cpp */; };
+		044596752796F85C00F04CE0 /* renderTarget_blend_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592CA278EC76000F04CE0 /* renderTarget_blend_state.h */; };
+		044596762796F85C00F04CE0 /* shader_data.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592A7278EB9DF00F04CE0 /* shader_data.h */; };
+		044596772796F85C00F04CE0 /* shader_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592A6278EB9DF00F04CE0 /* shader_data.cpp */; };
+		044596782796F85C00F04CE0 /* render_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592BD278EC58900F04CE0 /* render_state.h */; };
+		044596792796F85C00F04CE0 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B0278EBEE600F04CE0 /* shader.cpp */; };
+		0445967A2796F85C00F04CE0 /* render_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592BC278EC58900F04CE0 /* render_state.cpp */; };
+		0445967B2796F87C00F04CE0 /* base_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592DE278ED17E00F04CE0 /* base_material.cpp */; };
+		0445967C2796F87C00F04CE0 /* blend_mode.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D5278ED0FB00F04CE0 /* blend_mode.h */; };
+		0445967D2796F87C00F04CE0 /* render_queue_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D4278ED0FA00F04CE0 /* render_queue_type.h */; };
+		0445967E2796F87C00F04CE0 /* pbr_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592EA278ED82300F04CE0 /* pbr_material.cpp */; };
+		0445967F2796F87C00F04CE0 /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592DA278ED11F00F04CE0 /* material.cpp */; };
+		044596802796F87C00F04CE0 /* blinn_phong_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E5278ED6AE00F04CE0 /* blinn_phong_material.h */; };
+		044596812796F87C00F04CE0 /* blinn_phong_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592E6278ED6AE00F04CE0 /* blinn_phong_material.cpp */; };
+		044596822796F87C00F04CE0 /* material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D9278ED11E00F04CE0 /* material.h */; };
+		044596832796F87C00F04CE0 /* pbr_specular_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F1278EDA3200F04CE0 /* pbr_specular_material.h */; };
+		044596842796F87C00F04CE0 /* unlit_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E2278ED3D200F04CE0 /* unlit_material.h */; };
+		044596852796F87C00F04CE0 /* render_face.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D3278ED0FA00F04CE0 /* render_face.h */; };
+		044596862796F87C00F04CE0 /* pbr_base_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592EE278ED88400F04CE0 /* pbr_base_material.cpp */; };
+		044596872796F87C00F04CE0 /* unlit_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592E1278ED3D200F04CE0 /* unlit_material.cpp */; };
+		044596882796F87C00F04CE0 /* pbr_base_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592ED278ED88400F04CE0 /* pbr_base_material.h */; };
+		044596892796F87C00F04CE0 /* base_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592DD278ED17E00F04CE0 /* base_material.h */; };
+		0445968A2796F87C00F04CE0 /* pbr_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E9278ED82200F04CE0 /* pbr_material.h */; };
+		0445968B2796F87C00F04CE0 /* pbr_specular_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */; };
+		0445968C2796F87C00F04CE0 /* texture_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229570278C32FA0090983F /* texture_loader.h */; };
+		0445968D2796F87C00F04CE0 /* texture_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04229583278C32FA0090983F /* texture_loader.mm */; };
+		0445968E2796F97600F04CE0 /* skybox_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941827926E3300F04CE0 /* skybox_material.h */; };
+		0445968F2796F97600F04CE0 /* skybox_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445941727926E3300F04CE0 /* skybox_material.cpp */; };
+		044596902796F97600F04CE0 /* sky.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941227926CFF00F04CE0 /* sky.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1661,7 +1707,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				044596132796E9C900F04CE0 /* align.h in Headers */,
+				044596852796F87C00F04CE0 /* render_face.h in Headers */,
+				044596692796F85C00F04CE0 /* shader_program.h in Headers */,
 				044596242796EB1B00F04CE0 /* imgui_internal.h in Headers */,
+				044596892796F87C00F04CE0 /* base_material.h in Headers */,
 				044595E82796E88600F04CE0 /* cpp_mtl_drawable.h in Headers */,
 				0445960D2796E88B00F04CE0 /* resource_cache.h in Headers */,
 				044596152796E9F900F04CE0 /* allocator.h in Headers */,
@@ -1673,35 +1722,49 @@
 				044595D52796DB0500F04CE0 /* timer.h in Headers */,
 				044595FE2796E88600F04CE0 /* cpp_mtl.h in Headers */,
 				0445964C2796EF9500F04CE0 /* render_element.h in Headers */,
+				0445966A2796F85C00F04CE0 /* blend_state.h in Headers */,
+				0445966B2796F85C00F04CE0 /* raster_state.h in Headers */,
 				044595E92796E88600F04CE0 /* cpp_mtl_render_pipeline.h in Headers */,
+				044596702796F85C00F04CE0 /* shader_data_group.h in Headers */,
 				044595D82796DBEF00F04CE0 /* window.h in Headers */,
 				044595EB2796E88600F04CE0 /* cpp_mtl_function_constant_values.h in Headers */,
+				044596672796F85C00F04CE0 /* depth_state.h in Headers */,
+				0445966D2796F85C00F04CE0 /* shader_uniform.h in Headers */,
 				044595E42796E88600F04CE0 /* cpp_mtl_resource.h in Headers */,
 				044596342796EE4F00F04CE0 /* mesh_buffer.h in Headers */,
 				044596322796EDD400F04CE0 /* unix_engine.h in Headers */,
 				044595FB2796E88600F04CE0 /* cpp_mtl_resource_enum.h in Headers */,
 				044596592796F62100F04CE0 /* compose_subpass.h in Headers */,
+				0445968C2796F87C00F04CE0 /* texture_loader.h in Headers */,
 				044596292796EB1B00F04CE0 /* imstb_rectpack.h in Headers */,
 				044595E02796E88600F04CE0 /* cpp_mtl_command_buffer.h in Headers */,
+				044596632796F85C00F04CE0 /* stencil_state.h in Headers */,
 				044596112796E88B00F04CE0 /* cpp_mtl_dispatch_table_cache.h in Headers */,
 				044596612796F7C800F04CE0 /* forward_subpass.h in Headers */,
 				044595D92796DC9B00F04CE0 /* glfw_window.h in Headers */,
+				0445968A2796F87C00F04CE0 /* pbr_material.h in Headers */,
+				044596842796F87C00F04CE0 /* unlit_material.h in Headers */,
 				044596052796E88600F04CE0 /* cpp_mtl_render_pass.h in Headers */,
 				044595E72796E88600F04CE0 /* cpp_mtl_depth_stencil.h in Headers */,
 				044595FF2796E88600F04CE0 /* cpp_mtl_device.h in Headers */,
 				044596332796EE4F00F04CE0 /* sub_mesh.h in Headers */,
+				044596782796F85C00F04CE0 /* render_state.h in Headers */,
 				044596382796EE4F00F04CE0 /* mesh.h in Headers */,
 				044596092796E88600F04CE0 /* cpp_mtl_implementation.h in Headers */,
+				044596822796F87C00F04CE0 /* material.h in Headers */,
+				044596762796F85C00F04CE0 /* shader_data.h in Headers */,
 				0445963F2796EF9500F04CE0 /* math_utilities.h in Headers */,
 				0445960E2796E88B00F04CE0 /* metal_view.h in Headers */,
 				044596262796EB1B00F04CE0 /* imstb_truetype.h in Headers */,
 				044595EE2796E88600F04CE0 /* cpp_mtl_buffer.h in Headers */,
+				044596642796F85C00F04CE0 /* shader_property.h in Headers */,
 				044596252796EB1B00F04CE0 /* imconfig.h in Headers */,
 				044596272796EB1B00F04CE0 /* imgui.h in Headers */,
 				044595E22796E88600F04CE0 /* cpp_mtl_pixel_format.h in Headers */,
 				044595F02796E88600F04CE0 /* cpp_mtl_render_command_encoder.h in Headers */,
 				044595D42796DB0500F04CE0 /* std_helpers.h in Headers */,
 				044596102796E88B00F04CE0 /* cpp_mtl_device_internals.h in Headers */,
+				044596832796F87C00F04CE0 /* pbr_specular_material.h in Headers */,
 				044595E12796E88600F04CE0 /* cpp_mtl_texture.h in Headers */,
 				044596552796F5D100F04CE0 /* deferred_subpass.h in Headers */,
 				044595F12796E88600F04CE0 /* cpp_mtl_command_queue.h in Headers */,
@@ -1711,17 +1774,27 @@
 				0445962D2796EB4900F04CE0 /* engine.h in Headers */,
 				044596362796EE4F00F04CE0 /* mesh_loader.h in Headers */,
 				0445960B2796E88B00F04CE0 /* cpp_mtl_internal_macros.h in Headers */,
+				0445967C2796F87C00F04CE0 /* blend_mode.h in Headers */,
 				044595EA2796E88600F04CE0 /* cpp_mtl_library.h in Headers */,
+				044596752796F85C00F04CE0 /* renderTarget_blend_state.h in Headers */,
 				044595F82796E88600F04CE0 /* cpp_mtl_data_type.h in Headers */,
+				0445967D2796F87C00F04CE0 /* render_queue_type.h in Headers */,
 				0445965F2796F75900F04CE0 /* particle_subpass.h in Headers */,
+				0445968E2796F97600F04CE0 /* skybox_material.h in Headers */,
 				044595EF2796E88600F04CE0 /* cpp_mtl_constants.h in Headers */,
 				044595F62796E88600F04CE0 /* cpp_mtl_allocator.h in Headers */,
 				044596282796EB1B00F04CE0 /* imstb_textedit.h in Headers */,
+				044596902796F97600F04CE0 /* sky.h in Headers */,
 				044596002796E88600F04CE0 /* cpp_mtl_assert.h in Headers */,
+				0445966E2796F85C00F04CE0 /* macro_name.h in Headers */,
+				044596802796F87C00F04CE0 /* blinn_phong_material.h in Headers */,
 				044596162796EA5400F04CE0 /* unique_ptr.h in Headers */,
 				044595E62796E88600F04CE0 /* cpp_mtl_command_encoder.h in Headers */,
+				044596662796F85C00F04CE0 /* shader.h in Headers */,
+				044596652796F85C00F04CE0 /* shader_macro_collection.h in Headers */,
 				044595DB2796DE3B00F04CE0 /* input_events.h in Headers */,
 				044595E32796E88600F04CE0 /* cpp_mtl_vertex_descriptor.h in Headers */,
+				044596882796F87C00F04CE0 /* pbr_base_material.h in Headers */,
 				0445963C2796EE4F00F04CE0 /* primitive_mesh.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2016,16 +2089,22 @@
 				044595DA2796DC9B00F04CE0 /* glfw_window.mm in Sources */,
 				044595F52796E88600F04CE0 /* cpp_mtl_command_queue.mm in Sources */,
 				044595FC2796E88600F04CE0 /* cpp_mtl_pixel_format.mm in Sources */,
+				044596812796F87C00F04CE0 /* blinn_phong_material.cpp in Sources */,
 				044596302796ED4700F04CE0 /* application.cpp in Sources */,
 				044595ED2796E88600F04CE0 /* cpp_mtl_texture.mm in Sources */,
 				044596562796F5D100F04CE0 /* deferred_subpass.cpp in Sources */,
 				0445962C2796EB1B00F04CE0 /* imgui_tables.cpp in Sources */,
+				0445968F2796F97600F04CE0 /* skybox_material.cpp in Sources */,
 				044596012796E88600F04CE0 /* cpp_mtl_vertex_descriptor.mm in Sources */,
 				0445962A2796EB1B00F04CE0 /* imgui_draw.cpp in Sources */,
+				0445968D2796F87C00F04CE0 /* texture_loader.mm in Sources */,
 				044596032796E88600F04CE0 /* cpp_mtl_command_buffer.mm in Sources */,
+				044596732796F85C00F04CE0 /* stencil_state.cpp in Sources */,
+				044596792796F85C00F04CE0 /* shader.cpp in Sources */,
 				044596492796EF9500F04CE0 /* render_element.cpp in Sources */,
 				044595DC2796DE3B00F04CE0 /* input_events.cpp in Sources */,
 				044596022796E88600F04CE0 /* cpp_mtl_data_type.mm in Sources */,
+				0445967A2796F85C00F04CE0 /* render_state.cpp in Sources */,
 				044595F32796E88600F04CE0 /* cpp_mtl_render_pipeline.mm in Sources */,
 				044596042796E88600F04CE0 /* cpp_mtl_render_pass.mm in Sources */,
 				0445963A2796EE4F00F04CE0 /* mesh_loader.mm in Sources */,
@@ -2037,6 +2116,8 @@
 				044596522796EFD900F04CE0 /* render_pass.cpp in Sources */,
 				0445962E2796EB4900F04CE0 /* engine.cpp in Sources */,
 				0445964A2796EF9500F04CE0 /* math_utilities.cpp in Sources */,
+				044596682796F85C00F04CE0 /* depth_state.cpp in Sources */,
+				0445967F2796F87C00F04CE0 /* material.cpp in Sources */,
 				0445960C2796E88B00F04CE0 /* resource_cache.cpp in Sources */,
 				044596542796F57100F04CE0 /* shadow_subpass.cpp in Sources */,
 				044595F72796E88600F04CE0 /* cpp_mtl_device.mm in Sources */,
@@ -2046,20 +2127,31 @@
 				044596602796F75900F04CE0 /* particle_subpass.cpp in Sources */,
 				044596512796EFD900F04CE0 /* subpass.cpp in Sources */,
 				044596072796E88600F04CE0 /* cpp_mtl_command_encoder.mm in Sources */,
+				0445968B2796F87C00F04CE0 /* pbr_specular_material.cpp in Sources */,
+				0445967E2796F87C00F04CE0 /* pbr_material.cpp in Sources */,
 				044596082796E88600F04CE0 /* cpp_mtl_drawable.mm in Sources */,
+				044596742796F85C00F04CE0 /* blend_state.cpp in Sources */,
 				044595FA2796E88600F04CE0 /* cpp_mtl_depth_stencil.mm in Sources */,
+				044596772796F85C00F04CE0 /* shader_data.cpp in Sources */,
+				0445966F2796F85C00F04CE0 /* shader_program.cpp in Sources */,
 				0445965E2796F72900F04CE0 /* skybox_subpass.cpp in Sources */,
+				0445966C2796F85C00F04CE0 /* shader_property.cpp in Sources */,
 				0445965B2796F67300F04CE0 /* point_light_subpass.cpp in Sources */,
 				044595E52796E88600F04CE0 /* cpp_mtl_resource.mm in Sources */,
+				044596862796F87C00F04CE0 /* pbr_base_material.cpp in Sources */,
+				044596722796F85C00F04CE0 /* shader_macro_collection.cpp in Sources */,
 				044596142796E9F900F04CE0 /* allocator.cc in Sources */,
 				044596122796E9C900F04CE0 /* align.cc in Sources */,
+				044596872796F87C00F04CE0 /* unlit_material.cpp in Sources */,
 				044596312796EDD400F04CE0 /* unix_engine.cpp in Sources */,
 				044595F42796E88600F04CE0 /* cpp_mtl_library.mm in Sources */,
 				044596392796EE4F00F04CE0 /* primitive_mesh.cpp in Sources */,
 				044595F92796E88600F04CE0 /* cpp_mtl_render_command_encoder_dispatch_table.mm in Sources */,
 				044595D72796DBED00F04CE0 /* window.cpp in Sources */,
 				044595DF2796E88600F04CE0 /* cpp_mtl_render_command_encoder.mm in Sources */,
+				0445967B2796F87C00F04CE0 /* base_material.cpp in Sources */,
 				044596232796EB1B00F04CE0 /* imgui_widgets.cpp in Sources */,
+				044596712796F85C00F04CE0 /* raster_state.cpp in Sources */,
 				0445962B2796EB1B00F04CE0 /* imgui.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

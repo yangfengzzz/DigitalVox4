@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  render_face.h
-//  DigitalVox3
-//
-//  Created by 杨丰 on 2021/11/27.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef render_face_h
 #define render_face_h

@@ -1,9 +1,8 @@
-/*
- See LICENSE folder for this sample’s licensing information.
- 
- Abstract:
- Implementation of C++ MetalKit texture loader class wrapper
- */
+//  Copyright (c) 2022 Feng Yang
+//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include <Metal/Metal.h>
 #include "texture_loader.h"
@@ -15,13 +14,13 @@ using namespace MTL;
 
 namespace vox {
 TextureLoader::TextureLoader(MTL::Device &device)
-: m_objCObj([[MTKTextureLoader alloc] initWithDevice:device.objCObj()]), m_device(&device) {
+: _objCObj([[MTKTextureLoader alloc] initWithDevice:device.objCObj()]), _device(&device) {
     // Member initialization only
 }
 
 
 TextureLoader::~TextureLoader() {
-    m_objCObj = nil;
+    _objCObj = nil;
 }
 
 NSDictionary *textureLoaderDictionary(const TextureLoaderOptions &options) {
@@ -35,17 +34,17 @@ NSDictionary *textureLoaderDictionary(const TextureLoaderOptions &options) {
 }
 
 MTL::TexturePtr TextureLoader::makeTexture(const char *name,
-                                            float screenScaleFactor,
-                                            const TextureLoaderOptions &options,
-                                            CFErrorRef *error) {
+                                           float screenScaleFactor,
+                                           const TextureLoaderOptions &options,
+                                           CFErrorRef *error) {
     NSString *nsname = [[NSString alloc] initWithUTF8String:name];
     NSError *nserror;
     
-    id <MTLTexture> objCTexture = [m_objCObj newTextureWithName:nsname
-                                                    scaleFactor:1.0
-                                                         bundle:nil
-                                                        options:textureLoaderDictionary(options)
-                                                          error:&nserror];
+    id <MTLTexture> objCTexture = [_objCObj newTextureWithName:nsname
+                                                   scaleFactor:1.0
+                                                        bundle:nil
+                                                       options:textureLoaderDictionary(options)
+                                                         error:&nserror];
     
     if (!objCTexture) {
         if (error) {
@@ -53,20 +52,20 @@ MTL::TexturePtr TextureLoader::makeTexture(const char *name,
         }
         return nullptr;
     }
-        
-    return std::make_shared<Texture>(objCTexture, *m_device);
+    
+    return std::make_shared<Texture>(objCTexture, *_device);
 }
 
 MTL::TexturePtr TextureLoader::makeTexture(const char *URLString,
-                                            const TextureLoaderOptions &options,
-                                            CFErrorRef *error) {
+                                           const TextureLoaderOptions &options,
+                                           CFErrorRef *error) {
     NSString *nsURLString = [[NSString alloc] initWithUTF8String:URLString];
     NSURL *URL = [[NSURL alloc] initWithString:nsURLString];
     NSError *nserror;
     
-    id <MTLTexture> objCTexture = [m_objCObj newTextureWithContentsOfURL:URL
-                                                                 options:textureLoaderDictionary(options)
-                                                                   error:&nserror];
+    id <MTLTexture> objCTexture = [_objCObj newTextureWithContentsOfURL:URL
+                                                                options:textureLoaderDictionary(options)
+                                                                  error:&nserror];
     
     if (!objCTexture) {
         if (error) {
@@ -75,7 +74,7 @@ MTL::TexturePtr TextureLoader::makeTexture(const char *URLString,
         return nullptr;
     }
     
-    return std::make_shared<Texture>(objCTexture, *m_device);
+    return std::make_shared<Texture>(objCTexture, *_device);
 }
 
 TexturePtr TextureLoader::loadCubeTexture(const std::string &path,
@@ -109,12 +108,12 @@ TexturePtr TextureLoader::loadCubeTexture(const std::string &path,
         MTKTextureLoaderOptionTextureUsage: [NSNumber numberWithUnsignedLong:MTLTextureUsageShaderRead]
     };
     NSError *error = nil;
-    id <MTLTexture> mtlTexture = [m_objCObj newTextureWithMDLTexture:mdlTexture options:options error:&error];
+    id <MTLTexture> mtlTexture = [_objCObj newTextureWithMDLTexture:mdlTexture options:options error:&error];
     if (error != nil) {
         NSLog(@"Error: failed to create MTLTexture: %@", error);
     }
     
-    return std::make_shared<Texture>(mtlTexture, *m_device);
+    return std::make_shared<Texture>(mtlTexture, *_device);
 }
 
 MTL::Texture TextureLoader::loadTexture(const std::string &path, const std::string &imageName, bool isTopLeft) {
@@ -133,13 +132,13 @@ MTL::Texture TextureLoader::loadTexture(const std::string &path, const std::stri
     };
     
     NSError *error = nil;
-    id <MTLTexture> texture = [m_objCObj newTextureWithContentsOfURL:url
-                                                             options:options error:&error];
+    id <MTLTexture> texture = [_objCObj newTextureWithContentsOfURL:url
+                                                            options:options error:&error];
     if (error != nil) {
         NSLog(@"Error: failed to create MTLTexture: %@", error);
     }
     
-    return Texture(texture, *m_device);
+    return Texture(texture, *_device);
 }
 
 }
