@@ -1,20 +1,8 @@
-/* Copyright (c) 2019-2021, Arm Limited and Contributors
- *
- * SPDX-License-Identifier: Apache-2.0
- *
- * Licensed under the Apache License, Version 2.0 the "License";
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+//  Copyright (c) 2022 Feng Yang
+//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 #pragma once
 
 #include <memory>
@@ -52,7 +40,7 @@ public:
      * This should be overriden if a engine requires a specific main loop setup.
      * @return An exit code representing the outcome of the loop
      */
-    ExitCode main_loop();
+    ExitCode mainLoop();
     
     /**
      * @brief Runs the application for one frame
@@ -72,85 +60,63 @@ public:
     
     virtual void resize(uint32_t width, uint32_t height);
     
-    virtual void framebuffer_resize(uint32_t width, uint32_t height);
+    virtual void framebufferResize(uint32_t width, uint32_t height);
     
     virtual void inputEvent(const InputEvent &inputEvent);
     
-    virtual std::unique_ptr<View> create_render_context(MTL::Device &device);
+    virtual std::unique_ptr<View> createRenderContext(MTL::Device &device);
     
 public:
-    void set_focus(bool focused);
+    void setFocus(bool focused);
     
-    void force_simulation_fps(float fps);
+    void forceSimulationFPS(float fps);
     
-    void disable_input_processing();
-    
-public:
-    Window &get_window() const;
-    
-    Application &get_app() const;
-    
-    Application &get_app();
-    
-    void set_app(std::unique_ptr<Application>&& active_app);
-    
-    bool start_app();
+    void disableInputProcessing();
     
 public:
-    /**
-     * @brief Returns the working directory of the application set by the engine
-     * @returns The path to the working directory
-     */
-    static const std::string &get_external_storage_directory();
+    Window &window() const;
     
-    static void set_external_storage_directory(const std::string &dir);
+    Application &app() const;
     
-    /**
-     * @brief Returns the suitable directory for temporary files from the environment variables set in the system
-     * @returns The path to the temp folder on the system
-     */
-    static const std::string &get_temp_directory();
+    Application &app();
     
-    static void set_temp_directory(const std::string &dir);
+    void setApp(std::unique_ptr<Application>&& active_app);
     
-    std::vector<std::string> &get_arguments();
+    bool startApp();
     
-    static void set_arguments(const std::vector<std::string> &args);
+public:
+    void setWindowProperties(const Window::OptionalProperties &properties);
     
-    void set_window_properties(const Window::OptionalProperties &properties);
-    
-//    void on_post_draw(RenderContext &context) const;
+    //    void on_post_draw(RenderContext &context) const;
     
     static const uint32_t MIN_WINDOW_WIDTH;
     static const uint32_t MIN_WINDOW_HEIGHT;
     
 protected:
-    std::unique_ptr<Window> window{nullptr};
+    std::unique_ptr<Window> _window{nullptr};
     
-    std::unique_ptr<Application> active_app{nullptr};
-        
+    std::unique_ptr<Application> _activeApp{nullptr};
+    
     /**
      * @brief Handles the creation of the window
      *
      * @param properties Preferred window configuration
      */
-    virtual void create_window(const Window::Properties &properties) = 0;
+    virtual void createWindow(const Window::Properties &properties) = 0;
     
-    Window::Properties window_properties;              /* Source of truth for window state */
-    bool fixed_simulation_fps{false};    /* Delta time should be fixed with a fabricated value */
-    float simulation_frame_time = 0.016f; /* A fabricated delta time */
-    bool process_inputEvents{true};     /* App should continue processing input events */
-    bool focused;                        /* App is currently in focus at an operating system level */
+    /* Source of truth for window state */
+    Window::Properties _windowProperties;
+    /* Delta time should be fixed with a fabricated value */
+    bool _fixedSimulationFPS{false};
+    /* A fabricated delta time */
+    float _simulationFrameTime = 0.016f;
+    /* App should continue processing input events */
+    bool _processInputEvents{true};
+    /* App is currently in focus at an operating system level */
+    bool _focused;
     
 private:
-    Timer timer;
-            
-    /// Static so can be set via JNI code in android_engine.cpp
-    static std::vector<std::string> arguments;
-    
-    static std::string external_storage_directory;
-    
-    static std::string temp_directory;
+    Timer _timer;
 };
 
 }        // namespace vox

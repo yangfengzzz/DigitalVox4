@@ -34,13 +34,13 @@ void windowSizeCallback(GLFWwindow *window, int width, int height) {
 
 void windowFramebufferSizeCallback(GLFWwindow *window, int width, int height) {
     if (auto engine = reinterpret_cast<Engine *>(glfwGetWindowUserPointer(window))) {
-        engine->framebuffer_resize(width, height);
+        engine->framebufferResize(width, height);
     }
 }
 
 void windowFocusCallback(GLFWwindow *window, int focused) {
     if (auto engine = reinterpret_cast<Engine *>(glfwGetWindowUserPointer(window))) {
-        engine->set_focus(focused);
+        engine->setFocus(focused);
     }
 }
 

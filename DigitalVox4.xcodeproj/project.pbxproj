@@ -249,18 +249,22 @@
 		044596142796E9F900F04CE0 /* allocator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 044591C6278E551100F04CE0 /* allocator.cc */; };
 		044596152796E9F900F04CE0 /* allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591C7278E551100F04CE0 /* allocator.h */; };
 		044596162796EA5400F04CE0 /* unique_ptr.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591C8278E551100F04CE0 /* unique_ptr.h */; };
-		044596172796EA5D00F04CE0 /* set.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591D1278E551E00F04CE0 /* set.h */; };
-		044596182796EA5D00F04CE0 /* deque.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591D0278E551E00F04CE0 /* deque.h */; };
-		044596192796EA5D00F04CE0 /* std_allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591D4278E551E00F04CE0 /* std_allocator.h */; };
-		0445961A2796EA5D00F04CE0 /* intrusive_list.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591D6278E551E00F04CE0 /* intrusive_list.h */; };
-		0445961B2796EA5D00F04CE0 /* queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591D5278E551E00F04CE0 /* queue.h */; };
-		0445961C2796EA5D00F04CE0 /* map.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591CE278E551E00F04CE0 /* map.h */; };
-		0445961D2796EA5D00F04CE0 /* string.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591D9278E551E00F04CE0 /* string.h */; };
-		0445961E2796EA5D00F04CE0 /* unordered_set.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591CC278E551E00F04CE0 /* unordered_set.h */; };
-		0445961F2796EA5D00F04CE0 /* unordered_map.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591D8278E551E00F04CE0 /* unordered_map.h */; };
-		044596202796EA5D00F04CE0 /* list.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591D2278E551E00F04CE0 /* list.h */; };
-		044596212796EA5D00F04CE0 /* vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591CD278E551E00F04CE0 /* vector.h */; };
-		044596222796EA5D00F04CE0 /* stack.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591D7278E551E00F04CE0 /* stack.h */; };
+		044596232796EB1B00F04CE0 /* imgui_widgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044591F5278E591900F04CE0 /* imgui_widgets.cpp */; };
+		044596242796EB1B00F04CE0 /* imgui_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591FC278E591A00F04CE0 /* imgui_internal.h */; };
+		044596252796EB1B00F04CE0 /* imconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591F4278E591900F04CE0 /* imconfig.h */; };
+		044596262796EB1B00F04CE0 /* imstb_truetype.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591FA278E591A00F04CE0 /* imstb_truetype.h */; };
+		044596272796EB1B00F04CE0 /* imgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591F9278E591900F04CE0 /* imgui.h */; };
+		044596282796EB1B00F04CE0 /* imstb_textedit.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591FB278E591A00F04CE0 /* imstb_textedit.h */; };
+		044596292796EB1B00F04CE0 /* imstb_rectpack.h in Headers */ = {isa = PBXBuildFile; fileRef = 044591F7278E591900F04CE0 /* imstb_rectpack.h */; };
+		0445962A2796EB1B00F04CE0 /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044591F8278E591900F04CE0 /* imgui_draw.cpp */; };
+		0445962B2796EB1B00F04CE0 /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044591FD278E591A00F04CE0 /* imgui.cpp */; };
+		0445962C2796EB1B00F04CE0 /* imgui_tables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044591F3278E591900F04CE0 /* imgui_tables.cpp */; };
+		0445962D2796EB4900F04CE0 /* engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459215278E5F1000F04CE0 /* engine.h */; };
+		0445962E2796EB4900F04CE0 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445920C278E5F1000F04CE0 /* engine.cpp */; };
+		0445962F2796ED4700F04CE0 /* application.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459218278E5F1100F04CE0 /* application.h */; };
+		044596302796ED4700F04CE0 /* application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459212278E5F1000F04CE0 /* application.cpp */; };
+		044596312796EDD400F04CE0 /* unix_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459256278E708A00F04CE0 /* unix_engine.cpp */; };
+		044596322796EDD400F04CE0 /* unix_engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459257278E708A00F04CE0 /* unix_engine.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1624,56 +1628,53 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0445961B2796EA5D00F04CE0 /* queue.h in Headers */,
 				044596132796E9C900F04CE0 /* align.h in Headers */,
+				044596242796EB1B00F04CE0 /* imgui_internal.h in Headers */,
 				044595E82796E88600F04CE0 /* cpp_mtl_drawable.h in Headers */,
 				0445960D2796E88B00F04CE0 /* resource_cache.h in Headers */,
-				0445961D2796EA5D00F04CE0 /* string.h in Headers */,
 				044596152796E9F900F04CE0 /* allocator.h in Headers */,
+				0445962F2796ED4700F04CE0 /* application.h in Headers */,
 				044595F22796E88600F04CE0 /* cpp_mtl_render_command_encoder_dispatch_table.h in Headers */,
 				044595D52796DB0500F04CE0 /* timer.h in Headers */,
 				044595FE2796E88600F04CE0 /* cpp_mtl.h in Headers */,
 				044595E92796E88600F04CE0 /* cpp_mtl_render_pipeline.h in Headers */,
 				044595D82796DBEF00F04CE0 /* window.h in Headers */,
-				044596182796EA5D00F04CE0 /* deque.h in Headers */,
-				044596172796EA5D00F04CE0 /* set.h in Headers */,
 				044595EB2796E88600F04CE0 /* cpp_mtl_function_constant_values.h in Headers */,
 				044595E42796E88600F04CE0 /* cpp_mtl_resource.h in Headers */,
+				044596322796EDD400F04CE0 /* unix_engine.h in Headers */,
 				044595FB2796E88600F04CE0 /* cpp_mtl_resource_enum.h in Headers */,
+				044596292796EB1B00F04CE0 /* imstb_rectpack.h in Headers */,
 				044595E02796E88600F04CE0 /* cpp_mtl_command_buffer.h in Headers */,
 				044596112796E88B00F04CE0 /* cpp_mtl_dispatch_table_cache.h in Headers */,
 				044595D92796DC9B00F04CE0 /* glfw_window.h in Headers */,
 				044596052796E88600F04CE0 /* cpp_mtl_render_pass.h in Headers */,
 				044595E72796E88600F04CE0 /* cpp_mtl_depth_stencil.h in Headers */,
 				044595FF2796E88600F04CE0 /* cpp_mtl_device.h in Headers */,
-				0445961A2796EA5D00F04CE0 /* intrusive_list.h in Headers */,
 				044596092796E88600F04CE0 /* cpp_mtl_implementation.h in Headers */,
 				0445960E2796E88B00F04CE0 /* metal_view.h in Headers */,
-				044596222796EA5D00F04CE0 /* stack.h in Headers */,
+				044596262796EB1B00F04CE0 /* imstb_truetype.h in Headers */,
 				044595EE2796E88600F04CE0 /* cpp_mtl_buffer.h in Headers */,
+				044596252796EB1B00F04CE0 /* imconfig.h in Headers */,
+				044596272796EB1B00F04CE0 /* imgui.h in Headers */,
 				044595E22796E88600F04CE0 /* cpp_mtl_pixel_format.h in Headers */,
-				0445961F2796EA5D00F04CE0 /* unordered_map.h in Headers */,
 				044595F02796E88600F04CE0 /* cpp_mtl_render_command_encoder.h in Headers */,
-				0445961E2796EA5D00F04CE0 /* unordered_set.h in Headers */,
 				044595D42796DB0500F04CE0 /* std_helpers.h in Headers */,
 				044596102796E88B00F04CE0 /* cpp_mtl_device_internals.h in Headers */,
 				044595E12796E88600F04CE0 /* cpp_mtl_texture.h in Headers */,
 				044595F12796E88600F04CE0 /* cpp_mtl_command_queue.h in Headers */,
 				044596062796E88600F04CE0 /* cpp_mtl_types.h in Headers */,
+				0445962D2796EB4900F04CE0 /* engine.h in Headers */,
 				0445960B2796E88B00F04CE0 /* cpp_mtl_internal_macros.h in Headers */,
-				0445961C2796EA5D00F04CE0 /* map.h in Headers */,
 				044595EA2796E88600F04CE0 /* cpp_mtl_library.h in Headers */,
 				044595F82796E88600F04CE0 /* cpp_mtl_data_type.h in Headers */,
 				044595EF2796E88600F04CE0 /* cpp_mtl_constants.h in Headers */,
-				044596202796EA5D00F04CE0 /* list.h in Headers */,
 				044595F62796E88600F04CE0 /* cpp_mtl_allocator.h in Headers */,
+				044596282796EB1B00F04CE0 /* imstb_textedit.h in Headers */,
 				044596002796E88600F04CE0 /* cpp_mtl_assert.h in Headers */,
 				044596162796EA5400F04CE0 /* unique_ptr.h in Headers */,
 				044595E62796E88600F04CE0 /* cpp_mtl_command_encoder.h in Headers */,
 				044595DB2796DE3B00F04CE0 /* input_events.h in Headers */,
-				044596192796EA5D00F04CE0 /* std_allocator.h in Headers */,
 				044595E32796E88600F04CE0 /* cpp_mtl_vertex_descriptor.h in Headers */,
-				044596212796EA5D00F04CE0 /* vector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1967,8 +1968,11 @@
 				044595DA2796DC9B00F04CE0 /* glfw_window.mm in Sources */,
 				044595F52796E88600F04CE0 /* cpp_mtl_command_queue.mm in Sources */,
 				044595FC2796E88600F04CE0 /* cpp_mtl_pixel_format.mm in Sources */,
+				044596302796ED4700F04CE0 /* application.cpp in Sources */,
 				044595ED2796E88600F04CE0 /* cpp_mtl_texture.mm in Sources */,
+				0445962C2796EB1B00F04CE0 /* imgui_tables.cpp in Sources */,
 				044596012796E88600F04CE0 /* cpp_mtl_vertex_descriptor.mm in Sources */,
+				0445962A2796EB1B00F04CE0 /* imgui_draw.cpp in Sources */,
 				044596032796E88600F04CE0 /* cpp_mtl_command_buffer.mm in Sources */,
 				044595DC2796DE3B00F04CE0 /* input_events.cpp in Sources */,
 				044596022796E88600F04CE0 /* cpp_mtl_data_type.mm in Sources */,
@@ -1977,6 +1981,7 @@
 				0445960A2796E88600F04CE0 /* cpp_mtl_buffer.mm in Sources */,
 				044595EC2796E88600F04CE0 /* cpp_mtl_function_constant_values.mm in Sources */,
 				044595D62796DB0A00F04CE0 /* timer.cpp in Sources */,
+				0445962E2796EB4900F04CE0 /* engine.cpp in Sources */,
 				0445960C2796E88B00F04CE0 /* resource_cache.cpp in Sources */,
 				044595F72796E88600F04CE0 /* cpp_mtl_device.mm in Sources */,
 				044596072796E88600F04CE0 /* cpp_mtl_command_encoder.mm in Sources */,
@@ -1985,10 +1990,13 @@
 				044595E52796E88600F04CE0 /* cpp_mtl_resource.mm in Sources */,
 				044596142796E9F900F04CE0 /* allocator.cc in Sources */,
 				044596122796E9C900F04CE0 /* align.cc in Sources */,
+				044596312796EDD400F04CE0 /* unix_engine.cpp in Sources */,
 				044595F42796E88600F04CE0 /* cpp_mtl_library.mm in Sources */,
 				044595F92796E88600F04CE0 /* cpp_mtl_render_command_encoder_dispatch_table.mm in Sources */,
 				044595D72796DBED00F04CE0 /* window.cpp in Sources */,
 				044595DF2796E88600F04CE0 /* cpp_mtl_render_command_encoder.mm in Sources */,
+				044596232796EB1B00F04CE0 /* imgui_widgets.cpp in Sources */,
+				0445962B2796EB1B00F04CE0 /* imgui.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
