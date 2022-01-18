@@ -50,7 +50,7 @@ public:
      */
     virtual void update(float delta_time) override;
     
-    virtual void framebuffer_resize(uint32_t width, uint32_t height) override;
+    virtual void framebufferResize(uint32_t width, uint32_t height) override;
     
 private:
     void updateWorldState(uint32_t width, uint32_t height);

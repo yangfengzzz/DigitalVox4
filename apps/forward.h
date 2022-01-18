@@ -30,18 +30,18 @@ public:
     
     virtual void inputEvent(const InputEvent &inputEvent) override;
     
-    virtual void framebuffer_resize(uint32_t width, uint32_t height) override;
+    virtual void framebufferResize(uint32_t width, uint32_t height) override;
     
 private:
     void loadScene();
     // Vertex descriptor for models loaded with MetalKit
-    MTL::VertexDescriptor m_defaultVertexDescriptor;
+    MTL::VertexDescriptor _defaultVertexDescriptor;
     
-    Camera* m_camera{nullptr};
-    control::OrbitControl* controller{nullptr};
+    Camera* _camera{nullptr};
+    control::OrbitControl* _controller{nullptr};
     
-    MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
-    std::unique_ptr<RenderPass> m_finalRenderPass{nullptr};
+    MTL::RenderPassDescriptor _finalRenderPassDescriptor;
+    std::unique_ptr<RenderPass> _finalRenderPass{nullptr};
 };
 
 }

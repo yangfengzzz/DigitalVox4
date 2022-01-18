@@ -24,52 +24,52 @@ namespace vox {
 using namespace simd;
 
 Forward::~Forward() {
-    render_pipeline.reset();
+    _renderPipeline.reset();
 }
 
 bool Forward::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
     MTL::Library shaderLibrary = makeShaderLibrary();
-    auto extent = engine.get_window().get_extent();
-    render_context->resize(MTL::SizeMake(extent.width * 2, extent.height * 2, 0));
-    render_context->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
-    render_context->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
+    auto extent = engine.window().extent();
+    _renderContext->resize(MTL::sizeMake(extent.width * 2, extent.height * 2, 0));
+    _renderContext->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
+    _renderContext->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
     
     {
         // Positions.
-        m_defaultVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
-        m_defaultVertexDescriptor.attributes[VertexAttributePosition].offset(0);
-        m_defaultVertexDescriptor.attributes[VertexAttributePosition].bufferIndex(BufferIndexMeshPositions);
+        _defaultVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
+        _defaultVertexDescriptor.attributes[VertexAttributePosition].offset(0);
+        _defaultVertexDescriptor.attributes[VertexAttributePosition].bufferIndex(BufferIndexMeshPositions);
         
         // Texture coordinates.
-        m_defaultVertexDescriptor.attributes[VertexAttributeTexcoord].format(MTL::VertexFormatFloat2);
-        m_defaultVertexDescriptor.attributes[VertexAttributeTexcoord].offset(0);
-        m_defaultVertexDescriptor.attributes[VertexAttributeTexcoord].bufferIndex(BufferIndexMeshGenerics);
+        _defaultVertexDescriptor.attributes[VertexAttributeTexcoord].format(MTL::VertexFormatFloat2);
+        _defaultVertexDescriptor.attributes[VertexAttributeTexcoord].offset(0);
+        _defaultVertexDescriptor.attributes[VertexAttributeTexcoord].bufferIndex(BufferIndexMeshGenerics);
         
         // Normals.
-        m_defaultVertexDescriptor.attributes[VertexAttributeNormal].format(MTL::VertexFormatHalf4);
-        m_defaultVertexDescriptor.attributes[VertexAttributeNormal].offset(8);
-        m_defaultVertexDescriptor.attributes[VertexAttributeNormal].bufferIndex(BufferIndexMeshGenerics);
+        _defaultVertexDescriptor.attributes[VertexAttributeNormal].format(MTL::VertexFormatHalf4);
+        _defaultVertexDescriptor.attributes[VertexAttributeNormal].offset(8);
+        _defaultVertexDescriptor.attributes[VertexAttributeNormal].bufferIndex(BufferIndexMeshGenerics);
         
         // Tangents
-        m_defaultVertexDescriptor.attributes[VertexAttributeTangent].format(MTL::VertexFormatHalf4);
-        m_defaultVertexDescriptor.attributes[VertexAttributeTangent].offset(16);
-        m_defaultVertexDescriptor.attributes[VertexAttributeTangent].bufferIndex(BufferIndexMeshGenerics);
+        _defaultVertexDescriptor.attributes[VertexAttributeTangent].format(MTL::VertexFormatHalf4);
+        _defaultVertexDescriptor.attributes[VertexAttributeTangent].offset(16);
+        _defaultVertexDescriptor.attributes[VertexAttributeTangent].bufferIndex(BufferIndexMeshGenerics);
         
         // Bitangents
-        m_defaultVertexDescriptor.attributes[VertexAttributeBitangent].format(MTL::VertexFormatHalf4);
-        m_defaultVertexDescriptor.attributes[VertexAttributeBitangent].offset(24);
-        m_defaultVertexDescriptor.attributes[VertexAttributeBitangent].bufferIndex(BufferIndexMeshGenerics);
+        _defaultVertexDescriptor.attributes[VertexAttributeBitangent].format(MTL::VertexFormatHalf4);
+        _defaultVertexDescriptor.attributes[VertexAttributeBitangent].offset(24);
+        _defaultVertexDescriptor.attributes[VertexAttributeBitangent].bufferIndex(BufferIndexMeshGenerics);
         
         // Position Buffer Layout
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stride(12);
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepRate(1);
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepFunction(MTL::VertexStepFunctionPerVertex);
+        _defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stride(12);
+        _defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepRate(1);
+        _defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepFunction(MTL::VertexStepFunctionPerVertex);
         
         // Generic Attribute Buffer Layout
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stride(32);
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepRate(1);
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepFunction(MTL::VertexStepFunctionPerVertex);
+        _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stride(32);
+        _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepRate(1);
+        _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepFunction(MTL::VertexStepFunctionPerVertex);
     }
     loadScene();
     
@@ -77,64 +77,64 @@ bool Forward::prepare(Engine &engine) {
     {
         // Create a render pass descriptor for thelighting and composition pass
         // Whatever rendered in the final pass needs to be stored so it can be displayed
-        m_finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
-        m_finalRenderPassDescriptor.colorAttachments[0].loadAction(MTL::LoadActionClear);
-        m_finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
-        m_finalRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
-        m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
-        m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
-        m_finalRenderPass = std::make_unique<RenderPass>(&m_finalRenderPassDescriptor);
-        m_finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(&m_finalRenderPassDescriptor, scene.get(), m_camera,
-                                                                       shaderLibrary, *device, MTL::PixelFormatBGRA8Unorm_sRGB));
+        _finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
+        _finalRenderPassDescriptor.colorAttachments[0].loadAction(MTL::LoadActionClear);
+        _finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
+        _finalRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
+        _finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
+        _finalRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
+        _finalRenderPass = std::make_unique<RenderPass>(&_finalRenderPassDescriptor);
+        _finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(&_finalRenderPassDescriptor, _device.get(), _scene.get(), _camera,
+                                                                      shaderLibrary, MTL::PixelFormatBGRA8Unorm_sRGB));
     }
-    framebuffer_resize(extent.width*2, extent.height*2);
+    framebufferResize(extent.width*2, extent.height*2);
     
     return true;
 }
 
 void Forward::loadScene() {
-    auto rootEntity = scene->createRootEntity();
+    auto rootEntity = _scene->createRootEntity();
     auto modelEntity = rootEntity->createChild();
     newMeshesFromBundlePath("../assets/Models", "Temple.obj",
-                            *device, modelEntity, m_defaultVertexDescriptor);
+                            *_device, modelEntity, _defaultVertexDescriptor);
     modelEntity->transform->setPosition(0, 10, 0);
     modelEntity->transform->setScale(0.1, 0.1, 0.1);
     
     auto cameraEntity = rootEntity->createChild();
     cameraEntity->transform->setPosition(-6.02535057, 36.6681671, 48.6991844);
-    m_camera = cameraEntity->addComponent<Camera>();
-    controller = cameraEntity->addComponent<control::OrbitControl>();
+    _camera = cameraEntity->addComponent<Camera>();
+    _controller = cameraEntity->addComponent<control::OrbitControl>();
 }
 
 void Forward::inputEvent(const InputEvent &inputEvent) {
-    controller->inputEvent(inputEvent);
+    _controller->inputEvent(inputEvent);
 }
 
 void Forward::update(float delta_time) {
     MetalApplication::update(delta_time);
     
-    MTL::CommandBuffer commandBuffer = m_commandQueue.commandBuffer();
-    MTL::Drawable *drawable = render_context->currentDrawable();
+    MTL::CommandBuffer commandBuffer = _commandQueue.commandBuffer();
+    MTL::Drawable *drawable = _renderContext->currentDrawable();
     // The final pass can only render if a drawable is available, otherwise it needs to skip
     // rendering this frame.
     if (drawable) {
         // Render the lighting and composition pass
-        m_finalRenderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
-        m_finalRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
-        m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
-        m_finalRenderPass->draw(commandBuffer, "Lighting & Composition Pass");
+        _finalRenderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
+        _finalRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
+        _finalRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
+        _finalRenderPass->draw(commandBuffer, "Lighting & Composition Pass");
     }
     // Finalize rendering here & push the command buffer to the GPU
     commandBuffer.commit();
     drawable->present();
 }
 
-void Forward::framebuffer_resize(uint32_t width, uint32_t height) {
+void Forward::framebufferResize(uint32_t width, uint32_t height) {
     // When reshape is called, update the aspect ratio and projection matrix since the view
     //   orientation or size has changed
-    m_camera->resize(width, height);
+    _camera->resize(width, height);
     
-    MetalApplication::framebuffer_resize(width, height);
+    MetalApplication::framebufferResize(width, height);
 }
 
 }
