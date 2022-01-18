@@ -1,29 +1,8 @@
-//----------------------------------------------------------------------------//
-//                                                                            //
-// vox-animation is hosted at http://github.com/guillaumeblanc/vox-animation  //
-// and distributed under the MIT License (MIT).                               //
-//                                                                            //
-// Copyright (c) Guillaume Blanc                                              //
-//                                                                            //
-// Permission is hereby granted, free of charge, to any person obtaining a    //
-// copy of this software and associated documentation files (the "Software"), //
-// to deal in the Software without restriction, including without limitation  //
-// the rights to use, copy, modify, merge, publish, distribute, sublicense,   //
-// and/or sell copies of the Software, and to permit persons to whom the      //
-// Software is furnished to do so, subject to the following conditions:       //
-//                                                                            //
-// The above copyright notice and this permission notice shall be included in //
-// all copies or substantial portions of the Software.                        //
-//                                                                            //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR //
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,   //
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL    //
-// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER //
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING    //
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER        //
-// DEALINGS IN THE SOFTWARE.                                                  //
-//                                                                            //
-//----------------------------------------------------------------------------//
+//  Copyright (c) 2022 Feng Yang
+//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef VOX_VOX_BASE_MEMORY_ALLOCATOR_H_
 #define VOX_VOX_BASE_MEMORY_ALLOCATOR_H_
@@ -53,21 +32,21 @@ Allocator* SetDefaulAllocator(Allocator* _allocator);
 // Implements New and Delete function to allocate C++ objects, as a replacement
 // of new and delete operators.
 class Allocator {
- public:
-  // Default virtual destructor.
-  virtual ~Allocator() {}
-
-  // Next functions are the pure virtual functions that must be implemented by
-  // allocator concrete classes.
-
-  // Allocates _size bytes on the specified _alignment boundaries.
-  // Allocate function conforms with standard malloc function specifications.
-  virtual void* Allocate(size_t _size, size_t _alignment) = 0;
-
-  // Frees a block that was allocated with Allocate or Reallocate.
-  // Argument _block can be nullptr.
-  // Deallocate function conforms with standard free function specifications.
-  virtual void Deallocate(void* _block) = 0;
+public:
+    // Default virtual destructor.
+    virtual ~Allocator() {}
+    
+    // Next functions are the pure virtual functions that must be implemented by
+    // allocator concrete classes.
+    
+    // Allocates _size bytes on the specified _alignment boundaries.
+    // Allocate function conforms with standard malloc function specifications.
+    virtual void* allocate(size_t _size, size_t _alignment) = 0;
+    
+    // Frees a block that was allocated with Allocate or Reallocate.
+    // Argument _block can be nullptr.
+    // Deallocate function conforms with standard free function specifications.
+    virtual void deallocate(void* _block) = 0;
 };
 }  // namespace memory
 
@@ -78,21 +57,20 @@ class Allocator {
 // or any number of argument:
 // Type* object = New<Type>(1,2,3,4);
 template <typename _Ty, typename... _Args>
-_Ty* New(_Args&&... _args) {
-  void* alloc =
-      memory::default_allocator()->Allocate(sizeof(_Ty), alignof(_Ty));
-  return new (alloc) _Ty(std::forward<_Args>(_args)...);
+_Ty* newMemory(_Args&&... _args) {
+    void* alloc = memory::default_allocator()->allocate(sizeof(_Ty), alignof(_Ty));
+    return new (alloc) _Ty(std::forward<_Args>(_args)...);
 }
 
 template <typename _Ty>
-void Delete(_Ty* _object) {
-  if (_object) {
-    // Prevents from false "unreferenced parameter" warning when _Ty has no
-    // explicit destructor.
-    (void)_object;
-    _object->~_Ty();
-    memory::default_allocator()->Deallocate(_object);
-  }
+void deleteMemory(_Ty* _object) {
+    if (_object) {
+        // Prevents from false "unreferenced parameter" warning when _Ty has no
+        // explicit destructor.
+        (void)_object;
+        _object->~_Ty();
+        memory::default_allocator()->deallocate(_object);
+    }
 }
 
 }  // namespace vox

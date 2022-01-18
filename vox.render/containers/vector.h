@@ -1,29 +1,8 @@
-//----------------------------------------------------------------------------//
-//                                                                            //
-// vox-animation is hosted at http://github.com/guillaumeblanc/vox-animation  //
-// and distributed under the MIT License (MIT).                               //
-//                                                                            //
-// Copyright (c) Guillaume Blanc                                              //
-//                                                                            //
-// Permission is hereby granted, free of charge, to any person obtaining a    //
-// copy of this software and associated documentation files (the "Software"), //
-// to deal in the Software without restriction, including without limitation  //
-// the rights to use, copy, modify, merge, publish, distribute, sublicense,   //
-// and/or sell copies of the Software, and to permit persons to whom the      //
-// Software is furnished to do so, subject to the following conditions:       //
-//                                                                            //
-// The above copyright notice and this permission notice shall be included in //
-// all copies or substantial portions of the Software.                        //
-//                                                                            //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR //
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,   //
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL    //
-// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER //
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING    //
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER        //
-// DEALINGS IN THE SOFTWARE.                                                  //
-//                                                                            //
-//----------------------------------------------------------------------------//
+//  Copyright (c) 2022 Feng Yang
+//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef VOX_VOX_BASE_CONTAINERS_VECTOR_H_
 #define VOX_VOX_BASE_CONTAINERS_VECTOR_H_
@@ -45,14 +24,14 @@ using vector = std::vector<_Ty, _Allocator>;
 // vector's empty.
 template <class _Ty, class _Allocator>
 inline _Ty* array_begin(std::vector<_Ty, _Allocator>& _vector) {
-  return _vector.data();
+    return _vector.data();
 }
 
 // Returns the non-mutable begin of the array of elements, or nullptr if
 // vector's empty.
 template <class _Ty, class _Allocator>
 inline const _Ty* array_begin(const std::vector<_Ty, _Allocator>& _vector) {
-  return _vector.data();
+    return _vector.data();
 }
 
 // Returns the mutable end of the array of elements, or nullptr if
@@ -60,7 +39,7 @@ inline const _Ty* array_begin(const std::vector<_Ty, _Allocator>& _vector) {
 // array, it cannot be dereferenced.
 template <class _Ty, class _Allocator>
 inline _Ty* array_end(std::vector<_Ty, _Allocator>& _vector) {
-  return _vector.data() + _vector.size();
+    return _vector.data() + _vector.size();
 }
 
 // Returns the non-mutable end of the array of elements, or nullptr if
@@ -68,7 +47,8 @@ inline _Ty* array_end(std::vector<_Ty, _Allocator>& _vector) {
 // array, it cannot be dereferenced.
 template <class _Ty, class _Allocator>
 inline const _Ty* array_end(const std::vector<_Ty, _Allocator>& _vector) {
-  return _vector.data() + _vector.size();
+    return _vector.data() + _vector.size();
 }
+
 }  // namespace vox
 #endif  // VOX_VOX_BASE_CONTAINERS_VECTOR_H_

@@ -1,29 +1,8 @@
-//----------------------------------------------------------------------------//
-//                                                                            //
-// vox-animation is hosted at http://github.com/guillaumeblanc/vox-animation  //
-// and distributed under the MIT License (MIT).                               //
-//                                                                            //
-// Copyright (c) Guillaume Blanc                                              //
-//                                                                            //
-// Permission is hereby granted, free of charge, to any person obtaining a    //
-// copy of this software and associated documentation files (the "Software"), //
-// to deal in the Software without restriction, including without limitation  //
-// the rights to use, copy, modify, merge, publish, distribute, sublicense,   //
-// and/or sell copies of the Software, and to permit persons to whom the      //
-// Software is furnished to do so, subject to the following conditions:       //
-//                                                                            //
-// The above copyright notice and this permission notice shall be included in //
-// all copies or substantial portions of the Software.                        //
-//                                                                            //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR //
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,   //
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL    //
-// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER //
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING    //
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER        //
-// DEALINGS IN THE SOFTWARE.                                                  //
-//                                                                            //
-//----------------------------------------------------------------------------//
+//  Copyright (c) 2022 Feng Yang
+//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef VOX_ALIGN_H_
 #define VOX_ALIGN_H_
@@ -75,22 +54,22 @@ bool strmatch(const char* _str, const char* _pattern);
 
 // Tests whether _block is aligned to _alignment boundary.
 template <typename _Ty>
-VOX_INLINE bool IsAligned(_Ty _value, size_t _alignment) {
+VOX_INLINE bool isAligned(_Ty _value, size_t _alignment) {
   return (_value & (_alignment - 1)) == 0;
 }
 template <typename _Ty>
-VOX_INLINE bool IsAligned(_Ty* _address, size_t _alignment) {
+VOX_INLINE bool isAligned(_Ty* _address, size_t _alignment) {
   return (reinterpret_cast<uintptr_t>(_address) & (_alignment - 1)) == 0;
 }
 
 // Aligns _block address to the first greater address that is aligned to
 // _alignment boundaries.
 template <typename _Ty>
-VOX_INLINE _Ty Align(_Ty _value, size_t _alignment) {
+VOX_INLINE _Ty align(_Ty _value, size_t _alignment) {
   return static_cast<_Ty>(_value + (_alignment - 1)) & (0 - _alignment);
 }
 template <typename _Ty>
-VOX_INLINE _Ty* Align(_Ty* _address, size_t _alignment) {
+VOX_INLINE _Ty* align(_Ty* _address, size_t _alignment) {
   return reinterpret_cast<_Ty*>(
       (reinterpret_cast<uintptr_t>(_address) + (_alignment - 1)) &
       (0 - _alignment));
@@ -98,7 +77,7 @@ VOX_INLINE _Ty* Align(_Ty* _address, size_t _alignment) {
 
 // Offset a pointer from a given number of bytes.
 template <typename _Ty>
-_Ty* PointerStride(_Ty* _ty, size_t _stride) {
+_Ty* pointerStride(_Ty* _ty, size_t _stride) {
   return reinterpret_cast<_Ty*>(reinterpret_cast<uintptr_t>(_ty) + _stride);
 }
 
