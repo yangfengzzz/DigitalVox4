@@ -258,6 +258,16 @@ T Vector<T, 2>::lengthSquared() const {
 }
 
 template<typename T>
+T Vector<T, 2>::distanceTo(const Vector<T, 2> &other) const {
+    return sub(other).length();
+}
+
+template<typename T>
+T Vector<T, 2>::distanceSquaredTo(const Vector<T, 2> &other) const {
+    return sub(other).lengthSquared();
+}
+
+template<typename T>
 Vector<T, 2> Vector<T, 2>::tangential() const {
     // Rotate 90 degrees
     return Vector<T, 2>(-y, x);

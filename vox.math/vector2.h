@@ -187,6 +187,12 @@ public:
     //! Returns the squared length of the vector.
     T lengthSquared() const;
     
+    //! Returns the distance to the other vector.
+    T distanceTo(const Vector &other) const;
+    
+    //! Returns the squared distance to the other vector.
+    T distanceSquaredTo(const Vector &other) const;
+    
     //! Returns the tangential vector for this vector.
     Vector tangential() const;
     

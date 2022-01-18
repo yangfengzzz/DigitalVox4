@@ -5,7 +5,7 @@
 //  property of any third parties.
 
 #include "vector3.h"
-#include <gtest/gtest.h>
+#include "unit_tests_utils.h"
 #include <algorithm>
 
 using namespace vox;
@@ -332,3 +332,94 @@ TEST(Vector2, BinaryOperators) {
     Vector2D tangential = normal.tangential();
     EXPECT_NEAR(tangential.dot(normal), 0.0, 1e-9);
 }
+
+//MARK: -
+TEST(Vector2, add) {
+    const auto a = Vector2D(2, 3);
+    const auto b = Vector2D(-3, 5);
+    const auto out = a + b;
+    EXPECT_VECTOR2_EQ(out, Vector2D(-1, 8));
+}
+
+TEST(Vector2, subtract) {
+    const auto a = Vector2D(2, 3);
+    const auto b = Vector2D(-3, 5);
+    const auto out = a - b;
+    EXPECT_VECTOR2_EQ(out, Vector2D(5, -2));
+}
+
+TEST(Vector2, multiply) {
+    const auto a = Vector2D(2, 3);
+    const auto b = Vector2D(-3, 5);
+    const auto out = a * b;
+    EXPECT_VECTOR2_EQ(out, Vector2D(-6, 15));
+}
+
+TEST(Vector2, divide) {
+    const auto a = Vector2D(2, 3);
+    const auto b = Vector2D(-4, 5);
+    const auto out = a / b;
+    EXPECT_VECTOR2_EQ(out, Vector2D(-0.5, 0.6));
+}
+
+TEST(Vector2, dot) {
+    const auto a = Vector2D(2, 3);
+    const auto b = Vector2D(-4, 5);
+    
+    EXPECT_FLOAT_EQ(a.dot(b), 7);
+}
+
+TEST(Vector2, distance) {
+    const auto a = Vector2D(1, 1);
+    const auto b = Vector2D(4, 5);
+    
+    EXPECT_FLOAT_EQ(a.distanceTo(b), 5);
+}
+
+TEST(Vector2, distanceSquared) {
+    const auto a = Vector2D(1, 1);
+    const auto b = Vector2D(4, 5);
+    
+    EXPECT_FLOAT_EQ(a.distanceSquaredTo(b), 25);
+}
+
+TEST(Vector2, lerp) {
+    const auto a = Vector2D(0, 1);
+    const auto b = Vector2D(2, 3);
+    Vector2D out = lerp(a, b, 0.5);
+    EXPECT_VECTOR2_EQ(out, Vector2D(1, 2));
+}
+
+TEST(Vector2, max) {
+    const auto a = Vector2D(0, 10);
+    const auto b = Vector2D(2, 3);
+    Vector2D out = max(a, b);
+    EXPECT_VECTOR2_EQ(out, Vector2D(2, 10));
+}
+
+TEST(Vector2, min) {
+    const auto a = Vector2D(0, 10);
+    const auto b = Vector2D(2, 3);
+    Vector2D out = min(a, b);
+    EXPECT_VECTOR2_EQ(out, Vector2D(0, 3));
+}
+
+TEST(Vector2, negate) {
+    const auto a = Vector2D(4, -4);
+    Vector2D out = -a;
+    EXPECT_VECTOR2_EQ(out, Vector2D(-4, 4));
+}
+
+TEST(Vector2, normalize) {
+    const auto a = Vector2D(3, 4);
+    const auto out = a.normalized();
+    
+    EXPECT_VECTOR2_EQ(out, Vector2D(0.6, 0.8));
+}
+
+TEST(Vector2, scale) {
+    const auto a = Vector2D(3, 4);
+    const auto out = a * 3.0;
+    EXPECT_VECTOR2_EQ(out, Vector2D(9, 12));
+}
+

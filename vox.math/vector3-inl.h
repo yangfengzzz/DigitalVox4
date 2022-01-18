@@ -283,6 +283,16 @@ T Vector<T, 3>::lengthSquared() const {
 }
 
 template<typename T>
+T Vector<T, 3>::distanceTo(const Vector<T, 3> &other) const {
+    return sub(other).length();
+}
+
+template<typename T>
+T Vector<T, 3>::distanceSquaredTo(const Vector<T, 3> &other) const {
+    return sub(other).lengthSquared();
+}
+
+template<typename T>
 std::tuple<Vector < T, 3>, Vector<T, 3>>
 
 Vector<T, 3>::tangential() const {
