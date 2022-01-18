@@ -5,7 +5,7 @@
 //  property of any third parties.
 
 #include "quaternion.h"
-#include <gtest/gtest.h>
+#include "unit_tests_utils.h"
 
 using namespace vox;
 
@@ -337,4 +337,172 @@ TEST(Quaternion, GetterOperators) {
     EXPECT_EQ(8.0, q[3]);
     
     EXPECT_TRUE(q != q2);
+}
+
+//MARK: -
+TEST(Quaternion, add) {
+    const auto a = QuaternionD(2, 3, 4, 1);
+    const auto b = QuaternionD(-3, 5, 0, 2);
+    const auto out = a + b;
+
+    EXPECT_VECTOR4_EQ(out, QuaternionD(-1, 8, 4, 3));
+}
+
+TEST(Quaternion, multiply) {
+    const auto a = QuaternionD(2, 3, 4, 1);
+    const auto b = QuaternionD(-3, 5, 0, 2);
+    const auto out = a * b;
+
+    EXPECT_VECTOR4_EQ(out, QuaternionD(-19, -1, 27, -7));
+}
+
+TEST(Quaternion, conjugate) {
+    const auto a = QuaternionD(2, 3, 4, 5);
+    const auto out = a.conjugate();
+
+    EXPECT_VECTOR4_EQ(out, QuaternionD(-2, -3, -4, 5));
+}
+
+TEST(Quaternion, dot) {
+    const auto a = QuaternionD(2, 3, 1, 1);
+    const auto b = QuaternionD(-4, 5, 1, 1);
+
+    EXPECT_EQ(a.dot(b), 9);
+}
+
+TEST(Quaternion, rotationAxisAngle) {
+    const auto a = Vector3D(3, 7, 5);
+    const auto out = Quaternion(a, M_PI / 3);
+    auto b = Vector3D();
+    double rad = 0;
+    out.getAxisAngle(&b, &rad);
+
+    EXPECT_EQ(rad, M_PI / 3);
+    EXPECT_VECTOR3_EQ(b.normalized(), a.normalized());
+}
+
+TEST(Quaternion, rotationEuler) {
+    const auto out1 = QuaternionD::makeRotationEuler(0, M_PI / 3, M_PI / 2);
+    const auto out2 = QuaternionD::makeRotationYawPitchRoll(0, M_PI / 3, M_PI / 2);
+
+    const auto a = out1.toEuler();
+    const auto b = out2.toYawPitchRoll();
+    EXPECT_VECTOR3_EQ(a, Vector3D(0, M_PI / 3, M_PI / 2));
+    EXPECT_VECTOR3_EQ(b, Vector3D(0, M_PI / 3, M_PI / 2));
+}
+
+TEST(Quaternion, rotationMatrix3x3) {
+    const auto a1 = Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    const auto a2 = Matrix3x3D(1, 2, 3, 4, -5, 6, 7, 8, -9);
+    const auto a3 = Matrix3x3D(1, 2, 3, 4, 5, 6, 7, 8, -9);
+    const auto a4 = Matrix3x3D(-7, 2, 3, 4, -5, 6, 7, 8, 9);
+    
+    auto out = QuaternionD(a1);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(-0.25, 0.5, -0.25, 2));
+    out = QuaternionD(a2);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(2, 0.75, 1.25, -0.25));
+    out = QuaternionD(a3);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(0.8017837257372732, 1.8708286933869707, 1.8708286933869709, 0.5345224838248488));
+    out = QuaternionD(a4);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(1.066003581778052, 1.4924050144892729, 2.345207879911715, -0.21320071635561041));
+}
+
+TEST(Quaternion, invert) {
+    const auto a = QuaternionD(1, 1, 1, 0.5);
+    const auto out = a.inverse();
+
+    EXPECT_VECTOR4_EQ(out, QuaternionD(-0.3076923076923077, -0.3076923076923077, -0.3076923076923077, 0.15384615384615385));
+}
+
+TEST(Quaternion, lerp) {
+    const auto a = QuaternionD(0, 1, 2, 0);
+    const auto b = QuaternionD(2, 2, 0, 0);
+    const auto normal = QuaternionD(1, 1.5, 1, 0);
+    const auto out = lerp(a, b, 0.5);
+
+    EXPECT_VECTOR4_EQ(out, normal);
+}
+
+
+TEST(Quaternion, slerp) {
+    const auto a = QuaternionD(1, 1, 1, 0.5);
+    const auto b = QuaternionD(0.5, 0.5, 0.5, 0.5);
+    const auto out = slerp(a, b, 0.5);
+
+    EXPECT_VECTOR4_EQ(out, QuaternionD(0.75, 0.75, 0.75, 0.5));
+}
+
+TEST(Quaternion, normalize) {
+    const auto a = QuaternionD(3, 4, 0, 0);
+    const auto out = a.normalized();
+
+    EXPECT_VECTOR4_EQ(out, QuaternionD(0.6, 0.8, 0, 0));
+}
+
+TEST(Quaternion, rotation) {
+    auto out = QuaternionD::makeRotationX(1.5);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(0.6816387600233341, 0, 0, 0.7316888688738209));
+
+    out = QuaternionD::makeRotationY(1.5);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(0, 0.6816387600233341, 0, 0.7316888688738209));
+
+    out = QuaternionD::makeRotationZ(1.5);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(0, 0, 0.6816387600233341, 0.7316888688738209));
+}
+
+TEST(Quaternion, rotate) {
+    const auto a = QuaternionD();
+    auto b = QuaternionD();
+    
+    auto out = a.rotateX(1.5);
+    b.rotateX(1.5);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(0.6816387600233341, 0, 0, 0.7316888688738209));
+    EXPECT_VECTOR4_EQ(out, b);
+    
+    out = a.rotateY(1.5);
+    b.set(0, 0, 0, 1);
+    b.rotateY(1.5);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(0, 0.6816387600233341, 0, 0.7316888688738209));
+    EXPECT_VECTOR4_EQ(out, b);
+
+    out = a.rotateZ(1.5);
+    b.set(0, 0, 0, 1);
+    b.rotateZ(1.5);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(0, 0, 0.6816387600233341, 0.7316888688738209));
+    EXPECT_VECTOR4_EQ(out, b);
+}
+
+TEST(Quaternion, rotatAxisAngle) {
+    const auto a = Vector3D(0, 5, 0);
+    const double b = 0.5 * M_PI;
+    auto out = QuaternionD(0, 0, 0, 1);
+    out.rotateAxisAngle(a, b);
+    EXPECT_VECTOR4_EQ(out, QuaternionD(0, 0.7071067811865475, 0, 0.7071067811865476));
+}
+
+
+TEST(Quaternion, scale) {
+    const auto a = QuaternionD(3, 4, 5, 0);
+    const auto out = a * 3.0;
+    EXPECT_VECTOR4_EQ(out, QuaternionD(9, 12, 15, 0));
+}
+
+TEST(Quaternion, toEuler) {
+    const auto a = QuaternionD::makeRotationEuler(0, M_PI / 3.0, 0);
+    const auto euler = a.toEuler();
+    const auto ypr = a.toYawPitchRoll();
+    EXPECT_VECTOR3_EQ(euler, Vector3D(0, M_PI / 3, 0));
+    EXPECT_VECTOR3_EQ(ypr, Vector3D(M_PI / 3, 0, 0));
+}
+
+TEST(Quaternion, identity) {
+    const auto a = QuaternionD::makeIdentity();
+
+    EXPECT_VECTOR4_EQ(a, QuaternionD(0, 0, 0, 1));
+}
+
+TEST(Quaternion, length) {
+    const auto a = QuaternionD(3, 4, 5, 0);
+    EXPECT_EQ(a.length(), std::sqrt(50));
+    EXPECT_EQ(a.lengthSquared(), 50);
 }

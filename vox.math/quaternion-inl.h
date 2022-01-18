@@ -193,6 +193,16 @@ Quaternion <T> Quaternion<T>::normalized() const {
     return q;
 }
 
+template<typename T>
+Quaternion<T> Quaternion<T>::add(const Quaternion &v) const {
+    return Quaternion(x + v.x, y + v.y, z + v.z, w + v.w);
+}
+
+template<typename T>
+Quaternion<T> Quaternion<T>::mul(T v) const {
+    return Quaternion(x * v, y * v, z * v, w * v);
+}
+
 // Binary operator methods - new instance = this instance (+) input
 template<typename T>
 inline Vector3 <T> Quaternion<T>::mul(const Vector3 <T> &v) const {
@@ -238,7 +248,7 @@ inline Quaternion <T> Quaternion<T>::mul(const Quaternion &other) const {
 }
 
 template<typename T>
-inline T Quaternion<T>::dot(const Quaternion <T> &other) {
+inline T Quaternion<T>::dot(const Quaternion <T> &other) const {
     return w * other.w + x * other.x + y * other.y + z * other.z;
 }
 
@@ -251,6 +261,22 @@ inline Quaternion <T> Quaternion<T>::rmul(const Quaternion &other) const {
                       other.w * w - other.x * x - other.y * y - other.z * z);
 }
 
+
+template<typename T>
+void Quaternion<T>::iadd(const Quaternion &v) {
+    x += v.x;
+    y += v.y;
+    z += v.z;
+    w += v.w;
+}
+
+template<typename T>
+void Quaternion<T>::imul(T v) {
+    x *= v;
+    y *= v;
+    z *= v;
+    w *= v;
+}
 
 // Augmented operator methods - this instance (+)= input
 template<typename T>
@@ -303,14 +329,19 @@ inline Quaternion <T> Quaternion<T>::rotateX(T rad) const {
 
 template<typename T>
 inline void Quaternion<T>::rotateX(T rad) {
+    const T x = this->x;
+    const T y = this->y;
+    const T z = this->z;
+    const T w = this->w;
+
     rad *= 0.5;
     T bx = std::sin(rad);
     T bw = std::cos(rad);
     
-    x = x * bw + w * bx;
-    y = y * bw + z * bx;
-    z = z * bw - y * bx;
-    w = w * bw - x * bx;
+    this->x = x * bw + w * bx;
+    this->y = y * bw + z * bx;
+    this->z = z * bw - y * bx;
+    this->w = w * bw - x * bx;
 }
 
 template<typename T>
@@ -327,14 +358,19 @@ inline Quaternion <T> Quaternion<T>::rotateY(T rad) const {
 
 template<typename T>
 inline void Quaternion<T>::rotateY(T rad) {
+    const T x = this->x;
+    const T y = this->y;
+    const T z = this->z;
+    const T w = this->w;
+    
     rad *= 0.5;
     T by = std::sin(rad);
     T bw = std::cos(rad);
     
-    x = x * bw - z * by;
-    y = y * bw + w * by;
-    z = z * bw + x * by;
-    w = w * bw - y * by;
+    this->x = x * bw - z * by;
+    this->y = y * bw + w * by;
+    this->z = z * bw + x * by;
+    this->w = w * bw - y * by;
 }
 
 template<typename T>
@@ -351,14 +387,25 @@ inline Quaternion <T> Quaternion<T>::rotateZ(T rad) const {
 
 template<typename T>
 inline void Quaternion<T>::rotateZ(T rad) {
+    const T x = this->x;
+    const T y = this->y;
+    const T z = this->z;
+    const T w = this->w;
+    
     rad *= 0.5;
     T bz = std::sin(rad);
     T bw = std::cos(rad);
     
-    x = x * bw + y * bz;
-    y = y * bw - x * bz;
-    z = z * bw + w * bz;
-    w = w * bw - z * bz;
+    this->x = x * bw + y * bz;
+    this->y = y * bw - x * bz;
+    this->z = z * bw + w * bz;
+    this->w = w * bw - z * bz;
+}
+
+template<typename T>
+void Quaternion<T>::rotateAxisAngle(const Vector3<T>& axis, T rad) {
+    Quaternion _tempQuat1 = Quaternion(axis, rad);
+    *this *= _tempQuat1;
 }
 
 // Complex getters
@@ -506,6 +553,18 @@ inline Quaternion <T> &Quaternion<T>::operator=(const Quaternion &other) {
 }
 
 template<typename T>
+Quaternion<T> &Quaternion<T>::operator+=(const Quaternion &v) {
+    iadd(v);
+    return (*this);
+}
+
+template<typename T>
+Quaternion<T> &Quaternion<T>::operator*=(T v) {
+    imul(v);
+    return (*this);
+}
+
+template<typename T>
 inline Quaternion <T> &Quaternion<T>::operator*=(const Quaternion &other) {
     imul(other);
     return *this;
@@ -602,7 +661,7 @@ inline Quaternion <T> slerp(const Quaternion <T> &a,
     static const double threshold = 0.01;
     static const T eps = std::numeric_limits<T>::epsilon();
     
-    T cosHalfAngle = dot(a, b);
+    T cosHalfAngle = a.dot(b);
     T weightA, weightB;
     
     // For better accuracy, return lerp result when a and b are close enough.
@@ -632,6 +691,21 @@ inline Quaternion <T> slerp(const Quaternion <T> &a,
 
 
 // Operator overloadings
+template<typename T>
+Quaternion<T> operator+(const Quaternion<T> &a, const Quaternion<T> &b) {
+    return a.add(b);
+}
+
+template<typename T>
+Quaternion<T> operator*(const Quaternion<T> &a, T b) {
+    return a.mul(b);
+}
+
+template<typename T>
+Quaternion<T> operator*(T a, const Quaternion<T> &b) {
+    return b.mul(a);
+}
+
 template<typename T>
 inline Vector<T, 3> operator*(const Quaternion <T> &q, const Vector<T, 3> &v) {
     return q.mul(v);

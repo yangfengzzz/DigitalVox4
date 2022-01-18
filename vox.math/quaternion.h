@@ -98,6 +98,11 @@ public:
     
     
     // MARK: - Binary operator methods - new instance = this instance (+) input
+    //! Computes this + (v.x, v.y, v.z, v.w).
+    Quaternion add(const Quaternion &q) const;
+    
+    //! Computes this * (v, v, v, v).
+    Quaternion mul(T v) const;
     
     //! Returns this quaternion * vector.
     Vector3<T> mul(const Vector3<T> &v) const;
@@ -109,8 +114,7 @@ public:
     Quaternion mul(const Quaternion &other) const;
     
     //! Computes the dot product with other quaternion.
-    T dot(const Quaternion<T> &other);
-    
+    T dot(const Quaternion<T> &other) const;
     
     // MARK: - Binary operator methods - new instance = input (+) this instance
     
@@ -118,6 +122,11 @@ public:
     Quaternion rmul(const Quaternion &other) const;
     
     // MARK: - Augmented operator methods - this instance (+)= input
+    //! Computes this += (v.x, v.y, v.z, v.w).
+    void iadd(const Quaternion &v);
+    
+    //! Computes this *= (v, v, v, v).
+    void imul(T v);
     
     //! Returns this quaternion *= other quaternion.
     void imul(const Quaternion &other);
@@ -172,6 +181,13 @@ public:
      * @param rad - The rotation angle in radians
      */
     void rotateZ(T rad);
+    
+    /**
+     * Calculate this quaternion rotation around an arbitrary axis.
+     * @param axis - The axis
+     * @param rad - The rotation angle in radians
+     */
+    void rotateAxisAngle(const Vector3<T>& axis, T rad);
     
     // MARK: - Complex getters
     
@@ -232,9 +248,14 @@ public:
     //! Assigns other quaternion.
     Quaternion &operator=(const Quaternion &other);
     
+    //! Computes this += (v.x, v.y, v.z, v.w)
+    Quaternion &operator+=(const Quaternion &v);
+    
+    //! Computes this *= (v, v, v, v)
+    Quaternion &operator*=(T v);
+    
     //! Returns this quaternion *= other quaternion.
     Quaternion &operator*=(const Quaternion &other);
-    
     
     // MARK: - Getter operators
     
@@ -301,6 +322,18 @@ template<typename T>
 Quaternion<T> slerp(const Quaternion<T> &a,
                     const Quaternion<T> &b,
                     T t);
+
+//! Computes (a.x, a.y, a.z, a.w) + (b.x, b.y, b.z, b.w).
+template<typename T>
+Quaternion<T> operator+(const Quaternion<T> &a, const Quaternion<T> &b);
+
+//! Computes (a.x, a.y, a.z, a.w) * (b, b, b, b).
+template<typename T>
+Quaternion<T> operator*(const Quaternion<T> &a, T b);
+
+//! Computes (a, a, a, a) * (b.x, b.y, b.z, b.w).
+template<typename T>
+Quaternion<T> operator*(T a, const Quaternion<T> &b);
 
 //! Returns quaternion q * vector v.
 template<typename T>
