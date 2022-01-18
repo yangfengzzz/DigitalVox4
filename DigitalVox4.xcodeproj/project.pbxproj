@@ -417,6 +417,7 @@
 		044595C927951C5000F04CE0 /* collider_set2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595C527951C4F00F04CE0 /* collider_set2_tests.cpp */; };
 		044595CA27951C5000F04CE0 /* rigid_body_collider2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595C627951C5000F04CE0 /* rigid_body_collider2_tests.cpp */; };
 		044595CD27951D2A00F04CE0 /* libvox.force.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04459590279518FF00F04CE0 /* libvox.force.a */; };
+		044595CF279668DC00F04CE0 /* color_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595CE279668DC00F04CE0 /* color_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -969,6 +970,7 @@
 		044595C427951C4F00F04CE0 /* rigid_body_collider3_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rigid_body_collider3_tests.cpp; sourceTree = "<group>"; };
 		044595C527951C4F00F04CE0 /* collider_set2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collider_set2_tests.cpp; sourceTree = "<group>"; };
 		044595C627951C5000F04CE0 /* rigid_body_collider2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rigid_body_collider2_tests.cpp; sourceTree = "<group>"; };
+		044595CE279668DC00F04CE0 /* color_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = color_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1223,6 +1225,7 @@
 				0445948B2793B98E00F04CE0 /* vector2_tests.cpp */,
 				044594882793B98E00F04CE0 /* vector3_tests.cpp */,
 				044594862793B98E00F04CE0 /* vector4_tests.cpp */,
+				044595CE279668DC00F04CE0 /* color_tests.cpp */,
 				0445948D2793B98E00F04CE0 /* matrix_tests.cpp */,
 				044594912793B98F00F04CE0 /* matrix2x2_tests.cpp */,
 				0445948E2793B98F00F04CE0 /* matrix3x3_tests.cpp */,
@@ -2384,6 +2387,7 @@
 				044595802795141D00F04CE0 /* cylinder3_tests.cpp in Sources */,
 				044595C827951C5000F04CE0 /* rigid_body_collider3_tests.cpp in Sources */,
 				044594962793B98F00F04CE0 /* point_tests.cpp in Sources */,
+				044595CF279668DC00F04CE0 /* color_tests.cpp in Sources */,
 				0445957B2795134600F04CE0 /* plane3_tests.cpp in Sources */,
 				044595782795128300F04CE0 /* plane2_tests.cpp in Sources */,
 				044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */,
