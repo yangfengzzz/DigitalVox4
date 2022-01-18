@@ -78,9 +78,10 @@ bool Forward::prepare(Engine &engine) {
         // Create a render pass descriptor for thelighting and composition pass
         // Whatever rendered in the final pass needs to be stored so it can be displayed
         m_finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
-        m_finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionLoad);
+        m_finalRenderPassDescriptor.colorAttachments[0].loadAction(MTL::LoadActionClear);
+        m_finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
         m_finalRenderPassDescriptor.depthAttachment.texture(*render_context->depthStencilTexture());
-        m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
+        m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
         m_finalRenderPassDescriptor.stencilAttachment.texture(*render_context->depthStencilTexture());
         m_finalRenderPass = std::make_unique<RenderPass>(&m_finalRenderPassDescriptor);
         m_finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(&m_finalRenderPassDescriptor, scene.get(), m_camera,
@@ -92,10 +93,16 @@ bool Forward::prepare(Engine &engine) {
 }
 
 void Forward::loadScene() {
-    auto entity = newMeshesFromBundlePath("../assets/Models", "Temple.obj",
-                                          *device, scene.get(), m_defaultVertexDescriptor);
-    entity->transform->setPosition(0, 10, 0);
-    m_camera = scene->getRootEntity()->addComponent<Camera>();
+    auto rootEntity = scene->createRootEntity();
+    auto modelEntity = rootEntity->createChild();
+    newMeshesFromBundlePath("../assets/Models", "Temple.obj",
+                            *device, modelEntity, m_defaultVertexDescriptor);
+    modelEntity->transform->setPosition(0, 10, 0);
+    modelEntity->transform->setScale(0.1, 0.1, 0.1);
+    
+    auto cameraEntity = rootEntity->createChild();
+    cameraEntity->transform->setPosition(-6.02535057, 36.6681671, 48.6991844);
+    m_camera = cameraEntity->addComponent<Camera>();
 }
 
 void Forward::update(float delta_time) {
@@ -114,6 +121,7 @@ void Forward::update(float delta_time) {
     }
     // Finalize rendering here & push the command buffer to the GPU
     commandBuffer.commit();
+    drawable->present();
 }
 
 void Forward::framebuffer_resize(uint32_t width, uint32_t height) {

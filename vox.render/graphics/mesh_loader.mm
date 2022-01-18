@@ -257,13 +257,11 @@ void createMeshesFromModelIOObject(EntityPtr entity,
 } // namespace
 
 //MARK: - Entry
-EntityPtr newMeshesFromBundlePath(const char *bundlePath,
-                                  const char *meshFile,
-                                  MTL::Device &device,
-                                  Scene* scene,
-                                  const MTL::VertexDescriptor &vertexDescriptor) {
-    auto entity = scene->createRootEntity();
-    
+void newMeshesFromBundlePath(const char *bundlePath,
+                             const char *meshFile,
+                             MTL::Device &device,
+                             EntityPtr entity,
+                             const MTL::VertexDescriptor &vertexDescriptor) {
     // Create a ModelIO vertexDescriptor so that the format/layout of the ModelIO mesh vertices
     //   cah be made to match Metal render pipeline's vertex descriptor layout
     MDLVertexDescriptor *modelIOVertexDescriptor =
@@ -313,8 +311,6 @@ EntityPtr newMeshesFromBundlePath(const char *bundlePath,
     }
     
     MTLAssert(!nserror, (__bridge CFErrorRef) nserror, "");
-    
-    return entity;
 }
 
 

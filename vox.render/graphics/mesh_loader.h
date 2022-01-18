@@ -12,11 +12,11 @@
 #include "core/CPPMetal.hpp"
 
 namespace vox {
-EntityPtr newMeshesFromBundlePath(const char *bundlePath,
-                                  const char *meshFile,
-                                  MTL::Device &device,
-                                  Scene* scene,
-                                  const MTL::VertexDescriptor &vertexDescriptor);
+void newMeshesFromBundlePath(const char *bundlePath,
+                             const char *meshFile,
+                             MTL::Device &device,
+                             EntityPtr entity,
+                             const MTL::VertexDescriptor &vertexDescriptor);
 }
 
 #endif // Mesh_h

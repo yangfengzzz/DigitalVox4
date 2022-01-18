@@ -459,7 +459,7 @@ void Deferred::updateLights(const float4x4 &modelViewMatrix) {
 /// Load models/textures, etc.
 void Deferred::loadScene() {
     newMeshesFromBundlePath("../assets/Models", "Temple.obj",
-                            *device, scene.get(), m_defaultVertexDescriptor);
+                            *device, scene.get()->createRootEntity(), m_defaultVertexDescriptor);
         
     // Generate data
     {
