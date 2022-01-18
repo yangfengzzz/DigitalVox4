@@ -382,20 +382,14 @@
 		04459209278E5C8100F04CE0 /* std_helpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = std_helpers.h; sourceTree = "<group>"; };
 		0445920C278E5F1000F04CE0 /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
 		0445920D278E5F1000F04CE0 /* input_events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = input_events.h; sourceTree = "<group>"; };
-		0445920E278E5F1000F04CE0 /* filesystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = filesystem.cpp; sourceTree = "<group>"; };
-		04459210278E5F1000F04CE0 /* configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = configuration.h; sourceTree = "<group>"; };
 		04459211278E5F1000F04CE0 /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
 		04459212278E5F1000F04CE0 /* application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = application.cpp; sourceTree = "<group>"; };
 		04459215278E5F1000F04CE0 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
 		04459216278E5F1100F04CE0 /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timer.cpp; sourceTree = "<group>"; };
 		04459218278E5F1100F04CE0 /* application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = application.h; sourceTree = "<group>"; };
 		04459219278E5F1100F04CE0 /* window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = window.cpp; sourceTree = "<group>"; };
-		0445921A278E5F1100F04CE0 /* configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = configuration.cpp; sourceTree = "<group>"; };
 		0445921B278E5F1100F04CE0 /* input_events.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = input_events.cpp; sourceTree = "<group>"; };
-		0445921C278E5F1100F04CE0 /* filesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filesystem.h; sourceTree = "<group>"; };
 		0445921E278E5F1100F04CE0 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
-		04459234278E5FD700F04CE0 /* debug_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug_info.cpp; sourceTree = "<group>"; };
-		04459235278E5FD700F04CE0 /* debug_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug_info.h; sourceTree = "<group>"; };
 		04459252278E6D4700F04CE0 /* glfw_window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = glfw_window.mm; sourceTree = "<group>"; };
 		04459253278E6D4700F04CE0 /* glfw_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw_window.h; sourceTree = "<group>"; };
 		04459256278E708A00F04CE0 /* unix_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unix_engine.cpp; sourceTree = "<group>"; };
@@ -851,12 +845,6 @@
 				04459252278E6D4700F04CE0 /* glfw_window.mm */,
 				0445920D278E5F1000F04CE0 /* input_events.h */,
 				0445921B278E5F1100F04CE0 /* input_events.cpp */,
-				04459210278E5F1000F04CE0 /* configuration.h */,
-				0445921A278E5F1100F04CE0 /* configuration.cpp */,
-				04459235278E5FD700F04CE0 /* debug_info.h */,
-				04459234278E5FD700F04CE0 /* debug_info.cpp */,
-				0445921C278E5F1100F04CE0 /* filesystem.h */,
-				0445920E278E5F1000F04CE0 /* filesystem.cpp */,
 				0422955D278C31DC0090983F /* core */,
 				044591C4278E54D500F04CE0 /* memory */,
 				044591C5278E54DF00F04CE0 /* containers */,
