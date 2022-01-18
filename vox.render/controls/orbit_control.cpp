@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  orbit_control.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/11/30.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "orbit_control.h"
 #include "../entity.h"
@@ -34,26 +33,26 @@ void OrbitControl::resize(uint32_t width, uint32_t height) {
 
 void OrbitControl::inputEvent(const InputEvent &inputEvent) {
     if (_enableEvent) {
-        if (inputEvent.get_source() == EventSource::Keyboard) {
+        if (inputEvent.source() == EventSource::Keyboard) {
             const auto &key_event = static_cast<const KeyInputEvent &>(inputEvent);
-            onKeyDown(key_event.get_code());
-        } else if (inputEvent.get_source() == EventSource::Mouse) {
+            onKeyDown(key_event.code());
+        } else if (inputEvent.source() == EventSource::Mouse) {
             const auto &mouse_button = static_cast<const MouseButtonInputEvent &>(inputEvent);
-            if (mouse_button.get_action() == MouseAction::Down) {
-                onMouseDown(mouse_button.get_button(), mouse_button.get_pos_x(), mouse_button.get_pos_y());
+            if (mouse_button.action() == MouseAction::Down) {
+                onMouseDown(mouse_button.button(), mouse_button.pos_x(), mouse_button.pos_y());
                 _enableMove = true;
-            } else if (mouse_button.get_action() == MouseAction::Up) {
+            } else if (mouse_button.action() == MouseAction::Up) {
                 onMouseUp();
                 _enableMove = false;
             }
             
-            if (_enableMove && mouse_button.get_action() == MouseAction::Move) {
-                onMouseMove(mouse_button.get_pos_x(), mouse_button.get_pos_y());
+            if (_enableMove && mouse_button.action() == MouseAction::Move) {
+                onMouseMove(mouse_button.pos_x(), mouse_button.pos_y());
             }
-        } else if (inputEvent.get_source() == EventSource::Scroll) {
+        } else if (inputEvent.source() == EventSource::Scroll) {
             const auto &scroll_event = static_cast<const ScrollInputEvent &>(inputEvent);
-            onMouseWheel(scroll_event.get_offset_x(), scroll_event.get_offset_y());
-        } else if (inputEvent.get_source() == EventSource::Touchscreen) {
+            onMouseWheel(scroll_event.offset_x(), scroll_event.offset_y());
+        } else if (inputEvent.source() == EventSource::Touchscreen) {
             // TODO
         }
     }
@@ -70,19 +69,19 @@ void OrbitControl::onUpdate(float dtime) {
         rotateLeft(autoRotationAngle(dtime));
     }
     
-    _spherical.theta += _sphericalDelta.theta;
-    _spherical.phi += _sphericalDelta.phi;
+    _spherical._theta += _sphericalDelta._theta;
+    _spherical._phi += _sphericalDelta._phi;
     
-    _spherical.theta = std::max(minAzimuthAngle, std::min(maxAzimuthAngle, _spherical.theta));
-    _spherical.phi = std::max(minPolarAngle, std::min(maxPolarAngle, _spherical.phi));
+    _spherical._theta = std::max(minAzimuthAngle, std::min(maxAzimuthAngle, _spherical._theta));
+    _spherical._phi = std::max(minPolarAngle, std::min(maxPolarAngle, _spherical._phi));
     _spherical.makeSafe();
     
     if (_scale != 1) {
-        _zoomFrag = _spherical.radius * (_scale - 1);
+        _zoomFrag = _spherical._radius * (_scale - 1);
     }
     
-    _spherical.radius += _zoomFrag;
-    _spherical.radius = std::max(minDistance, std::min(maxDistance, _spherical.radius));
+    _spherical._radius += _zoomFrag;
+    _spherical._radius = std::max(minDistance, std::min(maxDistance, _spherical._radius));
     
     target = target + _panOffset;
     _spherical.setToVec3(_offset);
@@ -93,13 +92,13 @@ void OrbitControl::onUpdate(float dtime) {
     camera->transform->lookAt(target, up);
     
     if (enableDamping == true) {
-        _sphericalDump.theta *= 1 - dampingFactor;
-        _sphericalDump.phi *= 1 - dampingFactor;
+        _sphericalDump._theta *= 1 - dampingFactor;
+        _sphericalDump._phi *= 1 - dampingFactor;
         _zoomFrag *= 1 - zoomFactor;
         
         if (_isMouseUp) {
-            _sphericalDelta.theta = _sphericalDump.theta;
-            _sphericalDelta.phi = _sphericalDump.phi;
+            _sphericalDelta._theta = _sphericalDump._theta;
+            _sphericalDelta._phi = _sphericalDump._phi;
         } else {
             _sphericalDelta.set(0, 0, 0);
         }
@@ -121,16 +120,16 @@ float OrbitControl::zoomScale() {
 }
 
 void OrbitControl::rotateLeft(float radian) {
-    _sphericalDelta.theta -= radian;
+    _sphericalDelta._theta -= radian;
     if (enableDamping) {
-        _sphericalDump.theta = -radian;
+        _sphericalDump._theta = -radian;
     }
 }
 
 void OrbitControl::rotateUp(float radian) {
-    _sphericalDelta.phi -= radian;
+    _sphericalDelta._phi -= radian;
     if (enableDamping) {
-        _sphericalDump.phi = -radian;
+        _sphericalDump._phi = -radian;
     }
 }
 

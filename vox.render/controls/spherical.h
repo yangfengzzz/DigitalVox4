@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  spherical.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/11/30.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef spherical_hpp
 #define spherical_hpp
@@ -30,9 +29,9 @@ private:
     
     friend class FreeControl;
     
-    float radius;
-    float phi;
-    float theta;
+    float _radius;
+    float _phi;
+    float _theta;
 };
 
 }

@@ -366,6 +366,14 @@
 		044596A52796F99100F04CE0 /* renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459308278F14BD00F04CE0 /* renderer.h */; };
 		044596A62796F99100F04CE0 /* scene_forward.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459278278E80DD00F04CE0 /* scene_forward.h */; };
 		044596A72796F99100F04CE0 /* camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F6278EFEC700F04CE0 /* camera.h */; };
+		044596A82796FA8800F04CE0 /* mesh_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941D279292E000F04CE0 /* mesh_renderer.h */; };
+		044596A92796FA8800F04CE0 /* mesh_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445941C279292E000F04CE0 /* mesh_renderer.cpp */; };
+		044596AA2796FAA400F04CE0 /* spherical.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445930C278F170100F04CE0 /* spherical.cpp */; };
+		044596AC2796FAA400F04CE0 /* spherical.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445930D278F170100F04CE0 /* spherical.h */; };
+		044596B02796FAFD00F04CE0 /* orbit_control.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445936A278FB37C00F04CE0 /* orbit_control.h */; };
+		044596B12796FAFD00F04CE0 /* orbit_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459369278FB37B00F04CE0 /* orbit_control.cpp */; };
+		044596B22796FB5200F04CE0 /* free_control.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445936D278FBCCA00F04CE0 /* free_control.h */; };
+		044596B32796FB5200F04CE0 /* free_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445936E278FBCCA00F04CE0 /* free_control.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1766,6 +1774,7 @@
 				044595E02796E88600F04CE0 /* cpp_mtl_command_buffer.h in Headers */,
 				044596632796F85C00F04CE0 /* stencil_state.h in Headers */,
 				044596112796E88B00F04CE0 /* cpp_mtl_dispatch_table_cache.h in Headers */,
+				044596AC2796FAA400F04CE0 /* spherical.h in Headers */,
 				044596612796F7C800F04CE0 /* forward_subpass.h in Headers */,
 				044595D92796DC9B00F04CE0 /* glfw_window.h in Headers */,
 				0445968A2796F87C00F04CE0 /* pbr_material.h in Headers */,
@@ -1785,6 +1794,7 @@
 				044596262796EB1B00F04CE0 /* imstb_truetype.h in Headers */,
 				044595EE2796E88600F04CE0 /* cpp_mtl_buffer.h in Headers */,
 				044596642796F85C00F04CE0 /* shader_property.h in Headers */,
+				044596A82796FA8800F04CE0 /* mesh_renderer.h in Headers */,
 				044596252796EB1B00F04CE0 /* imconfig.h in Headers */,
 				044596A62796F99100F04CE0 /* scene_forward.h in Headers */,
 				044596272796EB1B00F04CE0 /* imgui.h in Headers */,
@@ -1806,6 +1816,7 @@
 				0445967C2796F87C00F04CE0 /* blend_mode.h in Headers */,
 				044595EA2796E88600F04CE0 /* cpp_mtl_library.h in Headers */,
 				044596752796F85C00F04CE0 /* renderTarget_blend_state.h in Headers */,
+				044596B02796FAFD00F04CE0 /* orbit_control.h in Headers */,
 				044596A22796F99100F04CE0 /* scene.h in Headers */,
 				044595F82796E88600F04CE0 /* cpp_mtl_data_type.h in Headers */,
 				044596A32796F99100F04CE0 /* transform.h in Headers */,
@@ -1827,6 +1838,7 @@
 				044596662796F85C00F04CE0 /* shader.h in Headers */,
 				044596652796F85C00F04CE0 /* shader_macro_collection.h in Headers */,
 				044595DB2796DE3B00F04CE0 /* input_events.h in Headers */,
+				044596B22796FB5200F04CE0 /* free_control.h in Headers */,
 				044595E32796E88600F04CE0 /* cpp_mtl_vertex_descriptor.h in Headers */,
 				044596882796F87C00F04CE0 /* pbr_base_material.h in Headers */,
 				044596972796F99100F04CE0 /* layer.h in Headers */,
@@ -2141,15 +2153,18 @@
 				044596732796F85C00F04CE0 /* stencil_state.cpp in Sources */,
 				044596792796F85C00F04CE0 /* shader.cpp in Sources */,
 				044596492796EF9500F04CE0 /* render_element.cpp in Sources */,
+				044596A92796FA8800F04CE0 /* mesh_renderer.cpp in Sources */,
 				044595DC2796DE3B00F04CE0 /* input_events.cpp in Sources */,
 				044596022796E88600F04CE0 /* cpp_mtl_data_type.mm in Sources */,
 				0445967A2796F85C00F04CE0 /* render_state.cpp in Sources */,
 				044595F32796E88600F04CE0 /* cpp_mtl_render_pipeline.mm in Sources */,
 				044596042796E88600F04CE0 /* cpp_mtl_render_pass.mm in Sources */,
 				0445963A2796EE4F00F04CE0 /* mesh_loader.mm in Sources */,
+				044596B12796FAFD00F04CE0 /* orbit_control.cpp in Sources */,
 				0445960A2796E88600F04CE0 /* cpp_mtl_buffer.mm in Sources */,
 				044595EC2796E88600F04CE0 /* cpp_mtl_function_constant_values.mm in Sources */,
 				044596352796EE4F00F04CE0 /* sub_mesh.cpp in Sources */,
+				044596AA2796FAA400F04CE0 /* spherical.cpp in Sources */,
 				0445969A2796F99100F04CE0 /* update_flag_manager.cpp in Sources */,
 				044595D62796DB0A00F04CE0 /* timer.cpp in Sources */,
 				0445965A2796F62100F04CE0 /* compose_subpass.cpp in Sources */,
@@ -2162,6 +2177,7 @@
 				0445967F2796F87C00F04CE0 /* material.cpp in Sources */,
 				0445960C2796E88B00F04CE0 /* resource_cache.cpp in Sources */,
 				044596542796F57100F04CE0 /* shadow_subpass.cpp in Sources */,
+				044596B32796FB5200F04CE0 /* free_control.cpp in Sources */,
 				044595F72796E88600F04CE0 /* cpp_mtl_device.mm in Sources */,
 				044596622796F7C800F04CE0 /* forward_subpass.cpp in Sources */,
 				0445963B2796EE4F00F04CE0 /* mesh.cpp in Sources */,

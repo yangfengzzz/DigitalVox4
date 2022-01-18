@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  free_control.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/12/17.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "free_control.h"
 #include "../entity.h"
@@ -36,24 +35,24 @@ void FreeControl::resize(uint32_t width, uint32_t height) {
 
 void FreeControl::inputEvent(const InputEvent &inputEvent) {
     if (_enableEvent) {
-        if (inputEvent.get_source() == EventSource::Keyboard) {
+        if (inputEvent.source() == EventSource::Keyboard) {
             const auto &key_event = static_cast<const KeyInputEvent &>(inputEvent);
-            if (key_event.get_action() == KeyAction::Down) {
-                onKeyDown(key_event.get_code());
-            } else if (key_event.get_action() == KeyAction::Up) {
-                onKeyUp(key_event.get_code());
+            if (key_event.action() == KeyAction::Down) {
+                onKeyDown(key_event.code());
+            } else if (key_event.action() == KeyAction::Up) {
+                onKeyUp(key_event.code());
             }
-        } else if (inputEvent.get_source() == EventSource::Mouse) {
+        } else if (inputEvent.source() == EventSource::Mouse) {
             const auto &mouse_button = static_cast<const MouseButtonInputEvent &>(inputEvent);
-            if (mouse_button.get_action() == MouseAction::Down) {
-                onMouseDown(mouse_button.get_pos_x(), mouse_button.get_pos_y());
-            } else if (mouse_button.get_action() == MouseAction::Up) {
+            if (mouse_button.action() == MouseAction::Down) {
+                onMouseDown(mouse_button.pos_x(), mouse_button.pos_y());
+            } else if (mouse_button.action() == MouseAction::Up) {
                 onMouseUp();
-            } else if (mouse_button.get_action() == MouseAction::Move) {
-                onMouseMove(mouse_button.get_pos_x(), mouse_button.get_pos_y());
+            } else if (mouse_button.action() == MouseAction::Move) {
+                onMouseMove(mouse_button.pos_x(), mouse_button.pos_y());
             }
-        } else if (inputEvent.get_source() == EventSource::Scroll) {
-        } else if (inputEvent.get_source() == EventSource::Touchscreen) {
+        } else if (inputEvent.source() == EventSource::Scroll) {
+        } else if (inputEvent.source() == EventSource::Touchscreen) {
             // TODO
         }
     }
@@ -143,8 +142,8 @@ void FreeControl::rotate(float alpha, float beta) {
     _theta += degreesToRadians(alpha);
     _phi += degreesToRadians(beta);
     _phi = clamp<float>(_phi, 1e-6, M_PI - 1e-6);
-    _spherical.theta = _theta;
-    _spherical.phi = _phi;
+    _spherical._theta = _theta;
+    _spherical._phi = _phi;
     _spherical.setToVec3(_v3Cache);
     Point3F offset = entity()->transform->position() + _v3Cache;
     _v3Cache = Vector3F(offset.x, offset.y, offset.y);
@@ -182,8 +181,8 @@ void FreeControl::onUpdate(float delta) {
 void FreeControl::updateSpherical() {
     _v3Cache = entity()->transform->rotationQuaternion() * Vector3F(0, 0, -1);
     _spherical.setFromVec3(_v3Cache);
-    _theta = _spherical.theta;
-    _phi = _spherical.phi;
+    _theta = _spherical._theta;
+    _phi = _spherical._phi;
 }
 
 }
