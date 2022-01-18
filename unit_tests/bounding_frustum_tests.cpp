@@ -55,7 +55,7 @@ TEST_F(BoundingFrustumTest, calculateFromMatrix) {
     }
 }
 
-TEST(Plane, Constructor) {
+TEST(BoundingPlane, Constructor) {
     const auto point1 = Point3F(0, 1, 0);
     const auto point2 = Point3F(0, 1, 1);
     const auto point3 = Point3F(1, 1, 0);
