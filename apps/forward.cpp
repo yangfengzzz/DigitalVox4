@@ -121,9 +121,6 @@ void Forward::framebuffer_resize(uint32_t width, uint32_t height) {
     //   orientation or size has changed
     m_camera->resize(width, height);
     
-//    float aspect = (float) width / (float) height;
-//    m_projection_matrix = matrix_perspective_left_hand(65.0f * (M_PI / 180.0f), aspect, NearPlane, FarPlane);
-    
     MetalApplication::framebuffer_resize(width, height);
 }
 

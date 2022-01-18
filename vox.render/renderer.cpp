@@ -167,8 +167,8 @@ void Renderer::setMaterials(const std::vector<MaterialPtr> &materials) {
 void Renderer::_updateShaderData(const Matrix4x4F& viewMat,
                                  const Matrix4x4F& projMat) {
     auto worldMatrix = entity()->transform->worldMatrix();
-    _mvMatrix = worldMatrix * viewMat;
-    _mvpMatrix = worldMatrix * viewMat * projMat;
+    _mvMatrix = viewMat * worldMatrix;
+    _mvpMatrix = projMat * viewMat * worldMatrix;
     _mvInvMatrix = _mvMatrix.inverse();
     _normalMatrix = worldMatrix.inverse();
     _normalMatrix = _normalMatrix.transposed();

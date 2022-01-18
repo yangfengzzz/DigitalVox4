@@ -21,6 +21,14 @@ cmake ..
 make -j5
 cd ../..
 
+# Google Flags ##############################
+cd gflags
+mkdir builds
+cd builds
+cmake ..
+make -j5
+cd ../..
+
 # Google Log ##############################
 cd glog
 mkdir build
