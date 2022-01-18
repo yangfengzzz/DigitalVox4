@@ -30,6 +30,8 @@ class Vector final : public VectorExpression<T, Vector<T, N>> {
 public:
     static_assert(N > 0,
                   "Size of static-sized vector should be greater than zero.");
+    static_assert(!(N == 2) && !(N == 3) && !(N == 4),
+                  "Use specialized vector for 2, 3, and 4 vector.");
     static_assert(std::is_floating_point<T>::value,
                   "Vector only can be instantiated with floating point types");
     

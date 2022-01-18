@@ -750,7 +750,7 @@ TEST(Matrix4x4, getXXX) {
     EXPECT_VECTOR3_EQ(translation, Point3D(13, 14, 15));
 }
 
-TEST(Matrix4x4, transform) {
+TEST(Matrix4x4, transform3) {
     const auto a = Point3D(2, 3, 4);
     const auto b = Vector4D(2, 3, 4, 1);
     const auto m4 = Matrix4x4D(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1);
@@ -764,4 +764,16 @@ TEST(Matrix4x4, transform) {
     EXPECT_VECTOR3_EQ(a, Point3D(out.x, out.y, out.z));
     out = QuaternionD(2, 3, 4, 5) * a;
     EXPECT_VECTOR3_EQ(out, Point3D(108, 162, 216));
+}
+
+TEST(Vector4, transform4) {
+    const auto a = Vector4D(2, 3, 4, 5);
+    const auto m4 = Matrix4x4D(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0);
+    Vector4D out = m4 * a;
+    EXPECT_VECTOR4_EQ(out, Vector4D(2, 3, 9, 0));
+    
+    out = QuaternionD() * a;
+    EXPECT_VECTOR4_EQ(a, Vector4D(out.x, out.y, out.z, out.w));
+    out = QuaternionD(2, 3, 4, 5) * a;
+    EXPECT_VECTOR4_EQ(out, Vector4D(108, 162, 216, 5));
 }

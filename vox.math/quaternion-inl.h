@@ -205,32 +205,48 @@ Quaternion<T> Quaternion<T>::mul(T v) const {
 
 // Binary operator methods - new instance = this instance (+) input
 template<typename T>
-inline Vector3 <T> Quaternion<T>::mul(const Vector3 <T> &v) const {
-    // calculate quat * vec
-    T ix = w * v.x + y * v.z - z * v.y;
-    T iy = w * v.y + z * v.x - x * v.z;
-    T iz = w * v.z + x * v.y - y * v.x;
-    T iw = -x * v.x - y * v.y - z * v.z;
-
-    // calculate result * inverse quat
-    return Vector3<T>(ix * w - iw * x - iy * z + iz * y,
-                     iy * w - iw * y - iz * x + ix * z,
-                     iz * w - iw * z - ix * y + iy * x);
-}
-
-// Binary operator methods - new instance = this instance (+) input
-template<typename T>
 inline Point3 <T> Quaternion<T>::mul(const Point3 <T> &v) const {
     // calculate quat * vec
     T ix = w * v.x + y * v.z - z * v.y;
     T iy = w * v.y + z * v.x - x * v.z;
     T iz = w * v.z + x * v.y - y * v.x;
     T iw = -x * v.x - y * v.y - z * v.z;
-
+    
     // calculate result * inverse quat
     return Point3<T>(ix * w - iw * x - iy * z + iz * y,
                      iy * w - iw * y - iz * x + ix * z,
                      iz * w - iw * z - ix * y + iy * x);
+}
+
+// Binary operator methods - new instance = this instance (+) input
+template<typename T>
+inline Vector3 <T> Quaternion<T>::mul(const Vector3 <T> &v) const {
+    // calculate quat * vec
+    T ix = w * v.x + y * v.z - z * v.y;
+    T iy = w * v.y + z * v.x - x * v.z;
+    T iz = w * v.z + x * v.y - y * v.x;
+    T iw = -x * v.x - y * v.y - z * v.z;
+    
+    // calculate result * inverse quat
+    return Vector3<T>(ix * w - iw * x - iy * z + iz * y,
+                      iy * w - iw * y - iz * x + ix * z,
+                      iz * w - iw * z - ix * y + iy * x);
+}
+
+// Binary operator methods - new instance = this instance (+) input
+template<typename T>
+inline Vector4 <T> Quaternion<T>::mul(const Vector4 <T> &v) const {
+    // calculate quat * vec
+    T ix = w * v.x + y * v.z - z * v.y;
+    T iy = w * v.y + z * v.x - x * v.z;
+    T iz = w * v.z + x * v.y - y * v.x;
+    T iw = -x * v.x - y * v.y - z * v.z;
+    
+    // calculate result * inverse quat
+    return Vector4<T>(ix * w - iw * x - iy * z + iz * y,
+                      iy * w - iw * y - iz * x + ix * z,
+                      iz * w - iw * z - ix * y + iy * x,
+                      v.w);
 }
 
 template<typename T>
@@ -327,7 +343,7 @@ inline void Quaternion<T>::rotateX(T rad) {
     const T y = this->y;
     const T z = this->z;
     const T w = this->w;
-
+    
     rad *= 0.5;
     T bx = std::sin(rad);
     T bw = std::cos(rad);
@@ -701,12 +717,17 @@ Quaternion<T> operator*(T a, const Quaternion<T> &b) {
 }
 
 template<typename T>
+inline Point<T, 3> operator*(const Quaternion <T> &q, const Point<T, 3> &v) {
+    return q.mul(v);
+}
+
+template<typename T>
 inline Vector<T, 3> operator*(const Quaternion <T> &q, const Vector<T, 3> &v) {
     return q.mul(v);
 }
 
 template<typename T>
-inline Point<T, 3> operator*(const Quaternion <T> &q, const Point<T, 3> &v) {
+inline Vector<T, 4> operator*(const Quaternion <T> &q, const Vector<T, 4> &v) {
     return q.mul(v);
 }
 

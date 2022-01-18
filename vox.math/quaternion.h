@@ -105,10 +105,13 @@ public:
     Quaternion mul(T v) const;
     
     //! Returns this quaternion * vector.
+    Point3<T> mul(const Point3<T> &v) const;
+    
+    //! Returns this quaternion * vector.
     Vector3<T> mul(const Vector3<T> &v) const;
     
     //! Returns this quaternion * vector.
-    Point3<T> mul(const Point3<T> &v) const;
+    Vector4<T> mul(const Vector4<T> &v) const;
     
     //! Returns this quaternion * other quaternion.
     Quaternion mul(const Quaternion &other) const;
@@ -337,11 +340,15 @@ Quaternion<T> operator*(T a, const Quaternion<T> &b);
 
 //! Returns quaternion q * vector v.
 template<typename T>
+Point<T, 3> operator*(const Quaternion<T> &q, const Point<T, 3> &v);
+
+//! Returns quaternion q * vector v.
+template<typename T>
 Vector<T, 3> operator*(const Quaternion<T> &q, const Vector<T, 3> &v);
 
 //! Returns quaternion q * vector v.
 template<typename T>
-Point<T, 3> operator*(const Quaternion<T> &q, const Point<T, 3> &v);
+Vector<T, 4> operator*(const Quaternion<T> &q, const Vector<T, 4> &v);
 
 //! Returns quaternion a times quaternion b.
 template<typename T>

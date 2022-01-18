@@ -6,6 +6,7 @@
 
 #include "matrix.h"
 #include "vector.h"
+#include "vector2.h"
 
 #include <gtest/gtest.h>
 
@@ -102,19 +103,19 @@ TEST(Matrix, BasicSetters) {
         }
     }
     
-    Vector<double, 2> row = {2.0, 3.0};
-    mat.setColumn(2, row);
-    for (size_t i = 0; i < 8; ++i) {
-        if (i == 0 || i == 3) {
-            EXPECT_EQ(10.0, mat[i]);
-        } else if (i == 4) {
-            EXPECT_EQ(2.0, mat[i]);
-        } else if (i == 5) {
-            EXPECT_EQ(3.0, mat[i]);
-        } else {
-            EXPECT_EQ(-1.0, mat[i]);
-        }
-    }
+//    Vector<double, 2> row = {2.0, 3.0};
+//    mat.setColumn(2, row);
+//    for (size_t i = 0; i < 8; ++i) {
+//        if (i == 0 || i == 3) {
+//            EXPECT_EQ(10.0, mat[i]);
+//        } else if (i == 4) {
+//            EXPECT_EQ(2.0, mat[i]);
+//        } else if (i == 5) {
+//            EXPECT_EQ(3.0, mat[i]);
+//        } else {
+//            EXPECT_EQ(-1.0, mat[i]);
+//        }
+//    }
     
     mat.set({{1.0, 2.0}, {3.0, 4.0}, {5.0, 6.0}, {7.0, 8.0}});
     mat2.set({{1.0, 2.0}, {3.0, 4.0}, {5.0, 6.0}, {7.0, 8.0}});
