@@ -2737,6 +2737,7 @@
 					./third_party/tinyobj,
 					./third_party/glog/src,
 					./third_party/glog/build,
+					./third_party/gflags/builds/include,
 				);
 			};
 			name = Debug;
@@ -2757,6 +2758,7 @@
 					./third_party/tinyobj,
 					./third_party/glog/src,
 					./third_party/glog/build,
+					./third_party/gflags/builds/include,
 				);
 			};
 			name = Release;
@@ -2765,6 +2767,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = unit_tests/unit_tests.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4SL5L673UU;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2798,6 +2801,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = unit_tests/unit_tests.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4SL5L673UU;
 				ENABLE_HARDENED_RUNTIME = YES;
