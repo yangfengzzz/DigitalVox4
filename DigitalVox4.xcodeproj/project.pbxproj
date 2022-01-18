@@ -419,6 +419,7 @@
 		044595CD27951D2A00F04CE0 /* libvox.force.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04459590279518FF00F04CE0 /* libvox.force.a */; };
 		044595CF279668DC00F04CE0 /* color_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595CE279668DC00F04CE0 /* color_tests.cpp */; };
 		044595D127966FE500F04CE0 /* bounding_frustum_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595D027966FE500F04CE0 /* bounding_frustum_tests.cpp */; };
+		044595D32796711900F04CE0 /* collision_util_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044595D22796711900F04CE0 /* collision_util_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -973,6 +974,7 @@
 		044595C627951C5000F04CE0 /* rigid_body_collider2_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rigid_body_collider2_tests.cpp; sourceTree = "<group>"; };
 		044595CE279668DC00F04CE0 /* color_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = color_tests.cpp; sourceTree = "<group>"; };
 		044595D027966FE500F04CE0 /* bounding_frustum_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bounding_frustum_tests.cpp; sourceTree = "<group>"; };
+		044595D22796711900F04CE0 /* collision_util_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = collision_util_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1241,6 +1243,7 @@
 				0422967C278D697B0090983F /* bounding_box2_tests.cpp */,
 				0422967A278D697B0090983F /* bounding_box3_tests.cpp */,
 				044595D027966FE500F04CE0 /* bounding_frustum_tests.cpp */,
+				044595D22796711900F04CE0 /* collision_util_tests.cpp */,
 				044595092794F97300F04CE0 /* list_query_engine2_tests.cpp */,
 				0445950A2794F97300F04CE0 /* list_query_engine3_tests.cpp */,
 				0445950E2794FC0A00F04CE0 /* quadtree_tests.cpp */,
@@ -2385,6 +2388,7 @@
 				04459585279515E700F04CE0 /* surface_to_implicit3_tests.cpp in Sources */,
 				0445950B2794F97400F04CE0 /* list_query_engine2_tests.cpp in Sources */,
 				044595232794FE8400F04CE0 /* bvh2_tests.cpp in Sources */,
+				044595D32796711900F04CE0 /* collision_util_tests.cpp in Sources */,
 				0445949C2793B98F00F04CE0 /* point2_tests.cpp in Sources */,
 				0445949E2793B98F00F04CE0 /* matrix2x2_tests.cpp in Sources */,
 				04459587279516CB00F04CE0 /* implicit_surface_set2_tests.cpp in Sources */,
