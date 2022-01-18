@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  shadow_subpass.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef shadow_subpass_hpp
 #define shadow_subpass_hpp
@@ -16,18 +15,18 @@ namespace vox {
 class ShadowSubpass: public Subpass {
 public:
     ShadowSubpass(MTL::RenderPassDescriptor* desc,
+                  MTL::Device* device,
                   Scene* scene,
                   Camera* camera,
-                  MTL::Library& shaderLibrary,
-                  MTL::Device& m_device);
+                  MTL::Library& shaderLibrary);
 
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
         
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
 
-    MTL::RenderPipelineState m_shadowGenPipelineState;
-    MTL::DepthStencilState m_shadowDepthStencilState;
+    MTL::RenderPipelineState _shadowGenPipelineState;
+    MTL::DepthStencilState _shadowDepthStencilState;
 };
 
 }

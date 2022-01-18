@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  subpass.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef subpass_hpp
 #define subpass_hpp
@@ -15,7 +14,7 @@ namespace vox {
 class Subpass {
 public:
     Subpass(MTL::RenderPassDescriptor* desc,
-            MTL::Device& m_device,
+            MTL::Device* device,
             Scene* scene,
             Camera* camera);
     
@@ -36,9 +35,9 @@ public:
     virtual void draw(MTL::RenderCommandEncoder& commandEncoder) = 0;
     
 protected:
-    MTL::Device& m_device;
-    Scene* scene;
-    Camera* camera;
+    MTL::Device* _device;
+    Scene* _scene;
+    Camera* _camera;
 };
 
 }

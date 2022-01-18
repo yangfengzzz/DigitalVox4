@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  shadow_subpass.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "shadow_subpass.h"
 #include "material/material.h"
@@ -12,11 +11,11 @@
 
 namespace vox {
 ShadowSubpass::ShadowSubpass(MTL::RenderPassDescriptor* desc,
+                             MTL::Device* device,
                              Scene* scene,
                              Camera* camera,
-                             MTL::Library& shaderLibrary,
-                             MTL::Device& m_device):
-Subpass(desc, m_device, scene, camera) {
+                             MTL::Library& shaderLibrary):
+Subpass(desc, device, scene, camera) {
     CFErrorRef error = nullptr;
     
 #pragma mark Shadow pass render pipeline setup
@@ -30,7 +29,7 @@ Subpass(desc, m_device, scene, camera) {
         renderPipelineDescriptor.fragmentFunction(nullptr);
         renderPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
         
-        m_shadowGenPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
+        _shadowGenPipelineState = device->makeRenderPipelineState(renderPipelineDescriptor, &error);
         
         delete shadowVertexFunction;
     }
@@ -41,18 +40,18 @@ Subpass(desc, m_device, scene, camera) {
         depthStencilDesc.label("Shadow Gen");
         depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLessEqual);
         depthStencilDesc.depthWriteEnabled(true);
-        m_shadowDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
+        _shadowDepthStencilState = device->makeDepthStencilState(depthStencilDesc);
     }
 }
 
 void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.label("Shadow Map Pass");
     
-    commandEncoder.setRenderPipelineState(m_shadowGenPipelineState);
-    commandEncoder.setDepthStencilState(m_shadowDepthStencilState);
+    commandEncoder.setRenderPipelineState(_shadowGenPipelineState);
+    commandEncoder.setDepthStencilState(_shadowDepthStencilState);
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setDepthBias(0.015, 7, 0.02);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
     
     drawMeshes(commandEncoder);
 }
@@ -63,8 +62,8 @@ void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
-    scene->_componentsManager.callRender(viewMat, projMat,
-                                         opaqueQueue, alphaTestQueue, transparentQueue);
+    _scene->_componentsManager.callRender(viewMat, projMat,
+                                          opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
         // reflection

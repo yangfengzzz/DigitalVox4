@@ -1,10 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  forward_subpass.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/15.
-//
-
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 #ifndef forward_subpass_hpp
 #define forward_subpass_hpp
 
@@ -14,10 +12,10 @@ namespace vox {
 class ForwardSubpass: public Subpass {
 public:
     ForwardSubpass(MTL::RenderPassDescriptor* desc,
+                   MTL::Device* device,
                    Scene* scene,
                    Camera* camera,
                    MTL::Library& shaderLibrary,
-                   MTL::Device& m_device,
                    MTL::PixelFormat colorPixelFormat);
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
@@ -25,8 +23,8 @@ public:
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
     
-    MTL::RenderPipelineDescriptor m_forwardPipelineDescriptor;
-    MTL::DepthStencilState m_forwardDepthStencilState;
+    MTL::RenderPipelineDescriptor _forwardPipelineDescriptor;
+    MTL::DepthStencilState _forwardDepthStencilState;
 };
 
 }

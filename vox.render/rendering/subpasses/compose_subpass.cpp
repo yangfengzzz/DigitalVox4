@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  compose_subpass.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "compose_subpass.h"
 #include "core/cpp_mtl_assert.h"
@@ -13,16 +12,16 @@
 
 namespace vox {
 ComposeSubpass::ComposeSubpass(MTL::RenderPassDescriptor* desc,
+                               MTL::Device* device,
                                Scene* scene,
                                Camera* camera,
                                MTL::Library& shaderLibrary,
-                               MTL::Device& m_device,
                                MTL::PixelFormat colorPixelFormat,
-                               MTL::RenderPassDescriptor* gbuffer_desc):
-Subpass(desc, m_device, scene, camera),
-gbuffer_desc(gbuffer_desc) {
+                               MTL::RenderPassDescriptor* gbufferDesc):
+Subpass(desc, device, scene, camera),
+_gbufferDesc(gbufferDesc) {
     CFErrorRef error = nullptr;
-
+    
 #pragma mark Directional lighting render pipeline setup
     {
         MTL::Function directionalVertexFunction = shaderLibrary.makeFunction("deferred_direction_lighting_vertex");
@@ -37,8 +36,8 @@ gbuffer_desc(gbuffer_desc) {
         renderPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
         renderPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
         
-        m_directionalLightPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor,
-                                                                           &error);
+        _directionalLightPipelineState = _device->makeRenderPipelineState(renderPipelineDescriptor,
+                                                                          &error);
         
         MTLAssert(error == nullptr, error,
                   "Failed to create directional light render pipeline state:");
@@ -66,7 +65,7 @@ gbuffer_desc(gbuffer_desc) {
         depthStencilDesc.frontFaceStencil = stencilStateDesc;
         depthStencilDesc.backFaceStencil = stencilStateDesc;
         
-        m_directionLightDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
+        _directionLightDepthStencilState = device->makeDepthStencilState(depthStencilDesc);
     }
     
 #pragma mark Create quad for fullscreen composition drawing
@@ -82,25 +81,25 @@ gbuffer_desc(gbuffer_desc) {
             {{1.0f, 1.0f,}},
         };
         
-        m_quadVertexBuffer = m_device.makeBuffer(QuadVertices, sizeof(QuadVertices));
-        m_quadVertexBuffer.label("Quad Vertices");
+        _quadVertexBuffer = device->makeBuffer(QuadVertices, sizeof(QuadVertices));
+        _quadVertexBuffer.label("Quad Vertices");
     }
 }
 
 void ComposeSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw Directional Light");
-    commandEncoder.setFragmentTexture(gbuffer_desc->colorAttachments[RenderTargetAlbedo].texture(), RenderTargetAlbedo);
-    commandEncoder.setFragmentTexture(gbuffer_desc->colorAttachments[RenderTargetNormal].texture(), RenderTargetNormal);
-    commandEncoder.setFragmentTexture(gbuffer_desc->colorAttachments[RenderTargetDepth].texture(), RenderTargetDepth);
+    commandEncoder.setFragmentTexture(_gbufferDesc->colorAttachments[RenderTargetAlbedo].texture(), RenderTargetAlbedo);
+    commandEncoder.setFragmentTexture(_gbufferDesc->colorAttachments[RenderTargetNormal].texture(), RenderTargetNormal);
+    commandEncoder.setFragmentTexture(_gbufferDesc->colorAttachments[RenderTargetDepth].texture(), RenderTargetDepth);
     
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setStencilReferenceValue(128);
     
-    commandEncoder.setRenderPipelineState(m_directionalLightPipelineState);
-    commandEncoder.setDepthStencilState(m_directionLightDepthStencilState);
-    commandEncoder.setVertexBuffer(m_quadVertexBuffer, 0, BufferIndexMeshPositions);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
+    commandEncoder.setRenderPipelineState(_directionalLightPipelineState);
+    commandEncoder.setDepthStencilState(_directionLightDepthStencilState);
+    commandEncoder.setVertexBuffer(_quadVertexBuffer, 0, BufferIndexMeshPositions);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
+    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
     
     // Draw full screen quad
     commandEncoder.drawPrimitives(MTL::PrimitiveTypeTriangle, 0, 6);

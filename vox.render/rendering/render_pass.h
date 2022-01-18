@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  render_pass.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef render_pass_hpp
 #define render_pass_hpp
@@ -36,18 +35,18 @@ public:
      */
     void addSubpass(std::unique_ptr<Subpass> &&subpass);
     
-    std::vector<std::unique_ptr<Subpass>> &getSubpasses();
+    std::vector<std::unique_ptr<Subpass>> &subpasses();
     
     /**
      * @return Subpass currently being recorded, or the first one
      *         if drawing has not started
      */
-    std::unique_ptr<Subpass> &getActiveSubpass();
+    std::unique_ptr<Subpass> &activeSubpass();
     
 private:
-    MTL::RenderPassDescriptor* desc;
-    std::vector<std::unique_ptr<Subpass>> subpasses;
-    size_t active_subpass_index{0};
+    MTL::RenderPassDescriptor* _desc;
+    std::vector<std::unique_ptr<Subpass>> _subpasses;
+    size_t _activeSubpassIndex{0};
 };
 
 }

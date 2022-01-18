@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  point_light_subpass.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/15.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef point_light_subpass_hpp
 #define point_light_subpass_hpp
@@ -15,14 +14,14 @@ namespace vox {
 class PointLightSubpass: public Subpass {
 public:
     PointLightSubpass(MTL::RenderPassDescriptor* desc,
+                      MTL::Device* device,
                       Scene* scene,
                       Camera* camera,
                       MTL::Library& shaderLibrary,
-                      MTL::Device& m_device,
                       MTL::PixelFormat colorPixelFormat,
-                      MeshPtr m_icosahedronMesh,
-                      MTL::RenderPassDescriptor* gbuffer_desc,
-                      const uint32_t NumLights);
+                      MeshPtr icosahedronMesh,
+                      MTL::RenderPassDescriptor* gbufferDesc,
+                      const uint32_t numLights);
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
@@ -31,15 +30,15 @@ private:
     
     void drawPointLights(MTL::RenderCommandEncoder &commandEncoder);
     
-    MTL::RenderPipelineState m_lightMaskPipelineState;
-    MTL::DepthStencilState m_lightMaskDepthStencilState;
+    MTL::RenderPipelineState _lightMaskPipelineState;
+    MTL::DepthStencilState _lightMaskDepthStencilState;
     
-    MTL::RenderPipelineState m_lightPipelineState;
-    MTL::DepthStencilState m_pointLightDepthStencilState;
+    MTL::RenderPipelineState _lightPipelineState;
+    MTL::DepthStencilState _pointLightDepthStencilState;
     
-    MeshPtr m_icosahedronMesh;
-    MTL::RenderPassDescriptor* gbuffer_desc;
-    const uint32_t NumLights;
+    MeshPtr _icosahedronMesh;
+    MTL::RenderPassDescriptor* _gbufferDesc;
+    uint32_t _numLights;
 };
 
 }

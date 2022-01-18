@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  compose_subpass.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef compose_subpass_hpp
 #define compose_subpass_hpp
@@ -14,21 +13,21 @@ namespace vox {
 class ComposeSubpass: public Subpass {
 public:
     ComposeSubpass(MTL::RenderPassDescriptor* desc,
+                   MTL::Device* device,
                    Scene* scene,
                    Camera* camera,
                    MTL::Library& shaderLibrary,
-                   MTL::Device& m_device,
                    MTL::PixelFormat colorPixelFormat,
-                   MTL::RenderPassDescriptor* gbuffer_desc);
+                   MTL::RenderPassDescriptor* gbufferDesc);
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
-    MTL::RenderPipelineState m_directionalLightPipelineState;
-    MTL::DepthStencilState m_directionLightDepthStencilState;
+    MTL::RenderPipelineState _directionalLightPipelineState;
+    MTL::DepthStencilState _directionLightDepthStencilState;
     
-    MTL::Buffer m_quadVertexBuffer;
-    MTL::RenderPassDescriptor* gbuffer_desc;
+    MTL::Buffer _quadVertexBuffer;
+    MTL::RenderPassDescriptor* _gbufferDesc;
 };
 
 }

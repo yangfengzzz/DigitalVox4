@@ -1,20 +1,19 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  subpass.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "subpass.h"
 
 namespace vox {
 Subpass::Subpass(MTL::RenderPassDescriptor* desc,
-                 MTL::Device& m_device,
+                 MTL::Device* device,
                  Scene* scene,
                  Camera* camera):
-m_device(m_device),
-scene(scene),
-camera(camera) {
+_device(device),
+_scene(scene),
+_camera(camera) {
 }
 
 }

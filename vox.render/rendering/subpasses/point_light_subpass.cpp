@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  point_light_subpass.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/15.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "point_light_subpass.h"
 #include "core/cpp_mtl_assert.h"
@@ -13,18 +12,18 @@
 
 namespace vox {
 PointLightSubpass::PointLightSubpass(MTL::RenderPassDescriptor* desc,
+                                     MTL::Device* device,
                                      Scene* scene,
                                      Camera* camera,
                                      MTL::Library& shaderLibrary,
-                                     MTL::Device& m_device,
                                      MTL::PixelFormat colorPixelFormat,
-                                     MeshPtr m_icosahedronMesh,
-                                     MTL::RenderPassDescriptor* gbuffer_desc,
-                                     const uint32_t NumLights):
-Subpass(desc, m_device, scene, camera),
-m_icosahedronMesh(m_icosahedronMesh),
-gbuffer_desc(gbuffer_desc),
-NumLights(NumLights) {
+                                     MeshPtr icosahedronMesh,
+                                     MTL::RenderPassDescriptor* gbufferDesc,
+                                     const uint32_t numLights):
+Subpass(desc, device, scene, camera),
+_icosahedronMesh(icosahedronMesh),
+_gbufferDesc(gbufferDesc),
+_numLights(numLights) {
     CFErrorRef error = nullptr;
     
 #if LIGHT_STENCIL_CULLING
@@ -43,8 +42,7 @@ NumLights(NumLights) {
             renderPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
             renderPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
             
-            m_lightMaskPipelineState =
-            m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
+            _lightMaskPipelineState = _device->makeRenderPipelineState(renderPipelineDescriptor, &error);
             
             MTLAssert(error == nullptr, error,
                       "Failed to create directional light mask pipeline state:");
@@ -66,7 +64,7 @@ NumLights(NumLights) {
             depthStencilDesc.frontFaceStencil = stencilStateDesc;
             depthStencilDesc.backFaceStencil = stencilStateDesc;
             
-            m_lightMaskDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
+            _lightMaskDepthStencilState = _device->makeDepthStencilState(depthStencilDesc);
         }
     }
 #endif // END LIGHT_STENCIL_CULLING
@@ -91,7 +89,7 @@ NumLights(NumLights) {
         depthStencilDesc.backFaceStencil = stencilStateDesc;
         depthStencilDesc.label("Point Light");
         
-        m_pointLightDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
+        _pointLightDepthStencilState = _device->makeDepthStencilState(depthStencilDesc);
     }
     
 #pragma mark Point light render pipeline setup
@@ -119,7 +117,7 @@ NumLights(NumLights) {
         renderPipelineDescriptor.vertexFunction(&lightVertexFunction);
         renderPipelineDescriptor.fragmentFunction(&lightFragmentFunction);
         
-        m_lightPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
+        _lightPipelineState = _device->makeRenderPipelineState(renderPipelineDescriptor, &error);
         
         MTLAssert(error == nullptr, error, "Failed to create lighting render pipeline state");
     }
@@ -133,28 +131,28 @@ void PointLightSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
 void PointLightSubpass::drawPointLightMask(MTL::RenderCommandEncoder &commandEncoder) {
 #if LIGHT_STENCIL_CULLING
     commandEncoder.pushDebugGroup("Draw Light Mask");
-    commandEncoder.setRenderPipelineState(m_lightMaskPipelineState);
-    commandEncoder.setDepthStencilState(m_lightMaskDepthStencilState);
+    commandEncoder.setRenderPipelineState(_lightMaskPipelineState);
+    commandEncoder.setDepthStencilState(_lightMaskDepthStencilState);
     
     commandEncoder.setStencilReferenceValue(128);
     commandEncoder.setCullMode(MTL::CullModeFront);
     
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightsData")), 0, BufferIndexLightsData);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightPosition")), 0, BufferIndexLightsPosition);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
+    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("lightsData")), 0, BufferIndexLightsData);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("lightPosition")), 0, BufferIndexLightsPosition);
     
-    const std::vector<MeshBuffer> &vertexBuffers = m_icosahedronMesh->vertexBuffers();
+    const std::vector<MeshBuffer> &vertexBuffers = _icosahedronMesh->vertexBuffers();
     commandEncoder.setVertexBuffer(vertexBuffers[0].buffer(), vertexBuffers[0].offset(), BufferIndexMeshPositions);
     
-    const std::vector<Submesh> &icosahedronSubmesh = m_icosahedronMesh->submeshes();
+    const std::vector<Submesh> &icosahedronSubmesh = _icosahedronMesh->submeshes();
     
     commandEncoder.drawIndexedPrimitives(icosahedronSubmesh[0].primitiveType(),
                                          icosahedronSubmesh[0].indexCount(),
                                          icosahedronSubmesh[0].indexType(),
                                          icosahedronSubmesh[0].indexBuffer().buffer(),
                                          icosahedronSubmesh[0].indexBuffer().offset(),
-                                         NumLights);
+                                         _numLights);
     
     commandEncoder.popDebugGroup();
 #endif
@@ -163,36 +161,36 @@ void PointLightSubpass::drawPointLightMask(MTL::RenderCommandEncoder &commandEnc
 void PointLightSubpass::drawPointLights(MTL::RenderCommandEncoder &commandEncoder) {
     commandEncoder.pushDebugGroup("Draw Point Lights");
     
-    commandEncoder.setRenderPipelineState(m_lightPipelineState);
+    commandEncoder.setRenderPipelineState(_lightPipelineState);
     
-    commandEncoder.setFragmentTexture(gbuffer_desc->colorAttachments[RenderTargetAlbedo].texture(), RenderTargetAlbedo);
-    commandEncoder.setFragmentTexture(gbuffer_desc->colorAttachments[RenderTargetNormal].texture(), RenderTargetNormal);
-    commandEncoder.setFragmentTexture(gbuffer_desc->colorAttachments[RenderTargetDepth].texture(), RenderTargetDepth);
+    commandEncoder.setFragmentTexture(_gbufferDesc->colorAttachments[RenderTargetAlbedo].texture(), RenderTargetAlbedo);
+    commandEncoder.setFragmentTexture(_gbufferDesc->colorAttachments[RenderTargetNormal].texture(), RenderTargetNormal);
+    commandEncoder.setFragmentTexture(_gbufferDesc->colorAttachments[RenderTargetDepth].texture(), RenderTargetDepth);
     
-    commandEncoder.setDepthStencilState(m_pointLightDepthStencilState);
+    commandEncoder.setDepthStencilState(_pointLightDepthStencilState);
     
     commandEncoder.setStencilReferenceValue(128);
     commandEncoder.setCullMode(MTL::CullModeBack);
     
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightsData")), 0, BufferIndexLightsData);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightPosition")), 0, BufferIndexLightsPosition);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("lightsData")), 0, BufferIndexLightsData);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("lightPosition")), 0, BufferIndexLightsPosition);
     
-    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightsData")), 0, BufferIndexLightsData);
-    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightPosition")), 0, BufferIndexLightsPosition);
+    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
+    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("lightsData")), 0, BufferIndexLightsData);
+    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("lightPosition")), 0, BufferIndexLightsPosition);
     
-    const std::vector<MeshBuffer> &vertexBuffers = m_icosahedronMesh->vertexBuffers();
+    const std::vector<MeshBuffer> &vertexBuffers = _icosahedronMesh->vertexBuffers();
     commandEncoder.setVertexBuffer(vertexBuffers[0].buffer(), vertexBuffers[0].offset(), BufferIndexMeshPositions);
     
-    const std::vector<Submesh> &icosahedronSubmesh = m_icosahedronMesh->submeshes();
+    const std::vector<Submesh> &icosahedronSubmesh = _icosahedronMesh->submeshes();
     
     commandEncoder.drawIndexedPrimitives(icosahedronSubmesh[0].primitiveType(),
                                          icosahedronSubmesh[0].indexCount(),
                                          icosahedronSubmesh[0].indexType(),
                                          icosahedronSubmesh[0].indexBuffer().buffer(),
                                          icosahedronSubmesh[0].indexBuffer().offset(),
-                                         NumLights);
+                                         _numLights);
     commandEncoder.popDebugGroup();
 }
 

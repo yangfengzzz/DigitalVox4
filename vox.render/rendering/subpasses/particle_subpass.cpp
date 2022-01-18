@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  particle_subpass.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/15.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "particle_subpass.h"
 #include "core/cpp_mtl_assert.h"
@@ -13,20 +12,20 @@
 
 namespace vox {
 ParticleSubpass::ParticleSubpass(MTL::RenderPassDescriptor* desc,
+                                 MTL::Device* device,
                                  Scene* scene,
                                  Camera* camera,
                                  MTL::Library& shaderLibrary,
-                                 MTL::Device& m_device,
                                  MTL::PixelFormat colorPixelFormat,
-                                 MTL::Buffer &m_fairy,
-                                 MTL::Texture &m_fairyMap,
-                                 const uint32_t NumLights,
-                                 const uint32_t NumFairyVertices):
-Subpass(desc, m_device, scene, camera),
-m_fairy(m_fairy),
-m_fairyMap(m_fairyMap),
-NumLights(NumLights),
-NumFairyVertices(NumFairyVertices) {
+                                 MTL::Buffer &fairy,
+                                 MTL::Texture &fairyMap,
+                                 const uint32_t numLights,
+                                 const uint32_t numFairyVertices):
+Subpass(desc, device, scene, camera),
+_fairy(fairy),
+_fairyMap(fairyMap),
+_numLights(numLights),
+_numFairyVertices(numFairyVertices) {
     CFErrorRef error = nullptr;
 
 #pragma mark Fairy billboard render pipeline setup
@@ -51,7 +50,7 @@ NumFairyVertices(NumFairyVertices) {
         renderPipelineDescriptor.colorAttachments[0].destinationRGBBlendFactor(MTL::BlendFactorOne);
         renderPipelineDescriptor.colorAttachments[0].destinationAlphaBlendFactor(MTL::BlendFactorOne);
         
-        m_fairyPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor);
+        _fairyPipelineState = _device->makeRenderPipelineState(renderPipelineDescriptor);
         
         MTLAssert(error == nullptr, error, "Failed to create fairy render pipeline state: %@");
     }
@@ -63,21 +62,21 @@ NumFairyVertices(NumFairyVertices) {
         depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLess);
         depthStencilDesc.depthWriteEnabled(false);
         
-        m_dontWriteDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
+        _dontWriteDepthStencilState = _device->makeDepthStencilState(depthStencilDesc);
     }
 }
 
 void ParticleSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw Fairies");
-    commandEncoder.setRenderPipelineState(m_fairyPipelineState);
-    commandEncoder.setDepthStencilState(m_dontWriteDepthStencilState);
+    commandEncoder.setRenderPipelineState(_fairyPipelineState);
+    commandEncoder.setDepthStencilState(_dontWriteDepthStencilState);
     commandEncoder.setCullMode(MTL::CullModeBack);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setVertexBuffer(m_fairy, 0, BufferIndexMeshPositions);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightsData")), 0, BufferIndexLightsData);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("lightPosition")), 0, BufferIndexLightsPosition);
-    commandEncoder.setFragmentTexture(m_fairyMap, TextureIndexAlpha);
-    commandEncoder.drawPrimitives(MTL::PrimitiveTypeTriangleStrip, 0, NumFairyVertices, NumLights);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
+    commandEncoder.setVertexBuffer(_fairy, 0, BufferIndexMeshPositions);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("lightsData")), 0, BufferIndexLightsData);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("lightPosition")), 0, BufferIndexLightsPosition);
+    commandEncoder.setFragmentTexture(_fairyMap, TextureIndexAlpha);
+    commandEncoder.drawPrimitives(MTL::PrimitiveTypeTriangleStrip, 0, _numFairyVertices, _numLights);
     commandEncoder.popDebugGroup();
 }
 

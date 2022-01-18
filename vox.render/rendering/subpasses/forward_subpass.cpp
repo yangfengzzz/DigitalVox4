@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  forward_subpass.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/15.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "forward_subpass.h"
 #include "material/material.h"
@@ -17,24 +16,24 @@
 
 namespace vox {
 ForwardSubpass::ForwardSubpass(MTL::RenderPassDescriptor* desc,
+                               MTL::Device* device,
                                Scene* scene,
                                Camera* camera,
                                MTL::Library& shaderLibrary,
-                               MTL::Device& m_device,
                                MTL::PixelFormat colorPixelFormat):
-Subpass(desc, m_device, scene, camera) {
+Subpass(desc, device, scene, camera) {
     CFErrorRef error = nullptr;
     
     {
         MTL::Function forwardVertexFunction = shaderLibrary.makeFunction("forward_vertex");
         MTL::Function forwardFragmentFunction = shaderLibrary.makeFunction("forward_fragment");
         
-        m_forwardPipelineDescriptor.label("G-buffer Creation");
-        m_forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(colorPixelFormat);
-        m_forwardPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
-        m_forwardPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
-        m_forwardPipelineDescriptor.vertexFunction(&forwardVertexFunction);
-        m_forwardPipelineDescriptor.fragmentFunction(&forwardFragmentFunction);
+        _forwardPipelineDescriptor.label("G-buffer Creation");
+        _forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(colorPixelFormat);
+        _forwardPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
+        _forwardPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
+        _forwardPipelineDescriptor.vertexFunction(&forwardVertexFunction);
+        _forwardPipelineDescriptor.fragmentFunction(&forwardFragmentFunction);
         
         MTLAssert(error == nullptr, error, "Failed to create forward render pipeline state");
     }
@@ -59,14 +58,14 @@ Subpass(desc, m_device, scene, camera) {
         depthStencilDesc.frontFaceStencil = stencilStateDesc;
         depthStencilDesc.backFaceStencil = stencilStateDesc;
         
-        m_forwardDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
+        _forwardDepthStencilState = _device->makeDepthStencilState(depthStencilDesc);
     }
 }
 
 void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw G-Buffer");
     commandEncoder.setCullMode(MTL::CullModeFront);
-    commandEncoder.setDepthStencilState(m_forwardDepthStencilState);
+    commandEncoder.setDepthStencilState(_forwardDepthStencilState);
     commandEncoder.setStencilReferenceValue(128);
     
     drawMeshes(commandEncoder);
@@ -74,13 +73,13 @@ void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
 }
 
 void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
-    Matrix4x4F viewMat = camera->viewMatrix();
-    Matrix4x4F projMat = camera->projectionMatrix();
+    Matrix4x4F viewMat = _camera->viewMatrix();
+    Matrix4x4F projMat = _camera->projectionMatrix();
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
-    scene->_componentsManager.callRender(viewMat, projMat,
-                                         opaqueQueue, alphaTestQueue, transparentQueue);
+    _scene->_componentsManager.callRender(viewMat, projMat,
+                                          opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
         // reflection
@@ -89,7 +88,7 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_diffuseTexture")), TextureIndexBaseColor);
         renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_normalTexture")), TextureIndexNormal);
         renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_specularTexture")), TextureIndexSpecular);
-
+        
         auto& renderer = element.renderer;
         auto mvpMat = std::any_cast<Matrix4x4F>(renderer->shaderData.getData("u_MVPMat"));
         renderEncoder.setVertexBytes(&mvpMat, sizeof(Matrix4x4F), 5);
@@ -98,8 +97,8 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         
         // manully
         auto& mesh = element.mesh;
-        m_forwardPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
-        auto m_forwardPipelineState = m_device.resourceCache().requestRenderPipelineState(m_forwardPipelineDescriptor);
+        _forwardPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
+        auto m_forwardPipelineState = _device->resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
         renderEncoder.setRenderPipelineState(m_forwardPipelineState);
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),

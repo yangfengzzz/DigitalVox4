@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  deferred_subpass.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "deferred_subpass.h"
 #include "material/material.h"
@@ -15,29 +14,29 @@
 
 namespace vox {
 DeferredSubpass::DeferredSubpass(MTL::RenderPassDescriptor* desc,
+                                 MTL::Device* device,
                                  Scene* scene,
                                  Camera* camera,
                                  MTL::Library& shaderLibrary,
-                                 MTL::Device& m_device,
-                                 MTL::RenderPassDescriptor* shadow_desc):
-Subpass(desc, m_device, scene, camera),
-shadow_desc(shadow_desc) {
+                                 MTL::RenderPassDescriptor* shadowDesc):
+Subpass(desc, device, scene, camera),
+_shadowDesc(shadowDesc) {
     CFErrorRef error = nullptr;
-
+    
     {
         MTL::Function GBufferVertexFunction = shaderLibrary.makeFunction("gbuffer_vertex");
         MTL::Function GBufferFragmentFunction = shaderLibrary.makeFunction("gbuffer_fragment");
-                
-        m_GBufferPipelineDescriptor.label("G-buffer Creation");
-        m_GBufferPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(MTL::PixelFormatInvalid);
-        m_GBufferPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(desc->colorAttachments[RenderTargetAlbedo].texture().pixelFormat());
-        m_GBufferPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(desc->colorAttachments[RenderTargetNormal].texture().pixelFormat());
-        m_GBufferPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(desc->colorAttachments[RenderTargetDepth].texture().pixelFormat());
-        m_GBufferPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
-        m_GBufferPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
-        m_GBufferPipelineDescriptor.vertexFunction(&GBufferVertexFunction);
-        m_GBufferPipelineDescriptor.fragmentFunction(&GBufferFragmentFunction);
-                
+        
+        _GBufferPipelineDescriptor.label("G-buffer Creation");
+        _GBufferPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(MTL::PixelFormatInvalid);
+        _GBufferPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(desc->colorAttachments[RenderTargetAlbedo].texture().pixelFormat());
+        _GBufferPipelineDescriptor.colorAttachments[RenderTargetNormal].pixelFormat(desc->colorAttachments[RenderTargetNormal].texture().pixelFormat());
+        _GBufferPipelineDescriptor.colorAttachments[RenderTargetDepth].pixelFormat(desc->colorAttachments[RenderTargetDepth].texture().pixelFormat());
+        _GBufferPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
+        _GBufferPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
+        _GBufferPipelineDescriptor.vertexFunction(&GBufferVertexFunction);
+        _GBufferPipelineDescriptor.fragmentFunction(&GBufferFragmentFunction);
+        
         MTLAssert(error == nullptr, error, "Failed to create GBuffer render pipeline state");
     }
     
@@ -61,7 +60,7 @@ shadow_desc(shadow_desc) {
         depthStencilDesc.frontFaceStencil = stencilStateDesc;
         depthStencilDesc.backFaceStencil = stencilStateDesc;
         
-        m_GBufferDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
+        _GBufferDepthStencilState = device->makeDepthStencilState(depthStencilDesc);
     }
 }
 
@@ -69,11 +68,11 @@ void DeferredSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     
     commandEncoder.pushDebugGroup("Draw G-Buffer");
     commandEncoder.setCullMode(MTL::CullModeBack);
-    commandEncoder.setDepthStencilState(m_GBufferDepthStencilState);
+    commandEncoder.setDepthStencilState(_GBufferDepthStencilState);
     commandEncoder.setStencilReferenceValue(128);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setFragmentTexture(shadow_desc->depthAttachment.texture(), TextureIndexShadow);
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
+    commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
+    commandEncoder.setFragmentTexture(_shadowDesc->depthAttachment.texture(), TextureIndexShadow);
     
     drawMeshes(commandEncoder);
     commandEncoder.popDebugGroup();
@@ -85,8 +84,8 @@ void DeferredSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
-    scene->_componentsManager.callRender(viewMat, projMat,
-                                         opaqueQueue, alphaTestQueue, transparentQueue);
+    _scene->_componentsManager.callRender(viewMat, projMat,
+                                          opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
         // reflection
@@ -98,8 +97,8 @@ void DeferredSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         
         // manully
         auto& mesh = element.mesh;
-        m_GBufferPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
-        auto m_GBufferPipelineState = m_device.resourceCache().requestRenderPipelineState(m_GBufferPipelineDescriptor);
+        _GBufferPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
+        auto m_GBufferPipelineState = _device->resourceCache().requestRenderPipelineState(_GBufferPipelineDescriptor);
         renderEncoder.setRenderPipelineState(m_GBufferPipelineState);
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),

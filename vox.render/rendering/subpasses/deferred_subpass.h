@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  deferred_subpass.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef deferred_subpass_hpp
 #define deferred_subpass_hpp
@@ -16,21 +15,21 @@ namespace vox {
 class DeferredSubpass: public Subpass {
 public:
     DeferredSubpass(MTL::RenderPassDescriptor* desc,
+                    MTL::Device* device,
                     Scene* scene,
                     Camera* camera,
                     MTL::Library& shaderLibrary,
-                    MTL::Device& m_device,
-                    MTL::RenderPassDescriptor* shadow_desc);
+                    MTL::RenderPassDescriptor* shadowDesc);
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
 
-    MTL::RenderPipelineDescriptor m_GBufferPipelineDescriptor;
-    MTL::DepthStencilState m_GBufferDepthStencilState;
+    MTL::RenderPipelineDescriptor _GBufferPipelineDescriptor;
+    MTL::DepthStencilState _GBufferDepthStencilState;
     
-    MTL::RenderPassDescriptor* shadow_desc;
+    MTL::RenderPassDescriptor* _shadowDesc;
 };
 
 }

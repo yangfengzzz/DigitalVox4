@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  skybox_subpass.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/15.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "skybox_subpass.h"
 #include "core/cpp_mtl_assert.h"
@@ -14,12 +13,12 @@
 
 namespace vox {
 SkyboxSubpass::SkyboxSubpass(MTL::RenderPassDescriptor* desc,
+                             MTL::Device* device,
                              Scene* scene,
                              Camera* camera,
                              MTL::Library& shaderLibrary,
-                             MTL::Device& m_device,
                              MTL::PixelFormat colorPixelFormat):
-Subpass(desc, m_device, scene, camera) {
+Subpass(desc, device, scene, camera) {
     CFErrorRef error = nullptr;
     
 #pragma mark Sky render pipeline setup
@@ -36,7 +35,7 @@ Subpass(desc, m_device, scene, camera) {
         renderPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
         renderPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
         
-        m_skyboxPipelineState = m_device.makeRenderPipelineState(renderPipelineDescriptor, &error);
+        _skyboxPipelineState = _device->makeRenderPipelineState(renderPipelineDescriptor, &error);
         
         MTLAssert(error == nullptr, error, "Failed to create skybox render pipeline state: %@");
     }
@@ -48,29 +47,29 @@ Subpass(desc, m_device, scene, camera) {
         depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLess);
         depthStencilDesc.depthWriteEnabled(false);
         
-        m_dontWriteDepthStencilState = m_device.makeDepthStencilState(depthStencilDesc);
+        _dontWriteDepthStencilState = _device->makeDepthStencilState(depthStencilDesc);
     }
 }
 
 void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw Sky");
-    commandEncoder.setRenderPipelineState(m_skyboxPipelineState);
-    commandEncoder.setDepthStencilState(m_dontWriteDepthStencilState);
+    commandEncoder.setRenderPipelineState(_skyboxPipelineState);
+    commandEncoder.setDepthStencilState(_dontWriteDepthStencilState);
     commandEncoder.setCullMode(MTL::CullModeFront);
     
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(scene->shaderData.getData("frameData"))
+    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData"))
                                    , 0, BufferIndexFrameData);
-    commandEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(scene->background.sky.material->shaderData.getData("u_skybox")),
+    commandEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(_scene->background.sky.material->shaderData.getData("u_skybox")),
                                       TextureIndexBaseColor);
     
-    for (auto &meshBuffer: scene->background.sky.mesh->vertexBuffers()) {
+    for (auto &meshBuffer: _scene->background.sky.mesh->vertexBuffers()) {
         commandEncoder.setVertexBuffer(meshBuffer.buffer(),
                                        meshBuffer.offset(),
                                        meshBuffer.argumentIndex());
     }
     
     
-    for (auto &submesh: scene->background.sky.mesh->submeshes()) {
+    for (auto &submesh: _scene->background.sky.mesh->submeshes()) {
         commandEncoder.drawIndexedPrimitives(submesh.primitiveType(),
                                              submesh.indexCount(),
                                              submesh.indexType(),
