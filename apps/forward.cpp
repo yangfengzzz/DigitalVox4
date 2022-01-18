@@ -103,6 +103,11 @@ void Forward::loadScene() {
     auto cameraEntity = rootEntity->createChild();
     cameraEntity->transform->setPosition(-6.02535057, 36.6681671, 48.6991844);
     m_camera = cameraEntity->addComponent<Camera>();
+    controller = cameraEntity->addComponent<control::OrbitControl>();
+}
+
+void Forward::input_event(const InputEvent &input_event) {
+    controller->inputEvent(input_event);
 }
 
 void Forward::update(float delta_time) {

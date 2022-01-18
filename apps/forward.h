@@ -9,6 +9,7 @@
 #define forward_hpp
 
 #include "metal_application.h"
+#include "controls/orbit_control.h"
 
 namespace vox {
 class Forward: public MetalApplication {
@@ -27,6 +28,8 @@ public:
      */
     virtual void update(float delta_time) override;
     
+    virtual void input_event(const InputEvent &input_event) override;
+    
     virtual void framebuffer_resize(uint32_t width, uint32_t height) override;
     
 private:
@@ -35,6 +38,7 @@ private:
     MTL::VertexDescriptor m_defaultVertexDescriptor;
     
     Camera* m_camera{nullptr};
+    control::OrbitControl* controller{nullptr};
     
     MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
     std::unique_ptr<RenderPass> m_finalRenderPass{nullptr};

@@ -65,7 +65,7 @@ Subpass(desc, m_device, scene, camera) {
 
 void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw G-Buffer");
-    commandEncoder.setCullMode(MTL::CullModeBack);
+    commandEncoder.setCullMode(MTL::CullModeFront);
     commandEncoder.setDepthStencilState(m_forwardDepthStencilState);
     commandEncoder.setStencilReferenceValue(128);
     
