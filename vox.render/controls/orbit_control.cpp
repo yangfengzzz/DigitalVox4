@@ -42,7 +42,7 @@ void OrbitControl::inputEvent(const InputEvent &input_event) {
             if (mouse_button.get_action() == MouseAction::Down) {
                 onMouseDown(mouse_button.get_button(), mouse_button.get_pos_x(), mouse_button.get_pos_y());
                 _enableMove = true;
-            } else {
+            } else if (mouse_button.get_action() == MouseAction::Up) {
                 onMouseUp();
                 _enableMove = false;
             }

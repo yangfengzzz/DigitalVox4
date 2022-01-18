@@ -249,7 +249,7 @@ private:
     bool _isOrthographic = false;
     bool _isProjMatSetting = false;
     float _nearClipPlane = 0.1;
-    float _farClipPlane = 100;
+    float _farClipPlane = 500;
     float _fieldOfView = 45;
     float _orthographicSize = 10;
     bool _isProjectionDirty = true;
