@@ -68,9 +68,9 @@ public:
     
     /**
      * @brief Handles input events of the window
-     * @param input_event The input event object
+     * @param inputEvent The input event object
      */
-    virtual void input_event(const InputEvent &input_event);
+    virtual void inputEvent(const InputEvent &inputEvent);
     
     const std::string &get_name() const;
     

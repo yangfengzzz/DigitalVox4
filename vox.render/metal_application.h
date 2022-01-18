@@ -102,7 +102,7 @@ public:
     
     virtual void framebuffer_resize(uint32_t width, uint32_t height) override;
     
-    virtual void input_event(const InputEvent &input_event) override;
+    virtual void inputEvent(const InputEvent &inputEvent) override;
     
     virtual void finish() override;
     

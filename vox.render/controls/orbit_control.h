@@ -31,7 +31,7 @@ public:
     
     void onUpdate(float dtime) override;
     
-    void inputEvent(const InputEvent &input_event) override;
+    void inputEvent(const InputEvent &inputEvent) override;
     
     void resize(uint32_t width, uint32_t height) override;
     

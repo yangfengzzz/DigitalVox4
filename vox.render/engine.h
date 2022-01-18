@@ -75,7 +75,7 @@ public:
     
     virtual void framebuffer_resize(uint32_t width, uint32_t height);
     
-    virtual void input_event(const InputEvent &input_event);
+    virtual void inputEvent(const InputEvent &inputEvent);
     
     virtual std::unique_ptr<View> create_render_context(MTL::Device &device);
     
@@ -140,7 +140,7 @@ protected:
     Window::Properties window_properties;              /* Source of truth for window state */
     bool fixed_simulation_fps{false};    /* Delta time should be fixed with a fabricated value */
     float simulation_frame_time = 0.016f; /* A fabricated delta time */
-    bool process_input_events{true};     /* App should continue processing input events */
+    bool process_inputEvents{true};     /* App should continue processing input events */
     bool focused;                        /* App is currently in focus at an operating system level */
     
 private:

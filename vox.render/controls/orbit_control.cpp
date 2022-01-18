@@ -32,13 +32,13 @@ void OrbitControl::resize(uint32_t width, uint32_t height) {
     _height = height;
 }
 
-void OrbitControl::inputEvent(const InputEvent &input_event) {
+void OrbitControl::inputEvent(const InputEvent &inputEvent) {
     if (_enableEvent) {
-        if (input_event.get_source() == EventSource::Keyboard) {
-            const auto &key_event = static_cast<const KeyInputEvent &>(input_event);
+        if (inputEvent.get_source() == EventSource::Keyboard) {
+            const auto &key_event = static_cast<const KeyInputEvent &>(inputEvent);
             onKeyDown(key_event.get_code());
-        } else if (input_event.get_source() == EventSource::Mouse) {
-            const auto &mouse_button = static_cast<const MouseButtonInputEvent &>(input_event);
+        } else if (inputEvent.get_source() == EventSource::Mouse) {
+            const auto &mouse_button = static_cast<const MouseButtonInputEvent &>(inputEvent);
             if (mouse_button.get_action() == MouseAction::Down) {
                 onMouseDown(mouse_button.get_button(), mouse_button.get_pos_x(), mouse_button.get_pos_y());
                 _enableMove = true;
@@ -50,10 +50,10 @@ void OrbitControl::inputEvent(const InputEvent &input_event) {
             if (_enableMove && mouse_button.get_action() == MouseAction::Move) {
                 onMouseMove(mouse_button.get_pos_x(), mouse_button.get_pos_y());
             }
-        } else if (input_event.get_source() == EventSource::Scroll) {
-            const auto &scroll_event = static_cast<const ScrollInputEvent &>(input_event);
+        } else if (inputEvent.get_source() == EventSource::Scroll) {
+            const auto &scroll_event = static_cast<const ScrollInputEvent &>(inputEvent);
             onMouseWheel(scroll_event.get_offset_x(), scroll_event.get_offset_y());
-        } else if (input_event.get_source() == EventSource::Touchscreen) {
+        } else if (inputEvent.get_source() == EventSource::Touchscreen) {
             // TODO
         }
     }

@@ -28,7 +28,7 @@ public:
      */
     virtual void update(float delta_time) override;
     
-    virtual void input_event(const InputEvent &input_event) override;
+    virtual void inputEvent(const InputEvent &inputEvent) override;
     
     virtual void framebuffer_resize(uint32_t width, uint32_t height) override;
     

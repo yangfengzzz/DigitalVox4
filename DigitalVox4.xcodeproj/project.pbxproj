@@ -187,6 +187,12 @@
 		044595D42796DB0500F04CE0 /* std_helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459209278E5C8100F04CE0 /* std_helpers.h */; };
 		044595D52796DB0500F04CE0 /* timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445921E278E5F1100F04CE0 /* timer.h */; };
 		044595D62796DB0A00F04CE0 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459216278E5F1100F04CE0 /* timer.cpp */; };
+		044595D72796DBED00F04CE0 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459219278E5F1100F04CE0 /* window.cpp */; };
+		044595D82796DBEF00F04CE0 /* window.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459211278E5F1000F04CE0 /* window.h */; };
+		044595D92796DC9B00F04CE0 /* glfw_window.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459253278E6D4700F04CE0 /* glfw_window.h */; };
+		044595DA2796DC9B00F04CE0 /* glfw_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459252278E6D4700F04CE0 /* glfw_window.mm */; };
+		044595DB2796DE3B00F04CE0 /* input_events.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445920D278E5F1000F04CE0 /* input_events.h */; };
+		044595DC2796DE3B00F04CE0 /* input_events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445921B278E5F1100F04CE0 /* input_events.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1563,7 +1569,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				044595D52796DB0500F04CE0 /* timer.h in Headers */,
+				044595D82796DBEF00F04CE0 /* window.h in Headers */,
+				044595D92796DC9B00F04CE0 /* glfw_window.h in Headers */,
 				044595D42796DB0500F04CE0 /* std_helpers.h in Headers */,
+				044595DB2796DE3B00F04CE0 /* input_events.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1852,7 +1861,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044595DA2796DC9B00F04CE0 /* glfw_window.mm in Sources */,
+				044595DC2796DE3B00F04CE0 /* input_events.cpp in Sources */,
 				044595D62796DB0A00F04CE0 /* timer.cpp in Sources */,
+				044595D72796DBED00F04CE0 /* window.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

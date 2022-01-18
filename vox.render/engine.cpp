@@ -109,13 +109,13 @@ void Engine::close() {
     }
 }
 
-void Engine::input_event(const InputEvent &input_event) {
-    if (process_input_events && active_app) {
-        active_app->input_event(input_event);
+void Engine::inputEvent(const InputEvent &inputEvent) {
+    if (process_inputEvents && active_app) {
+        active_app->inputEvent(inputEvent);
     }
     
-    if (input_event.get_source() == EventSource::Keyboard) {
-        const auto &key_event = static_cast<const KeyInputEvent &>(input_event);
+    if (inputEvent.get_source() == EventSource::Keyboard) {
+        const auto &key_event = static_cast<const KeyInputEvent &>(inputEvent);
         
         if (key_event.get_code() == KeyCode::Back ||
             key_event.get_code() == KeyCode::Escape) {
@@ -198,7 +198,7 @@ void Engine::force_simulation_fps(float fps) {
 }
 
 void Engine::disable_input_processing() {
-    process_input_events = false;
+    process_inputEvents = false;
 }
 
 void Engine::set_focus(bool _focused) {

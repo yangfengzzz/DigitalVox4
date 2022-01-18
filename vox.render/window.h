@@ -78,17 +78,17 @@ public:
      * @brief Gets a handle from the engine's Metal layer
      * @param view View handle, for use by the application
      */
-    virtual void set_view(const View& view) = 0;
+    virtual void setView(const View& view) = 0;
     
     /**
      * @brief Checks if the window should be closed
      */
-    virtual bool should_close() = 0;
+    virtual bool shouldClose() = 0;
     
     /**
      * @brief Handles the processing of all underlying window events
      */
-    virtual void process_events();
+    virtual void processEvents();
     
     /**
      * @brief Requests to close the window
@@ -98,12 +98,12 @@ public:
     /**
      * @return The dot-per-inch scale factor
      */
-    virtual float get_dpi_factor() const = 0;
+    virtual float dpiFactor() const = 0;
     
     /**
      * @return The scale factor for systems with heterogeneous window and pixel coordinates
      */
-    virtual float get_content_scale_factor() const;
+    virtual float contentScaleFactor() const;
     
     /**
      * @brief Attempt to resize the window - not gauranteed to change
@@ -113,11 +113,11 @@ public:
      */
     Extent resize(const Extent &extent);
     
-    const Extent &get_extent() const;
+    const Extent &extent() const;
     
-    Mode get_window_mode() const;
+    Mode windowMode() const;
     
 protected:
-    Properties properties;
+    Properties _properties;
 };
 }        // namespace vox

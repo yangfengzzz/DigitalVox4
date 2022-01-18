@@ -9,7 +9,7 @@
 #define script_hpp
 
 #include "component.h"
-#include "input_events.h"
+#include "inputEvents.h"
 
 namespace vox {
 namespace physics {
@@ -99,7 +99,7 @@ public:
     virtual void onTriggerStay(physics::ColliderShapePtr other) {
     }
     
-    virtual void inputEvent(const InputEvent &input_event) {
+    virtual void inputEvent(const InputEvent &inputEvent) {
     }
     
     virtual void resize(uint32_t width, uint32_t height) {

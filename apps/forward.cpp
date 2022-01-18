@@ -106,8 +106,8 @@ void Forward::loadScene() {
     controller = cameraEntity->addComponent<control::OrbitControl>();
 }
 
-void Forward::input_event(const InputEvent &input_event) {
-    controller->inputEvent(input_event);
+void Forward::inputEvent(const InputEvent &inputEvent) {
+    controller->inputEvent(inputEvent);
 }
 
 void Forward::update(float delta_time) {

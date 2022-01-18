@@ -19,30 +19,30 @@
 
 namespace vox {
 Window::Window(const Properties &properties) :
-properties{properties} {
+_properties{properties} {
 }
 
-void Window::process_events() {
+void Window::processEvents() {
 }
 
-Window::Extent Window::resize(const Extent &new_extent) {
-    if (properties.resizable) {
-        properties.extent.width = new_extent.width;
-        properties.extent.height = new_extent.height;
+Window::Extent Window::resize(const Extent &newExtent) {
+    if (_properties.resizable) {
+        _properties.extent.width = newExtent.width;
+        _properties.extent.height = newExtent.height;
     }
     
-    return properties.extent;
+    return _properties.extent;
 }
 
-const Window::Extent &Window::get_extent() const {
-    return properties.extent;
+const Window::Extent &Window::extent() const {
+    return _properties.extent;
 }
 
-float Window::get_content_scale_factor() const {
+float Window::contentScaleFactor() const {
     return 1.0f;
 }
 
-Window::Mode Window::get_window_mode() const {
-    return properties.mode;
+Window::Mode Window::windowMode() const {
+    return _properties.mode;
 }
 }        // namespace vox

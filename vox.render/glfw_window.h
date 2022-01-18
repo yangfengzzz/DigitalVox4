@@ -33,19 +33,19 @@ public:
     
     virtual ~GlfwWindow();
     
-    virtual void set_view(const View& view) override;
+    void setView(const View& view) override;
     
-    virtual bool should_close() override;
+    bool shouldClose() override;
     
-    virtual void process_events() override;
+    void processEvents() override;
     
-    virtual void close() override;
+    void close() override;
     
-    float get_dpi_factor() const override;
+    float dpiFactor() const override;
     
-    float get_content_scale_factor() const override;
+    float contentScaleFactor() const override;
     
 private:
-    GLFWwindow *handle = nullptr;
+    GLFWwindow *_handle = nullptr;
 };
 }        // namespace vox

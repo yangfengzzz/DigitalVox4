@@ -34,17 +34,17 @@ void FreeControl::resize(uint32_t width, uint32_t height) {
     _height = height;
 }
 
-void FreeControl::inputEvent(const InputEvent &input_event) {
+void FreeControl::inputEvent(const InputEvent &inputEvent) {
     if (_enableEvent) {
-        if (input_event.get_source() == EventSource::Keyboard) {
-            const auto &key_event = static_cast<const KeyInputEvent &>(input_event);
+        if (inputEvent.get_source() == EventSource::Keyboard) {
+            const auto &key_event = static_cast<const KeyInputEvent &>(inputEvent);
             if (key_event.get_action() == KeyAction::Down) {
                 onKeyDown(key_event.get_code());
             } else if (key_event.get_action() == KeyAction::Up) {
                 onKeyUp(key_event.get_code());
             }
-        } else if (input_event.get_source() == EventSource::Mouse) {
-            const auto &mouse_button = static_cast<const MouseButtonInputEvent &>(input_event);
+        } else if (inputEvent.get_source() == EventSource::Mouse) {
+            const auto &mouse_button = static_cast<const MouseButtonInputEvent &>(inputEvent);
             if (mouse_button.get_action() == MouseAction::Down) {
                 onMouseDown(mouse_button.get_pos_x(), mouse_button.get_pos_y());
             } else if (mouse_button.get_action() == MouseAction::Up) {
@@ -52,8 +52,8 @@ void FreeControl::inputEvent(const InputEvent &input_event) {
             } else if (mouse_button.get_action() == MouseAction::Move) {
                 onMouseMove(mouse_button.get_pos_x(), mouse_button.get_pos_y());
             }
-        } else if (input_event.get_source() == EventSource::Scroll) {
-        } else if (input_event.get_source() == EventSource::Touchscreen) {
+        } else if (inputEvent.get_source() == EventSource::Scroll) {
+        } else if (inputEvent.get_source() == EventSource::Touchscreen) {
             // TODO
         }
     }

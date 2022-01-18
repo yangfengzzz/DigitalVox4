@@ -34,10 +34,10 @@ class InputEvent {
 public:
     InputEvent(EventSource source);
     
-    EventSource get_source() const;
+    EventSource source() const;
     
 private:
-    EventSource source;
+    EventSource _source;
 };
 
 //MARK: - Key Event
@@ -159,14 +159,14 @@ class KeyInputEvent : public InputEvent {
 public:
     KeyInputEvent(KeyCode code, KeyAction action);
     
-    KeyCode get_code() const;
+    KeyCode code() const;
     
-    KeyAction get_action() const;
+    KeyAction action() const;
     
 private:
-    KeyCode code;
+    KeyCode _code;
     
-    KeyAction action;
+    KeyAction _action;
 };
 
 //MARK: - Mouse Event
@@ -190,22 +190,22 @@ class MouseButtonInputEvent : public InputEvent {
 public:
     MouseButtonInputEvent(MouseButton button, MouseAction action, float pos_x, float pos_y);
     
-    MouseButton get_button() const;
+    MouseButton button() const;
     
-    MouseAction get_action() const;
+    MouseAction action() const;
     
-    float get_pos_x() const;
+    float pos_x() const;
     
-    float get_pos_y() const;
+    float pos_y() const;
     
 private:
-    MouseButton button;
+    MouseButton _button;
     
-    MouseAction action;
+    MouseAction _action;
     
-    float pos_x;
+    float _pos_x;
     
-    float pos_y;
+    float _pos_y;
 };
 
 //MARK: - Scroll Event
@@ -213,14 +213,14 @@ class ScrollInputEvent : public InputEvent {
 public:
     ScrollInputEvent(float offset_x, float offset_y);
     
-    float get_offset_x() const;
+    float offset_x() const;
     
-    float get_offset_y() const;
+    float offset_y() const;
     
 private:
-    float offset_x;
+    float _offset_x;
     
-    float offset_y;
+    float _offset_y;
 };
 
 //MARK: - Touch Event
@@ -238,25 +238,25 @@ class TouchInputEvent : public InputEvent {
 public:
     TouchInputEvent(int32_t pointer_id, size_t pointer_count, TouchAction action, float pos_x, float pos_y);
     
-    TouchAction get_action() const;
+    TouchAction action() const;
     
-    int32_t get_pointer_id() const;
+    int32_t pointer_id() const;
     
-    size_t get_touch_points() const;
+    size_t touch_points() const;
     
-    float get_pos_x() const;
+    float pos_x() const;
     
-    float get_pos_y() const;
+    float pos_y() const;
     
 private:
-    TouchAction action;
+    TouchAction _action;
     
-    int32_t pointer_id;
+    int32_t _pointer_id;
     
-    size_t touch_points;
+    size_t _touch_points;
     
-    float pos_x;
+    float _pos_x;
     
-    float pos_y;
+    float _pos_y;
 };
 }        // namespace vox

@@ -50,7 +50,7 @@ void MetalApplication::framebuffer_resize(uint32_t width, uint32_t height) {
     render_context->resize(MTL::SizeMake(width, height, 0));
 }
 
-void MetalApplication::input_event(const InputEvent &input_event) {}
+void MetalApplication::inputEvent(const InputEvent &inputEvent) {}
 
 void MetalApplication::finish() {}
 

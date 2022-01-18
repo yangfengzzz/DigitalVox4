@@ -45,7 +45,7 @@ bool Application::resize(const uint32_t /*width*/, const uint32_t /*height*/) {
 void Application::framebuffer_resize(uint32_t width, uint32_t height) {    
 }
 
-void Application::input_event(const InputEvent &input_event) {
+void Application::inputEvent(const InputEvent &inputEvent) {
 }
 
 void Application::update(float delta_time) {
