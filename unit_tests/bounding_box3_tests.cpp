@@ -270,3 +270,35 @@ TEST(BoundingBox3D, IsEmpty) {
     box.lowerCorner = Point3D(4.0, 1.0, 3.0);
     EXPECT_TRUE(box.isEmpty());
 }
+
+//MARK: -
+TEST(BoundingBox3D, transform) {
+    auto box = BoundingBox3D(Point3D(-1, -1, -1), Point3D(1, 1, 1));
+    const auto matrix = Matrix4x4D(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 0.5, -1, 1);
+    box.transform(matrix);
+    
+    const auto newMin = Point3D(-1, -1.5, -3);
+    const auto newMax = Point3D(3, 2.5, 1);
+    EXPECT_VECTOR3_EQ(box.lowerCorner, Point3D(newMin.x, newMin.y, newMin.z));
+    EXPECT_VECTOR3_EQ(box.upperCorner, Point3D(newMax.x, newMax.y, newMax.z));
+}
+
+TEST(BoundingBox3D, merge) {
+    auto box1 = BoundingBox3D(Point3D(-1, -1, -1), Point3D(2, 2, 2));
+    const auto box2 = BoundingBox3D(Point3D(-2, -0.5, -2), Point3D(3, 0, 3));
+    box1.merge(box2);
+    EXPECT_VECTOR3_EQ(box1.lowerCorner, Point3D(-2, -1, -2));
+    EXPECT_VECTOR3_EQ(box1.upperCorner, Point3D(3, 2, 3));
+}
+
+TEST(BoundingBox3D, getCenter) {
+    const auto box = BoundingBox3D(Point3D(-1, -1, -1), Point3D(3, 3, 3));
+    const auto center = box.midPoint();
+    EXPECT_VECTOR3_EQ(center, Point3D(1, 1, 1));
+}
+
+TEST(BoundingBox3D, getExtent) {
+    const auto box = BoundingBox3D(Point3D(-1, -1, -1), Point3D(3, 3, 3));
+    const auto extent = box.extent();
+    EXPECT_VECTOR3_EQ(extent,  Point3D(2, 2, 2));
+}
