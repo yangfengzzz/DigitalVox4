@@ -9,8 +9,8 @@
 #define collider_hpp
 
 #include "physics.h"
-#include "../component.h"
-#include "../updateFlag.h"
+#include "component.h"
+#include "update_flag.h"
 #include <vector>
 
 namespace vox {

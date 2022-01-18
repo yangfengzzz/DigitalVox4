@@ -39,7 +39,7 @@ struct ResourceCacheState {
 };
 
 /**
- * @brief Cache all sorts of Vulkan objects specific to a Vulkan device.
+ * @brief Cache all sorts of Metal objects specific to a Metal device.
  * Supports serialization and deserialization of cached resources.
  * There is only one cache for all these objects, with several unordered_map of hash indices
  * and objects. For every object requested, there is a templated version on request_resource.

@@ -160,12 +160,12 @@ bool Engine::startApp() {
     _activeApp->setName("");
     
     if (!_activeApp) {
-        LOG(ERROR) << "Failed to create a valid vulkan app.";
+        LOG(ERROR) << "Failed to create a valid metal app.";
         return false;
     }
     
     if (!_activeApp->prepare(*this)) {
-        LOG(ERROR) << "Failed to prepare vulkan app.";
+        LOG(ERROR) << "Failed to prepare metal app.";
         return false;
     }
         

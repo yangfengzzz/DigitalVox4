@@ -11,8 +11,8 @@
 
 namespace vox {
 MetalApplication::~MetalApplication() {
-    render_context.reset();
-    device.reset();
+    _renderContext.reset();
+    _device.reset();
 }
 
 bool MetalApplication::prepare(Engine &engine) {
@@ -22,19 +22,19 @@ bool MetalApplication::prepare(Engine &engine) {
     
     LOG(INFO) << "Initializing Metal Application";
     
-    device = std::unique_ptr<MTL::Device>(MTL::CreateSystemDefaultDevice());
-    printf("Selected Device: %s\n", device->name());
+    _device = std::unique_ptr<MTL::Device>(MTL::CreateSystemDefaultDevice());
+    printf("Selected Device: %s\n", _device->name());
 
-    m_commandQueue = device->makeCommandQueue();
+    _commandQueue = _device->makeCommandQueue();
 
-    render_context = engine.create_render_context(*device);
-    scene = std::make_unique<Scene>();
+    _renderContext = engine.createRenderContext(*_device);
+    _scene = std::make_unique<Scene>();
     return true;
 }
 
 void MetalApplication::update(float delta_time) {
-    scene->update(delta_time);
-    render_context->draw();
+    _scene->update(delta_time);
+    _renderContext->draw();
 }
 
 bool MetalApplication::resize(const uint32_t width, const uint32_t height) {
@@ -43,10 +43,10 @@ bool MetalApplication::resize(const uint32_t width, const uint32_t height) {
     return true;
 }
 
-void MetalApplication::framebuffer_resize(uint32_t width, uint32_t height) {
-    Application::framebuffer_resize(width, height);
+void MetalApplication::framebufferResize(uint32_t width, uint32_t height) {
+    Application::framebufferResize(width, height);
 
-    render_context->resize(MTL::SizeMake(width, height, 0));
+    _renderContext->resize(MTL::sizeMake(width, height, 0));
 }
 
 void MetalApplication::inputEvent(const InputEvent &inputEvent) {}
@@ -59,7 +59,7 @@ MTL::Library MetalApplication::makeShaderLibrary() {
     CFURLRef libraryURL = nullptr;
 
     libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
-    MTL::Library shaderLibrary = device->makeLibrary(libraryURL, &error);
+    MTL::Library shaderLibrary = _device->makeLibrary(libraryURL, &error);
     
     MTLAssert(!error, error, "Could not load Metal shader library");
     
