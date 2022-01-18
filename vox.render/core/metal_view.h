@@ -1,18 +1,16 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  CPPMetalView.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/13.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
+#ifndef cpp_mtl_View_hpp
+#define cpp_mtl_View_hpp
 
-#ifndef CPPMetalView_hpp
-#define CPPMetalView_hpp
-
-#include "CPPMetalImplementation.hpp"
-#include "CPPMetalDrawable.hpp"
-#include "CPPMetalDevice.hpp"
-#include "CPPMetalPixelFormat.hpp"
-#include "CPPMetalRenderPass.hpp"
+#include "cpp_mtl_implementation.h"
+#include "cpp_mtl_drawable.h"
+#include "cpp_mtl_device.h"
+#include "cpp_mtl_pixel_format.h"
+#include "cpp_mtl_render_pass.h"
 
 namespace vox {
 class View {
@@ -50,8 +48,8 @@ public:
     MTL::Device &device();
     
 private:
-    CPPMetalInternal::MetalLayer m_objCObj;
-    CPPMetalInternal::Drawable m_drawableCObj;
+    cpp_mtl_Internal::MetalLayer m_objCObj;
+    cpp_mtl_Internal::Drawable m_drawableCObj;
 
     MTL::Device *m_device;
     
@@ -60,17 +58,17 @@ private:
     MTL::PixelFormat m_depthStencilPixelFormat;
     MTL::RenderPassDescriptor *m_currentRenderPassDescriptor;
         
-public: // Public methods for CPPMetal internal implementation
-    CPPMetalInternal::MetalLayer objCObj() const;
+public: // Public methods for cpp_mtl_ internal implementation
+    cpp_mtl_Internal::MetalLayer objCObj() const;
 };
 
 //===============================================
 #pragma mark - View inline method implementations
 
-inline CPPMetalInternal::MetalLayer View::objCObj() const {
+inline cpp_mtl_Internal::MetalLayer View::objCObj() const {
     return m_objCObj;
 }
 
 }
 
-#endif /* CPPMetalView_hpp */
+#endif /* cpp_mtl_View_hpp */

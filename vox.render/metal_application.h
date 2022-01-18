@@ -9,7 +9,7 @@
 #define metal_application_hpp
 
 #include "application.h"
-#include "core/CPPMetal.hpp"
+#include "core/cpp_mtl_.hpp"
 #include "rendering/render_pass.h"
 #include "scene.h"
 

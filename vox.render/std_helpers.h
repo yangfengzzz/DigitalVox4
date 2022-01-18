@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  helpers.h
-//  DigitalVox4
-//
-//  Created by 杨丰 on 2022/1/12.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef helpers_h
 #define helpers_h

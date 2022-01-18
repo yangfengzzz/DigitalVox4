@@ -1,10 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  CPPMetalView.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/13.
-//
-
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 #include "metal_view.h"
 
 namespace vox {
@@ -104,7 +102,7 @@ MTL::RenderPassDescriptor *View::currentRenderPassDescriptor() {
 }
 
 MTL::Size View::drawableSize() const {
-    MTL::Size size = SizeMake(m_objCObj.drawableSize.width, m_objCObj.drawableSize.height, 0);
+    MTL::Size size = sizeMake(m_objCObj.drawableSize.width, m_objCObj.drawableSize.height, 0);
     return size;
 }
 

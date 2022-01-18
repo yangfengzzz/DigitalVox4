@@ -19,8 +19,6 @@
 
 #include <string>
 
-#include "debug_info.h"
-#include "configuration.h"
 #include "input_events.h"
 #include "timer.h"
 
@@ -76,8 +74,6 @@ public:
     
     void set_name(const std::string &name);
     
-    DebugInfo &get_debug_info();
-    
 protected:
     float fps{0.0f};
     
@@ -91,8 +87,6 @@ protected:
     
 private:
     std::string name{};
-    
-    // The debug info of the app
-    DebugInfo debug_info{};
 };
+
 }        // namespace vox

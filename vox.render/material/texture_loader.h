@@ -5,11 +5,11 @@
  Header for C++ MetalKit texture loader class wrapper
  */
 
-#ifndef CPPMetalKitTextureLoader_hpp
-#define CPPMetalKitTextureLoader_hpp
+#ifndef cpp_mtl_KitTextureLoader_hpp
+#define cpp_mtl_KitTextureLoader_hpp
 
-#include "CPPMetalImplementation.hpp"
-#include "CPPMetalTexture.hpp"
+#include "cpp_mtl_implementation.h"
+#include "cpp_mtl_texture.h"
 
 
 namespace MTL {
@@ -55,7 +55,7 @@ public:
                              bool isTopLeft);
     
 private:
-    CPPMetalInternal::TextureLoader m_objCObj;
+    cpp_mtl_Internal::TextureLoader m_objCObj;
     
     MTL::Device *m_device;
 };
@@ -63,4 +63,4 @@ private:
 
 } // namespace vox
 
-#endif // CPPMetalKitTextureLoader_hpp
+#endif // cpp_mtl_KitTextureLoader_hpp

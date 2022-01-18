@@ -7,7 +7,7 @@
 
 #include <Metal/Metal.h>
 #include "texture_loader.h"
-#include "CPPMetalDevice.hpp"
+#include "cpp_mtl_device.h"
 #include <string>
 #include <array>
 

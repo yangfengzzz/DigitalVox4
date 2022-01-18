@@ -10,7 +10,7 @@
 
 #include "renderTarget_blend_state.h"
 #include "color.h"
-#include "core/CPPMetalRenderCommandEncoder.hpp"
+#include "core/cpp_mtl_RenderCommandEncoder.hpp"
 
 namespace vox {
 /**

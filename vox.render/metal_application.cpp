@@ -7,7 +7,7 @@
 
 #include "metal_application.h"
 #include "engine.h"
-#include "core/CPPMetalAssert.hpp"
+#include "core/cpp_mtl_Assert.hpp"
 #include <glog/logging.h>
 
 namespace vox {

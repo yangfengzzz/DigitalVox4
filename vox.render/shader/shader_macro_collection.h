@@ -10,7 +10,7 @@
 
 #include <unordered_map>
 #include "macro_name.h"
-#include "core/CPPMetalFunctionConstantValues.hpp"
+#include "core/cpp_mtl_function_constant_values.h"
 
 namespace vox {
 /**

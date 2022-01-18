@@ -23,9 +23,8 @@
 #include <optional>
 
 #include "application.h"
-#include "filesystem.h"
 #include "window.h"
-#include "core/CPPMetalDevice.hpp"
+#include "core/cpp_mtl_device.h"
 #include "core/metal_view.h"
 
 namespace vox {

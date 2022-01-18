@@ -8,8 +8,8 @@
 #ifndef stencil_state_hpp
 #define stencil_state_hpp
 
-#include "core/CPPMetalDepthStencil.hpp"
-#include "core/CPPMetalRenderCommandEncoder.hpp"
+#include "core/cpp_mtl_DepthStencil.hpp"
+#include "core/cpp_mtl_RenderCommandEncoder.hpp"
 
 namespace vox {
 /**

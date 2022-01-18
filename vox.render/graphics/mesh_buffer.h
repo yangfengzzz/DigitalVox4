@@ -8,7 +8,7 @@
 #ifndef mesh_buffer_hpp
 #define mesh_buffer_hpp
 
-#include "CPPMetal.hpp"
+#include "cpp_mtl.h"
 #include <vector>
 
 namespace vox {

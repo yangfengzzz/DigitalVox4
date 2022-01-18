@@ -9,8 +9,8 @@
 #define shader_program_hpp
 
 #include "shader_macro_collection.h"
-#include "core/CPPMetalLibrary.hpp"
-#include "core/CPPMetalFunctionConstantValues.hpp"
+#include "core/cpp_mtl_Library.hpp"
+#include "core/cpp_mtl_function_constant_values.h"
 
 namespace vox {
 /**

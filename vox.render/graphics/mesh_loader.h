@@ -9,7 +9,7 @@
 
 #include "entity.h"
 #include "scene.h"
-#include "core/CPPMetal.hpp"
+#include "core/cpp_mtl_.hpp"
 
 namespace vox {
 void newMeshesFromBundlePath(const char *bundlePath,

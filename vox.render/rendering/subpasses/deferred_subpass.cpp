@@ -8,7 +8,7 @@
 #include "deferred_subpass.h"
 #include "material/material.h"
 
-#include "core/CPPMetalAssert.hpp"
+#include "core/cpp_mtl_Assert.hpp"
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
