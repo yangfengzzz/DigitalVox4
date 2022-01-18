@@ -18,7 +18,7 @@
 #include "sky/skybox_material.h"
 
 #include "engine.h"
-#include "core/cpp_mtl_Assert.hpp"
+#include "core/cpp_mtl_assert.h"
 #include "material/texture_loader.h"
 #include "graphics/mesh_loader.h"
 #include "graphics/primitive_mesh.h"

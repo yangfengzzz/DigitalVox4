@@ -8,7 +8,7 @@
 #ifndef subpass_hpp
 #define subpass_hpp
 
-#include "core/cpp_mtl_.hpp"
+#include "core/cpp_mtl.h"
 #include "scene.h"
 
 namespace vox {

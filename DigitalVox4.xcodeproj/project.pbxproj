@@ -265,6 +265,16 @@
 		044596302796ED4700F04CE0 /* application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459212278E5F1000F04CE0 /* application.cpp */; };
 		044596312796EDD400F04CE0 /* unix_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459256278E708A00F04CE0 /* unix_engine.cpp */; };
 		044596322796EDD400F04CE0 /* unix_engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459257278E708A00F04CE0 /* unix_engine.h */; };
+		044596332796EE4F00F04CE0 /* sub_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E12790FBE400F04CE0 /* sub_mesh.h */; };
+		044596342796EE4F00F04CE0 /* mesh_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593DD2790F99200F04CE0 /* mesh_buffer.h */; };
+		044596352796EE4F00F04CE0 /* sub_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E02790FBE400F04CE0 /* sub_mesh.cpp */; };
+		044596362796EE4F00F04CE0 /* mesh_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459376278FFE3100F04CE0 /* mesh_loader.h */; };
+		044596372796EE4F00F04CE0 /* mesh_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593DC2790F99200F04CE0 /* mesh_buffer.cpp */; };
+		044596382796EE4F00F04CE0 /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E52791055900F04CE0 /* mesh.h */; };
+		044596392796EE4F00F04CE0 /* primitive_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E82791107600F04CE0 /* primitive_mesh.cpp */; };
+		0445963A2796EE4F00F04CE0 /* mesh_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459380278FFE3100F04CE0 /* mesh_loader.mm */; };
+		0445963B2796EE4F00F04CE0 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E42791055900F04CE0 /* mesh.cpp */; };
+		0445963C2796EE4F00F04CE0 /* primitive_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E92791107600F04CE0 /* primitive_mesh.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1641,6 +1651,7 @@
 				044595D82796DBEF00F04CE0 /* window.h in Headers */,
 				044595EB2796E88600F04CE0 /* cpp_mtl_function_constant_values.h in Headers */,
 				044595E42796E88600F04CE0 /* cpp_mtl_resource.h in Headers */,
+				044596342796EE4F00F04CE0 /* mesh_buffer.h in Headers */,
 				044596322796EDD400F04CE0 /* unix_engine.h in Headers */,
 				044595FB2796E88600F04CE0 /* cpp_mtl_resource_enum.h in Headers */,
 				044596292796EB1B00F04CE0 /* imstb_rectpack.h in Headers */,
@@ -1650,6 +1661,8 @@
 				044596052796E88600F04CE0 /* cpp_mtl_render_pass.h in Headers */,
 				044595E72796E88600F04CE0 /* cpp_mtl_depth_stencil.h in Headers */,
 				044595FF2796E88600F04CE0 /* cpp_mtl_device.h in Headers */,
+				044596332796EE4F00F04CE0 /* sub_mesh.h in Headers */,
+				044596382796EE4F00F04CE0 /* mesh.h in Headers */,
 				044596092796E88600F04CE0 /* cpp_mtl_implementation.h in Headers */,
 				0445960E2796E88B00F04CE0 /* metal_view.h in Headers */,
 				044596262796EB1B00F04CE0 /* imstb_truetype.h in Headers */,
@@ -1664,6 +1677,7 @@
 				044595F12796E88600F04CE0 /* cpp_mtl_command_queue.h in Headers */,
 				044596062796E88600F04CE0 /* cpp_mtl_types.h in Headers */,
 				0445962D2796EB4900F04CE0 /* engine.h in Headers */,
+				044596362796EE4F00F04CE0 /* mesh_loader.h in Headers */,
 				0445960B2796E88B00F04CE0 /* cpp_mtl_internal_macros.h in Headers */,
 				044595EA2796E88600F04CE0 /* cpp_mtl_library.h in Headers */,
 				044595F82796E88600F04CE0 /* cpp_mtl_data_type.h in Headers */,
@@ -1675,6 +1689,7 @@
 				044595E62796E88600F04CE0 /* cpp_mtl_command_encoder.h in Headers */,
 				044595DB2796DE3B00F04CE0 /* input_events.h in Headers */,
 				044595E32796E88600F04CE0 /* cpp_mtl_vertex_descriptor.h in Headers */,
+				0445963C2796EE4F00F04CE0 /* primitive_mesh.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1978,12 +1993,16 @@
 				044596022796E88600F04CE0 /* cpp_mtl_data_type.mm in Sources */,
 				044595F32796E88600F04CE0 /* cpp_mtl_render_pipeline.mm in Sources */,
 				044596042796E88600F04CE0 /* cpp_mtl_render_pass.mm in Sources */,
+				0445963A2796EE4F00F04CE0 /* mesh_loader.mm in Sources */,
 				0445960A2796E88600F04CE0 /* cpp_mtl_buffer.mm in Sources */,
 				044595EC2796E88600F04CE0 /* cpp_mtl_function_constant_values.mm in Sources */,
+				044596352796EE4F00F04CE0 /* sub_mesh.cpp in Sources */,
 				044595D62796DB0A00F04CE0 /* timer.cpp in Sources */,
 				0445962E2796EB4900F04CE0 /* engine.cpp in Sources */,
 				0445960C2796E88B00F04CE0 /* resource_cache.cpp in Sources */,
 				044595F72796E88600F04CE0 /* cpp_mtl_device.mm in Sources */,
+				0445963B2796EE4F00F04CE0 /* mesh.cpp in Sources */,
+				044596372796EE4F00F04CE0 /* mesh_buffer.cpp in Sources */,
 				044596072796E88600F04CE0 /* cpp_mtl_command_encoder.mm in Sources */,
 				044596082796E88600F04CE0 /* cpp_mtl_drawable.mm in Sources */,
 				044595FA2796E88600F04CE0 /* cpp_mtl_depth_stencil.mm in Sources */,
@@ -1992,6 +2011,7 @@
 				044596122796E9C900F04CE0 /* align.cc in Sources */,
 				044596312796EDD400F04CE0 /* unix_engine.cpp in Sources */,
 				044595F42796E88600F04CE0 /* cpp_mtl_library.mm in Sources */,
+				044596392796EE4F00F04CE0 /* primitive_mesh.cpp in Sources */,
 				044595F92796E88600F04CE0 /* cpp_mtl_render_command_encoder_dispatch_table.mm in Sources */,
 				044595D72796DBED00F04CE0 /* window.cpp in Sources */,
 				044595DF2796E88600F04CE0 /* cpp_mtl_render_command_encoder.mm in Sources */,

@@ -10,8 +10,7 @@
 #include <assert.h>
 #include <CoreFoundation/CoreFoundation.h>
 
-namespace MTL {
-static inline void assert(const void *success, CFErrorRef error, const char *format, ...) {
+static inline void MTLAssert(const void *success, CFErrorRef error, const char *format, ...) {
     if (0 == success) {
         va_list args;
         va_start(args, format);
@@ -26,7 +25,7 @@ static inline void assert(const void *success, CFErrorRef error, const char *for
     }
 }
 
-static inline void assert(bool success, CFErrorRef error, const char *format, ...) {
+static inline void MTLAssert(bool success, CFErrorRef error, const char *format, ...) {
     if (false == success) {
         va_list args;
         va_start(args, format);
@@ -41,7 +40,7 @@ static inline void assert(bool success, CFErrorRef error, const char *format, ..
     }
 }
 
-static inline void assert(const void *success, const char *format, ...) {
+static inline void MTLAssert(const void *success, const char *format, ...) {
     if (nullptr == success) {
         va_list args;
         va_start(args, format);
@@ -51,7 +50,7 @@ static inline void assert(const void *success, const char *format, ...) {
     }
 }
 
-static inline void assert(bool success, const char *format, ...) {
+static inline void MTLAssert(bool success, const char *format, ...) {
     
     if (false == success) {
         va_list args;
@@ -61,7 +60,6 @@ static inline void assert(bool success, const char *format, ...) {
         
         assert(!"AAPLAsertTriggered");
     }
-}
 }
 
 #endif // AAPLUtilities_h

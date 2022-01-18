@@ -8,8 +8,8 @@
 #ifndef raster_state_hpp
 #define raster_state_hpp
 
-#include "core/cpp_mtl_DepthStencil.hpp"
-#include "core/cpp_mtl_RenderCommandEncoder.hpp"
+#include "core/cpp_mtl_depth_stencil.h"
+#include "core/cpp_mtl_render_command_encoder.h"
 
 namespace vox {
 /**

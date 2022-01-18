@@ -6,7 +6,7 @@
 //
 
 #include "compose_subpass.h"
-#include "core/cpp_mtl_Assert.hpp"
+#include "core/cpp_mtl_assert.h"
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"

@@ -1,14 +1,14 @@
-/*
- See LICENSE folder for this sample’s licensing information.
- 
- Abstract:
- Implementation for Mesh and Submesh objects.
- */
+//  Copyright (c) 2022 Feng Yang
+//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
+
 #include <MetalKit/MetalKit.h>
 #include <ModelIO/ModelIO.h>
 #include <unordered_map>
 #include <set>
-#include "core/cpp_mtl_Assert.hpp"
+#include "core/cpp_mtl_assert.h"
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"

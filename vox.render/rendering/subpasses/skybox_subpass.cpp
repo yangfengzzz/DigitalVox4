@@ -6,7 +6,7 @@
 //
 
 #include "skybox_subpass.h"
-#include "core/cpp_mtl_Assert.hpp"
+#include "core/cpp_mtl_assert.h"
 #include "material/material.h"
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files

@@ -8,7 +8,7 @@
 #define metal_application_hpp
 
 #include "application.h"
-#include "core/cpp_mtl_.hpp"
+#include "core/cpp_mtl.h"
 #include "rendering/render_pass.h"
 #include "scene.h"
 
