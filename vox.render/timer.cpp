@@ -19,24 +19,24 @@
 
 namespace vox {
 Timer::Timer() :
-start_time{Clock::now()},
-previous_tick{Clock::now()} {
+_startTime{Clock::now()},
+_previousTick{Clock::now()} {
 }
 
 void Timer::start() {
-    if (!running) {
-        running = true;
-        start_time = Clock::now();
+    if (!_running) {
+        _running = true;
+        _startTime = Clock::now();
     }
 }
 
 void Timer::lap() {
-    lapping = true;
-    lap_time = Clock::now();
+    _lapping = true;
+    _lapTime = Clock::now();
 }
 
-bool Timer::is_running() const {
-    return running;
+bool Timer::isRunning() const {
+    return _running;
 }
 
 }        // namespace vox

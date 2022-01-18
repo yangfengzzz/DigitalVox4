@@ -55,15 +55,15 @@ public:
      */
     template<typename T = DefaultResolution>
     double stop() {
-        if (!running) {
+        if (!_running) {
             return 0;
         }
         
-        running = false;
-        lapping = false;
-        auto duration = std::chrono::duration<double, T>(Clock::now() - start_time);
-        start_time = Clock::now();
-        lap_time = Clock::now();
+        _running = false;
+        _lapping = false;
+        auto duration = std::chrono::duration<double, T>(Clock::now() - _startTime);
+        _startTime = Clock::now();
+        _lapTime = Clock::now();
         
         return duration.count();
     }
@@ -75,14 +75,14 @@ public:
      */
     template<typename T = DefaultResolution>
     double elapsed() {
-        if (!running) {
+        if (!_running) {
             return 0;
         }
         
-        Clock::time_point start = start_time;
+        Clock::time_point start = _startTime;
         
-        if (lapping) {
-            start = lap_time;
+        if (_lapping) {
+            start = _lapTime;
         }
         
         return std::chrono::duration<double, T>(Clock::now() - start).count();
@@ -95,26 +95,26 @@ public:
     template<typename T = DefaultResolution>
     double tick() {
         auto now = Clock::now();
-        auto duration = std::chrono::duration<double, T>(now - previous_tick);
-        previous_tick = now;
+        auto duration = std::chrono::duration<double, T>(now - _previousTick);
+        _previousTick = now;
         return duration.count();
     }
     
     /**
      * @brief Check if the timer is running
      */
-    bool is_running() const;
+    bool isRunning() const;
     
 private:
-    bool running{false};
+    bool _running{false};
     
-    bool lapping{false};
+    bool _lapping{false};
     
-    Clock::time_point start_time;
+    Clock::time_point _startTime;
     
-    Clock::time_point lap_time;
+    Clock::time_point _lapTime;
     
-    Clock::time_point previous_tick;
+    Clock::time_point _previousTick;
 };
 
 }        // namespace vox
