@@ -8,6 +8,7 @@
 #define plane3_h
 
 #include "vector3.h"
+#include "point3.h"
 #include "bounding_plane.h"
 
 namespace vox {
@@ -41,7 +42,7 @@ public:
      * @param point1 - The second point
      * @param point2 - The third point
      */
-    BoundingPlane(const Vector3<T> &point0, const Vector3<T> &point1, const Vector3<T> &point2);
+    BoundingPlane(const Point3<T> &point0, const Point3<T> &point1, const Point3<T> &point2);
     
     //! Copy constructor.
     BoundingPlane(const BoundingPlane &other);

@@ -20,7 +20,7 @@ distance(newDistance) {
 }
 
 template<typename T>
-BoundingPlane<T, 3>::BoundingPlane(const Vector3 <T> &point0, const Vector3 <T> &point1, const Vector3 <T> &point2) {
+BoundingPlane<T, 3>::BoundingPlane(const Point3 <T> &point0, const Point3 <T> &point1, const Point3 <T> &point2) {
     T x0 = point0.x;
     T y0 = point0.y;
     T z0 = point0.z;
