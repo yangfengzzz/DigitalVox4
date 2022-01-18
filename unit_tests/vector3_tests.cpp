@@ -5,7 +5,7 @@
 //  property of any third parties.
 
 #include "vector3.h"
-#include <gtest/gtest.h>
+#include "unit_tests_utils.h"
 #include <algorithm>
 
 using namespace vox;
@@ -398,4 +398,99 @@ TEST(Vector3, BinaryOperators) {
     auto tangential = normal.tangential();
     EXPECT_NEAR(std::get<0>(tangential).dot(normal), 0.0, 1e-9);
     EXPECT_NEAR(std::get<1>(tangential).dot(normal), 0.0, 1e-9);
+}
+
+//MARK: -
+TEST(Vector3, add) {
+    const auto a = Vector3D(2, 3, 4);
+    const auto b = Vector3D(-3, 5, 0);
+    const auto out = a + b;
+    
+    EXPECT_VECTOR3_EQ(out, Vector3D(-1, 8, 4));
+}
+
+TEST(Vector3, subtract) {
+    const auto a = Vector3D(2, 3, 4);
+    const auto b = Vector3D(-3, 5, 1);
+    const auto out = a - b;
+    
+    EXPECT_VECTOR3_EQ(out, Vector3D(5, -2, 3));
+}
+
+TEST(Vector3, multiply) {
+    const auto a = Vector3D(2, 3, 4);
+    const auto b = Vector3D(-3, 5, 0.2);
+    const auto out = a * b;
+    
+    EXPECT_VECTOR3_EQ(out, Vector3D(-6, 15, 0.8));
+}
+
+TEST(Vector3, divide) {
+    const auto a = Vector3D(2, 3, 4);
+    const auto b = Vector3D(-4, 5, 16);
+    const auto out = a / b;
+    
+    EXPECT_VECTOR3_EQ(out, Vector3D(-0.5, 0.6, 0.25));
+}
+
+TEST(Vector3, dot) {
+    const auto a = Vector3D(2, 3, 1);
+    const auto b = Vector3D(-4, 5, 1);
+    
+    EXPECT_FLOAT_EQ(a.dot(b), 8);
+}
+
+TEST(Vector3, cross) {
+    const auto a = Vector3D(1, 2, 3);
+    const auto b = Vector3D(4, 5, 6);
+    const auto out = a.cross(b);
+    EXPECT_VECTOR3_EQ(out, Vector3D(-3, 6, -3));
+}
+
+TEST(Vector3, distance) {
+    const auto a = Vector3D(1, 2, 3);
+    const auto b = Vector3D(4, 6, 3);
+    
+    EXPECT_FLOAT_EQ(a.distanceTo(b), 5);
+    EXPECT_FLOAT_EQ(a.distanceSquaredTo(b), 25);
+}
+
+TEST(Vector3, lerp) {
+    const auto a = Vector3D(0, 1, 2);
+    const auto b = Vector3D(2, 2, 0);
+    const auto out = lerp(a, b, 0.5);
+    EXPECT_VECTOR3_EQ(out, Vector3D(1, 1.5, 1));
+}
+
+TEST(Vector3, max) {
+    const auto a = Vector3D(0, 10, 1);
+    const auto b = Vector3D(2, 3, 5);
+    const auto out = max(a, b);
+    EXPECT_VECTOR3_EQ(out, Vector3D(2, 10, 5));
+}
+
+TEST(Vector3, min) {
+    const auto a = Vector3D(0, 10, 1);
+    const auto b = Vector3D(2, 3, 5);
+    const auto out = min(a, b);
+    EXPECT_VECTOR3_EQ(out, Vector3D(0, 3, 1));
+}
+
+TEST(Vector3, negate) {
+    const auto a = Vector3D(4, -4, 0);
+    const auto out = -a;
+    
+    EXPECT_VECTOR3_EQ(out, Vector3D(-4, 4, 0));
+}
+
+TEST(Vector3, normalize) {
+    const auto a = Vector3D(3, 4, 0);
+    const auto out = a.normalized();
+    EXPECT_VECTOR3_EQ(out, Vector3D(0.6, 0.8, 0));
+}
+
+TEST(Vector3, scale) {
+    const auto a = Vector3D(3, 4, 5);
+    const auto out = a * 3.0;
+    EXPECT_VECTOR3_EQ(out, Vector3D(9, 12, 15));
 }

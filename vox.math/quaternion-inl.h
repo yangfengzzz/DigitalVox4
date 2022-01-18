@@ -206,37 +206,31 @@ Quaternion<T> Quaternion<T>::mul(T v) const {
 // Binary operator methods - new instance = this instance (+) input
 template<typename T>
 inline Vector3 <T> Quaternion<T>::mul(const Vector3 <T> &v) const {
-    T _2xx = 2 * x * x;
-    T _2yy = 2 * y * y;
-    T _2zz = 2 * z * z;
-    T _2xy = 2 * x * y;
-    T _2xz = 2 * x * z;
-    T _2xw = 2 * x * w;
-    T _2yz = 2 * y * z;
-    T _2yw = 2 * y * w;
-    T _2zw = 2 * z * w;
-    
-    return Vector3<T>((1 - _2yy - _2zz) * v.x + (_2xy - _2zw) * v.y + (_2xz + _2yw) * v.z,
-                      (_2xy + _2zw) * v.x + (1 - _2zz - _2xx) * v.y + (_2yz - _2xw) * v.z,
-                      (_2xz - _2yw) * v.x + (_2yz + _2xw) * v.y + (1 - _2yy - _2xx) * v.z);
+    // calculate quat * vec
+    T ix = w * v.x + y * v.z - z * v.y;
+    T iy = w * v.y + z * v.x - x * v.z;
+    T iz = w * v.z + x * v.y - y * v.x;
+    T iw = -x * v.x - y * v.y - z * v.z;
+
+    // calculate result * inverse quat
+    return Vector3<T>(ix * w - iw * x - iy * z + iz * y,
+                     iy * w - iw * y - iz * x + ix * z,
+                     iz * w - iw * z - ix * y + iy * x);
 }
 
 // Binary operator methods - new instance = this instance (+) input
 template<typename T>
 inline Point3 <T> Quaternion<T>::mul(const Point3 <T> &v) const {
-    T _2xx = 2 * x * x;
-    T _2yy = 2 * y * y;
-    T _2zz = 2 * z * z;
-    T _2xy = 2 * x * y;
-    T _2xz = 2 * x * z;
-    T _2xw = 2 * x * w;
-    T _2yz = 2 * y * z;
-    T _2yw = 2 * y * w;
-    T _2zw = 2 * z * w;
-    
-    return Point3<T>((1 - _2yy - _2zz) * v.x + (_2xy - _2zw) * v.y + (_2xz + _2yw) * v.z,
-                     (_2xy + _2zw) * v.x + (1 - _2zz - _2xx) * v.y + (_2yz - _2xw) * v.z,
-                     (_2xz - _2yw) * v.x + (_2yz + _2xw) * v.y + (1 - _2yy - _2xx) * v.z);
+    // calculate quat * vec
+    T ix = w * v.x + y * v.z - z * v.y;
+    T iy = w * v.y + z * v.x - x * v.z;
+    T iz = w * v.z + x * v.y - y * v.x;
+    T iw = -x * v.x - y * v.y - z * v.z;
+
+    // calculate result * inverse quat
+    return Point3<T>(ix * w - iw * x - iy * z + iz * y,
+                     iy * w - iw * y - iz * x + ix * z,
+                     iz * w - iw * z - ix * y + iy * x);
 }
 
 template<typename T>

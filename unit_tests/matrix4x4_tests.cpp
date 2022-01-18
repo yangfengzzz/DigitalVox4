@@ -749,3 +749,19 @@ TEST(Matrix4x4, getXXX) {
     auto translation = getTranslation(a);
     EXPECT_VECTOR3_EQ(translation, Point3D(13, 14, 15));
 }
+
+TEST(Matrix4x4, transform) {
+    const auto a = Point3D(2, 3, 4);
+    const auto b = Vector4D(2, 3, 4, 1);
+    const auto m4 = Matrix4x4D(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1);
+    auto out = m4 * a;
+    const auto out4 = m4 * b;
+    EXPECT_FLOAT_EQ(out.x, out4.x / out4.w);
+    EXPECT_FLOAT_EQ(out.y, out4.y / out4.w);
+    EXPECT_FLOAT_EQ(out.z, out4.z / out4.w);
+    
+    out = QuaternionD() * a;
+    EXPECT_VECTOR3_EQ(a, Point3D(out.x, out.y, out.z));
+    out = QuaternionD(2, 3, 4, 5) * a;
+    EXPECT_VECTOR3_EQ(out, Point3D(108, 162, 216));
+}
