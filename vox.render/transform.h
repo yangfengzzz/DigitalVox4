@@ -1,15 +1,14 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  transform.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/12.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef transform_hpp
 #define transform_hpp
 
 #include "component.h"
-#include "updateFlag_manager.h"
+#include "update_flag_manager.h"
 #include "vector3.h"
 #include "matrix4x4.h"
 #include "quaternion.h"

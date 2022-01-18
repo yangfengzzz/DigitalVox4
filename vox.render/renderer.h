@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  renderer.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/12.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef renderer_hpp
 #define renderer_hpp
@@ -13,7 +12,7 @@
 #include "rendering/render_element.h"
 #include "bounding_box3.h"
 #include "matrix4x4.h"
-#include "updateFlag.h"
+#include "update_flag.h"
 
 namespace vox {
 /**

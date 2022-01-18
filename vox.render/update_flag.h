@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  updateFlag.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/11/26.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef updateFlag_hpp
 #define updateFlag_hpp

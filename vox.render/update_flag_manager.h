@@ -1,16 +1,15 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  updateFlag_manager.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/11/26.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef updateFlag_manager_hpp
 #define updateFlag_manager_hpp
 
 #include <memory>
 #include <vector>
-#include "updateFlag.h"
+#include "update_flag.h"
 
 namespace vox {
 class UpdateFlagManager {

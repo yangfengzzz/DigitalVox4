@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  scene_forward.h
-//  DigitalArche
-//
-//  Created by 杨丰 on 2022/1/5.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef scene_forward_h
 #define scene_forward_h
