@@ -38,7 +38,7 @@ m_frontFace(false) {
     // Member initialization only
 }
 
-StencilDescriptor::StencilDescriptor(cpp_mtl_Internal::DepthStencilDescriptor objCContainer, bool frontFace) :
+StencilDescriptor::StencilDescriptor(cpp_mtl_internal::DepthStencilDescriptor objCContainer, bool frontFace) :
 m_objCContainer(objCContainer),
 m_frontFace(frontFace) {
     if (frontFace) {
@@ -79,7 +79,7 @@ StencilDescriptor::~StencilDescriptor() {
     m_objCObj = nil;
 }
 
-void StencilDescriptor::reinitialize(cpp_mtl_Internal::DepthStencilDescriptor objCContainer) {
+void StencilDescriptor::reinitialize(cpp_mtl_internal::DepthStencilDescriptor objCContainer) {
     m_objCContainer = objCContainer;
     
     if (m_frontFace) {

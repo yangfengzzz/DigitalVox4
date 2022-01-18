@@ -48,10 +48,10 @@ public:
     ResourceOptions resourceOptions() const;
     
 protected:
-    Resource(cpp_mtl_Internal::Resource objCObj,
+    Resource(cpp_mtl_internal::Resource objCObj,
              Device &device);
     
-    cpp_mtl_Internal::Resource m_objCObj;
+    cpp_mtl_internal::Resource m_objCObj;
     
     Device *m_device;
 };

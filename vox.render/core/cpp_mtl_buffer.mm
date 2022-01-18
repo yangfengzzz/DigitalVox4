@@ -10,7 +10,7 @@
 
 using namespace MTL;
 
-Buffer::Buffer(cpp_mtl_Internal::Buffer objCObj, Device &device) :
+Buffer::Buffer(cpp_mtl_internal::Buffer objCObj, Device &device) :
 Resource(objCObj, device),
 m_contentsPtr(nullptr) {
     MTLStorageMode mode = m_objCObj.storageMode;

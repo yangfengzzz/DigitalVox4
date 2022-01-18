@@ -7,7 +7,7 @@
 #include "cpp_mtl_render_command_encoder_dispatch_table.h"
 #import <objc/runtime.h>
 
-using namespace cpp_mtl_Internal;
+using namespace cpp_mtl_internal;
 
 #define CPP_METAL_SET_IMPLEMENTATION(methodName) \
 methodName = (methodName ## Type)[objCObj methodForSelector:methodName ## Sel]

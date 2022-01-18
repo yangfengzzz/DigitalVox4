@@ -18,34 +18,34 @@
     _Static_assert( sizeof( lhs ) == sizeof( rhs ), "mismatching size " # lhs " <> " # rhs "!" )
 
 #define CPP_METAL_CLASS_ALIAS( typename ) \
-    namespace cpp_mtl_Internal                                   \
+    namespace cpp_mtl_internal                                   \
     {                                                            \
         using typename = MTL ## typename *;                      \
         CPP_METAL_VALIDATE_SIZE( MTL ## typename *, CFTypeRef ); \
     }
 
 #define CPP_METAL_PROTOCOL_ALIAS( typename ) \
-    namespace cpp_mtl_Internal                                       \
+    namespace cpp_mtl_internal                                       \
     {                                                                \
         using typename = id< MTL ## typename >;                      \
         CPP_METAL_VALIDATE_SIZE( id <MTL ## typename >, CFTypeRef ); \
     }
 
 #define CPP_METALKIT_CLASS_ALIAS( typename ) \
-    namespace cpp_mtl_Internal                                   \
+    namespace cpp_mtl_internal                                   \
     {                                                            \
         using typename = MTK ## typename *;                      \
         CPP_METAL_VALIDATE_SIZE( MTK ## typename *, CFTypeRef ); \
     }
 
 #define CPP_CoreAnimation_CLASS_ALIAS( typename ) \
-    namespace cpp_mtl_Internal                                   \
+    namespace cpp_mtl_internal                                   \
     {                                                            \
         using typename = CA ## typename *;                      \
         CPP_METAL_VALIDATE_SIZE( CA ## typename *, CFTypeRef ); \
     }
 
-namespace cpp_mtl_Internal
+namespace cpp_mtl_internal
 {
     using ObjCObj = NSObject;
 }
@@ -56,30 +56,30 @@ namespace cpp_mtl_Internal
 
 
 #define CPP_METAL_CLASS_ALIAS( typename ) \
-    namespace cpp_mtl_Internal            \
+    namespace cpp_mtl_internal            \
     {                                     \
         using typename = id;              \
     }
 
 #define CPP_METAL_PROTOCOL_ALIAS( typename ) \
-    namespace cpp_mtl_Internal               \
+    namespace cpp_mtl_internal               \
     {                                        \
         using typename = id;                 \
     }
 
 #define CPP_METALKIT_CLASS_ALIAS( typename ) \
-    namespace cpp_mtl_Internal               \
+    namespace cpp_mtl_internal               \
     {                                        \
         using typename = id;                 \
     }
 
 #define CPP_CoreAnimation_CLASS_ALIAS( typename ) \
-    namespace cpp_mtl_Internal                    \
+    namespace cpp_mtl_internal                    \
     {                                             \
         using typename = id;                      \
     }
 
-namespace cpp_mtl_Internal
+namespace cpp_mtl_internal
 {
     using ObjCObj = CFTypeRef;
 }
@@ -161,7 +161,7 @@ CPP_CoreAnimation_CLASS_ALIAS(MetalLayer);
     }
 
 #define CPP_METAL_OBJCOBJ_GETTER_IMPLEMENATATION( classname )       \
-    inline cpp_mtl_Internal::classname classname::objCObj() const \
+    inline cpp_mtl_internal::classname classname::objCObj() const \
     {                                                             \
         return m_objCObj;                                         \
     }
@@ -171,7 +171,7 @@ CPP_CoreAnimation_CLASS_ALIAS(MetalLayer);
 
 #define CPP_METAL_VIRTUAL virtual
 
-namespace cpp_mtl_Internal
+namespace cpp_mtl_internal
 {
 class DeviceInternals;
 }

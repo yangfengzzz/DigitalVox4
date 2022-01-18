@@ -38,12 +38,12 @@ public:
     const Device* device() const;
     
 private:
-    cpp_mtl_Internal::Library m_objCObj;
+    cpp_mtl_internal::Library m_objCObj;
     
     Device *m_device;
     
 public: // Public methods for cpp_mtl_ internal implementation
-    Library(cpp_mtl_Internal::Library objCObj, Device &device);
+    Library(cpp_mtl_internal::Library objCObj, Device &device);
     
 };
 
@@ -71,15 +71,15 @@ public:
     
 private:
     
-    cpp_mtl_Internal::Function m_objCObj;
+    cpp_mtl_internal::Function m_objCObj;
     
     Device *m_device;
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    Function(cpp_mtl_Internal::Function objCObj, Device &device);
+    Function(cpp_mtl_internal::Function objCObj, Device &device);
     
-    cpp_mtl_Internal::Function objCObj() const;
+    cpp_mtl_internal::Function objCObj() const;
     
 };
 

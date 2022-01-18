@@ -51,7 +51,7 @@ m_arrayIndex(MaxColorAttachments) {
 }
 
 
-RenderPipelineColorAttachmentDescriptor::RenderPipelineColorAttachmentDescriptor(cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray objCContainer, UInteger arrayIndex)
+RenderPipelineColorAttachmentDescriptor::RenderPipelineColorAttachmentDescriptor(cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray objCContainer, UInteger arrayIndex)
 :
 m_objCObj(objCContainer[arrayIndex]),
 m_objCContainer(objCContainer),
@@ -81,7 +81,7 @@ RenderPipelineColorAttachmentDescriptor &RenderPipelineColorAttachmentDescriptor
 }
 
 
-void RenderPipelineColorAttachmentDescriptor::reinitialize(cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray objCContainer) {
+void RenderPipelineColorAttachmentDescriptor::reinitialize(cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray objCContainer) {
     m_objCObj = objCContainer[m_arrayIndex];
     m_objCContainer = objCContainer;
 }
@@ -112,7 +112,7 @@ CPP_METAL_READWRITE_MTL_ENUM_PROPERTY_IMPLEMENTATION(RenderPipelineColorAttachme
 //========================================================================
 #pragma mark - RenderPipelineColorAttachmentDescriptorArray Implemeentation
 
-RenderPipelineColorAttachmentDescriptorArray::RenderPipelineColorAttachmentDescriptorArray(cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray objCObj)
+RenderPipelineColorAttachmentDescriptorArray::RenderPipelineColorAttachmentDescriptorArray(cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray objCObj)
 :
 m_objCObj(objCObj),
 m_colorAttachments{
@@ -135,7 +135,7 @@ RenderPipelineColorAttachmentDescriptorArray::~RenderPipelineColorAttachmentDesc
     m_objCObj = nil;
 }
 
-void RenderPipelineColorAttachmentDescriptorArray::reinitalize(cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray objCObj) {
+void RenderPipelineColorAttachmentDescriptorArray::reinitalize(cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray objCObj) {
     m_objCObj = objCObj;
     
     for (int i = 0; i < MaxColorAttachments; i++) {

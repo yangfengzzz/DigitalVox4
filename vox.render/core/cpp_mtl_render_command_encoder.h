@@ -157,11 +157,11 @@ public:
     
 private:
     
-    cpp_mtl_Internal::RenderCommandEncoderDispatchTable *m_dispatch;
+    cpp_mtl_internal::RenderCommandEncoderDispatchTable *m_dispatch;
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    RenderCommandEncoder(const cpp_mtl_Internal::RenderCommandEncoder objCObj, Device &device);
+    RenderCommandEncoder(const cpp_mtl_internal::RenderCommandEncoder objCObj, Device &device);
     
 };
 
@@ -186,35 +186,35 @@ inline RenderCommandEncoder &RenderCommandEncoder::operator=(RenderCommandEncode
 #pragma mark - RenderCommandEncoder inline method implementations
 
 inline void RenderCommandEncoder::setVertexBytes(const void *bytes, UInteger length, UInteger index) {
-    m_dispatch->setVertexBytes(m_objCObj, cpp_mtl_Internal::setVertexBytesSel, bytes, length, index);
+    m_dispatch->setVertexBytes(m_objCObj, cpp_mtl_internal::setVertexBytesSel, bytes, length, index);
 }
 
 inline void RenderCommandEncoder::setVertexBuffer(const Buffer &buffer, UInteger offset, UInteger index) {
-    m_dispatch->setVertexBuffer(m_objCObj, cpp_mtl_Internal::setVertexBufferSel, buffer.objCObj(), offset, index);
+    m_dispatch->setVertexBuffer(m_objCObj, cpp_mtl_internal::setVertexBufferSel, buffer.objCObj(), offset, index);
 }
 
 inline void RenderCommandEncoder::setVertexBufferOffset(UInteger offset, UInteger index) {
-    m_dispatch->setVertexBufferOffset(m_objCObj, cpp_mtl_Internal::setVertexBufferOffsetSel, offset, index);
+    m_dispatch->setVertexBufferOffset(m_objCObj, cpp_mtl_internal::setVertexBufferOffsetSel, offset, index);
 }
 
 inline void RenderCommandEncoder::setVertexTexture(const Texture &texture, UInteger index) {
-    m_dispatch->setVertexTexture(m_objCObj, cpp_mtl_Internal::setVertexTextureSel, texture.objCObj(), index);
+    m_dispatch->setVertexTexture(m_objCObj, cpp_mtl_internal::setVertexTextureSel, texture.objCObj(), index);
 }
 
 inline void RenderCommandEncoder::setFragmentBytes(const void *bytes, UInteger length, UInteger index) {
-    m_dispatch->setFragmentBytes(m_objCObj, cpp_mtl_Internal::setFragmentBytesSel, bytes, length, index);
+    m_dispatch->setFragmentBytes(m_objCObj, cpp_mtl_internal::setFragmentBytesSel, bytes, length, index);
 }
 
 inline void RenderCommandEncoder::setFragmentBuffer(const Buffer &buffer, UInteger offset, UInteger index) {
-    m_dispatch->setFragmentBuffer(m_objCObj, cpp_mtl_Internal::setFragmentBufferSel, buffer.objCObj(), offset, index);
+    m_dispatch->setFragmentBuffer(m_objCObj, cpp_mtl_internal::setFragmentBufferSel, buffer.objCObj(), offset, index);
 }
 
 inline void RenderCommandEncoder::setFragmentBufferOffset(UInteger offset, UInteger index) {
-    m_dispatch->setFragmentBufferOffset(m_objCObj, cpp_mtl_Internal::setFragmentBufferOffsetSel, offset, index);
+    m_dispatch->setFragmentBufferOffset(m_objCObj, cpp_mtl_internal::setFragmentBufferOffsetSel, offset, index);
 }
 
 inline void RenderCommandEncoder::setFragmentTexture(const Texture &texture, UInteger index) {
-    m_dispatch->setFragmentTexture(m_objCObj, cpp_mtl_Internal::setFragmentTextureSel, texture.objCObj(), index);
+    m_dispatch->setFragmentTexture(m_objCObj, cpp_mtl_internal::setFragmentTextureSel, texture.objCObj(), index);
 }
 
 

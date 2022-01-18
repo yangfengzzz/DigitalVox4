@@ -110,21 +110,21 @@ public:
     
 private:
     
-    cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptor m_objCObj;
+    cpp_mtl_internal::RenderPipelineColorAttachmentDescriptor m_objCObj;
     
-    cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray m_objCContainer;
+    cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray m_objCContainer;
     
     UInteger m_arrayIndex;
     
-    RenderPipelineColorAttachmentDescriptor(cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray objCContainer, UInteger arrayIndex);
+    RenderPipelineColorAttachmentDescriptor(cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray objCContainer, UInteger arrayIndex);
     
-    void reinitialize(cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray objCContainer);
+    void reinitialize(cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray objCContainer);
     
     friend RenderPipelineColorAttachmentDescriptorArray;
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptor objCObj() const;
+    cpp_mtl_internal::RenderPipelineColorAttachmentDescriptor objCObj() const;
     
 };
 
@@ -145,19 +145,19 @@ public:
     
 private:
     
-    cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray m_objCObj;
+    cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray m_objCObj;
     
     RenderPipelineColorAttachmentDescriptor m_colorAttachments[MaxColorAttachments];
     
-    explicit RenderPipelineColorAttachmentDescriptorArray(cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray objCObj);
+    explicit RenderPipelineColorAttachmentDescriptorArray(cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray objCObj);
     
-    void reinitalize(cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray objCObj);
+    void reinitalize(cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray objCObj);
     
     friend RenderPipelineDescriptor; // To permit calling reinitialize in assignment operator
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray objCObj() const;
+    cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray objCObj() const;
     
 };
 
@@ -172,7 +172,7 @@ private:
     // 'm_objCObj'.  C++ executes member constructors in order of declaration (not in order of the
     // initializer list in the contstructor).  So the class must declare 'm_objCObj' first for it to
     // initialize it first and allow 'colorAttachments' to depend on its properties.
-    cpp_mtl_Internal::RenderPipelineDescriptor m_objCObj;
+    cpp_mtl_internal::RenderPipelineDescriptor m_objCObj;
     
 public:
     
@@ -232,7 +232,7 @@ private:
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::RenderPipelineDescriptor objCObj() const;
+    cpp_mtl_internal::RenderPipelineDescriptor objCObj() const;
     
 };
 
@@ -261,20 +261,20 @@ public:
     
 private:
     
-    cpp_mtl_Internal::RenderPipelineState m_objCObj;
+    cpp_mtl_internal::RenderPipelineState m_objCObj;
     
     Device *m_device;
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    RenderPipelineState(cpp_mtl_Internal::RenderPipelineState objCObj, Device &device);
+    RenderPipelineState(cpp_mtl_internal::RenderPipelineState objCObj, Device &device);
     
-    cpp_mtl_Internal::RenderPipelineState objCObj() const;
+    cpp_mtl_internal::RenderPipelineState objCObj() const;
     
 };
 
 #pragma mark - RenderPipelineColorAttachmentDescriptor inline implementations
-inline cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptor RenderPipelineColorAttachmentDescriptor::objCObj() const {
+inline cpp_mtl_internal::RenderPipelineColorAttachmentDescriptor RenderPipelineColorAttachmentDescriptor::objCObj() const {
     return m_objCObj;
 }
 
@@ -288,7 +288,7 @@ inline RenderPipelineColorAttachmentDescriptor &RenderPipelineColorAttachmentDes
     return m_colorAttachments[i];
 }
 
-inline cpp_mtl_Internal::RenderPipelineColorAttachmentDescriptorArray RenderPipelineColorAttachmentDescriptorArray::objCObj() const {
+inline cpp_mtl_internal::RenderPipelineColorAttachmentDescriptorArray RenderPipelineColorAttachmentDescriptorArray::objCObj() const {
     return m_objCObj;
 }
 
@@ -298,7 +298,7 @@ inline void RenderPipelineDescriptor::label(const char *string) {
     CPP_METAL_PROCESS_LABEL(string, label);
 }
 
-inline cpp_mtl_Internal::RenderPipelineDescriptor RenderPipelineDescriptor::objCObj() const {
+inline cpp_mtl_internal::RenderPipelineDescriptor RenderPipelineDescriptor::objCObj() const {
     return m_objCObj;
 }
 

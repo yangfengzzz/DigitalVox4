@@ -16,7 +16,7 @@
 
 using namespace MTL;
 
-namespace cpp_mtl_Internal
+namespace cpp_mtl_internal
 {
 
 class DeviceInternals
@@ -35,7 +35,7 @@ private:
 
     Allocator *m_allocator;
 
-    cpp_mtl_Internal::DispatchTableCache<RenderCommandEncoderDispatchTable> m_renderCommandEncoderCache;
+    cpp_mtl_internal::DispatchTableCache<RenderCommandEncoderDispatchTable> m_renderCommandEncoderCache;
 
 };
 
@@ -51,6 +51,6 @@ inline RenderCommandEncoderDispatchTable* DeviceInternals::getRenderCommandEncod
 }
 
 
-} // namespace cpp_mtl_Internal
+} // namespace cpp_mtl_internal
 
 #endif // cpp_mtl_DeviceImplementation_h

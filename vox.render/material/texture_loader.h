@@ -55,7 +55,7 @@ public:
                              bool isTopLeft);
     
 private:
-    cpp_mtl_Internal::TextureLoader m_objCObj;
+    cpp_mtl_internal::TextureLoader m_objCObj;
     
     MTL::Device *m_device;
 };

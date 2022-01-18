@@ -44,14 +44,14 @@ public:
     CommandBuffer commandBuffer();
     
 private:
-    cpp_mtl_Internal::CommandQueue m_objCObj;
+    cpp_mtl_internal::CommandQueue m_objCObj;
     
     Device *m_device;
     
 public: // Public methods for cpp_mtl_ internal implementation
-    CommandQueue(cpp_mtl_Internal::CommandQueue objCObj, Device &device);
+    CommandQueue(cpp_mtl_internal::CommandQueue objCObj, Device &device);
     
-    cpp_mtl_Internal::CommandQueue objCObj() const;
+    cpp_mtl_internal::CommandQueue objCObj() const;
     
 };
 

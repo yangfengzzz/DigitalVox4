@@ -77,22 +77,22 @@ public:
     void writeMask(uint32_t mask);
     
 private:
-    cpp_mtl_Internal::StencilDescriptor m_objCObj;
+    cpp_mtl_internal::StencilDescriptor m_objCObj;
     
-    cpp_mtl_Internal::DepthStencilDescriptor m_objCContainer;
+    cpp_mtl_internal::DepthStencilDescriptor m_objCContainer;
     
     Device *m_device;
     
     bool m_frontFace;
     
-    StencilDescriptor(cpp_mtl_Internal::DepthStencilDescriptor objCContainer, bool frontFace);
+    StencilDescriptor(cpp_mtl_internal::DepthStencilDescriptor objCContainer, bool frontFace);
     
-    void reinitialize(cpp_mtl_Internal::DepthStencilDescriptor objCContainer);
+    void reinitialize(cpp_mtl_internal::DepthStencilDescriptor objCContainer);
     
     friend DepthStencilDescriptor;
     
 public: // Public methods for cpp_mtl_ internal implementation
-    cpp_mtl_Internal::StencilDescriptor objCObj() const;
+    cpp_mtl_internal::StencilDescriptor objCObj() const;
     
 };
 
@@ -104,7 +104,7 @@ private:
     // properties in 'm_objCObj'.  C++ executes member constructors in order of declaration (not in
     // order of the initializer list in the contstructor).  So the class must declare 'm_objCObj'
     // first for it to initialize it first and allow these members to depend on its properties.
-    cpp_mtl_Internal::DepthStencilDescriptor m_objCObj;
+    cpp_mtl_internal::DepthStencilDescriptor m_objCObj;
     
 public:
     DepthStencilDescriptor();
@@ -135,7 +135,7 @@ public:
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::DepthStencilDescriptor objCObj() const;
+    cpp_mtl_internal::DepthStencilDescriptor objCObj() const;
     
 };
 
@@ -160,14 +160,14 @@ public:
     const Device* device() const;
     
 private:
-    cpp_mtl_Internal::DepthStencilState m_objCObj;
+    cpp_mtl_internal::DepthStencilState m_objCObj;
     
     Device *m_device;
     
 public: // Public methods for cpp_mtl_ internal implementation
-    DepthStencilState(cpp_mtl_Internal::DepthStencilState objCObj, Device &device);
+    DepthStencilState(cpp_mtl_internal::DepthStencilState objCObj, Device &device);
     
-    cpp_mtl_Internal::DepthStencilState objCObj() const;
+    cpp_mtl_internal::DepthStencilState objCObj() const;
     
 };
 

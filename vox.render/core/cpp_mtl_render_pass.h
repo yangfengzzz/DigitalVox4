@@ -70,16 +70,16 @@ public:
     
 protected:
     
-    cpp_mtl_Internal::RenderPassAttachmentDescriptor m_objCObj;
+    cpp_mtl_internal::RenderPassAttachmentDescriptor m_objCObj;
     
     Texture *m_texture;
     
     // Only allow construction by derived clases
-    explicit RenderPassAttachmentDescriptor(cpp_mtl_Internal::RenderPassAttachmentDescriptor objCObj);
+    explicit RenderPassAttachmentDescriptor(cpp_mtl_internal::RenderPassAttachmentDescriptor objCObj);
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::RenderPassAttachmentDescriptor objCObj() const;
+    cpp_mtl_internal::RenderPassAttachmentDescriptor objCObj() const;
     
 };
 
@@ -101,19 +101,19 @@ public:
     
 private:
     
-    cpp_mtl_Internal::RenderPassDescriptor m_objCContainer;
+    cpp_mtl_internal::RenderPassDescriptor m_objCContainer;
     
     // RenderPassDescriptor objects must be able to manipulate their
     //   RenderPassDepthAttachmentDescriptor objects during construction and copy operations
     friend class RenderPassDescriptor;
     
-    explicit RenderPassDepthAttachmentDescriptor(cpp_mtl_Internal::RenderPassDescriptor objCContainer);
+    explicit RenderPassDepthAttachmentDescriptor(cpp_mtl_internal::RenderPassDescriptor objCContainer);
     
-    void reinitialize(cpp_mtl_Internal::RenderPassDescriptor objCContainer);
+    void reinitialize(cpp_mtl_internal::RenderPassDescriptor objCContainer);
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::RenderPassDepthAttachmentDescriptor objCObj() const;
+    cpp_mtl_internal::RenderPassDepthAttachmentDescriptor objCObj() const;
     
 };
 
@@ -135,19 +135,19 @@ public:
     
 private:
     
-    cpp_mtl_Internal::RenderPassDescriptor m_objCContainer;
+    cpp_mtl_internal::RenderPassDescriptor m_objCContainer;
     
     // RenderPassDescriptor objects must be able to manipulate their
     //   RenderPassStencilAttachmentDescriptor objects during construction and copy operations
     friend class RenderPassDescriptor;
     
-    explicit RenderPassStencilAttachmentDescriptor(cpp_mtl_Internal::RenderPassDescriptor objCContainer);
+    explicit RenderPassStencilAttachmentDescriptor(cpp_mtl_internal::RenderPassDescriptor objCContainer);
     
-    void reinitialize(cpp_mtl_Internal::RenderPassDescriptor objCContainer);
+    void reinitialize(cpp_mtl_internal::RenderPassDescriptor objCContainer);
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::RenderPassStencilAttachmentDescriptor objCObj() const;
+    cpp_mtl_internal::RenderPassStencilAttachmentDescriptor objCObj() const;
     
 };
 
@@ -168,7 +168,7 @@ public:
     
 private:
     
-    cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray m_objCContainer;
+    cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray m_objCContainer;
     
     UInteger m_arrayIndex;
     
@@ -176,13 +176,13 @@ private:
     //   RenderPassColorAttachmentDescriptorArray objects during construction and copy operations
     friend class RenderPassColorAttachmentDescriptorArray;
     
-    RenderPassColorAttachmentDescriptor(cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray objCContainer, UInteger arrayIndex);
+    RenderPassColorAttachmentDescriptor(cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray objCContainer, UInteger arrayIndex);
     
-    void reinitialize(cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray objCContainer);
+    void reinitialize(cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray objCContainer);
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::RenderPassColorAttachmentDescriptor objCObj() const;
+    cpp_mtl_internal::RenderPassColorAttachmentDescriptor objCObj() const;
     
 };
 
@@ -201,7 +201,7 @@ public:
     
 private:
     
-    cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray m_objCObj;
+    cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray m_objCObj;
     
     RenderPassColorAttachmentDescriptor m_colorAttachments[MaxColorAttachments];
     
@@ -209,13 +209,13 @@ private:
     //   RenderPassColorAttachmentDescriptorArray objects during construction and copy operations
     friend class RenderPassDescriptor;
     
-    explicit RenderPassColorAttachmentDescriptorArray(cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray objCObj);
+    explicit RenderPassColorAttachmentDescriptorArray(cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray objCObj);
     
-    void reinitialize(cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray objCObj);
+    void reinitialize(cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray objCObj);
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray objCObj() const;
+    cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray objCObj() const;
     
 };
 
@@ -229,7 +229,7 @@ private:
     // declaration (not in order of the initializer list in the contstructor).  So the class must
     // declare 'm_objCObj' first for it to initialize it first and allow these members to depend on
     // its properties.
-    cpp_mtl_Internal::RenderPassDescriptor m_objCObj;
+    cpp_mtl_internal::RenderPassDescriptor m_objCObj;
     
 public:
     
@@ -249,9 +249,9 @@ public:
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    explicit RenderPassDescriptor(cpp_mtl_Internal::RenderPassDescriptor objCObj);
+    explicit RenderPassDescriptor(cpp_mtl_internal::RenderPassDescriptor objCObj);
     
-    cpp_mtl_Internal::RenderPassDescriptor objCObj() const;
+    cpp_mtl_internal::RenderPassDescriptor objCObj() const;
     
 };
 
@@ -259,7 +259,7 @@ public: // Public methods for cpp_mtl_ internal implementation
 //==================================================================
 #pragma mark - RenderPassAttachmentDescriptor inline implementations
 
-inline cpp_mtl_Internal::RenderPassAttachmentDescriptor RenderPassAttachmentDescriptor::objCObj() const {
+inline cpp_mtl_internal::RenderPassAttachmentDescriptor RenderPassAttachmentDescriptor::objCObj() const {
     return m_objCObj;
 }
 
@@ -267,24 +267,24 @@ inline cpp_mtl_Internal::RenderPassAttachmentDescriptor RenderPassAttachmentDesc
 //=======================================================================
 #pragma mark - RenderPassDepthAttachmentDescriptor inline implementations
 
-inline cpp_mtl_Internal::RenderPassDepthAttachmentDescriptor RenderPassDepthAttachmentDescriptor::objCObj() const {
-    return (cpp_mtl_Internal::RenderPassDepthAttachmentDescriptor) m_objCObj;
+inline cpp_mtl_internal::RenderPassDepthAttachmentDescriptor RenderPassDepthAttachmentDescriptor::objCObj() const {
+    return (cpp_mtl_internal::RenderPassDepthAttachmentDescriptor) m_objCObj;
 }
 
 
 //=========================================================================
 #pragma mark - RenderPassStencilAttachmentDescriptor inline implementations
 
-inline cpp_mtl_Internal::RenderPassStencilAttachmentDescriptor RenderPassStencilAttachmentDescriptor::objCObj() const {
-    return (cpp_mtl_Internal::RenderPassStencilAttachmentDescriptor) m_objCObj;
+inline cpp_mtl_internal::RenderPassStencilAttachmentDescriptor RenderPassStencilAttachmentDescriptor::objCObj() const {
+    return (cpp_mtl_internal::RenderPassStencilAttachmentDescriptor) m_objCObj;
 }
 
 
 //=======================================================================
 #pragma mark - RenderPassColorAttachmentDescriptor inline implementations
 
-inline cpp_mtl_Internal::RenderPassColorAttachmentDescriptor RenderPassColorAttachmentDescriptor::objCObj() const {
-    return (cpp_mtl_Internal::RenderPassColorAttachmentDescriptor) m_objCObj;
+inline cpp_mtl_internal::RenderPassColorAttachmentDescriptor RenderPassColorAttachmentDescriptor::objCObj() const {
+    return (cpp_mtl_internal::RenderPassColorAttachmentDescriptor) m_objCObj;
 }
 
 
@@ -299,7 +299,7 @@ inline RenderPassColorAttachmentDescriptor &RenderPassColorAttachmentDescriptorA
     return m_colorAttachments[i];
 }
 
-inline cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray RenderPassColorAttachmentDescriptorArray::objCObj() const {
+inline cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray RenderPassColorAttachmentDescriptorArray::objCObj() const {
     return m_objCObj;
 }
 
@@ -307,7 +307,7 @@ inline cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray RenderPassColo
 //========================================================
 #pragma mark - RenderPassDescriptor inline implementations
 
-inline cpp_mtl_Internal::RenderPassDescriptor RenderPassDescriptor::objCObj() const {
+inline cpp_mtl_internal::RenderPassDescriptor RenderPassDescriptor::objCObj() const {
     return m_objCObj;
 }
 

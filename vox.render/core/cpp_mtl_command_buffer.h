@@ -67,13 +67,13 @@ public:
     
 private:
     
-    cpp_mtl_Internal::CommandBuffer m_objCObj;
+    cpp_mtl_internal::CommandBuffer m_objCObj;
     
     Device *m_device;
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    CommandBuffer(cpp_mtl_Internal::CommandBuffer objCObj, Device &device);
+    CommandBuffer(cpp_mtl_internal::CommandBuffer objCObj, Device &device);
     
 };
 

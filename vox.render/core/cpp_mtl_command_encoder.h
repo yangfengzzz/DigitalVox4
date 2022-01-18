@@ -47,11 +47,11 @@ public:
     const Device* device() const;
     
 protected:
-    CommandEncoder(cpp_mtl_Internal::CommandEncoder objCObj, Device &device);
+    CommandEncoder(cpp_mtl_internal::CommandEncoder objCObj, Device &device);
     
     Device *m_device;
     
-    cpp_mtl_Internal::CommandEncoder m_objCObj;
+    cpp_mtl_internal::CommandEncoder m_objCObj;
     
 };
 

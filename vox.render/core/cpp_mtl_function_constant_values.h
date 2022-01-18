@@ -26,16 +26,16 @@ public:
     void setConstantValue(const void *value, DataType type, UInteger index);
     
 private:
-    cpp_mtl_Internal::FunctionConstantValues m_objCObj;
+    cpp_mtl_internal::FunctionConstantValues m_objCObj;
     
 public: // Public methods for cpp_mtl_ internal implementation
-    cpp_mtl_Internal::FunctionConstantValues objCObj() const;
+    cpp_mtl_internal::FunctionConstantValues objCObj() const;
 };
 
 //===============================================
 #pragma mark - View inline method implementations
 
-inline cpp_mtl_Internal::FunctionConstantValues FunctionConstantValues::objCObj() const {
+inline cpp_mtl_internal::FunctionConstantValues FunctionConstantValues::objCObj() const {
     return m_objCObj;
 }
 

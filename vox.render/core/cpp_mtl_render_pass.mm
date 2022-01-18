@@ -30,7 +30,7 @@ CPP_METAL_VALIDATE_ENUM_ALIAS(StoreActionCustomSampleDepthStore);
 
 RenderPassAttachmentDescriptor::RenderPassAttachmentDescriptor
 (
- cpp_mtl_Internal::RenderPassAttachmentDescriptor objCObj
+ cpp_mtl_internal::RenderPassAttachmentDescriptor objCObj
  )
 : m_objCObj(objCObj), m_texture(nullptr) {
     // Member initialization only
@@ -77,7 +77,7 @@ CPP_METAL_READWRITE_MTL_ENUM_PROPERTY_IMPLEMENTATION(RenderPassAttachmentDescrip
 
 inline RenderPassDepthAttachmentDescriptor::RenderPassDepthAttachmentDescriptor
 (
- cpp_mtl_Internal::RenderPassDescriptor objCContainer
+ cpp_mtl_internal::RenderPassDescriptor objCContainer
  )
 : RenderPassAttachmentDescriptor(objCContainer.depthAttachment), m_objCContainer(objCContainer) {
     // Member initialization only
@@ -111,7 +111,7 @@ RenderPassDepthAttachmentDescriptor &RenderPassDepthAttachmentDescriptor::operat
     return *this;
 }
 
-void RenderPassDepthAttachmentDescriptor::reinitialize(cpp_mtl_Internal::RenderPassDescriptor objCObj) {
+void RenderPassDepthAttachmentDescriptor::reinitialize(cpp_mtl_internal::RenderPassDescriptor objCObj) {
     m_objCContainer = objCObj;
     m_objCObj = m_objCObj;
 }
@@ -130,7 +130,7 @@ double RenderPassDepthAttachmentDescriptor::clearDepth() const {
 
 inline RenderPassStencilAttachmentDescriptor::RenderPassStencilAttachmentDescriptor
 (
- cpp_mtl_Internal::RenderPassDescriptor objCContainer
+ cpp_mtl_internal::RenderPassDescriptor objCContainer
  )
 : RenderPassAttachmentDescriptor(objCContainer.stencilAttachment), m_objCContainer(objCContainer) {
     // Member initialization only
@@ -166,7 +166,7 @@ RenderPassStencilAttachmentDescriptor &RenderPassStencilAttachmentDescriptor::op
     return *this;
 }
 
-void RenderPassStencilAttachmentDescriptor::reinitialize(cpp_mtl_Internal::RenderPassDescriptor objCObj) {
+void RenderPassStencilAttachmentDescriptor::reinitialize(cpp_mtl_internal::RenderPassDescriptor objCObj) {
     m_objCContainer = objCObj;
     m_objCObj = m_objCContainer.stencilAttachment;;
 }
@@ -191,7 +191,7 @@ m_arrayIndex(UIntegerMax) // Assign impossible value since object is not yet ass
 }
 
 
-RenderPassColorAttachmentDescriptor::RenderPassColorAttachmentDescriptor(cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray objCContainer, UInteger arrayIndex)
+RenderPassColorAttachmentDescriptor::RenderPassColorAttachmentDescriptor(cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray objCContainer, UInteger arrayIndex)
 : RenderPassAttachmentDescriptor(objCContainer[arrayIndex]),
 m_objCContainer(objCContainer),
 m_arrayIndex(arrayIndex) {
@@ -226,7 +226,7 @@ RenderPassColorAttachmentDescriptor &RenderPassColorAttachmentDescriptor::operat
     return *this;
 }
 
-void RenderPassColorAttachmentDescriptor::reinitialize(cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray objCContainer) {
+void RenderPassColorAttachmentDescriptor::reinitialize(cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray objCContainer) {
     m_objCObj = objCContainer[m_arrayIndex];
     m_objCContainer = objCContainer;
 }
@@ -247,7 +247,7 @@ ClearColor RenderPassColorAttachmentDescriptor::clearColor() const {
 //============================================================================
 #pragma mark - RenderPassColorAttachmentDescriptorArray method implementations
 
-RenderPassColorAttachmentDescriptorArray::RenderPassColorAttachmentDescriptorArray(cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray objCObj)
+RenderPassColorAttachmentDescriptorArray::RenderPassColorAttachmentDescriptorArray(cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray objCObj)
 :
 m_objCObj(objCObj),
 m_colorAttachments{
@@ -267,7 +267,7 @@ m_colorAttachments{
 }
 
 
-void RenderPassColorAttachmentDescriptorArray::reinitialize(cpp_mtl_Internal::RenderPassColorAttachmentDescriptorArray objCObj) {
+void RenderPassColorAttachmentDescriptorArray::reinitialize(cpp_mtl_internal::RenderPassColorAttachmentDescriptorArray objCObj) {
     m_objCObj = objCObj;
     
     for (int i = 0; i < MaxColorAttachments; i++) {
@@ -288,7 +288,7 @@ colorAttachments(m_objCObj.colorAttachments) {
     assert(m_objCObj.depthAttachment == depthAttachment.objCObj());
 }
 
-RenderPassDescriptor::RenderPassDescriptor(cpp_mtl_Internal::RenderPassDescriptor objCObj)
+RenderPassDescriptor::RenderPassDescriptor(cpp_mtl_internal::RenderPassDescriptor objCObj)
 : m_objCObj(objCObj),
 depthAttachment(objCObj),
 stencilAttachment(objCObj),

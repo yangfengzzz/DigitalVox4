@@ -95,10 +95,10 @@ public:
     void usage(UInteger value);
     
 private:
-    cpp_mtl_Internal::TextureDescriptor m_objCObj;
+    cpp_mtl_internal::TextureDescriptor m_objCObj;
     
 public: // Public methods for cpp_mtl_ internal implementation
-    cpp_mtl_Internal::TextureDescriptor objCObj() const;
+    cpp_mtl_internal::TextureDescriptor objCObj() const;
     
 };
 
@@ -161,16 +161,16 @@ public:
     const Device* device() const;
     
 public: // Public methods for cpp_mtl_ internal implementation
-    Texture(cpp_mtl_Internal::Texture objCObj, Device &device);
+    Texture(cpp_mtl_internal::Texture objCObj, Device &device);
     
-    cpp_mtl_Internal::Texture objCObj() const;
+    cpp_mtl_internal::Texture objCObj() const;
     
 };
 using TexturePtr = std::shared_ptr<Texture>;
 
 #pragma mark - TextureDescriptor inline method implementations
 
-inline cpp_mtl_Internal::TextureDescriptor TextureDescriptor::objCObj() const {
+inline cpp_mtl_internal::TextureDescriptor TextureDescriptor::objCObj() const {
     return m_objCObj;
 }
 
@@ -192,8 +192,8 @@ inline Texture &Texture::operator=(Texture &&rhs) {
     return *this;
 }
 
-inline cpp_mtl_Internal::Texture Texture::objCObj() const {
-    return (cpp_mtl_Internal::Texture) m_objCObj;;
+inline cpp_mtl_internal::Texture Texture::objCObj() const {
+    return (cpp_mtl_internal::Texture) m_objCObj;;
 }
 
 

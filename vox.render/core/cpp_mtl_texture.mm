@@ -87,7 +87,7 @@ void TextureDescriptor::usage(UInteger value) {
 
 #pragma mark - Texture
 
-Texture::Texture(cpp_mtl_Internal::Texture objCObj, Device &device)
+Texture::Texture(cpp_mtl_internal::Texture objCObj, Device &device)
 : Resource(objCObj, device) {
     // Member initialization only
 }

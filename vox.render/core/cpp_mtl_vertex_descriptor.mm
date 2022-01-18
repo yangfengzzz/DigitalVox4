@@ -20,7 +20,7 @@ m_arrayIndex(MaxVertexBufferLayouts) {
     // Member initialization only
 }
 
-VertexBufferLayoutDescriptor::VertexBufferLayoutDescriptor(cpp_mtl_Internal::VertexBufferLayoutDescriptorArray objCContainer, UInteger arrayIndex)
+VertexBufferLayoutDescriptor::VertexBufferLayoutDescriptor(cpp_mtl_internal::VertexBufferLayoutDescriptorArray objCContainer, UInteger arrayIndex)
 :
 m_objCObj(objCContainer[arrayIndex]),
 m_objCContainer(objCContainer),
@@ -52,7 +52,7 @@ VertexBufferLayoutDescriptor &VertexBufferLayoutDescriptor::operator=(const Vert
     return *this;
 }
 
-void VertexBufferLayoutDescriptor::reinitialize(cpp_mtl_Internal::VertexBufferLayoutDescriptorArray objCContainer) {
+void VertexBufferLayoutDescriptor::reinitialize(cpp_mtl_internal::VertexBufferLayoutDescriptorArray objCContainer) {
     m_objCObj = objCContainer[m_arrayIndex];
     m_objCContainer = objCContainer;
 }
@@ -81,7 +81,7 @@ m_arrayIndex(MaxVertexAttributes) {
     // Member initialization only
 }
 
-VertexAttributeDescriptor::VertexAttributeDescriptor(cpp_mtl_Internal::VertexAttributeDescriptorArray objCContainer, UInteger arrayIndex)
+VertexAttributeDescriptor::VertexAttributeDescriptor(cpp_mtl_internal::VertexAttributeDescriptorArray objCContainer, UInteger arrayIndex)
 :
 m_objCObj(objCContainer[arrayIndex]),
 m_objCContainer(objCContainer),
@@ -106,7 +106,7 @@ VertexAttributeDescriptor &VertexAttributeDescriptor::operator=(const VertexAttr
     return *this;
 }
 
-void VertexAttributeDescriptor::reinitialize(cpp_mtl_Internal::VertexAttributeDescriptorArray objCContainer) {
+void VertexAttributeDescriptor::reinitialize(cpp_mtl_internal::VertexAttributeDescriptorArray objCContainer) {
     m_objCObj = objCContainer[m_arrayIndex];
     m_objCContainer = objCContainer;
 }
@@ -121,7 +121,7 @@ CPP_METAL_READWRITE_PROPERTY_IMPLEMENTATION(VertexAttributeDescriptor, UInteger,
 //=============================================================
 #pragma mark - VertexBufferLayoutDescriptorArray Implementation
 
-VertexBufferLayoutDescriptorArray::VertexBufferLayoutDescriptorArray(cpp_mtl_Internal::VertexBufferLayoutDescriptorArray objCObj)
+VertexBufferLayoutDescriptorArray::VertexBufferLayoutDescriptorArray(cpp_mtl_internal::VertexBufferLayoutDescriptorArray objCObj)
 :
 m_objCObj(objCObj),
 m_layouts
@@ -168,7 +168,7 @@ VertexBufferLayoutDescriptorArray::~VertexBufferLayoutDescriptorArray() {
     m_objCObj = nil;
 }
 
-void VertexBufferLayoutDescriptorArray::reinitialize(cpp_mtl_Internal::VertexBufferLayoutDescriptorArray objCObj) {
+void VertexBufferLayoutDescriptorArray::reinitialize(cpp_mtl_internal::VertexBufferLayoutDescriptorArray objCObj) {
     for (int i = 0; i < MaxVertexBufferLayouts; i++) {
         m_layouts[i].reinitialize(m_objCObj);
     }
@@ -178,7 +178,7 @@ void VertexBufferLayoutDescriptorArray::reinitialize(cpp_mtl_Internal::VertexBuf
 //==========================================================
 #pragma mark - VertexAttributeDescriptorArray Implementation
 
-VertexAttributeDescriptorArray::VertexAttributeDescriptorArray(cpp_mtl_Internal::VertexAttributeDescriptorArray objCObj)
+VertexAttributeDescriptorArray::VertexAttributeDescriptorArray(cpp_mtl_internal::VertexAttributeDescriptorArray objCObj)
 :
 m_objCObj(objCObj),
 m_attributes
@@ -224,7 +224,7 @@ VertexAttributeDescriptorArray::~VertexAttributeDescriptorArray() {
     m_objCObj = nil;
 }
 
-void VertexAttributeDescriptorArray::reinitialize(cpp_mtl_Internal::VertexAttributeDescriptorArray objCObj) {
+void VertexAttributeDescriptorArray::reinitialize(cpp_mtl_internal::VertexAttributeDescriptorArray objCObj) {
     m_objCObj = objCObj;
     
     for (int i = 0; i < MaxVertexAttributes; i++) {

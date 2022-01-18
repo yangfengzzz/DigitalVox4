@@ -26,7 +26,7 @@
 
 // DO NOT USE IN HEADER: Prevents proper objC reference counting.
 #define CPP_METAL_CONSTRUCTOR_IMPLEMENTATION(classname)         \
-    classname::classname(cpp_mtl_Internal::classname objCObj,   \
+    classname::classname(cpp_mtl_internal::classname objCObj,   \
                          Device & device)                       \
     : m_objCObj(objCObj)                                        \
     , m_device(&device)                                         \

@@ -121,18 +121,18 @@ public:
     vox::ResourceCache &resourceCache();
     
 private:
-    cpp_mtl_Internal::Device m_objCObj;
+    cpp_mtl_internal::Device m_objCObj;
     
-    std::shared_ptr<cpp_mtl_Internal::DeviceInternals> m_internals;
+    std::shared_ptr<cpp_mtl_internal::DeviceInternals> m_internals;
     
     Allocator *m_allocator;
     
 public: // Public methods for cpp_mtl_ internal implementation
-    Device(cpp_mtl_Internal::Device objCObj, Allocator *allocator);
+    Device(cpp_mtl_internal::Device objCObj, Allocator *allocator);
     
-    cpp_mtl_Internal::Device objCObj() const;
+    cpp_mtl_internal::Device objCObj() const;
     
-    cpp_mtl_Internal::DeviceInternals &internals();
+    cpp_mtl_internal::DeviceInternals &internals();
     
     vox::ResourceCache m_resourceCache;
 };
@@ -142,7 +142,7 @@ public: // Public methods for cpp_mtl_ internal implementation
 
 CPP_METAL_OBJCOBJ_GETTER_IMPLEMENATATION(Device);
 
-inline cpp_mtl_Internal::DeviceInternals &Device::internals() {
+inline cpp_mtl_internal::DeviceInternals &Device::internals() {
     return *m_internals;
 }
 

@@ -10,7 +10,7 @@
 #include "cpp_mtl_allocator.h"
 #include <Foundation/Foundation.h>
 
-namespace cpp_mtl_Internal
+namespace cpp_mtl_internal
 {
 
 
@@ -76,6 +76,6 @@ public:
 };
 
 
-} // namespace cpp_mtl_Internal
+} // namespace cpp_mtl_internal
 
 #endif // cpp_mtl_DispatchTableCache_h

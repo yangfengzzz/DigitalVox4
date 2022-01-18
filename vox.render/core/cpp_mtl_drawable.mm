@@ -10,7 +10,7 @@
 
 using namespace MTL;
 
-Drawable::Drawable(cpp_mtl_Internal::Drawable objCObj,
+Drawable::Drawable(cpp_mtl_internal::Drawable objCObj,
                    Device &device)
 : m_objCObj(objCObj), m_device(&device), m_texture(nullptr) {
     // Member initialization only

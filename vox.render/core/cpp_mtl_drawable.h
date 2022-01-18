@@ -32,16 +32,16 @@ public:
     void present();
     
 private:
-    cpp_mtl_Internal::Drawable m_objCObj;
+    cpp_mtl_internal::Drawable m_objCObj;
     
     Device *m_device;
     
     MTL::Texture *m_texture;
     
 public: // Public methods for cpp_mtl_ internal implementation
-    Drawable(cpp_mtl_Internal::Drawable objCObj, Device &device);
+    Drawable(cpp_mtl_internal::Drawable objCObj, Device &device);
     
-    cpp_mtl_Internal::Drawable objCObj() const;
+    cpp_mtl_internal::Drawable objCObj() const;
     
     void invalidate();
 };
@@ -64,7 +64,7 @@ inline Drawable &Drawable::operator=(Drawable &&rhs) {
     return *this;
 }
 
-inline cpp_mtl_Internal::Drawable Drawable::objCObj() const {
+inline cpp_mtl_internal::Drawable Drawable::objCObj() const {
     return m_objCObj;
 }
 

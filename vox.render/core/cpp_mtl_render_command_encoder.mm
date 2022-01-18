@@ -14,7 +14,7 @@
 using namespace MTL;
 
 
-RenderCommandEncoder::RenderCommandEncoder(const cpp_mtl_Internal::RenderCommandEncoder objCObj,
+RenderCommandEncoder::RenderCommandEncoder(const cpp_mtl_internal::RenderCommandEncoder objCObj,
                                            Device &device)
 : CommandEncoder(objCObj, device) {
     m_dispatch = m_device->internals().getRenderCommandEncoderTable(objCObj);

@@ -48,8 +48,8 @@ public:
     MTL::Device &device();
     
 private:
-    cpp_mtl_Internal::MetalLayer m_objCObj;
-    cpp_mtl_Internal::Drawable m_drawableCObj;
+    cpp_mtl_internal::MetalLayer m_objCObj;
+    cpp_mtl_internal::Drawable m_drawableCObj;
 
     MTL::Device *m_device;
     
@@ -59,13 +59,13 @@ private:
     MTL::RenderPassDescriptor *m_currentRenderPassDescriptor;
         
 public: // Public methods for cpp_mtl_ internal implementation
-    cpp_mtl_Internal::MetalLayer objCObj() const;
+    cpp_mtl_internal::MetalLayer objCObj() const;
 };
 
 //===============================================
 #pragma mark - View inline method implementations
 
-inline cpp_mtl_Internal::MetalLayer View::objCObj() const {
+inline cpp_mtl_internal::MetalLayer View::objCObj() const {
     return m_objCObj;
 }
 

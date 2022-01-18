@@ -37,9 +37,9 @@ private:
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    Buffer(cpp_mtl_Internal::Buffer objCObj, Device &device);
+    Buffer(cpp_mtl_internal::Buffer objCObj, Device &device);
     
-    cpp_mtl_Internal::Buffer objCObj() const;
+    cpp_mtl_internal::Buffer objCObj() const;
     
 };
 
@@ -66,8 +66,8 @@ inline void *Buffer::contents() const {
     return m_contentsPtr;
 }
 
-inline cpp_mtl_Internal::Buffer Buffer::objCObj() const {
-    return (cpp_mtl_Internal::Buffer) m_objCObj;
+inline cpp_mtl_internal::Buffer Buffer::objCObj() const {
+    return (cpp_mtl_internal::Buffer) m_objCObj;
 }
 
 } // namespace MTL

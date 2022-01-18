@@ -16,7 +16,7 @@
 #include <objc/message.h>
 
 
-namespace cpp_mtl_Internal {
+namespace cpp_mtl_internal {
 
 
 static const SEL setVertexBytesSel = sel_registerName("setVertexBytes:length:atIndex:");
@@ -30,19 +30,19 @@ static const SEL setFragmentTextureSel = sel_registerName("setFragmentTexture:at
 
 typedef void (*setVertexBytesType)(id, SEL, const void *bytes, MTL::UInteger length, MTL::UInteger index);
 
-typedef void (*setVertexBufferType)(id, SEL, cpp_mtl_Internal::Buffer buffer, MTL::UInteger offset, MTL::UInteger index);
+typedef void (*setVertexBufferType)(id, SEL, cpp_mtl_internal::Buffer buffer, MTL::UInteger offset, MTL::UInteger index);
 
 typedef void (*setVertexBufferOffsetType)(id, SEL, MTL::UInteger offset, MTL::UInteger index);
 
-typedef void (*setVertexTextureType)(id, SEL, cpp_mtl_Internal::Texture texture, MTL::UInteger index);
+typedef void (*setVertexTextureType)(id, SEL, cpp_mtl_internal::Texture texture, MTL::UInteger index);
 
 typedef void (*setFragmentBytesType)(id, SEL, const void *bytes, MTL::UInteger length, MTL::UInteger index);
 
-typedef void (*setFragmentBufferType)(id, SEL, cpp_mtl_Internal::Buffer buffer, MTL::UInteger offset, MTL::UInteger index);
+typedef void (*setFragmentBufferType)(id, SEL, cpp_mtl_internal::Buffer buffer, MTL::UInteger offset, MTL::UInteger index);
 
 typedef void (*setFragmentBufferOffsetType)(id, SEL, MTL::UInteger offset, MTL::UInteger index);
 
-typedef void (*setFragmentTextureType)(id, SEL, cpp_mtl_Internal::Texture texture, MTL::UInteger index);
+typedef void (*setFragmentTextureType)(id, SEL, cpp_mtl_internal::Texture texture, MTL::UInteger index);
 
 struct RenderCommandEncoderDispatchTable {
     CPP_METAL_DECLARE_FUNCTION_POINTER(setVertexBytes);
@@ -54,9 +54,9 @@ struct RenderCommandEncoderDispatchTable {
     CPP_METAL_DECLARE_FUNCTION_POINTER(setFragmentBufferOffset);
     CPP_METAL_DECLARE_FUNCTION_POINTER(setFragmentTexture);
     
-    RenderCommandEncoderDispatchTable(cpp_mtl_Internal::ObjCObj *objCObj);
+    RenderCommandEncoderDispatchTable(cpp_mtl_internal::ObjCObj *objCObj);
 };
 
-} // namespace cpp_mtl_Internal
+} // namespace cpp_mtl_internal
 
 #endif // cpp_mtl_RenderCommandEncoder_DispatchTable_hpp

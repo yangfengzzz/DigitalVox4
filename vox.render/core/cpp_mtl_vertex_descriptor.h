@@ -125,21 +125,21 @@ public:
     
 private:
     
-    cpp_mtl_Internal::VertexBufferLayoutDescriptor m_objCObj;
+    cpp_mtl_internal::VertexBufferLayoutDescriptor m_objCObj;
     
-    cpp_mtl_Internal::VertexBufferLayoutDescriptorArray m_objCContainer;
+    cpp_mtl_internal::VertexBufferLayoutDescriptorArray m_objCContainer;
     
     UInteger m_arrayIndex;
     
-    VertexBufferLayoutDescriptor(cpp_mtl_Internal::VertexBufferLayoutDescriptorArray objCContainer, UInteger arrayIndex);
+    VertexBufferLayoutDescriptor(cpp_mtl_internal::VertexBufferLayoutDescriptorArray objCContainer, UInteger arrayIndex);
     
-    void reinitialize(cpp_mtl_Internal::VertexBufferLayoutDescriptorArray objCContainer);
+    void reinitialize(cpp_mtl_internal::VertexBufferLayoutDescriptorArray objCContainer);
     
     friend VertexBufferLayoutDescriptorArray;
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::VertexBufferLayoutDescriptor objCObj() const;
+    cpp_mtl_internal::VertexBufferLayoutDescriptor objCObj() const;
     
 };
 
@@ -172,21 +172,21 @@ public:
     
 private:
     
-    cpp_mtl_Internal::VertexAttributeDescriptor m_objCObj;
+    cpp_mtl_internal::VertexAttributeDescriptor m_objCObj;
     
-    cpp_mtl_Internal::VertexAttributeDescriptorArray m_objCContainer;
+    cpp_mtl_internal::VertexAttributeDescriptorArray m_objCContainer;
     
     UInteger m_arrayIndex;
     
-    VertexAttributeDescriptor(cpp_mtl_Internal::VertexAttributeDescriptorArray objCContainer, UInteger arrayIndex);
+    VertexAttributeDescriptor(cpp_mtl_internal::VertexAttributeDescriptorArray objCContainer, UInteger arrayIndex);
     
-    void reinitialize(cpp_mtl_Internal::VertexAttributeDescriptorArray objCContainer);
+    void reinitialize(cpp_mtl_internal::VertexAttributeDescriptorArray objCContainer);
     
     friend VertexAttributeDescriptorArray;
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::VertexAttributeDescriptor objCObj() const;
+    cpp_mtl_internal::VertexAttributeDescriptor objCObj() const;
     
 };
 
@@ -211,19 +211,19 @@ public:
     
 private:
     
-    cpp_mtl_Internal::VertexBufferLayoutDescriptorArray m_objCObj;
+    cpp_mtl_internal::VertexBufferLayoutDescriptorArray m_objCObj;
     
     VertexBufferLayoutDescriptor m_layouts[MaxVertexBufferLayouts];
     
-    explicit VertexBufferLayoutDescriptorArray(cpp_mtl_Internal::VertexBufferLayoutDescriptorArray objCObj);
+    explicit VertexBufferLayoutDescriptorArray(cpp_mtl_internal::VertexBufferLayoutDescriptorArray objCObj);
     
-    void reinitialize(cpp_mtl_Internal::VertexBufferLayoutDescriptorArray objCObj);
+    void reinitialize(cpp_mtl_internal::VertexBufferLayoutDescriptorArray objCObj);
     
     friend VertexDescriptor;
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::VertexBufferLayoutDescriptorArray objCObj() const;
+    cpp_mtl_internal::VertexBufferLayoutDescriptorArray objCObj() const;
     
 };
 
@@ -246,19 +246,19 @@ public:
     
 private:
     
-    cpp_mtl_Internal::VertexAttributeDescriptorArray m_objCObj;
+    cpp_mtl_internal::VertexAttributeDescriptorArray m_objCObj;
     
     VertexAttributeDescriptor m_attributes[MaxVertexAttributes];
     
-    explicit VertexAttributeDescriptorArray(cpp_mtl_Internal::VertexAttributeDescriptorArray objCObj);
+    explicit VertexAttributeDescriptorArray(cpp_mtl_internal::VertexAttributeDescriptorArray objCObj);
     
-    void reinitialize(cpp_mtl_Internal::VertexAttributeDescriptorArray objCObj);
+    void reinitialize(cpp_mtl_internal::VertexAttributeDescriptorArray objCObj);
     
     friend VertexDescriptor;
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::VertexAttributeDescriptorArray objCObj() const;
+    cpp_mtl_internal::VertexAttributeDescriptorArray objCObj() const;
     
 };
 
@@ -273,7 +273,7 @@ private:
     // executes member constructors in order of declaration (not in order of the initializer list in
     // the contstructor).  So the class must declare 'm_objCObj' first for it to initialize it
     // first and allow the 'layouts' and 'attributes' members to depend on its properties.
-    cpp_mtl_Internal::VertexDescriptor m_objCObj;
+    cpp_mtl_internal::VertexDescriptor m_objCObj;
     
 public:
     
@@ -293,7 +293,7 @@ public:
     
 public: // Public methods for cpp_mtl_ internal implementation
     
-    cpp_mtl_Internal::VertexDescriptor objCObj() const;
+    cpp_mtl_internal::VertexDescriptor objCObj() const;
     
 };
 
@@ -301,7 +301,7 @@ public: // Public methods for cpp_mtl_ internal implementation
 //================================================================
 #pragma mark - VertexBufferLayoutDescriptor inline implementations
 
-inline cpp_mtl_Internal::VertexBufferLayoutDescriptor VertexBufferLayoutDescriptor::objCObj() const {
+inline cpp_mtl_internal::VertexBufferLayoutDescriptor VertexBufferLayoutDescriptor::objCObj() const {
     return m_objCObj;
 }
 
@@ -309,7 +309,7 @@ inline cpp_mtl_Internal::VertexBufferLayoutDescriptor VertexBufferLayoutDescript
 //=============================================================
 #pragma mark - VertexAttributeDescriptor inline implementations
 
-inline cpp_mtl_Internal::VertexAttributeDescriptor VertexAttributeDescriptor::objCObj() const {
+inline cpp_mtl_internal::VertexAttributeDescriptor VertexAttributeDescriptor::objCObj() const {
     return m_objCObj;
 }
 
@@ -325,7 +325,7 @@ inline VertexBufferLayoutDescriptor &VertexBufferLayoutDescriptorArray::operator
     return m_layouts[i];
 }
 
-inline cpp_mtl_Internal::VertexBufferLayoutDescriptorArray VertexBufferLayoutDescriptorArray::objCObj() const {
+inline cpp_mtl_internal::VertexBufferLayoutDescriptorArray VertexBufferLayoutDescriptorArray::objCObj() const {
     return m_objCObj;
 }
 
@@ -342,7 +342,7 @@ inline VertexAttributeDescriptor &VertexAttributeDescriptorArray::operator[](UIn
     return attrib;
 }
 
-inline cpp_mtl_Internal::VertexAttributeDescriptorArray VertexAttributeDescriptorArray::objCObj() const {
+inline cpp_mtl_internal::VertexAttributeDescriptorArray VertexAttributeDescriptorArray::objCObj() const {
     return m_objCObj;
 }
 
@@ -350,7 +350,7 @@ inline cpp_mtl_Internal::VertexAttributeDescriptorArray VertexAttributeDescripto
 //===================================================
 #pragma mark - VertexDecriptor inline implementations
 
-inline cpp_mtl_Internal::VertexDescriptor VertexDescriptor::objCObj() const {
+inline cpp_mtl_internal::VertexDescriptor VertexDescriptor::objCObj() const {
     return m_objCObj;
 }
 

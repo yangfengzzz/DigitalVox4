@@ -51,20 +51,20 @@ m_resourceCache(vox::ResourceCache(*this)) {
     rhs.m_internals = nullptr;
 }
 
-Device::Device(cpp_mtl_Internal::Device objCObj, Allocator *allocator)
+Device::Device(cpp_mtl_internal::Device objCObj, Allocator *allocator)
 : m_objCObj(objCObj),
 m_internals(),
 m_allocator(allocator),
 m_resourceCache(vox::ResourceCache(*this)) {
-    auto deleter = [allocator](cpp_mtl_Internal::DeviceInternals *ptr) {
+    auto deleter = [allocator](cpp_mtl_internal::DeviceInternals *ptr) {
         allocator->destroy(ptr);
     };
     
-    cpp_mtl_Internal::DeviceInternals *internals =
-    allocator->construct<cpp_mtl_Internal::DeviceInternals>(allocator);
+    cpp_mtl_internal::DeviceInternals *internals =
+    allocator->construct<cpp_mtl_internal::DeviceInternals>(allocator);
     
     // Set up shared_ptr with deleter
-    std::shared_ptr<cpp_mtl_Internal::DeviceInternals> shared_internals(internals, deleter);
+    std::shared_ptr<cpp_mtl_internal::DeviceInternals> shared_internals(internals, deleter);
     
     m_internals = shared_internals;
 }

@@ -10,7 +10,7 @@
 #include <Metal/Metal.h>
 
 using namespace MTL;
-using namespace cpp_mtl_Internal;
+using namespace cpp_mtl_internal;
 
 DeviceInternals::DeviceInternals(Allocator *allocator)
 : m_allocator(allocator), m_renderCommandEncoderCache(*allocator) {
