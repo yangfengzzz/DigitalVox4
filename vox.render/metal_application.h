@@ -34,8 +34,8 @@ namespace vox {
  * - setting enabled Stats
  * - creating the Device
  * - creating the Swapchain
- * - creating the RenderContext (or child class)
- * - preparing the RenderContext
+ * - creating the RenderView (or child class)
+ * - preparing the RenderView
  * - loading the Scene
  * - creating the RenderPipeline with ShaderModule (s)
  * - creating the Camera
@@ -53,7 +53,7 @@ namespace vox {
  * highlighted when that's the case):
  *
  * - calling Script::update() for all Script (s)
- * - beginning a frame in RenderContext (does the necessary waiting on fences and
+ * - beginning a frame in RenderView (does the necessary waiting on fences and
  *   acquires an core::Image)
  * - requesting a CommandBuffer
  * - updating Stats and Gui
@@ -71,7 +71,7 @@ namespace vox {
  *
  * @section framework_classes Main framework classes
  *
- * - RenderContext
+ * - RenderView
  * - RenderFrame
  * - RenderTarget
  * - RenderPipeline
@@ -128,9 +128,9 @@ protected:
     MTL::Library _library;
 
     /**
-     * @brief Context used for rendering, it is responsible for managing the frames and their underlying images
+     * @brief View used for rendering, it is responsible for managing the frames and their underlying images
      */
-    std::unique_ptr<View> _renderContext{nullptr};
+    std::unique_ptr<View> _renderView{nullptr};
 
     /**
      * @brief Pipeline used for rendering, it should be set up by the concrete sample

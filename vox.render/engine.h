@@ -64,7 +64,7 @@ public:
     
     virtual void inputEvent(const InputEvent &inputEvent);
     
-    virtual std::unique_ptr<View> createRenderContext(MTL::Device &device);
+    virtual std::unique_ptr<View> createRenderView(MTL::Device &device);
     
 public:
     void setFocus(bool focused);
@@ -87,7 +87,7 @@ public:
 public:
     void setWindowProperties(const Window::OptionalProperties &properties);
     
-    //    void on_post_draw(RenderContext &context) const;
+    //    void on_post_draw(RenderView &view) const;
     
     static const uint32_t MIN_WINDOW_WIDTH;
     static const uint32_t MIN_WINDOW_HEIGHT;

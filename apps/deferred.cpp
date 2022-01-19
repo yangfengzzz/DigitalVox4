@@ -36,9 +36,9 @@ bool Deferred::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
     
     auto extent = engine.window().extent();
-    _renderContext->resize(MTL::sizeMake(extent.width * 2, extent.height * 2, 0));
-    _renderContext->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
-    _renderContext->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
+    _renderView->resize(MTL::sizeMake(extent.width * 2, extent.height * 2, 0));
+    _renderView->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
+    _renderView->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
     
     m_inFlightSemaphore = dispatch_semaphore_create(MaxFramesInFlight);
     
@@ -129,7 +129,7 @@ bool Deferred::prepare(Engine &engine) {
         m_shadowRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
         m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
         m_shadowRenderPass = std::make_unique<RenderPass>(_library, &m_shadowRenderPassDescriptor);
-        m_shadowRenderPass->addSubpass(std::make_unique<ShadowSubpass>(_renderContext.get(), _scene.get(), nullptr));
+        m_shadowRenderPass->addSubpass(std::make_unique<ShadowSubpass>(_renderView.get(), _scene.get(), nullptr));
     }
     
 #pragma mark GBuffer render pass descriptor setup
@@ -172,14 +172,14 @@ bool Deferred::prepare(Engine &engine) {
         m_GBufferRenderPassDescriptor.depthAttachment.clearDepth(1.0);
         m_GBufferRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
         m_GBufferRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
-        m_GBufferRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
+        m_GBufferRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
         m_GBufferRenderPassDescriptor.stencilAttachment.clearStencil(0);
         m_GBufferRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
         m_GBufferRenderPassDescriptor.stencilAttachment.storeAction(MTL::StoreActionStore);
-        m_GBufferRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
+        m_GBufferRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
         m_GBufferRenderPass = std::make_unique<RenderPass>(_library, &m_GBufferRenderPassDescriptor);
         m_GBufferRenderPass->addParentPass(DeferredSubpass::dependedPassName(), m_shadowRenderPass.get());
-        m_GBufferRenderPass->addSubpass(std::make_unique<DeferredSubpass>(_renderContext.get(), _scene.get(), nullptr));
+        m_GBufferRenderPass->addSubpass(std::make_unique<DeferredSubpass>(_renderView.get(), _scene.get(), nullptr));
     }
     
 #pragma mark Compositor render pass descriptor setup
@@ -188,16 +188,16 @@ bool Deferred::prepare(Engine &engine) {
         // Whatever rendered in the final pass needs to be stored so it can be displayed
         m_finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
         m_finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionLoad);
-        m_finalRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
+        m_finalRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
         m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
-        m_finalRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
+        m_finalRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
         m_finalRenderPass = std::make_unique<RenderPass>(_library, &m_finalRenderPassDescriptor);
         m_finalRenderPass->addParentPass(ComposeSubpass::dependedPassName(), m_GBufferRenderPass.get());
-        m_finalRenderPass->addSubpass(std::make_unique<ComposeSubpass>(_renderContext.get(), _scene.get(), nullptr));
-        m_finalRenderPass->addSubpass(std::make_unique<PointLightSubpass>(_renderContext.get(), _scene.get(), nullptr,
+        m_finalRenderPass->addSubpass(std::make_unique<ComposeSubpass>(_renderView.get(), _scene.get(), nullptr));
+        m_finalRenderPass->addSubpass(std::make_unique<PointLightSubpass>(_renderView.get(), _scene.get(), nullptr,
                                                                           m_icosahedronMesh, NumLights));
-        m_finalRenderPass->addSubpass(std::make_unique<SkyboxSubpass>(_renderContext.get(), _scene.get(), nullptr));
-        m_finalRenderPass->addSubpass(std::make_unique<ParticleSubpass>(_renderContext.get(), _scene.get(), nullptr,
+        m_finalRenderPass->addSubpass(std::make_unique<SkyboxSubpass>(_renderView.get(), _scene.get(), nullptr));
+        m_finalRenderPass->addSubpass(std::make_unique<ParticleSubpass>(_renderView.get(), _scene.get(), nullptr,
                                                                         m_fairy, m_fairyMap, NumLights, NumFairyVertices));
     }
     framebufferResize(extent.width*2, extent.height*2);
@@ -211,8 +211,8 @@ void Deferred::update(float delta_time) {
     // Wait to ensure only MaxFramesInFlight are getting processed by any stage in the Metal
     // pipeline (App, Metal, Drivers, GPU, etc)
     dispatch_semaphore_wait(m_inFlightSemaphore, DISPATCH_TIME_FOREVER);
-    updateWorldState(static_cast<uint32_t>(_renderContext->drawableSize().width),
-                     static_cast<uint32_t>(_renderContext->drawableSize().height));
+    updateWorldState(static_cast<uint32_t>(_renderView->drawableSize().width),
+                     static_cast<uint32_t>(_renderView->drawableSize().height));
     _scene->shaderData.setData("frameData", m_uniformBuffers[m_frameDataBufferIndex]);
     _scene->shaderData.setData("lightsData", m_lightsData);
     _scene->shaderData.setData("lightPosition", m_lightPositions[m_frameDataBufferIndex]);
@@ -255,19 +255,19 @@ void Deferred::update(float delta_time) {
         commandBuffer.addCompletedHandler(*m_completedHandler);
         commandBuffer.label("Lighting Commands");
         
-        MTL::Drawable *drawable = _renderContext->currentDrawable();
+        MTL::Drawable *drawable = _renderView->currentDrawable();
         // The final pass can only render if a drawable is available, otherwise it needs to skip
         // rendering this frame.
         if (drawable) {
             // Render the lighting and composition pass
             m_finalRenderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
-            m_finalRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
-            m_finalRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
+            m_finalRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
+            m_finalRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
             m_finalRenderPass->draw(commandBuffer, "Lighting & Composition Pass");
         }
         
         // Schedule a present once the framebuffer is complete using the current drawable
-        if (_renderContext->currentDrawable()) {
+        if (_renderView->currentDrawable()) {
             // Create a scheduled handler functor for Metal to present the drawable when the command
             // buffer has been scheduled by the kernel.
             struct PresentationScheduledHandler : public MTL::CommandBufferHandler {
@@ -283,7 +283,7 @@ void Deferred::update(float delta_time) {
                 }
             };
             
-            PresentationScheduledHandler *scheduledHandler = new PresentationScheduledHandler(*_renderContext->currentDrawable());
+            PresentationScheduledHandler *scheduledHandler = new PresentationScheduledHandler(*_renderView->currentDrawable());
             commandBuffer.addScheduledHandler(*scheduledHandler);
         }
         
@@ -299,8 +299,8 @@ void Deferred::framebufferResize(uint32_t width, uint32_t height) {
     m_projection_matrix = matrix_perspective_left_hand(65.0f * (M_PI / 180.0f), aspect, NearPlane, FarPlane);
     
     MetalApplication::framebufferResize(width, height);
-    m_GBufferRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
-    m_GBufferRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
+    m_GBufferRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
+    m_GBufferRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
     
     MTL::TextureDescriptor GBufferTextureDesc;
     GBufferTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);

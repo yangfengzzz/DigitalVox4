@@ -68,9 +68,9 @@ bool Forward::prepare(Engine &engine) {
     loadScene();
     auto extent = engine.window().extent();
     _camera->resize(extent.width*2, extent.height*2);
-    _renderContext->resize(MTL::sizeMake(extent.width * 2, extent.height * 2, 0));
-    _renderContext->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
-    _renderContext->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
+    _renderView->resize(MTL::sizeMake(extent.width * 2, extent.height * 2, 0));
+    _renderView->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
+    _renderView->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
     
 #pragma mark Compositor render pass descriptor setup
     {
@@ -79,11 +79,11 @@ bool Forward::prepare(Engine &engine) {
         _finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
         _finalRenderPassDescriptor.colorAttachments[0].loadAction(MTL::LoadActionClear);
         _finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
-        _finalRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
+        _finalRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
         _finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
-        _finalRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
+        _finalRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
         _finalRenderPass = std::make_unique<RenderPass>(_library, &_finalRenderPassDescriptor);
-        _finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderContext.get(), _scene.get(), _camera));
+        _finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderView.get(), _scene.get(), _camera));
     }
     
     return true;
@@ -111,14 +111,14 @@ void Forward::update(float delta_time) {
     MetalApplication::update(delta_time);
     
     MTL::CommandBuffer commandBuffer = _commandQueue.commandBuffer();
-    MTL::Drawable *drawable = _renderContext->currentDrawable();
+    MTL::Drawable *drawable = _renderView->currentDrawable();
     // The final pass can only render if a drawable is available, otherwise it needs to skip
     // rendering this frame.
     if (drawable) {
         // Render the lighting and composition pass
         _finalRenderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
-        _finalRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
-        _finalRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
+        _finalRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
+        _finalRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
         _finalRenderPass->draw(commandBuffer, "Lighting & Composition Pass");
     }
     // Finalize rendering here & push the command buffer to the GPU

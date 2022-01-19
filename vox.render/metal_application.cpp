@@ -11,7 +11,7 @@
 
 namespace vox {
 MetalApplication::~MetalApplication() {
-    _renderContext.reset();
+    _renderView.reset();
     _device.reset();
 }
 
@@ -29,14 +29,14 @@ bool MetalApplication::prepare(Engine &engine) {
     
     _commandQueue = _device->makeCommandQueue();
 
-    _renderContext = engine.createRenderContext(*_device);
+    _renderView = engine.createRenderView(*_device);
     _scene = std::make_unique<Scene>();
     return true;
 }
 
 void MetalApplication::update(float delta_time) {
     _scene->update(delta_time);
-    _renderContext->draw();
+    _renderView->draw();
 }
 
 bool MetalApplication::resize(const uint32_t width, const uint32_t height) {
@@ -48,7 +48,7 @@ bool MetalApplication::resize(const uint32_t width, const uint32_t height) {
 void MetalApplication::framebufferResize(uint32_t width, uint32_t height) {
     Application::framebufferResize(width, height);
 
-    _renderContext->resize(MTL::sizeMake(width, height, 0));
+    _renderView->resize(MTL::sizeMake(width, height, 0));
 }
 
 void MetalApplication::inputEvent(const InputEvent &inputEvent) {}

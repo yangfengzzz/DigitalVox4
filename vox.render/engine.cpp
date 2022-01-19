@@ -122,10 +122,10 @@ void Engine::framebufferResize(uint32_t width, uint32_t height) {
     }
 }
 
-std::unique_ptr<View> Engine::createRenderContext(MTL::Device &device) {
-    auto context = std::make_unique<View>(device);
-    _window->setView(*context);
-    return context;
+std::unique_ptr<View> Engine::createRenderView(MTL::Device &device) {
+    auto view = std::make_unique<View>(device);
+    _window->setView(*view);
+    return view;
 }
 
 //MARK: - Application
