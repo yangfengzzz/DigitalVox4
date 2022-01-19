@@ -25,8 +25,10 @@ _shadowMap(*view->depthStencilTexture()) {
 }
 
 void DeferredSubpass::setRenderPass(RenderPass* pass) {
-    if (pass->findPass("shadowPass")) {
+    auto parentPass = pass->findPass("shadowPass");
+    if (parentPass) {
         Subpass::setRenderPass(pass);
+        _shadowMap = parentPass->renderPassDescriptor()->depthAttachment.texture();
     } else {
         LOG(ERROR) << "depend on shadowPass";
     }
@@ -35,7 +37,6 @@ void DeferredSubpass::setRenderPass(RenderPass* pass) {
 void DeferredSubpass::prepare() {
     CFErrorRef error = nullptr;
     
-    _shadowMap = _pass->findPass("shadowPass")->renderPassDescriptor()->depthAttachment.texture();
     {
         MTL::Function GBufferVertexFunction = _pass->library().makeFunction("gbuffer_vertex");
         MTL::Function GBufferFragmentFunction = _pass->library().makeFunction("gbuffer_fragment");

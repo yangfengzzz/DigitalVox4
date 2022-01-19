@@ -13,7 +13,7 @@
 namespace vox {
 class RenderPass {
 public:
-    RenderPass(MTL::Device* device, MTL::RenderPassDescriptor* desc);
+    RenderPass(MTL::Library& library, MTL::RenderPassDescriptor* desc);
     
     RenderPass(const RenderPass &) = delete;
     
@@ -23,7 +23,7 @@ public:
     
     RenderPass &operator=(const RenderPass &) = delete;
     
-    RenderPass &operator=(RenderPass &&) = default;
+    RenderPass &operator=(RenderPass &&) = delete;
     
     void draw(MTL::CommandBuffer& commandBuffer,
               std::optional<std::string> label = std::nullopt);
@@ -57,12 +57,8 @@ public:
     void clearParentPass();
     
 private:
-    void makeShaderLibrary();
-    
-private:
     MTL::RenderPassDescriptor* _desc{nullptr};
-    MTL::Library _library;
-    MTL::Device* _device{nullptr};
+    MTL::Library& _library;
     
     std::vector<std::unique_ptr<Subpass>> _subpasses;
     size_t _activeSubpassIndex{0};

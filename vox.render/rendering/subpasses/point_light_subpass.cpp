@@ -29,8 +29,13 @@ _depthTexture(*view->depthStencilTexture()) {
 }
 
 void PointLightSubpass::setRenderPass(RenderPass* pass) {
-    if (pass->findPass("deferredPass")) {
+    auto parentPass = pass->findPass("deferredPass");
+    if (parentPass) {
         Subpass::setRenderPass(pass);
+        auto gbufferDesc = parentPass->renderPassDescriptor();
+        _albedoTexture = gbufferDesc->colorAttachments[RenderTargetAlbedo].texture();
+        _normalTexture = gbufferDesc->colorAttachments[RenderTargetNormal].texture();
+        _depthTexture = gbufferDesc->colorAttachments[RenderTargetDepth].texture();
     } else {
         LOG(ERROR) << "depend on deferredPass";
     }
@@ -38,11 +43,6 @@ void PointLightSubpass::setRenderPass(RenderPass* pass) {
 
 void PointLightSubpass::prepare() {
     CFErrorRef error = nullptr;
-    
-    auto gbufferDesc = _pass->findPass("deferredPass")->renderPassDescriptor();
-    _albedoTexture = gbufferDesc->colorAttachments[RenderTargetAlbedo].texture();
-    _normalTexture = gbufferDesc->colorAttachments[RenderTargetNormal].texture();
-    _depthTexture = gbufferDesc->colorAttachments[RenderTargetDepth].texture();
     
 #if LIGHT_STENCIL_CULLING
     // Setup objects for point light mask rendering

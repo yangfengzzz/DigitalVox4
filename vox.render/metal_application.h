@@ -114,6 +114,9 @@ public:
     
     bool hasScene();
     
+private:
+    MTL::Library makeShaderLibrary();
+    
 protected:
     /**
      * @brief The Metal device
@@ -122,7 +125,7 @@ protected:
     
     MTL::CommandQueue _commandQueue;
     
-    MTL::Library makeShaderLibrary();
+    MTL::Library _library;
 
     /**
      * @brief Context used for rendering, it is responsible for managing the frames and their underlying images

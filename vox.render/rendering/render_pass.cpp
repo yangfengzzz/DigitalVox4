@@ -9,10 +9,9 @@
 #include <glog/logging.h>
 
 namespace vox {
-RenderPass::RenderPass(MTL::Device* device, MTL::RenderPassDescriptor* desc):
-_device(device),
+RenderPass::RenderPass(MTL::Library& library, MTL::RenderPassDescriptor* desc):
+_library(library),
 _desc(desc) {
-    makeShaderLibrary();
 }
 
 const MTL::RenderPassDescriptor* RenderPass::renderPassDescriptor() {
@@ -21,18 +20,6 @@ const MTL::RenderPassDescriptor* RenderPass::renderPassDescriptor() {
 
 MTL::Library& RenderPass::library() {
     return _library;
-}
-
-void RenderPass::makeShaderLibrary() {
-    CFErrorRef error = nullptr;
-    CFURLRef libraryURL = nullptr;
-
-    libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
-    _library = _device->makeLibrary(libraryURL, &error);
-    
-    MTLAssert(!error, error, "Could not load Metal shader library");
-    
-    CFRelease(libraryURL);
 }
 
 //MARK: - Subpass

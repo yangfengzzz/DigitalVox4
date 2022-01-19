@@ -25,8 +25,13 @@ _depthTexture(*view->depthStencilTexture()){
 }
 
 void ComposeSubpass::setRenderPass(RenderPass* pass) {
-    if (pass->findPass("deferredPass")) {
+    auto parentPass = pass->findPass("deferredPass");
+    if (parentPass) {
         Subpass::setRenderPass(pass);
+        auto gbufferDesc = parentPass->renderPassDescriptor();
+        _albedoTexture = gbufferDesc->colorAttachments[RenderTargetAlbedo].texture();
+        _normalTexture = gbufferDesc->colorAttachments[RenderTargetNormal].texture();
+        _depthTexture = gbufferDesc->colorAttachments[RenderTargetDepth].texture();
     } else {
         LOG(ERROR) << "depend on deferredPass";
     }
@@ -34,11 +39,6 @@ void ComposeSubpass::setRenderPass(RenderPass* pass) {
 
 void ComposeSubpass::prepare() {
     CFErrorRef error = nullptr;
-    
-    auto gbufferDesc = _pass->findPass("deferredPass")->renderPassDescriptor();
-    _albedoTexture = gbufferDesc->colorAttachments[RenderTargetAlbedo].texture();
-    _normalTexture = gbufferDesc->colorAttachments[RenderTargetNormal].texture();
-    _depthTexture = gbufferDesc->colorAttachments[RenderTargetDepth].texture();
     
 #pragma mark Directional lighting render pipeline setup
     {

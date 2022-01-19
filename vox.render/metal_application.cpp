@@ -24,7 +24,9 @@ bool MetalApplication::prepare(Engine &engine) {
     
     _device = std::unique_ptr<MTL::Device>(MTL::CreateSystemDefaultDevice());
     printf("Selected Device: %s\n", _device->name());
-
+    
+    _library = makeShaderLibrary();
+    
     _commandQueue = _device->makeCommandQueue();
 
     _renderContext = engine.createRenderContext(*_device);
