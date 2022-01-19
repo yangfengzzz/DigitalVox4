@@ -61,7 +61,7 @@ void RenderPassAttachmentDescriptor::texture(Texture &texture) {
     m_texture = &texture;
 }
 
-Texture &RenderPassAttachmentDescriptor::texture() {
+Texture &RenderPassAttachmentDescriptor::texture() const {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
     
     return *m_texture;

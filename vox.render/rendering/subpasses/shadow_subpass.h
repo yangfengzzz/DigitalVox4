@@ -14,11 +14,11 @@
 namespace vox {
 class ShadowSubpass: public Subpass {
 public:
-    ShadowSubpass(MTL::RenderPassDescriptor* desc,
-                  MTL::Device* device,
+    ShadowSubpass(View* view,
                   Scene* scene,
-                  Camera* camera,
-                  MTL::Library& shaderLibrary);
+                  Camera* camera);
+    
+    void prepare() override;
 
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
         

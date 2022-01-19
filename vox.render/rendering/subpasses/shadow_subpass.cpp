@@ -5,31 +5,33 @@
 //  property of any third parties.
 
 #include "shadow_subpass.h"
+#include "rendering/render_pass.h"
 #include "material/material.h"
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
 namespace vox {
-ShadowSubpass::ShadowSubpass(MTL::RenderPassDescriptor* desc,
-                             MTL::Device* device,
+ShadowSubpass::ShadowSubpass(View* view,
                              Scene* scene,
-                             Camera* camera,
-                             MTL::Library& shaderLibrary):
-Subpass(desc, device, scene, camera) {
+                             Camera* camera):
+Subpass(view, scene, camera) {
+}
+
+void ShadowSubpass::prepare() {
     CFErrorRef error = nullptr;
     
 #pragma mark Shadow pass render pipeline setup
     {
-        MTL::Function *shadowVertexFunction = shaderLibrary.newFunctionWithName("shadow_vertex");
+        MTL::Function *shadowVertexFunction = _pass->library().newFunctionWithName("shadow_vertex");
         
         MTL::RenderPipelineDescriptor renderPipelineDescriptor;
         renderPipelineDescriptor.label("Shadow Gen");
         renderPipelineDescriptor.vertexDescriptor(nullptr);
         renderPipelineDescriptor.vertexFunction(shadowVertexFunction);
         renderPipelineDescriptor.fragmentFunction(nullptr);
-        renderPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
+        renderPipelineDescriptor.depthAttachmentPixelFormat(_pass->renderPassDescriptor()->depthAttachment.texture().pixelFormat());
         
-        _shadowGenPipelineState = device->makeRenderPipelineState(renderPipelineDescriptor, &error);
+        _shadowGenPipelineState = _view->device().makeRenderPipelineState(renderPipelineDescriptor, &error);
         
         delete shadowVertexFunction;
     }
@@ -40,7 +42,7 @@ Subpass(desc, device, scene, camera) {
         depthStencilDesc.label("Shadow Gen");
         depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLessEqual);
         depthStencilDesc.depthWriteEnabled(true);
-        _shadowDepthStencilState = device->makeDepthStencilState(depthStencilDesc);
+        _shadowDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
     }
 }
 

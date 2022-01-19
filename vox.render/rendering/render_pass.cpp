@@ -59,4 +59,8 @@ MTL::Library& RenderPass::library() {
     return _library;
 }
 
+const MTL::RenderPassDescriptor* RenderPass::renderPassDescriptor() {
+    return _desc;
+}
+
 }

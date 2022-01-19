@@ -44,6 +44,8 @@ public:
     std::unique_ptr<Subpass> &activeSubpass();
 
     MTL::Library& library();
+    
+    const MTL::RenderPassDescriptor* renderPassDescriptor();
 
 private:
     void makeShaderLibrary();

@@ -56,7 +56,7 @@ public:
     
     virtual ~RenderPassAttachmentDescriptor();
     
-    Texture &texture();
+    Texture &texture() const;
     
     void texture(Texture &texture);
     

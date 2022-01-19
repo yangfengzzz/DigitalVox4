@@ -404,6 +404,8 @@
 		044596DC2796FBE100F04CE0 /* configurable_joint.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459340278FAF9800F04CE0 /* configurable_joint.h */; };
 		044596DD2796FC1100F04CE0 /* metal_application.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445925B278E7C8600F04CE0 /* metal_application.h */; };
 		044596DE2796FC1100F04CE0 /* metal_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445925A278E7C8600F04CE0 /* metal_application.cpp */; };
+		044596DF2797A00C00F04CE0 /* shadow_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F92791581900F04CE0 /* shadow_subpass.h */; };
+		044596E02797A00C00F04CE0 /* shadow_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F82791581900F04CE0 /* shadow_subpass.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1771,6 +1773,7 @@
 				044596852796F87C00F04CE0 /* render_face.h in Headers */,
 				044596D02796FBE100F04CE0 /* collider_shape.h in Headers */,
 				044596B42796FBE100F04CE0 /* spring_joint.h in Headers */,
+				044596DF2797A00C00F04CE0 /* shadow_subpass.h in Headers */,
 				044596A12796F99100F04CE0 /* components_manager.h in Headers */,
 				044596692796F85C00F04CE0 /* shader_program.h in Headers */,
 				044596A52796F99100F04CE0 /* renderer.h in Headers */,
@@ -2258,6 +2261,7 @@
 				044595E52796E88600F04CE0 /* cpp_mtl_resource.mm in Sources */,
 				044596862796F87C00F04CE0 /* pbr_base_material.cpp in Sources */,
 				044596C22796FBE100F04CE0 /* joint.cpp in Sources */,
+				044596E02797A00C00F04CE0 /* shadow_subpass.cpp in Sources */,
 				044596722796F85C00F04CE0 /* shader_macro_collection.cpp in Sources */,
 				044596912796F99100F04CE0 /* script.cpp in Sources */,
 				044596142796E9F900F04CE0 /* allocator.cc in Sources */,
