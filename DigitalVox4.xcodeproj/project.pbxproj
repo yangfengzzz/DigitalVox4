@@ -429,6 +429,8 @@
 		04459758279832BA00F04CE0 /* light_debugger.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973F279832BA00F04CE0 /* light_debugger.metal */; };
 		04B4ACC1279835BB0020576D /* spot_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971027981DF500F04CE0 /* spot_light.cpp */; };
 		04B4ACC2279836200020576D /* point_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445970C27981C3A00F04CE0 /* point_light.cpp */; };
+		04B4ACC527983DCD0020576D /* model_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACC327983DCD0020576D /* model_mesh.cpp */; };
+		04B4ACC627983DCD0020576D /* model_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 04B4ACC427983DCD0020576D /* model_mesh.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1023,6 +1025,8 @@
 		0445973D279832BA00F04CE0 /* shadow_common.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = shadow_common.metal; sourceTree = "<group>"; };
 		0445973E279832BA00F04CE0 /* deferred_compositor.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = deferred_compositor.metal; sourceTree = "<group>"; };
 		0445973F279832BA00F04CE0 /* light_debugger.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = light_debugger.metal; sourceTree = "<group>"; };
+		04B4ACC327983DCD0020576D /* model_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = model_mesh.cpp; sourceTree = "<group>"; };
+		04B4ACC427983DCD0020576D /* model_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = model_mesh.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1760,6 +1764,8 @@
 			children = (
 				0445941D279292E000F04CE0 /* mesh_renderer.h */,
 				0445941C279292E000F04CE0 /* mesh_renderer.cpp */,
+				04B4ACC427983DCD0020576D /* model_mesh.h */,
+				04B4ACC327983DCD0020576D /* model_mesh.cpp */,
 			);
 			path = mesh;
 			sourceTree = "<group>";
@@ -1969,6 +1975,7 @@
 				044595E02796E88600F04CE0 /* cpp_mtl_command_buffer.h in Headers */,
 				044596632796F85C00F04CE0 /* stencil_state.h in Headers */,
 				044596112796E88B00F04CE0 /* cpp_mtl_dispatch_table_cache.h in Headers */,
+				04B4ACC627983DCD0020576D /* model_mesh.h in Headers */,
 				044596AC2796FAA400F04CE0 /* spherical.h in Headers */,
 				044596612796F7C800F04CE0 /* forward_subpass.h in Headers */,
 				044595D92796DC9B00F04CE0 /* glfw_window.h in Headers */,
@@ -2363,6 +2370,7 @@
 				044596032796E88600F04CE0 /* cpp_mtl_command_buffer.mm in Sources */,
 				0445969B2796F99100F04CE0 /* update_flag.cpp in Sources */,
 				044596732796F85C00F04CE0 /* stencil_state.cpp in Sources */,
+				04B4ACC527983DCD0020576D /* model_mesh.cpp in Sources */,
 				044596792796F85C00F04CE0 /* shader.cpp in Sources */,
 				044596ED2797DF7400F04CE0 /* forward_application.cpp in Sources */,
 				044596492796EF9500F04CE0 /* render_element.cpp in Sources */,
