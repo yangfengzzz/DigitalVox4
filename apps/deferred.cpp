@@ -29,7 +29,6 @@ using namespace simd;
 
 Deferred::~Deferred() {
     delete m_completedHandler;
-    _renderPipeline.reset();
 }
 
 bool Deferred::prepare(Engine &engine) {

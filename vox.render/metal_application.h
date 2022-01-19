@@ -54,16 +54,6 @@ protected:
      * @brief View used for rendering, it is responsible for managing the frames and their underlying images
      */
     std::unique_ptr<View> _renderView{nullptr};
-
-    /**
-     * @brief Pipeline used for rendering, it should be set up by the concrete sample
-     */
-    std::unique_ptr<RenderPass> _renderPipeline{nullptr};
-
-    /**
-     * @brief Holds all scene information
-     */
-    std::unique_ptr<Scene> _scene{nullptr};
 };
 
 }        // namespace vox

@@ -111,6 +111,11 @@ private:
     
     MTL::RenderPassDescriptor m_finalRenderPassDescriptor;
     std::unique_ptr<RenderPass> m_finalRenderPass{nullptr};
+    
+    /**
+     * @brief Holds all scene information
+     */
+    std::unique_ptr<Scene> _scene{nullptr};
 };
 
 }

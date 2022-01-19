@@ -18,6 +18,8 @@ ForwardApplication::~ForwardApplication() {
 bool ForwardApplication::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
     
+    _scene = std::make_unique<Scene>();
+    
     auto extent = engine.window().extent();
     auto scale = engine.window().contentScaleFactor();
     loadScene(extent.width * scale, extent.height * scale);
@@ -30,15 +32,16 @@ bool ForwardApplication::prepare(Engine &engine) {
     _finalRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
     _finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
     _finalRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
-    _finalRenderPass = std::make_unique<RenderPass>(_library, &_finalRenderPassDescriptor);
-    _finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderView.get(), _scene.get(), _mainCamera));
+    _renderPipeline = std::make_unique<RenderPass>(_library, &_finalRenderPassDescriptor);
+    _renderPipeline->addSubpass(std::make_unique<ForwardSubpass>(_renderView.get(), _scene.get(), _mainCamera));
     
     return true;
 }
 
 void ForwardApplication::update(float delta_time) {
     MetalApplication::update(delta_time);
-    
+    _scene->update(delta_time);
+
     MTL::CommandBuffer commandBuffer = _commandQueue.commandBuffer();
     MTL::Drawable *drawable = _renderView->currentDrawable();
     // The final pass can only render if a drawable is available, otherwise it needs to skip
@@ -48,7 +51,7 @@ void ForwardApplication::update(float delta_time) {
         _finalRenderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
         _finalRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
         _finalRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
-        _finalRenderPass->draw(commandBuffer, "Lighting & Composition Pass");
+        _renderPipeline->draw(commandBuffer, "Lighting & Composition Pass");
     }
     // Finalize rendering here & push the command buffer to the GPU
     commandBuffer.commit();
