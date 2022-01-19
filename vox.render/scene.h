@@ -112,6 +112,8 @@ public:
     
     void update(float deltaTime);
     
+    void updateShaderData(MTL::Device* device);
+    
 public:
     template<class T, class F>
     inline void registerVertexUploader(F const &f) {
@@ -153,9 +155,7 @@ private:
     
 private:
     void _processActive(bool active);
-    
-    void _updateShaderData();
-    
+        
     void _removeEntity(EntityPtr entity);
     
     std::vector<Camera *> _activeCameras;

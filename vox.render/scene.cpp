@@ -214,16 +214,18 @@ void Scene::_processActive(bool active) {
     }
 }
 
-void Scene::_updateShaderData() {
-    // union scene and camera macro.
-//    shaderData.mergeMacro(engine()->_macroCollection, _globalShaderMacro);
-//    light_manager._updateShaderData(shaderData);
-}
-
 void Scene::_removeEntity(EntityPtr entity) {
     auto &oldRootEntities = _rootEntities;
     oldRootEntities.erase(std::remove(oldRootEntities.begin(),
                                       oldRootEntities.end(), entity), oldRootEntities.end());
+}
+
+void Scene::updateShaderData(MTL::Device* device) {
+    // union scene and camera macro.
+    light_manager.updateShaderData(device, shaderData);
+    for (auto& camera : _activeCameras) {
+        camera->updateShaderData();
+    }
 }
 
 void Scene::update(float deltaTime) {
@@ -238,11 +240,6 @@ void Scene::update(float deltaTime) {
 //    _componentsManager.callAnimatorUpdate(deltaTime);
 //    _componentsManager.callSceneAnimatorUpdate(deltaTime);
     _componentsManager.callScriptOnLateUpdate(deltaTime);
-    
-    _updateShaderData();
-    for (auto& camera : _activeCameras) {
-        camera->updateShaderData();
-    }
 }
 
 }        // namespace vox
