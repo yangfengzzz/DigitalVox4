@@ -5,6 +5,11 @@
 //  property of any third parties.
 
 #include "scene.h"
+#include "vector2.h"
+#include "vector3.h"
+#include "vector4.h"
+#include "color.h"
+#include "matrix4x4.h"
 
 #include <queue>
 #include <glog/logging.h>
@@ -17,6 +22,79 @@ name(name)
 //_ambientLight(this),
 //light_manager(this)
 {
+    _vertexUploader = {
+        toAnyUploader<int>([](const int &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setVertexBytes(&x, sizeof(int), location);
+        }),
+        toAnyUploader<float>([](const float &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setVertexBytes(&x, sizeof(float), location);
+        }),
+        toAnyUploader<Vector2F>([](const Vector2F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setVertexBytes(&x, sizeof(Vector2F), location);
+        }),
+        toAnyUploader<Vector3F>([](const Vector3F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setVertexBytes(&x, sizeof(Vector4F), location); // float3 simd is extented from float4
+        }),
+        toAnyUploader<Vector4F>([](const Vector4F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setVertexBytes(&x, sizeof(Vector4F), location);
+        }),
+        toAnyUploader<Color>([](const Color &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setVertexBytes(&x, sizeof(Color), location);
+        }),
+        toAnyUploader<Matrix4x4F>([](const Matrix4x4F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setVertexBytes(&x, sizeof(Matrix4x4F), location);
+        }),
+        toAnyUploader<std::shared_ptr<MTL::Buffer>> ([](const std::shared_ptr<MTL::Buffer> &x, size_t location,
+                                                        MTL::RenderCommandEncoder& encoder) {
+            encoder.setVertexBuffer(*x, 0, location);
+        }),
+        toAnyUploader<std::shared_ptr<MTL::Texture>>([](const std::shared_ptr<MTL::Texture> &x, size_t location,
+                                                        MTL::RenderCommandEncoder& encoder) {
+            encoder.setVertexTexture(*x, location);
+        }),
+    };
+    
+    _fragmentUploader = {
+        toAnyUploader<int>([](const int &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setFragmentBytes(&x, sizeof(int), location);
+        }),
+        toAnyUploader<float>([](const float &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setFragmentBytes(&x, sizeof(float), location);
+        }),
+        toAnyUploader<Vector2F>([](const Vector2F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setFragmentBytes(&x, sizeof(Vector2F), location);
+        }),
+        toAnyUploader<Vector3F>([](const Vector3F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setFragmentBytes(&x, sizeof(Vector4F), location); // float3 simd is extented from float4
+        }),
+        toAnyUploader<Vector4F>([](const Vector4F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setFragmentBytes(&x, sizeof(Vector4F), location);
+        }),
+        toAnyUploader<Color>([](const Color &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setFragmentBytes(&x, sizeof(Color), location);
+        }),
+        toAnyUploader<Matrix4x4F>([](const Matrix4x4F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setFragmentBytes(&x, sizeof(Matrix4x4F), location);
+        }),
+        toAnyUploader<std::shared_ptr<MTL::Buffer>> ([](const std::shared_ptr<MTL::Buffer> &x, size_t location,
+                                                        MTL::RenderCommandEncoder& encoder) {
+            encoder.setFragmentBuffer(*x, 0, location);
+        }),
+        toAnyUploader<std::shared_ptr<MTL::Texture>>([](const std::shared_ptr<MTL::Texture> &x, size_t location,
+                                                        MTL::RenderCommandEncoder& encoder) {
+            encoder.setFragmentTexture(*x, location);
+        }),
+    };
+}
+
+const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>>&
+Scene::vertexUploader() {
+    return _vertexUploader;
+}
+
+const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>>&
+Scene::fragmentUploader() {
+    return _fragmentUploader;
 }
 
 //AmbientLight &Scene::ambientLight() {

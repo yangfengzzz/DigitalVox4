@@ -10,6 +10,9 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <iomanip>
+#include "core/cpp_mtl_render_command_encoder.h"
 
 #include "scene_forward.h"
 #include "components_manager.h"
@@ -29,7 +32,7 @@ public:
     
     ComponentsManager _componentsManager;
     physics::PhysicsManager _physicsManager;
-
+    
     /** The background of the scene. */
     Background background = Background();
     
@@ -108,6 +111,45 @@ public:
     void detachRenderCamera(Camera *camera);
     
     void update(float deltaTime);
+    
+public:
+    template<class T, class F>
+    inline void registerVertexUploader(F const &f) {
+        std::cout << "Register uploader for type "
+        << std::quoted(typeid(T).name()) << '\n';
+        _vertexUploader.insert(toAnyUploader<T>(f));
+    }
+    
+    template<class T, class F>
+    inline void registerFragmentUploader(F const &f) {
+        std::cout << "Register uploader for type "
+        << std::quoted(typeid(T).name()) << '\n';
+        _fragmentUploader.insert(toAnyUploader<T>(f));
+    }
+    
+    const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>>&
+    vertexUploader();
+    
+    const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>>&
+    fragmentUploader();
+    
+private:
+    template<class T, class F>
+    inline std::pair<const std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>>
+    toAnyUploader(F const &f) {
+        return {
+            std::type_index(typeid(T)),
+            [g = f](std::any const &a, size_t location, MTL::RenderCommandEncoder& encoder) {
+                if constexpr (std::is_void_v<T>)
+                    g();
+                else
+                    g(std::any_cast<T const &>(a), location, encoder);
+            }
+        };
+    }
+    
+    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>> _vertexUploader;
+    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>> _fragmentUploader;
     
 private:
     void _processActive(bool active);
