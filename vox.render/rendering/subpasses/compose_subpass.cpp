@@ -18,10 +18,7 @@ namespace vox {
 ComposeSubpass::ComposeSubpass(View* view,
                                Scene* scene,
                                Camera* camera):
-Subpass(view, scene, camera),
-_albedoTexture(*view->depthStencilTexture()),
-_normalTexture(*view->depthStencilTexture()),
-_depthTexture(*view->depthStencilTexture()){
+Subpass(view, scene, camera) {
 }
 
 void ComposeSubpass::setRenderPass(RenderPass* pass) {
@@ -29,9 +26,9 @@ void ComposeSubpass::setRenderPass(RenderPass* pass) {
     if (parentPass) {
         Subpass::setRenderPass(pass);
         auto gbufferDesc = parentPass->renderPassDescriptor();
-        _albedoTexture = gbufferDesc->colorAttachments[RenderTargetAlbedo].texture();
-        _normalTexture = gbufferDesc->colorAttachments[RenderTargetNormal].texture();
-        _depthTexture = gbufferDesc->colorAttachments[RenderTargetDepth].texture();
+        _albedoTexture = &gbufferDesc->colorAttachments[RenderTargetAlbedo].texture();
+        _normalTexture = &gbufferDesc->colorAttachments[RenderTargetNormal].texture();
+        _depthTexture = &gbufferDesc->colorAttachments[RenderTargetDepth].texture();
     } else {
         LOG(ERROR) << "depend on deferredPass";
     }
@@ -106,9 +103,9 @@ void ComposeSubpass::prepare() {
 
 void ComposeSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw Directional Light");
-    commandEncoder.setFragmentTexture(_albedoTexture, RenderTargetAlbedo);
-    commandEncoder.setFragmentTexture(_normalTexture, RenderTargetNormal);
-    commandEncoder.setFragmentTexture(_depthTexture, RenderTargetDepth);
+    commandEncoder.setFragmentTexture(*_albedoTexture, RenderTargetAlbedo);
+    commandEncoder.setFragmentTexture(*_normalTexture, RenderTargetNormal);
+    commandEncoder.setFragmentTexture(*_depthTexture, RenderTargetDepth);
     
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setStencilReferenceValue(128);

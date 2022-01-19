@@ -20,15 +20,14 @@ namespace vox {
 DeferredSubpass::DeferredSubpass(View* view,
                                  Scene* scene,
                                  Camera* camera):
-Subpass(view, scene, camera),
-_shadowMap(*view->depthStencilTexture()) {
+Subpass(view, scene, camera) {
 }
 
 void DeferredSubpass::setRenderPass(RenderPass* pass) {
     auto parentPass = pass->findPass("shadowPass");
     if (parentPass) {
         Subpass::setRenderPass(pass);
-        _shadowMap = parentPass->renderPassDescriptor()->depthAttachment.texture();
+        _shadowMap = &parentPass->renderPassDescriptor()->depthAttachment.texture();
     } else {
         LOG(ERROR) << "depend on shadowPass";
     }
@@ -86,7 +85,7 @@ void DeferredSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.setStencilReferenceValue(128);
     commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
     commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setFragmentTexture(_shadowMap, TextureIndexShadow);
+    commandEncoder.setFragmentTexture(*_shadowMap, TextureIndexShadow);
     
     drawMeshes(commandEncoder);
     commandEncoder.popDebugGroup();

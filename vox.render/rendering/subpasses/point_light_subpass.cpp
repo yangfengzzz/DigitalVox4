@@ -22,10 +22,7 @@ PointLightSubpass::PointLightSubpass(View* view,
                                      const uint32_t numLights):
 Subpass(view, scene, camera),
 _icosahedronMesh(icosahedronMesh),
-_numLights(numLights),
-_albedoTexture(*view->depthStencilTexture()),
-_normalTexture(*view->depthStencilTexture()),
-_depthTexture(*view->depthStencilTexture()) {
+_numLights(numLights) {
 }
 
 void PointLightSubpass::setRenderPass(RenderPass* pass) {
@@ -33,9 +30,9 @@ void PointLightSubpass::setRenderPass(RenderPass* pass) {
     if (parentPass) {
         Subpass::setRenderPass(pass);
         auto gbufferDesc = parentPass->renderPassDescriptor();
-        _albedoTexture = gbufferDesc->colorAttachments[RenderTargetAlbedo].texture();
-        _normalTexture = gbufferDesc->colorAttachments[RenderTargetNormal].texture();
-        _depthTexture = gbufferDesc->colorAttachments[RenderTargetDepth].texture();
+        _albedoTexture = &gbufferDesc->colorAttachments[RenderTargetAlbedo].texture();
+        _normalTexture = &gbufferDesc->colorAttachments[RenderTargetNormal].texture();
+        _depthTexture = &gbufferDesc->colorAttachments[RenderTargetDepth].texture();
     } else {
         LOG(ERROR) << "depend on deferredPass";
     }
@@ -181,9 +178,9 @@ void PointLightSubpass::drawPointLights(MTL::RenderCommandEncoder &commandEncode
     
     commandEncoder.setRenderPipelineState(_lightPipelineState);
     
-    commandEncoder.setFragmentTexture(_albedoTexture, RenderTargetAlbedo);
-    commandEncoder.setFragmentTexture(_normalTexture, RenderTargetNormal);
-    commandEncoder.setFragmentTexture(_depthTexture, RenderTargetDepth);
+    commandEncoder.setFragmentTexture(*_albedoTexture, RenderTargetAlbedo);
+    commandEncoder.setFragmentTexture(*_normalTexture, RenderTargetNormal);
+    commandEncoder.setFragmentTexture(*_depthTexture, RenderTargetDepth);
     
     commandEncoder.setDepthStencilState(_pointLightDepthStencilState);
     

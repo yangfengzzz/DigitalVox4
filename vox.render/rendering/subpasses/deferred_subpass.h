@@ -30,7 +30,7 @@ private:
     MTL::RenderPipelineDescriptor _GBufferPipelineDescriptor;
     MTL::DepthStencilState _GBufferDepthStencilState;
     
-    MTL::Texture &_shadowMap;
+    MTL::Texture *_shadowMap{nullptr};
 };
 
 }

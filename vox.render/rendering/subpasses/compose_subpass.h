@@ -27,9 +27,9 @@ private:
     MTL::DepthStencilState _directionLightDepthStencilState;
     
     MTL::Buffer _quadVertexBuffer;
-    MTL::Texture &_albedoTexture;
-    MTL::Texture &_normalTexture;
-    MTL::Texture &_depthTexture;
+    MTL::Texture *_albedoTexture{nullptr};
+    MTL::Texture *_normalTexture{nullptr};
+    MTL::Texture *_depthTexture{nullptr};
 };
 
 }

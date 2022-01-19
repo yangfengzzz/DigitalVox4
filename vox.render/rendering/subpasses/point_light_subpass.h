@@ -38,9 +38,9 @@ private:
     
     MeshPtr _icosahedronMesh;
     uint32_t _numLights;
-    MTL::Texture &_albedoTexture;
-    MTL::Texture &_normalTexture;
-    MTL::Texture &_depthTexture;
+    MTL::Texture *_albedoTexture{nullptr};
+    MTL::Texture *_normalTexture{nullptr};
+    MTL::Texture *_depthTexture{nullptr};
 };
 
 }

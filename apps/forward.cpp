@@ -82,7 +82,7 @@ bool Forward::prepare(Engine &engine) {
         _finalRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
         _finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
         _finalRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
-        _finalRenderPass = std::make_unique<RenderPass>(_device.get(), &_finalRenderPassDescriptor);
+        _finalRenderPass = std::make_unique<RenderPass>(_library, &_finalRenderPassDescriptor);
         _finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderContext.get(), _scene.get(), _camera));
     }
     

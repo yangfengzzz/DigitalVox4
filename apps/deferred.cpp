@@ -34,7 +34,7 @@ Deferred::~Deferred() {
 
 bool Deferred::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
-    MTL::Library shaderLibrary = makeShaderLibrary();
+    
     auto extent = engine.window().extent();
     _renderContext->resize(MTL::sizeMake(extent.width * 2, extent.height * 2, 0));
     _renderContext->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
@@ -128,9 +128,8 @@ bool Deferred::prepare(Engine &engine) {
         m_shadowRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
         m_shadowRenderPassDescriptor.depthAttachment.storeAction(MTL::StoreActionStore);
         m_shadowRenderPassDescriptor.depthAttachment.clearDepth(1.0);
-        m_shadowRenderPass = std::make_unique<RenderPass>(&m_shadowRenderPassDescriptor);
-        m_shadowRenderPass->addSubpass(std::make_unique<ShadowSubpass>(&m_shadowRenderPassDescriptor, _device.get(), _scene.get(), nullptr,
-                                                                       shaderLibrary));
+        m_shadowRenderPass = std::make_unique<RenderPass>(_library, &m_shadowRenderPassDescriptor);
+        m_shadowRenderPass->addSubpass(std::make_unique<ShadowSubpass>(_renderContext.get(), _scene.get(), nullptr));
     }
     
 #pragma mark GBuffer render pass descriptor setup
@@ -178,9 +177,9 @@ bool Deferred::prepare(Engine &engine) {
         m_GBufferRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
         m_GBufferRenderPassDescriptor.stencilAttachment.storeAction(MTL::StoreActionStore);
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
-        m_GBufferRenderPass = std::make_unique<RenderPass>(&m_GBufferRenderPassDescriptor);
-        m_GBufferRenderPass->addSubpass(std::make_unique<DeferredSubpass>(&m_GBufferRenderPassDescriptor, _device.get(), _scene.get(), nullptr,
-                                                                          shaderLibrary, &m_shadowRenderPassDescriptor));
+        m_GBufferRenderPass = std::make_unique<RenderPass>(_library, &m_GBufferRenderPassDescriptor);
+        m_GBufferRenderPass->addParentPass("shadowPass", m_shadowRenderPass.get());
+        m_GBufferRenderPass->addSubpass(std::make_unique<DeferredSubpass>(_renderContext.get(), _scene.get(), nullptr));
     }
     
 #pragma mark Compositor render pass descriptor setup
@@ -192,17 +191,13 @@ bool Deferred::prepare(Engine &engine) {
         m_finalRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
         m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
         m_finalRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
-        m_finalRenderPass = std::make_unique<RenderPass>(&m_finalRenderPassDescriptor);
-        m_finalRenderPass->addSubpass(std::make_unique<ComposeSubpass>(&m_finalRenderPassDescriptor, _device.get(), _scene.get(), nullptr,
-                                                                       shaderLibrary, MTL::PixelFormatBGRA8Unorm_sRGB,
-                                                                       &m_GBufferRenderPassDescriptor));
-        m_finalRenderPass->addSubpass(std::make_unique<PointLightSubpass>(&m_finalRenderPassDescriptor, _device.get(), _scene.get(), nullptr,
-                                                                          shaderLibrary, MTL::PixelFormatBGRA8Unorm_sRGB,
-                                                                          m_icosahedronMesh, &m_GBufferRenderPassDescriptor, NumLights));
-        m_finalRenderPass->addSubpass(std::make_unique<SkyboxSubpass>(&m_finalRenderPassDescriptor, _device.get(), _scene.get(), nullptr,
-                                                                      shaderLibrary, MTL::PixelFormatBGRA8Unorm_sRGB));
-        m_finalRenderPass->addSubpass(std::make_unique<ParticleSubpass>(&m_finalRenderPassDescriptor, _device.get(), _scene.get(), nullptr,
-                                                                        shaderLibrary, MTL::PixelFormatBGRA8Unorm_sRGB,
+        m_finalRenderPass = std::make_unique<RenderPass>(_library, &m_finalRenderPassDescriptor);
+        m_finalRenderPass->addParentPass("deferredPass", m_GBufferRenderPass.get());
+        m_finalRenderPass->addSubpass(std::make_unique<ComposeSubpass>(_renderContext.get(), _scene.get(), nullptr));
+        m_finalRenderPass->addSubpass(std::make_unique<PointLightSubpass>(_renderContext.get(), _scene.get(), nullptr,
+                                                                          m_icosahedronMesh, NumLights));
+        m_finalRenderPass->addSubpass(std::make_unique<SkyboxSubpass>(_renderContext.get(), _scene.get(), nullptr));
+        m_finalRenderPass->addSubpass(std::make_unique<ParticleSubpass>(_renderContext.get(), _scene.get(), nullptr,
                                                                         m_fairy, m_fairyMap, NumLights, NumFairyVertices));
     }
     framebufferResize(extent.width*2, extent.height*2);
