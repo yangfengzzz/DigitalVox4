@@ -28,6 +28,10 @@ public:
     void draw(MTL::CommandBuffer& commandBuffer,
               std::optional<std::string> label = std::nullopt);
     
+    MTL::Library& library();
+    
+    const MTL::RenderPassDescriptor* renderPassDescriptor();
+    
 public:
     /**
      * @brief Appends a subpass to the pipeline
@@ -42,21 +46,28 @@ public:
      *         if drawing has not started
      */
     std::unique_ptr<Subpass> &activeSubpass();
-
-    MTL::Library& library();
     
-    const MTL::RenderPassDescriptor* renderPassDescriptor();
-
+public:
+    void addParentPass(const std::string& name, RenderPass* pass);
+    
+    RenderPass* removeParentPass(const std::string& name);
+    
+    RenderPass* findPass(const std::string& name);
+    
+    void clearParentPass();
+    
 private:
     void makeShaderLibrary();
     
 private:
     MTL::RenderPassDescriptor* _desc{nullptr};
+    MTL::Library _library;
+    MTL::Device* _device{nullptr};
+    
     std::vector<std::unique_ptr<Subpass>> _subpasses;
     size_t _activeSubpassIndex{0};
     
-    MTL::Library _library;
-    MTL::Device* _device{nullptr};
+    std::unordered_map<std::string, RenderPass*> _parentPass;
 };
 
 }

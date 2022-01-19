@@ -406,6 +406,8 @@
 		044596DE2796FC1100F04CE0 /* metal_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445925A278E7C8600F04CE0 /* metal_application.cpp */; };
 		044596DF2797A00C00F04CE0 /* shadow_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F92791581900F04CE0 /* shadow_subpass.h */; };
 		044596E02797A00C00F04CE0 /* shadow_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F82791581900F04CE0 /* shadow_subpass.cpp */; };
+		044596E12797A21D00F04CE0 /* deferred_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593FD2791A58A00F04CE0 /* deferred_subpass.h */; };
+		044596E22797A21D00F04CE0 /* deferred_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593FC2791A58A00F04CE0 /* deferred_subpass.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1843,6 +1845,7 @@
 				044596642796F85C00F04CE0 /* shader_property.h in Headers */,
 				044596A82796FA8800F04CE0 /* mesh_renderer.h in Headers */,
 				044596BC2796FBE100F04CE0 /* box_character_controller.h in Headers */,
+				044596E12797A21D00F04CE0 /* deferred_subpass.h in Headers */,
 				044596252796EB1B00F04CE0 /* imconfig.h in Headers */,
 				044596A62796F99100F04CE0 /* scene_forward.h in Headers */,
 				044596272796EB1B00F04CE0 /* imgui.h in Headers */,
@@ -2263,6 +2266,7 @@
 				044596C22796FBE100F04CE0 /* joint.cpp in Sources */,
 				044596E02797A00C00F04CE0 /* shadow_subpass.cpp in Sources */,
 				044596722796F85C00F04CE0 /* shader_macro_collection.cpp in Sources */,
+				044596E22797A21D00F04CE0 /* deferred_subpass.cpp in Sources */,
 				044596912796F99100F04CE0 /* script.cpp in Sources */,
 				044596142796E9F900F04CE0 /* allocator.cc in Sources */,
 				044596122796E9C900F04CE0 /* align.cc in Sources */,

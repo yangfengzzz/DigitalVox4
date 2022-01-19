@@ -6,6 +6,7 @@
 
 #include "render_pass.h"
 #include "core/cpp_mtl_assert.h"
+#include <glog/logging.h>
 
 namespace vox {
 RenderPass::RenderPass(MTL::Device* device, MTL::RenderPassDescriptor* desc):
@@ -14,6 +15,27 @@ _desc(desc) {
     makeShaderLibrary();
 }
 
+const MTL::RenderPassDescriptor* RenderPass::renderPassDescriptor() {
+    return _desc;
+}
+
+MTL::Library& RenderPass::library() {
+    return _library;
+}
+
+void RenderPass::makeShaderLibrary() {
+    CFErrorRef error = nullptr;
+    CFURLRef libraryURL = nullptr;
+
+    libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
+    _library = _device->makeLibrary(libraryURL, &error);
+    
+    MTLAssert(!error, error, "Could not load Metal shader library");
+    
+    CFRelease(libraryURL);
+}
+
+//MARK: - Subpass
 void RenderPass::draw(MTL::CommandBuffer& commandBuffer,
                       std::optional<std::string> label) {
     assert(!_subpasses.empty() && "Render pipeline should contain at least one sub-pass");
@@ -43,24 +65,39 @@ std::unique_ptr<Subpass> &RenderPass::activeSubpass() {
     return _subpasses[_activeSubpassIndex];
 }
 
-void RenderPass::makeShaderLibrary() {
-    CFErrorRef error = nullptr;
-    CFURLRef libraryURL = nullptr;
-
-    libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
-    _library = _device->makeLibrary(libraryURL, &error);
-    
-    MTLAssert(!error, error, "Could not load Metal shader library");
-    
-    CFRelease(libraryURL);
+//MARK: - ParentPass
+void RenderPass::addParentPass(const std::string& name, RenderPass* pass) {
+    auto iter = _parentPass.find(name);
+    if (iter == _parentPass.end()) {
+        _parentPass[name] = pass;
+    } else {
+        LOG(WARNING) << "already exists\n";
+    }
 }
 
-MTL::Library& RenderPass::library() {
-    return _library;
+RenderPass* RenderPass::removeParentPass(const std::string& name) {
+    auto iter = _parentPass.find(name);
+    if (iter != _parentPass.end()) {
+        auto pass = iter->second;
+        _parentPass.erase(iter);
+        return pass;
+    } else {
+        LOG(WARNING) << "can't find pass\n";
+        return nullptr;
+    }
 }
 
-const MTL::RenderPassDescriptor* RenderPass::renderPassDescriptor() {
-    return _desc;
+RenderPass* RenderPass::findPass(const std::string& name) {
+    auto iter = _parentPass.find(name);
+    if (iter != _parentPass.end()) {
+        return iter->second;
+    } else {
+        return nullptr;
+    }
+}
+
+void RenderPass::clearParentPass() {
+    _parentPass.clear();
 }
 
 }

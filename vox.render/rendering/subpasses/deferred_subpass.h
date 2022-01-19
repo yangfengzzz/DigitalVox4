@@ -14,22 +14,21 @@
 namespace vox {
 class DeferredSubpass: public Subpass {
 public:
-    DeferredSubpass(MTL::RenderPassDescriptor* desc,
-                    MTL::Device* device,
+    DeferredSubpass(View* view,
                     Scene* scene,
-                    Camera* camera,
-                    MTL::Library& shaderLibrary,
-                    MTL::RenderPassDescriptor* shadowDesc);
+                    Camera* camera);
+    
+    void prepare() override;
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
-
+    
     MTL::RenderPipelineDescriptor _GBufferPipelineDescriptor;
     MTL::DepthStencilState _GBufferDepthStencilState;
     
-    MTL::RenderPassDescriptor* _shadowDesc;
+    MTL::Texture &_shadowMap;
 };
 
 }

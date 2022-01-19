@@ -5,6 +5,8 @@
 //  property of any third parties.
 
 #include "deferred_subpass.h"
+#include "rendering/render_pass.h"
+
 #include "material/material.h"
 
 #include "core/cpp_mtl_assert.h"
@@ -13,20 +15,22 @@
 #include "shader_types.h"
 
 namespace vox {
-DeferredSubpass::DeferredSubpass(MTL::RenderPassDescriptor* desc,
-                                 MTL::Device* device,
+DeferredSubpass::DeferredSubpass(View* view,
                                  Scene* scene,
-                                 Camera* camera,
-                                 MTL::Library& shaderLibrary,
-                                 MTL::RenderPassDescriptor* shadowDesc):
-Subpass(desc, device, scene, camera),
-_shadowDesc(shadowDesc) {
+                                 Camera* camera):
+Subpass(view, scene, camera),
+_shadowMap(*view->depthStencilTexture()) {
+}
+
+void DeferredSubpass::prepare() {
     CFErrorRef error = nullptr;
     
+    _shadowMap = _pass->findPass("shadowPass")->renderPassDescriptor()->depthAttachment.texture();
     {
-        MTL::Function GBufferVertexFunction = shaderLibrary.makeFunction("gbuffer_vertex");
-        MTL::Function GBufferFragmentFunction = shaderLibrary.makeFunction("gbuffer_fragment");
+        MTL::Function GBufferVertexFunction = _pass->library().makeFunction("gbuffer_vertex");
+        MTL::Function GBufferFragmentFunction = _pass->library().makeFunction("gbuffer_fragment");
         
+        const MTL::RenderPassDescriptor* desc = _pass->renderPassDescriptor();
         _GBufferPipelineDescriptor.label("G-buffer Creation");
         _GBufferPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(MTL::PixelFormatInvalid);
         _GBufferPipelineDescriptor.colorAttachments[RenderTargetAlbedo].pixelFormat(desc->colorAttachments[RenderTargetAlbedo].texture().pixelFormat());
@@ -60,19 +64,18 @@ _shadowDesc(shadowDesc) {
         depthStencilDesc.frontFaceStencil = stencilStateDesc;
         depthStencilDesc.backFaceStencil = stencilStateDesc;
         
-        _GBufferDepthStencilState = device->makeDepthStencilState(depthStencilDesc);
+        _GBufferDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
     }
 }
 
 void DeferredSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
-    
     commandEncoder.pushDebugGroup("Draw G-Buffer");
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setDepthStencilState(_GBufferDepthStencilState);
     commandEncoder.setStencilReferenceValue(128);
     commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
     commandEncoder.setFragmentBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    commandEncoder.setFragmentTexture(_shadowDesc->depthAttachment.texture(), TextureIndexShadow);
+    commandEncoder.setFragmentTexture(_shadowMap, TextureIndexShadow);
     
     drawMeshes(commandEncoder);
     commandEncoder.popDebugGroup();
@@ -98,7 +101,7 @@ void DeferredSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         // manully
         auto& mesh = element.mesh;
         _GBufferPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
-        auto m_GBufferPipelineState = _device->resourceCache().requestRenderPipelineState(_GBufferPipelineDescriptor);
+        auto m_GBufferPipelineState = _view->device().resourceCache().requestRenderPipelineState(_GBufferPipelineDescriptor);
         renderEncoder.setRenderPipelineState(m_GBufferPipelineState);
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),

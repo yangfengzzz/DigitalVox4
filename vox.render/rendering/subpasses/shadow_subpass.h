@@ -19,12 +19,12 @@ public:
                   Camera* camera);
     
     void prepare() override;
-
+    
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
-        
+    
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
-
+    
     MTL::RenderPipelineState _shadowGenPipelineState;
     MTL::DepthStencilState _shadowDepthStencilState;
 };
