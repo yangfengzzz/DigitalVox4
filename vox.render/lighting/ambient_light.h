@@ -40,6 +40,8 @@ class AmbientLight {
 public:
     AmbientLight(Scene *value);
     
+    void registerUploader(Scene *scene);
+    
     /**
      * Diffuse mode of ambient light.
      */

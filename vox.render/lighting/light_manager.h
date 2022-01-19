@@ -23,7 +23,9 @@ public:
     static constexpr uint32_t MAX_SHADOW = 10;
     static constexpr uint32_t MAX_CUBE_SHADOW = 5;
     
-    LightManager(Scene *scene);
+    LightManager();
+    
+    void registerUploader(Scene *scene);
     
     /**
      * Register a light object to the current scene.

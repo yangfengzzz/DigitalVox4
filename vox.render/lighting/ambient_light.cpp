@@ -25,7 +25,9 @@ _brdfTextureProperty(Shader::createProperty("u_env_brdfTexture", ShaderDataGroup
     _scene->shaderData.setData(AmbientLight::_envMapProperty, _envMapLight);
     // _scene->shaderData.setData(AmbientLight::_brdfTextureProperty,
     //                           value->engine()->resourceLoader()->createBRDFLookupTable());
-    
+}
+
+void AmbientLight::registerUploader(Scene *scene) {
     _scene->registerFragmentUploader<EnvMapLight>([](const EnvMapLight &x, size_t location,
                                                      MTL::RenderCommandEncoder& encoder) {
         encoder.setFragmentBytes(&x, sizeof(EnvMapLight), location);

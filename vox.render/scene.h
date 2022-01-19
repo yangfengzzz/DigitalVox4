@@ -150,8 +150,8 @@ private:
         };
     }
     
-    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>> _vertexUploader;
-    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>> _fragmentUploader;
+    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>> _vertexUploader{};
+    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>> _fragmentUploader{};
     
 private:
     void _processActive(bool active);

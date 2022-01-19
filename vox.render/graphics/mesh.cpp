@@ -15,9 +15,9 @@ Mesh::Mesh() {
 Mesh::Mesh(const std::vector<Submesh> &submeshes,
            const std::vector<MeshBuffer> &vertexBuffers,
            MTL::VertexDescriptor vertexDescriptor)
-: m_submeshes(submeshes),
-m_vertexBuffers(vertexBuffers),
-m_vertexDescriptor(vertexDescriptor) {
+: _submeshes(submeshes),
+_vertexBuffers(vertexBuffers),
+_vertexDescriptor(vertexDescriptor) {
     // Member initialization only
 }
 
@@ -25,9 +25,9 @@ m_vertexDescriptor(vertexDescriptor) {
 Mesh::Mesh(const Submesh &submesh,
            const std::vector<MeshBuffer> &vertexBuffers,
            MTL::VertexDescriptor vertexDescriptor)
-: m_vertexBuffers(vertexBuffers),
-m_vertexDescriptor(vertexDescriptor) {
-    m_submeshes.emplace_back(submesh);
+: _vertexBuffers(vertexBuffers),
+_vertexDescriptor(vertexDescriptor) {
+    _submeshes.emplace_back(submesh);
 }
 
 Mesh::~Mesh() {

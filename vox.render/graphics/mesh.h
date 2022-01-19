@@ -38,25 +38,26 @@ public:
     
     const MTL::VertexDescriptor& vertexDescriptor() const;
     
-private:
-    std::vector<Submesh> m_submeshes;
+protected:
+    std::vector<Submesh> _submeshes;
     
-    std::vector<MeshBuffer> m_vertexBuffers;
+    std::vector<MeshBuffer> _vertexBuffers;
     
-    MTL::VertexDescriptor m_vertexDescriptor;
+    MTL::VertexDescriptor _vertexDescriptor;
 };
+
 using MeshPtr = std::shared_ptr<Mesh>;
 
 inline const std::vector<Submesh> &Mesh::submeshes() const {
-    return m_submeshes;
+    return _submeshes;
 }
 
 inline const std::vector<MeshBuffer> &Mesh::vertexBuffers() const {
-    return m_vertexBuffers;
+    return _vertexBuffers;
 }
 
 inline const MTL::VertexDescriptor& Mesh::vertexDescriptor() const {
-    return m_vertexDescriptor;
+    return _vertexDescriptor;
 }
 
 

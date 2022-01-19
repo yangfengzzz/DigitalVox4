@@ -19,9 +19,7 @@
 namespace vox {
 Scene::Scene(std::string name) :
 name(name),
-_ambientLight(this),
-light_manager(this)
-{
+_ambientLight(this) {
     _vertexUploader = {
         toAnyUploader<int>([](const int &x, size_t location, MTL::RenderCommandEncoder& encoder) {
             encoder.setVertexBytes(&x, sizeof(int), location);
@@ -85,6 +83,8 @@ light_manager(this)
             encoder.setFragmentTexture(*x, location);
         }),
     };
+    _ambientLight.registerUploader(this);
+    light_manager.registerUploader(this);
 }
 
 const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>>&
