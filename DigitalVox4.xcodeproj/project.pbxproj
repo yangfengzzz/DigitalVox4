@@ -425,6 +425,9 @@
 		0445970F27981C3A00F04CE0 /* point_light.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445970D27981C3A00F04CE0 /* point_light.h */; };
 		0445971327981DF500F04CE0 /* spot_light.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445971127981DF500F04CE0 /* spot_light.h */; };
 		0445971727981E7D00F04CE0 /* direct_light.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445971527981E7D00F04CE0 /* direct_light.h */; };
+		0445971A27981EF500F04CE0 /* light_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971827981EF500F04CE0 /* light_manager.cpp */; };
+		0445971B27981EF500F04CE0 /* light_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445971927981EF500F04CE0 /* light_manager.h */; };
+		0445971D27982AC300F04CE0 /* direct_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971427981E7D00F04CE0 /* direct_light.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -986,6 +989,8 @@
 		0445971127981DF500F04CE0 /* spot_light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spot_light.h; sourceTree = "<group>"; };
 		0445971427981E7D00F04CE0 /* direct_light.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = direct_light.cpp; sourceTree = "<group>"; };
 		0445971527981E7D00F04CE0 /* direct_light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = direct_light.h; sourceTree = "<group>"; };
+		0445971827981EF500F04CE0 /* light_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = light_manager.cpp; sourceTree = "<group>"; };
+		0445971927981EF500F04CE0 /* light_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = light_manager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1801,6 +1806,8 @@
 		04459706279819A300F04CE0 /* lighting */ = {
 			isa = PBXGroup;
 			children = (
+				0445971927981EF500F04CE0 /* light_manager.h */,
+				0445971827981EF500F04CE0 /* light_manager.cpp */,
 				04459709279819D000F04CE0 /* light.h */,
 				04459708279819D000F04CE0 /* light.cpp */,
 				0445970D27981C3A00F04CE0 /* point_light.h */,
@@ -1942,6 +1949,7 @@
 				044595E62796E88600F04CE0 /* cpp_mtl_command_encoder.h in Headers */,
 				044596C42796FBE100F04CE0 /* physics_manager.h in Headers */,
 				044596FD279811B900F04CE0 /* point_light_subpass.h in Headers */,
+				0445971B27981EF500F04CE0 /* light_manager.h in Headers */,
 				044596662796F85C00F04CE0 /* shader.h in Headers */,
 				044596652796F85C00F04CE0 /* shader_macro_collection.h in Headers */,
 				044595DB2796DE3B00F04CE0 /* input_events.h in Headers */,
@@ -2298,6 +2306,7 @@
 				044596FF2798127C00F04CE0 /* skybox_subpass.cpp in Sources */,
 				0445962E2796EB4900F04CE0 /* engine.cpp in Sources */,
 				0445969E2796F99100F04CE0 /* entity.cpp in Sources */,
+				0445971A27981EF500F04CE0 /* light_manager.cpp in Sources */,
 				0445964A2796EF9500F04CE0 /* math_utilities.cpp in Sources */,
 				044596682796F85C00F04CE0 /* depth_state.cpp in Sources */,
 				0445967F2796F87C00F04CE0 /* material.cpp in Sources */,
@@ -2339,6 +2348,7 @@
 				044595F42796E88600F04CE0 /* cpp_mtl_library.mm in Sources */,
 				044596392796EE4F00F04CE0 /* primitive_mesh.cpp in Sources */,
 				044596FB2798115200F04CE0 /* compose_subpass.cpp in Sources */,
+				0445971D27982AC300F04CE0 /* direct_light.cpp in Sources */,
 				0445969D2796F99100F04CE0 /* renderer.cpp in Sources */,
 				044595F92796E88600F04CE0 /* cpp_mtl_render_command_encoder_dispatch_table.mm in Sources */,
 				044595D72796DBED00F04CE0 /* window.cpp in Sources */,

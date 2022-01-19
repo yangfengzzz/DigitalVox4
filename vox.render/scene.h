@@ -17,10 +17,9 @@
 #include "scene_forward.h"
 #include "components_manager.h"
 #include "physics/physics_manager.h"
+#include "lighting/light_manager.h"
 #include "shader/shader_data.h"
 #include "background.h"
-//#include "scene_graph/components/light.h"
-//#include "scene_graph/components/texture.h"
 
 namespace vox {
 /// @brief A collection of entities organized in a tree structure.
@@ -40,7 +39,7 @@ public:
     ShaderData shaderData = ShaderData();
     
     /** Light Manager */
-//    LightManager light_manager;
+    LightManager light_manager;
     
     /**
      * Create scene.

@@ -18,9 +18,9 @@
 
 namespace vox {
 Scene::Scene(std::string name) :
-name(name)
+name(name),
 //_ambientLight(this),
-//light_manager(this)
+light_manager(this)
 {
     _vertexUploader = {
         toAnyUploader<int>([](const int &x, size_t location, MTL::RenderCommandEncoder& encoder) {
