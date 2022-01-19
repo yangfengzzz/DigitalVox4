@@ -14,12 +14,22 @@
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
+#include <glog/logging.h>
+
 namespace vox {
 DeferredSubpass::DeferredSubpass(View* view,
                                  Scene* scene,
                                  Camera* camera):
 Subpass(view, scene, camera),
 _shadowMap(*view->depthStencilTexture()) {
+}
+
+void DeferredSubpass::setRenderPass(RenderPass* pass) {
+    if (pass->findPass("shadowPass")) {
+        Subpass::setRenderPass(pass);
+    } else {
+        LOG(ERROR) << "depend on shadowPass";
+    }
 }
 
 void DeferredSubpass::prepare() {

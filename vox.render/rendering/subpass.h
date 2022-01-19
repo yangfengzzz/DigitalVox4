@@ -40,7 +40,7 @@ public:
      */
     virtual void draw(MTL::RenderCommandEncoder& commandEncoder) = 0;
     
-    void setRenderPass(RenderPass* pass);
+    virtual void setRenderPass(RenderPass* pass);
     
 protected:
     RenderPass* _pass{nullptr};

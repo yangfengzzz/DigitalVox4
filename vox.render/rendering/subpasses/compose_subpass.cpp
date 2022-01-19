@@ -12,6 +12,8 @@
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
+#include <glog/logging.h>
+
 namespace vox {
 ComposeSubpass::ComposeSubpass(View* view,
                                Scene* scene,
@@ -20,6 +22,14 @@ Subpass(view, scene, camera),
 _albedoTexture(*view->depthStencilTexture()),
 _normalTexture(*view->depthStencilTexture()),
 _depthTexture(*view->depthStencilTexture()){
+}
+
+void ComposeSubpass::setRenderPass(RenderPass* pass) {
+    if (pass->findPass("deferredPass")) {
+        Subpass::setRenderPass(pass);
+    } else {
+        LOG(ERROR) << "depend on deferredPass";
+    }
 }
 
 void ComposeSubpass::prepare() {

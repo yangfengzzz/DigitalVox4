@@ -20,6 +20,8 @@ public:
 
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
+    void setRenderPass(RenderPass* pass) override;
+    
 private:
     MTL::RenderPipelineState _directionalLightPipelineState;
     MTL::DepthStencilState _directionLightDepthStencilState;

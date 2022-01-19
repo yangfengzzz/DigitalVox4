@@ -23,6 +23,8 @@ public:
 
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
+    void setRenderPass(RenderPass* pass) override;
+    
 private:
     void drawPointLightMask(MTL::RenderCommandEncoder &commandEncoder);
     
