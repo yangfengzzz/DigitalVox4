@@ -34,8 +34,6 @@ public:
     
 private:
     void loadScene();
-    // Vertex descriptor for models loaded with MetalKit
-    MTL::VertexDescriptor _defaultVertexDescriptor;
     
     Camera* _camera{nullptr};
     control::OrbitControl* _controller{nullptr};

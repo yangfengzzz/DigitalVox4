@@ -61,42 +61,7 @@ bool Deferred::prepare(Engine &engine) {
         m_shadowProjectionMatrix = matrix_ortho_left_hand(-53, 53, -33, 53, -53, 53);
     }
     
-    {
-        // Positions.
-        m_defaultVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
-        m_defaultVertexDescriptor.attributes[VertexAttributePosition].offset(0);
-        m_defaultVertexDescriptor.attributes[VertexAttributePosition].bufferIndex(BufferIndexMeshPositions);
-        
-        // Texture coordinates.
-        m_defaultVertexDescriptor.attributes[VertexAttributeTexcoord].format(MTL::VertexFormatFloat2);
-        m_defaultVertexDescriptor.attributes[VertexAttributeTexcoord].offset(0);
-        m_defaultVertexDescriptor.attributes[VertexAttributeTexcoord].bufferIndex(BufferIndexMeshGenerics);
-        
-        // Normals.
-        m_defaultVertexDescriptor.attributes[VertexAttributeNormal].format(MTL::VertexFormatHalf4);
-        m_defaultVertexDescriptor.attributes[VertexAttributeNormal].offset(8);
-        m_defaultVertexDescriptor.attributes[VertexAttributeNormal].bufferIndex(BufferIndexMeshGenerics);
-        
-        // Tangents
-        m_defaultVertexDescriptor.attributes[VertexAttributeTangent].format(MTL::VertexFormatHalf4);
-        m_defaultVertexDescriptor.attributes[VertexAttributeTangent].offset(16);
-        m_defaultVertexDescriptor.attributes[VertexAttributeTangent].bufferIndex(BufferIndexMeshGenerics);
-        
-        // Bitangents
-        m_defaultVertexDescriptor.attributes[VertexAttributeBitangent].format(MTL::VertexFormatHalf4);
-        m_defaultVertexDescriptor.attributes[VertexAttributeBitangent].offset(24);
-        m_defaultVertexDescriptor.attributes[VertexAttributeBitangent].bufferIndex(BufferIndexMeshGenerics);
-        
-        // Position Buffer Layout
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stride(12);
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepRate(1);
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepFunction(MTL::VertexStepFunctionPerVertex);
-        
-        // Generic Attribute Buffer Layout
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stride(32);
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepRate(1);
-        m_defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepFunction(MTL::VertexStepFunctionPerVertex);
-        
+    {        
         m_skyVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
         m_skyVertexDescriptor.attributes[VertexAttributePosition].offset(0);
         m_skyVertexDescriptor.attributes[VertexAttributePosition].bufferIndex(BufferIndexMeshPositions);
@@ -453,8 +418,8 @@ void Deferred::updateLights(const float4x4 &modelViewMatrix) {
 
 /// Load models/textures, etc.
 void Deferred::loadScene() {
-    newMeshesFromBundlePath("../assets/Models", "Temple.obj",
-                            *_device, _scene.get()->createRootEntity(), m_defaultVertexDescriptor);
+    MeshLoader loader(_device.get());
+    loader.loadMesh("../assets/Models", "Temple.obj", _scene.get()->createRootEntity());
     
     // Generate data
     {

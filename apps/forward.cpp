@@ -29,42 +29,7 @@ Forward::~Forward() {
 
 bool Forward::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
-    {
-        // Positions.
-        _defaultVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
-        _defaultVertexDescriptor.attributes[VertexAttributePosition].offset(0);
-        _defaultVertexDescriptor.attributes[VertexAttributePosition].bufferIndex(BufferIndexMeshPositions);
-        
-        // Texture coordinates.
-        _defaultVertexDescriptor.attributes[VertexAttributeTexcoord].format(MTL::VertexFormatFloat2);
-        _defaultVertexDescriptor.attributes[VertexAttributeTexcoord].offset(0);
-        _defaultVertexDescriptor.attributes[VertexAttributeTexcoord].bufferIndex(BufferIndexMeshGenerics);
-        
-        // Normals.
-        _defaultVertexDescriptor.attributes[VertexAttributeNormal].format(MTL::VertexFormatHalf4);
-        _defaultVertexDescriptor.attributes[VertexAttributeNormal].offset(8);
-        _defaultVertexDescriptor.attributes[VertexAttributeNormal].bufferIndex(BufferIndexMeshGenerics);
-        
-        // Tangents
-        _defaultVertexDescriptor.attributes[VertexAttributeTangent].format(MTL::VertexFormatHalf4);
-        _defaultVertexDescriptor.attributes[VertexAttributeTangent].offset(16);
-        _defaultVertexDescriptor.attributes[VertexAttributeTangent].bufferIndex(BufferIndexMeshGenerics);
-        
-        // Bitangents
-        _defaultVertexDescriptor.attributes[VertexAttributeBitangent].format(MTL::VertexFormatHalf4);
-        _defaultVertexDescriptor.attributes[VertexAttributeBitangent].offset(24);
-        _defaultVertexDescriptor.attributes[VertexAttributeBitangent].bufferIndex(BufferIndexMeshGenerics);
-        
-        // Position Buffer Layout
-        _defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stride(12);
-        _defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepRate(1);
-        _defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepFunction(MTL::VertexStepFunctionPerVertex);
-        
-        // Generic Attribute Buffer Layout
-        _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stride(32);
-        _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepRate(1);
-        _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepFunction(MTL::VertexStepFunctionPerVertex);
-    }
+
     loadScene();
     auto extent = engine.window().extent();
     _camera->resize(extent.width*2, extent.height*2);
@@ -92,8 +57,9 @@ bool Forward::prepare(Engine &engine) {
 void Forward::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     auto modelEntity = rootEntity->createChild();
-    newMeshesFromBundlePath("../assets/Models", "Temple.obj",
-                            *_device, modelEntity, _defaultVertexDescriptor);
+    
+    MeshLoader loader(_device.get());
+    loader.loadMesh("../assets/Models", "Temple.obj", modelEntity);
     modelEntity->transform->setPosition(0, 10, 0);
     modelEntity->transform->setScale(0.1, 0.1, 0.1);
     

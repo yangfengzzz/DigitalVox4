@@ -257,15 +257,51 @@ void createMeshesFromModelIOObject(EntityPtr entity,
 } // namespace
 
 //MARK: - Entry
-void newMeshesFromBundlePath(const char *bundlePath,
-                             const char *meshFile,
-                             MTL::Device &device,
-                             EntityPtr entity,
-                             const MTL::VertexDescriptor &vertexDescriptor) {
+MeshLoader::MeshLoader(MTL::Device *device):
+_device(device) {
+    // Positions.
+    _defaultVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
+    _defaultVertexDescriptor.attributes[VertexAttributePosition].offset(0);
+    _defaultVertexDescriptor.attributes[VertexAttributePosition].bufferIndex(BufferIndexMeshPositions);
+    
+    // Texture coordinates.
+    _defaultVertexDescriptor.attributes[VertexAttributeTexcoord].format(MTL::VertexFormatFloat2);
+    _defaultVertexDescriptor.attributes[VertexAttributeTexcoord].offset(0);
+    _defaultVertexDescriptor.attributes[VertexAttributeTexcoord].bufferIndex(BufferIndexMeshGenerics);
+    
+    // Normals.
+    _defaultVertexDescriptor.attributes[VertexAttributeNormal].format(MTL::VertexFormatHalf4);
+    _defaultVertexDescriptor.attributes[VertexAttributeNormal].offset(8);
+    _defaultVertexDescriptor.attributes[VertexAttributeNormal].bufferIndex(BufferIndexMeshGenerics);
+    
+    // Tangents
+    _defaultVertexDescriptor.attributes[VertexAttributeTangent].format(MTL::VertexFormatHalf4);
+    _defaultVertexDescriptor.attributes[VertexAttributeTangent].offset(16);
+    _defaultVertexDescriptor.attributes[VertexAttributeTangent].bufferIndex(BufferIndexMeshGenerics);
+    
+    // Bitangents
+    _defaultVertexDescriptor.attributes[VertexAttributeBitangent].format(MTL::VertexFormatHalf4);
+    _defaultVertexDescriptor.attributes[VertexAttributeBitangent].offset(24);
+    _defaultVertexDescriptor.attributes[VertexAttributeBitangent].bufferIndex(BufferIndexMeshGenerics);
+    
+    // Position Buffer Layout
+    _defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stride(12);
+    _defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepRate(1);
+    _defaultVertexDescriptor.layouts[BufferIndexMeshPositions].stepFunction(MTL::VertexStepFunctionPerVertex);
+    
+    // Generic Attribute Buffer Layout
+    _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stride(32);
+    _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepRate(1);
+    _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepFunction(MTL::VertexStepFunctionPerVertex);
+}
+
+void MeshLoader::loadMesh(const char *bundlePath,
+                          const char *meshFile,
+                          EntityPtr entity) {
     // Create a ModelIO vertexDescriptor so that the format/layout of the ModelIO mesh vertices
     //   cah be made to match Metal render pipeline's vertex descriptor layout
     MDLVertexDescriptor *modelIOVertexDescriptor =
-    MTKModelIOVertexDescriptorFromMetal(vertexDescriptor.objCObj());
+    MTKModelIOVertexDescriptorFromMetal(_defaultVertexDescriptor.objCObj());
     
     // Indicate how each Metal vertex descriptor attribute maps to each ModelIO attribute
     modelIOVertexDescriptor.attributes[VertexAttributePosition].name = MDLVertexAttributePosition;
@@ -283,7 +319,7 @@ void newMeshesFromBundlePath(const char *bundlePath,
     // Create a MetalKit mesh buffer allocator so that ModelIO will load mesh data directly into
     // Metal buffers accessible by the GPU
     MTKMeshBufferAllocator *bufferAllocator =
-    [[MTKMeshBufferAllocator alloc] initWithDevice:device.objCObj()];
+    [[MTKMeshBufferAllocator alloc] initWithDevice:_device->objCObj()];
     
     // Use ModelIO to load the model file at the URL.  This returns a ModelIO asset object, which
     // contains a hierarchy of ModelIO objects composing a "scene" described by the model file.
@@ -297,7 +333,7 @@ void newMeshesFromBundlePath(const char *bundlePath,
     
     // Create a MetalKit texture loader to load material textures from files or the asset catalog
     //   into Metal textures
-    TextureLoader textureLoader(device);
+    TextureLoader textureLoader(*_device);
     NSError *nserror;
     
     // Traverse the ModelIO asset hierarchy to find ModelIO meshes and create app-specific
@@ -306,7 +342,7 @@ void newMeshesFromBundlePath(const char *bundlePath,
         createMeshesFromModelIOObject(entity, object,
                                       modelIOVertexDescriptor,
                                       textureLoader,
-                                      device,
+                                      *_device,
                                       &nserror);
     }
     

@@ -12,11 +12,22 @@
 #include "core/cpp_mtl.h"
 
 namespace vox {
-void newMeshesFromBundlePath(const char *bundlePath,
-                             const char *meshFile,
-                             MTL::Device &device,
-                             EntityPtr entity,
-                             const MTL::VertexDescriptor &vertexDescriptor);
+class MeshLoader {
+public:
+    MeshLoader() = delete;
+    
+    explicit MeshLoader(MTL::Device* device);
+    
+    void loadMesh(const char *bundlePath,
+                  const char *meshFile,
+                  EntityPtr entity);
+    
+private:
+    MTL::VertexDescriptor _defaultVertexDescriptor;
+    MTL::Device *_device{nullptr};
+};
+
+
 }
 
 #endif // Mesh_h

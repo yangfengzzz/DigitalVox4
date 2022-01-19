@@ -105,15 +105,6 @@ public:
     
     virtual void finish() override;
     
-    /**
-     * @brief Loads the scene
-     *
-     * @param path The path of the glTF file
-     */
-    void loadScene(const std::string &path);
-    
-    bool hasScene();
-    
 private:
     MTL::Library makeShaderLibrary();
     
@@ -141,24 +132,6 @@ protected:
      * @brief Holds all scene information
      */
     std::unique_ptr<Scene> _scene{nullptr};
-    
-    /**
-     * @brief Update scene
-     * @param deltaTime delta_time
-     */
-    void updateScene(float deltaTime);
-    
-    /**
-     * @brief Update counter values
-     * @param deltaTime delta_time
-     */
-    void updateStats(float deltaTime);
-    
-    /**
-     * @brief Update GUI
-     * @param deltaTime delta_time
-     */
-    void updateGui(float deltaTime);
 };
 
 }        // namespace vox

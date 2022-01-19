@@ -62,8 +62,6 @@ private:
     void populateLights();
     
     // Vertex descriptor for models loaded with MetalKit
-    MTL::VertexDescriptor m_defaultVertexDescriptor;
-    // Vertex descriptor for models loaded with MetalKit
     MTL::VertexDescriptor m_skyVertexDescriptor;
     
     // Array of meshes loaded from the model file
