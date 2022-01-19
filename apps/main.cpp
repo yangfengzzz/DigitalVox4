@@ -15,8 +15,8 @@ int main(int argc, char * argv[]) {
         
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::BasicDeferredApp>());
-//        engine.setApp(std::make_unique<vox::BasicApp>());
+//        engine.setApp(std::make_unique<vox::BasicDeferredApp>());
+        engine.setApp(std::make_unique<vox::BasicApp>());
         code = engine.mainLoop();
     }
     

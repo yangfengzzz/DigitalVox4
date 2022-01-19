@@ -15,11 +15,10 @@
 #include "cpp_mtl_vertex_descriptor.h"
 #include "cpp_mtl_library.h"
 #include "cpp_mtl_types.h"
-
+#include "shader/shader_uniform.h"
+#include "shader/shader_data_group.h"
 
 namespace MTL {
-
-
 typedef enum {
     BlendFactorZero = 0,
     BlendFactorOne = 1,
@@ -240,6 +239,11 @@ class Device;
 
 class RenderPipelineState {
 public:
+    std::vector<vox::ShaderUniform> sceneUniformBlock{};
+    std::vector<vox::ShaderUniform> cameraUniformBlock{};
+    std::vector<vox::ShaderUniform> rendererUniformBlock{};
+    std::vector<vox::ShaderUniform> materialUniformBlock{};
+    std::vector<vox::ShaderUniform> internalUniformBlock{};
     
     RenderPipelineState();
     
@@ -260,17 +264,24 @@ public:
     const Device* device() const;
     
 private:
+    /**
+     * record the location of uniform/attribute.
+     */
+    void _recordVertexLocation(cpp_mtl_internal::RenderPipelineReflection reflection);
+    
+    void _groupingUniform(const vox::ShaderUniform &uniform,
+                          const std::optional<vox::ShaderDataGroup> &group);
     
     cpp_mtl_internal::RenderPipelineState m_objCObj;
     
     Device *m_device;
     
 public: // Public methods for cpp_mtl_ internal implementation
-    
-    RenderPipelineState(cpp_mtl_internal::RenderPipelineState objCObj, Device &device);
+    RenderPipelineState(cpp_mtl_internal::RenderPipelineState objCObj,
+                        cpp_mtl_internal::RenderPipelineReflection reflection,
+                        Device &device);
     
     cpp_mtl_internal::RenderPipelineState objCObj() const;
-    
 };
 
 #pragma mark - RenderPipelineColorAttachmentDescriptor inline implementations

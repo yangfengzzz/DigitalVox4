@@ -137,6 +137,7 @@ CPP_METAL_CLASS_ALIAS( VertexBufferLayoutDescriptorArray );
 CPP_METAL_CLASS_ALIAS( VertexAttributeDescriptorArray );
 CPP_METAL_CLASS_ALIAS( VertexDescriptor );
 CPP_METAL_CLASS_ALIAS( FunctionConstantValues );
+CPP_METAL_CLASS_ALIAS( RenderPipelineReflection );
 
 CPP_METALKIT_CLASS_ALIAS( TextureLoader );
 CPP_CoreAnimation_CLASS_ALIAS(MetalLayer);

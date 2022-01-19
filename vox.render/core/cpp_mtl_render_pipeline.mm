@@ -9,6 +9,7 @@
 #include "cpp_mtl_library.h"
 #include "cpp_mtl_device.h"
 #include "cpp_mtl_internal_macros.h"
+#include "shader/shader.h"
 
 using namespace MTL;
 
@@ -266,8 +267,76 @@ bool RenderPipelineDescriptor::operator==(const RenderPipelineDescriptor &rhs) c
 
 
 #pragma mark - RenderPipelineState
+RenderPipelineState::RenderPipelineState(cpp_mtl_internal::RenderPipelineState objCObj,
+                                         cpp_mtl_internal::RenderPipelineReflection reflection,
+                                         Device & device)
+: m_objCObj(objCObj)
+, m_device(&device)
+{
+    assert([m_device->objCObj() isEqual:m_objCObj.device]);
+    _recordVertexLocation(reflection);
+}
 
-CPP_METAL_CONSTRUCTOR_IMPLEMENTATION(RenderPipelineState);
+void RenderPipelineState::_recordVertexLocation(cpp_mtl_internal::RenderPipelineReflection reflection) {
+    auto count = [[reflection vertexArguments] count];
+    if (count != 0) {
+        for (size_t i = 0; i < count; i++) {
+            const auto &aug = [reflection vertexArguments][i];
+            const auto name = [aug.name cStringUsingEncoding:NSUTF8StringEncoding];
+            const auto location = aug.index;
+            const auto group = vox::Shader::getShaderPropertyGroup(name);
+            
+            vox::ShaderUniform shaderUniform;
+            shaderUniform.name = name;
+            shaderUniform.propertyId = vox::Shader::getPropertyByName(name)->uniqueId;
+            shaderUniform.location = location;
+            shaderUniform.type = MTL::FunctionTypeVertex;
+            _groupingUniform(shaderUniform, group);
+        }
+    }
+    
+    count = [[reflection fragmentArguments] count];
+    if (count != 0) {
+        for (size_t i = 0; i < count; i++) {
+            const auto &aug = [reflection fragmentArguments][i];
+            const auto name = [aug.name cStringUsingEncoding:NSUTF8StringEncoding];
+            const auto location = aug.index;
+            const auto group = vox::Shader::getShaderPropertyGroup(name);
+            
+            vox::ShaderUniform shaderUniform;
+            shaderUniform.name = name;
+            shaderUniform.propertyId = vox::Shader::getPropertyByName(name)->uniqueId;
+            shaderUniform.location = location;
+            shaderUniform.type = MTL::FunctionTypeFragment;
+            _groupingUniform(shaderUniform, group);
+        }
+    }
+}
+
+void RenderPipelineState::_groupingUniform(const vox::ShaderUniform &uniform,
+                                           const std::optional<vox::ShaderDataGroup> &group) {
+    if (group != std::nullopt) {
+        switch (group.value()) {
+            case vox::ShaderDataGroup::Scene:
+                sceneUniformBlock.push_back(uniform);
+                break;
+            case vox::ShaderDataGroup::Camera:
+                cameraUniformBlock.push_back(uniform);
+                break;
+            case vox::ShaderDataGroup::Renderer:
+                rendererUniformBlock.push_back(uniform);
+                break;
+            case vox::ShaderDataGroup::Material:
+                materialUniformBlock.push_back(uniform);
+                break;
+            case vox::ShaderDataGroup::Internal:
+                internalUniformBlock.push_back(uniform);
+                break;
+        }
+    } else {
+        // std::cerr << "Unknown uniform group" << std::endl;
+    }
+}
 
 CPP_METAL_NULL_REFERENCE_CONSTRUCTOR_IMPLEMENATATION(RenderPipelineState);
 

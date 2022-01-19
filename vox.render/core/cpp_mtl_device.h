@@ -88,11 +88,9 @@ public:
     
     Library makeLibrary(const CFURLRef URL, CFErrorRef *error = nullptr);
     
-    RenderPipelineState *newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor &descriptor,
-                                                              CFErrorRef *error = nullptr);
+    RenderPipelineState *newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor &descriptor);
     
-    RenderPipelineState makeRenderPipelineState(const RenderPipelineDescriptor &descriptor,
-                                                CFErrorRef *error = nullptr);
+    RenderPipelineState makeRenderPipelineState(const RenderPipelineDescriptor &descriptor);
     
     DepthStencilState *newDepthStencilStateWithDescriptor(const DepthStencilDescriptor &descriptor);
     

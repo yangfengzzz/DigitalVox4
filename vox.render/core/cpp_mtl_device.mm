@@ -179,39 +179,41 @@ Library Device::makeLibrary(const CFURLRef URL, CFErrorRef *error) {
     return Library(objCObj, *this);
 }
 
-RenderPipelineState *Device::newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor &descriptor,
-                                                                  CFErrorRef *error) {
+RenderPipelineState *Device::newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor &descriptor) {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
     
-    NSError *nserror;
+    MTLRenderPipelineReflection *_reflection;
+    NSError *error;
     const id <MTLRenderPipelineState> objCObj = [m_objCObj newRenderPipelineStateWithDescriptor:descriptor.objCObj()
-                                                                                          error:&nserror];
+                                                                                        options:MTLPipelineOptionArgumentInfo
+                                                                                     reflection:&_reflection error:&error];
     if (!objCObj) {
         if (error) {
-            *error = (__bridge CFErrorRef) nserror;
+            NSLog(@"Error: failed to create Metal pipeline state: %@", error);
         }
         return nullptr;
     }
     
-    RenderPipelineState *pipeline = construct<RenderPipelineState>(allocator(), objCObj, *this);
+    RenderPipelineState *pipeline = construct<RenderPipelineState>(allocator(), objCObj, _reflection, *this);
     
     return pipeline;
 }
 
-RenderPipelineState Device::makeRenderPipelineState(const RenderPipelineDescriptor &descriptor,
-                                                    CFErrorRef *error) {
+RenderPipelineState Device::makeRenderPipelineState(const RenderPipelineDescriptor &descriptor) {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
-    
-    NSError *nserror;
+    MTLRenderPipelineReflection *_reflection;
+    NSError *error;
     const id <MTLRenderPipelineState> objCObj = [m_objCObj newRenderPipelineStateWithDescriptor:descriptor.objCObj()
-                                                                                          error:&nserror];
+                                                                                        options:MTLPipelineOptionArgumentInfo
+                                                                                     reflection:&_reflection error:&error];
+    
     if (!objCObj) {
         if (error) {
-            *error = (__bridge CFErrorRef) nserror;
+            NSLog(@"Error: failed to create Metal pipeline state: %@", error);
         }
     }
     
-    return RenderPipelineState(objCObj, *this);
+    return RenderPipelineState(objCObj, _reflection, *this);
 }
 
 DepthStencilState *Device::newDepthStencilStateWithDescriptor(const DepthStencilDescriptor &descriptor) {

@@ -7,6 +7,7 @@
 #ifndef shaderData_group_h
 #define shaderData_group_h
 
+namespace vox {
 /**
  * Shader data grouping.
  */
@@ -22,5 +23,7 @@ enum class ShaderDataGroup {
     /** internal group. */
     Internal
 };
+
+}
 
 #endif /* shaderData_group_h */
