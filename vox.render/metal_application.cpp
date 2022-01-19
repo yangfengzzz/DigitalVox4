@@ -29,7 +29,13 @@ bool MetalApplication::prepare(Engine &engine) {
     
     _commandQueue = _device->makeCommandQueue();
 
+    auto extent = engine.window().extent();
+
     _renderView = engine.createRenderView(*_device);
+    _renderView->resize(MTL::sizeMake(extent.width * 2, extent.height * 2, 0));
+    _renderView->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
+    _renderView->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
+    
     _scene = std::make_unique<Scene>();
     return true;
 }
@@ -54,7 +60,6 @@ void MetalApplication::framebufferResize(uint32_t width, uint32_t height) {
 void MetalApplication::inputEvent(const InputEvent &inputEvent) {}
 
 void MetalApplication::finish() {}
-
 
 MTL::Library MetalApplication::makeShaderLibrary() {
     CFErrorRef error = nullptr;

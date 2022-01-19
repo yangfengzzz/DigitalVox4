@@ -9,14 +9,13 @@
 #define forward_hpp
 
 #include "metal_application.h"
-#include "controls/orbit_control.h"
 
 namespace vox {
-class Forward: public MetalApplication {
+class ForwardApplication: public MetalApplication {
 public:
-    Forward() = default;
+    ForwardApplication() = default;
     
-    virtual ~Forward();
+    virtual ~ForwardApplication();
     
     /**
      * @brief Additional sample initialization
@@ -27,17 +26,15 @@ public:
      * @brief Main loop sample events
      */
     virtual void update(float delta_time) override;
-    
-    virtual void inputEvent(const InputEvent &inputEvent) override;
-    
+        
     virtual void framebufferResize(uint32_t width, uint32_t height) override;
     
+    virtual void loadScene(uint32_t width, uint32_t height) = 0;
+    
+protected:
+    Camera* _mainCamera{nullptr};
+    
 private:
-    void loadScene();
-    
-    Camera* _camera{nullptr};
-    control::OrbitControl* _controller{nullptr};
-    
     MTL::RenderPassDescriptor _finalRenderPassDescriptor;
     std::unique_ptr<RenderPass> _finalRenderPass{nullptr};
 };

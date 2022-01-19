@@ -8,7 +8,7 @@
 #include "unix_engine.h"
 #include "engine.h"
 #include "deferred.h"
-#include "forward.h"
+#include "basic_app.h"
 
 int main(int argc, char * argv[]) {
     vox::UnixEngine engine{vox::UnixType::Mac, argc, argv};
@@ -16,7 +16,7 @@ int main(int argc, char * argv[]) {
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
 //        engine.setApp(std::make_unique<vox::Deferred>());
-        engine.setApp(std::make_unique<vox::Forward>());
+        engine.setApp(std::make_unique<vox::BasicApp>());
         code = engine.mainLoop();
     }
     

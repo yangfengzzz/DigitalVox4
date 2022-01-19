@@ -45,7 +45,6 @@
 		044593D22790081300F04CE0 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D12790081200F04CE0 /* MetalKit.framework */; };
 		044593D42790082600F04CE0 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D32790082600F04CE0 /* ModelIO.framework */; };
 		0445942D279397C500F04CE0 /* forward.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445942C279397C500F04CE0 /* forward.metal */; };
-		044594302793A5D800F04CE0 /* forward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942E2793A5D800F04CE0 /* forward.cpp */; };
 		044594592793B58800F04CE0 /* matrix2x2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594312793B58400F04CE0 /* matrix2x2.h */; };
 		0445945A2793B58800F04CE0 /* matrix4x4-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594322793B58400F04CE0 /* matrix4x4-inl.h */; };
 		0445945B2793B58800F04CE0 /* point.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594332793B58400F04CE0 /* point.h */; };
@@ -417,6 +416,8 @@
 		044596E92797AEF300F04CE0 /* particle_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445940D2792545E00F04CE0 /* particle_subpass.cpp */; };
 		044596EA2797AEF600F04CE0 /* particle_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940E2792545E00F04CE0 /* particle_subpass.h */; };
 		044596EC2797B31B00F04CE0 /* deferred.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593EC2791213E00F04CE0 /* deferred.cpp */; };
+		044596ED2797DF7400F04CE0 /* forward_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942E2793A5D800F04CE0 /* forward_application.cpp */; };
+		044596F02797DFD100F04CE0 /* basic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044596EE2797DFD100F04CE0 /* basic_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -807,8 +808,8 @@
 		044594282793134C00F04CE0 /* forward_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = forward_subpass.cpp; sourceTree = "<group>"; };
 		044594292793134C00F04CE0 /* forward_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forward_subpass.h; sourceTree = "<group>"; };
 		0445942C279397C500F04CE0 /* forward.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = forward.metal; sourceTree = "<group>"; };
-		0445942E2793A5D800F04CE0 /* forward.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = forward.cpp; sourceTree = "<group>"; };
-		0445942F2793A5D800F04CE0 /* forward.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forward.h; sourceTree = "<group>"; };
+		0445942E2793A5D800F04CE0 /* forward_application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = forward_application.cpp; sourceTree = "<group>"; };
+		0445942F2793A5D800F04CE0 /* forward_application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forward_application.h; sourceTree = "<group>"; };
 		044594312793B58400F04CE0 /* matrix2x2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix2x2.h; sourceTree = "<group>"; };
 		044594322793B58400F04CE0 /* matrix4x4-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "matrix4x4-inl.h"; sourceTree = "<group>"; };
 		044594332793B58400F04CE0 /* point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point.h; sourceTree = "<group>"; };
@@ -966,6 +967,8 @@
 		044595CE279668DC00F04CE0 /* color_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = color_tests.cpp; sourceTree = "<group>"; };
 		044595D027966FE500F04CE0 /* bounding_frustum_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bounding_frustum_tests.cpp; sourceTree = "<group>"; };
 		044595D22796711900F04CE0 /* collision_util_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = collision_util_tests.cpp; sourceTree = "<group>"; };
+		044596EE2797DFD100F04CE0 /* basic_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = basic_app.cpp; sourceTree = "<group>"; };
+		044596EF2797DFD100F04CE0 /* basic_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = basic_app.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1112,6 +1115,8 @@
 				0445928B278EA37D00F04CE0 /* script.cpp */,
 				0445930B278F16BA00F04CE0 /* controls */,
 				04459310278F17DA00F04CE0 /* physics */,
+				0445942F2793A5D800F04CE0 /* forward_application.h */,
+				0445942E2793A5D800F04CE0 /* forward_application.cpp */,
 			);
 			path = vox.render;
 			sourceTree = "<group>";
@@ -1604,10 +1609,10 @@
 			children = (
 				044593D02790077D00F04CE0 /* apps.entitlements */,
 				044593B92790055100F04CE0 /* main.cpp */,
+				044596EF2797DFD100F04CE0 /* basic_app.h */,
+				044596EE2797DFD100F04CE0 /* basic_app.cpp */,
 				044593ED2791213E00F04CE0 /* deferred.h */,
 				044593EC2791213E00F04CE0 /* deferred.cpp */,
-				0445942F2793A5D800F04CE0 /* forward.h */,
-				0445942E2793A5D800F04CE0 /* forward.cpp */,
 			);
 			path = apps;
 			sourceTree = "<group>";
@@ -2222,6 +2227,7 @@
 				0445969B2796F99100F04CE0 /* update_flag.cpp in Sources */,
 				044596732796F85C00F04CE0 /* stencil_state.cpp in Sources */,
 				044596792796F85C00F04CE0 /* shader.cpp in Sources */,
+				044596ED2797DF7400F04CE0 /* forward_application.cpp in Sources */,
 				044596492796EF9500F04CE0 /* render_element.cpp in Sources */,
 				044596B72796FBE100F04CE0 /* physics_manager.cpp in Sources */,
 				044596A92796FA8800F04CE0 /* mesh_renderer.cpp in Sources */,
@@ -2416,8 +2422,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				044596EC2797B31B00F04CE0 /* deferred.cpp in Sources */,
-				044594302793A5D800F04CE0 /* forward.cpp in Sources */,
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
+				044596F02797DFD100F04CE0 /* basic_app.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
