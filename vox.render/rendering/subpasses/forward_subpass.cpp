@@ -86,25 +86,20 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         // manully
         auto& mesh = element.mesh;
         _forwardPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
+        
         auto m_forwardPipelineState = _view->device().resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
-        
-        // reflection
-        auto& submesh = element.subMesh;
-        auto& mat = element.material;
-        uploadUniforms(renderEncoder, m_forwardPipelineState.materialUniformBlock, mat->shaderData);
-        
-        auto& renderer = element.renderer;
-        auto mvpMat = std::any_cast<Matrix4x4F>(renderer->shaderData.getData("u_MVPMat"));
-        renderEncoder.setVertexBytes(&mvpMat, sizeof(Matrix4x4F), 5);
-        auto normalMat = std::any_cast<Matrix4x4F>(renderer->shaderData.getData("u_normalMat"));
-        renderEncoder.setVertexBytes(&normalMat, sizeof(Matrix4x4F), 6);
-        
+        uploadUniforms(renderEncoder, m_forwardPipelineState.materialUniformBlock, element.material->shaderData);
+        uploadUniforms(renderEncoder, m_forwardPipelineState.rendererUniformBlock, element.renderer->shaderData);
+        uploadUniforms(renderEncoder, m_forwardPipelineState.sceneUniformBlock, _scene->shaderData);
+        uploadUniforms(renderEncoder, m_forwardPipelineState.cameraUniformBlock, _camera->shaderData);
         renderEncoder.setRenderPipelineState(m_forwardPipelineState);
+        
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),
                                           meshBuffer.offset(),
                                           meshBuffer.argumentIndex());
         }
+        auto& submesh = element.subMesh;
         renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
                                             submesh->indexCount(),
                                             submesh->indexType(),
