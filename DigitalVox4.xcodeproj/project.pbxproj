@@ -427,6 +427,8 @@
 		04459756279832BA00F04CE0 /* shadow_common.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973D279832BA00F04CE0 /* shadow_common.metal */; };
 		04459757279832BA00F04CE0 /* deferred_compositor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973E279832BA00F04CE0 /* deferred_compositor.metal */; };
 		04459758279832BA00F04CE0 /* light_debugger.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973F279832BA00F04CE0 /* light_debugger.metal */; };
+		04B4ACC1279835BB0020576D /* spot_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971027981DF500F04CE0 /* spot_light.cpp */; };
+		04B4ACC2279836200020576D /* point_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445970C27981C3A00F04CE0 /* point_light.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2365,6 +2367,7 @@
 				044596ED2797DF7400F04CE0 /* forward_application.cpp in Sources */,
 				044596492796EF9500F04CE0 /* render_element.cpp in Sources */,
 				044596B72796FBE100F04CE0 /* physics_manager.cpp in Sources */,
+				04B4ACC1279835BB0020576D /* spot_light.cpp in Sources */,
 				044596A92796FA8800F04CE0 /* mesh_renderer.cpp in Sources */,
 				044596DE2796FC1100F04CE0 /* metal_application.cpp in Sources */,
 				044596CB2796FBE100F04CE0 /* plane_collider_shape.cpp in Sources */,
@@ -2401,6 +2404,7 @@
 				044596622796F7C800F04CE0 /* forward_subpass.cpp in Sources */,
 				044596D22796FBE100F04CE0 /* fixed_joint.cpp in Sources */,
 				0445963B2796EE4F00F04CE0 /* mesh.cpp in Sources */,
+				04B4ACC2279836200020576D /* point_light.cpp in Sources */,
 				044596372796EE4F00F04CE0 /* mesh_buffer.cpp in Sources */,
 				044596992796F99100F04CE0 /* component.cpp in Sources */,
 				044596512796EFD900F04CE0 /* subpass.cpp in Sources */,

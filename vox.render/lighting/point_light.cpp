@@ -43,7 +43,10 @@ void PointLight::updateShadowMatrix() {
         entity()->transform->lookAt(worldPos + cubeMapDirection[i].first, cubeMapDirection[i].second);
         auto viewMatrix = entity()->transform->worldMatrix().inverse();
         auto vp = projMatrix * viewMatrix;
-        shadow.vp[i] = vp.toSimdMatrix();
+        shadow.vp[0].columns[0] = simd_make_float4(vp[0], vp[1], vp[2], vp[3]);
+        shadow.vp[0].columns[1] = simd_make_float4(vp[4], vp[5], vp[6], vp[7]);
+        shadow.vp[0].columns[2] = simd_make_float4(vp[8], vp[9], vp[10], vp[11]);
+        shadow.vp[0].columns[3] = simd_make_float4(vp[12], vp[13], vp[14], vp[15]);
     }
 }
 
