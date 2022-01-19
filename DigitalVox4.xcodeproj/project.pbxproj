@@ -415,9 +415,10 @@
 		044596E82797AE2000F04CE0 /* skybox_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594092792500900F04CE0 /* skybox_subpass.cpp */; };
 		044596E92797AEF300F04CE0 /* particle_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445940D2792545E00F04CE0 /* particle_subpass.cpp */; };
 		044596EA2797AEF600F04CE0 /* particle_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940E2792545E00F04CE0 /* particle_subpass.h */; };
-		044596EC2797B31B00F04CE0 /* deferred.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593EC2791213E00F04CE0 /* deferred.cpp */; };
 		044596ED2797DF7400F04CE0 /* forward_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942E2793A5D800F04CE0 /* forward_application.cpp */; };
 		044596F02797DFD100F04CE0 /* basic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044596EE2797DFD100F04CE0 /* basic_app.cpp */; };
+		044596F12797E48800F04CE0 /* deferred_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593EC2791213E00F04CE0 /* deferred_application.cpp */; };
+		044596F42797E4EF00F04CE0 /* basic_deferred_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044596F22797E4EF00F04CE0 /* basic_deferred_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -777,8 +778,8 @@
 		044593E52791055900F04CE0 /* mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
 		044593E82791107600F04CE0 /* primitive_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = primitive_mesh.cpp; sourceTree = "<group>"; };
 		044593E92791107600F04CE0 /* primitive_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = primitive_mesh.h; sourceTree = "<group>"; };
-		044593EC2791213E00F04CE0 /* deferred.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = deferred.cpp; sourceTree = "<group>"; };
-		044593ED2791213E00F04CE0 /* deferred.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = deferred.h; sourceTree = "<group>"; };
+		044593EC2791213E00F04CE0 /* deferred_application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = deferred_application.cpp; sourceTree = "<group>"; };
+		044593ED2791213E00F04CE0 /* deferred_application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = deferred_application.h; sourceTree = "<group>"; };
 		044593EF27914EFF00F04CE0 /* render_pass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = render_pass.cpp; sourceTree = "<group>"; };
 		044593F027914EFF00F04CE0 /* render_pass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render_pass.h; sourceTree = "<group>"; };
 		044593F327914F7500F04CE0 /* subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = subpass.cpp; sourceTree = "<group>"; };
@@ -969,6 +970,8 @@
 		044595D22796711900F04CE0 /* collision_util_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = collision_util_tests.cpp; sourceTree = "<group>"; };
 		044596EE2797DFD100F04CE0 /* basic_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = basic_app.cpp; sourceTree = "<group>"; };
 		044596EF2797DFD100F04CE0 /* basic_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = basic_app.h; sourceTree = "<group>"; };
+		044596F22797E4EF00F04CE0 /* basic_deferred_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = basic_deferred_app.cpp; sourceTree = "<group>"; };
+		044596F32797E4EF00F04CE0 /* basic_deferred_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = basic_deferred_app.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1117,6 +1120,8 @@
 				04459310278F17DA00F04CE0 /* physics */,
 				0445942F2793A5D800F04CE0 /* forward_application.h */,
 				0445942E2793A5D800F04CE0 /* forward_application.cpp */,
+				044593ED2791213E00F04CE0 /* deferred_application.h */,
+				044593EC2791213E00F04CE0 /* deferred_application.cpp */,
 			);
 			path = vox.render;
 			sourceTree = "<group>";
@@ -1611,8 +1616,8 @@
 				044593B92790055100F04CE0 /* main.cpp */,
 				044596EF2797DFD100F04CE0 /* basic_app.h */,
 				044596EE2797DFD100F04CE0 /* basic_app.cpp */,
-				044593ED2791213E00F04CE0 /* deferred.h */,
-				044593EC2791213E00F04CE0 /* deferred.cpp */,
+				044596F32797E4EF00F04CE0 /* basic_deferred_app.h */,
+				044596F22797E4EF00F04CE0 /* basic_deferred_app.cpp */,
 			);
 			path = apps;
 			sourceTree = "<group>";
@@ -2246,6 +2251,7 @@
 				0445960A2796E88600F04CE0 /* cpp_mtl_buffer.mm in Sources */,
 				044595EC2796E88600F04CE0 /* cpp_mtl_function_constant_values.mm in Sources */,
 				044596D62796FBE100F04CE0 /* translational_joint.cpp in Sources */,
+				044596F12797E48800F04CE0 /* deferred_application.cpp in Sources */,
 				044596352796EE4F00F04CE0 /* sub_mesh.cpp in Sources */,
 				044596AA2796FAA400F04CE0 /* spherical.cpp in Sources */,
 				0445969A2796F99100F04CE0 /* update_flag_manager.cpp in Sources */,
@@ -2421,9 +2427,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				044596EC2797B31B00F04CE0 /* deferred.cpp in Sources */,
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
 				044596F02797DFD100F04CE0 /* basic_app.cpp in Sources */,
+				044596F42797E4EF00F04CE0 /* basic_deferred_app.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
