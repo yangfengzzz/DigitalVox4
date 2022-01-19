@@ -5,10 +5,13 @@
 //  property of any third parties.
 
 #include "render_pass.h"
+#include "core/cpp_mtl_assert.h"
 
 namespace vox {
-RenderPass::RenderPass(MTL::RenderPassDescriptor* desc):
+RenderPass::RenderPass(MTL::Device* device, MTL::RenderPassDescriptor* desc):
+_device(device),
 _desc(desc) {
+    makeShaderLibrary();
 }
 
 void RenderPass::draw(MTL::CommandBuffer& commandBuffer,
@@ -28,6 +31,7 @@ void RenderPass::draw(MTL::CommandBuffer& commandBuffer,
 }
 
 void RenderPass::addSubpass(std::unique_ptr<Subpass> &&subpass) {
+    subpass->setRenderPass(this);
     _subpasses.emplace_back(std::move(subpass));
 }
 
@@ -37,6 +41,22 @@ std::vector<std::unique_ptr<Subpass>> &RenderPass::subpasses() {
 
 std::unique_ptr<Subpass> &RenderPass::activeSubpass() {
     return _subpasses[_activeSubpassIndex];
+}
+
+void RenderPass::makeShaderLibrary() {
+    CFErrorRef error = nullptr;
+    CFURLRef libraryURL = nullptr;
+
+    libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
+    _library = _device->makeLibrary(libraryURL, &error);
+    
+    MTLAssert(!error, error, "Could not load Metal shader library");
+    
+    CFRelease(libraryURL);
+}
+
+MTL::Library& RenderPass::library() {
+    return _library;
 }
 
 }

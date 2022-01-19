@@ -7,13 +7,17 @@
 #include "subpass.h"
 
 namespace vox {
-Subpass::Subpass(MTL::RenderPassDescriptor* desc,
-                 MTL::Device* device,
+Subpass::Subpass(View* view,
                  Scene* scene,
                  Camera* camera):
-_device(device),
+_view(view),
 _scene(scene),
 _camera(camera) {
+}
+
+void Subpass::setRenderPass(RenderPass* pass) {
+    _pass = pass;
+    prepare();
 }
 
 }

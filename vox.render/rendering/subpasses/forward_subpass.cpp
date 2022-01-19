@@ -5,6 +5,7 @@
 //  property of any third parties.
 
 #include "forward_subpass.h"
+#include "rendering/render_pass.h"
 #include "material/material.h"
 #include "graphics/mesh.h"
 #include "renderer.h"
@@ -15,23 +16,23 @@
 #include "shader_types.h"
 
 namespace vox {
-ForwardSubpass::ForwardSubpass(MTL::RenderPassDescriptor* desc,
-                               MTL::Device* device,
+ForwardSubpass::ForwardSubpass(View* view,
                                Scene* scene,
-                               Camera* camera,
-                               MTL::Library& shaderLibrary,
-                               MTL::PixelFormat colorPixelFormat):
-Subpass(desc, device, scene, camera) {
+                               Camera* camera):
+Subpass(view, scene, camera) {
+}
+
+void ForwardSubpass::prepare() {
     CFErrorRef error = nullptr;
     
     {
-        MTL::Function forwardVertexFunction = shaderLibrary.makeFunction("forward_vertex");
-        MTL::Function forwardFragmentFunction = shaderLibrary.makeFunction("forward_fragment");
+        MTL::Function forwardVertexFunction = _pass->library().makeFunction("forward_vertex");
+        MTL::Function forwardFragmentFunction = _pass->library().makeFunction("forward_fragment");
         
         _forwardPipelineDescriptor.label("G-buffer Creation");
-        _forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(colorPixelFormat);
-        _forwardPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
-        _forwardPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
+        _forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+        _forwardPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        _forwardPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
         _forwardPipelineDescriptor.vertexFunction(&forwardVertexFunction);
         _forwardPipelineDescriptor.fragmentFunction(&forwardFragmentFunction);
         
@@ -58,7 +59,7 @@ Subpass(desc, device, scene, camera) {
         depthStencilDesc.frontFaceStencil = stencilStateDesc;
         depthStencilDesc.backFaceStencil = stencilStateDesc;
         
-        _forwardDepthStencilState = _device->makeDepthStencilState(depthStencilDesc);
+        _forwardDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
     }
 }
 
@@ -98,7 +99,7 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         // manully
         auto& mesh = element.mesh;
         _forwardPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
-        auto m_forwardPipelineState = _device->resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
+        auto m_forwardPipelineState = _view->device().resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
         renderEncoder.setRenderPipelineState(m_forwardPipelineState);
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),

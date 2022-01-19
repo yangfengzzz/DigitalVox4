@@ -29,12 +29,6 @@ Forward::~Forward() {
 
 bool Forward::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
-    MTL::Library shaderLibrary = makeShaderLibrary();
-    auto extent = engine.window().extent();
-    _renderContext->resize(MTL::sizeMake(extent.width * 2, extent.height * 2, 0));
-    _renderContext->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
-    _renderContext->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
-    
     {
         // Positions.
         _defaultVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
@@ -72,6 +66,11 @@ bool Forward::prepare(Engine &engine) {
         _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepFunction(MTL::VertexStepFunctionPerVertex);
     }
     loadScene();
+    auto extent = engine.window().extent();
+    _camera->resize(extent.width*2, extent.height*2);
+    _renderContext->resize(MTL::sizeMake(extent.width * 2, extent.height * 2, 0));
+    _renderContext->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
+    _renderContext->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);
     
 #pragma mark Compositor render pass descriptor setup
     {
@@ -83,11 +82,9 @@ bool Forward::prepare(Engine &engine) {
         _finalRenderPassDescriptor.depthAttachment.texture(*_renderContext->depthStencilTexture());
         _finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
         _finalRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
-        _finalRenderPass = std::make_unique<RenderPass>(&_finalRenderPassDescriptor);
-        _finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(&_finalRenderPassDescriptor, _device.get(), _scene.get(), _camera,
-                                                                      shaderLibrary, MTL::PixelFormatBGRA8Unorm_sRGB));
+        _finalRenderPass = std::make_unique<RenderPass>(_device.get(), &_finalRenderPassDescriptor);
+        _finalRenderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderContext.get(), _scene.get(), _camera));
     }
-    framebufferResize(extent.width*2, extent.height*2);
     
     return true;
 }

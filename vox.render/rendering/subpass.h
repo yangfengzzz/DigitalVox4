@@ -11,10 +11,11 @@
 #include "scene.h"
 
 namespace vox {
+class RenderPass;
+
 class Subpass {
 public:
-    Subpass(MTL::RenderPassDescriptor* desc,
-            MTL::Device* device,
+    Subpass(View* view,
             Scene* scene,
             Camera* camera);
     
@@ -29,15 +30,24 @@ public:
     Subpass &operator=(Subpass &&) = delete;
     
     /**
+     * @brief Prepares the shaders and shader variants for a subpass
+     */
+    virtual void prepare() = 0;
+    
+    /**
      * @brief Draw virtual function
      * @param commandEncoder CommandEncoder to use to record draw commands
      */
     virtual void draw(MTL::RenderCommandEncoder& commandEncoder) = 0;
     
+    void setRenderPass(RenderPass* pass);
+    
 protected:
-    MTL::Device* _device;
-    Scene* _scene;
-    Camera* _camera;
+    RenderPass* _pass{nullptr};
+    
+    View* _view{nullptr};
+    Scene* _scene{nullptr};
+    Camera* _camera{nullptr};
 };
 
 }

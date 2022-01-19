@@ -11,12 +11,11 @@
 namespace vox {
 class ForwardSubpass: public Subpass {
 public:
-    ForwardSubpass(MTL::RenderPassDescriptor* desc,
-                   MTL::Device* device,
+    ForwardSubpass(View* view,
                    Scene* scene,
-                   Camera* camera,
-                   MTL::Library& shaderLibrary,
-                   MTL::PixelFormat colorPixelFormat);
+                   Camera* camera);
+    
+    void prepare() override;
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
