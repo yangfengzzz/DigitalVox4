@@ -15,6 +15,10 @@
 #include <glog/logging.h>
 
 namespace vox {
+std::string ComposeSubpass::dependedPassName() {
+    return "deferredPass";
+}
+
 ComposeSubpass::ComposeSubpass(View* view,
                                Scene* scene,
                                Camera* camera):
@@ -22,7 +26,7 @@ Subpass(view, scene, camera) {
 }
 
 void ComposeSubpass::setRenderPass(RenderPass* pass) {
-    auto parentPass = pass->findPass("deferredPass");
+    auto parentPass = pass->findPass(dependedPassName());
     if (parentPass) {
         Subpass::setRenderPass(pass);
         auto gbufferDesc = parentPass->renderPassDescriptor();

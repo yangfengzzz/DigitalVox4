@@ -25,6 +25,8 @@ public:
     
     void setRenderPass(RenderPass* pass) override;
     
+    static std::string dependedPassName();
+    
 private:
     void drawPointLightMask(MTL::RenderCommandEncoder &commandEncoder);
     

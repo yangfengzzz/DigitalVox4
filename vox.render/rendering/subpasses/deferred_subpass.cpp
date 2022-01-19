@@ -17,6 +17,10 @@
 #include <glog/logging.h>
 
 namespace vox {
+std::string DeferredSubpass::dependedPassName() {
+    return "shadowPass";
+}
+
 DeferredSubpass::DeferredSubpass(View* view,
                                  Scene* scene,
                                  Camera* camera):
@@ -24,7 +28,7 @@ Subpass(view, scene, camera) {
 }
 
 void DeferredSubpass::setRenderPass(RenderPass* pass) {
-    auto parentPass = pass->findPass("shadowPass");
+    auto parentPass = pass->findPass(dependedPassName());
     if (parentPass) {
         Subpass::setRenderPass(pass);
         _shadowMap = &parentPass->renderPassDescriptor()->depthAttachment.texture();

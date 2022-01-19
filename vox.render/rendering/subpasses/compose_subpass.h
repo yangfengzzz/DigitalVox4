@@ -22,6 +22,8 @@ public:
     
     void setRenderPass(RenderPass* pass) override;
     
+    static std::string dependedPassName();
+    
 private:
     MTL::RenderPipelineState _directionalLightPipelineState;
     MTL::DepthStencilState _directionLightDepthStencilState;

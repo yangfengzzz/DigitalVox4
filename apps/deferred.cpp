@@ -178,7 +178,7 @@ bool Deferred::prepare(Engine &engine) {
         m_GBufferRenderPassDescriptor.stencilAttachment.storeAction(MTL::StoreActionStore);
         m_GBufferRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
         m_GBufferRenderPass = std::make_unique<RenderPass>(_library, &m_GBufferRenderPassDescriptor);
-        m_GBufferRenderPass->addParentPass("shadowPass", m_shadowRenderPass.get());
+        m_GBufferRenderPass->addParentPass(DeferredSubpass::dependedPassName(), m_shadowRenderPass.get());
         m_GBufferRenderPass->addSubpass(std::make_unique<DeferredSubpass>(_renderContext.get(), _scene.get(), nullptr));
     }
     
@@ -192,7 +192,7 @@ bool Deferred::prepare(Engine &engine) {
         m_finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionLoad);
         m_finalRenderPassDescriptor.stencilAttachment.texture(*_renderContext->depthStencilTexture());
         m_finalRenderPass = std::make_unique<RenderPass>(_library, &m_finalRenderPassDescriptor);
-        m_finalRenderPass->addParentPass("deferredPass", m_GBufferRenderPass.get());
+        m_finalRenderPass->addParentPass(ComposeSubpass::dependedPassName(), m_GBufferRenderPass.get());
         m_finalRenderPass->addSubpass(std::make_unique<ComposeSubpass>(_renderContext.get(), _scene.get(), nullptr));
         m_finalRenderPass->addSubpass(std::make_unique<PointLightSubpass>(_renderContext.get(), _scene.get(), nullptr,
                                                                           m_icosahedronMesh, NumLights));

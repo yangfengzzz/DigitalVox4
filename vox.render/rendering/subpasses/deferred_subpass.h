@@ -23,6 +23,8 @@ public:
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
     void setRenderPass(RenderPass* pass) override;
+    
+    static std::string dependedPassName();
 
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
