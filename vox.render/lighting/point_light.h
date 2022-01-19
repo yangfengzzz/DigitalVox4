@@ -10,7 +10,7 @@
 
 #include "light.h"
 #include "color.h"
-#include "shader_types.h"
+#include "shader_common.h"
 
 namespace vox {
 /**

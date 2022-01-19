@@ -1,50 +1,34 @@
-/*
-See LICENSE folder for this sample’s licensing information.
+//
+//  skybox.metal
+//  vox.render
+//
+//  Created by 杨丰 on 2021/10/23.
+//
 
-Abstract:
-Metal shaders used to render skybox
-*/
 #include <metal_stdlib>
-
 using namespace metal;
+#include "function-constant.h"
 
-// Include header shared between this Metal shader code and C code executing Metal API commands
-#include "shader_types.h"
+typedef struct {
+    float3 position [[attribute(Position)]];
+} VertexIn;
 
-// Per-vertex inputs fed by vertex buffer laid out with MTLVertexDescriptor in Metal API
-struct SkyboxVertex
-{
-    float4 position [[attribute(VertexAttributePosition)]];
-    float3 normal   [[attribute(VertexAttributeNormal)]];
-};
-
-struct SkyboxInOut
-{
+typedef struct {
     float4 position [[position]];
-    float3 texcoord;
-};
+    float3 v_cubeUV;
+} VertexOut;
 
-vertex SkyboxInOut skybox_vertex(SkyboxVertex        in        [[ stage_in ]],
-                                 constant FrameData &frameData [[ buffer(BufferIndexFrameData) ]])
-{
-    SkyboxInOut out;
-
-    // Add vertex pos to fairy position and project to clip-space
-    out.position = frameData.projection_matrix * frameData.sky_modelview_matrix * in.position;
-
-    // Pass position through as texcoord
-    out.texcoord = in.normal;
-
+vertex VertexOut vertex_skybox(const VertexIn in [[stage_in]],
+                               constant matrix_float4x4 &u_mvpNoscale [[buffer(10)]]) {
+    VertexOut out;
+    
+    out.v_cubeUV = in.position.xyz;
+    out.position = (u_mvpNoscale * float4( in.position, 1.0 )).xyww;
     return out;
 }
 
-fragment half4 skybox_fragment(SkyboxInOut        in             [[ stage_in ]],
-                               texturecube<float> skybox_texture [[ texture(TextureIndexBaseColor) ]])
-{
-    constexpr sampler linearSampler(mip_filter::linear, mag_filter::linear, min_filter::linear);
-
-    float4 color = skybox_texture.sample(linearSampler, in.texcoord);
-
-    return half4(color);
+fragment float4 fragment_skybox(VertexOut in [[stage_in]],
+                                sampler textureSampler [[sampler(0)]],
+                                texturecube<float> u_skybox [[texture(0)]]) {
+    return u_skybox.sample(textureSampler, in.v_cubeUV);
 }
-

@@ -33,14 +33,14 @@ public:
     ComponentsManager _componentsManager;
     physics::PhysicsManager _physicsManager;
     
+    /** Light Manager */
+    LightManager light_manager;
+    
     /** The background of the scene. */
     Background background = Background();
     
     /** Scene-related shader data. */
     ShaderData shaderData = ShaderData();
-    
-    /** Light Manager */
-    LightManager light_manager;
     
     /**
      * Create scene.

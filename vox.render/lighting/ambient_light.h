@@ -12,7 +12,7 @@
 #include "spherical_harmonics3.h"
 #include "core/cpp_mtl_texture.h"
 #include "shader/shader_property.h"
-#include "shader_types.h"
+#include "shader_common.h"
 
 namespace vox {
 /**
