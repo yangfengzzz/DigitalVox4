@@ -40,12 +40,12 @@ protected:
     std::unique_ptr<Scene> _scene{nullptr};
     
 private:
-    MTL::RenderPassDescriptor _finalRenderPassDescriptor;
+    MTL::RenderPassDescriptor _renderPassDescriptor;
     
     /**
      * @brief Pipeline used for rendering, it should be set up by the concrete sample
      */
-    std::unique_ptr<RenderPass> _renderPipeline{nullptr};
+    std::unique_ptr<RenderPass> _renderPass{nullptr};
 };
 
 }

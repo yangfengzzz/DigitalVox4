@@ -12,7 +12,7 @@
 
 namespace vox {
 ForwardApplication::~ForwardApplication() {
-    _renderPipeline.reset();
+    _renderPass.reset();
 }
 
 bool ForwardApplication::prepare(Engine &engine) {
@@ -26,14 +26,14 @@ bool ForwardApplication::prepare(Engine &engine) {
     
     // Create a render pass descriptor for thelighting and composition pass
     // Whatever rendered in the final pass needs to be stored so it can be displayed
-    _finalRenderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
-    _finalRenderPassDescriptor.colorAttachments[0].loadAction(MTL::LoadActionClear);
-    _finalRenderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
-    _finalRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
-    _finalRenderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
-    _finalRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
-    _renderPipeline = std::make_unique<RenderPass>(_library, &_finalRenderPassDescriptor);
-    _renderPipeline->addSubpass(std::make_unique<ForwardSubpass>(_renderView.get(), _scene.get(), _mainCamera));
+    _renderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
+    _renderPassDescriptor.colorAttachments[0].loadAction(MTL::LoadActionClear);
+    _renderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
+    _renderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
+    _renderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
+    _renderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
+    _renderPass = std::make_unique<RenderPass>(_library, &_renderPassDescriptor);
+    _renderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderView.get(), _scene.get(), _mainCamera));
     
     return true;
 }
@@ -48,10 +48,10 @@ void ForwardApplication::update(float delta_time) {
     // rendering this frame.
     if (drawable) {
         // Render the lighting and composition pass
-        _finalRenderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
-        _finalRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
-        _finalRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
-        _renderPipeline->draw(commandBuffer, "Lighting & Composition Pass");
+        _renderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
+        _renderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
+        _renderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
+        _renderPass->draw(commandBuffer, "Lighting & Composition Pass");
     }
     // Finalize rendering here & push the command buffer to the GPU
     commandBuffer.commit();

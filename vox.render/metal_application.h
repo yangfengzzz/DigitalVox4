@@ -22,20 +22,20 @@ public:
     /**
      * @brief Additional sample initialization
      */
-    virtual bool prepare(Engine &engine) override;
+    bool prepare(Engine &engine) override;
     
     /**
      * @brief Main loop sample events
      */
-    virtual void update(float delta_time) override;
+    void update(float delta_time) override;
     
-    virtual bool resize(const uint32_t width, const uint32_t height) override;
+    bool resize(const uint32_t width, const uint32_t height) override;
     
-    virtual void framebufferResize(uint32_t width, uint32_t height) override;
+    void framebufferResize(uint32_t width, uint32_t height) override;
     
-    virtual void inputEvent(const InputEvent &inputEvent) override;
+    void inputEvent(const InputEvent &inputEvent) override;
     
-    virtual void finish() override;
+    void finish() override;
     
 private:
     MTL::Library makeShaderLibrary();
@@ -46,8 +46,14 @@ protected:
      */
     std::unique_ptr<MTL::Device> _device{nullptr};
     
+    /**
+     * @brief The Metal command queue
+     */
     MTL::CommandQueue _commandQueue;
     
+    /**
+     * @brief The Metal shader library
+     */
     MTL::Library _library;
 
     /**
