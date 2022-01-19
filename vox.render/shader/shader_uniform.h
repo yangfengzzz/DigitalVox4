@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include "core/cpp_mtl_library.h"
 
 namespace vox {
 /**
@@ -17,7 +18,7 @@ struct ShaderUniform {
     std::string name;
     int propertyId;
     size_t location;
-    MTLFunctionType type;
+    MTL::FunctionType type;
 };
 
 }

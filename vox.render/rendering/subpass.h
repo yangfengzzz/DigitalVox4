@@ -9,6 +9,7 @@
 
 #include "core/cpp_mtl.h"
 #include "scene.h"
+#include "shader/shader_uniform.h"
 
 namespace vox {
 class RenderPass;
@@ -42,12 +43,25 @@ public:
     
     virtual void setRenderPass(RenderPass* pass);
     
+public:
+    /**
+     * Upload constant shader data in shader uniform block.
+     * @param uniformBlock - shader Uniform block
+     * @param shaderData - shader data
+     */
+    void uploadUniforms(MTL::RenderCommandEncoder& commandEncoder,
+                        const std::vector<ShaderUniform> &uniformBlock,
+                        const ShaderData &shaderData);
+    
 protected:
     RenderPass* _pass{nullptr};
     
     View* _view{nullptr};
     Scene* _scene{nullptr};
     Camera* _camera{nullptr};
+    
+private:
+    void process(const ShaderUniform &uniform, const std::any &a, MTL::RenderCommandEncoder& encoder);
 };
 
 }

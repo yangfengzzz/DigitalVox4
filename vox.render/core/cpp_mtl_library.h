@@ -51,6 +51,14 @@ class RenderPipelineState;
 
 class RenderPipelineDescriptor;
 
+typedef enum FunctionType {
+    FunctionTypeVertex = 1,
+    FunctionTypeFragment = 2,
+    FunctionTypeKernel = 3,
+    FunctionTypeVisible API_AVAILABLE(macos(11.0), ios(14.0)) = 5,
+    FunctionTypeIntersection API_AVAILABLE(macos(11.0), ios(14.0)) = 6,
+} FunctionType API_AVAILABLE(macos(10.11), ios(8.0));
+
 class Function {
 public:
     Function();
