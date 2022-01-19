@@ -19,7 +19,7 @@
 namespace vox {
 Scene::Scene(std::string name) :
 name(name),
-//_ambientLight(this),
+_ambientLight(this),
 light_manager(this)
 {
     _vertexUploader = {

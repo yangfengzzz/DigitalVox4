@@ -18,6 +18,7 @@
 #include "components_manager.h"
 #include "physics/physics_manager.h"
 #include "lighting/light_manager.h"
+#include "lighting/ambient_light.h"
 #include "shader/shader_data.h"
 #include "background.h"
 
@@ -50,7 +51,7 @@ public:
     /**
      * Ambient light.
      */
-//    AmbientLight &ambientLight();
+    AmbientLight &ambientLight();
     
     /**
      * Count of root entities.
@@ -162,7 +163,7 @@ private:
     
     bool _destroyed = false;
     std::vector<EntityPtr> _rootEntities;
-//    AmbientLight _ambientLight;
+    AmbientLight _ambientLight;
 };
 
 }        // namespace vox

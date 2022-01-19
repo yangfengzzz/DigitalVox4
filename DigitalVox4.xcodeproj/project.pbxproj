@@ -428,6 +428,8 @@
 		0445971A27981EF500F04CE0 /* light_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971827981EF500F04CE0 /* light_manager.cpp */; };
 		0445971B27981EF500F04CE0 /* light_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445971927981EF500F04CE0 /* light_manager.h */; };
 		0445971D27982AC300F04CE0 /* direct_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971427981E7D00F04CE0 /* direct_light.cpp */; };
+		0445972127982C1100F04CE0 /* ambient_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971F27982C1100F04CE0 /* ambient_light.cpp */; };
+		0445972227982C1100F04CE0 /* ambient_light.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445972027982C1100F04CE0 /* ambient_light.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -991,6 +993,8 @@
 		0445971527981E7D00F04CE0 /* direct_light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = direct_light.h; sourceTree = "<group>"; };
 		0445971827981EF500F04CE0 /* light_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = light_manager.cpp; sourceTree = "<group>"; };
 		0445971927981EF500F04CE0 /* light_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = light_manager.h; sourceTree = "<group>"; };
+		0445971F27982C1100F04CE0 /* ambient_light.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ambient_light.cpp; sourceTree = "<group>"; };
+		0445972027982C1100F04CE0 /* ambient_light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ambient_light.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1816,6 +1820,8 @@
 				0445971027981DF500F04CE0 /* spot_light.cpp */,
 				0445971527981E7D00F04CE0 /* direct_light.h */,
 				0445971427981E7D00F04CE0 /* direct_light.cpp */,
+				0445972027982C1100F04CE0 /* ambient_light.h */,
+				0445971F27982C1100F04CE0 /* ambient_light.cpp */,
 			);
 			path = lighting;
 			sourceTree = "<group>";
@@ -1953,6 +1959,7 @@
 				044596662796F85C00F04CE0 /* shader.h in Headers */,
 				044596652796F85C00F04CE0 /* shader_macro_collection.h in Headers */,
 				044595DB2796DE3B00F04CE0 /* input_events.h in Headers */,
+				0445972227982C1100F04CE0 /* ambient_light.h in Headers */,
 				044596BB2796FBE100F04CE0 /* plane_collider_shape.h in Headers */,
 				044596CE2796FBE100F04CE0 /* physics.h in Headers */,
 				044596B22796FB5200F04CE0 /* free_control.h in Headers */,
@@ -2265,6 +2272,7 @@
 				044596D42796FBE100F04CE0 /* capsule_character_controller.cpp in Sources */,
 				0445962C2796EB1B00F04CE0 /* imgui_tables.cpp in Sources */,
 				044596CF2796FBE100F04CE0 /* box_collider_shape.cpp in Sources */,
+				0445972127982C1100F04CE0 /* ambient_light.cpp in Sources */,
 				0445968F2796F97600F04CE0 /* skybox_material.cpp in Sources */,
 				044596C82796FBE100F04CE0 /* character_controller.cpp in Sources */,
 				044596012796E88600F04CE0 /* cpp_mtl_vertex_descriptor.mm in Sources */,
