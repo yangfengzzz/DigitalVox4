@@ -5,39 +5,47 @@
 //  property of any third parties.
 
 #include "compose_subpass.h"
+#include "rendering/render_pass.h"
+
 #include "core/cpp_mtl_assert.h"
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
 namespace vox {
-ComposeSubpass::ComposeSubpass(MTL::RenderPassDescriptor* desc,
-                               MTL::Device* device,
+ComposeSubpass::ComposeSubpass(View* view,
                                Scene* scene,
-                               Camera* camera,
-                               MTL::Library& shaderLibrary,
-                               MTL::PixelFormat colorPixelFormat,
-                               MTL::RenderPassDescriptor* gbufferDesc):
-Subpass(desc, device, scene, camera),
-_gbufferDesc(gbufferDesc) {
+                               Camera* camera):
+Subpass(view, scene, camera),
+_albedoTexture(*view->depthStencilTexture()),
+_normalTexture(*view->depthStencilTexture()),
+_depthTexture(*view->depthStencilTexture()){
+}
+
+void ComposeSubpass::prepare() {
     CFErrorRef error = nullptr;
+    
+    auto gbufferDesc = _pass->findPass("deferredPass")->renderPassDescriptor();
+    _albedoTexture = gbufferDesc->colorAttachments[RenderTargetAlbedo].texture();
+    _normalTexture = gbufferDesc->colorAttachments[RenderTargetNormal].texture();
+    _depthTexture = gbufferDesc->colorAttachments[RenderTargetDepth].texture();
     
 #pragma mark Directional lighting render pipeline setup
     {
-        MTL::Function directionalVertexFunction = shaderLibrary.makeFunction("deferred_direction_lighting_vertex");
-        MTL::Function directionalFragmentFunction = shaderLibrary.makeFunction("deferred_directional_lighting_fragment_traditional");
+        MTL::Function directionalVertexFunction = _pass->library().makeFunction("deferred_direction_lighting_vertex");
+        MTL::Function directionalFragmentFunction = _pass->library().makeFunction("deferred_directional_lighting_fragment_traditional");
         
         MTL::RenderPipelineDescriptor renderPipelineDescriptor;
         renderPipelineDescriptor.label("Deferred Directional Lighting");
         renderPipelineDescriptor.vertexDescriptor(nullptr);
         renderPipelineDescriptor.vertexFunction(&directionalVertexFunction);
         renderPipelineDescriptor.fragmentFunction(&directionalFragmentFunction);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(colorPixelFormat); // not set yet before draw
-        renderPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
+        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat()); // not set yet before draw
+        renderPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        renderPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
         
-        _directionalLightPipelineState = _device->makeRenderPipelineState(renderPipelineDescriptor,
-                                                                          &error);
+        _directionalLightPipelineState = _view->device().makeRenderPipelineState(renderPipelineDescriptor,
+                                                                                 &error);
         
         MTLAssert(error == nullptr, error,
                   "Failed to create directional light render pipeline state:");
@@ -65,7 +73,7 @@ _gbufferDesc(gbufferDesc) {
         depthStencilDesc.frontFaceStencil = stencilStateDesc;
         depthStencilDesc.backFaceStencil = stencilStateDesc;
         
-        _directionLightDepthStencilState = device->makeDepthStencilState(depthStencilDesc);
+        _directionLightDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
     }
     
 #pragma mark Create quad for fullscreen composition drawing
@@ -81,16 +89,16 @@ _gbufferDesc(gbufferDesc) {
             {{1.0f, 1.0f,}},
         };
         
-        _quadVertexBuffer = device->makeBuffer(QuadVertices, sizeof(QuadVertices));
+        _quadVertexBuffer = _view->device().makeBuffer(QuadVertices, sizeof(QuadVertices));
         _quadVertexBuffer.label("Quad Vertices");
     }
 }
 
 void ComposeSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw Directional Light");
-    commandEncoder.setFragmentTexture(_gbufferDesc->colorAttachments[RenderTargetAlbedo].texture(), RenderTargetAlbedo);
-    commandEncoder.setFragmentTexture(_gbufferDesc->colorAttachments[RenderTargetNormal].texture(), RenderTargetNormal);
-    commandEncoder.setFragmentTexture(_gbufferDesc->colorAttachments[RenderTargetDepth].texture(), RenderTargetDepth);
+    commandEncoder.setFragmentTexture(_albedoTexture, RenderTargetAlbedo);
+    commandEncoder.setFragmentTexture(_normalTexture, RenderTargetNormal);
+    commandEncoder.setFragmentTexture(_depthTexture, RenderTargetDepth);
     
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setStencilReferenceValue(128);

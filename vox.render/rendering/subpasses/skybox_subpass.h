@@ -13,13 +13,12 @@
 namespace vox {
 class SkyboxSubpass: public Subpass {
 public:
-    SkyboxSubpass(MTL::RenderPassDescriptor* desc,
-                  MTL::Device* device,
+    SkyboxSubpass(View* view,
                   Scene* scene,
-                  Camera* camera,
-                  MTL::Library& shaderLibrary,
-                  MTL::PixelFormat colorPixelFormat);
+                  Camera* camera);
     
+    void prepare() override;
+
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:

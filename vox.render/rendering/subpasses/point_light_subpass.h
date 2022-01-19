@@ -13,16 +13,14 @@
 namespace vox {
 class PointLightSubpass: public Subpass {
 public:
-    PointLightSubpass(MTL::RenderPassDescriptor* desc,
-                      MTL::Device* device,
+    PointLightSubpass(View* view,
                       Scene* scene,
                       Camera* camera,
-                      MTL::Library& shaderLibrary,
-                      MTL::PixelFormat colorPixelFormat,
                       MeshPtr icosahedronMesh,
-                      MTL::RenderPassDescriptor* gbufferDesc,
                       const uint32_t numLights);
     
+    void prepare() override;
+
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
@@ -37,8 +35,10 @@ private:
     MTL::DepthStencilState _pointLightDepthStencilState;
     
     MeshPtr _icosahedronMesh;
-    MTL::RenderPassDescriptor* _gbufferDesc;
     uint32_t _numLights;
+    MTL::Texture &_albedoTexture;
+    MTL::Texture &_normalTexture;
+    MTL::Texture &_depthTexture;
 };
 
 }

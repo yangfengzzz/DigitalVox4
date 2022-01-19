@@ -5,6 +5,8 @@
 //  property of any third parties.
 
 #include "skybox_subpass.h"
+#include "rendering/render_pass.h"
+
 #include "core/cpp_mtl_assert.h"
 #include "material/material.h"
 
@@ -12,30 +14,30 @@
 #include "shader_types.h"
 
 namespace vox {
-SkyboxSubpass::SkyboxSubpass(MTL::RenderPassDescriptor* desc,
-                             MTL::Device* device,
+SkyboxSubpass::SkyboxSubpass(View* view,
                              Scene* scene,
-                             Camera* camera,
-                             MTL::Library& shaderLibrary,
-                             MTL::PixelFormat colorPixelFormat):
-Subpass(desc, device, scene, camera) {
+                             Camera* camera):
+Subpass(view, scene, camera) {
+}
+
+void SkyboxSubpass::prepare() {
     CFErrorRef error = nullptr;
     
 #pragma mark Sky render pipeline setup
     {
-        MTL::Function skyboxVertexFunction = shaderLibrary.makeFunction("skybox_vertex");
-        MTL::Function skyboxFragmentFunction = shaderLibrary.makeFunction("skybox_fragment");
+        MTL::Function skyboxVertexFunction = _pass->library().makeFunction("skybox_vertex");
+        MTL::Function skyboxFragmentFunction = _pass->library().makeFunction("skybox_fragment");
         
         MTL::RenderPipelineDescriptor renderPipelineDescriptor;
         renderPipelineDescriptor.label("Sky");
-        renderPipelineDescriptor.vertexDescriptor(&(scene->background.sky.mesh->vertexDescriptor()));
+        renderPipelineDescriptor.vertexDescriptor(&(_scene->background.sky.mesh->vertexDescriptor()));
         renderPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
         renderPipelineDescriptor.fragmentFunction(&skyboxFragmentFunction);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(colorPixelFormat);
-        renderPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
+        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+        renderPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        renderPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
         
-        _skyboxPipelineState = _device->makeRenderPipelineState(renderPipelineDescriptor, &error);
+        _skyboxPipelineState = _view->device().makeRenderPipelineState(renderPipelineDescriptor, &error);
         
         MTLAssert(error == nullptr, error, "Failed to create skybox render pipeline state: %@");
     }
@@ -47,7 +49,7 @@ Subpass(desc, device, scene, camera) {
         depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLess);
         depthStencilDesc.depthWriteEnabled(false);
         
-        _dontWriteDepthStencilState = _device->makeDepthStencilState(depthStencilDesc);
+        _dontWriteDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
     }
 }
 

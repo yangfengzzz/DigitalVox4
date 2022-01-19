@@ -12,14 +12,12 @@
 namespace vox {
 class ComposeSubpass: public Subpass {
 public:
-    ComposeSubpass(MTL::RenderPassDescriptor* desc,
-                   MTL::Device* device,
+    ComposeSubpass(View* view,
                    Scene* scene,
-                   Camera* camera,
-                   MTL::Library& shaderLibrary,
-                   MTL::PixelFormat colorPixelFormat,
-                   MTL::RenderPassDescriptor* gbufferDesc);
+                   Camera* camera);
     
+    void prepare() override;
+
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
@@ -27,7 +25,9 @@ private:
     MTL::DepthStencilState _directionLightDepthStencilState;
     
     MTL::Buffer _quadVertexBuffer;
-    MTL::RenderPassDescriptor* _gbufferDesc;
+    MTL::Texture &_albedoTexture;
+    MTL::Texture &_normalTexture;
+    MTL::Texture &_depthTexture;
 };
 
 }

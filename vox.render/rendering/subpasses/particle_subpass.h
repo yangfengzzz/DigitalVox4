@@ -12,17 +12,16 @@
 namespace vox {
 class ParticleSubpass: public Subpass {
 public:
-    ParticleSubpass(MTL::RenderPassDescriptor* desc,
-                    MTL::Device* device,
+    ParticleSubpass(View* view,
                     Scene* scene,
                     Camera* camera,
-                    MTL::Library& shaderLibrary,
-                    MTL::PixelFormat colorPixelFormat,
                     MTL::Buffer &fairy,
                     MTL::Texture &fairyMap,
                     const uint32_t numLights,
                     const uint32_t numFairyVertices);
     
+    void prepare() override;
+
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:

@@ -408,6 +408,14 @@
 		044596E02797A00C00F04CE0 /* shadow_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F82791581900F04CE0 /* shadow_subpass.cpp */; };
 		044596E12797A21D00F04CE0 /* deferred_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593FD2791A58A00F04CE0 /* deferred_subpass.h */; };
 		044596E22797A21D00F04CE0 /* deferred_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593FC2791A58A00F04CE0 /* deferred_subpass.cpp */; };
+		044596E32797A9F100F04CE0 /* compose_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594012791C04200F04CE0 /* compose_subpass.cpp */; };
+		044596E42797A9F100F04CE0 /* compose_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594022791C04200F04CE0 /* compose_subpass.h */; };
+		044596E52797ABD900F04CE0 /* point_light_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594062792472800F04CE0 /* point_light_subpass.h */; };
+		044596E62797AC2C00F04CE0 /* point_light_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594052792472800F04CE0 /* point_light_subpass.cpp */; };
+		044596E72797AE2000F04CE0 /* skybox_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940A2792500900F04CE0 /* skybox_subpass.h */; };
+		044596E82797AE2000F04CE0 /* skybox_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594092792500900F04CE0 /* skybox_subpass.cpp */; };
+		044596E92797AEF300F04CE0 /* particle_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445940D2792545E00F04CE0 /* particle_subpass.cpp */; };
+		044596EA2797AEF600F04CE0 /* particle_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940E2792545E00F04CE0 /* particle_subpass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1782,8 +1790,10 @@
 				044596242796EB1B00F04CE0 /* imgui_internal.h in Headers */,
 				044596892796F87C00F04CE0 /* base_material.h in Headers */,
 				044595E82796E88600F04CE0 /* cpp_mtl_drawable.h in Headers */,
+				044596E42797A9F100F04CE0 /* compose_subpass.h in Headers */,
 				0445960D2796E88B00F04CE0 /* resource_cache.h in Headers */,
 				044596152796E9F900F04CE0 /* allocator.h in Headers */,
+				044596EA2797AEF600F04CE0 /* particle_subpass.h in Headers */,
 				0445962F2796ED4700F04CE0 /* application.h in Headers */,
 				044595F22796E88600F04CE0 /* cpp_mtl_render_command_encoder_dispatch_table.h in Headers */,
 				044596DD2796FC1100F04CE0 /* metal_application.h in Headers */,
@@ -1808,6 +1818,7 @@
 				044595E42796E88600F04CE0 /* cpp_mtl_resource.h in Headers */,
 				044596342796EE4F00F04CE0 /* mesh_buffer.h in Headers */,
 				044596322796EDD400F04CE0 /* unix_engine.h in Headers */,
+				044596E72797AE2000F04CE0 /* skybox_subpass.h in Headers */,
 				044595FB2796E88600F04CE0 /* cpp_mtl_resource_enum.h in Headers */,
 				044596952796F99100F04CE0 /* update_flag.h in Headers */,
 				044596CD2796FBE100F04CE0 /* hit_result.h in Headers */,
@@ -1884,6 +1895,7 @@
 				044596162796EA5400F04CE0 /* unique_ptr.h in Headers */,
 				044595E62796E88600F04CE0 /* cpp_mtl_command_encoder.h in Headers */,
 				044596C42796FBE100F04CE0 /* physics_manager.h in Headers */,
+				044596E52797ABD900F04CE0 /* point_light_subpass.h in Headers */,
 				044596662796F85C00F04CE0 /* shader.h in Headers */,
 				044596652796F85C00F04CE0 /* shader_macro_collection.h in Headers */,
 				044595DB2796DE3B00F04CE0 /* input_events.h in Headers */,
@@ -2186,6 +2198,7 @@
 			files = (
 				044596DA2796FBE100F04CE0 /* spherical_joint.cpp in Sources */,
 				044595FD2796E88600F04CE0 /* cpp_mtl_device_internals.mm in Sources */,
+				044596E32797A9F100F04CE0 /* compose_subpass.cpp in Sources */,
 				044596C92796FBE100F04CE0 /* collider.cpp in Sources */,
 				0445960F2796E88B00F04CE0 /* metal_view.mm in Sources */,
 				044595DA2796DC9B00F04CE0 /* glfw_window.mm in Sources */,
@@ -2222,6 +2235,7 @@
 				044596042796E88600F04CE0 /* cpp_mtl_render_pass.mm in Sources */,
 				0445963A2796EE4F00F04CE0 /* mesh_loader.mm in Sources */,
 				044596B12796FAFD00F04CE0 /* orbit_control.cpp in Sources */,
+				044596E62797AC2C00F04CE0 /* point_light_subpass.cpp in Sources */,
 				0445960A2796E88600F04CE0 /* cpp_mtl_buffer.mm in Sources */,
 				044595EC2796E88600F04CE0 /* cpp_mtl_function_constant_values.mm in Sources */,
 				044596D62796FBE100F04CE0 /* translational_joint.cpp in Sources */,
@@ -2231,6 +2245,7 @@
 				044595D62796DB0A00F04CE0 /* timer.cpp in Sources */,
 				0445969C2796F99100F04CE0 /* transform.cpp in Sources */,
 				044596522796EFD900F04CE0 /* render_pass.cpp in Sources */,
+				044596E92797AEF300F04CE0 /* particle_subpass.cpp in Sources */,
 				0445962E2796EB4900F04CE0 /* engine.cpp in Sources */,
 				0445969E2796F99100F04CE0 /* entity.cpp in Sources */,
 				0445964A2796EF9500F04CE0 /* math_utilities.cpp in Sources */,
@@ -2273,6 +2288,7 @@
 				044596B52796FBE100F04CE0 /* dynamic_collider.cpp in Sources */,
 				044596872796F87C00F04CE0 /* unlit_material.cpp in Sources */,
 				044596312796EDD400F04CE0 /* unix_engine.cpp in Sources */,
+				044596E82797AE2000F04CE0 /* skybox_subpass.cpp in Sources */,
 				044595F42796E88600F04CE0 /* cpp_mtl_library.mm in Sources */,
 				044596392796EE4F00F04CE0 /* primitive_mesh.cpp in Sources */,
 				0445969D2796F99100F04CE0 /* renderer.cpp in Sources */,

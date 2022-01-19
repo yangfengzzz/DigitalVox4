@@ -5,33 +5,35 @@
 //  property of any third parties.
 
 #include "particle_subpass.h"
+#include "rendering/render_pass.h"
+
 #include "core/cpp_mtl_assert.h"
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
 namespace vox {
-ParticleSubpass::ParticleSubpass(MTL::RenderPassDescriptor* desc,
-                                 MTL::Device* device,
+ParticleSubpass::ParticleSubpass(View* view,
                                  Scene* scene,
                                  Camera* camera,
-                                 MTL::Library& shaderLibrary,
-                                 MTL::PixelFormat colorPixelFormat,
                                  MTL::Buffer &fairy,
                                  MTL::Texture &fairyMap,
                                  const uint32_t numLights,
                                  const uint32_t numFairyVertices):
-Subpass(desc, device, scene, camera),
+Subpass(view, scene, camera),
 _fairy(fairy),
 _fairyMap(fairyMap),
 _numLights(numLights),
 _numFairyVertices(numFairyVertices) {
+}
+
+void ParticleSubpass::prepare() {
     CFErrorRef error = nullptr;
 
 #pragma mark Fairy billboard render pipeline setup
     {
-        MTL::Function fairyVertexFunction = shaderLibrary.makeFunction("fairy_vertex");
-        MTL::Function fairyFragmentFunction = shaderLibrary.makeFunction("fairy_fragment");
+        MTL::Function fairyVertexFunction = _pass->library().makeFunction("fairy_vertex");
+        MTL::Function fairyFragmentFunction = _pass->library().makeFunction("fairy_fragment");
         
         MTL::RenderPipelineDescriptor renderPipelineDescriptor;
         
@@ -39,9 +41,9 @@ _numFairyVertices(numFairyVertices) {
         renderPipelineDescriptor.vertexDescriptor(nullptr);
         renderPipelineDescriptor.vertexFunction(&fairyVertexFunction);
         renderPipelineDescriptor.fragmentFunction(&fairyFragmentFunction);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(colorPixelFormat);
-        renderPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
+        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+        renderPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        renderPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
         renderPipelineDescriptor.colorAttachments[0].blendingEnabled(true);
         renderPipelineDescriptor.colorAttachments[0].rgbBlendOperation(MTL::BlendOperationAdd);
         renderPipelineDescriptor.colorAttachments[0].alphaBlendOperation(MTL::BlendOperationAdd);
@@ -50,7 +52,7 @@ _numFairyVertices(numFairyVertices) {
         renderPipelineDescriptor.colorAttachments[0].destinationRGBBlendFactor(MTL::BlendFactorOne);
         renderPipelineDescriptor.colorAttachments[0].destinationAlphaBlendFactor(MTL::BlendFactorOne);
         
-        _fairyPipelineState = _device->makeRenderPipelineState(renderPipelineDescriptor);
+        _fairyPipelineState = _view->device().makeRenderPipelineState(renderPipelineDescriptor);
         
         MTLAssert(error == nullptr, error, "Failed to create fairy render pipeline state: %@");
     }
@@ -62,7 +64,7 @@ _numFairyVertices(numFairyVertices) {
         depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLess);
         depthStencilDesc.depthWriteEnabled(false);
         
-        _dontWriteDepthStencilState = _device->makeDepthStencilState(depthStencilDesc);
+        _dontWriteDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
     }
 }
 
