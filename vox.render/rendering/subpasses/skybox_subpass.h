@@ -22,8 +22,8 @@ public:
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
+    MTL::RenderPipelineDescriptor _skyboxPipelineDescriptor;
     MTL::DepthStencilState _dontWriteDepthStencilState;
-    MTL::RenderPipelineState _skyboxPipelineState;
 };
 
 }

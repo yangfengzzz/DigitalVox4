@@ -7,8 +7,6 @@
 #include "point_light_subpass.h"
 #include "rendering/render_pass.h"
 
-#include "core/cpp_mtl_assert.h"
-
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
@@ -43,8 +41,6 @@ void PointLightSubpass::setRenderPass(RenderPass* pass) {
 }
 
 void PointLightSubpass::prepare() {
-    CFErrorRef error = nullptr;
-    
 #if LIGHT_STENCIL_CULLING
     // Setup objects for point light mask rendering
     {
@@ -52,19 +48,13 @@ void PointLightSubpass::prepare() {
         {
             MTL::Function lightMaskVertex = _pass->library().makeFunction("light_mask_vertex");
             
-            MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-            renderPipelineDescriptor.label("Point Light Mask");
-            renderPipelineDescriptor.vertexDescriptor(nullptr);
-            renderPipelineDescriptor.vertexFunction(&lightMaskVertex);
-            renderPipelineDescriptor.fragmentFunction(nullptr);
-            renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
-            renderPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
-            renderPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
-            
-            _lightMaskPipelineState = _view->device().makeRenderPipelineState(renderPipelineDescriptor, &error);
-            
-            MTLAssert(error == nullptr, error,
-                      "Failed to create directional light mask pipeline state:");
+            _lightMaskPipelineDescriptor.label("Point Light Mask");
+            _lightMaskPipelineDescriptor.vertexDescriptor(nullptr);
+            _lightMaskPipelineDescriptor.vertexFunction(&lightMaskVertex);
+            _lightMaskPipelineDescriptor.fragmentFunction(nullptr);
+            _lightMaskPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+            _lightMaskPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+            _lightMaskPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
         }
         
 #pragma mark Light mask depth stencil state setup
@@ -113,32 +103,26 @@ void PointLightSubpass::prepare() {
     
 #pragma mark Point light render pipeline setup
     {
-        MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-        
-        renderPipelineDescriptor.label("Light");
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+        _lightPipelineDescriptor.label("Light");
+        _lightPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
         
         // Enable additive blending
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].blendingEnabled(true);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].rgbBlendOperation(MTL::BlendOperationAdd);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].alphaBlendOperation(MTL::BlendOperationAdd);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].destinationRGBBlendFactor(MTL::BlendFactorOne);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].destinationAlphaBlendFactor(MTL::BlendFactorOne);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].sourceRGBBlendFactor(MTL::BlendFactorOne);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].sourceAlphaBlendFactor(MTL::BlendFactorOne);
+        _lightPipelineDescriptor.colorAttachments[RenderTargetLighting].blendingEnabled(true);
+        _lightPipelineDescriptor.colorAttachments[RenderTargetLighting].rgbBlendOperation(MTL::BlendOperationAdd);
+        _lightPipelineDescriptor.colorAttachments[RenderTargetLighting].alphaBlendOperation(MTL::BlendOperationAdd);
+        _lightPipelineDescriptor.colorAttachments[RenderTargetLighting].destinationRGBBlendFactor(MTL::BlendFactorOne);
+        _lightPipelineDescriptor.colorAttachments[RenderTargetLighting].destinationAlphaBlendFactor(MTL::BlendFactorOne);
+        _lightPipelineDescriptor.colorAttachments[RenderTargetLighting].sourceRGBBlendFactor(MTL::BlendFactorOne);
+        _lightPipelineDescriptor.colorAttachments[RenderTargetLighting].sourceAlphaBlendFactor(MTL::BlendFactorOne);
         
-        renderPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        _lightPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        _lightPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
         
         MTL::Function lightVertexFunction = _pass->library().makeFunction("deferred_point_lighting_vertex");
         MTL::Function lightFragmentFunction = _pass->library().makeFunction("deferred_point_lighting_fragment_traditional");
         
-        renderPipelineDescriptor.vertexFunction(&lightVertexFunction);
-        renderPipelineDescriptor.fragmentFunction(&lightFragmentFunction);
-        
-        _lightPipelineState = _view->device().makeRenderPipelineState(renderPipelineDescriptor, &error);
-        
-        MTLAssert(error == nullptr, error, "Failed to create lighting render pipeline state");
+        _lightPipelineDescriptor.vertexFunction(&lightVertexFunction);
+        _lightPipelineDescriptor.fragmentFunction(&lightFragmentFunction);
     }
 }
 
@@ -150,6 +134,7 @@ void PointLightSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
 void PointLightSubpass::drawPointLightMask(MTL::RenderCommandEncoder &commandEncoder) {
 #if LIGHT_STENCIL_CULLING
     commandEncoder.pushDebugGroup("Draw Light Mask");
+    auto _lightMaskPipelineState = _view->device().resourceCache().requestRenderPipelineState(_lightMaskPipelineDescriptor);
     commandEncoder.setRenderPipelineState(_lightMaskPipelineState);
     commandEncoder.setDepthStencilState(_lightMaskDepthStencilState);
     
@@ -179,7 +164,7 @@ void PointLightSubpass::drawPointLightMask(MTL::RenderCommandEncoder &commandEnc
 
 void PointLightSubpass::drawPointLights(MTL::RenderCommandEncoder &commandEncoder) {
     commandEncoder.pushDebugGroup("Draw Point Lights");
-    
+    auto _lightPipelineState = _view->device().resourceCache().requestRenderPipelineState(_lightPipelineDescriptor);
     commandEncoder.setRenderPipelineState(_lightPipelineState);
     
     commandEncoder.setFragmentTexture(*_albedoTexture, RenderTargetAlbedo);

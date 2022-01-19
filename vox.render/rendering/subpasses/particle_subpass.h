@@ -25,8 +25,8 @@ public:
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
+    MTL::RenderPipelineDescriptor _fairyPipelineDescriptor;
     MTL::DepthStencilState _dontWriteDepthStencilState;
-    MTL::RenderPipelineState _fairyPipelineState;
     
     // Mesh buffer for fairies
     MTL::Buffer &_fairy;

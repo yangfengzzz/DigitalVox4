@@ -405,6 +405,21 @@
 		044596DE2796FC1100F04CE0 /* metal_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445925A278E7C8600F04CE0 /* metal_application.cpp */; };
 		044596ED2797DF7400F04CE0 /* forward_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942E2793A5D800F04CE0 /* forward_application.cpp */; };
 		044596F02797DFD100F04CE0 /* basic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044596EE2797DFD100F04CE0 /* basic_app.cpp */; };
+		044596F62798100200F04CE0 /* shadow_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F92791581900F04CE0 /* shadow_subpass.h */; };
+		044596F72798100200F04CE0 /* shadow_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F82791581900F04CE0 /* shadow_subpass.cpp */; };
+		044596F82798111E00F04CE0 /* deferred_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593FC2791A58A00F04CE0 /* deferred_subpass.cpp */; };
+		044596F92798111E00F04CE0 /* deferred_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593FD2791A58A00F04CE0 /* deferred_subpass.h */; };
+		044596FA2798115200F04CE0 /* compose_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594022791C04200F04CE0 /* compose_subpass.h */; };
+		044596FB2798115200F04CE0 /* compose_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594012791C04200F04CE0 /* compose_subpass.cpp */; };
+		044596FC279811B900F04CE0 /* point_light_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594052792472800F04CE0 /* point_light_subpass.cpp */; };
+		044596FD279811B900F04CE0 /* point_light_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594062792472800F04CE0 /* point_light_subpass.h */; };
+		044596FE2798127C00F04CE0 /* skybox_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940A2792500900F04CE0 /* skybox_subpass.h */; };
+		044596FF2798127C00F04CE0 /* skybox_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594092792500900F04CE0 /* skybox_subpass.cpp */; };
+		04459700279812F500F04CE0 /* particle_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445940D2792545E00F04CE0 /* particle_subpass.cpp */; };
+		04459701279812F500F04CE0 /* particle_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940E2792545E00F04CE0 /* particle_subpass.h */; };
+		044597022798132E00F04CE0 /* deferred_application.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593ED2791213E00F04CE0 /* deferred_application.h */; };
+		044597032798132E00F04CE0 /* deferred_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593EC2791213E00F04CE0 /* deferred_application.cpp */; };
+		044597052798134300F04CE0 /* basic_deferred_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044596F22797E4EF00F04CE0 /* basic_deferred_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1780,14 +1795,17 @@
 				044596852796F87C00F04CE0 /* render_face.h in Headers */,
 				044596D02796FBE100F04CE0 /* collider_shape.h in Headers */,
 				044596B42796FBE100F04CE0 /* spring_joint.h in Headers */,
+				044596F62798100200F04CE0 /* shadow_subpass.h in Headers */,
 				044596A12796F99100F04CE0 /* components_manager.h in Headers */,
 				044596692796F85C00F04CE0 /* shader_program.h in Headers */,
 				044596A52796F99100F04CE0 /* renderer.h in Headers */,
 				044596242796EB1B00F04CE0 /* imgui_internal.h in Headers */,
 				044596892796F87C00F04CE0 /* base_material.h in Headers */,
 				044595E82796E88600F04CE0 /* cpp_mtl_drawable.h in Headers */,
+				044596FA2798115200F04CE0 /* compose_subpass.h in Headers */,
 				0445960D2796E88B00F04CE0 /* resource_cache.h in Headers */,
 				044596152796E9F900F04CE0 /* allocator.h in Headers */,
+				04459701279812F500F04CE0 /* particle_subpass.h in Headers */,
 				0445962F2796ED4700F04CE0 /* application.h in Headers */,
 				044595F22796E88600F04CE0 /* cpp_mtl_render_command_encoder_dispatch_table.h in Headers */,
 				044596DD2796FC1100F04CE0 /* metal_application.h in Headers */,
@@ -1812,6 +1830,7 @@
 				044595E42796E88600F04CE0 /* cpp_mtl_resource.h in Headers */,
 				044596342796EE4F00F04CE0 /* mesh_buffer.h in Headers */,
 				044596322796EDD400F04CE0 /* unix_engine.h in Headers */,
+				044596FE2798127C00F04CE0 /* skybox_subpass.h in Headers */,
 				044595FB2796E88600F04CE0 /* cpp_mtl_resource_enum.h in Headers */,
 				044596952796F99100F04CE0 /* update_flag.h in Headers */,
 				044596CD2796FBE100F04CE0 /* hit_result.h in Headers */,
@@ -1840,6 +1859,7 @@
 				044596CC2796FBE100F04CE0 /* box_collider_shape.h in Headers */,
 				044596092796E88600F04CE0 /* cpp_mtl_implementation.h in Headers */,
 				044596822796F87C00F04CE0 /* material.h in Headers */,
+				044597022798132E00F04CE0 /* deferred_application.h in Headers */,
 				044596942796F99100F04CE0 /* background.h in Headers */,
 				044596762796F85C00F04CE0 /* shader_data.h in Headers */,
 				0445963F2796EF9500F04CE0 /* math_utilities.h in Headers */,
@@ -1849,6 +1869,7 @@
 				044596642796F85C00F04CE0 /* shader_property.h in Headers */,
 				044596A82796FA8800F04CE0 /* mesh_renderer.h in Headers */,
 				044596BC2796FBE100F04CE0 /* box_character_controller.h in Headers */,
+				044596F92798111E00F04CE0 /* deferred_subpass.h in Headers */,
 				044596252796EB1B00F04CE0 /* imconfig.h in Headers */,
 				044596A62796F99100F04CE0 /* scene_forward.h in Headers */,
 				044596272796EB1B00F04CE0 /* imgui.h in Headers */,
@@ -1887,6 +1908,7 @@
 				044596162796EA5400F04CE0 /* unique_ptr.h in Headers */,
 				044595E62796E88600F04CE0 /* cpp_mtl_command_encoder.h in Headers */,
 				044596C42796FBE100F04CE0 /* physics_manager.h in Headers */,
+				044596FD279811B900F04CE0 /* point_light_subpass.h in Headers */,
 				044596662796F85C00F04CE0 /* shader.h in Headers */,
 				044596652796F85C00F04CE0 /* shader_macro_collection.h in Headers */,
 				044595DB2796DE3B00F04CE0 /* input_events.h in Headers */,
@@ -2222,19 +2244,24 @@
 				044596022796E88600F04CE0 /* cpp_mtl_data_type.mm in Sources */,
 				0445967A2796F85C00F04CE0 /* render_state.cpp in Sources */,
 				044596C62796FBE100F04CE0 /* configurable_joint.cpp in Sources */,
+				044596FC279811B900F04CE0 /* point_light_subpass.cpp in Sources */,
 				044595F32796E88600F04CE0 /* cpp_mtl_render_pipeline.mm in Sources */,
 				044596042796E88600F04CE0 /* cpp_mtl_render_pass.mm in Sources */,
+				04459700279812F500F04CE0 /* particle_subpass.cpp in Sources */,
 				0445963A2796EE4F00F04CE0 /* mesh_loader.mm in Sources */,
 				044596B12796FAFD00F04CE0 /* orbit_control.cpp in Sources */,
 				0445960A2796E88600F04CE0 /* cpp_mtl_buffer.mm in Sources */,
+				044596F82798111E00F04CE0 /* deferred_subpass.cpp in Sources */,
 				044595EC2796E88600F04CE0 /* cpp_mtl_function_constant_values.mm in Sources */,
 				044596D62796FBE100F04CE0 /* translational_joint.cpp in Sources */,
 				044596352796EE4F00F04CE0 /* sub_mesh.cpp in Sources */,
 				044596AA2796FAA400F04CE0 /* spherical.cpp in Sources */,
 				0445969A2796F99100F04CE0 /* update_flag_manager.cpp in Sources */,
+				044596F72798100200F04CE0 /* shadow_subpass.cpp in Sources */,
 				044595D62796DB0A00F04CE0 /* timer.cpp in Sources */,
 				0445969C2796F99100F04CE0 /* transform.cpp in Sources */,
 				044596522796EFD900F04CE0 /* render_pass.cpp in Sources */,
+				044596FF2798127C00F04CE0 /* skybox_subpass.cpp in Sources */,
 				0445962E2796EB4900F04CE0 /* engine.cpp in Sources */,
 				0445969E2796F99100F04CE0 /* entity.cpp in Sources */,
 				0445964A2796EF9500F04CE0 /* math_utilities.cpp in Sources */,
@@ -2277,6 +2304,7 @@
 				044596312796EDD400F04CE0 /* unix_engine.cpp in Sources */,
 				044595F42796E88600F04CE0 /* cpp_mtl_library.mm in Sources */,
 				044596392796EE4F00F04CE0 /* primitive_mesh.cpp in Sources */,
+				044596FB2798115200F04CE0 /* compose_subpass.cpp in Sources */,
 				0445969D2796F99100F04CE0 /* renderer.cpp in Sources */,
 				044595F92796E88600F04CE0 /* cpp_mtl_render_command_encoder_dispatch_table.mm in Sources */,
 				044595D72796DBED00F04CE0 /* window.cpp in Sources */,
@@ -2286,6 +2314,7 @@
 				044596712796F85C00F04CE0 /* raster_state.cpp in Sources */,
 				0445962B2796EB1B00F04CE0 /* imgui.cpp in Sources */,
 				044596D82796FBE100F04CE0 /* collider_shape.cpp in Sources */,
+				044597032798132E00F04CE0 /* deferred_application.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2402,6 +2431,7 @@
 			files = (
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
 				044596F02797DFD100F04CE0 /* basic_app.cpp in Sources */,
+				044597052798134300F04CE0 /* basic_deferred_app.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

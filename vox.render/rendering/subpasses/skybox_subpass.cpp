@@ -7,7 +7,6 @@
 #include "skybox_subpass.h"
 #include "rendering/render_pass.h"
 
-#include "core/cpp_mtl_assert.h"
 #include "material/material.h"
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
@@ -21,25 +20,18 @@ Subpass(view, scene, camera) {
 }
 
 void SkyboxSubpass::prepare() {
-    CFErrorRef error = nullptr;
-    
 #pragma mark Sky render pipeline setup
     {
         MTL::Function skyboxVertexFunction = _pass->library().makeFunction("skybox_vertex");
         MTL::Function skyboxFragmentFunction = _pass->library().makeFunction("skybox_fragment");
         
-        MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-        renderPipelineDescriptor.label("Sky");
-        renderPipelineDescriptor.vertexDescriptor(&(_scene->background.sky.mesh->vertexDescriptor()));
-        renderPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
-        renderPipelineDescriptor.fragmentFunction(&skyboxFragmentFunction);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
-        renderPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
-        
-        _skyboxPipelineState = _view->device().makeRenderPipelineState(renderPipelineDescriptor, &error);
-        
-        MTLAssert(error == nullptr, error, "Failed to create skybox render pipeline state: %@");
+        _skyboxPipelineDescriptor.label("Sky");
+        _skyboxPipelineDescriptor.vertexDescriptor(&(_scene->background.sky.mesh->vertexDescriptor()));
+        _skyboxPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
+        _skyboxPipelineDescriptor.fragmentFunction(&skyboxFragmentFunction);
+        _skyboxPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+        _skyboxPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        _skyboxPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
     }
     
 #pragma mark Post lighting depth state setup
@@ -55,6 +47,7 @@ void SkyboxSubpass::prepare() {
 
 void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw Sky");
+    auto _skyboxPipelineState = _view->device().resourceCache().requestRenderPipelineState(_skyboxPipelineDescriptor);
     commandEncoder.setRenderPipelineState(_skyboxPipelineState);
     commandEncoder.setDepthStencilState(_dontWriteDepthStencilState);
     commandEncoder.setCullMode(MTL::CullModeFront);

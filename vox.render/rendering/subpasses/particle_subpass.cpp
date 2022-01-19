@@ -28,33 +28,25 @@ _numFairyVertices(numFairyVertices) {
 }
 
 void ParticleSubpass::prepare() {
-    CFErrorRef error = nullptr;
-
 #pragma mark Fairy billboard render pipeline setup
     {
         MTL::Function fairyVertexFunction = _pass->library().makeFunction("fairy_vertex");
         MTL::Function fairyFragmentFunction = _pass->library().makeFunction("fairy_fragment");
-        
-        MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-        
-        renderPipelineDescriptor.label("Fairy Drawing");
-        renderPipelineDescriptor.vertexDescriptor(nullptr);
-        renderPipelineDescriptor.vertexFunction(&fairyVertexFunction);
-        renderPipelineDescriptor.fragmentFunction(&fairyFragmentFunction);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
-        renderPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
-        renderPipelineDescriptor.colorAttachments[0].blendingEnabled(true);
-        renderPipelineDescriptor.colorAttachments[0].rgbBlendOperation(MTL::BlendOperationAdd);
-        renderPipelineDescriptor.colorAttachments[0].alphaBlendOperation(MTL::BlendOperationAdd);
-        renderPipelineDescriptor.colorAttachments[0].sourceRGBBlendFactor(MTL::BlendFactorSourceAlpha);
-        renderPipelineDescriptor.colorAttachments[0].sourceAlphaBlendFactor(MTL::BlendFactorSourceAlpha);
-        renderPipelineDescriptor.colorAttachments[0].destinationRGBBlendFactor(MTL::BlendFactorOne);
-        renderPipelineDescriptor.colorAttachments[0].destinationAlphaBlendFactor(MTL::BlendFactorOne);
-        
-        _fairyPipelineState = _view->device().makeRenderPipelineState(renderPipelineDescriptor);
-        
-        MTLAssert(error == nullptr, error, "Failed to create fairy render pipeline state: %@");
+                
+        _fairyPipelineDescriptor.label("Fairy Drawing");
+        _fairyPipelineDescriptor.vertexDescriptor(nullptr);
+        _fairyPipelineDescriptor.vertexFunction(&fairyVertexFunction);
+        _fairyPipelineDescriptor.fragmentFunction(&fairyFragmentFunction);
+        _fairyPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+        _fairyPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        _fairyPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        _fairyPipelineDescriptor.colorAttachments[0].blendingEnabled(true);
+        _fairyPipelineDescriptor.colorAttachments[0].rgbBlendOperation(MTL::BlendOperationAdd);
+        _fairyPipelineDescriptor.colorAttachments[0].alphaBlendOperation(MTL::BlendOperationAdd);
+        _fairyPipelineDescriptor.colorAttachments[0].sourceRGBBlendFactor(MTL::BlendFactorSourceAlpha);
+        _fairyPipelineDescriptor.colorAttachments[0].sourceAlphaBlendFactor(MTL::BlendFactorSourceAlpha);
+        _fairyPipelineDescriptor.colorAttachments[0].destinationRGBBlendFactor(MTL::BlendFactorOne);
+        _fairyPipelineDescriptor.colorAttachments[0].destinationAlphaBlendFactor(MTL::BlendFactorOne);
     }
     
 #pragma mark Post lighting depth state setup
@@ -70,6 +62,7 @@ void ParticleSubpass::prepare() {
 
 void ParticleSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw Fairies");
+    auto _fairyPipelineState = _view->device().resourceCache().requestRenderPipelineState(_fairyPipelineDescriptor);
     commandEncoder.setRenderPipelineState(_fairyPipelineState);
     commandEncoder.setDepthStencilState(_dontWriteDepthStencilState);
     commandEncoder.setCullMode(MTL::CullModeBack);

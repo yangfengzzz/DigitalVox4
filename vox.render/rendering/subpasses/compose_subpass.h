@@ -25,7 +25,7 @@ public:
     static std::string dependedPassName();
     
 private:
-    MTL::RenderPipelineState _directionalLightPipelineState;
+    MTL::RenderPipelineDescriptor _directionalLightPipelineDescriptor;
     MTL::DepthStencilState _directionLightDepthStencilState;
     
     MTL::Buffer _quadVertexBuffer;

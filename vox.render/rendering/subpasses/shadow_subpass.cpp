@@ -18,22 +18,14 @@ Subpass(view, scene, camera) {
 }
 
 void ShadowSubpass::prepare() {
-    CFErrorRef error = nullptr;
-    
 #pragma mark Shadow pass render pipeline setup
     {
         MTL::Function *shadowVertexFunction = _pass->library().newFunctionWithName("shadow_vertex");
-        
-        MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-        renderPipelineDescriptor.label("Shadow Gen");
-        renderPipelineDescriptor.vertexDescriptor(nullptr);
-        renderPipelineDescriptor.vertexFunction(shadowVertexFunction);
-        renderPipelineDescriptor.fragmentFunction(nullptr);
-        renderPipelineDescriptor.depthAttachmentPixelFormat(_pass->renderPassDescriptor()->depthAttachment.texture().pixelFormat());
-        
-        _shadowGenPipelineState = _view->device().makeRenderPipelineState(renderPipelineDescriptor, &error);
-        
-        delete shadowVertexFunction;
+        _shadowGenPipelineDescriptor.label("Shadow Gen");
+        _shadowGenPipelineDescriptor.vertexDescriptor(nullptr);
+        _shadowGenPipelineDescriptor.vertexFunction(shadowVertexFunction);
+        _shadowGenPipelineDescriptor.fragmentFunction(nullptr);
+        _shadowGenPipelineDescriptor.depthAttachmentPixelFormat(_pass->renderPassDescriptor()->depthAttachment.texture().pixelFormat());
     }
     
 #pragma mark Shadow pass depth state setup
@@ -49,6 +41,7 @@ void ShadowSubpass::prepare() {
 void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.label("Shadow Map Pass");
     
+    auto _shadowGenPipelineState = _view->device().resourceCache().requestRenderPipelineState(_shadowGenPipelineDescriptor);
     commandEncoder.setRenderPipelineState(_shadowGenPipelineState);
     commandEncoder.setDepthStencilState(_shadowDepthStencilState);
     commandEncoder.setCullMode(MTL::CullModeBack);

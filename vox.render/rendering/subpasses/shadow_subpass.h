@@ -25,7 +25,7 @@ public:
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
     
-    MTL::RenderPipelineState _shadowGenPipelineState;
+    MTL::RenderPipelineDescriptor _shadowGenPipelineDescriptor;
     MTL::DepthStencilState _shadowDepthStencilState;
 };
 

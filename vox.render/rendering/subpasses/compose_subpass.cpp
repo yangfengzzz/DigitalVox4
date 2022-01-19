@@ -7,8 +7,6 @@
 #include "compose_subpass.h"
 #include "rendering/render_pass.h"
 
-#include "core/cpp_mtl_assert.h"
-
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
@@ -39,27 +37,18 @@ void ComposeSubpass::setRenderPass(RenderPass* pass) {
 }
 
 void ComposeSubpass::prepare() {
-    CFErrorRef error = nullptr;
-    
 #pragma mark Directional lighting render pipeline setup
     {
         MTL::Function directionalVertexFunction = _pass->library().makeFunction("deferred_direction_lighting_vertex");
         MTL::Function directionalFragmentFunction = _pass->library().makeFunction("deferred_directional_lighting_fragment_traditional");
         
-        MTL::RenderPipelineDescriptor renderPipelineDescriptor;
-        renderPipelineDescriptor.label("Deferred Directional Lighting");
-        renderPipelineDescriptor.vertexDescriptor(nullptr);
-        renderPipelineDescriptor.vertexFunction(&directionalVertexFunction);
-        renderPipelineDescriptor.fragmentFunction(&directionalFragmentFunction);
-        renderPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat()); // not set yet before draw
-        renderPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
-        renderPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
-        
-        _directionalLightPipelineState = _view->device().makeRenderPipelineState(renderPipelineDescriptor,
-                                                                                 &error);
-        
-        MTLAssert(error == nullptr, error,
-                  "Failed to create directional light render pipeline state:");
+        _directionalLightPipelineDescriptor.label("Deferred Directional Lighting");
+        _directionalLightPipelineDescriptor.vertexDescriptor(nullptr);
+        _directionalLightPipelineDescriptor.vertexFunction(&directionalVertexFunction);
+        _directionalLightPipelineDescriptor.fragmentFunction(&directionalFragmentFunction);
+        _directionalLightPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+        _directionalLightPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        _directionalLightPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
     }
     
 #pragma mark Directional lighting mask depth stencil state setup
@@ -114,6 +103,7 @@ void ComposeSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setStencilReferenceValue(128);
     
+    auto _directionalLightPipelineState = _view->device().resourceCache().requestRenderPipelineState(_directionalLightPipelineDescriptor);
     commandEncoder.setRenderPipelineState(_directionalLightPipelineState);
     commandEncoder.setDepthStencilState(_directionLightDepthStencilState);
     commandEncoder.setVertexBuffer(_quadVertexBuffer, 0, BufferIndexMeshPositions);

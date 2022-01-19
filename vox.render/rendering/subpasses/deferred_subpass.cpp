@@ -9,8 +9,6 @@
 
 #include "material/material.h"
 
-#include "core/cpp_mtl_assert.h"
-
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
@@ -38,8 +36,6 @@ void DeferredSubpass::setRenderPass(RenderPass* pass) {
 }
 
 void DeferredSubpass::prepare() {
-    CFErrorRef error = nullptr;
-    
     {
         MTL::Function GBufferVertexFunction = _pass->library().makeFunction("gbuffer_vertex");
         MTL::Function GBufferFragmentFunction = _pass->library().makeFunction("gbuffer_fragment");
@@ -53,9 +49,7 @@ void DeferredSubpass::prepare() {
         _GBufferPipelineDescriptor.depthAttachmentPixelFormat(desc->depthAttachment.texture().pixelFormat());
         _GBufferPipelineDescriptor.stencilAttachmentPixelFormat(desc->stencilAttachment.texture().pixelFormat());
         _GBufferPipelineDescriptor.vertexFunction(&GBufferVertexFunction);
-        _GBufferPipelineDescriptor.fragmentFunction(&GBufferFragmentFunction);
-        
-        MTLAssert(error == nullptr, error, "Failed to create GBuffer render pipeline state");
+        _GBufferPipelineDescriptor.fragmentFunction(&GBufferFragmentFunction);        
     }
     
 #pragma mark GBuffer depth state setup

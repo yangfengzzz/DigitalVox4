@@ -21,7 +21,9 @@ struct hash<RenderPipelineDescriptor> {
         
         hash_combine(result, descriptor.vertexDescriptor()->objCObj()); // internal address
         hash_combine(result, descriptor.vertexFunction()->objCObj()); // internal address
-        hash_combine(result, descriptor.fragmentFunction()->objCObj()); // internal address
+        if (descriptor.fragmentFunction()) {
+            hash_combine(result, descriptor.fragmentFunction()->objCObj()); // internal address
+        }
         hash_combine(result, descriptor.sampleCount());
         hash_combine(result, descriptor.isAlphaToCoverageEnabled());
         hash_combine(result, descriptor.depthAttachmentPixelFormat());

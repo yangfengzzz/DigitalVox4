@@ -32,10 +32,10 @@ private:
     
     void drawPointLights(MTL::RenderCommandEncoder &commandEncoder);
     
-    MTL::RenderPipelineState _lightMaskPipelineState;
+    MTL::RenderPipelineDescriptor _lightMaskPipelineDescriptor;
     MTL::DepthStencilState _lightMaskDepthStencilState;
     
-    MTL::RenderPipelineState _lightPipelineState;
+    MTL::RenderPipelineDescriptor _lightPipelineDescriptor;
     MTL::DepthStencilState _pointLightDepthStencilState;
     
     MeshPtr _icosahedronMesh;
