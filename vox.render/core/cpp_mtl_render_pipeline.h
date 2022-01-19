@@ -315,7 +315,32 @@ inline cpp_mtl_internal::RenderPipelineDescriptor RenderPipelineDescriptor::objC
 
 
 #pragma mark - RenderPipelineState inline implementations
-CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(RenderPipelineState);
+inline RenderPipelineState::RenderPipelineState(RenderPipelineState && rhs)
+: m_objCObj(rhs.m_objCObj)
+, m_device(rhs.m_device),
+sceneUniformBlock(rhs.sceneUniformBlock),
+cameraUniformBlock(rhs.cameraUniformBlock),
+rendererUniformBlock(rhs.rendererUniformBlock),
+materialUniformBlock(rhs.materialUniformBlock),
+internalUniformBlock(rhs.internalUniformBlock) {
+    rhs.m_objCObj = nullptr;
+    rhs.m_device = nullptr;
+}
+
+inline RenderPipelineState & RenderPipelineState::operator=(RenderPipelineState && rhs) {
+    m_objCObj = rhs.m_objCObj;
+    m_device = rhs.m_device;
+    sceneUniformBlock = rhs.sceneUniformBlock;
+    cameraUniformBlock = rhs.cameraUniformBlock;
+    rendererUniformBlock = rhs.rendererUniformBlock;
+    materialUniformBlock = rhs.materialUniformBlock;
+    internalUniformBlock = rhs.internalUniformBlock;
+    
+    rhs.m_objCObj = nullptr;
+    rhs.m_device = nullptr;
+    
+    return *this;
+}
 
 CPP_METAL_OBJCOBJ_GETTER_IMPLEMENATATION(RenderPipelineState);
 

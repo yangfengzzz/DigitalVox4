@@ -340,7 +340,28 @@ void RenderPipelineState::_groupingUniform(const vox::ShaderUniform &uniform,
 
 CPP_METAL_NULL_REFERENCE_CONSTRUCTOR_IMPLEMENATATION(RenderPipelineState);
 
-CPP_METAL_COPY_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(RenderPipelineState);
+RenderPipelineState::RenderPipelineState(const RenderPipelineState & rhs)
+: m_objCObj(rhs.m_objCObj),
+m_device(rhs.m_device),
+sceneUniformBlock(rhs.sceneUniformBlock),
+cameraUniformBlock(rhs.cameraUniformBlock),
+rendererUniformBlock(rhs.rendererUniformBlock),
+materialUniformBlock(rhs.materialUniformBlock),
+internalUniformBlock(rhs.internalUniformBlock) {
+    
+}
+
+RenderPipelineState & RenderPipelineState::operator=(const RenderPipelineState & rhs) {
+    m_objCObj = rhs.m_objCObj;
+    m_device = rhs.m_device;
+    sceneUniformBlock = rhs.sceneUniformBlock;
+    cameraUniformBlock = rhs.cameraUniformBlock;
+    rendererUniformBlock = rhs.rendererUniformBlock;
+    materialUniformBlock = rhs.materialUniformBlock;
+    internalUniformBlock = rhs.internalUniformBlock;
+    
+    return *this;
+}
 
 RenderPipelineState::~RenderPipelineState() {
     m_objCObj = nil;

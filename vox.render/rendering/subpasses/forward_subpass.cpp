@@ -83,12 +83,15 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
                                           opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
+        // manully
+        auto& mesh = element.mesh;
+        _forwardPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
+        auto m_forwardPipelineState = _view->device().resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
+        
         // reflection
         auto& submesh = element.subMesh;
         auto& mat = element.material;
-        renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_diffuseTexture")), TextureIndexBaseColor);
-        renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_normalTexture")), TextureIndexNormal);
-        renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_specularTexture")), TextureIndexSpecular);
+        uploadUniforms(renderEncoder, m_forwardPipelineState.materialUniformBlock, mat->shaderData);
         
         auto& renderer = element.renderer;
         auto mvpMat = std::any_cast<Matrix4x4F>(renderer->shaderData.getData("u_MVPMat"));
@@ -96,10 +99,6 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         auto normalMat = std::any_cast<Matrix4x4F>(renderer->shaderData.getData("u_normalMat"));
         renderEncoder.setVertexBytes(&normalMat, sizeof(Matrix4x4F), 6);
         
-        // manully
-        auto& mesh = element.mesh;
-        _forwardPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
-        auto m_forwardPipelineState = _view->device().resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
         renderEncoder.setRenderPipelineState(m_forwardPipelineState);
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),

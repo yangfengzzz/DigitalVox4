@@ -55,15 +55,15 @@ vertex ColorInOut forward_vertex(DescriptorDefinedVertex in [[ stage_in ]],
 }
 
 fragment half4 forward_fragment(ColorInOut in [[ stage_in ]],
-                                texture2d<half> baseColorMap [[ texture(TextureIndexBaseColor) ]],
-                                texture2d<half> normalMap [[ texture(TextureIndexNormal) ]],
-                                texture2d<half> specularMap [[ texture(TextureIndexSpecular) ]]) {
+                                texture2d<half> u_diffuseTexture [[ texture(TextureIndexBaseColor) ]],
+                                texture2d<half> u_normalTexture [[ texture(TextureIndexNormal) ]],
+                                texture2d<half> u_specularTexture [[ texture(TextureIndexSpecular) ]]) {
     constexpr sampler linearSampler(mip_filter::linear,
                                     mag_filter::linear,
                                     min_filter::linear);
     
-    half4 base_color_sample = baseColorMap.sample(linearSampler, in.tex_coord.xy);
-    half specular_contrib = specularMap.sample(linearSampler, in.tex_coord.xy).r;
+    half4 base_color_sample = u_diffuseTexture.sample(linearSampler, in.tex_coord.xy);
+    half specular_contrib = u_specularTexture.sample(linearSampler, in.tex_coord.xy).r;
     
     // Store shadow with albedo in unused fourth channel
     return half4(base_color_sample.xyz, specular_contrib);
