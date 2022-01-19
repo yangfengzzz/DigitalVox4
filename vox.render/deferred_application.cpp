@@ -1,28 +1,20 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  deferred.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "deferred_application.h"
-// Include header shared between C code here, which executes Metal API commands, and .metal files
-#include "shader_types.h"
-#include "rendering/render_pass.h"
 #include "rendering/subpasses/shadow_subpass.h"
 #include "rendering/subpasses/deferred_subpass.h"
 #include "rendering/subpasses/compose_subpass.h"
 #include "rendering/subpasses/point_light_subpass.h"
 #include "rendering/subpasses/skybox_subpass.h"
 #include "rendering/subpasses/particle_subpass.h"
-#include "sky/skybox_material.h"
-
 #include "engine.h"
-#include "core/cpp_mtl_assert.h"
-#include "material/texture_loader.h"
-#include "graphics/mesh_loader.h"
-#include "graphics/primitive_mesh.h"
-#include "shader/shader.h"
+
+// Include header shared between C code here, which executes Metal API commands, and .metal files
+#include "shader_types.h"
 
 namespace vox {
 using namespace simd;

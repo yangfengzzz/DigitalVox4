@@ -9,6 +9,7 @@
 #define basic_deferred_app_hpp
 
 #include "deferred_application.h"
+#include "math_utilities.h"
 
 namespace vox {
 static const float NearPlane = 1;
