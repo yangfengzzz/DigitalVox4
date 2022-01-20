@@ -36,7 +36,7 @@ bool EditorApplication::prepare(Engine &engine) {
     _renderPass = std::make_unique<RenderPass>(_library, &_renderPassDescriptor);
     _renderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderView.get(), _scene.get(), _mainCamera));
     
-    _colorPickerFormat = MTL::PixelFormatRGBA8Unorm;
+    _colorPickerFormat = MTL::PixelFormatBGRA8Unorm;
     MTL::TextureDescriptor colorPickerTextureDesc;
     colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
     colorPickerTextureDesc.width(extent.width * scale);
@@ -55,7 +55,7 @@ bool EditorApplication::prepare(Engine &engine) {
     auto colorPickerSubpass = std::make_unique<ColorPickerSubpass>(_renderView.get(), _scene.get(), _mainCamera);
     _colorPickerSubpass = colorPickerSubpass.get();
     _colorPickerRenderPass->addSubpass(std::move(colorPickerSubpass));
-
+    
     return true;
 }
 
@@ -63,7 +63,7 @@ void EditorApplication::update(float delta_time) {
     MetalApplication::update(delta_time);
     _scene->update(delta_time);
     _scene->updateShaderData(_device.get());
-
+    
     MTL::CommandBuffer commandBuffer = _commandQueue.commandBuffer();
     MTL::Drawable *drawable = _renderView->currentDrawable();
     // The final pass can only render if a drawable is available, otherwise it needs to skip
@@ -86,12 +86,15 @@ void EditorApplication::update(float delta_time) {
     commandBuffer.waitUntilCompleted();
     drawable->present();
     
-    auto picker = _colorPickerSubpass->getObjectByColor(_readColorFromRenderTarget());
-    pickFunctor(picker.first, picker.second);
+    if (_needPick) {
+        auto picker = _colorPickerSubpass->getObjectByColor(_readColorFromRenderTarget());
+        pickFunctor(picker.first, picker.second);
+        _needPick = false;
+    }
 }
 
 bool EditorApplication::resize(uint32_t win_width, uint32_t win_height,
-                                uint32_t fb_width, uint32_t fb_height) {
+                               uint32_t fb_width, uint32_t fb_height) {
     MetalApplication::resize(win_width, win_height, fb_width, fb_height);
     
     MTL::TextureDescriptor colorPickerTextureDesc;
