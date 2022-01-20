@@ -10,26 +10,26 @@
 namespace vox {
 int ShaderProgram::_counter = 0;
 
-MTL::Function ShaderProgram::vertexShader() {
-    return _vertexShader;
+MTL::Function* ShaderProgram::vertexShader() {
+    return &_vertexShader;
 }
 
-MTL::Function ShaderProgram::fragmentShader() {
-    return _fragmentShader;
+MTL::Function* ShaderProgram::fragmentShader() {
+    return &_fragmentShader;
 }
 
 bool ShaderProgram::isValid() {
     return _isValid;
 }
 
-ShaderProgram::ShaderProgram(MTL::Library* library,
+ShaderProgram::ShaderProgram(MTL::Library& library,
                              const std::string &vertexSource,
                              const std::string &fragmentSource,
-                             const ShaderMacroCollection &macroInfo) {
+                             const ShaderMacroCollection &macroInfo):
+_library(library) {
     ID = ShaderProgram::_counter;
     ShaderProgram::_counter += 1;
     
-    _library = library;
     _createProgram(vertexSource, fragmentSource, macroInfo);
     _isValid = true;
 }
@@ -57,8 +57,8 @@ MTL::FunctionConstantValues ShaderProgram::makeFunctionConstants(const ShaderMac
 void ShaderProgram::_createProgram(const std::string &vertexSource, const std::string &fragmentSource,
                                    const ShaderMacroCollection &macroInfo) {
     auto functionConstants = makeFunctionConstants(macroInfo);
-    _vertexShader = _library->makeFunction(vertexSource.c_str(), functionConstants);
-    _fragmentShader = _library->makeFunction(fragmentSource.c_str(), functionConstants);
+    _vertexShader = _library.makeFunction(vertexSource.c_str(), functionConstants);
+    _fragmentShader = _library.makeFunction(fragmentSource.c_str(), functionConstants);
 }
 
 

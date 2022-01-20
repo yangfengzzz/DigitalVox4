@@ -7,12 +7,14 @@
 #ifndef resource_cache_hpp
 #define resource_cache_hpp
 
-//#include "cpp_mtl.h"
+#include "shader/shader_program.h"
 #include "shader/shader_macro_collection.h"
 #include <unordered_map>
 
 namespace MTL {
 class Device;
+
+class Library;
 
 class RenderPipelineState;
 
@@ -26,16 +28,18 @@ class Function;
 }
 
 namespace vox {
+class ShaderProgram;
+
 /**
  * @brief Struct to hold the internal state of the Resource Cache
  *
  */
 struct ResourceCacheState {
-    std::unordered_map<std::size_t, MTL::RenderPipelineState> renderPipelineStates;
+    std::unordered_map<std::size_t, std::unique_ptr<MTL::RenderPipelineState>> renderPipelineStates;
     
-    std::unordered_map<std::size_t, MTL::DepthStencilState> depthStencilStates;
+    std::unordered_map<std::size_t, std::unique_ptr<MTL::DepthStencilState>> depthStencilStates;
     
-    std::unordered_map<std::size_t, MTL::Function> functions;
+    std::unordered_map<std::size_t, std::unique_ptr<ShaderProgram>> shaders;
 };
 
 /**
@@ -52,7 +56,7 @@ struct ResourceCacheState {
  */
 class ResourceCache {
 public:
-    ResourceCache(MTL::Device &device);
+    ResourceCache(MTL::Device *device);
     
     ResourceCache(const ResourceCache &) = delete;
     
@@ -63,16 +67,19 @@ public:
     ResourceCache &operator=(ResourceCache &&) = delete;
     
 public:
-    MTL::RenderPipelineState &requestRenderPipelineState(MTL::RenderPipelineDescriptor &descriptor);
+    MTL::RenderPipelineState *requestRenderPipelineState(MTL::RenderPipelineDescriptor &descriptor);
 
-    MTL::DepthStencilState &requestDepthStencilState(MTL::DepthStencilDescriptor &descriptor);
+    MTL::DepthStencilState *requestDepthStencilState(MTL::DepthStencilDescriptor &descriptor);
 
-    MTL::Function &requestFunction(const std::string &name, const ShaderMacroCollection &macroInfo);
+    ShaderProgram *requestShader(MTL::Library& library,
+                                 const std::string &vertexSource,
+                                 const std::string &fragmentSource,
+                                 const ShaderMacroCollection &macroInfo);
     
 private:
-    MTL::Device &device;
+    MTL::Device *_device;
     
-    ResourceCacheState state;
+    ResourceCacheState _state;
 };
 
 }

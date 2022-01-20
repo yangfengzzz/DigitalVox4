@@ -17,16 +17,16 @@ namespace vox {
  */
 class ShaderProgram {
 public:
-    MTL::Function vertexShader();
+    MTL::Function* vertexShader();
     
-    MTL::Function fragmentShader();
+    MTL::Function* fragmentShader();
     
     /**
      * Whether this shader program is valid.
      */
     bool isValid();
     
-    ShaderProgram(MTL::Library* library,
+    ShaderProgram(MTL::Library& library,
                   const std::string &vertexSource, const std::string &fragmentSource,
                   const ShaderMacroCollection &macroInfo);
     
@@ -43,7 +43,7 @@ private:
     static int _counter;
     int ID;
     bool _isValid;
-    MTL::Library* _library;
+    MTL::Library& _library;
     MTL::Function _vertexShader;
     MTL::Function _fragmentShader;
 };

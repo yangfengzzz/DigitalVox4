@@ -45,8 +45,7 @@ Device *CreateSystemDefaultDevice(Allocator *allocator) {
 Device::Device(Device &&rhs)
 : m_objCObj(rhs.m_objCObj),
 m_internals(rhs.m_internals),
-m_allocator(rhs.m_allocator),
-m_resourceCache(vox::ResourceCache(*this)) {
+m_allocator(rhs.m_allocator) {
     rhs.m_objCObj = nullptr;
     rhs.m_internals = nullptr;
 }
@@ -54,8 +53,7 @@ m_resourceCache(vox::ResourceCache(*this)) {
 Device::Device(cpp_mtl_internal::Device objCObj, Allocator *allocator)
 : m_objCObj(objCObj),
 m_internals(),
-m_allocator(allocator),
-m_resourceCache(vox::ResourceCache(*this)) {
+m_allocator(allocator) {
     auto deleter = [allocator](cpp_mtl_internal::DeviceInternals *ptr) {
         allocator->destroy(ptr);
     };
@@ -72,8 +70,7 @@ m_resourceCache(vox::ResourceCache(*this)) {
 Device::Device()
 : m_objCObj(nil),
 m_internals(nullptr),
-m_allocator(nullptr),
-m_resourceCache(vox::ResourceCache(*this)) {
+m_allocator(nullptr) {
     
 }
 

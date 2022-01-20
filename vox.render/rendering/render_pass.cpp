@@ -11,7 +11,8 @@
 namespace vox {
 RenderPass::RenderPass(MTL::Library& library, MTL::RenderPassDescriptor* desc):
 _library(library),
-_desc(desc) {
+_desc(desc),
+_resourceCache(library.device()) {
 }
 
 const MTL::RenderPassDescriptor* RenderPass::renderPassDescriptor() {
@@ -85,6 +86,10 @@ RenderPass* RenderPass::findPass(const std::string& name) {
 
 void RenderPass::clearParentPass() {
     _parentPass.clear();
+}
+
+ResourceCache& RenderPass::resourceCache() {
+    return _resourceCache;
 }
 
 }

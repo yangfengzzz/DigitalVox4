@@ -23,21 +23,10 @@ Subpass(view, scene, camera) {
 }
 
 void ForwardSubpass::prepare() {
-    CFErrorRef error = nullptr;
-    
-    {
-        MTL::Function forwardVertexFunction = _pass->library().makeFunction("forward_vertex");
-        MTL::Function forwardFragmentFunction = _pass->library().makeFunction("forward_fragment");
-        
-        _forwardPipelineDescriptor.label("G-buffer Creation");
-        _forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
-        _forwardPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
-        _forwardPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
-        _forwardPipelineDescriptor.vertexFunction(&forwardVertexFunction);
-        _forwardPipelineDescriptor.fragmentFunction(&forwardFragmentFunction);
-        
-        MTLAssert(error == nullptr, error, "Failed to create forward render pipeline state");
-    }
+    _forwardPipelineDescriptor.label("Forward Pipeline");
+    _forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+    _forwardPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+    _forwardPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
     
 #pragma mark forward depth state setup
     {
@@ -83,16 +72,26 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
                                           opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
+        auto material = element.material;
+        auto compileMacros = ShaderMacroCollection();
+        ShaderProgram *program = _pass->resourceCache().requestShader(_pass->library(), material->shader->vertexSource(),
+                                                                      material->shader->fragmentSource(), compileMacros);
+        if (!program->isValid()) {
+            continue;
+        }
+        _forwardPipelineDescriptor.vertexFunction(program->vertexShader());
+        _forwardPipelineDescriptor.fragmentFunction(program->fragmentShader());
+        
         // manully
         auto& mesh = element.mesh;
         _forwardPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
         
-        auto m_forwardPipelineState = _view->device().resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
-        uploadUniforms(renderEncoder, m_forwardPipelineState.materialUniformBlock, element.material->shaderData);
-        uploadUniforms(renderEncoder, m_forwardPipelineState.rendererUniformBlock, element.renderer->shaderData);
-        uploadUniforms(renderEncoder, m_forwardPipelineState.sceneUniformBlock, _scene->shaderData);
-        uploadUniforms(renderEncoder, m_forwardPipelineState.cameraUniformBlock, _camera->shaderData);
-        renderEncoder.setRenderPipelineState(m_forwardPipelineState);
+        auto m_forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
+        uploadUniforms(renderEncoder, m_forwardPipelineState->materialUniformBlock, material->shaderData);
+        uploadUniforms(renderEncoder, m_forwardPipelineState->rendererUniformBlock, element.renderer->shaderData);
+        uploadUniforms(renderEncoder, m_forwardPipelineState->sceneUniformBlock, _scene->shaderData);
+        uploadUniforms(renderEncoder, m_forwardPipelineState->cameraUniformBlock, _camera->shaderData);
+        renderEncoder.setRenderPipelineState(*m_forwardPipelineState);
         
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),

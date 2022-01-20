@@ -17,6 +17,7 @@
 #include "cpp_mtl_types.h"
 #include "shader/shader_uniform.h"
 #include "shader/shader_data_group.h"
+#include <optional>
 
 namespace MTL {
 typedef enum {

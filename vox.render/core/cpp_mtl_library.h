@@ -35,7 +35,7 @@ public:
     
     Function makeFunction(const char *name, const MTL::FunctionConstantValues& constantValues);
     
-    const Device* device() const;
+    Device* device();
     
 private:
     cpp_mtl_internal::Library m_objCObj;

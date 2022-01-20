@@ -13,8 +13,6 @@
 #include "cpp_mtl_resource_enum.h"
 #include "cpp_mtl_allocator.h"
 
-#include "resource_cache.h"
-
 namespace MTL {
 class Device;
 
@@ -115,9 +113,7 @@ public:
     bool supportsFamily(GPUFamily family) const;
     
     const char *name() const;
-    
-    vox::ResourceCache &resourceCache();
-    
+        
 private:
     cpp_mtl_internal::Device m_objCObj;
     
@@ -130,9 +126,7 @@ public: // Public methods for cpp_mtl_ internal implementation
     
     cpp_mtl_internal::Device objCObj() const;
     
-    cpp_mtl_internal::DeviceInternals &internals();
-    
-    vox::ResourceCache m_resourceCache;
+    cpp_mtl_internal::DeviceInternals &internals();    
 };
 
 
@@ -146,10 +140,6 @@ inline cpp_mtl_internal::DeviceInternals &Device::internals() {
 
 inline Allocator &Device::allocator() {
     return *m_allocator;
-}
-
-inline vox::ResourceCache &Device::resourceCache() {
-    return m_resourceCache;
 }
 
 } // namespace MTL

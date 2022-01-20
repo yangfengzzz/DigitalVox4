@@ -19,9 +19,12 @@ _vertexSource(vertexSource),
 _fragmentSource(fragmentSource) {
 }
 
-ShaderProgram *Shader::findShaderProgram(const ShaderMacroCollection &macroCollection) {
-    return nullptr;
-//    return engine->_hardwareRenderer.resouceCache.request_shader_module(_vertexSource, _fragmentSource, macroCollection);
+const std::string& Shader::vertexSource() {
+    return _vertexSource;
+}
+
+const std::string& Shader::fragmentSource() {
+    return _fragmentSource;
 }
 
 Shader *Shader::create(const std::string &name,

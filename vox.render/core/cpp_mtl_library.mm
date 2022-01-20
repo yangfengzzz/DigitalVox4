@@ -71,8 +71,10 @@ Function Library::makeFunction(const char *name, const MTL::FunctionConstantValu
     return Function(objCObj, *m_device);
 }
 
-CPP_METAL_DEVICE_GETTER_IMPLEMENTATION(Library);
-
+Device* Library::device() {
+    CPP_METAL_VALIDATE_WRAPPED_NIL();
+    return m_device;
+}
 
 //===================================
 #pragma mark - Metal Function Methods

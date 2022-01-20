@@ -79,49 +79,54 @@ struct hash<Function> {
 
 //MARK: - ResourceCache
 namespace vox {
-ResourceCache::ResourceCache(Device &device) :
-device{device} {
+ResourceCache::ResourceCache(Device *device) :
+_device{device} {
 }
 
-MTL::RenderPipelineState &ResourceCache::requestRenderPipelineState(MTL::RenderPipelineDescriptor &descriptor) {
+MTL::RenderPipelineState *ResourceCache::requestRenderPipelineState(MTL::RenderPipelineDescriptor &descriptor) {
     std::hash<RenderPipelineDescriptor> hasher;
     size_t hash = hasher(descriptor);
     
-    auto iter = state.renderPipelineStates.find(hash);
-    if (iter == state.renderPipelineStates.end()) {
-        auto pipelineState = device.makeRenderPipelineState(descriptor);
-        state.renderPipelineStates[hash] = std::move(pipelineState);
-        return state.renderPipelineStates[hash];
+    auto iter = _state.renderPipelineStates.find(hash);
+    if (iter == _state.renderPipelineStates.end()) {
+        auto pipelineState = std::unique_ptr<MTL::RenderPipelineState>(_device->newRenderPipelineStateWithDescriptor(descriptor));
+        _state.renderPipelineStates[hash] = std::move(pipelineState);
+        return _state.renderPipelineStates[hash].get();
     } else {
-        return iter->second;
+        return iter->second.get();
     }
 }
 
-MTL::DepthStencilState &ResourceCache::requestDepthStencilState(MTL::DepthStencilDescriptor &descriptor) {
+MTL::DepthStencilState *ResourceCache::requestDepthStencilState(MTL::DepthStencilDescriptor &descriptor) {
     std::hash<DepthStencilDescriptor> hasher;
     size_t hash = hasher(descriptor);
     
-    auto iter = state.depthStencilStates.find(hash);
-    if (iter == state.depthStencilStates.end()) {
-        auto depthStencilState = device.makeDepthStencilState(descriptor);
-        state.depthStencilStates[hash] = std::move(depthStencilState);
-        return state.depthStencilStates[hash];
+    auto iter = _state.depthStencilStates.find(hash);
+    if (iter == _state.depthStencilStates.end()) {
+        auto depthStencilState = std::unique_ptr<MTL::DepthStencilState>(_device->newDepthStencilStateWithDescriptor(descriptor));
+        _state.depthStencilStates[hash] = std::move(depthStencilState);
+        return _state.depthStencilStates[hash].get();
     } else {
-        return iter->second;
+        return iter->second.get();
     }
 }
 
-MTL::Function &ResourceCache::requestFunction(const std::string &name, const ShaderMacroCollection &macroInfo) {
-    std::hash<Function> hasher;
-    size_t hash = hasher(name, macroInfo);
+ShaderProgram *ResourceCache::requestShader(MTL::Library& library,
+                                            const std::string &vertexSource,
+                                            const std::string &fragmentSource,
+                                            const ShaderMacroCollection &macroInfo) {
+    std::size_t hash{0U};
+    hash_combine(hash, std::hash<std::string>{}(vertexSource));
+    hash_combine(hash, std::hash<std::string>{}(fragmentSource));
+    hash_combine(hash, macroInfo.hash());
     
-    auto iter = state.functions.find(hash);
-    if (iter == state.functions.end()) {
-//        auto depthStencilState = device.makeDepthStencilState(descriptor);
-//        state.functions[hash] = std::move(depthStencilState);
-        return state.functions[0];
+    auto iter = _state.shaders.find(hash);
+    if (iter == _state.shaders.end()) {
+        auto shader = std::make_unique<ShaderProgram>(library, vertexSource, fragmentSource, macroInfo);
+        _state.shaders[hash] = std::move(shader);
+        return _state.shaders[hash].get();
     } else {
-        return iter->second;
+        return iter->second.get();
     }
 }
 

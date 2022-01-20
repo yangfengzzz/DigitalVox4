@@ -1236,8 +1236,6 @@
 				0422955E278C32C30090983F /* internal */,
 				04459373278FE8F600F04CE0 /* metal_view.h */,
 				04459372278FE8F600F04CE0 /* metal_view.mm */,
-				044594252792B8B000F04CE0 /* resource_cache.h */,
-				044594242792B8AF00F04CE0 /* resource_cache.cpp */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1481,6 +1479,8 @@
 		0445925E278E7F3300F04CE0 /* rendering */ = {
 			isa = PBXGroup;
 			children = (
+				044594252792B8B000F04CE0 /* resource_cache.h */,
+				044594242792B8AF00F04CE0 /* resource_cache.cpp */,
 				044593F027914EFF00F04CE0 /* render_pass.h */,
 				044593EF27914EFF00F04CE0 /* render_pass.cpp */,
 				044593F427914F7500F04CE0 /* subpass.h */,

@@ -25,7 +25,9 @@ public:
     
     Shader(const std::string &name, const std::string &vertexSource, const std::string &fragmentSource);
     
-    ShaderProgram *findShaderProgram(const ShaderMacroCollection &macroCollection);
+    const std::string& vertexSource();
+    
+    const std::string& fragmentSource();
     
     /**
      * Create a shader.

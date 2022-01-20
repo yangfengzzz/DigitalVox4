@@ -8,6 +8,7 @@
 #define render_pass_hpp
 
 #include "subpass.h"
+#include "resource_cache.h"
 #include <vector>
 
 namespace vox {
@@ -17,7 +18,7 @@ public:
     
     RenderPass(const RenderPass &) = delete;
     
-    RenderPass(RenderPass &&) = default;
+    RenderPass(RenderPass &&) = delete;
     
     virtual ~RenderPass() = default;
     
@@ -56,6 +57,9 @@ public:
     
     void clearParentPass();
     
+public:
+    ResourceCache& resourceCache();
+    
 private:
     MTL::RenderPassDescriptor* _desc{nullptr};
     MTL::Library& _library;
@@ -64,6 +68,8 @@ private:
     size_t _activeSubpassIndex{0};
     
     std::unordered_map<std::string, RenderPass*> _parentPass;
+    
+    ResourceCache _resourceCache;
 };
 
 }
