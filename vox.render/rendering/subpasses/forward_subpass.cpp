@@ -16,6 +16,16 @@
 #include "shader_types.h"
 
 namespace vox {
+bool ForwardSubpass::_compareFromNearToFar(const RenderElement &a, const RenderElement &b) {
+    return (a.material->renderQueueType < b.material->renderQueueType) ||
+    (a.renderer->distanceForSort() < b.renderer->distanceForSort());
+}
+
+bool ForwardSubpass::_compareFromFarToNear(const RenderElement &a, const RenderElement &b) {
+    return (a.material->renderQueueType < b.material->renderQueueType) ||
+    (b.renderer->distanceForSort() < a.renderer->distanceForSort());
+}
+
 ForwardSubpass::ForwardSubpass(View* view,
                                Scene* scene,
                                Camera* camera):
@@ -58,11 +68,11 @@ void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.setDepthStencilState(_forwardDepthStencilState);
     commandEncoder.setStencilReferenceValue(128);
     
-    drawMeshes(commandEncoder);
+    _drawMeshes(commandEncoder);
     commandEncoder.popDebugGroup();
 }
 
-void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
+void ForwardSubpass::_drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     auto compileMacros = ShaderMacroCollection();
     _scene->shaderData.mergeMacro(compileMacros, compileMacros);
     _camera->shaderData.mergeMacro(compileMacros, compileMacros);
@@ -71,8 +81,19 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
     _scene->_componentsManager.callRender(_camera, opaqueQueue, alphaTestQueue, transparentQueue);
+    std::sort(opaqueQueue.begin(), opaqueQueue.end(), ForwardSubpass::_compareFromNearToFar);
+    std::sort(alphaTestQueue.begin(), alphaTestQueue.end(), ForwardSubpass::_compareFromNearToFar);
+    std::sort(transparentQueue.begin(), transparentQueue.end(), ForwardSubpass::_compareFromFarToNear);
     
-    for (auto &element : opaqueQueue) {
+    _drawElement(renderEncoder, opaqueQueue, compileMacros);
+    _drawElement(renderEncoder, alphaTestQueue, compileMacros);
+    _drawElement(renderEncoder, transparentQueue, compileMacros);
+}
+
+void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
+                                  const std::vector<RenderElement> &items,
+                                  const ShaderMacroCollection& compileMacros) {
+    for (auto &element : items) {
         auto macros = compileMacros;
         auto renderer = element.renderer;
         renderer->shaderData.mergeMacro(macros, macros);

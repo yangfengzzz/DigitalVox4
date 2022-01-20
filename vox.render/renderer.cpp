@@ -164,6 +164,14 @@ void Renderer::pushPrimitive(const RenderElement &element,
     }
 }
 
+void Renderer::setDistanceForSort(float dist) {
+    _distanceForSort = dist;
+}
+
+float Renderer::distanceForSort() {
+    return _distanceForSort;
+}
+
 void Renderer::updateShaderData(const Matrix4x4F& viewMat,
                                 const Matrix4x4F& projMat) {
     auto worldMatrix = entity()->transform->worldMatrix();

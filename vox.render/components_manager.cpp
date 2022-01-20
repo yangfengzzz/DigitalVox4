@@ -173,9 +173,9 @@ void ComponentsManager::callRender(Camera* camera,
         if (camera->isOrthographic()) {
             const auto forward = transform->worldForward();
             const auto offset = center - position;
-            element->_distanceForSort = offset.dot(forward);
+            element->setDistanceForSort(offset.dot(forward));
         } else {
-            element->_distanceForSort = center.distanceSquaredTo(position);
+            element->setDistanceForSort(center.distanceSquaredTo(position));
         }
 
         element->updateShaderData(camera->viewMatrix(), camera->projectionMatrix());

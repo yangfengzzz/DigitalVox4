@@ -96,6 +96,10 @@ public:
                        std::vector<RenderElement> &alphaTestQueue,
                        std::vector<RenderElement> &transparentQueue);
     
+    void setDistanceForSort(float dist);
+    
+    float distanceForSort();
+    
 protected:
     void _onEnable() override;
     
@@ -122,7 +126,6 @@ protected:
     float _distanceForSort = 0;
     ssize_t _onUpdateIndex = -1;
     ssize_t _rendererIndex = -1;
-    int _renderSortId = 0;
     
     // @ignoreClone
     bool _overrideUpdate = false;

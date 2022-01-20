@@ -20,7 +20,14 @@ public:
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 private:
-    void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
+    static bool _compareFromNearToFar(const RenderElement &a, const RenderElement &b);
+    static bool _compareFromFarToNear(const RenderElement &a, const RenderElement &b);
+    
+    void _drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
+    
+    void _drawElement(MTL::RenderCommandEncoder &renderEncoder,
+                      const std::vector<RenderElement> &items,
+                      const ShaderMacroCollection& compileMacros);
     
     MTL::RenderPipelineDescriptor _forwardPipelineDescriptor;
     MTL::DepthStencilState _forwardDepthStencilState;
