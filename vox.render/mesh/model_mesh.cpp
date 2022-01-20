@@ -202,11 +202,11 @@ void ModelMesh::uploadData(bool noLongerAccessible) {
     _updateVertices(vertices);
     
     auto newVertexBuffer = _device->makeBuffer(vertices.data(), vertexFloatCount * sizeof(float));
-    _vertexBuffers.push_back(MeshBuffer(newVertexBuffer, 0, vertexFloatCount * sizeof(float)));
+    _vertexBuffers.push_back(MeshBuffer(newVertexBuffer, 0, vertexFloatCount * sizeof(float), 0));
     
     const auto indexBuffer = _device->makeBuffer(_indices.data(), _indices.size() * sizeof(uint32_t));
     _submeshes.push_back(Submesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt32, _indices.size(),
-                                 MeshBuffer(indexBuffer, 0, _indices.size() * sizeof(uint32_t))));
+                                 MeshBuffer(indexBuffer, 0, _indices.size() * sizeof(uint32_t), 0)));
     
     if (noLongerAccessible) {
         _accessible = false;

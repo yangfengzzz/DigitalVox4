@@ -18,7 +18,9 @@ void PrimitiveApp::loadScene(uint32_t width, uint32_t height) {
     
     auto renderer = modelEntity->addComponent<MeshRenderer>();
     renderer->setMesh(PrimitiveMesh::createCuboid(_device.get()));
-    renderer->setMaterial(std::make_shared<UnlitMaterial>());
+    auto material = std::make_shared<UnlitMaterial>();
+    material->setBaseColor(Color(0.6, 0.4, 0.7, 1.0));
+    renderer->setMaterial(material);
     
     auto cameraEntity = rootEntity->createChild();
     cameraEntity->transform->setPosition(10, 10, 10);
