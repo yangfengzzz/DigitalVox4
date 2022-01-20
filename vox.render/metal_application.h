@@ -30,9 +30,7 @@ public:
     void update(float delta_time) override;
     
     bool resize(const uint32_t width, const uint32_t height) override;
-    
-    void framebufferResize(uint32_t width, uint32_t height) override;
-    
+        
     void inputEvent(const InputEvent &inputEvent) override;
     
     void finish() override;

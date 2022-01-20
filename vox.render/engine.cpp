@@ -106,19 +106,13 @@ void Engine::inputEvent(const InputEvent &inputEvent) {
 }
 
 void Engine::resize(uint32_t width, uint32_t height) {
-    auto extent = Window::Extent{std::max<uint32_t>(width, MIN_WINDOW_WIDTH), std::max<uint32_t>(height, MIN_WINDOW_HEIGHT)};
+    auto factor = _window->contentScaleFactor();
+    auto extent = Window::Extent{std::max<uint32_t>(width / factor, MIN_WINDOW_WIDTH), std::max<uint32_t>(height / factor, MIN_WINDOW_HEIGHT)};
     if (_window) {
-        auto actual_extent = _window->resize(extent);
-        
+        _window->resize(extent);
         if (_activeApp) {
-            _activeApp->resize(actual_extent.width, actual_extent.height);
+            _activeApp->resize(width, height);
         }
-    }
-}
-
-void Engine::framebufferResize(uint32_t width, uint32_t height) {
-    if (_activeApp) {
-        _activeApp->framebufferResize(width, height);
     }
 }
 

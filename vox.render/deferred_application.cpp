@@ -208,8 +208,8 @@ void DeferredApplication::update(float delta_time) {
     }
 }
 
-void DeferredApplication::framebufferResize(uint32_t width, uint32_t height) {    
-    MetalApplication::framebufferResize(width, height);
+bool DeferredApplication::resize(uint32_t width, uint32_t height) {
+    MetalApplication::resize(width, height);
     m_GBufferRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
     m_GBufferRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
     
@@ -235,6 +235,7 @@ void DeferredApplication::framebufferResize(uint32_t width, uint32_t height) {
     m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetAlbedo].texture(m_albedo_specular_GBuffer);
     m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetNormal].texture(m_normal_shadow_GBuffer);
     m_GBufferRenderPassDescriptor.colorAttachments[RenderTargetDepth].texture(m_depth_GBuffer);
+    return true;
 }
 
 

@@ -59,9 +59,7 @@ public:
     virtual void close();
     
     virtual void resize(uint32_t width, uint32_t height);
-    
-    virtual void framebufferResize(uint32_t width, uint32_t height);
-    
+        
     virtual void inputEvent(const InputEvent &inputEvent);
     
     virtual std::unique_ptr<View> createRenderView(MTL::Device &device);

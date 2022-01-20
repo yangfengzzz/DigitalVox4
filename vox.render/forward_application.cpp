@@ -58,10 +58,11 @@ void ForwardApplication::update(float delta_time) {
     drawable->present();
 }
 
-void ForwardApplication::framebufferResize(uint32_t width, uint32_t height) {
-    MetalApplication::framebufferResize(width, height);
+bool ForwardApplication::resize(uint32_t width, uint32_t height) {
+    MetalApplication::resize(width, height);
     _scene->updateSize(width, height);
     _mainCamera->resize(width, height);
+    return true;
 }
 
 void ForwardApplication::inputEvent(const InputEvent &inputEvent) {

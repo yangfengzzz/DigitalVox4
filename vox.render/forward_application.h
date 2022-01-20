@@ -26,7 +26,7 @@ public:
      */
     void update(float delta_time) override;
         
-    void framebufferResize(uint32_t width, uint32_t height) override;
+    bool resize(uint32_t width, uint32_t height) override;
     
     void inputEvent(const InputEvent &inputEvent) override;
     

@@ -62,14 +62,8 @@ void MetalApplication::update(float delta_time) {
 
 bool MetalApplication::resize(const uint32_t width, const uint32_t height) {
     Application::resize(width, height);
-    
-    return true;
-}
-
-void MetalApplication::framebufferResize(uint32_t width, uint32_t height) {
-    Application::framebufferResize(width, height);
-
     _renderView->resize(MTL::sizeMake(width, height, 0));
+    return true;
 }
 
 void MetalApplication::inputEvent(const InputEvent &inputEvent) {}
