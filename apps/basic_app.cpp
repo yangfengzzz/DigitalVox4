@@ -23,11 +23,7 @@ void BasicApp::loadScene(uint32_t width, uint32_t height) {
     cameraEntity->transform->setPosition(-6.02535057, 36.6681671, 48.6991844);
     _mainCamera = cameraEntity->addComponent<Camera>();
     _mainCamera->resize(width, height);
-    _controller = cameraEntity->addComponent<control::OrbitControl>();
-}
-
-void BasicApp::inputEvent(const InputEvent &inputEvent) {
-    _controller->inputEvent(inputEvent);
+    cameraEntity->addComponent<control::OrbitControl>();
 }
 
 }

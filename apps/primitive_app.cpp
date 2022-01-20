@@ -27,11 +27,7 @@ void PrimitiveApp::loadScene(uint32_t width, uint32_t height) {
     cameraEntity->transform->lookAt(Point3F(0, 0, 0));
     _mainCamera = cameraEntity->addComponent<Camera>();
     _mainCamera->resize(width, height);
-    _controller = cameraEntity->addComponent<control::OrbitControl>();
-}
-
-void PrimitiveApp::inputEvent(const InputEvent &inputEvent) {
-    _controller->inputEvent(inputEvent);
+    cameraEntity->addComponent<control::OrbitControl>();
 }
 
 }

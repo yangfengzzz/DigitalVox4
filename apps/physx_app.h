@@ -16,6 +16,7 @@ class PhysXApp : public ForwardApplication {
 public:
     void loadScene(uint32_t width, uint32_t height) override;
 };
+ 
 }
 
 #endif /* physx_app_hpp */
