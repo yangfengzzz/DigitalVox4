@@ -11,7 +11,7 @@ namespace vox {
 namespace control {
 OrbitControl::OrbitControl(Entity *entity) :
 Script(entity),
-camera(entity) {
+_cameraEntity(entity) {
 }
 
 void OrbitControl::onDisable() {
@@ -61,7 +61,7 @@ void OrbitControl::inputEvent(const InputEvent &inputEvent) {
 void OrbitControl::onUpdate(float dtime) {
     if (!enabled()) return;
     
-    const auto &position = camera->transform->position();
+    const auto &position = _cameraEntity->transform->position();
     _offset = position - target;
     _spherical.setFromVec3(_offset);
     
@@ -88,8 +88,8 @@ void OrbitControl::onUpdate(float dtime) {
     _position = target;
     _position = _position + _offset;
     
-    camera->transform->setPosition(_position);
-    camera->transform->lookAt(target, up);
+    _cameraEntity->transform->setPosition(_position);
+    _cameraEntity->transform->lookAt(target, up);
     
     if (enableDamping == true) {
         _sphericalDump._theta *= 1 - dampingFactor;
@@ -147,14 +147,14 @@ void OrbitControl::panUp(float distance, const Matrix4x4F &worldMatrix) {
 
 void OrbitControl::pan(float deltaX, float deltaY) {
     // perspective only
-    Point3F position = camera->transform->position();
+    Point3F position = _cameraEntity->transform->position();
     _vPan = position - target;
     auto targetDistance = _vPan.length();
     
     targetDistance *= (fov / 2) * (M_PI / 180);
     
-    panLeft(-2 * deltaX * (targetDistance / float(_width)), camera->transform->worldMatrix());
-    panUp(2 * deltaY * (targetDistance / float(_height)), camera->transform->worldMatrix());
+    panLeft(-2 * deltaX * (targetDistance / float(_width)), _cameraEntity->transform->worldMatrix());
+    panUp(2 * deltaY * (targetDistance / float(_height)), _cameraEntity->transform->worldMatrix());
 }
 
 void OrbitControl::zoomIn(float zoomScale) {
