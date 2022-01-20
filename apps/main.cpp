@@ -8,6 +8,7 @@
 #include "unix_engine.h"
 #include "engine.h"
 #include "basic_deferred_app.h"
+#include "framebuffer_picker_app.h"
 #include "basic_app.h"
 #include "primitive_app.h"
 #include "physx_app.h"
@@ -19,7 +20,7 @@ int main(int argc, char * argv[]) {
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
 //        engine.setApp(std::make_unique<vox::BasicDeferredApp>());
-        engine.setApp(std::make_unique<vox::PhysXDynamicApp>());
+        engine.setApp(std::make_unique<vox::FramebufferPickerApp>());
         code = engine.mainLoop();
     }
     

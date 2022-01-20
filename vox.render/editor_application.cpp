@@ -36,15 +36,15 @@ bool EditorApplication::prepare(Engine &engine) {
     _renderPass = std::make_unique<RenderPass>(_library, &_renderPassDescriptor);
     _renderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderView.get(), _scene.get(), _mainCamera));
     
-    _colorPickerFormat = MTL::PixelFormatRGBA8Unorm_sRGB;
+    _colorPickerFormat = MTL::PixelFormatRGBA8Unorm;
     MTL::TextureDescriptor colorPickerTextureDesc;
-    colorPickerTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
+    colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
     colorPickerTextureDesc.width(extent.width * scale);
     colorPickerTextureDesc.height(extent.height * scale);
     colorPickerTextureDesc.mipmapLevelCount(1);
     colorPickerTextureDesc.textureType(MTL::TextureType2D);
     colorPickerTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
-    colorPickerTextureDesc.storageMode(MTL::StorageModePrivate);
+    colorPickerTextureDesc.storageMode(MTL::StorageModeManaged);
     colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
     _colorPickerTexture = _device->makeTexture(colorPickerTextureDesc);
     _colorPickerTexture.label("ColorPicker Texture");
@@ -95,13 +95,13 @@ bool EditorApplication::resize(uint32_t win_width, uint32_t win_height,
     MetalApplication::resize(win_width, win_height, fb_width, fb_height);
     
     MTL::TextureDescriptor colorPickerTextureDesc;
-    colorPickerTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
+    colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
     colorPickerTextureDesc.width(fb_height);
     colorPickerTextureDesc.height(fb_height);
     colorPickerTextureDesc.mipmapLevelCount(1);
     colorPickerTextureDesc.textureType(MTL::TextureType2D);
     colorPickerTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
-    colorPickerTextureDesc.storageMode(MTL::StorageModePrivate);
+    colorPickerTextureDesc.storageMode(MTL::StorageModeManaged);
     colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
     _colorPickerTexture = _device->makeTexture(colorPickerTextureDesc);
     _colorPickerTexture.label("ColorPicker Texture");

@@ -34,40 +34,22 @@ Subpass(view, scene, camera) {
 }
 
 void ColorPickerSubpass::prepare() {
-    _forwardPipelineDescriptor.label("Forward Pipeline");
-    _forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+    _forwardPipelineDescriptor.label("ColorPicker Pipeline");
+    _forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_pass->renderPassDescriptor()->colorAttachments[0].texture().pixelFormat());
     _forwardPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
-    _forwardPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
     
-#pragma mark forward depth state setup
-    {
-#if LIGHT_STENCIL_CULLING
-        MTL::StencilDescriptor stencilStateDesc;
-        stencilStateDesc.stencilCompareFunction(MTL::CompareFunctionAlways);
-        stencilStateDesc.stencilFailureOperation(MTL::StencilOperationKeep);
-        stencilStateDesc.depthFailureOperation(MTL::StencilOperationKeep);
-        stencilStateDesc.depthStencilPassOperation(MTL::StencilOperationReplace);
-        stencilStateDesc.readMask(0x0);
-        stencilStateDesc.writeMask(0xFF);
-#else
-        MTL::StencilDescriptor stencilStateDesc;
-#endif
-        MTL::DepthStencilDescriptor depthStencilDesc;
-        depthStencilDesc.label("G-buffer Creation");
-        depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLess);
-        depthStencilDesc.depthWriteEnabled(true);
-        depthStencilDesc.frontFaceStencil = stencilStateDesc;
-        depthStencilDesc.backFaceStencil = stencilStateDesc;
-        
-        _forwardDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
-    }
+    MTL::DepthStencilDescriptor depthStencilDesc;
+    depthStencilDesc.label("ColorPicker Creation");
+    depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLess);
+    depthStencilDesc.depthWriteEnabled(true);
+    _forwardDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
 }
 
 void ColorPickerSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     _currentId = 0;
     _primitivesMap.clear();
     
-    commandEncoder.pushDebugGroup("Draw G-Buffer");
+    commandEncoder.pushDebugGroup("Draw ColorPicker");
     commandEncoder.setCullMode(MTL::CullModeFront);
     commandEncoder.setDepthStencilState(_forwardDepthStencilState);
     commandEncoder.setStencilReferenceValue(128);
