@@ -146,73 +146,57 @@ void ComponentsManager::callRendererOnUpdate(float deltaTime) {
     }
 }
 
-void ComponentsManager::callRender(const Matrix4x4F& viewMat,
-                                   const Matrix4x4F& projMat,
+void ComponentsManager::callRender(Camera* camera,
                                    std::vector<RenderElement> &opaqueQueue,
                                    std::vector<RenderElement> &alphaTestQueue,
                                    std::vector<RenderElement> &transparentQueue) {
+    const auto &elements = _renderers;
     for (size_t i = 0; i < _renderers.size(); i++) {
-        const auto &element = _renderers[i];
-        element->updateShaderData(viewMat, projMat);
+        const auto &element = elements[i];
+
+        // filter by camera culling mask.
+        if (!(camera->cullingMask & element->_entity->layer)) {
+            continue;
+        }
+
+        // filter by camera frustum.
+        if (camera->enableFrustumCulling) {
+            element->isCulled = !camera->_frustum.intersectsBox(element->bounds());
+            if (element->isCulled) {
+                continue;
+            }
+        }
+
+        const auto &transform = camera->entity()->transform;
+        const auto position = transform->worldPosition();
+        auto center = element->bounds().midPoint();
+        if (camera->isOrthographic()) {
+            const auto forward = transform->worldForward();
+            const auto offset = center - position;
+            element->_distanceForSort = offset.dot(forward);
+        } else {
+            element->_distanceForSort = center.distanceSquaredTo(position);
+        }
+
+        element->updateShaderData(camera->viewMatrix(), camera->projectionMatrix());
+
         element->_render(opaqueQueue, alphaTestQueue, transparentQueue);
     }
 }
 
-//void ComponentsManager::callRender(RenderContext &context,
-//                                   std::vector<RenderElement> &opaqueQueue,
-//                                   std::vector<RenderElement> &alphaTestQueue,
-//                                   std::vector<RenderElement> &transparentQueue) {
-//    const auto &camera = context.camera();
-//    const auto &elements = _renderers;
-//    for (size_t i = 0; i < _renderers.size(); i++) {
-//        const auto &element = elements[i];
-//
-//        // filter by camera culling mask.
-//        if (!(camera->cullingMask & element->_entity->layer)) {
-//            continue;
-//        }
-//
-//        // filter by camera frustum.
-//        if (camera->enableFrustumCulling) {
-//            element->isCulled = !camera->_frustum.intersectsBox(element->bounds());
-//            if (element->isCulled) {
-//                continue;
-//            }
-//        }
-//
-//        const auto &transform = camera->entity()->transform;
-//        const auto position = transform->worldPosition();
-//        auto center = element->bounds().getCenter();
-//        if (camera->isOrthographic()) {
-//            const auto forward = transform->worldForward();
-//            center = center - position;
-//            element->_distanceForSort = Dot(center, forward);
-//        } else {
-//            element->_distanceForSort = LengthSqr(center - position);
-//        }
-//
-//        element->_updateShaderData(context);
-//
-//        element->_render(opaqueQueue, alphaTestQueue, transparentQueue);
-//
-//        // union camera global macro and renderer macro.
-//        element->shaderData.mergeMacro(camera->_globalShaderMacro, element->_globalShaderMacro);
-//    }
-//}
-//
-//void ComponentsManager::callRender(const BoundingFrustum &frustrum,
-//                                   std::vector<RenderElement> &opaqueQueue,
-//                                   std::vector<RenderElement> &alphaTestQueue,
-//                                   std::vector<RenderElement> &transparentQueue) {
-//    for (size_t i = 0; i < _renderers.size(); i++) {
-//        const auto &renderer = _renderers[i];
-//        // filter by renderer castShadow and frustrum cull
-//        if (frustrum.intersectsBox(renderer->bounds())) {
-//            renderer->_render(opaqueQueue, alphaTestQueue, transparentQueue);
-//        }
-//    }
-//}
-//
+void ComponentsManager::callRender(const BoundingFrustum &frustrum,
+                                   std::vector<RenderElement> &opaqueQueue,
+                                   std::vector<RenderElement> &alphaTestQueue,
+                                   std::vector<RenderElement> &transparentQueue) {
+    for (size_t i = 0; i < _renderers.size(); i++) {
+        const auto &renderer = _renderers[i];
+        // filter by renderer castShadow and frustrum cull
+        if (frustrum.intersectsBox(renderer->bounds())) {
+            renderer->_render(opaqueQueue, alphaTestQueue, transparentQueue);
+        }
+    }
+}
+
 //void ComponentsManager::callAnimatorUpdate(float deltaTime) {
 //    const auto &elements = _onUpdateAnimators;
 //    for (size_t i = 0; i < _onUpdateAnimators.size(); i++) {

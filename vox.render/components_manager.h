@@ -8,6 +8,7 @@
 #define component_manager_hpp
 
 #include "matrix4x4.h"
+#include "bounding_frustum.h"
 #include "scene_forward.h"
 #include "rendering/render_element.h"
 #include <typeindex>
@@ -78,16 +79,15 @@ public:
     void callCameraOnEndRender(Camera *camera);
     
 public:
-    void callRender(const Matrix4x4F& viewMat,
-                    const Matrix4x4F& projMat,
+    void callRender(Camera* camera,
                     std::vector<RenderElement> &opaqueQueue,
                     std::vector<RenderElement> &alphaTestQueue,
                     std::vector<RenderElement> &transparentQueue);
-//
-//    void callRender(const BoundingFrustum &frustrum,
-//                    std::vector<RenderElement> &opaqueQueue,
-//                    std::vector<RenderElement> &alphaTestQueue,
-//                    std::vector<RenderElement> &transparentQueue);
+
+    void callRender(const BoundingFrustum &frustrum,
+                    std::vector<RenderElement> &opaqueQueue,
+                    std::vector<RenderElement> &alphaTestQueue,
+                    std::vector<RenderElement> &transparentQueue);
     
 public:
     std::vector<Component *> getActiveChangedTempList();

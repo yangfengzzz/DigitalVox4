@@ -67,13 +67,10 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     _scene->shaderData.mergeMacro(compileMacros, compileMacros);
     _camera->shaderData.mergeMacro(compileMacros, compileMacros);
     
-    Matrix4x4F viewMat = _camera->viewMatrix();
-    Matrix4x4F projMat = _camera->projectionMatrix();
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
-    _scene->_componentsManager.callRender(viewMat, projMat,
-                                          opaqueQueue, alphaTestQueue, transparentQueue);
+    _scene->_componentsManager.callRender(_camera, opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
         auto macros = compileMacros;
