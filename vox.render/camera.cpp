@@ -280,8 +280,16 @@ Matrix4x4F Camera::inverseProjectionMatrix() {
 }
 
 void Camera::resize(uint32_t width, uint32_t height) {
-    this->_width = width;
-    this->_height = height;
+    _width = width;
+    _height = height;
+}
+
+uint32_t Camera::width() {
+    return _width;
+}
+
+uint32_t Camera::height() {
+    return _height;
 }
 
 }

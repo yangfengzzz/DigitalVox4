@@ -34,6 +34,16 @@ public:
     
     virtual void loadScene(uint32_t width, uint32_t height) = 0;
     
+public:
+    virtual void pickFunctor(Renderer *renderer, MeshPtr mesh) {};
+    
+    /**
+     * Pick the object at the screen coordinate position.
+     * @param offsetX Relative X coordinate of the canvas
+     * @param offsetY Relative Y coordinate of the canvas
+     */
+    void pick(float offsetX, float offsetY);
+    
 protected:
     Camera* _mainCamera{nullptr};
     
@@ -49,6 +59,15 @@ private:
      * @brief Pipeline used for rendering, it should be set up by the concrete sample
      */
     std::unique_ptr<RenderPass> _renderPass{nullptr};
+    
+    bool _needPick;
+    Vector2F _pickPos;
+    MTL::PixelFormat _colorPickerFormat;
+    MTL::Texture _colorPickerTexture;
+    MTL::RenderPassDescriptor _colorPickerPassDescriptor;
+    std::unique_ptr<RenderPass> _colorPickerRenderPass{nullptr};
+    
+    std::array<uint8_t, 4> _readColorFromRenderTarget();
 };
 
 }

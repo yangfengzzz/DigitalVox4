@@ -21,6 +21,7 @@ bool EditorApplication::prepare(Engine &engine) {
     _scene = std::make_unique<Scene>();
     
     auto extent = engine.window().extent();
+    auto scale = engine.window().contentScaleFactor();
     loadScene(extent.width, extent.height);
     
     // Create a render pass descriptor for thelighting and composition pass
@@ -33,6 +34,23 @@ bool EditorApplication::prepare(Engine &engine) {
     _renderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
     _renderPass = std::make_unique<RenderPass>(_library, &_renderPassDescriptor);
     _renderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderView.get(), _scene.get(), _mainCamera));
+    
+    _colorPickerFormat = MTL::PixelFormatRGBA8Unorm_sRGB;
+    MTL::TextureDescriptor colorPickerTextureDesc;
+    colorPickerTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
+    colorPickerTextureDesc.width(extent.width * scale);
+    colorPickerTextureDesc.height(extent.height * scale);
+    colorPickerTextureDesc.mipmapLevelCount(1);
+    colorPickerTextureDesc.textureType(MTL::TextureType2D);
+    colorPickerTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
+    colorPickerTextureDesc.storageMode(MTL::StorageModePrivate);
+    colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
+    _colorPickerTexture = _device->makeTexture(colorPickerTextureDesc);
+    _colorPickerTexture.label("ColorPicker Texture");
+    _colorPickerPassDescriptor.colorAttachments[0].texture(_colorPickerTexture);
+    _colorPickerPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
+    _colorPickerPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
+    _colorPickerRenderPass = std::make_unique<RenderPass>(_library, &_colorPickerPassDescriptor);
     
     return true;
 }
@@ -53,14 +71,37 @@ void EditorApplication::update(float delta_time) {
         _renderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
         _renderPass->draw(commandBuffer, "Lighting & Composition Pass");
     }
+    
+    if (_needPick) {
+        _colorPickerRenderPass->draw(commandBuffer, "color Picker Pass");
+    }
+    
     // Finalize rendering here & push the command buffer to the GPU
     commandBuffer.commit();
+    commandBuffer.waitUntilCompleted();
     drawable->present();
+    
+    
 }
 
 bool EditorApplication::resize(uint32_t win_width, uint32_t win_height,
                                 uint32_t fb_width, uint32_t fb_height) {
     MetalApplication::resize(win_width, win_height, fb_width, fb_height);
+    
+    MTL::TextureDescriptor colorPickerTextureDesc;
+    colorPickerTextureDesc.pixelFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
+    colorPickerTextureDesc.width(fb_height);
+    colorPickerTextureDesc.height(fb_height);
+    colorPickerTextureDesc.mipmapLevelCount(1);
+    colorPickerTextureDesc.textureType(MTL::TextureType2D);
+    colorPickerTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
+    colorPickerTextureDesc.storageMode(MTL::StorageModePrivate);
+    colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
+    _colorPickerTexture = _device->makeTexture(colorPickerTextureDesc);
+    _colorPickerTexture.label("ColorPicker Texture");
+    _colorPickerPassDescriptor.colorAttachments[0].texture(_colorPickerTexture);
+    _colorPickerPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
+    
     _scene->updateSize(win_width, win_height, fb_width, fb_height);
     _mainCamera->resize(win_width, win_height);
     return true;
@@ -69,6 +110,25 @@ bool EditorApplication::resize(uint32_t win_width, uint32_t win_height,
 void EditorApplication::inputEvent(const InputEvent &inputEvent) {
     MetalApplication::inputEvent(inputEvent);
     _scene->updateInputEvent(inputEvent);
+}
+
+void EditorApplication::pick(float offsetX, float offsetY) {
+    _needPick = true;
+    _pickPos = Vector2F(offsetX, offsetY);
+}
+
+std::array<uint8_t, 4> EditorApplication::_readColorFromRenderTarget() {
+    const auto viewport = _mainCamera->viewport();
+    const auto viewWidth = (viewport.z - viewport.x) * _mainCamera->width();
+    const auto viewHeight = (viewport.w - viewport.y) * _mainCamera->height();
+    
+    const auto nx = (_pickPos.x - viewport.x) / viewWidth;
+    const auto ny = (_pickPos.y - viewport.y) / viewHeight;
+    const auto left = std::floor(nx * (_colorPickerTexture.width() - 1));
+    const auto bottom = std::floor((1 - ny) * (_colorPickerTexture.height() - 1));
+    std::array<uint8_t, 4> pixel;
+    
+    return pixel;
 }
 
 }
