@@ -8,6 +8,7 @@
 #include "entity.h"
 #include "scene.h"
 #include "shader/shader.h"
+#include "material/material.h"
 
 namespace vox {
 size_t Renderer::materialCount() {
@@ -148,23 +149,23 @@ void Renderer::setMaterials(const std::vector<MaterialPtr> &materials) {
     }
 }
 
-//void Renderer::pushPrimitive(const RenderElement &element,
-//                             std::vector<RenderElement> &opaqueQueue,
-//                             std::vector<RenderElement> &alphaTestQueue,
-//                             std::vector<RenderElement> &transparentQueue) {
-//    const auto renderQueueType = element.material->renderQueueType;
-//    
-//    if (renderQueueType > (RenderQueueType::Transparent + RenderQueueType::AlphaTest) >> 1) {
-//        transparentQueue.push_back(element);
-//    } else if (renderQueueType > (RenderQueueType::AlphaTest + RenderQueueType::Opaque) >> 1) {
-//        alphaTestQueue.push_back(element);
-//    } else {
-//        opaqueQueue.push_back(element);
-//    }
-//}
+void Renderer::pushPrimitive(const RenderElement &element,
+                             std::vector<RenderElement> &opaqueQueue,
+                             std::vector<RenderElement> &alphaTestQueue,
+                             std::vector<RenderElement> &transparentQueue) {
+    const auto renderQueueType = element.material->renderQueueType;
+    
+    if (renderQueueType > (RenderQueueType::Transparent + RenderQueueType::AlphaTest) >> 1) {
+        transparentQueue.push_back(element);
+    } else if (renderQueueType > (RenderQueueType::AlphaTest + RenderQueueType::Opaque) >> 1) {
+        alphaTestQueue.push_back(element);
+    } else {
+        opaqueQueue.push_back(element);
+    }
+}
 
-void Renderer::_updateShaderData(const Matrix4x4F& viewMat,
-                                 const Matrix4x4F& projMat) {
+void Renderer::updateShaderData(const Matrix4x4F& viewMat,
+                                const Matrix4x4F& projMat) {
     auto worldMatrix = entity()->transform->worldMatrix();
     _mvMatrix = viewMat * worldMatrix;
     _mvpMatrix = projMat * viewMat * worldMatrix;

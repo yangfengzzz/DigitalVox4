@@ -153,7 +153,7 @@ void ComponentsManager::callRender(const Matrix4x4F& viewMat,
                                    std::vector<RenderElement> &transparentQueue) {
     for (size_t i = 0; i < _renderers.size(); i++) {
         const auto &element = _renderers[i];
-        element->_updateShaderData(viewMat, projMat);
+        element->updateShaderData(viewMat, projMat);
         element->_render(opaqueQueue, alphaTestQueue, transparentQueue);
     }
 }

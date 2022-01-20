@@ -33,6 +33,9 @@ _ambientLight(this) {
         toAnyUploader<Vector3F>([](const Vector3F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
             encoder.setVertexBytes(&x, sizeof(Vector4F), location); // float3 simd is extented from float4
         }),
+        toAnyUploader<Point3F>([](const Point3F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setVertexBytes(&x, sizeof(Vector4F), location); // float3 simd is extented from float4
+        }),
         toAnyUploader<Vector4F>([](const Vector4F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
             encoder.setVertexBytes(&x, sizeof(Vector4F), location);
         }),
@@ -63,6 +66,9 @@ _ambientLight(this) {
             encoder.setFragmentBytes(&x, sizeof(Vector2F), location);
         }),
         toAnyUploader<Vector3F>([](const Vector3F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
+            encoder.setFragmentBytes(&x, sizeof(Vector4F), location); // float3 simd is extented from float4
+        }),
+        toAnyUploader<Point3F>([](const Point3F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
             encoder.setFragmentBytes(&x, sizeof(Vector4F), location); // float3 simd is extented from float4
         }),
         toAnyUploader<Vector4F>([](const Vector4F &x, size_t location, MTL::RenderCommandEncoder& encoder) {
@@ -97,9 +103,9 @@ Scene::fragmentUploader() {
     return _fragmentUploader;
 }
 
-//AmbientLight &Scene::ambientLight() {
-//    return _ambientLight;
-//}
+AmbientLight &Scene::ambientLight() {
+    return _ambientLight;
+}
 
 size_t Scene::rootEntitiesCount() {
     return _rootEntities.size();

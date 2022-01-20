@@ -9,6 +9,7 @@
 
 #include "sub_mesh.h"
 #include "bounding_box3.h"
+#include "update_flag_manager.h"
 
 namespace vox {
 struct Mesh {
@@ -42,12 +43,20 @@ public:
     
     const MTL::VertexDescriptor& vertexDescriptor() const;
     
+    /**
+     * Register update flag, update flag will be true if the vertex element changes.
+     * @returns Update flag
+     */
+    std::unique_ptr<UpdateFlag> registerUpdateFlag();
+    
 protected:
     std::vector<Submesh> _submeshes;
     
     std::vector<MeshBuffer> _vertexBuffers;
     
     MTL::VertexDescriptor _vertexDescriptor;
+    
+    UpdateFlagManager _updateFlagManager = UpdateFlagManager();
 };
 
 using MeshPtr = std::shared_ptr<Mesh>;

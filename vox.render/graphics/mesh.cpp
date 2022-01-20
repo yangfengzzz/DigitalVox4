@@ -33,4 +33,8 @@ _vertexDescriptor(vertexDescriptor) {
 Mesh::~Mesh() {
 }
 
+std::unique_ptr<UpdateFlag> Mesh::registerUpdateFlag() {
+    return _updateFlagManager.registration();
+}
+
 }

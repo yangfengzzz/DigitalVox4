@@ -242,7 +242,6 @@ private:
     ShaderProperty _inverseProjectionMatrixProperty;
     ShaderProperty _cameraPositionProperty;
     
-    ShaderMacroCollection _globalShaderMacro = ShaderMacroCollection();
     BoundingFrustum _frustum = BoundingFrustum();
     
     bool _isOrthographic = false;

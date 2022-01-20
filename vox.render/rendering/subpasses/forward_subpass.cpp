@@ -63,6 +63,10 @@ void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
 }
 
 void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
+    auto compileMacros = ShaderMacroCollection();
+    _scene->shaderData.mergeMacro(compileMacros, compileMacros);
+    _camera->shaderData.mergeMacro(compileMacros, compileMacros);
+    
     Matrix4x4F viewMat = _camera->viewMatrix();
     Matrix4x4F projMat = _camera->projectionMatrix();
     std::vector<RenderElement> opaqueQueue;
@@ -72,10 +76,14 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
                                           opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
+        auto macros = compileMacros;
+        auto renderer = element.renderer;
+        renderer->shaderData.mergeMacro(macros, macros);
+        
         auto material = element.material;
-        auto compileMacros = ShaderMacroCollection();
+        material->shaderData.mergeMacro(macros, macros);
         ShaderProgram *program = _pass->resourceCache().requestShader(_pass->library(), material->shader->vertexSource(),
-                                                                      material->shader->fragmentSource(), compileMacros);
+                                                                      material->shader->fragmentSource(), macros);
         if (!program->isValid()) {
             continue;
         }
@@ -88,7 +96,7 @@ void ForwardSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         
         auto m_forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
         uploadUniforms(renderEncoder, m_forwardPipelineState->materialUniformBlock, material->shaderData);
-        uploadUniforms(renderEncoder, m_forwardPipelineState->rendererUniformBlock, element.renderer->shaderData);
+        uploadUniforms(renderEncoder, m_forwardPipelineState->rendererUniformBlock, renderer->shaderData);
         uploadUniforms(renderEncoder, m_forwardPipelineState->sceneUniformBlock, _scene->shaderData);
         uploadUniforms(renderEncoder, m_forwardPipelineState->cameraUniformBlock, _camera->shaderData);
         renderEncoder.setRenderPipelineState(*m_forwardPipelineState);

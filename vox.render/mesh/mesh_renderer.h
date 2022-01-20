@@ -26,6 +26,8 @@ private:
                  std::vector<RenderElement> &alphaTestQueue,
                  std::vector<RenderElement> &transparentQueue) override;
     
+    void _updateBounds(BoundingBox3F &worldBounds) override;
+    
 private:
     MeshPtr _mesh;
     std::unique_ptr<UpdateFlag> _meshUpdateFlag;

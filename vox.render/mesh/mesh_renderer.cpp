@@ -6,6 +6,8 @@
 
 #include "mesh_renderer.h"
 #include "graphics/mesh.h"
+#include "entity.h"
+#include "shader_common.h"
 
 namespace vox {
 MeshRenderer::MeshRenderer(Entity *entity) :
@@ -14,7 +16,16 @@ Renderer(entity) {
 }
 
 void MeshRenderer::setMesh(const MeshPtr &newValue) {
-    _mesh = newValue;
+    auto &lastMesh = _mesh;
+    if (lastMesh != newValue) {
+        if (lastMesh != nullptr) {
+            _meshUpdateFlag->destroy();
+        }
+        if (newValue != nullptr) {
+            _meshUpdateFlag = newValue->registerUpdateFlag();
+        }
+        _mesh = newValue;
+    }
 }
 
 MeshPtr MeshRenderer::mesh() {
@@ -24,8 +35,56 @@ MeshPtr MeshRenderer::mesh() {
 void MeshRenderer::_render(std::vector<RenderElement> &opaqueQueue,
                            std::vector<RenderElement> &alphaTestQueue,
                            std::vector<RenderElement> &transparentQueue) {
-    for (int i = 0; i < _materials.size(); i++) {
-        opaqueQueue.push_back(RenderElement(this, _mesh, &_mesh->submeshes()[i], _materials[i]));
+    if (_mesh != nullptr) {
+        if (_meshUpdateFlag->flag) {
+            const auto &vertexDescriptor = _mesh->vertexDescriptor();
+            
+            shaderData.disableMacro(HAS_UV);
+            shaderData.disableMacro(HAS_NORMAL);
+            shaderData.disableMacro(HAS_TANGENT);
+            shaderData.disableMacro(HAS_VERTEXCOLOR);
+            
+            if (vertexDescriptor.attributes[Attributes::UV_0].format() != MTL::VertexFormatInvalid) {
+                shaderData.enableMacro(HAS_UV);
+            }
+            if (vertexDescriptor.attributes[Attributes::Normal].format() != MTL::VertexFormatInvalid) {
+                shaderData.enableMacro(HAS_NORMAL);
+            }
+            if (vertexDescriptor.attributes[Attributes::Tangent].format() != MTL::VertexFormatInvalid) {
+                shaderData.enableMacro(HAS_TANGENT);
+            }
+            if (vertexDescriptor.attributes[Attributes::Color_0].format() != MTL::VertexFormatInvalid) {
+                shaderData.enableMacro(HAS_VERTEXCOLOR);
+            }
+            _meshUpdateFlag->flag = false;
+        }
+        
+        auto &subMeshes = _mesh->submeshes();
+        for (size_t i = 0; i < subMeshes.size(); i++) {
+            MaterialPtr material;
+            if (i < _materials.size()) {
+                material = _materials[i];
+            } else {
+                material = nullptr;
+            }
+            if (material != nullptr) {
+                RenderElement element(this, _mesh, &subMeshes[i], material);
+                pushPrimitive(element, opaqueQueue, alphaTestQueue, transparentQueue);
+            }
+        }
+    } else {
+        assert(false && "mesh is nullptr.");
+    }
+}
+
+void MeshRenderer::_updateBounds(BoundingBox3F &worldBounds) {
+    if (_mesh != nullptr) {
+        const auto localBounds = _mesh->bounds;
+        const auto worldMatrix = _entity->transform->worldMatrix();
+        worldBounds = localBounds.transform(worldMatrix);
+    } else {
+        worldBounds.lowerCorner = Point3F(0, 0, 0);
+        worldBounds.upperCorner = Point3F(0, 0, 0);
     }
 }
 

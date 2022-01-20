@@ -159,7 +159,6 @@ private:
     void _removeEntity(EntityPtr entity);
     
     std::vector<Camera *> _activeCameras;
-    ShaderMacroCollection _globalShaderMacro = ShaderMacroCollection();
     
     bool _destroyed = false;
     std::vector<EntityPtr> _rootEntities;

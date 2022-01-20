@@ -91,10 +91,10 @@ public:
      */
     void setMaterials(const std::vector<MaterialPtr> &materials);
     
-//    void pushPrimitive(const RenderElement &element,
-//                       std::vector<RenderElement> &opaqueQueue,
-//                       std::vector<RenderElement> &alphaTestQueue,
-//                       std::vector<RenderElement> &transparentQueue);
+    void pushPrimitive(const RenderElement &element,
+                       std::vector<RenderElement> &opaqueQueue,
+                       std::vector<RenderElement> &alphaTestQueue,
+                       std::vector<RenderElement> &transparentQueue);
     
 protected:
     void _onEnable() override;
@@ -113,7 +113,7 @@ protected:
     virtual void update(float deltaTime) {
     }
     
-    void _updateShaderData(const Matrix4x4F& viewMat,
+    void updateShaderData(const Matrix4x4F& viewMat,
                            const Matrix4x4F& projMat);
     
 protected:
@@ -122,7 +122,6 @@ protected:
     float _distanceForSort = 0;
     ssize_t _onUpdateIndex = -1;
     ssize_t _rendererIndex = -1;
-    ShaderMacroCollection _globalShaderMacro = ShaderMacroCollection();
     int _renderSortId = 0;
     
     // @ignoreClone

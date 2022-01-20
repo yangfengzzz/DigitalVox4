@@ -232,7 +232,7 @@ BoundingBox<T, 3> BoundingBox<T, 3>::transform(Matrix<T, 4, 4> matrix) const {
 
 template<typename T>
 Vector3 <T> BoundingBox<T, 3>::extent() const {
-    return (upperCorner - lowerCorner) * 0.5;
+    return (upperCorner - lowerCorner) * (T)0.5;
 }
 
 template<typename T>
