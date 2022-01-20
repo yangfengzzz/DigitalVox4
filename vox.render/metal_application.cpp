@@ -48,9 +48,10 @@ bool MetalApplication::prepare(Engine &engine) {
     _commandQueue = _device->makeCommandQueue();
 
     auto extent = engine.window().extent();
+    auto scale = engine.window().contentScaleFactor();
 
     _renderView = engine.createRenderView(*_device);
-    _renderView->resize(MTL::sizeMake(extent.width * 2, extent.height * 2, 0));
+    _renderView->resize(MTL::sizeMake(extent.width * scale, extent.height * scale, 0));
     _renderView->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
     _renderView->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);    
     return true;

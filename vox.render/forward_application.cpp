@@ -20,8 +20,7 @@ bool ForwardApplication::prepare(Engine &engine) {
     _scene = std::make_unique<Scene>();
     
     auto extent = engine.window().extent();
-    auto scale = engine.window().contentScaleFactor();
-    loadScene(extent.width * scale, extent.height * scale);
+    loadScene(extent.width, extent.height);
     
     // Create a render pass descriptor for thelighting and composition pass
     // Whatever rendered in the final pass needs to be stored so it can be displayed
