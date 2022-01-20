@@ -9,7 +9,6 @@
 #define physx_app_hpp
 
 #include "forward_application.h"
-#include "controls/orbit_control.h"
 
 namespace vox {
 class PhysXApp : public ForwardApplication {

@@ -16,6 +16,7 @@
 #include "physics/shape/box_collider_shape.h"
 #include "physics/shape/sphere_collider_shape.h"
 #include "lighting/point_light.h"
+#include "controls/orbit_control.h"
 #include <random>
 
 namespace vox {
