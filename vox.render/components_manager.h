@@ -9,6 +9,7 @@
 
 #include "matrix4x4.h"
 #include "bounding_frustum.h"
+#include "input_events.h"
 #include "scene_forward.h"
 #include "rendering/render_element.h"
 #include <typeindex>
@@ -36,6 +37,10 @@ public:
     void callScriptOnUpdate(float deltaTime);
     
     void callScriptOnLateUpdate(float deltaTime);
+    
+    void callScriptInputEvent(const InputEvent &inputEvent);
+    
+    void callScriptResize(uint32_t width, uint32_t height);
     
     void callComponentDestroy();
     

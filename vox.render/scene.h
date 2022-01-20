@@ -110,7 +110,12 @@ public:
     
     void detachRenderCamera(Camera *camera);
     
+public:
     void update(float deltaTime);
+    
+    void updateInputEvent(const InputEvent &inputEvent);
+    
+    void updateSize(uint32_t width, uint32_t height);
     
     void updateShaderData(MTL::Device* device);
     

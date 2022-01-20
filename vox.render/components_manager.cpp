@@ -75,6 +75,23 @@ void ComponentsManager::callScriptOnLateUpdate(float deltaTime) {
     }
 }
 
+void ComponentsManager::callScriptInputEvent(const InputEvent &inputEvent) {
+    for (size_t i = 0; i < _onUpdateScripts.size(); i++) {
+        const auto &element = _onUpdateScripts[i];
+        if (element->_started) {
+            element->inputEvent(inputEvent);
+        }
+    }
+}
+
+void ComponentsManager::callScriptResize(uint32_t width, uint32_t height) {
+    for (size_t i = 0; i < _onUpdateScripts.size(); i++) {
+        const auto &element = _onUpdateScripts[i];
+        if (element->_started) {
+            element->resize(width, height);
+        }
+    }
+}
 
 //MARK: -
 void ComponentsManager::addRenderer(Renderer *renderer) {

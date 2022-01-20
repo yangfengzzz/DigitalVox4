@@ -19,14 +19,16 @@ public:
     /**
      * @brief Additional sample initialization
      */
-    virtual bool prepare(Engine &engine) override;
+    bool prepare(Engine &engine) override;
     
     /**
      * @brief Main loop sample events
      */
-    virtual void update(float delta_time) override;
+    void update(float delta_time) override;
         
-    virtual void framebufferResize(uint32_t width, uint32_t height) override;
+    void framebufferResize(uint32_t width, uint32_t height) override;
+    
+    void inputEvent(const InputEvent &inputEvent) override;
     
     virtual void loadScene(uint32_t width, uint32_t height) = 0;
     

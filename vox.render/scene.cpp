@@ -226,6 +226,7 @@ void Scene::_removeEntity(EntityPtr entity) {
                                       oldRootEntities.end(), entity), oldRootEntities.end());
 }
 
+//MARK: - Update Loop
 void Scene::updateShaderData(MTL::Device* device) {
     // union scene and camera macro.
     light_manager.updateShaderData(device, shaderData);
@@ -248,6 +249,14 @@ void Scene::update(float deltaTime) {
     _componentsManager.callScriptOnLateUpdate(deltaTime);
     
     _componentsManager.callRendererOnUpdate(deltaTime);
+}
+
+void Scene::updateInputEvent(const InputEvent &inputEvent) {
+    _componentsManager.callScriptInputEvent(inputEvent);
+}
+
+void Scene::updateSize(uint32_t width, uint32_t height) {
+    _componentsManager.callScriptResize(width, height);
 }
 
 }        // namespace vox

@@ -73,7 +73,7 @@ void PhysXApp::loadScene(uint32_t width, uint32_t height) {
     cameraEntity->transform->lookAt(Point3F(0, 0, 0));
     _mainCamera = cameraEntity->addComponent<Camera>();
     _mainCamera->resize(width, height);
-    _controller = cameraEntity->addComponent<control::OrbitControl>();
+    cameraEntity->addComponent<control::OrbitControl>();
     
     // init point light
     auto light = rootEntity->createChild("light");
@@ -115,10 +115,6 @@ void PhysXApp::loadScene(uint32_t width, uint32_t height) {
     
     sphereEntity->addComponent<CollisionScript>();
     sphereEntity->addComponent<MoveScript>();
-}
-
-void PhysXApp::inputEvent(const InputEvent &inputEvent) {
-    _controller->inputEvent(inputEvent);
 }
 
 }
