@@ -31,30 +31,52 @@ void ComponentsManager::removeOnUpdateScript(Script *script) {
     script->_onUpdateIndex = -1;
 }
 
-void ComponentsManager::addOnLateUpdateScript(Script *script) {
-    script->_onLateUpdateIndex = _onLateUpdateScripts.size();
-    _onLateUpdateScripts.push_back(script);
-}
-
-void ComponentsManager::removeOnLateUpdateScript(Script *script) {
-    _onLateUpdateScripts.erase(_onLateUpdateScripts.begin() + script->_onLateUpdateIndex);
-    script->_onLateUpdateIndex = -1;
-}
-
-void ComponentsManager::addOnEndFrameScript(Script *script) {
-    script->_onEndFrameIndex = _onEndFrameScripts.size();
-    _onEndFrameScripts.push_back(script);
-}
-
-void ComponentsManager::removeOnEndFrameScript(Script *script) {
-    _onEndFrameScripts.erase(_onEndFrameScripts.begin() + script->_onEndFrameIndex);
-    script->_onEndFrameIndex = -1;
-}
-
 void ComponentsManager::addDestroyComponent(Script *component) {
     _destroyComponents.push_back(component);
 }
 
+void ComponentsManager::callComponentDestroy() {
+    if (_destroyComponents.size() > 0) {
+        for (size_t i = 0; i < _destroyComponents.size(); i++) {
+            _destroyComponents[i]->onDestroy();
+        }
+        _destroyComponents.clear();
+    }
+}
+
+void ComponentsManager::callScriptOnStart() {
+    if (_onStartScripts.size() > 0) {
+        // The 'onStartScripts.length' maybe add if you add some Script with addComponent() in some Script's onStart()
+        for (size_t i = 0; i < _onStartScripts.size(); i++) {
+            const auto &script = _onStartScripts[i];
+            script->_started = true;
+            script->_onStartIndex = -1;
+            script->onStart();
+        }
+        _onStartScripts.clear();
+    }
+}
+
+void ComponentsManager::callScriptOnUpdate(float deltaTime) {
+    for (size_t i = 0; i < _onUpdateScripts.size(); i++) {
+        const auto &element = _onUpdateScripts[i];
+        if (element->_started) {
+            element->onUpdate(deltaTime);
+        }
+    }
+}
+
+void ComponentsManager::callScriptOnLateUpdate(float deltaTime) {
+    for (size_t i = 0; i < _onUpdateScripts.size(); i++) {
+        const auto &element = _onUpdateScripts[i];
+        if (element->_started) {
+            element->onLateUpdate(deltaTime);
+        }
+    }
+}
+
+
+//MARK: -
 void ComponentsManager::addRenderer(Renderer *renderer) {
     renderer->_rendererIndex = _renderers.size();
     _renderers.push_back(renderer);
@@ -65,84 +87,9 @@ void ComponentsManager::removeRenderer(Renderer *renderer) {
     renderer->_rendererIndex = -1;
 }
 
-void ComponentsManager::addOnUpdateRenderers(Renderer *renderer) {
-    renderer->_onUpdateIndex = _onUpdateRenderers.size();
-    _onUpdateRenderers.push_back(renderer);
-}
-
-void ComponentsManager::removeOnUpdateRenderers(Renderer *renderer) {
-    _onUpdateRenderers.erase(_onUpdateRenderers.begin() + renderer->_onUpdateIndex);
-    renderer->_onUpdateIndex = -1;
-}
-
-//void ComponentsManager::addOnUpdateAnimators(Animator *animator) {
-//    animator->_onUpdateIndex = _onUpdateAnimators.size();
-//    _onUpdateAnimators.push_back(animator);
-//}
-//
-//void ComponentsManager::removeOnUpdateAnimators(Animator *animator) {
-//    _onUpdateAnimators.erase(_onUpdateAnimators.begin() + animator->_onUpdateIndex);
-//    animator->_onUpdateIndex = -1;
-//}
-//
-//void ComponentsManager::addOnUpdateSceneAnimators(SceneAnimator *animator) {
-//    animator->_onUpdateIndex = _onUpdateSceneAnimators.size();
-//    _onUpdateSceneAnimators.push_back(animator);
-//}
-//
-//void ComponentsManager::removeOnUpdateSceneAnimators(SceneAnimator *animator) {
-//    _onUpdateSceneAnimators.erase(_onUpdateSceneAnimators.begin() + animator->_onUpdateIndex);
-//    animator->_onUpdateIndex = -1;
-//}
-
-void ComponentsManager::callScriptOnStart() {
-    auto &onStartScripts = _onStartScripts;
-    if (onStartScripts.size() > 0) {
-        // The 'onStartScripts.length' maybe add if you add some Script with addComponent() in some Script's onStart()
-        for (size_t i = 0; i < onStartScripts.size(); i++) {
-            const auto &script = onStartScripts[i];
-            script->_started = true;
-            script->_onStartIndex = -1;
-            script->onStart();
-        }
-        onStartScripts.clear();
-    }
-}
-
-void ComponentsManager::callScriptOnUpdate(float deltaTime) {
-    const auto &onUpdateScripts = _onUpdateScripts;
-    for (size_t i = 0; i < _onUpdateScripts.size(); i++) {
-        const auto &element = onUpdateScripts[i];
-        if (element->_started) {
-            element->onUpdate(deltaTime);
-        }
-    }
-}
-
-void ComponentsManager::callScriptOnLateUpdate(float deltaTime) {
-    const auto &onLateUpdateScripts = _onLateUpdateScripts;
-    for (size_t i = 0; i < _onLateUpdateScripts.size(); i++) {
-        const auto &element = onLateUpdateScripts[i];
-        if (element->_started) {
-            element->onLateUpdate(deltaTime);
-        }
-    }
-}
-
-void ComponentsManager::callScriptOnEndFrame() {
-    const auto &onEndFrameScripts = _onEndFrameScripts;
-    for (size_t i = 0; i < onEndFrameScripts.size(); i++) {
-        const auto &element = onEndFrameScripts[i];
-        if (element->_started) {
-            element->onEndFrame();
-        }
-    }
-}
-
 void ComponentsManager::callRendererOnUpdate(float deltaTime) {
-    const auto &elements = _onUpdateRenderers;
-    for (size_t i = 0; i < _onUpdateRenderers.size(); i++) {
-        elements[i]->update(deltaTime);
+    for (size_t i = 0; i < _renderers.size(); i++) {
+        _renderers[i]->update(deltaTime);
     }
 }
 
@@ -150,15 +97,14 @@ void ComponentsManager::callRender(Camera* camera,
                                    std::vector<RenderElement> &opaqueQueue,
                                    std::vector<RenderElement> &alphaTestQueue,
                                    std::vector<RenderElement> &transparentQueue) {
-    const auto &elements = _renderers;
     for (size_t i = 0; i < _renderers.size(); i++) {
-        const auto &element = elements[i];
-
+        const auto &element = _renderers[i];
+        
         // filter by camera culling mask.
         if (!(camera->cullingMask & element->_entity->layer)) {
             continue;
         }
-
+        
         // filter by camera frustum.
         if (camera->enableFrustumCulling) {
             element->isCulled = !camera->_frustum.intersectsBox(element->bounds());
@@ -166,7 +112,7 @@ void ComponentsManager::callRender(Camera* camera,
                 continue;
             }
         }
-
+        
         const auto &transform = camera->entity()->transform;
         const auto position = transform->worldPosition();
         auto center = element->bounds().midPoint();
@@ -177,9 +123,9 @@ void ComponentsManager::callRender(Camera* camera,
         } else {
             element->setDistanceForSort(center.distanceSquaredTo(position));
         }
-
+        
         element->updateShaderData(camera->viewMatrix(), camera->projectionMatrix());
-
+        
         element->_render(opaqueQueue, alphaTestQueue, transparentQueue);
     }
 }
@@ -197,29 +143,7 @@ void ComponentsManager::callRender(const BoundingFrustum &frustrum,
     }
 }
 
-//void ComponentsManager::callAnimatorUpdate(float deltaTime) {
-//    const auto &elements = _onUpdateAnimators;
-//    for (size_t i = 0; i < _onUpdateAnimators.size(); i++) {
-//        elements[i]->update(deltaTime);
-//    }
-//}
-//
-//void ComponentsManager::callSceneAnimatorUpdate(float deltaTime) {
-//    const auto &elements = _onUpdateSceneAnimators;
-//    for (size_t i = 0; i < _onUpdateSceneAnimators.size(); i++) {
-//        elements[i]->update(deltaTime);
-//    }
-//}
-
-void ComponentsManager::callComponentDestroy() {
-    if (_destroyComponents.size() > 0) {
-        for (size_t i = 0; i < _destroyComponents.size(); i++) {
-            _destroyComponents[i]->onDestroy();
-        }
-        _destroyComponents.clear();
-    }
-}
-
+//MARK: - 
 void ComponentsManager::callCameraOnBeginRender(Camera *camera) {
     const auto &camComps = camera->entity()->_components;
     for (size_t i = 0; i < camComps.size(); i++) {
@@ -250,5 +174,39 @@ void ComponentsManager::putActiveChangedTempList(std::vector<Component *> &compo
     componentContainer.clear();
     _componentsContainerPool.push_back(componentContainer);
 }
+
+//MARK: -
+//void ComponentsManager::addOnUpdateAnimators(Animator *animator) {
+//    animator->_onUpdateIndex = _onUpdateAnimators.size();
+//    _onUpdateAnimators.push_back(animator);
+//}
+//
+//void ComponentsManager::removeOnUpdateAnimators(Animator *animator) {
+//    _onUpdateAnimators.erase(_onUpdateAnimators.begin() + animator->_onUpdateIndex);
+//    animator->_onUpdateIndex = -1;
+//}
+//
+//void ComponentsManager::addOnUpdateSceneAnimators(SceneAnimator *animator) {
+//    animator->_onUpdateIndex = _onUpdateSceneAnimators.size();
+//    _onUpdateSceneAnimators.push_back(animator);
+//}
+//
+//void ComponentsManager::removeOnUpdateSceneAnimators(SceneAnimator *animator) {
+//    _onUpdateSceneAnimators.erase(_onUpdateSceneAnimators.begin() + animator->_onUpdateIndex);
+//    animator->_onUpdateIndex = -1;
+//}
+//void ComponentsManager::callAnimatorUpdate(float deltaTime) {
+//    const auto &elements = _onUpdateAnimators;
+//    for (size_t i = 0; i < _onUpdateAnimators.size(); i++) {
+//        elements[i]->update(deltaTime);
+//    }
+//}
+//
+//void ComponentsManager::callSceneAnimatorUpdate(float deltaTime) {
+//    const auto &elements = _onUpdateSceneAnimators;
+//    for (size_t i = 0; i < _onUpdateSceneAnimators.size(); i++) {
+//        elements[i]->update(deltaTime);
+//    }
+//}
 
 }        // namespace vox

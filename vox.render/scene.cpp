@@ -246,6 +246,8 @@ void Scene::update(float deltaTime) {
 //    _componentsManager.callAnimatorUpdate(deltaTime);
 //    _componentsManager.callSceneAnimatorUpdate(deltaTime);
     _componentsManager.callScriptOnLateUpdate(deltaTime);
+    
+    _componentsManager.callRendererOnUpdate(deltaTime);
 }
 
 }        // namespace vox

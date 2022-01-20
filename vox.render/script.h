@@ -37,6 +37,19 @@ public:
     }
     
     /**
+     * Called when be disabled.
+     */
+    virtual void onDisable() {
+    }
+    
+    /**
+     * Called at the end of the destroyed frame.
+     */
+    virtual void onDestroy() {
+    }
+    
+public:
+    /**
      * Called before the frame-level loop start for the first time, only once.
      */
     virtual void onStart() {
@@ -71,12 +84,6 @@ public:
     }
     
     /**
-     * Called after command buffer commit.
-     */
-    virtual void onEndFrame() {
-    }
-    
-    /**
      * Called when the collision enter.
      * @param other ColliderShape
      */
@@ -104,18 +111,6 @@ public:
     virtual void resize(uint32_t width, uint32_t height) {
     }
     
-    /**
-     * Called when be disabled.
-     */
-    virtual void onDisable() {
-    }
-    
-    /**
-     * Called at the end of the destroyed frame.
-     */
-    virtual void onDestroy() {
-    }
-    
     
 private:
     friend class Entity;
@@ -133,10 +128,6 @@ private:
     bool _started = false;
     ssize_t _onStartIndex = -1;
     ssize_t _onUpdateIndex = -1;
-    ssize_t _onLateUpdateIndex = -1;
-    ssize_t _onPreRenderIndex = -1;
-    ssize_t _onPostRenderIndex = -1;
-    ssize_t _onEndFrameIndex = -1;
     ssize_t _entityCacheIndex = -1;
 };
 

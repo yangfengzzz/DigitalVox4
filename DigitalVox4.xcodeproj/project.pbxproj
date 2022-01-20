@@ -325,7 +325,6 @@
 		0445968F2796F97600F04CE0 /* skybox_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445941727926E3300F04CE0 /* skybox_material.cpp */; };
 		044596902796F97600F04CE0 /* sky.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941227926CFF00F04CE0 /* sky.h */; };
 		044596912796F99100F04CE0 /* script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445928B278EA37D00F04CE0 /* script.cpp */; };
-		044596922796F99100F04CE0 /* script.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445928C278EA37D00F04CE0 /* script.h */; };
 		044596932796F99100F04CE0 /* update_flag_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926E278E80DC00F04CE0 /* update_flag_manager.h */; };
 		044596942796F99100F04CE0 /* background.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941427926D1600F04CE0 /* background.h */; };
 		044596952796F99100F04CE0 /* update_flag.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926B278E80DC00F04CE0 /* update_flag.h */; };
@@ -2037,7 +2036,6 @@
 				044596502796EFD900F04CE0 /* subpass.h in Headers */,
 				0445962D2796EB4900F04CE0 /* engine.h in Headers */,
 				044596362796EE4F00F04CE0 /* modelio_loader.h in Headers */,
-				044596922796F99100F04CE0 /* script.h in Headers */,
 				0445960B2796E88B00F04CE0 /* cpp_mtl_internal_macros.h in Headers */,
 				0445967C2796F87C00F04CE0 /* blend_mode.h in Headers */,
 				044595EA2796E88600F04CE0 /* cpp_mtl_library.h in Headers */,

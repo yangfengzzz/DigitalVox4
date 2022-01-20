@@ -33,22 +33,15 @@ _mvMatrixProperty(Shader::createProperty("u_MVMat", ShaderDataGroup::Renderer)),
 _mvpMatrixProperty(Shader::createProperty("u_MVPMat", ShaderDataGroup::Renderer)),
 _mvInvMatrixProperty(Shader::createProperty("u_MVInvMat", ShaderDataGroup::Renderer)),
 _normalMatrixProperty(Shader::createProperty("u_normalMat", ShaderDataGroup::Renderer)) {
-    _overrideUpdate = true;
 }
 
 void Renderer::_onEnable() {
     auto &componentsManager = entity()->scene()->_componentsManager;
-    if (_overrideUpdate) {
-        componentsManager.addOnUpdateRenderers(this);
-    }
     componentsManager.addRenderer(this);
 }
 
 void Renderer::_onDisable() {
     auto &componentsManager = entity()->scene()->_componentsManager;
-    if (_overrideUpdate) {
-        componentsManager.removeOnUpdateRenderers(this);
-    }
     componentsManager.removeRenderer(this);
 }
 

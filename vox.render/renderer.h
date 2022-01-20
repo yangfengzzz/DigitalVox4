@@ -123,17 +123,13 @@ protected:
 protected:
     MaterialPtr _createInstanceMaterial(const MaterialPtr &material, size_t index);
     
-    float _distanceForSort = 0;
-    ssize_t _onUpdateIndex = -1;
-    ssize_t _rendererIndex = -1;
-    
-    // @ignoreClone
-    bool _overrideUpdate = false;
-    // @shallowClone
     std::vector<std::shared_ptr<Material>> _materials;
     
 private:
     friend class ComponentsManager;
+    
+    float _distanceForSort = 0;
+    ssize_t _rendererIndex = -1;
     
     ShaderProperty _localMatrixProperty;
     ShaderProperty _worldMatrixProperty;
