@@ -7,6 +7,7 @@
 
 #include "editor_application.h"
 #include "rendering/subpasses/forward_subpass.h"
+#include "rendering/subpasses/color_picker_subpass.h"
 #include "engine.h"
 #include "camera.h"
 
@@ -51,7 +52,10 @@ bool EditorApplication::prepare(Engine &engine) {
     _colorPickerPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
     _colorPickerPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
     _colorPickerRenderPass = std::make_unique<RenderPass>(_library, &_colorPickerPassDescriptor);
-    
+    auto colorPickerSubpass = std::make_unique<ColorPickerSubpass>(_renderView.get(), _scene.get(), _mainCamera);
+    _colorPickerSubpass = colorPickerSubpass.get();
+    _colorPickerRenderPass->addSubpass(std::move(colorPickerSubpass));
+
     return true;
 }
 
@@ -81,7 +85,8 @@ void EditorApplication::update(float delta_time) {
     commandBuffer.waitUntilCompleted();
     drawable->present();
     
-    
+    auto picker = _colorPickerSubpass->getObjectByColor(_readColorFromRenderTarget());
+    pickFunctor(picker.first, picker.second);
 }
 
 bool EditorApplication::resize(uint32_t win_width, uint32_t win_height,

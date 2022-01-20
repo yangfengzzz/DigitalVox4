@@ -21,6 +21,23 @@ public:
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
+public:
+    /**
+     * Convert id to RGB color value, 0 and 0xffffff are illegal values.
+     */
+    Vector3F id2Color(uint32_t id);
+    
+    /**
+     * Convert RGB color to id.
+     * @param color - Color
+     */
+    uint32_t color2Id(const std::array<uint8_t, 4> &color);
+    
+    /**
+     * Get renderer element by color.
+     */
+    std::pair<Renderer *, MeshPtr> getObjectByColor(const std::array<uint8_t, 4> &color);
+    
 private:
     static bool _compareFromNearToFar(const RenderElement &a, const RenderElement &b);
     static bool _compareFromFarToNear(const RenderElement &a, const RenderElement &b);
@@ -33,6 +50,9 @@ private:
     
     MTL::RenderPipelineDescriptor _forwardPipelineDescriptor;
     MTL::DepthStencilState _forwardDepthStencilState;
+    
+    uint32_t _currentId = 0;
+    std::unordered_map<size_t, std::pair<Renderer *, MeshPtr>> _primitivesMap;
 };
 
 }

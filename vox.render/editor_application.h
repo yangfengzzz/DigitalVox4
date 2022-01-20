@@ -11,6 +11,8 @@
 #include "metal_application.h"
 
 namespace vox {
+class ColorPickerSubpass;
+
 class EditorApplication: public MetalApplication {
 public:
     EditorApplication() = default;
@@ -66,6 +68,7 @@ private:
     MTL::Texture _colorPickerTexture;
     MTL::RenderPassDescriptor _colorPickerPassDescriptor;
     std::unique_ptr<RenderPass> _colorPickerRenderPass{nullptr};
+    ColorPickerSubpass* _colorPickerSubpass{nullptr};
     
     std::array<uint8_t, 4> _readColorFromRenderTarget();
 };

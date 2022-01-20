@@ -64,6 +64,9 @@ void ColorPickerSubpass::prepare() {
 }
 
 void ColorPickerSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
+    _currentId = 0;
+    _primitivesMap.clear();
+    
     commandEncoder.pushDebugGroup("Draw G-Buffer");
     commandEncoder.setCullMode(MTL::CullModeFront);
     commandEncoder.setDepthStencilState(_forwardDepthStencilState);
@@ -120,6 +123,11 @@ void ColorPickerSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         uploadUniforms(renderEncoder, m_forwardPipelineState->cameraUniformBlock, _camera->shaderData);
         renderEncoder.setRenderPipelineState(*m_forwardPipelineState);
         
+        _currentId += 1;
+        _primitivesMap[_currentId] = std::make_pair(renderer, mesh);
+        Vector3F color = id2Color(_currentId);
+        renderEncoder.setFragmentBytes(&color, sizeof(Vector4F), 0);
+        
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),
                                           meshBuffer.offset(),
@@ -131,6 +139,30 @@ void ColorPickerSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
                                             submesh->indexType(),
                                             submesh->indexBuffer().buffer(),
                                             submesh->indexBuffer().offset());
+    }
+}
+
+//MARK: - Picker
+Vector3F ColorPickerSubpass::id2Color(uint32_t id) {
+    if (id >= 0xffffff) {
+        std::cout << "Framebuffer Picker encounter primitive's id greater than " + std::to_string(0xffffff)
+        << std::endl;
+        return Vector3F(0, 0, 0);
+    }
+    
+    return Vector3F((id & 0xff) / 255.0, ((id & 0xff00) >> 8) / 255.0, ((id & 0xff0000) >> 16) / 255.0);
+}
+
+uint32_t ColorPickerSubpass::color2Id(const std::array<uint8_t, 4> &color) {
+    return color[0] | (color[1] << 8) | (color[2] << 16);
+}
+
+std::pair<Renderer *, MeshPtr> ColorPickerSubpass::getObjectByColor(const std::array<uint8_t, 4> &color) {
+    auto iter = _primitivesMap.find(color2Id(color));
+    if (iter != _primitivesMap.end()) {
+        return iter->second;
+    } else {
+        return std::make_pair(nullptr, nullptr);
     }
 }
 
