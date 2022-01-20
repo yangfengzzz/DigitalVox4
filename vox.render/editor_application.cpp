@@ -123,15 +123,26 @@ void EditorApplication::pick(float offsetX, float offsetY) {
 }
 
 std::array<uint8_t, 4> EditorApplication::_readColorFromRenderTarget() {
-    const auto viewport = _mainCamera->viewport();
-    const auto viewWidth = (viewport.z - viewport.x) * _mainCamera->width();
-    const auto viewHeight = (viewport.w - viewport.y) * _mainCamera->height();
+    int clientWidth = _mainCamera->width();
+    int clientHeight = _mainCamera->height();
+    int canvasWidth = static_cast<int>(_colorPickerTexture.width());
+    int canvasHeight = static_cast<int>(_colorPickerTexture.height());
     
-    const auto nx = (_pickPos.x - viewport.x) / viewWidth;
-    const auto ny = (_pickPos.y - viewport.y) / viewHeight;
-    const auto left = std::floor(nx * (_colorPickerTexture.width() - 1));
-    const auto bottom = std::floor((1 - ny) * (_colorPickerTexture.height() - 1));
+    const auto px = (_pickPos.x / clientWidth) * canvasWidth;
+    const auto py = (_pickPos.y / clientHeight) * canvasHeight;
+    
+    const auto viewport = _mainCamera->viewport();
+    const auto viewWidth = (viewport.z - viewport.x) * canvasWidth;
+    const auto viewHeight = (viewport.w - viewport.y) * canvasHeight;
+    
+    const auto nx = (px - viewport.x) / viewWidth;
+    const auto ny = (py - viewport.y) / viewHeight;
+    const auto left = std::floor(nx * (canvasWidth - 1));
+    const auto bottom = std::floor((1 - ny) * (canvasHeight - 1));
     std::array<uint8_t, 4> pixel;
+    
+    _colorPickerTexture.getBytes(pixel.data(), sizeof(uint8_t) * 4,
+                                 MTL::regionMake2D(left, canvasHeight - bottom, 1, 1), 0);
     
     return pixel;
 }
