@@ -173,6 +173,8 @@ private:
     std::vector<Vector4F> _boneWeights;
     std::vector<Vector4F> _boneIndices;
 };
+using ModelMeshPtr = std::shared_ptr<ModelMesh>;
+
 
 }
 

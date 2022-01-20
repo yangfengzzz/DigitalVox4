@@ -8,10 +8,14 @@
 #define mesh_hpp
 
 #include "sub_mesh.h"
+#include "bounding_box3.h"
 
 namespace vox {
 struct Mesh {
 public:
+    /** The bounding volume of the mesh. */
+    BoundingBox3F bounds = BoundingBox3F();
+    
     Mesh();
     
     Mesh(const std::vector<Submesh> &submeshes,
