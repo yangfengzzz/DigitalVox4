@@ -15,7 +15,7 @@
 namespace vox {
 class MetalApplication : public Application {
 public:
-    MetalApplication() = default;
+    MetalApplication();
     
     virtual ~MetalApplication();
     
