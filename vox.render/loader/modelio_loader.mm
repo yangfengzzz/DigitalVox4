@@ -12,8 +12,8 @@
 
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
-#include "mesh_loader.h"
-#include "material/texture_loader.h"
+#include "modelio_loader.h"
+#include "loader/texture_loader.h"
 #include "material/blinn_phong_material.h"
 #include "graphics/mesh.h"
 #include "mesh/mesh_renderer.h"
@@ -257,7 +257,7 @@ void createMeshesFromModelIOObject(EntityPtr entity,
 } // namespace
 
 //MARK: - Entry
-MeshLoader::MeshLoader(MTL::Device *device):
+ModelIOLoader::ModelIOLoader(MTL::Device *device):
 _device(device) {
     // Positions.
     _defaultVertexDescriptor.attributes[VertexAttributePosition].format(MTL::VertexFormatFloat3);
@@ -295,7 +295,7 @@ _device(device) {
     _defaultVertexDescriptor.layouts[BufferIndexMeshGenerics].stepFunction(MTL::VertexStepFunctionPerVertex);
 }
 
-void MeshLoader::loadMesh(const char *bundlePath,
+void ModelIOLoader::loadMesh(const char *bundlePath,
                           const char *meshFile,
                           EntityPtr entity) {
     // Create a ModelIO vertexDescriptor so that the format/layout of the ModelIO mesh vertices

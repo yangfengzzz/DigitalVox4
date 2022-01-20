@@ -12,11 +12,11 @@
 #include "core/cpp_mtl.h"
 
 namespace vox {
-class MeshLoader {
+class ModelIOLoader {
 public:
-    MeshLoader() = delete;
+    ModelIOLoader() = delete;
     
-    explicit MeshLoader(MTL::Device* device);
+    explicit ModelIOLoader(MTL::Device* device);
     
     void loadMesh(const char *bundlePath,
                   const char *meshFile,

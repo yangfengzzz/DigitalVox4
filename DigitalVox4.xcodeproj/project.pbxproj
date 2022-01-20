@@ -261,11 +261,11 @@
 		044596332796EE4F00F04CE0 /* sub_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E12790FBE400F04CE0 /* sub_mesh.h */; };
 		044596342796EE4F00F04CE0 /* mesh_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593DD2790F99200F04CE0 /* mesh_buffer.h */; };
 		044596352796EE4F00F04CE0 /* sub_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E02790FBE400F04CE0 /* sub_mesh.cpp */; };
-		044596362796EE4F00F04CE0 /* mesh_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459376278FFE3100F04CE0 /* mesh_loader.h */; };
+		044596362796EE4F00F04CE0 /* modelio_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459376278FFE3100F04CE0 /* modelio_loader.h */; };
 		044596372796EE4F00F04CE0 /* mesh_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593DC2790F99200F04CE0 /* mesh_buffer.cpp */; };
 		044596382796EE4F00F04CE0 /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E52791055900F04CE0 /* mesh.h */; };
 		044596392796EE4F00F04CE0 /* primitive_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E82791107600F04CE0 /* primitive_mesh.cpp */; };
-		0445963A2796EE4F00F04CE0 /* mesh_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459380278FFE3100F04CE0 /* mesh_loader.mm */; };
+		0445963A2796EE4F00F04CE0 /* modelio_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04459380278FFE3100F04CE0 /* modelio_loader.mm */; };
 		0445963B2796EE4F00F04CE0 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E42791055900F04CE0 /* mesh.cpp */; };
 		0445963C2796EE4F00F04CE0 /* primitive_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E92791107600F04CE0 /* primitive_mesh.h */; };
 		0445963F2796EF9500F04CE0 /* math_utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445937D278FFE3100F04CE0 /* math_utilities.h */; };
@@ -756,10 +756,10 @@
 		0445936E278FBCCA00F04CE0 /* free_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = free_control.cpp; sourceTree = "<group>"; };
 		04459372278FE8F600F04CE0 /* metal_view.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_view.mm; sourceTree = "<group>"; };
 		04459373278FE8F600F04CE0 /* metal_view.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metal_view.h; sourceTree = "<group>"; };
-		04459376278FFE3100F04CE0 /* mesh_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh_loader.h; sourceTree = "<group>"; };
+		04459376278FFE3100F04CE0 /* modelio_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modelio_loader.h; sourceTree = "<group>"; };
 		04459378278FFE3100F04CE0 /* math_utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = math_utilities.cpp; sourceTree = "<group>"; };
 		0445937D278FFE3100F04CE0 /* math_utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math_utilities.h; sourceTree = "<group>"; };
-		04459380278FFE3100F04CE0 /* mesh_loader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mesh_loader.mm; sourceTree = "<group>"; };
+		04459380278FFE3100F04CE0 /* modelio_loader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = modelio_loader.mm; sourceTree = "<group>"; };
 		04459382278FFE3200F04CE0 /* cpp_mtl_assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpp_mtl_assert.h; sourceTree = "<group>"; };
 		04459391278FFF6E00F04CE0 /* shader_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_types.h; sourceTree = "<group>"; };
 		04459392278FFF6E00F04CE0 /* directional_light.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = directional_light.metal; sourceTree = "<group>"; };
@@ -1149,6 +1149,7 @@
 				044592D1278ED03000F04CE0 /* material */,
 				0445941127926CE400F04CE0 /* sky */,
 				04459706279819A300F04CE0 /* lighting */,
+				04B4ACC72798EA7A0020576D /* loader */,
 				0445941427926D1600F04CE0 /* background.h */,
 				04459271278E80DC00F04CE0 /* layer.h */,
 				0445926B278E80DC00F04CE0 /* update_flag.h */,
@@ -1532,8 +1533,6 @@
 		044592D1278ED03000F04CE0 /* material */ = {
 			isa = PBXGroup;
 			children = (
-				04229570278C32FA0090983F /* texture_loader.h */,
-				04229583278C32FA0090983F /* texture_loader.mm */,
 				044592D2278ED04500F04CE0 /* enums */,
 				044592D9278ED11E00F04CE0 /* material.h */,
 				044592DA278ED11F00F04CE0 /* material.cpp */,
@@ -1720,10 +1719,6 @@
 				044593E02790FBE400F04CE0 /* sub_mesh.cpp */,
 				044593E52791055900F04CE0 /* mesh.h */,
 				044593E42791055900F04CE0 /* mesh.cpp */,
-				044593E92791107600F04CE0 /* primitive_mesh.h */,
-				044593E82791107600F04CE0 /* primitive_mesh.cpp */,
-				04459376278FFE3100F04CE0 /* mesh_loader.h */,
-				04459380278FFE3100F04CE0 /* mesh_loader.mm */,
 			);
 			path = graphics;
 			sourceTree = "<group>";
@@ -1766,6 +1761,8 @@
 				0445941C279292E000F04CE0 /* mesh_renderer.cpp */,
 				04B4ACC427983DCD0020576D /* model_mesh.h */,
 				04B4ACC327983DCD0020576D /* model_mesh.cpp */,
+				044593E92791107600F04CE0 /* primitive_mesh.h */,
+				044593E82791107600F04CE0 /* primitive_mesh.cpp */,
 			);
 			path = mesh;
 			sourceTree = "<group>";
@@ -1921,6 +1918,17 @@
 			name = editor;
 			sourceTree = "<group>";
 		};
+		04B4ACC72798EA7A0020576D /* loader */ = {
+			isa = PBXGroup;
+			children = (
+				04229570278C32FA0090983F /* texture_loader.h */,
+				04229583278C32FA0090983F /* texture_loader.mm */,
+				04459376278FFE3100F04CE0 /* modelio_loader.h */,
+				04459380278FFE3100F04CE0 /* modelio_loader.mm */,
+			);
+			path = loader;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2018,7 +2026,7 @@
 				044596062796E88600F04CE0 /* cpp_mtl_types.h in Headers */,
 				044596502796EFD900F04CE0 /* subpass.h in Headers */,
 				0445962D2796EB4900F04CE0 /* engine.h in Headers */,
-				044596362796EE4F00F04CE0 /* mesh_loader.h in Headers */,
+				044596362796EE4F00F04CE0 /* modelio_loader.h in Headers */,
 				044596922796F99100F04CE0 /* script.h in Headers */,
 				0445960B2796E88B00F04CE0 /* cpp_mtl_internal_macros.h in Headers */,
 				0445967C2796F87C00F04CE0 /* blend_mode.h in Headers */,
@@ -2387,7 +2395,7 @@
 				044595F32796E88600F04CE0 /* cpp_mtl_render_pipeline.mm in Sources */,
 				0445970A279819D000F04CE0 /* light.cpp in Sources */,
 				044596042796E88600F04CE0 /* cpp_mtl_render_pass.mm in Sources */,
-				0445963A2796EE4F00F04CE0 /* mesh_loader.mm in Sources */,
+				0445963A2796EE4F00F04CE0 /* modelio_loader.mm in Sources */,
 				044596B12796FAFD00F04CE0 /* orbit_control.cpp in Sources */,
 				0445960A2796E88600F04CE0 /* cpp_mtl_buffer.mm in Sources */,
 				044595EC2796E88600F04CE0 /* cpp_mtl_function_constant_values.mm in Sources */,

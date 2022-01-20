@@ -53,7 +53,7 @@ void BasicDeferredApp::loadScene() {
     Shader::createProperty("lightsData", ShaderDataGroup::Scene);
     Shader::createProperty("lightPosition", ShaderDataGroup::Scene);
     
-    MeshLoader loader(_device.get());
+    ModelIOLoader loader(_device.get());
     loader.loadMesh("../assets/Models", "Temple.obj", _scene.get()->createRootEntity());
     
     // Generate data
