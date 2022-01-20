@@ -115,7 +115,8 @@ public:
     
     void updateInputEvent(const InputEvent &inputEvent);
     
-    void updateSize(uint32_t width, uint32_t height);
+    void updateSize(uint32_t win_width, uint32_t win_height,
+                    uint32_t fb_width, uint32_t fb_height);
     
     void updateShaderData(MTL::Device* device);
     

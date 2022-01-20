@@ -84,11 +84,12 @@ void ComponentsManager::callScriptInputEvent(const InputEvent &inputEvent) {
     }
 }
 
-void ComponentsManager::callScriptResize(uint32_t width, uint32_t height) {
+void ComponentsManager::callScriptResize(uint32_t win_width, uint32_t win_height,
+                                         uint32_t fb_width, uint32_t fb_height) {
     for (size_t i = 0; i < _onUpdateScripts.size(); i++) {
         const auto &element = _onUpdateScripts[i];
         if (element->_started) {
-            element->resize(width, height);
+            element->resize(win_width, win_height, fb_width, fb_height);
         }
     }
 }

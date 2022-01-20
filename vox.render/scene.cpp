@@ -255,8 +255,10 @@ void Scene::updateInputEvent(const InputEvent &inputEvent) {
     _componentsManager.callScriptInputEvent(inputEvent);
 }
 
-void Scene::updateSize(uint32_t width, uint32_t height) {
-    _componentsManager.callScriptResize(width, height);
+void Scene::updateSize(uint32_t win_width, uint32_t win_height,
+                       uint32_t fb_width, uint32_t fb_height) {
+    _componentsManager.callScriptResize(win_width, win_height,
+                                        fb_width, fb_height);
 }
 
 }        // namespace vox

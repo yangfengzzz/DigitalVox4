@@ -108,7 +108,8 @@ public:
     virtual void inputEvent(const InputEvent &inputEvent) {
     }
     
-    virtual void resize(uint32_t width, uint32_t height) {
+    virtual void resize(uint32_t win_width, uint32_t win_height,
+                        uint32_t fb_width, uint32_t fb_height) {
     }
     
     

@@ -26,9 +26,10 @@ void OrbitControl::onDestroy() {
     onDisable();
 }
 
-void OrbitControl::resize(uint32_t width, uint32_t height) {
-    _width = width;
-    _height = height;
+void OrbitControl::resize(uint32_t win_width, uint32_t win_height,
+                          uint32_t fb_width, uint32_t fb_height) {
+    _width = win_width;
+    _height = win_height;
 }
 
 void OrbitControl::inputEvent(const InputEvent &inputEvent) {

@@ -28,7 +28,9 @@ void windowCloseCallback(GLFWwindow *window) {
 
 void windowSizeCallback(GLFWwindow *window, int width, int height) {
     if (auto engine = reinterpret_cast<Engine *>(glfwGetWindowUserPointer(window))) {
-        engine->resize(width, height);
+        int fb_width, fb_height;
+        glfwGetFramebufferSize(window, &fb_width, &fb_height);
+        engine->resize(width, height, fb_width, fb_height);
     }
 }
 
@@ -270,7 +272,7 @@ Window(properties) {
     
     glfwSetWindowCloseCallback(_handle, windowCloseCallback);
     glfwSetWindowFocusCallback(_handle, windowFocusCallback);
-    glfwSetFramebufferSizeCallback(_handle, windowSizeCallback);
+    glfwSetWindowSizeCallback(_handle, windowSizeCallback);
     glfwSetKeyCallback(_handle, keyCallback);
     glfwSetCursorPosCallback(_handle, cursorPositionCallback);
     glfwSetMouseButtonCallback(_handle, mouseButtonCallback);

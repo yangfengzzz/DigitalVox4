@@ -41,17 +41,13 @@ public:
     
     /**
      * @brief Handles resizing of the window
-     * @param width New width of the window
-     * @param height New height of the window
+     * @param win_width New width of the window
+     * @param win_height New height of the window
+     * @param fb_width New width of the framebuffer
+     * @param fb_height New height of the framebuffer
      */
-    virtual bool resize(const uint32_t width, const uint32_t height);
-    
-    /**
-     * @brief Handles resizing of the window
-     * @param width New pixel width of the window
-     * @param height New pixel height of the window
-     */
-    virtual void framebufferResize(uint32_t width, uint32_t height);
+    virtual bool resize(uint32_t win_width, uint32_t win_height,
+                        uint32_t fb_width, uint32_t fb_height);
     
     /**
      * @brief Handles input events of the window

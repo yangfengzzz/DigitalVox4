@@ -219,17 +219,19 @@ void PhysXDynamicApp::inputEvent(const InputEvent &inputEvent) {
     
     if (inputEvent.source() == EventSource::Mouse) {
         const auto &mouse_button = static_cast<const MouseButtonInputEvent &>(inputEvent);
-        Ray ray = _mainCamera->screenPointToRay(Vector2F(mouse_button.pos_x(), mouse_button.pos_y()));
-        
-        physics::HitResult hit;
-        auto result = _scene->_physicsManager.raycast(ray, std::numeric_limits<float>::max(), Layer::Layer0, hit);
-        if (result) {
-            auto mtl = std::make_shared<BlinnPhongMaterial>();
-            mtl->setBaseColor(Color(u(e), u(e), u(e), 1));
+        if (mouse_button.action() == MouseAction::Down) {
+            Ray ray = _mainCamera->screenPointToRay(Vector2F(mouse_button.pos_x(), mouse_button.pos_y()));
             
-            auto meshes = hit.entity->getComponentsIncludeChildren<MeshRenderer>();
-            for (auto& mesh : meshes) {
-                mesh->setMaterial(mtl);
+            physics::HitResult hit;
+            auto result = _scene->_physicsManager.raycast(ray, std::numeric_limits<float>::max(), Layer::Layer0, hit);
+            if (result) {
+                auto mtl = std::make_shared<BlinnPhongMaterial>();
+                mtl->setBaseColor(Color(u(e), u(e), u(e), 1));
+                
+                auto meshes = hit.entity->getComponentsIncludeChildren<MeshRenderer>();
+                for (auto& mesh : meshes) {
+                    mesh->setMaterial(mtl);
+                }
             }
         }
     } else if (inputEvent.source() == EventSource::Keyboard) {

@@ -22,11 +22,9 @@ bool Application::prepare(Engine &engine) {
 void Application::finish() {
 }
 
-bool Application::resize(const uint32_t /*width*/, const uint32_t /*height*/) {
+bool Application::resize(uint32_t win_width, uint32_t win_height,
+                         uint32_t fb_width, uint32_t fb_height) {
     return true;
-}
-
-void Application::framebufferResize(uint32_t width, uint32_t height) {
 }
 
 void Application::inputEvent(const InputEvent &inputEvent) {

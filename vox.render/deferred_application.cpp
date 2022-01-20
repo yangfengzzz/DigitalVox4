@@ -208,8 +208,9 @@ void DeferredApplication::update(float delta_time) {
     }
 }
 
-bool DeferredApplication::resize(uint32_t width, uint32_t height) {
-    MetalApplication::resize(width, height);
+bool DeferredApplication::resize(uint32_t win_width, uint32_t win_height,
+                                 uint32_t fb_width, uint32_t fb_height) {
+    MetalApplication::resize(win_width, win_height, fb_width, fb_height);
     m_GBufferRenderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
     m_GBufferRenderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
     

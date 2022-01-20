@@ -58,10 +58,11 @@ void ForwardApplication::update(float delta_time) {
     drawable->present();
 }
 
-bool ForwardApplication::resize(uint32_t width, uint32_t height) {
-    MetalApplication::resize(width, height);
-    _scene->updateSize(width, height);
-    _mainCamera->resize(width, height);
+bool ForwardApplication::resize(uint32_t win_width, uint32_t win_height,
+                                uint32_t fb_width, uint32_t fb_height) {
+    MetalApplication::resize(win_width, win_height, fb_width, fb_height);
+    _scene->updateSize(win_width, win_height, fb_width, fb_height);
+    _mainCamera->resize(win_width, win_height);
     return true;
 }
 

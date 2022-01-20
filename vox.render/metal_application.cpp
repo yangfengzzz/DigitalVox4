@@ -60,9 +60,10 @@ void MetalApplication::update(float delta_time) {
     _renderView->draw();
 }
 
-bool MetalApplication::resize(const uint32_t width, const uint32_t height) {
-    Application::resize(width, height);
-    _renderView->resize(MTL::sizeMake(width, height, 0));
+bool MetalApplication::resize(uint32_t win_width, uint32_t win_height,
+                              uint32_t fb_width, uint32_t fb_height) {
+    Application::resize(win_width, win_height, fb_width, fb_height);
+    _renderView->resize(MTL::sizeMake(fb_width, fb_height, 0));
     return true;
 }
 

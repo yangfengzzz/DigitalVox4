@@ -31,7 +31,8 @@ public:
      */
     void update(float delta_time) override;
     
-    bool resize(uint32_t width, uint32_t height) override;
+    bool resize(uint32_t win_width, uint32_t win_height,
+                uint32_t fb_width, uint32_t fb_height) override;
     
     virtual void loadScene() = 0;
     
