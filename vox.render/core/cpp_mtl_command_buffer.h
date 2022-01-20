@@ -65,6 +65,8 @@ public:
     
     void addScheduledHandler(CommandBufferHandler &scheduledHandler);
     
+    void synchronizeResource(MTL::Texture& resource);
+    
 private:
     
     cpp_mtl_internal::CommandBuffer m_objCObj;

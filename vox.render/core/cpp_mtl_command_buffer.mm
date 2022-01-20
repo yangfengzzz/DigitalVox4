@@ -76,3 +76,9 @@ void CommandBuffer::addScheduledHandler(CommandBufferHandler &scheduledHandler) 
         scheduledHandler(commandBuffer);
     }];
 }
+
+void CommandBuffer::synchronizeResource(MTL::Texture& resource) {
+    auto blit = [m_objCObj blitCommandEncoder];
+    [blit synchronizeResource:resource.objCObj()];
+    [blit endEncoding];
+}

@@ -78,6 +78,7 @@ void EditorApplication::update(float delta_time) {
     
     if (_needPick) {
         _colorPickerRenderPass->draw(commandBuffer, "color Picker Pass");
+        commandBuffer.synchronizeResource(_colorPickerTexture);
     }
     
     // Finalize rendering here & push the command buffer to the GPU
