@@ -144,3 +144,5 @@ fabric.properties
 
 .idea
 .DS_Store
+
+apps/imgui.ini

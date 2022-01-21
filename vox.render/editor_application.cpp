@@ -35,6 +35,9 @@ bool EditorApplication::prepare(Engine &engine) {
     _renderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
     _renderPass = std::make_unique<RenderPass>(_library, &_renderPassDescriptor);
     _renderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderView.get(), _scene.get(), _mainCamera));
+    if (_gui) {
+        _renderPass->setGUI(_gui.get());
+    }
     
     _colorPickerFormat = MTL::PixelFormatBGRA8Unorm;
     MTL::TextureDescriptor colorPickerTextureDesc;

@@ -13,13 +13,31 @@
 #include "camera.h"
 #include "lighting/point_light.h"
 #include "controls/orbit_control.h"
+#include "gui.h"
 
 namespace vox {
+class GUIScript: public Script {
+public:
+    GUIScript(Entity* entity):Script(entity) {}
+    
+    void onUpdate(float deltaTime) override {
+        ImGui::NewFrame();
+        ImGui::Begin("Panel");
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::End();
+        ImGui::Render();
+    }
+};
+
 void FramebufferPickerApp::loadScene(uint32_t width, uint32_t height) {
+    _gui = std::make_unique<GUI>(_device.get());
+    
     u = std::uniform_real_distribution<float>(0, 1);
     _scene->ambientLight().setDiffuseSolidColor(Color(1, 1, 1));
     
     auto rootEntity = _scene->createRootEntity();
+    rootEntity->addComponent<GUIScript>();
+    
     auto cameraEntity = rootEntity->createChild("camera");
     cameraEntity->transform->setPosition(10, 10, 10);
     cameraEntity->transform->lookAt(Point3F(0, 0, 0));
