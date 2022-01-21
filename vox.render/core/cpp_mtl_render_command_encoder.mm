@@ -156,6 +156,10 @@ void RenderCommandEncoder::drawPrimitives(PrimitiveType primitiveType,
                                                   baseInstance:baseInstance];
 }
 
+inline cpp_mtl_internal::RenderCommandEncoder RenderCommandEncoder::objCObj() const {
+    return (id <MTLRenderCommandEncoder>) m_objCObj;
+}
+
 CPP_METAL_VALIDATE_ENUM_ALIAS(IndexTypeUInt16);
 CPP_METAL_VALIDATE_ENUM_ALIAS(IndexTypeUInt32);
 

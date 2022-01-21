@@ -77,12 +77,15 @@ public: // Public methods for cpp_mtl_ internal implementation
     
     CommandBuffer(cpp_mtl_internal::CommandBuffer objCObj, Device &device);
     
+    cpp_mtl_internal::CommandBuffer objCObj() const;
 };
 
 
 #pragma mark - CommandBuffer inline method implementations
 
 CPP_METAL_MOVE_CONSTRUCTOR_AND_OPERATOR_OVERLOAD_IMPLEMENTATION(CommandBuffer);
+
+CPP_METAL_OBJCOBJ_GETTER_IMPLEMENATATION(CommandBuffer);
 
 inline void CommandBuffer::label(const char *string) {
     CPP_METAL_PROCESS_LABEL(string, label);

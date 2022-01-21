@@ -160,6 +160,7 @@ private:
     cpp_mtl_internal::RenderCommandEncoderDispatchTable *m_dispatch;
     
 public: // Public methods for cpp_mtl_ internal implementation
+    cpp_mtl_internal::RenderCommandEncoder objCObj() const;
     
     RenderCommandEncoder(const cpp_mtl_internal::RenderCommandEncoder objCObj, Device &device);
     

@@ -8,12 +8,21 @@
 #ifndef gui_hpp
 #define gui_hpp
 
-#include "core/cpp_mtl_device.h"
+#include "gui/imgui.h"
+#include "core/cpp_mtl.h"
 
 namespace vox {
 class GUI {
 public:
     GUI(MTL::Device* device);
+    
+    ~GUI();
+    
+    void newFrame(MTL::RenderPassDescriptor* renderPassDescriptor);
+    
+    void draw(ImDrawData* draw_data,
+              MTL::CommandBuffer& commandBuffer,
+              MTL::RenderCommandEncoder& commandEncode);
 };
 
 }
