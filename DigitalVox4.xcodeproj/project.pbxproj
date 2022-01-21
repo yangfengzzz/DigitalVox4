@@ -472,6 +472,7 @@
 		04CD93FD279A9A630093D6CB /* fbx_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93F8279A974F0093D6CB /* fbx_loader.cpp */; };
 		04CD9400279A9C6D0093D6CB /* animator_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93FE279A9C6D0093D6CB /* animator_loader.cpp */; };
 		04CD9401279A9C6D0093D6CB /* animator_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93FF279A9C6D0093D6CB /* animator_loader.h */; };
+		04CD9405279A9D910093D6CB /* animator.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD9403279A9D910093D6CB /* animator.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1152,6 +1153,8 @@
 		04CD93F8279A974F0093D6CB /* fbx_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fbx_loader.cpp; sourceTree = "<group>"; };
 		04CD93FE279A9C6D0093D6CB /* animator_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animator_loader.cpp; sourceTree = "<group>"; };
 		04CD93FF279A9C6D0093D6CB /* animator_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animator_loader.h; sourceTree = "<group>"; };
+		04CD9402279A9D900093D6CB /* animator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animator.cpp; sourceTree = "<group>"; };
+		04CD9403279A9D910093D6CB /* animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animator.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1319,6 +1322,8 @@
 				0445928B278EA37D00F04CE0 /* script.cpp */,
 				0445930B278F16BA00F04CE0 /* controls */,
 				04459310278F17DA00F04CE0 /* physics */,
+				04CD9403279A9D910093D6CB /* animator.h */,
+				04CD9402279A9D900093D6CB /* animator.cpp */,
 				04CD93EE279A841F0093D6CB /* animator_controller.h */,
 				04CD93ED279A841F0093D6CB /* animator_controller.cpp */,
 				0445942F2793A5D800F04CE0 /* forward_application.h */,
@@ -2185,6 +2190,7 @@
 				044596D32796FBE100F04CE0 /* static_collider.h in Headers */,
 				044596292796EB1B00F04CE0 /* imstb_rectpack.h in Headers */,
 				044595E02796E88600F04CE0 /* cpp_mtl_command_buffer.h in Headers */,
+				04CD9405279A9D910093D6CB /* animator.h in Headers */,
 				044596632796F85C00F04CE0 /* stencil_state.h in Headers */,
 				044596112796E88B00F04CE0 /* cpp_mtl_dispatch_table_cache.h in Headers */,
 				04B4ACC627983DCD0020576D /* model_mesh.h in Headers */,
