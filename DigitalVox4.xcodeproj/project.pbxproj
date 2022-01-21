@@ -462,6 +462,8 @@
 		04CD93E5279A53A10093D6CB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593CE279006DA00F04CE0 /* QuartzCore.framework */; };
 		04CD93E8279A53DF0093D6CB /* gui_entry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93E7279A53DF0093D6CB /* gui_entry.cpp */; };
 		04CD93EC279A55370093D6CB /* editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93EB279A55370093D6CB /* editor.cpp */; };
+		04CD93EF279A841F0093D6CB /* animator_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93ED279A841F0093D6CB /* animator_controller.cpp */; };
+		04CD93F0279A841F0093D6CB /* animator_controller.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93EE279A841F0093D6CB /* animator_controller.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1132,6 +1134,8 @@
 		04CD93E9279A540E0093D6CB /* editor_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editor_component.h; sourceTree = "<group>"; };
 		04CD93EA279A55370093D6CB /* editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editor.h; sourceTree = "<group>"; };
 		04CD93EB279A55370093D6CB /* editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor.cpp; sourceTree = "<group>"; };
+		04CD93ED279A841F0093D6CB /* animator_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animator_controller.cpp; sourceTree = "<group>"; };
+		04CD93EE279A841F0093D6CB /* animator_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animator_controller.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1299,6 +1303,8 @@
 				0445928B278EA37D00F04CE0 /* script.cpp */,
 				0445930B278F16BA00F04CE0 /* controls */,
 				04459310278F17DA00F04CE0 /* physics */,
+				04CD93EE279A841F0093D6CB /* animator_controller.h */,
+				04CD93ED279A841F0093D6CB /* animator_controller.cpp */,
 				0445942F2793A5D800F04CE0 /* forward_application.h */,
 				0445942E2793A5D800F04CE0 /* forward_application.cpp */,
 				044593ED2791213E00F04CE0 /* deferred_application.h */,
@@ -2199,6 +2205,7 @@
 				044595F12796E88600F04CE0 /* cpp_mtl_command_queue.h in Headers */,
 				044596062796E88600F04CE0 /* cpp_mtl_types.h in Headers */,
 				044596502796EFD900F04CE0 /* subpass.h in Headers */,
+				04CD93F0279A841F0093D6CB /* animator_controller.h in Headers */,
 				0445962D2796EB4900F04CE0 /* engine.h in Headers */,
 				044596362796EE4F00F04CE0 /* modelio_loader.h in Headers */,
 				0445960B2796E88B00F04CE0 /* cpp_mtl_internal_macros.h in Headers */,
@@ -2624,6 +2631,7 @@
 				04B4ACC2279836200020576D /* point_light.cpp in Sources */,
 				044596372796EE4F00F04CE0 /* mesh_buffer.cpp in Sources */,
 				044596992796F99100F04CE0 /* component.cpp in Sources */,
+				04CD93EF279A841F0093D6CB /* animator_controller.cpp in Sources */,
 				044596512796EFD900F04CE0 /* subpass.cpp in Sources */,
 				044596072796E88600F04CE0 /* cpp_mtl_command_encoder.mm in Sources */,
 				0445968B2796F87C00F04CE0 /* pbr_specular_material.cpp in Sources */,
@@ -3058,6 +3066,7 @@
 					./third_party/physx/physx/source/physxgpu/include,
 					./third_party/physx/physx/../pxshared/include,
 					./third_party/physx/physx/source/foundation/include,
+					./third_party/ozz/include,
 				);
 			};
 			name = Debug;
@@ -3110,6 +3119,7 @@
 					./third_party/physx/physx/source/physxgpu/include,
 					./third_party/physx/physx/../pxshared/include,
 					./third_party/physx/physx/source/foundation/include,
+					./third_party/ozz/include,
 				);
 			};
 			name = Release;
