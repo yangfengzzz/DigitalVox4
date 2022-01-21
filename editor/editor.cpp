@@ -68,6 +68,7 @@ public:
 } // namespace
 
 void Editor::loadScene(uint32_t width, uint32_t height) {
+    _gui = std::make_unique<GUI>(_device.get());
     _scene->ambientLight().setDiffuseSolidColor(Color(1, 1, 1));
     
     auto rootEntity = _scene->createRootEntity();

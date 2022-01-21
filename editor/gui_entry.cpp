@@ -183,7 +183,7 @@ void GUIEntry::editTransform(float *cameraView, float *cameraProjection, float *
         }
         if (ImGui::IsKeyPressed(83))
             useSnap = !useSnap;
-        ImGui::Checkbox("", &useSnap);
+        ImGui::Checkbox("##", &useSnap);
         ImGui::SameLine();
         
         switch (_currentGizmoOperation) {
