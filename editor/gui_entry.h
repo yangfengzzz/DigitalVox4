@@ -30,8 +30,10 @@ public:
     
     ~GUIEntry();
     
+    void setRenderer(Renderer *render);
+    
     void onUpdate(float deltaTime) override;
-        
+    
     void addEditorComponent(std::unique_ptr<EditorComponent> &&component);
     
     void removeEditorComponent(EditorComponent *component);
@@ -49,20 +51,20 @@ private:
     void nodeEditor();
     
 private:
-    Camera *camera = nullptr;
-    picker::FramebufferPicker *picker = nullptr;
-    control::OrbitControl *controller = nullptr;
+    Camera *_camera = nullptr;
+    picker::FramebufferPicker *_picker = nullptr;
+    control::OrbitControl *_controller = nullptr;
     
     //selected
-    Renderer *render = nullptr;
+    Renderer *_render = nullptr;
     
     //used for gui
-    float fov;
-    float camDistance = 8.f;
-    ImGuizmo::OPERATION mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
+    float _fov;
+    float _camDistance = 8.f;
+    ImGuizmo::OPERATION _currentGizmoOperation = ImGuizmo::TRANSLATE;
     
 private:
-    bool showEditor = false;
+    bool _showEditor = false;
     
     // Struct to hold basic information about connection between
     // pins. Note that connection (aka. link) has its own ID.
@@ -74,10 +76,10 @@ private:
         NodeEditor::PinId OutputId;
     };
     
-    NodeEditor::EditorContext *g_Context = nullptr;    // Editor context, required to trace a editor state.
-    bool g_FirstFrame = true;    // Flag set for first frame only, some action need to be executed once.
-    ImVector<LinkInfo> g_Links;                // List of live links. It is dynamic unless you want to create read-only view over nodes.
-    int g_NextLinkId = 100;     // Counter to help generate link ids. In real application this will probably based on pointer to user data structure.
+    NodeEditor::EditorContext *_context = nullptr;    // Editor context, required to trace a editor state.
+    bool _firstFrame = true;    // Flag set for first frame only, some action need to be executed once.
+    ImVector<LinkInfo> _links;                // List of live links. It is dynamic unless you want to create read-only view over nodes.
+    int _nextLinkId = 100;     // Counter to help generate link ids. In real application this will probably based on pointer to user data structure.
     
 private:
     std::vector<std::unique_ptr<EditorComponent>> _editorScripts;

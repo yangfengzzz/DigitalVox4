@@ -16,19 +16,23 @@ namespace vox {
 namespace editor {
 GUIEntry::GUIEntry(Entity *entity) :
 Script(entity) {
-    camera = entity->getComponent<Camera>();
-    fov = camera->fieldOfView();
+    _camera = entity->getComponent<Camera>();
+    _fov = _camera->fieldOfView();
     
-    controller = entity->addComponent<control::OrbitControl>();
+    _controller = entity->addComponent<control::OrbitControl>();
     
     NodeEditor::Config config;
     config.SettingsFile = "BasicInteraction.json";
-    g_Context = NodeEditor::CreateEditor(&config);
+    _context = NodeEditor::CreateEditor(&config);
 }
 
 GUIEntry::~GUIEntry() {
     _editorScripts.clear();
-    NodeEditor::DestroyEditor(g_Context);
+    NodeEditor::DestroyEditor(_context);
+}
+
+void GUIEntry::setRenderer(Renderer *render) {
+    _render = render;
 }
 
 void GUIEntry::addEditorComponent(std::unique_ptr<EditorComponent> &&component) {
@@ -47,21 +51,21 @@ void GUIEntry::onUpdate(float deltaTime) {
     ImGui::NewFrame();
     
     if (ImGui::IsAnyItemActive()) {
-        controller->setEnabled(false);
+        _controller->setEnabled(false);
     } else {
-        controller->setEnabled(true);
+        _controller->setEnabled(true);
     }
     
     ImGuiIO &io = ImGui::GetIO();
     
-    auto cameraProjection = camera->projectionMatrix();
-    auto cameraView = camera->viewMatrix();
+    auto cameraProjection = _camera->projectionMatrix();
+    auto cameraView = _camera->viewMatrix();
     
-    ImGuizmo::SetOrthographic(camera->isOrthographic());
+    ImGuizmo::SetOrthographic(_camera->isOrthographic());
     ImGuizmo::BeginFrame();
     
-    if (showEditor) {
-        controller->setEnabled(false);
+    if (_showEditor) {
+        _controller->setEnabled(false);
         
         // Add padding around the text so that the options are not
         // too close to the edges and are easier to interact with.
@@ -91,14 +95,14 @@ void GUIEntry::onUpdate(float deltaTime) {
         
         ImGui::Begin("Editor");
         
-        ImGui::Checkbox("Open Node Editor", &showEditor);
+        ImGui::Checkbox("Open Node Editor", &_showEditor);
         
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         ImGui::Separator();
         
         ImGui::Text("Camera");
-        ImGui::SliderFloat("Fov", &fov, 20.f, 110.f);
-        camera->setFieldOfView(fov);
+        ImGui::SliderFloat("Fov", &_fov, 20.f, 110.f);
+        _camera->setFieldOfView(_fov);
         
         ImGui::Text("X: %f Y: %f", io.MousePos.x, io.MousePos.y);
         if (ImGuizmo::IsUsing()) {
@@ -114,16 +118,16 @@ void GUIEntry::onUpdate(float deltaTime) {
         }
         ImGui::Separator();
         
-        if (render != nullptr) {
+        if (_render != nullptr) {
             if (ImGuizmo::IsOver()) {
-                controller->setEnabled(false);
+                _controller->setEnabled(false);
             }
             
-            auto modelMat = render->entity()->transform->localMatrix();
+            auto modelMat = _render->entity()->transform->localMatrix();
             editTransform(cameraView.data(), cameraProjection.data(), modelMat.data(), true);
-            render->entity()->transform->setLocalMatrix(modelMat);
+            _render->entity()->transform->setLocalMatrix(modelMat);
             cameraView.invert();
-            camera->entity()->transform->setWorldMatrix(cameraView);
+            _camera->entity()->transform->setWorldMatrix(cameraView);
         }
         
         for (auto &component: _editorScripts) {
@@ -148,21 +152,21 @@ void GUIEntry::editTransform(float *cameraView, float *cameraProjection, float *
     
     if (editTransformDecomposition) {
         if (ImGui::IsKeyPressed(90))
-            mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
+            _currentGizmoOperation = ImGuizmo::TRANSLATE;
         if (ImGui::IsKeyPressed(69))
-            mCurrentGizmoOperation = ImGuizmo::ROTATE;
+            _currentGizmoOperation = ImGuizmo::ROTATE;
         if (ImGui::IsKeyPressed(82)) // r Key
-            mCurrentGizmoOperation = ImGuizmo::SCALE;
-        if (ImGui::RadioButton("Translate", mCurrentGizmoOperation == ImGuizmo::TRANSLATE))
-            mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
+            _currentGizmoOperation = ImGuizmo::SCALE;
+        if (ImGui::RadioButton("Translate", _currentGizmoOperation == ImGuizmo::TRANSLATE))
+            _currentGizmoOperation = ImGuizmo::TRANSLATE;
         ImGui::SameLine();
-        if (ImGui::RadioButton("Rotate", mCurrentGizmoOperation == ImGuizmo::ROTATE))
-            mCurrentGizmoOperation = ImGuizmo::ROTATE;
+        if (ImGui::RadioButton("Rotate", _currentGizmoOperation == ImGuizmo::ROTATE))
+            _currentGizmoOperation = ImGuizmo::ROTATE;
         ImGui::SameLine();
-        if (ImGui::RadioButton("Scale", mCurrentGizmoOperation == ImGuizmo::SCALE))
-            mCurrentGizmoOperation = ImGuizmo::SCALE;
-        if (ImGui::RadioButton("Universal", mCurrentGizmoOperation == ImGuizmo::UNIVERSAL))
-            mCurrentGizmoOperation = ImGuizmo::UNIVERSAL;
+        if (ImGui::RadioButton("Scale", _currentGizmoOperation == ImGuizmo::SCALE))
+            _currentGizmoOperation = ImGuizmo::SCALE;
+        if (ImGui::RadioButton("Universal", _currentGizmoOperation == ImGuizmo::UNIVERSAL))
+            _currentGizmoOperation = ImGuizmo::UNIVERSAL;
         float matrixTranslation[3], matrixRotation[3], matrixScale[3];
         ImGuizmo::DecomposeMatrixToComponents(matrix, matrixTranslation, matrixRotation, matrixScale);
         ImGui::InputFloat3("Tr", matrixTranslation);
@@ -170,7 +174,7 @@ void GUIEntry::editTransform(float *cameraView, float *cameraProjection, float *
         ImGui::InputFloat3("Sc", matrixScale);
         ImGuizmo::RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, matrix);
         
-        if (mCurrentGizmoOperation != ImGuizmo::SCALE) {
+        if (_currentGizmoOperation != ImGuizmo::SCALE) {
             if (ImGui::RadioButton("Local", mCurrentGizmoMode == ImGuizmo::LOCAL))
                 mCurrentGizmoMode = ImGuizmo::LOCAL;
             ImGui::SameLine();
@@ -182,7 +186,7 @@ void GUIEntry::editTransform(float *cameraView, float *cameraProjection, float *
         ImGui::Checkbox("", &useSnap);
         ImGui::SameLine();
         
-        switch (mCurrentGizmoOperation) {
+        switch (_currentGizmoOperation) {
             case ImGuizmo::TRANSLATE:
                 ImGui::InputFloat3("Snap", &snap[0]);
                 break;
@@ -210,10 +214,10 @@ void GUIEntry::editTransform(float *cameraView, float *cameraProjection, float *
     float viewManipulateTop = 0;
     ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
     
-    ImGuizmo::Manipulate(cameraView, cameraProjection, mCurrentGizmoOperation, mCurrentGizmoMode,
+    ImGuizmo::Manipulate(cameraView, cameraProjection, _currentGizmoOperation, mCurrentGizmoMode,
                          matrix, NULL, useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL);
     
-    ImGuizmo::ViewManipulate(cameraView, camDistance, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
+    ImGuizmo::ViewManipulate(cameraView, _camDistance, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
 }
 
 void GUIEntry::imGuiEx_BeginColumn() {
@@ -231,11 +235,11 @@ void GUIEntry::imGuiEx_EndColumn() {
 }
 
 void GUIEntry::nodeEditor() {
-    ImGui::Checkbox("Close Node Editor", &showEditor);
+    ImGui::Checkbox("Close Node Editor", &_showEditor);
     
     ImGui::Separator();
     
-    NodeEditor::SetCurrentEditor(g_Context);
+    NodeEditor::SetCurrentEditor(_context);
     
     // Start interaction with editor.
     NodeEditor::Begin("My Editor", ImVec2(0.0, 0.0f));
@@ -251,7 +255,7 @@ void GUIEntry::nodeEditor() {
     NodeEditor::PinId nodeA_InputPinId = uniqueId++;
     NodeEditor::PinId nodeA_OutputPinId = uniqueId++;
     
-    if (g_FirstFrame)
+    if (_firstFrame)
         NodeEditor::SetNodePosition(nodeA_Id, ImVec2(10, 10));
     NodeEditor::BeginNode(nodeA_Id);
     ImGui::Text("Node A");
@@ -270,7 +274,7 @@ void GUIEntry::nodeEditor() {
     NodeEditor::PinId nodeB_InputPinId2 = uniqueId++;
     NodeEditor::PinId nodeB_OutputPinId = uniqueId++;
     
-    if (g_FirstFrame)
+    if (_firstFrame)
         NodeEditor::SetNodePosition(nodeB_Id, ImVec2(210, 60));
     NodeEditor::BeginNode(nodeB_Id);
     ImGui::Text("Node B");
@@ -289,7 +293,7 @@ void GUIEntry::nodeEditor() {
     NodeEditor::EndNode();
     
     // Submit Links
-    for (auto &linkInfo: g_Links)
+    for (auto &linkInfo: _links)
         NodeEditor::Link(linkInfo.Id, linkInfo.InputId, linkInfo.OutputId);
     
     //
@@ -317,10 +321,10 @@ void GUIEntry::nodeEditor() {
                 // NodeEditor::AcceptNewItem() return true when user release mouse button.
                 if (NodeEditor::AcceptNewItem()) {
                     // Since we accepted new link, lets add one to our list of links.
-                    g_Links.push_back({NodeEditor::LinkId(g_NextLinkId++), inputPinId, outputPinId});
+                    _links.push_back({NodeEditor::LinkId(_nextLinkId++), inputPinId, outputPinId});
                     
                     // Draw new link.
-                    NodeEditor::Link(g_Links.back().Id, g_Links.back().InputId, g_Links.back().OutputId);
+                    NodeEditor::Link(_links.back().Id, _links.back().InputId, _links.back().OutputId);
                 }
                 
                 // You may choose to reject connection between these nodes
@@ -340,9 +344,9 @@ void GUIEntry::nodeEditor() {
             // If you agree that link can be deleted, accept deletion.
             if (NodeEditor::AcceptDeletedItem()) {
                 // Then remove link from your data.
-                for (auto &link: g_Links) {
+                for (auto &link: _links) {
                     if (link.Id == deletedLinkId) {
-                        g_Links.erase(&link);
+                        _links.erase(&link);
                         break;
                     }
                 }
@@ -359,13 +363,12 @@ void GUIEntry::nodeEditor() {
     // End of interaction with editor.
     NodeEditor::End();
     
-    if (g_FirstFrame)
+    if (_firstFrame)
         NodeEditor::NavigateToContent(0.0f);
     
     NodeEditor::SetCurrentEditor(nullptr);
     
-    g_FirstFrame = false;
-    
+    _firstFrame = false;
 }
 
 

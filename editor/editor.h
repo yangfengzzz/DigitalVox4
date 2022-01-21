@@ -9,6 +9,7 @@
 #define editor_hpp
 
 #include "editor_application.h"
+#include "gui_entry.h"
 
 namespace vox {
 class Editor : public EditorApplication {
@@ -18,6 +19,9 @@ public:
     void pickFunctor(Renderer *renderer, MeshPtr mesh) override;
     
     void inputEvent(const InputEvent &inputEvent) override;
+    
+private:
+    editor::GUIEntry* _entry{nullptr};
 };
  
 }
