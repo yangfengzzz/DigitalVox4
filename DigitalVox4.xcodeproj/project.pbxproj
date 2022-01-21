@@ -470,6 +470,8 @@
 		04CD93FA279A974F0093D6CB /* fbx_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93F6279A974F0093D6CB /* fbx_mesh.cpp */; };
 		04CD93FB279A974F0093D6CB /* fbx_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93F7279A974F0093D6CB /* fbx_mesh.h */; };
 		04CD93FD279A9A630093D6CB /* fbx_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93F8279A974F0093D6CB /* fbx_loader.cpp */; };
+		04CD9400279A9C6D0093D6CB /* animator_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93FE279A9C6D0093D6CB /* animator_loader.cpp */; };
+		04CD9401279A9C6D0093D6CB /* animator_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93FF279A9C6D0093D6CB /* animator_loader.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1148,6 +1150,8 @@
 		04CD93F6279A974F0093D6CB /* fbx_mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fbx_mesh.cpp; sourceTree = "<group>"; };
 		04CD93F7279A974F0093D6CB /* fbx_mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbx_mesh.h; sourceTree = "<group>"; };
 		04CD93F8279A974F0093D6CB /* fbx_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fbx_loader.cpp; sourceTree = "<group>"; };
+		04CD93FE279A9C6D0093D6CB /* animator_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animator_loader.cpp; sourceTree = "<group>"; };
+		04CD93FF279A9C6D0093D6CB /* animator_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animator_loader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2086,6 +2090,8 @@
 				04CD93F6279A974F0093D6CB /* fbx_mesh.cpp */,
 				04CD93F5279A974F0093D6CB /* fbx_loader.h */,
 				04CD93F8279A974F0093D6CB /* fbx_loader.cpp */,
+				04CD93FF279A9C6D0093D6CB /* animator_loader.h */,
+				04CD93FE279A9C6D0093D6CB /* animator_loader.cpp */,
 				04229570278C32FA0090983F /* texture_loader.h */,
 				04229583278C32FA0090983F /* texture_loader.mm */,
 				04459376278FFE3100F04CE0 /* modelio_loader.h */,
@@ -2250,6 +2256,7 @@
 				044596A72796F99100F04CE0 /* camera.h in Headers */,
 				0445966E2796F85C00F04CE0 /* macro_name.h in Headers */,
 				044596802796F87C00F04CE0 /* blinn_phong_material.h in Headers */,
+				04CD9401279A9C6D0093D6CB /* animator_loader.h in Headers */,
 				044596162796EA5400F04CE0 /* unique_ptr.h in Headers */,
 				044595E62796E88600F04CE0 /* cpp_mtl_command_encoder.h in Headers */,
 				044596C42796FBE100F04CE0 /* physics_manager.h in Headers */,
@@ -2589,6 +2596,7 @@
 				044595DA2796DC9B00F04CE0 /* glfw_window.mm in Sources */,
 				04CD93FA279A974F0093D6CB /* fbx_mesh.cpp in Sources */,
 				0445969F2796F99100F04CE0 /* components_manager.cpp in Sources */,
+				04CD9400279A9C6D0093D6CB /* animator_loader.cpp in Sources */,
 				044595F52796E88600F04CE0 /* cpp_mtl_command_queue.mm in Sources */,
 				044595FC2796E88600F04CE0 /* cpp_mtl_pixel_format.mm in Sources */,
 				044596812796F87C00F04CE0 /* blinn_phong_material.cpp in Sources */,
