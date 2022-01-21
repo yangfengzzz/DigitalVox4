@@ -16,6 +16,7 @@ _cameraEntity(entity) {
 
 void OrbitControl::onDisable() {
     _enableEvent = false;
+    _enableMove = false;
 }
 
 void OrbitControl::onEnable() {
