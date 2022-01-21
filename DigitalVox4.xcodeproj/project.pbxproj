@@ -464,6 +464,8 @@
 		04CD93EC279A55370093D6CB /* editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93EB279A55370093D6CB /* editor.cpp */; };
 		04CD93EF279A841F0093D6CB /* animator_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93ED279A841F0093D6CB /* animator_controller.cpp */; };
 		04CD93F0279A841F0093D6CB /* animator_controller.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93EE279A841F0093D6CB /* animator_controller.h */; };
+		04CD93F3279A89DF0093D6CB /* fbx.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93F1279A89DF0093D6CB /* fbx.cc */; };
+		04CD93F4279A89DF0093D6CB /* fbx.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93F2279A89DF0093D6CB /* fbx.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1136,6 +1138,8 @@
 		04CD93EB279A55370093D6CB /* editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor.cpp; sourceTree = "<group>"; };
 		04CD93ED279A841F0093D6CB /* animator_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animator_controller.cpp; sourceTree = "<group>"; };
 		04CD93EE279A841F0093D6CB /* animator_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animator_controller.h; sourceTree = "<group>"; };
+		04CD93F1279A89DF0093D6CB /* fbx.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fbx.cc; sourceTree = "<group>"; };
+		04CD93F2279A89DF0093D6CB /* fbx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbx.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2068,6 +2072,8 @@
 		04B4ACC72798EA7A0020576D /* loader */ = {
 			isa = PBXGroup;
 			children = (
+				04CD93F2279A89DF0093D6CB /* fbx.h */,
+				04CD93F1279A89DF0093D6CB /* fbx.cc */,
 				04229570278C32FA0090983F /* texture_loader.h */,
 				04229583278C32FA0090983F /* texture_loader.mm */,
 				04459376278FFE3100F04CE0 /* modelio_loader.h */,
@@ -2221,6 +2227,7 @@
 				0445968E2796F97600F04CE0 /* skybox_material.h in Headers */,
 				044595EF2796E88600F04CE0 /* cpp_mtl_constants.h in Headers */,
 				044595F62796E88600F04CE0 /* cpp_mtl_allocator.h in Headers */,
+				04CD93F4279A89DF0093D6CB /* fbx.h in Headers */,
 				044596282796EB1B00F04CE0 /* imstb_textedit.h in Headers */,
 				044596902796F97600F04CE0 /* sky.h in Headers */,
 				0445970F27981C3A00F04CE0 /* point_light.h in Headers */,
@@ -2597,6 +2604,7 @@
 				044595DC2796DE3B00F04CE0 /* input_events.cpp in Sources */,
 				044596C52796FBE100F04CE0 /* spring_joint.cpp in Sources */,
 				044596022796E88600F04CE0 /* cpp_mtl_data_type.mm in Sources */,
+				04CD93F3279A89DF0093D6CB /* fbx.cc in Sources */,
 				0445967A2796F85C00F04CE0 /* render_state.cpp in Sources */,
 				044596C62796FBE100F04CE0 /* configurable_joint.cpp in Sources */,
 				044595F32796E88600F04CE0 /* cpp_mtl_render_pipeline.mm in Sources */,
@@ -3067,6 +3075,7 @@
 					./third_party/physx/physx/../pxshared/include,
 					./third_party/physx/physx/source/foundation/include,
 					./third_party/ozz/include,
+					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
 				);
 			};
 			name = Debug;
@@ -3120,6 +3129,7 @@
 					./third_party/physx/physx/../pxshared/include,
 					./third_party/physx/physx/source/foundation/include,
 					./third_party/ozz/include,
+					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
 				);
 			};
 			name = Release;
