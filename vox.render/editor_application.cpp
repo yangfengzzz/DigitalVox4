@@ -29,6 +29,8 @@ bool EditorApplication::prepare(Engine &engine) {
     // Whatever rendered in the final pass needs to be stored so it can be displayed
     _renderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
     _renderPassDescriptor.colorAttachments[0].loadAction(MTL::LoadActionClear);
+    auto& color = _scene->background.solidColor;
+    _renderPassDescriptor.colorAttachments[0].clearColor(MTL::ClearColorMake(color.r, color.g, color.b, color.a));
     _renderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
     _renderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
     _renderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);

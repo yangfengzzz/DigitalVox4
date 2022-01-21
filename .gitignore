@@ -146,4 +146,5 @@ fabric.properties
 .DS_Store
 
 apps/imgui.ini
+editor/imgui.ini
 editor/BasicInteraction.json
