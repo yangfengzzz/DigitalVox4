@@ -476,6 +476,7 @@
 		04CD9408279A9FF00093D6CB /* skinned_mesh_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD9406279A9FF00093D6CB /* skinned_mesh_renderer.h */; };
 		04CD940A279AA2000093D6CB /* animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9402279A9D900093D6CB /* animator.cpp */; };
 		04CD940B279AA2A60093D6CB /* skinned_mesh_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9407279A9FF00093D6CB /* skinned_mesh_renderer.cpp */; };
+		04CD940E279ABC6F0093D6CB /* animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD940C279ABC6F0093D6CB /* animation_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1160,6 +1161,8 @@
 		04CD9403279A9D910093D6CB /* animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animator.h; sourceTree = "<group>"; };
 		04CD9406279A9FF00093D6CB /* skinned_mesh_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skinned_mesh_renderer.h; sourceTree = "<group>"; };
 		04CD9407279A9FF00093D6CB /* skinned_mesh_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skinned_mesh_renderer.cpp; sourceTree = "<group>"; };
+		04CD940C279ABC6F0093D6CB /* animation_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = animation_app.cpp; sourceTree = "<group>"; };
+		04CD940D279ABC6F0093D6CB /* animation_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = animation_app.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1873,6 +1876,8 @@
 				04B4ACCB279900AD0020576D /* physx_app.cpp */,
 				04CD939A27997BCE0093D6CB /* physx_dynamic_app.h */,
 				04CD939927997BCE0093D6CB /* physx_dynamic_app.cpp */,
+				04CD940D279ABC6F0093D6CB /* animation_app.h */,
+				04CD940C279ABC6F0093D6CB /* animation_app.cpp */,
 				044596F32797E4EF00F04CE0 /* basic_deferred_app.h */,
 				044596F22797E4EF00F04CE0 /* basic_deferred_app.cpp */,
 				04CD93A52799A4600093D6CB /* framebuffer_picker_app.h */,
@@ -1930,14 +1935,14 @@
 		0445941B2792926500F04CE0 /* mesh */ = {
 			isa = PBXGroup;
 			children = (
-				04CD9406279A9FF00093D6CB /* skinned_mesh_renderer.h */,
-				04CD9407279A9FF00093D6CB /* skinned_mesh_renderer.cpp */,
-				0445941D279292E000F04CE0 /* mesh_renderer.h */,
-				0445941C279292E000F04CE0 /* mesh_renderer.cpp */,
 				04B4ACC427983DCD0020576D /* model_mesh.h */,
 				04B4ACC327983DCD0020576D /* model_mesh.cpp */,
 				044593E92791107600F04CE0 /* primitive_mesh.h */,
 				044593E82791107600F04CE0 /* primitive_mesh.cpp */,
+				0445941D279292E000F04CE0 /* mesh_renderer.h */,
+				0445941C279292E000F04CE0 /* mesh_renderer.cpp */,
+				04CD9406279A9FF00093D6CB /* skinned_mesh_renderer.h */,
+				04CD9407279A9FF00093D6CB /* skinned_mesh_renderer.cpp */,
 			);
 			path = mesh;
 			sourceTree = "<group>";
@@ -2850,6 +2855,7 @@
 			files = (
 				04CD939B27997BCE0093D6CB /* physx_dynamic_app.cpp in Sources */,
 				04CD93A62799A4600093D6CB /* framebuffer_picker_app.cpp in Sources */,
+				04CD940E279ABC6F0093D6CB /* animation_app.cpp in Sources */,
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
 				044596F02797DFD100F04CE0 /* basic_app.cpp in Sources */,
 				04B4ACCD279900AD0020576D /* physx_app.cpp in Sources */,
@@ -2991,12 +2997,14 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -3049,7 +3057,9 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -3360,6 +3370,7 @@
 					./third_party/ozz/build/src/animation/runtime,
 					./third_party/ozz/build/src/geometry/runtime,
 				);
+				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-lglog",
 					"-lglfw3",
@@ -3400,6 +3411,8 @@
 					./third_party/physx/physx/source/physxgpu/include,
 					./third_party/physx/physx/../pxshared/include,
 					./third_party/physx/physx/source/foundation/include,
+					./third_party/ozz/include,
+					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
 				);
 			};
 			name = Debug;
@@ -3431,6 +3444,7 @@
 					./third_party/ozz/build/src/animation/runtime,
 					./third_party/ozz/build/src/geometry/runtime,
 				);
+				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-lglog",
 					"-lglfw3",
@@ -3471,6 +3485,8 @@
 					./third_party/physx/physx/source/physxgpu/include,
 					./third_party/physx/physx/../pxshared/include,
 					./third_party/physx/physx/source/foundation/include,
+					./third_party/ozz/include,
+					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
 				);
 			};
 			name = Release;
