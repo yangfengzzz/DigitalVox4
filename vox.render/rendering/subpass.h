@@ -60,6 +60,9 @@ protected:
     Scene* _scene{nullptr};
     Camera* _camera{nullptr};
     
+    static bool _compareFromNearToFar(const RenderElement &a, const RenderElement &b);
+    static bool _compareFromFarToNear(const RenderElement &a, const RenderElement &b);
+    
 private:
     void process(const ShaderUniform &uniform, const std::any &a, MTL::RenderCommandEncoder& encoder);
 };

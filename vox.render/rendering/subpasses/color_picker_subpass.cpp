@@ -17,16 +17,6 @@
 #include "shader_types.h"
 
 namespace vox {
-bool ColorPickerSubpass::_compareFromNearToFar(const RenderElement &a, const RenderElement &b) {
-    return (a.material->renderQueueType < b.material->renderQueueType) ||
-    (a.renderer->distanceForSort() < b.renderer->distanceForSort());
-}
-
-bool ColorPickerSubpass::_compareFromFarToNear(const RenderElement &a, const RenderElement &b) {
-    return (a.material->renderQueueType < b.material->renderQueueType) ||
-    (b.renderer->distanceForSort() < a.renderer->distanceForSort());
-}
-
 ColorPickerSubpass::ColorPickerSubpass(View* view,
                                        Scene* scene,
                                        Camera* camera):
@@ -67,9 +57,9 @@ void ColorPickerSubpass::_drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
     _scene->_componentsManager.callRender(_camera, opaqueQueue, alphaTestQueue, transparentQueue);
-    std::sort(opaqueQueue.begin(), opaqueQueue.end(), ColorPickerSubpass::_compareFromNearToFar);
-    std::sort(alphaTestQueue.begin(), alphaTestQueue.end(), ColorPickerSubpass::_compareFromNearToFar);
-    std::sort(transparentQueue.begin(), transparentQueue.end(), ColorPickerSubpass::_compareFromFarToNear);
+    std::sort(opaqueQueue.begin(), opaqueQueue.end(), _compareFromNearToFar);
+    std::sort(alphaTestQueue.begin(), alphaTestQueue.end(), _compareFromNearToFar);
+    std::sort(transparentQueue.begin(), transparentQueue.end(), _compareFromFarToNear);
     
     _drawElement(renderEncoder, opaqueQueue, compileMacros);
     _drawElement(renderEncoder, alphaTestQueue, compileMacros);

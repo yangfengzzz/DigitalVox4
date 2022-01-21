@@ -38,10 +38,7 @@ public:
      */
     std::pair<Renderer *, MeshPtr> getObjectByColor(const std::array<uint8_t, 4> &color);
     
-private:
-    static bool _compareFromNearToFar(const RenderElement &a, const RenderElement &b);
-    static bool _compareFromFarToNear(const RenderElement &a, const RenderElement &b);
-    
+private:    
     void _drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
     
     void _drawElement(MTL::RenderCommandEncoder &renderEncoder,

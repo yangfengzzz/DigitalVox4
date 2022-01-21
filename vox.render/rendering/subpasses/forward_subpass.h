@@ -19,10 +19,7 @@ public:
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
-private:
-    static bool _compareFromNearToFar(const RenderElement &a, const RenderElement &b);
-    static bool _compareFromFarToNear(const RenderElement &a, const RenderElement &b);
-    
+private:    
     void _drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
     
     void _drawElement(MTL::RenderCommandEncoder &renderEncoder,

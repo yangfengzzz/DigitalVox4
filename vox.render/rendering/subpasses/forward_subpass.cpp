@@ -16,16 +16,6 @@
 #include "shader_types.h"
 
 namespace vox {
-bool ForwardSubpass::_compareFromNearToFar(const RenderElement &a, const RenderElement &b) {
-    return (a.material->renderQueueType < b.material->renderQueueType) ||
-    (a.renderer->distanceForSort() < b.renderer->distanceForSort());
-}
-
-bool ForwardSubpass::_compareFromFarToNear(const RenderElement &a, const RenderElement &b) {
-    return (a.material->renderQueueType < b.material->renderQueueType) ||
-    (b.renderer->distanceForSort() < a.renderer->distanceForSort());
-}
-
 ForwardSubpass::ForwardSubpass(View* view,
                                Scene* scene,
                                Camera* camera):
@@ -81,9 +71,9 @@ void ForwardSubpass::_drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
     _scene->_componentsManager.callRender(_camera, opaqueQueue, alphaTestQueue, transparentQueue);
-    std::sort(opaqueQueue.begin(), opaqueQueue.end(), ForwardSubpass::_compareFromNearToFar);
-    std::sort(alphaTestQueue.begin(), alphaTestQueue.end(), ForwardSubpass::_compareFromNearToFar);
-    std::sort(transparentQueue.begin(), transparentQueue.end(), ForwardSubpass::_compareFromFarToNear);
+    std::sort(opaqueQueue.begin(), opaqueQueue.end(), _compareFromNearToFar);
+    std::sort(alphaTestQueue.begin(), alphaTestQueue.end(), _compareFromNearToFar);
+    std::sort(transparentQueue.begin(), transparentQueue.end(), _compareFromFarToNear);
     
     _drawElement(renderEncoder, opaqueQueue, compileMacros);
     _drawElement(renderEncoder, alphaTestQueue, compileMacros);
