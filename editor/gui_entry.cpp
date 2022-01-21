@@ -26,15 +26,6 @@ Script(entity) {
     g_Context = NodeEditor::CreateEditor(&config);
 }
 
-//void GUIEntry::inputEvent(const InputEvent &inputEvent) {
-//    if (inputEvent.source() == EventSource::Mouse) {
-//        const auto &mouse_button = static_cast<const MouseButtonInputEvent &>(inputEvent);
-//        if (mouse_button.action() == MouseAction::Down) {
-//            pick(mouse_button.pos_x(), mouse_button.pos_y());
-//        }
-//    }
-//}
-
 GUIEntry::~GUIEntry() {
     _editorScripts.clear();
     NodeEditor::DestroyEditor(g_Context);

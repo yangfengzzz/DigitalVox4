@@ -461,6 +461,7 @@
 		04CD93E4279A539D0093D6CB /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593CA279006B000F04CE0 /* IOKit.framework */; };
 		04CD93E5279A53A10093D6CB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593CE279006DA00F04CE0 /* QuartzCore.framework */; };
 		04CD93E8279A53DF0093D6CB /* gui_entry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93E7279A53DF0093D6CB /* gui_entry.cpp */; };
+		04CD93EC279A55370093D6CB /* editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93EB279A55370093D6CB /* editor.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1129,6 +1130,8 @@
 		04CD93E6279A53DF0093D6CB /* gui_entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gui_entry.h; sourceTree = "<group>"; };
 		04CD93E7279A53DF0093D6CB /* gui_entry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gui_entry.cpp; sourceTree = "<group>"; };
 		04CD93E9279A540E0093D6CB /* editor_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editor_component.h; sourceTree = "<group>"; };
+		04CD93EA279A55370093D6CB /* editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editor.h; sourceTree = "<group>"; };
+		04CD93EB279A55370093D6CB /* editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2087,6 +2090,8 @@
 				04CD93C1279A4FB20093D6CB /* imgui_zmo.cpp */,
 				04CD93D4279A4FB70093D6CB /* editor.entitlements */,
 				04CD93BB279A4F650093D6CB /* main.cpp */,
+				04CD93EA279A55370093D6CB /* editor.h */,
+				04CD93EB279A55370093D6CB /* editor.cpp */,
 				04CD93DD279A50E10093D6CB /* grid.h */,
 				04CD93DE279A50E10093D6CB /* grid.cpp */,
 				04CD93E6279A53DF0093D6CB /* gui_entry.h */,
@@ -2816,6 +2821,7 @@
 				04CD93DF279A50E10093D6CB /* grid.cpp in Sources */,
 				04CD93D1279A4FB30093D6CB /* imgui_node_editor.cpp in Sources */,
 				04CD93E8279A53DF0093D6CB /* gui_entry.cpp in Sources */,
+				04CD93EC279A55370093D6CB /* editor.cpp in Sources */,
 				04CD93D3279A4FB30093D6CB /* imgui_canvas.cpp in Sources */,
 				04CD93D0279A4FB30093D6CB /* crude_json.cpp in Sources */,
 				04CD93CF279A4FB30093D6CB /* imgui_zmo.cpp in Sources */,
