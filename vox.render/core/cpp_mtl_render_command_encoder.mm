@@ -156,7 +156,7 @@ void RenderCommandEncoder::drawPrimitives(PrimitiveType primitiveType,
                                                   baseInstance:baseInstance];
 }
 
-inline cpp_mtl_internal::RenderCommandEncoder RenderCommandEncoder::objCObj() const {
+cpp_mtl_internal::RenderCommandEncoder RenderCommandEncoder::objCObj() const {
     return (id <MTLRenderCommandEncoder>) m_objCObj;
 }
 

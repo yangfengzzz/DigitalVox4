@@ -15,6 +15,7 @@
 #include <glog/logging.h>
 
 #include "engine.h"
+#include "gui/imgui_impl_glfw.h"
 
 namespace vox {
 namespace {
@@ -280,10 +281,52 @@ Window(properties) {
     
     glfwSetInputMode(_handle, GLFW_STICKY_KEYS, 1);
     glfwSetInputMode(_handle, GLFW_STICKY_MOUSE_BUTTONS, 1);
+    
+    _createGUIContext(properties);
 }
 
 GlfwWindow::~GlfwWindow() {
     glfwTerminate();
+}
+
+void GlfwWindow::_createGUIContext(const Window::Properties &properties) {
+    // Setup Dear ImGui context
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    
+    ImGuiStyle &style = ImGui::GetStyle();
+    
+    // Color scheme
+    style.Colors[ImGuiCol_TitleBg] = ImVec4(1.0f, 0.0f, 0.0f, 0.6f);
+    style.Colors[ImGuiCol_TitleBgActive] = ImVec4(1.0f, 0.0f, 0.0f, 0.8f);
+    style.Colors[ImGuiCol_MenuBarBg] = ImVec4(1.0f, 0.0f, 0.0f, 0.4f);
+    style.Colors[ImGuiCol_Header] = ImVec4(1.0f, 0.0f, 0.0f, 0.4f);
+    style.Colors[ImGuiCol_HeaderActive] = ImVec4(1.0f, 0.0f, 0.0f, 0.4f);
+    style.Colors[ImGuiCol_HeaderHovered] = ImVec4(1.0f, 0.0f, 0.0f, 0.4f);
+    style.Colors[ImGuiCol_FrameBg] = ImVec4(0.0f, 0.0f, 0.0f, 0.8f);
+    style.Colors[ImGuiCol_CheckMark] = ImVec4(0.0f, 1.0f, 0.0f, 1.0f);
+    style.Colors[ImGuiCol_SliderGrab] = ImVec4(1.0f, 0.0f, 0.0f, 0.4f);
+    style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(1.0f, 0.0f, 0.0f, 0.8f);
+    style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(1.0f, 1.0f, 1.0f, 0.1f);
+    style.Colors[ImGuiCol_FrameBgActive] = ImVec4(1.0f, 1.0f, 1.0f, 0.2f);
+    style.Colors[ImGuiCol_Button] = ImVec4(1.0f, 0.0f, 0.0f, 0.4f);
+    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.0f, 0.0f, 0.0f, 0.6f);
+    style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.0f, 0.0f, 0.0f, 0.8f);
+    
+    // Borderless window
+    style.WindowBorderSize = 0.0f;
+    
+    // Global scale
+    style.ScaleAllSizes(dpiFactor());
+    
+    ImGuiIO &io = ImGui::GetIO();
+    io.DisplaySize.x = static_cast<float>(properties.extent.width);
+    io.DisplaySize.y = static_cast<float>(properties.extent.height);
+    io.FontGlobalScale = 1.0f;
+    io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+    io.Fonts->AddFontFromFileTTF("../assets/Fonts/Roboto-Regular.ttf", 16.0f);
+    
+    ImGui_ImplGlfw_InitForOpenGL(_handle, true);
 }
 
 void GlfwWindow::setView(const View& view) {
@@ -298,9 +341,11 @@ bool GlfwWindow::shouldClose() {
 
 void GlfwWindow::processEvents() {
     glfwPollEvents();
+    ImGui_ImplGlfw_NewFrame();
 }
 
 void GlfwWindow::close() {
+    ImGui_ImplGlfw_Shutdown();
     glfwSetWindowShouldClose(_handle, GLFW_TRUE);
 }
 

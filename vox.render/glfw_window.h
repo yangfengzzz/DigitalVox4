@@ -35,6 +35,9 @@ public:
     float contentScaleFactor() const override;
     
 private:
+    void _createGUIContext(const Window::Properties &properties);
+    
+private:
     GLFWwindow *_handle = nullptr;
 };
 }        // namespace vox

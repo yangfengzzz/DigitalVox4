@@ -20,9 +20,9 @@ public:
     
     void newFrame(MTL::RenderPassDescriptor* renderPassDescriptor);
     
-    void draw(ImDrawData* draw_data,
+    void draw(ImDrawData* drawData,
               MTL::CommandBuffer& commandBuffer,
-              MTL::RenderCommandEncoder& commandEncode);
+              MTL::RenderCommandEncoder& commandEncoder);
 };
 
 }

@@ -21,10 +21,10 @@ void GUI::newFrame(MTL::RenderPassDescriptor* renderPassDescriptor) {
     ImGui_ImplMetal_NewFrame(renderPassDescriptor->objCObj());
 }
 
-void GUI::draw(ImDrawData* draw_data,
+void GUI::draw(ImDrawData* drawData,
                MTL::CommandBuffer& commandBuffer,
-               MTL::RenderCommandEncoder& commandEncode) {
-    ImGui_ImplMetal_RenderDrawData(draw_data, commandBuffer.objCObj(), commandEncode.objCObj());
+               MTL::RenderCommandEncoder& commandEncoder) {
+    ImGui_ImplMetal_RenderDrawData(drawData, commandBuffer.objCObj(), commandEncoder.objCObj());
 }
 
 }

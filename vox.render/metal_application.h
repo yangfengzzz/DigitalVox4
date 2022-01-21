@@ -11,6 +11,7 @@
 #include "core/cpp_mtl.h"
 #include "rendering/render_pass.h"
 #include "scene.h"
+#include "gui.h"
 
 namespace vox {
 class MetalApplication : public Application {
@@ -59,6 +60,8 @@ protected:
      * @brief View used for rendering, it is responsible for managing the frames and their underlying images
      */
     std::unique_ptr<View> _renderView{nullptr};
+    
+    std::unique_ptr<GUI> _gui{nullptr};
 };
 
 }        // namespace vox

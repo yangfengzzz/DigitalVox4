@@ -9,6 +9,7 @@
 
 #include "subpass.h"
 #include "resource_cache.h"
+#include "gui.h"
 #include <vector>
 
 namespace vox {
@@ -32,6 +33,8 @@ public:
     MTL::Library& library();
     
     const MTL::RenderPassDescriptor* renderPassDescriptor();
+    
+    void setGUI(GUI* gui);
     
 public:
     /**
@@ -70,6 +73,8 @@ private:
     std::unordered_map<std::string, RenderPass*> _parentPass;
     
     ResourceCache _resourceCache;
+    
+    GUI* _gui{nullptr};
 };
 
 }

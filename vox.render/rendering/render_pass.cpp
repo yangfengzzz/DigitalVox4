@@ -23,6 +23,10 @@ MTL::Library& RenderPass::library() {
     return _library;
 }
 
+void RenderPass::setGUI(GUI* gui) {
+    _gui = gui;
+}
+
 //MARK: - Subpass
 void RenderPass::draw(MTL::CommandBuffer& commandBuffer,
                       std::optional<std::string> label) {
@@ -37,6 +41,16 @@ void RenderPass::draw(MTL::CommandBuffer& commandBuffer,
         _subpasses[i]->draw(encoder);
     }
     _activeSubpassIndex = 0;
+    
+    if (_gui) {
+        ImDrawData *drawData = ImGui::GetDrawData();
+        if (drawData) {
+            encoder.pushDebugGroup("GUI Rendering");
+            _gui->newFrame(_desc);
+            _gui->draw(drawData, commandBuffer, encoder);
+            encoder.popDebugGroup();
+        }
+    }
     encoder.endEncoding();
 }
 
