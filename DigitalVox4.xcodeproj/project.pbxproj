@@ -466,6 +466,10 @@
 		04CD93F0279A841F0093D6CB /* animator_controller.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93EE279A841F0093D6CB /* animator_controller.h */; };
 		04CD93F3279A89DF0093D6CB /* fbx.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93F1279A89DF0093D6CB /* fbx.cc */; };
 		04CD93F4279A89DF0093D6CB /* fbx.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93F2279A89DF0093D6CB /* fbx.h */; };
+		04CD93F9279A974F0093D6CB /* fbx_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93F5279A974F0093D6CB /* fbx_loader.h */; };
+		04CD93FA279A974F0093D6CB /* fbx_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93F6279A974F0093D6CB /* fbx_mesh.cpp */; };
+		04CD93FB279A974F0093D6CB /* fbx_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93F7279A974F0093D6CB /* fbx_mesh.h */; };
+		04CD93FD279A9A630093D6CB /* fbx_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93F8279A974F0093D6CB /* fbx_loader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1140,6 +1144,10 @@
 		04CD93EE279A841F0093D6CB /* animator_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animator_controller.h; sourceTree = "<group>"; };
 		04CD93F1279A89DF0093D6CB /* fbx.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fbx.cc; sourceTree = "<group>"; };
 		04CD93F2279A89DF0093D6CB /* fbx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbx.h; sourceTree = "<group>"; };
+		04CD93F5279A974F0093D6CB /* fbx_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbx_loader.h; sourceTree = "<group>"; };
+		04CD93F6279A974F0093D6CB /* fbx_mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fbx_mesh.cpp; sourceTree = "<group>"; };
+		04CD93F7279A974F0093D6CB /* fbx_mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbx_mesh.h; sourceTree = "<group>"; };
+		04CD93F8279A974F0093D6CB /* fbx_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fbx_loader.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2074,6 +2082,10 @@
 			children = (
 				04CD93F2279A89DF0093D6CB /* fbx.h */,
 				04CD93F1279A89DF0093D6CB /* fbx.cc */,
+				04CD93F7279A974F0093D6CB /* fbx_mesh.h */,
+				04CD93F6279A974F0093D6CB /* fbx_mesh.cpp */,
+				04CD93F5279A974F0093D6CB /* fbx_loader.h */,
+				04CD93F8279A974F0093D6CB /* fbx_loader.cpp */,
 				04229570278C32FA0090983F /* texture_loader.h */,
 				04229583278C32FA0090983F /* texture_loader.mm */,
 				04459376278FFE3100F04CE0 /* modelio_loader.h */,
@@ -2124,6 +2136,7 @@
 				044596852796F87C00F04CE0 /* render_face.h in Headers */,
 				044596D02796FBE100F04CE0 /* collider_shape.h in Headers */,
 				044596B42796FBE100F04CE0 /* spring_joint.h in Headers */,
+				04CD93F9279A974F0093D6CB /* fbx_loader.h in Headers */,
 				044596A12796F99100F04CE0 /* components_manager.h in Headers */,
 				044596692796F85C00F04CE0 /* shader_program.h in Headers */,
 				044596A52796F99100F04CE0 /* renderer.h in Headers */,
@@ -2159,6 +2172,7 @@
 				044596342796EE4F00F04CE0 /* mesh_buffer.h in Headers */,
 				044596322796EDD400F04CE0 /* unix_engine.h in Headers */,
 				044595FB2796E88600F04CE0 /* cpp_mtl_resource_enum.h in Headers */,
+				04CD93FB279A974F0093D6CB /* fbx_mesh.h in Headers */,
 				044596952796F99100F04CE0 /* update_flag.h in Headers */,
 				044596CD2796FBE100F04CE0 /* hit_result.h in Headers */,
 				0445968C2796F87C00F04CE0 /* texture_loader.h in Headers */,
@@ -2573,6 +2587,7 @@
 				044596C92796FBE100F04CE0 /* collider.cpp in Sources */,
 				0445960F2796E88B00F04CE0 /* metal_view.mm in Sources */,
 				044595DA2796DC9B00F04CE0 /* glfw_window.mm in Sources */,
+				04CD93FA279A974F0093D6CB /* fbx_mesh.cpp in Sources */,
 				0445969F2796F99100F04CE0 /* components_manager.cpp in Sources */,
 				044595F52796E88600F04CE0 /* cpp_mtl_command_queue.mm in Sources */,
 				044595FC2796E88600F04CE0 /* cpp_mtl_pixel_format.mm in Sources */,
@@ -2653,6 +2668,7 @@
 				044595FA2796E88600F04CE0 /* cpp_mtl_depth_stencil.mm in Sources */,
 				044596A42796F99100F04CE0 /* camera.cpp in Sources */,
 				044596772796F85C00F04CE0 /* shader_data.cpp in Sources */,
+				04CD93FD279A9A630093D6CB /* fbx_loader.cpp in Sources */,
 				04CD93B0279A44970093D6CB /* imgui_impl_glfw.cpp in Sources */,
 				0445966F2796F85C00F04CE0 /* shader_program.cpp in Sources */,
 				044596D12796FBE100F04CE0 /* sphere_collider_shape.cpp in Sources */,
