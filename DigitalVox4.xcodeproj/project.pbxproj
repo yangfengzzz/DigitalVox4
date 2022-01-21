@@ -445,6 +445,14 @@
 		04CD93B0279A44970093D6CB /* imgui_impl_glfw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93AC279A44960093D6CB /* imgui_impl_glfw.cpp */; };
 		04CD93B3279A44AF0093D6CB /* gui.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93B1279A44AF0093D6CB /* gui.mm */; };
 		04CD93B4279A44AF0093D6CB /* gui.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93B2279A44AF0093D6CB /* gui.h */; };
+		04CD93BC279A4F650093D6CB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93BB279A4F650093D6CB /* main.cpp */; };
+		04CD93CF279A4FB30093D6CB /* imgui_zmo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93C1279A4FB20093D6CB /* imgui_zmo.cpp */; };
+		04CD93D0279A4FB30093D6CB /* crude_json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93C4279A4FB30093D6CB /* crude_json.cpp */; };
+		04CD93D1279A4FB30093D6CB /* imgui_node_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93C7279A4FB30093D6CB /* imgui_node_editor.cpp */; };
+		04CD93D2279A4FB30093D6CB /* imgui_node_editor_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93C9279A4FB30093D6CB /* imgui_node_editor_api.cpp */; };
+		04CD93D3279A4FB30093D6CB /* imgui_canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93CE279A4FB30093D6CB /* imgui_canvas.cpp */; };
+		04CD93DB279A50360093D6CB /* libvox.math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422969F278DAE4E0090983F /* libvox.math.a */; };
+		04CD93DC279A50360093D6CB /* libvox.render.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422954F278C30840090983F /* libvox.render.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -511,10 +519,40 @@
 			remoteGlobalIDString = 0445958F279518FF00F04CE0;
 			remoteInfo = vox.force;
 		};
+		04CD93D5279A50300093D6CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0422969E278DAE4E0090983F;
+			remoteInfo = vox.math;
+		};
+		04CD93D7279A50300093D6CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0422954E278C30840090983F;
+			remoteInfo = vox.render;
+		};
+		04CD93D9279A50300093D6CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04229547278C30840090983F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 044593A6279002C000F04CE0;
+			remoteInfo = vox.shader;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		04229607278D29760090983F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		04CD93B7279A4F650093D6CB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -1060,6 +1098,24 @@
 		04CD93AC279A44960093D6CB /* imgui_impl_glfw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_impl_glfw.cpp; sourceTree = "<group>"; };
 		04CD93B1279A44AF0093D6CB /* gui.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = gui.mm; sourceTree = "<group>"; };
 		04CD93B2279A44AF0093D6CB /* gui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gui.h; sourceTree = "<group>"; };
+		04CD93B9279A4F650093D6CB /* editor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = editor; sourceTree = BUILT_PRODUCTS_DIR; };
+		04CD93BB279A4F650093D6CB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		04CD93C0279A4FB20093D6CB /* imgui_bezier_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_bezier_math.h; sourceTree = "<group>"; };
+		04CD93C1279A4FB20093D6CB /* imgui_zmo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_zmo.cpp; sourceTree = "<group>"; };
+		04CD93C2279A4FB20093D6CB /* imgui_extra_math.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imgui_extra_math.inl; sourceTree = "<group>"; };
+		04CD93C3279A4FB20093D6CB /* imgui_node_editor_internal.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imgui_node_editor_internal.inl; sourceTree = "<group>"; };
+		04CD93C4279A4FB30093D6CB /* crude_json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = crude_json.cpp; sourceTree = "<group>"; };
+		04CD93C5279A4FB30093D6CB /* imgui_node_editor_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_node_editor_internal.h; sourceTree = "<group>"; };
+		04CD93C6279A4FB30093D6CB /* imgui_extra_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_extra_math.h; sourceTree = "<group>"; };
+		04CD93C7279A4FB30093D6CB /* imgui_node_editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_node_editor.cpp; sourceTree = "<group>"; };
+		04CD93C8279A4FB30093D6CB /* imgui_node_editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_node_editor.h; sourceTree = "<group>"; };
+		04CD93C9279A4FB30093D6CB /* imgui_node_editor_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_node_editor_api.cpp; sourceTree = "<group>"; };
+		04CD93CA279A4FB30093D6CB /* crude_json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crude_json.h; sourceTree = "<group>"; };
+		04CD93CB279A4FB30093D6CB /* imgui_bezier_math.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imgui_bezier_math.inl; sourceTree = "<group>"; };
+		04CD93CC279A4FB30093D6CB /* imgui_canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_canvas.h; sourceTree = "<group>"; };
+		04CD93CD279A4FB30093D6CB /* imgui_zmo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_zmo.h; sourceTree = "<group>"; };
+		04CD93CE279A4FB30093D6CB /* imgui_canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_canvas.cpp; sourceTree = "<group>"; };
+		04CD93D4279A4FB70093D6CB /* editor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = editor.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1118,6 +1174,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		04CD93B6279A4F650093D6CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04CD93DB279A50360093D6CB /* libvox.math.a in Frameworks */,
+				04CD93DC279A50360093D6CB /* libvox.render.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1133,6 +1198,7 @@
 				04229551278C30840090983F /* vox.render */,
 				0422960A278D29760090983F /* unit_tests */,
 				044593B82790055100F04CE0 /* apps */,
+				04CD93BA279A4F650093D6CB /* editor */,
 				04229550278C30840090983F /* Products */,
 				04229612278D2B2D0090983F /* Frameworks */,
 			);
@@ -1147,6 +1213,7 @@
 				0422969F278DAE4E0090983F /* libvox.math.a */,
 				044593B72790055000F04CE0 /* apps */,
 				04459590279518FF00F04CE0 /* libvox.force.a */,
+				04CD93B9279A4F650093D6CB /* editor */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1981,6 +2048,30 @@
 			path = loader;
 			sourceTree = "<group>";
 		};
+		04CD93BA279A4F650093D6CB /* editor */ = {
+			isa = PBXGroup;
+			children = (
+				04CD93CA279A4FB30093D6CB /* crude_json.h */,
+				04CD93C4279A4FB30093D6CB /* crude_json.cpp */,
+				04CD93C6279A4FB30093D6CB /* imgui_extra_math.h */,
+				04CD93C2279A4FB20093D6CB /* imgui_extra_math.inl */,
+				04CD93C0279A4FB20093D6CB /* imgui_bezier_math.h */,
+				04CD93CB279A4FB30093D6CB /* imgui_bezier_math.inl */,
+				04CD93CC279A4FB30093D6CB /* imgui_canvas.h */,
+				04CD93CE279A4FB30093D6CB /* imgui_canvas.cpp */,
+				04CD93C8279A4FB30093D6CB /* imgui_node_editor.h */,
+				04CD93C7279A4FB30093D6CB /* imgui_node_editor.cpp */,
+				04CD93C9279A4FB30093D6CB /* imgui_node_editor_api.cpp */,
+				04CD93C5279A4FB30093D6CB /* imgui_node_editor_internal.h */,
+				04CD93C3279A4FB20093D6CB /* imgui_node_editor_internal.inl */,
+				04CD93CD279A4FB30093D6CB /* imgui_zmo.h */,
+				04CD93C1279A4FB20093D6CB /* imgui_zmo.cpp */,
+				04CD93D4279A4FB70093D6CB /* editor.entitlements */,
+				04CD93BB279A4F650093D6CB /* main.cpp */,
+			);
+			path = editor;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2349,6 +2440,26 @@
 			productReference = 04459590279518FF00F04CE0 /* libvox.force.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		04CD93B8279A4F650093D6CB /* editor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04CD93BD279A4F650093D6CB /* Build configuration list for PBXNativeTarget "editor" */;
+			buildPhases = (
+				04CD93B5279A4F650093D6CB /* Sources */,
+				04CD93B6279A4F650093D6CB /* Frameworks */,
+				04CD93B7279A4F650093D6CB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				04CD93D6279A50300093D6CB /* PBXTargetDependency */,
+				04CD93D8279A50300093D6CB /* PBXTargetDependency */,
+				04CD93DA279A50300093D6CB /* PBXTargetDependency */,
+			);
+			name = editor;
+			productName = editor;
+			productReference = 04CD93B9279A4F650093D6CB /* editor */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2379,6 +2490,9 @@
 					0445958F279518FF00F04CE0 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
+					04CD93B8279A4F650093D6CB = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 				};
 			};
 			buildConfigurationList = 0422954A278C30840090983F /* Build configuration list for PBXProject "DigitalVox4" */;
@@ -2401,6 +2515,7 @@
 				044593A6279002C000F04CE0 /* vox.shader */,
 				04229608278D29760090983F /* unit_tests */,
 				044593B62790055000F04CE0 /* apps */,
+				04CD93B8279A4F650093D6CB /* editor */,
 			);
 		};
 /* End PBXProject section */
@@ -2670,6 +2785,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		04CD93B5279A4F650093D6CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04CD93D1279A4FB30093D6CB /* imgui_node_editor.cpp in Sources */,
+				04CD93D3279A4FB30093D6CB /* imgui_canvas.cpp in Sources */,
+				04CD93D0279A4FB30093D6CB /* crude_json.cpp in Sources */,
+				04CD93CF279A4FB30093D6CB /* imgui_zmo.cpp in Sources */,
+				04CD93D2279A4FB30093D6CB /* imgui_node_editor_api.cpp in Sources */,
+				04CD93BC279A4F650093D6CB /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2717,6 +2845,21 @@
 			isa = PBXTargetDependency;
 			target = 0445958F279518FF00F04CE0 /* vox.force */;
 			targetProxy = 044595CB27951D2700F04CE0 /* PBXContainerItemProxy */;
+		};
+		04CD93D6279A50300093D6CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0422969E278DAE4E0090983F /* vox.math */;
+			targetProxy = 04CD93D5279A50300093D6CB /* PBXContainerItemProxy */;
+		};
+		04CD93D8279A50300093D6CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0422954E278C30840090983F /* vox.render */;
+			targetProxy = 04CD93D7279A50300093D6CB /* PBXContainerItemProxy */;
+		};
+		04CD93DA279A50300093D6CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 044593A6279002C000F04CE0 /* vox.shader */;
+			targetProxy = 04CD93D9279A50300093D6CB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3252,6 +3395,137 @@
 			};
 			name = Release;
 		};
+		04CD93BE279A4F650093D6CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = editor/editor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					DISABLE_CUDA_PHYSX,
+					PX_PHYSX_CORE_EXPORTS,
+					_DEBUG,
+					"'PX_DEBUG=1'",
+					"'PX_CHECKED=1'",
+					"'PX_NVTX=0'",
+					"'PX_SUPPORT_PVD=1'",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					./vox.render,
+					./vox.math,
+				);
+				LD_RUNPATH_SEARCH_PATHS = ../third_party/glog/build;
+				LIBRARY_SEARCH_PATHS = (
+					./third_party/glog/build,
+					./third_party/glfw/build/src,
+					./third_party/physX/physx/bin/linux.clang/debug,
+				);
+				OTHER_LDFLAGS = (
+					"-lglog",
+					"-lglfw3",
+					"-lPhysX_static_64",
+					"-lPhysXCommon_static_64",
+					"-lPhysXFoundation_static_64",
+					"-lPhysXPvdSDK_static_64",
+					"-lPhysXExtensions_static_64",
+					"-lPhysXCharacterKinematic_static_64",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					./third_party/tinygltf,
+					./third_party/glog/src,
+					./third_party/glog/build,
+					./third_party/glfw/include,
+					./third_party/physx/physx/source/common/src/mac,
+					./third_party/physx/physx/include,
+					./third_party/physx/physx/source/common/include,
+					./third_party/physx/physx/source/common/src,
+					./third_party/physx/physx/source/geomutils/include,
+					./third_party/physx/physx/source/geomutils/src,
+					./third_party/physx/physx/source/geomutils/src/contact,
+					./third_party/physx/physx/source/geomutils/src/common,
+					./third_party/physx/physx/source/geomutils/src/convex,
+					./third_party/physx/physx/source/geomutils/src/distance,
+					./third_party/physx/physx/source/geomutils/src/sweep,
+					./third_party/physx/physx/source/geomutils/src/gjk,
+					./third_party/physx/physx/source/geomutils/src/intersection,
+					./third_party/physx/physx/source/geomutils/src/mesh,
+					./third_party/physx/physx/source/geomutils/src/hf,
+					./third_party/physx/physx/source/geomutils/src/pcm,
+					./third_party/physx/physx/source/geomutils/src/ccd,
+					./third_party/physx/physx/source/physxgpu/include,
+					./third_party/physx/physx/../pxshared/include,
+					./third_party/physx/physx/source/foundation/include,
+				);
+			};
+			name = Debug;
+		};
+		04CD93BF279A4F650093D6CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = editor/editor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					DISABLE_CUDA_PHYSX,
+					PX_PHYSX_CORE_EXPORTS,
+					NDEBUG,
+					"'PX_SUPPORT_PVD=0'",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					./vox.render,
+					./vox.math,
+				);
+				LD_RUNPATH_SEARCH_PATHS = ../third_party/glog/build;
+				LIBRARY_SEARCH_PATHS = (
+					./third_party/glog/build,
+					./third_party/glfw/build/src,
+					./third_party/physX/physx/bin/linux.clang/release,
+				);
+				OTHER_LDFLAGS = (
+					"-lglog",
+					"-lglfw3",
+					"-lPhysX_static_64",
+					"-lPhysXCommon_static_64",
+					"-lPhysXFoundation_static_64",
+					"-lPhysXPvdSDK_static_64",
+					"-lPhysXExtensions_static_64",
+					"-lPhysXCharacterKinematic_static_64",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					./third_party/tinygltf,
+					./third_party/glog/src,
+					./third_party/glog/build,
+					./third_party/glfw/include,
+					./third_party/physx/physx/source/common/src/mac,
+					./third_party/physx/physx/include,
+					./third_party/physx/physx/source/common/include,
+					./third_party/physx/physx/source/common/src,
+					./third_party/physx/physx/source/geomutils/include,
+					./third_party/physx/physx/source/geomutils/src,
+					./third_party/physx/physx/source/geomutils/src/contact,
+					./third_party/physx/physx/source/geomutils/src/common,
+					./third_party/physx/physx/source/geomutils/src/convex,
+					./third_party/physx/physx/source/geomutils/src/distance,
+					./third_party/physx/physx/source/geomutils/src/sweep,
+					./third_party/physx/physx/source/geomutils/src/gjk,
+					./third_party/physx/physx/source/geomutils/src/intersection,
+					./third_party/physx/physx/source/geomutils/src/mesh,
+					./third_party/physx/physx/source/geomutils/src/hf,
+					./third_party/physx/physx/source/geomutils/src/pcm,
+					./third_party/physx/physx/source/geomutils/src/ccd,
+					./third_party/physx/physx/source/physxgpu/include,
+					./third_party/physx/physx/../pxshared/include,
+					./third_party/physx/physx/source/foundation/include,
+				);
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3323,6 +3597,15 @@
 			buildConfigurations = (
 				04459599279518FF00F04CE0 /* Debug */,
 				0445959A279518FF00F04CE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04CD93BD279A4F650093D6CB /* Build configuration list for PBXNativeTarget "editor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04CD93BE279A4F650093D6CB /* Debug */,
+				04CD93BF279A4F650093D6CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
