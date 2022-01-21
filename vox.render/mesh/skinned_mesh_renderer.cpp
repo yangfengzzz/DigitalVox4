@@ -14,8 +14,9 @@
 #include "loader/fbx_loader.h"
 #include "graphics/mesh.h"
 #include "entity.h"
+#include "scene.h"
 #include "animator.h"
-#include "camera.h"
+#include "shader_common.h"
 
 namespace vox {
 SkinnedMeshRenderer::SkinnedMeshRenderer(Entity *entity) :
@@ -144,20 +145,20 @@ void SkinnedMeshRenderer::_render(std::vector<RenderElement> &opaqueQueue,
         shaderData.disableMacro(HAS_TANGENT);
         shaderData.disableMacro(HAS_VERTEXCOLOR);
         
-        if ([vertexDescriptor attributeNamed:MDLVertexAttributeTextureCoordinate] != nullptr) {
+        if (vertexDescriptor.attributes[Attributes::UV_0].format() != MTL::VertexFormatInvalid) {
             shaderData.enableMacro(HAS_UV);
         }
-        if ([vertexDescriptor attributeNamed:MDLVertexAttributeNormal] != nullptr) {
+        if (vertexDescriptor.attributes[Attributes::Normal].format() != MTL::VertexFormatInvalid) {
             shaderData.enableMacro(HAS_NORMAL);
         }
-        if ([vertexDescriptor attributeNamed:MDLVertexAttributeTangent] != nullptr) {
+        if (vertexDescriptor.attributes[Attributes::Tangent].format() != MTL::VertexFormatInvalid) {
             shaderData.enableMacro(HAS_TANGENT);
         }
-        if ([vertexDescriptor attributeNamed:MDLVertexAttributeColor] != nullptr) {
+        if (vertexDescriptor.attributes[Attributes::Color_0].format() != MTL::VertexFormatInvalid) {
             shaderData.enableMacro(HAS_VERTEXCOLOR);
         }
         
-        auto &subMeshes = render_mesh->subMeshes();
+        auto &subMeshes = render_mesh->submeshes();
         for (size_t i = 0; i < subMeshes.size(); i++) {
             MaterialPtr material;
             if (i < _materials.size()) {
@@ -222,7 +223,7 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
     ScratchBuffer uv_buffer_;
     const int vertex_count = _mesh.vertex_count();
     
-    MDLVertexDescriptor *vertexDescriptor = [[MDLVertexDescriptor alloc] init];
+    auto vertexDescriptor = MTL::VertexDescriptor();
     
     // Positions and normals are interleaved to improve caching while executing
     // skinning job.
@@ -234,15 +235,17 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
     const int32_t tangents_stride = positions_stride;
     const int32_t skinned_data_size = vertex_count * positions_stride;
     void *vbo_map = vbo_buffer_.Resize(skinned_data_size);
-    vertexDescriptor.attributes[Position] = [[MDLVertexAttribute alloc] initWithName:MDLVertexAttributePosition
-                                                                              format:MDLVertexFormatFloat3 offset:positions_offset
-                                                                         bufferIndex:0];
-    vertexDescriptor.attributes[Normal] = [[MDLVertexAttribute alloc] initWithName:MDLVertexAttributeNormal
-                                                                            format:MDLVertexFormatFloat3 offset:normals_offset
-                                                                       bufferIndex:0];
-    vertexDescriptor.attributes[Tangent] = [[MDLVertexAttribute alloc] initWithName:MDLVertexAttributeTangent
-                                                                             format:MDLVertexFormatFloat3 offset:tangents_offset
-                                                                        bufferIndex:0];
+    vertexDescriptor.attributes[Position].format(MTL::VertexFormatFloat3);
+    vertexDescriptor.attributes[Position].offset(positions_offset);
+    vertexDescriptor.attributes[Position].bufferIndex(0);
+    
+    vertexDescriptor.attributes[Normal].format(MTL::VertexFormatFloat3);
+    vertexDescriptor.attributes[Normal].offset(normals_offset);
+    vertexDescriptor.attributes[Normal].bufferIndex(0);
+    
+    vertexDescriptor.attributes[Tangent].format(MTL::VertexFormatFloat3);
+    vertexDescriptor.attributes[Tangent].offset(tangents_offset);
+    vertexDescriptor.attributes[Tangent].bufferIndex(0);
     
     // Colors and uvs are contiguous. They aren't transformed, so they can be
     // directly copied from source mesh which is non-interleaved as-well.
@@ -252,12 +255,12 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
     const int32_t uvs_stride = sizeof(float) * 2;
     const int32_t uvs_size = vertex_count * uvs_stride;
     void *uv_map = uv_buffer_.Resize(uvs_size);
-    vertexDescriptor.attributes[UV_0] = [[MDLVertexAttribute alloc] initWithName:MDLVertexAttributeTextureCoordinate
-                                                                          format:MDLVertexFormatFloat2 offset:uvs_offset
-                                                                     bufferIndex:1];
-    vertexDescriptor.layouts[0] = [[MDLVertexBufferLayout alloc] initWithStride:positions_stride];
-    vertexDescriptor.layouts[1] = [[MDLVertexBufferLayout alloc] initWithStride:uvs_stride];
+    vertexDescriptor.attributes[UV_0].format(MTL::VertexFormatFloat2);
+    vertexDescriptor.attributes[UV_0].offset(uvs_offset);
+    vertexDescriptor.attributes[UV_0].bufferIndex(1);
     
+    vertexDescriptor.layouts[0].stride(positions_stride);
+    vertexDescriptor.layouts[1].stride(uvs_stride);
     
     // Iterate mesh parts and fills vbo.
     // Runs a skinning job per mesh part. Triangle indices are shared
@@ -389,49 +392,45 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
         processed_vertex_count += part_vertex_count;
     }
     
-    const auto &resourceLoader = engine()->resourceLoader();
     if (vertexBuffers[index] == nullptr) {
-        vertexBuffers[index] = resourceLoader->buildBuffer(vbo_map, skinned_data_size, NULL);
+        vertexBuffers[index] = _entity->scene()->device()->newBufferWithBytes(vbo_map, skinned_data_size);
     } else {
-        memcpy([vertexBuffers[index] contents], vbo_map, skinned_data_size);
+        memcpy(vertexBuffers[index]->contents(), vbo_map, skinned_data_size);
     }
     
     if (uvBuffers[index] == nullptr) {
-        uvBuffers[index] = resourceLoader->buildBuffer(uv_map, uvs_size, NULL);
+        uvBuffers[index] = _entity->scene()->device()->newBufferWithBytes(uv_map, uvs_size);
     } else {
-        memcpy([uvBuffers[index] contents], uv_map, uvs_size);
+        memcpy(uvBuffers[index]->contents(), uv_map, uvs_size);
     }
     
     size_t indexCount = _mesh.triangle_indices.size();
     if (indexBuffers[index] == nullptr) {
-        indexBuffers[index] = resourceLoader->buildBuffer(_mesh.triangle_indices.data(),
-                                                          indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type), NULL);
+        indexBuffers[index] =
+        _entity->scene()->device()->newBufferWithBytes(_mesh.triangle_indices.data(),
+                                                       indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type));
     }
     
-    auto mesh = std::make_shared<BufferMesh>(_engine);
-    mesh->setVertexDescriptor(vertexDescriptor);
-    mesh->setVertexBufferBinding(vertexBuffers[index], 0, 0);
-    mesh->setVertexBufferBinding(uvBuffers[index], 0, 1);
-    mesh->addSubMesh(MeshBuffer(indexBuffers[index],
-                                indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type),
-                                MDLMeshBufferTypeIndex),
-                     MTLIndexTypeUInt16, indexCount, MTLPrimitiveTypeTriangle);
+    auto mesh = std::make_shared<Mesh>(Submesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, indexCount,
+                                               MeshBuffer(*indexBuffers[index], 0, indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type))),
+                                       {*vertexBuffers[index], *uvBuffers[index]},
+                                       vertexDescriptor);
     
     return mesh;
 }
 
-void SkinnedMeshRenderer::_updateBounds(BoundingBox &worldBounds) {
+void SkinnedMeshRenderer::_updateBounds(BoundingBox3F &worldBounds) {
     SkinnedMeshRenderer::computeSkeletonBounds(skeleton_, &worldBounds);
 }
 
-void SkinnedMeshRenderer::computeSkeletonBounds(const animation::Skeleton &_skeleton,
-                                                math::BoundingBox *_bound) {
+void SkinnedMeshRenderer::computeSkeletonBounds(const ozz::animation::Skeleton &_skeleton,
+                                                BoundingBox3F *_bound) {
     using ozz::math::Float4x4;
     
     assert(_bound);
     
     // Set a default box.
-    *_bound = ozz::math::BoundingBox();
+    *_bound = BoundingBox3F();
     
     const int num_joints = _skeleton.num_joints();
     if (!num_joints) {
@@ -443,7 +442,7 @@ void SkinnedMeshRenderer::computeSkeletonBounds(const animation::Skeleton &_skel
     
     // Compute model space bind pose.
     ozz::animation::LocalToModelJob job;
-    job.input = _skeleton.joint_bind_poses();
+    job.input = _skeleton.joint_rest_poses();
     job.output = make_span(models);
     job.skeleton = &_skeleton;
     if (job.Run()) {
@@ -453,11 +452,11 @@ void SkinnedMeshRenderer::computeSkeletonBounds(const animation::Skeleton &_skel
 }
 
 void SkinnedMeshRenderer::computePostureBounds(ozz::span<const ozz::math::Float4x4> _matrices,
-                                               math::BoundingBox *_bound) {
+                                               BoundingBox3F *_bound) {
     assert(_bound);
     
     // Set a default box.
-    *_bound = ozz::math::BoundingBox();
+    *_bound = BoundingBox3F();
     
     if (_matrices.empty()) {
         return;
@@ -467,18 +466,18 @@ void SkinnedMeshRenderer::computePostureBounds(ozz::span<const ozz::math::Float4
     // Matrices array cannot be empty, it was checked at the beginning of the
     // function.
     const ozz::math::Float4x4 *current = _matrices.begin();
-    math::SimdFloat4 min = current->cols[3];
-    math::SimdFloat4 max = current->cols[3];
+    ozz::math::SimdFloat4 min = current->cols[3];
+    ozz::math::SimdFloat4 max = current->cols[3];
     ++current;
     while (current < _matrices.end()) {
-        min = math::Min(min, current->cols[3]);
-        max = math::Max(max, current->cols[3]);
+        min = ozz::math::Min(min, current->cols[3]);
+        max = ozz::math::Max(max, current->cols[3]);
         ++current;
     }
     
     // Stores in math::Box structure.
-    math::Store3PtrU(min, &_bound->min.x);
-    math::Store3PtrU(max, &_bound->max.x);
+    ozz::math::Store3PtrU(min, &_bound->lowerCorner.x);
+    ozz::math::Store3PtrU(max, &_bound->upperCorner.x);
     
     return;
 }

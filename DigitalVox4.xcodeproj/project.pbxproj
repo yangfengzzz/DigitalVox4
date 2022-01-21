@@ -475,6 +475,7 @@
 		04CD9405279A9D910093D6CB /* animator.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD9403279A9D910093D6CB /* animator.h */; };
 		04CD9408279A9FF00093D6CB /* skinned_mesh_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD9406279A9FF00093D6CB /* skinned_mesh_renderer.h */; };
 		04CD940A279AA2000093D6CB /* animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9402279A9D900093D6CB /* animator.cpp */; };
+		04CD940B279AA2A60093D6CB /* skinned_mesh_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9407279A9FF00093D6CB /* skinned_mesh_renderer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2634,6 +2635,7 @@
 				044596ED2797DF7400F04CE0 /* forward_application.cpp in Sources */,
 				044596492796EF9500F04CE0 /* render_element.cpp in Sources */,
 				044596B72796FBE100F04CE0 /* physics_manager.cpp in Sources */,
+				04CD940B279AA2A60093D6CB /* skinned_mesh_renderer.cpp in Sources */,
 				04B4ACC1279835BB0020576D /* spot_light.cpp in Sources */,
 				044596A92796FA8800F04CE0 /* mesh_renderer.cpp in Sources */,
 				044596DE2796FC1100F04CE0 /* metal_application.cpp in Sources */,
@@ -3368,6 +3370,7 @@
 					"-lPhysXCharacterKinematic_static_64",
 					"-lozz_animation",
 					"-lozz_base",
+					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/lib/clang/debug/libfbxsdk.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -3436,6 +3439,7 @@
 					"-lPhysXCharacterKinematic_static_64",
 					"-lozz_animation",
 					"-lozz_base",
+					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/lib/clang/release/libfbxsdk.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
