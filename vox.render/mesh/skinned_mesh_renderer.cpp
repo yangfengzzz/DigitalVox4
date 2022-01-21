@@ -411,10 +411,10 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
                                                        indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type));
     }
     
-    auto mesh = std::make_shared<Mesh>(Submesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, indexCount,
-                                               MeshBuffer(*indexBuffers[index], 0, indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type))),
-                                       {*vertexBuffers[index], *uvBuffers[index]},
-                                       vertexDescriptor);
+    auto submesh = Submesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, indexCount,
+                           MeshBuffer(*indexBuffers[index], 0, indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type)));
+    std::vector<MeshBuffer> buffer = {MeshBuffer(*vertexBuffers[index], 0, 0), MeshBuffer(*uvBuffers[index], 0, 0)};
+    auto mesh = std::make_shared<Mesh>(submesh, buffer, vertexDescriptor);
     
     return mesh;
 }
