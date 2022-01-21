@@ -27,7 +27,6 @@ private:
                       const ShaderMacroCollection& compileMacros);
     
     MTL::RenderPipelineDescriptor _forwardPipelineDescriptor;
-    MTL::DepthStencilState _forwardDepthStencilState;
 };
 
 }

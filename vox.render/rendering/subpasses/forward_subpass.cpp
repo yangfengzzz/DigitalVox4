@@ -27,35 +27,11 @@ void ForwardSubpass::prepare() {
     _forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
     _forwardPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
     _forwardPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
-    
-#pragma mark forward depth state setup
-    {
-#if LIGHT_STENCIL_CULLING
-        MTL::StencilDescriptor stencilStateDesc;
-        stencilStateDesc.stencilCompareFunction(MTL::CompareFunctionAlways);
-        stencilStateDesc.stencilFailureOperation(MTL::StencilOperationKeep);
-        stencilStateDesc.depthFailureOperation(MTL::StencilOperationKeep);
-        stencilStateDesc.depthStencilPassOperation(MTL::StencilOperationReplace);
-        stencilStateDesc.readMask(0x0);
-        stencilStateDesc.writeMask(0xFF);
-#else
-        MTL::StencilDescriptor stencilStateDesc;
-#endif
-        MTL::DepthStencilDescriptor depthStencilDesc;
-        depthStencilDesc.label("G-buffer Creation");
-        depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLess);
-        depthStencilDesc.depthWriteEnabled(true);
-        depthStencilDesc.frontFaceStencil = stencilStateDesc;
-        depthStencilDesc.backFaceStencil = stencilStateDesc;
-        
-        _forwardDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
-    }
 }
 
 void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw G-Buffer");
     commandEncoder.setCullMode(MTL::CullModeFront);
-    commandEncoder.setDepthStencilState(_forwardDepthStencilState);
     commandEncoder.setStencilReferenceValue(128);
     
     _drawMeshes(commandEncoder);
@@ -102,13 +78,18 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         auto& mesh = element.mesh;
         _forwardPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
         
-        auto m_forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
-        uploadUniforms(renderEncoder, m_forwardPipelineState->materialUniformBlock, material->shaderData);
-        uploadUniforms(renderEncoder, m_forwardPipelineState->rendererUniformBlock, renderer->shaderData);
-        uploadUniforms(renderEncoder, m_forwardPipelineState->sceneUniformBlock, _scene->shaderData);
-        uploadUniforms(renderEncoder, m_forwardPipelineState->cameraUniformBlock, _camera->shaderData);
-        renderEncoder.setRenderPipelineState(*m_forwardPipelineState);
+        MTL::DepthStencilDescriptor depthStencilDesc;
+        material->renderState.apply(_forwardPipelineDescriptor, depthStencilDesc, renderEncoder);
         
+        auto _forwardDepthStencilState = _pass->resourceCache().requestDepthStencilState(depthStencilDesc);
+        auto _forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
+        uploadUniforms(renderEncoder, _forwardPipelineState->materialUniformBlock, material->shaderData);
+        uploadUniforms(renderEncoder, _forwardPipelineState->rendererUniformBlock, renderer->shaderData);
+        uploadUniforms(renderEncoder, _forwardPipelineState->sceneUniformBlock, _scene->shaderData);
+        uploadUniforms(renderEncoder, _forwardPipelineState->cameraUniformBlock, _camera->shaderData);
+        renderEncoder.setRenderPipelineState(*_forwardPipelineState);
+        renderEncoder.setDepthStencilState(*_forwardDepthStencilState);
+
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),
                                           meshBuffer.offset(),
