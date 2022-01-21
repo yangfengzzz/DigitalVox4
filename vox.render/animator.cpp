@@ -1,12 +1,11 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  animator.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/12/1.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "animator.h"
-//#include "mesh/skinned_mesh_renderer.h"
+#include "mesh/skinned_mesh_renderer.h"
 #include "loader/animator_loader.h"
 #include "scene.h"
 #include <string>
