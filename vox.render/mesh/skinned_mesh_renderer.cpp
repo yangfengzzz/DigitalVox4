@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  skinned_mesh_renderer.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/12/1.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "skinned_mesh_renderer.h"
 #include <ozz/animation/runtime/blending_job.h>
@@ -21,43 +20,72 @@
 namespace vox {
 SkinnedMeshRenderer::SkinnedMeshRenderer(Entity *entity) :
 Renderer(entity) {
-    threshold_ = ozz::animation::BlendingJob().threshold;
+    _threshold = ozz::animation::BlendingJob().threshold;
+    
+    const int32_t positions_offset = 0;
+    const int32_t normals_offset = sizeof(float) * 3;
+    const int32_t tangents_offset = sizeof(float) * 6;
+    const int32_t positions_stride = sizeof(float) * 9;
+    _vertexDescriptor.attributes[Position].format(MTL::VertexFormatFloat3);
+    _vertexDescriptor.attributes[Position].offset(positions_offset);
+    _vertexDescriptor.attributes[Position].bufferIndex(0);
+    
+    _vertexDescriptor.attributes[Normal].format(MTL::VertexFormatFloat3);
+    _vertexDescriptor.attributes[Normal].offset(normals_offset);
+    _vertexDescriptor.attributes[Normal].bufferIndex(0);
+    
+    _vertexDescriptor.attributes[Tangent].format(MTL::VertexFormatFloat3);
+    _vertexDescriptor.attributes[Tangent].offset(tangents_offset);
+    _vertexDescriptor.attributes[Tangent].bufferIndex(0);
+    
+    // Colors and uvs are contiguous. They aren't transformed, so they can be
+    // directly copied from source mesh which is non-interleaved as-well.
+    // Colors will be filled with white if _options.colors is false.
+    // UVs will be skipped if _options.textured is false.
+    const int32_t uvs_offset = 0;
+    const int32_t uvs_stride = sizeof(float) * 2;
+    _vertexDescriptor.attributes[UV_0].format(MTL::VertexFormatFloat2);
+    _vertexDescriptor.attributes[UV_0].offset(uvs_offset);
+    _vertexDescriptor.attributes[UV_0].bufferIndex(1);
+    
+    _vertexDescriptor.layouts[0].stride(positions_stride);
+    _vertexDescriptor.layouts[1].stride(uvs_stride);
 }
 
 bool SkinnedMeshRenderer::loadSkeleton(const std::string &filename) {
     // Reading skeleton.
-    if (!ozz::loader::LoadSkeleton(filename.c_str(), &skeleton_)) {
+    if (!ozz::loader::LoadSkeleton(filename.c_str(), &_skeleton)) {
         return false;
     }
     
     // Allocates runtime buffers.
-    const int num_joints = skeleton_.num_joints();
-    const int num_soa_joints = skeleton_.num_soa_joints();
+    const int num_joints = _skeleton.num_joints();
+    const int num_soa_joints = _skeleton.num_soa_joints();
     
     // Allocates local space runtime buffers of blended data.
-    blended_locals_.resize(num_soa_joints);
+    _blendedLocals.resize(num_soa_joints);
     
     // Allocates model space runtime buffers of blended data.
-    models_.resize(num_joints);
+    _models.resize(num_joints);
     
     return true;
 }
 
 bool SkinnedMeshRenderer::addSkinnedMesh(const std::string &skin_filename,
                                          const std::string &skel_filename) {
-    if (models_.size() == 0) {
+    if (_models.size() == 0) {
         loadSkeleton(skel_filename);
     }
     
     ozz::vector<ozz::loader::Mesh> meshes;
     
     // Reading skinned meshes.
-    if (!ozz::loader::loadScene(skin_filename.c_str(), skeleton_, meshes)) {
+    if (!ozz::loader::loadScene(skin_filename.c_str(), _skeleton, meshes)) {
         return false;
     }
     // Check the skeleton matches with the mesh, especially that the mesh
     // doesn't expect more joints than the skeleton has.
-    const int num_joints = skeleton_.num_joints();
+    const int num_joints = _skeleton.num_joints();
     for (const ozz::loader::Mesh &mesh: meshes) {
         if (num_joints < mesh.highest_joint_index()) {
             LOG(ERROR) << "The provided mesh doesn't match skeleton "
@@ -67,24 +95,24 @@ bool SkinnedMeshRenderer::addSkinnedMesh(const std::string &skin_filename,
         }
     }
     
-    meshes_.insert(meshes_.end(), meshes.begin(), meshes.end());
+    _meshes.insert(_meshes.end(), meshes.begin(), meshes.end());
     // Computes the number of skinning matrices required to skin all meshes.
     // A mesh is skinned by only a subset of joints, so the number of skinning
     // matrices might be less that the number of skeleton joints.
     // Mesh::joint_remaps is used to know how to order skinning matrices. So the
     // number of matrices required is the size of joint_remaps.
     size_t num_skinning_matrices = 0;
-    for (const ozz::loader::Mesh &mesh: meshes_) {
+    for (const ozz::loader::Mesh &mesh: _meshes) {
         num_skinning_matrices = ozz::math::Max(num_skinning_matrices, mesh.joint_remaps.size());
     }
     
     // Allocates skinning matrices.
-    skinning_matrices_.resize(num_skinning_matrices);
+    _skinningMatrices.resize(num_skinning_matrices);
     
-    const size_t bufferLength = meshes_.size();
-    vertexBuffers.resize(bufferLength, nullptr);
-    uvBuffers.resize(bufferLength, nullptr);
-    indexBuffers.resize(bufferLength, nullptr);
+    const size_t bufferLength = _meshes.size();
+    _vertexBuffers.resize(bufferLength, nullptr);
+    _uvBuffers.resize(bufferLength, nullptr);
+    _indexBuffers.resize(bufferLength, nullptr);
     
     return true;
 }
@@ -92,14 +120,14 @@ bool SkinnedMeshRenderer::addSkinnedMesh(const std::string &skin_filename,
 void SkinnedMeshRenderer::update(float deltaTime) {
     // Setups blending job.
     ozz::animation::BlendingJob blend_job;
-    blend_job.threshold = threshold_;
-    blend_job.rest_pose = skeleton_.joint_rest_poses();
-    blend_job.output = make_span(blended_locals_);
-    if (animator == nullptr) {
-        animator = entity()->getComponent<Animator>();
+    blend_job.threshold = _threshold;
+    blend_job.rest_pose = _skeleton.joint_rest_poses();
+    blend_job.output = make_span(_blendedLocals);
+    if (_animator == nullptr) {
+        _animator = entity()->getComponent<Animator>();
     }
-    if (animator != nullptr) {
-        blend_job.layers = animator->layers();
+    if (_animator) {
+        blend_job.layers = _animator->layers();
     }
     
     // Blends.
@@ -112,9 +140,9 @@ void SkinnedMeshRenderer::update(float deltaTime) {
     
     // Setup local-to-model conversion job.
     ozz::animation::LocalToModelJob ltm_job;
-    ltm_job.skeleton = &skeleton_;
-    ltm_job.input = make_span(blended_locals_);
-    ltm_job.output = make_span(models_);
+    ltm_job.skeleton = &_skeleton;
+    ltm_job.input = make_span(_blendedLocals);
+    ltm_job.output = make_span(_models);
     
     // Runs ltm job.
     if (!ltm_job.Run()) {
@@ -129,14 +157,14 @@ void SkinnedMeshRenderer::_render(std::vector<RenderElement> &opaqueQueue,
     // The mesh might not use (aka be skinned by) all skeleton joints. We use
     // the joint remapping table (available from the mesh object) to reorder
     // model-space matrices and build skinning ones.
-    for (size_t index = 0; index < meshes_.size(); index++) {
-        const auto &mesh = meshes_[index];
+    for (size_t index = 0; index < _meshes.size(); index++) {
+        const auto &mesh = _meshes[index];
         for (size_t i = 0; i < mesh.joint_remaps.size(); ++i) {
-            skinning_matrices_[i] = models_[mesh.joint_remaps[i]] * mesh.inverse_bind_poses[i];
+            _skinningMatrices[i] = _models[mesh.joint_remaps[i]] * mesh.inverse_bind_poses[i];
         }
         
         // Renders skin.
-        auto render_mesh = drawSkinnedMesh(index, mesh, make_span(skinning_matrices_),
+        auto render_mesh = drawSkinnedMesh(index, mesh, make_span(_skinningMatrices),
                                            ozz::math::Float4x4::identity());
         const auto &vertexDescriptor = render_mesh->vertexDescriptor();
         
@@ -223,8 +251,6 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
     ScratchBuffer uv_buffer_;
     const int vertex_count = _mesh.vertex_count();
     
-    auto vertexDescriptor = MTL::VertexDescriptor();
-    
     // Positions and normals are interleaved to improve caching while executing
     // skinning job.
     const int32_t positions_offset = 0;
@@ -235,17 +261,6 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
     const int32_t tangents_stride = positions_stride;
     const int32_t skinned_data_size = vertex_count * positions_stride;
     void *vbo_map = vbo_buffer_.Resize(skinned_data_size);
-    vertexDescriptor.attributes[Position].format(MTL::VertexFormatFloat3);
-    vertexDescriptor.attributes[Position].offset(positions_offset);
-    vertexDescriptor.attributes[Position].bufferIndex(0);
-    
-    vertexDescriptor.attributes[Normal].format(MTL::VertexFormatFloat3);
-    vertexDescriptor.attributes[Normal].offset(normals_offset);
-    vertexDescriptor.attributes[Normal].bufferIndex(0);
-    
-    vertexDescriptor.attributes[Tangent].format(MTL::VertexFormatFloat3);
-    vertexDescriptor.attributes[Tangent].offset(tangents_offset);
-    vertexDescriptor.attributes[Tangent].bufferIndex(0);
     
     // Colors and uvs are contiguous. They aren't transformed, so they can be
     // directly copied from source mesh which is non-interleaved as-well.
@@ -255,12 +270,6 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
     const int32_t uvs_stride = sizeof(float) * 2;
     const int32_t uvs_size = vertex_count * uvs_stride;
     void *uv_map = uv_buffer_.Resize(uvs_size);
-    vertexDescriptor.attributes[UV_0].format(MTL::VertexFormatFloat2);
-    vertexDescriptor.attributes[UV_0].offset(uvs_offset);
-    vertexDescriptor.attributes[UV_0].bufferIndex(1);
-    
-    vertexDescriptor.layouts[0].stride(positions_stride);
-    vertexDescriptor.layouts[1].stride(uvs_stride);
     
     // Iterate mesh parts and fills vbo.
     // Runs a skinning job per mesh part. Triangle indices are shared
@@ -392,35 +401,35 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
         processed_vertex_count += part_vertex_count;
     }
     
-    if (vertexBuffers[index] == nullptr) {
-        vertexBuffers[index] = _entity->scene()->device()->newBufferWithBytes(vbo_map, skinned_data_size);
+    if (_vertexBuffers[index] == nullptr) {
+        _vertexBuffers[index] = _entity->scene()->device()->newBufferWithBytes(vbo_map, skinned_data_size);
     } else {
-        memcpy(vertexBuffers[index]->contents(), vbo_map, skinned_data_size);
+        memcpy(_vertexBuffers[index]->contents(), vbo_map, skinned_data_size);
     }
     
-    if (uvBuffers[index] == nullptr) {
-        uvBuffers[index] = _entity->scene()->device()->newBufferWithBytes(uv_map, uvs_size);
+    if (_uvBuffers[index] == nullptr) {
+        _uvBuffers[index] = _entity->scene()->device()->newBufferWithBytes(uv_map, uvs_size);
     } else {
-        memcpy(uvBuffers[index]->contents(), uv_map, uvs_size);
+        memcpy(_uvBuffers[index]->contents(), uv_map, uvs_size);
     }
     
     size_t indexCount = _mesh.triangle_indices.size();
-    if (indexBuffers[index] == nullptr) {
-        indexBuffers[index] =
+    if (_indexBuffers[index] == nullptr) {
+        _indexBuffers[index] =
         _entity->scene()->device()->newBufferWithBytes(_mesh.triangle_indices.data(),
                                                        indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type));
     }
     
     auto submesh = Submesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, indexCount,
-                           MeshBuffer(*indexBuffers[index], 0, indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type)));
-    std::vector<MeshBuffer> buffer = {MeshBuffer(*vertexBuffers[index], 0, skinned_data_size, 0), MeshBuffer(*uvBuffers[index], 0, uvs_size, 1)};
-    auto mesh = std::make_shared<Mesh>(submesh, buffer, vertexDescriptor);
+                           MeshBuffer(*_indexBuffers[index], 0, indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type)));
+    std::vector<MeshBuffer> buffer = {MeshBuffer(*_vertexBuffers[index], 0, skinned_data_size, 0), MeshBuffer(*_uvBuffers[index], 0, uvs_size, 1)};
+    auto mesh = std::make_shared<Mesh>(submesh, buffer, _vertexDescriptor);
     
     return mesh;
 }
 
 void SkinnedMeshRenderer::_updateBounds(BoundingBox3F &worldBounds) {
-    SkinnedMeshRenderer::computeSkeletonBounds(skeleton_, &worldBounds);
+    SkinnedMeshRenderer::computeSkeletonBounds(_skeleton, &worldBounds);
 }
 
 void SkinnedMeshRenderer::computeSkeletonBounds(const ozz::animation::Skeleton &_skeleton,
@@ -483,11 +492,11 @@ void SkinnedMeshRenderer::computePostureBounds(ozz::span<const ozz::math::Float4
 }
 
 int SkinnedMeshRenderer::numJoints() {
-    return skeleton_.num_joints();
+    return _skeleton.num_joints();
 }
 
 int SkinnedMeshRenderer::numSoaJoints() {
-    return skeleton_.num_soa_joints();
+    return _skeleton.num_soa_joints();
 }
 
 }

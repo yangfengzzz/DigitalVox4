@@ -63,8 +63,8 @@ private:
     friend class ComponentsManager;
     
     ssize_t _onUpdateIndex = -1;
-    ozz::vector<ozz::unique_ptr<AnimationClip>> clips_;
-    ozz::vector<ozz::animation::BlendingJob::Layer> layers_;
+    ozz::vector<ozz::unique_ptr<AnimationClip>> _clips;
+    ozz::vector<ozz::animation::BlendingJob::Layer> _layers;
 };
 
 }

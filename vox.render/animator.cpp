@@ -37,25 +37,25 @@ bool Animator::addAnimationClip(const std::string &filename, int num_joints, int
     // Allocates a context that matches animation requirements.
     clip->context.Resize(num_joints);
     
-    clips_.emplace_back(std::move(clip));
-    layers_.resize(clips_.size());
+    _clips.emplace_back(std::move(clip));
+    _layers.resize(_clips.size());
     
     return true;
 }
 
 void Animator::update(float deltaTime) {
-    size_t kNumLayers = clips_.size();
+    size_t kNumLayers = _clips.size();
     
     // Updates and samples all animations to their respective local space
     // transform buffers.
     for (int i = 0; i < kNumLayers; ++i) {
-        AnimationClip *clip = clips_[i].get();
+        AnimationClip *clip = _clips[i].get();
         
         // Updates animations time.
-        clip->controller.Update(clip->animation, deltaTime);
+        clip->controller.update(clip->animation, deltaTime);
         
         // Early out if this sampler weight makes it irrelevant during blending.
-        if (clips_[i]->weight <= 0.f) {
+        if (_clips[i]->weight <= 0.f) {
             continue;
         }
         
@@ -63,7 +63,7 @@ void Animator::update(float deltaTime) {
         ozz::animation::SamplingJob sampling_job;
         sampling_job.animation = &clip->animation;
         sampling_job.context = &clip->context;
-        sampling_job.ratio = clip->controller.time_ratio();
+        sampling_job.ratio = clip->controller.timeRatio();
         sampling_job.output = make_span(clip->locals);
         
         // Samples animation.
@@ -73,13 +73,13 @@ void Animator::update(float deltaTime) {
     }
     
     for (int i = 0; i < kNumLayers; ++i) {
-        layers_[i].transform = make_span(clips_[i]->locals);
-        layers_[i].weight = clips_[i]->weight;
+        _layers[i].transform = make_span(_clips[i]->locals);
+        _layers[i].weight = _clips[i]->weight;
     }
 }
 
 ozz::span<ozz::animation::BlendingJob::Layer> Animator::layers() {
-    return make_span(layers_);
+    return make_span(_layers);
 }
 
 void Animator::_onEnable() {

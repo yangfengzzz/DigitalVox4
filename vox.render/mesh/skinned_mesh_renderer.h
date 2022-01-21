@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  skinned_mesh_renderer.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2021/12/1.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef skinned_mesh_renderer_hpp
 #define skinned_mesh_renderer_hpp
@@ -57,30 +56,32 @@ private:
                                           const ozz::math::Float4x4 &_transform);
     
 private:
-    Animator *animator = nullptr;
+    Animator *_animator{nullptr};
     
     // Runtime skeleton.
-    ozz::animation::Skeleton skeleton_;
+    ozz::animation::Skeleton _skeleton;
     
     // Blending job bind pose threshold.
-    float threshold_;
+    float _threshold;
     
     // Buffer of local transforms which stores the blending result.
-    ozz::vector<ozz::math::SoaTransform> blended_locals_;
+    ozz::vector<ozz::math::SoaTransform> _blendedLocals;
     
     // Buffer of model space matrices. These are computed by the local-to-model
     // job after the blending stage.
-    ozz::vector<ozz::math::Float4x4> models_;
+    ozz::vector<ozz::math::Float4x4> _models;
     
     // Buffer of skinning matrices, result of the joint multiplication of the
     // inverse bind pose with the model space matrix.
-    ozz::vector<ozz::math::Float4x4> skinning_matrices_;
+    ozz::vector<ozz::math::Float4x4> _skinningMatrices;
     
     // The mesh used by the sample.
-    ozz::vector<ozz::loader::Mesh> meshes_;
-    ozz::vector<MTL::Buffer*> vertexBuffers;
-    ozz::vector<MTL::Buffer*> uvBuffers;
-    ozz::vector<MTL::Buffer*> indexBuffers;
+    ozz::vector<ozz::loader::Mesh> _meshes;
+    ozz::vector<MTL::Buffer*> _vertexBuffers;
+    ozz::vector<MTL::Buffer*> _uvBuffers;
+    ozz::vector<MTL::Buffer*> _indexBuffers;
+    
+    MTL::VertexDescriptor _vertexDescriptor;
 };
 
 }

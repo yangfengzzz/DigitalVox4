@@ -23,64 +23,59 @@ public:
     AnimatorController();
     
     // Sets animation current time.
-    void set_time_ratio(float _time);
+    void setTimeRatio(float _time);
     
     // Gets animation current time.
-    float time_ratio() const;
+    float timeRatio() const;
     
     // Gets animation time ratio of last update. Useful when the range between
     // previous and current frame needs to pe processed.
-    float previous_time_ratio() const;
+    float previousTimeRatio() const;
     
     // Sets playback speed.
-    void set_playback_speed(float _speed) {
-        playback_speed_ = _speed;
+    void setPlaybackSpeed(float speed) {
+        _playbackSpeed = speed;
     }
     
     // Gets playback speed.
-    float playback_speed() const {
-        return playback_speed_;
+    float playbackSpeed() const {
+        return _playbackSpeed;
     }
     
     // Sets loop modes. If true, animation time is always clamped between 0 and 1.
-    void set_loop(bool _loop) {
-        loop_ = _loop;
+    void setLoop(bool loop) {
+        _loop = loop;
     }
     
     // Gets loop mode.
     bool loop() const {
-        return loop_;
+        return _loop;
     }
     
     // Updates animation time if in "play" state, according to playback speed and
     // given frame time _dt.
     // Returns true if animation has looped during update
-    void Update(const ozz::animation::Animation &_animation, float _dt);
+    void update(const ozz::animation::Animation &animation, float dt);
     
     // Resets all parameters to their default value.
-    void Reset();
-    
-    // Do controller Gui.
-    // Returns true if animation time has been changed.
-    // bool OnGui(const animation::Animation& _animation, ImGui* _im_gui,
-    //           bool _enabled = true, bool _allow_set_time = true);
+    void reset();
     
 private:
     // Current animation time ratio, in the unit interval [0,1], where 0 is the
     // beginning of the animation, 1 is the end.
-    float time_ratio_;
+    float _timeRatio;
     
     // Time ratio of the previous update.
-    float previous_time_ratio_;
+    float _previousTimeRatio;
     
     // Playback speed, can be negative in order to play the animation backward.
-    float playback_speed_;
+    float _playbackSpeed;
     
     // Animation play mode state: play/pause.
-    bool play_;
+    bool _play;
     
     // Animation loop mode.
-    bool loop_;
+    bool _loop;
 };
 }
 
