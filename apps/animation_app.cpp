@@ -45,8 +45,9 @@ void AnimationApp::loadScene(uint32_t width, uint32_t height) {
     directLight->shadow.intensity = 0.2;
     directLight->setEnableShadow(true);
     
-    auto characterMtl = std::make_shared<PBRMaterial>();
-    
+    auto characterMtl = std::make_shared<BlinnPhongMaterial>();
+    characterMtl->setBaseColor(Color(0.4, 0.4, 0.4, 1.0));
+
     auto characterEntity = rootEntity->createChild("characterEntity");
     characterEntity->transform->setScale(3, 3, 3);
     auto characterRenderer = characterEntity->addComponent<SkinnedMeshRenderer>();
