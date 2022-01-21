@@ -80,7 +80,6 @@ void Editor::loadScene(uint32_t width, uint32_t height) {
     cameraEntity->transform->lookAt(Point3F(0, 0, 0));
     _mainCamera = cameraEntity->addComponent<Camera>();
     _mainCamera->resize(width, height);
-    cameraEntity->addComponent<control::OrbitControl>();
     _entry = cameraEntity->addComponent<editor::GUIEntry>();
 
     // init point light
