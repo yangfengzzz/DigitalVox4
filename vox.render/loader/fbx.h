@@ -103,23 +103,23 @@ public:
     
     // Converts a fbx matrix to an vox Float4x4 matrix, in vox axis and unit
     // systems, using _m' = C * _m * (C-1) operation.
-    ozz::math::Float4x4 ConvertMatrix(const FbxAMatrix &_m) const;
+    ozz::math::Float4x4 convertMatrix(const FbxAMatrix &_m) const;
     
     // Converts fbx matrix to an vox transform, in vox axis and unit systems,
     // using _m' = C * _m * (C-1) operation.
     // Can return false if matrix isn't affine.
-    bool ConvertTransform(const FbxAMatrix &_m,
+    bool convertTransform(const FbxAMatrix &_m,
                           ozz::math::Transform *_transform) const;
     
     // Converts fbx FbxVector4 point to an vox Float3, in vox axis and unit
     // systems, using _p' = C * _p operation.
-    ozz::math::Float3 ConvertPoint(const FbxVector4 &_p) const;
+    ozz::math::Float3 convertPoint(const FbxVector4 &_p) const;
     
     // Converts fbx FbxVector4 vector to an vox Float3, in vox axis and unit
     // systems, using _p' = ((C-1)-T) * _p operation. Normals are converted
     // using the inverse transpose matrix to support non-uniform scale
     // transformations.
-    ozz::math::Float3 ConvertVector(const FbxVector4 &_p) const;
+    ozz::math::Float3 convertVector(const FbxVector4 &_p) const;
     
 private:
     // The matrix used to convert from "from" axis/unit to vox coordinate system
@@ -158,7 +158,7 @@ public:
     }
     
 private:
-    void ImportScene(FbxImporter *_importer, const bool _initialized,
+    void importScene(FbxImporter *_importer, const bool _initialized,
                      const char *_password, const FbxManagerInstance &_manager,
                      const FbxDefaultIOSettings &_io_settings);
     

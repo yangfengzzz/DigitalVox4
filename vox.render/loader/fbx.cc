@@ -82,7 +82,7 @@ FbxSceneLoader::FbxSceneLoader(const char *_filename, const char *_password,
     FbxImporter *importer = FbxImporter::Create(_manager, "vox file importer");
     const bool initialized = importer->Initialize(_filename, -1, _io_settings);
     
-    ImportScene(importer, initialized, _password, _manager, _io_settings);
+    importScene(importer, initialized, _password, _manager, _io_settings);
     
     // Destroy the importer
     importer->Destroy();
@@ -97,13 +97,13 @@ FbxSceneLoader::FbxSceneLoader(FbxStream *_stream, const char *_password,
     const bool initialized =
     importer->Initialize(_stream, nullptr, -1, _io_settings);
     
-    ImportScene(importer, initialized, _password, _manager, _io_settings);
+    importScene(importer, initialized, _password, _manager, _io_settings);
     
     // Destroy the importer
     importer->Destroy();
 }
 
-void FbxSceneLoader::ImportScene(FbxImporter *_importer,
+void FbxSceneLoader::importScene(FbxImporter *_importer,
                                  const bool _initialized, const char *_password,
                                  const FbxManagerInstance &_manager,
                                  const FbxDefaultIOSettings &_io_settings) {
@@ -260,7 +260,7 @@ FbxSystemConverter::FbxSystemConverter(const FbxAxisSystem &_from_axis,
     inverse_transpose_convert_ = Transpose(inverse_convert_);
 }
 
-ozz::math::Float4x4 FbxSystemConverter::ConvertMatrix(const FbxAMatrix &_m) const {
+ozz::math::Float4x4 FbxSystemConverter::convertMatrix(const FbxAMatrix &_m) const {
     const ozz::math::Float4x4 m = {{
         ozz::math::simd_float4::Load(static_cast<float>(_m[0][0]), static_cast<float>(_m[0][1]),
                                      static_cast<float>(_m[0][2]), static_cast<float>(_m[0][3])),
@@ -274,7 +274,7 @@ ozz::math::Float4x4 FbxSystemConverter::ConvertMatrix(const FbxAMatrix &_m) cons
     return convert_ * m * inverse_convert_;
 }
 
-ozz::math::Float3 FbxSystemConverter::ConvertPoint(const FbxVector4 &_p) const {
+ozz::math::Float3 FbxSystemConverter::convertPoint(const FbxVector4 &_p) const {
     const ozz::math::SimdFloat4 p_in = ozz::math::simd_float4::Load(static_cast<float>(_p[0]), static_cast<float>(_p[1]),
                                                                     static_cast<float>(_p[2]), 1.f);
     const ozz::math::SimdFloat4 p_out = convert_ * p_in;
@@ -283,7 +283,7 @@ ozz::math::Float3 FbxSystemConverter::ConvertPoint(const FbxVector4 &_p) const {
     return ret;
 }
 
-ozz::math::Float3 FbxSystemConverter::ConvertVector(const FbxVector4 &_p) const {
+ozz::math::Float3 FbxSystemConverter::convertVector(const FbxVector4 &_p) const {
     const ozz::math::SimdFloat4 p_in = ozz::math::simd_float4::Load(static_cast<float>(_p[0]), static_cast<float>(_p[1]),
                                                                     static_cast<float>(_p[2]), 0.f);
     const ozz::math::SimdFloat4 p_out = inverse_transpose_convert_ * p_in;
@@ -292,11 +292,11 @@ ozz::math::Float3 FbxSystemConverter::ConvertVector(const FbxVector4 &_p) const 
     return ret;
 }
 
-bool FbxSystemConverter::ConvertTransform(const FbxAMatrix &_m,
+bool FbxSystemConverter::convertTransform(const FbxAMatrix &_m,
                                           ozz::math::Transform *_transform) const {
     assert(_transform);
     
-    const ozz::math::Float4x4 matrix = ConvertMatrix(_m);
+    const ozz::math::Float4x4 matrix = convertMatrix(_m);
     
     ozz::math::SimdFloat4 translation, rotation, scale;
     if (ToAffine(matrix, &translation, &rotation, &scale)) {
