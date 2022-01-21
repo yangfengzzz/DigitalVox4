@@ -17,8 +17,8 @@
 #include "camera.h"
 
 namespace vox {
-Scene::Scene(std::string name) :
-name(name),
+Scene::Scene(MTL::Device *device) :
+_device(device),
 _ambientLight(this) {
     _vertexUploader = {
         toAnyUploader<int>([](const int &x, size_t location, MTL::RenderCommandEncoder& encoder) {
@@ -91,6 +91,10 @@ _ambientLight(this) {
     };
     _ambientLight.registerUploader(this);
     light_manager.registerUploader(this);
+}
+
+MTL::Device *Scene::device() {
+    return _device;
 }
 
 const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>>&
@@ -227,9 +231,9 @@ void Scene::_removeEntity(EntityPtr entity) {
 }
 
 //MARK: - Update Loop
-void Scene::updateShaderData(MTL::Device* device) {
+void Scene::updateShaderData() {
     // union scene and camera macro.
-    light_manager.updateShaderData(device, shaderData);
+    light_manager.updateShaderData(_device, shaderData);
     for (auto& camera : _activeCameras) {
         camera->updateShaderData();
     }

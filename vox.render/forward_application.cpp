@@ -17,7 +17,7 @@ ForwardApplication::~ForwardApplication() {
 bool ForwardApplication::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
     
-    _scene = std::make_unique<Scene>();
+    _scene = std::make_unique<Scene>(_device.get());
     
     auto extent = engine.window().extent();
     loadScene(extent.width, extent.height);
@@ -42,7 +42,7 @@ bool ForwardApplication::prepare(Engine &engine) {
 void ForwardApplication::update(float delta_time) {
     MetalApplication::update(delta_time);
     _scene->update(delta_time);
-    _scene->updateShaderData(_device.get());
+    _scene->updateShaderData();
 
     MTL::CommandBuffer commandBuffer = _commandQueue.commandBuffer();
     MTL::Drawable *drawable = _renderView->currentDrawable();

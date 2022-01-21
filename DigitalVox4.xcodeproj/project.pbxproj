@@ -453,6 +453,13 @@
 		04CD93D3279A4FB30093D6CB /* imgui_canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93CE279A4FB30093D6CB /* imgui_canvas.cpp */; };
 		04CD93DB279A50360093D6CB /* libvox.math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422969F278DAE4E0090983F /* libvox.math.a */; };
 		04CD93DC279A50360093D6CB /* libvox.render.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422954F278C30840090983F /* libvox.render.a */; };
+		04CD93DF279A50E10093D6CB /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93DE279A50E10093D6CB /* grid.cpp */; };
+		04CD93E0279A538A0093D6CB /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D32790082600F04CE0 /* ModelIO.framework */; };
+		04CD93E1279A538F0093D6CB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593C62790061E00F04CE0 /* Metal.framework */; };
+		04CD93E2279A538F0093D6CB /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D12790081200F04CE0 /* MetalKit.framework */; };
+		04CD93E3279A53930093D6CB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593C8279006AA00F04CE0 /* Cocoa.framework */; };
+		04CD93E4279A539D0093D6CB /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593CA279006B000F04CE0 /* IOKit.framework */; };
+		04CD93E5279A53A10093D6CB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593CE279006DA00F04CE0 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1116,6 +1123,8 @@
 		04CD93CD279A4FB30093D6CB /* imgui_zmo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_zmo.h; sourceTree = "<group>"; };
 		04CD93CE279A4FB30093D6CB /* imgui_canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_canvas.cpp; sourceTree = "<group>"; };
 		04CD93D4279A4FB70093D6CB /* editor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = editor.entitlements; sourceTree = "<group>"; };
+		04CD93DD279A50E10093D6CB /* grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grid.h; sourceTree = "<group>"; };
+		04CD93DE279A50E10093D6CB /* grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = grid.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1178,6 +1187,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04CD93E5279A53A10093D6CB /* QuartzCore.framework in Frameworks */,
+				04CD93E4279A539D0093D6CB /* IOKit.framework in Frameworks */,
+				04CD93E3279A53930093D6CB /* Cocoa.framework in Frameworks */,
+				04CD93E1279A538F0093D6CB /* Metal.framework in Frameworks */,
+				04CD93E2279A538F0093D6CB /* MetalKit.framework in Frameworks */,
+				04CD93E0279A538A0093D6CB /* ModelIO.framework in Frameworks */,
 				04CD93DB279A50360093D6CB /* libvox.math.a in Frameworks */,
 				04CD93DC279A50360093D6CB /* libvox.render.a in Frameworks */,
 			);
@@ -2068,6 +2083,8 @@
 				04CD93C1279A4FB20093D6CB /* imgui_zmo.cpp */,
 				04CD93D4279A4FB70093D6CB /* editor.entitlements */,
 				04CD93BB279A4F650093D6CB /* main.cpp */,
+				04CD93DD279A50E10093D6CB /* grid.h */,
+				04CD93DE279A50E10093D6CB /* grid.cpp */,
 			);
 			path = editor;
 			sourceTree = "<group>";
@@ -2789,6 +2806,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04CD93DF279A50E10093D6CB /* grid.cpp in Sources */,
 				04CD93D1279A4FB30093D6CB /* imgui_node_editor.cpp in Sources */,
 				04CD93D3279A4FB30093D6CB /* imgui_canvas.cpp in Sources */,
 				04CD93D0279A4FB30093D6CB /* crude_json.cpp in Sources */,

@@ -44,9 +44,11 @@ public:
     
     /**
      * Create scene.
-     * @param name - Name
+     * @param device - Device
      */
-    Scene(std::string name = "");
+    Scene(MTL::Device *device);
+    
+    MTL::Device *device();
     
     /**
      * Ambient light.
@@ -118,7 +120,7 @@ public:
     void updateSize(uint32_t win_width, uint32_t win_height,
                     uint32_t fb_width, uint32_t fb_height);
     
-    void updateShaderData(MTL::Device* device);
+    void updateShaderData();
     
 public:
     template<class T, class F>
@@ -169,6 +171,8 @@ private:
     bool _destroyed = false;
     std::vector<EntityPtr> _rootEntities;
     AmbientLight _ambientLight;
+    
+    MTL::Device *_device{nullptr};
 };
 
 }        // namespace vox
