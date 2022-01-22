@@ -138,7 +138,7 @@ vertex VertexOut vertex_particle(const VertexIn vertexIn [[stage_in]],
 fragment float4 fragment_particle(VertexOut in [[stage_in]],
                                   texture2d<float> u_texture [[texture(0)]]) {
     constexpr sampler textureSampler(coord::normalized, filter::linear,
-                                     address::clamp_to_edge, compare_func:: less);
+                                     address::repeat, compare_func:: less);
     
     if (in.v_lifeLeft == 1.0) {
         discard_fragment();

@@ -119,7 +119,7 @@ fragment float4 fragment_experimental(VertexOut in [[stage_in]],
                                       texture2d<float> u_glossinessTexture [[texture(6), function_constant(hasGlossinessMap)]],
                                       texture2d<float> u_occlusionTexture [[texture(7), function_constant(hasOcclusionMap)]]) {
     constexpr sampler textureSampler(coord::normalized, filter::linear,
-                                     address::clamp_to_edge, compare_func:: less);
+                                     address::repeat, compare_func:: less);
     
     float3 N = normalize(in.normal);
     float3 V = normalize(u_cameraPos - in.worldPos);

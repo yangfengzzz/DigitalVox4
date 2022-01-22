@@ -144,7 +144,7 @@ fragment float4 fragment_experimental(VertexOut in [[stage_in]],
                                       texture2d<float> u_glossinessTexture [[texture(8), function_constant(hasGlossinessMap)]],
                                       texture2d<float> u_occlusionTexture [[texture(79), function_constant(hasOcclusionMap)]]) {
     constexpr sampler textureSampler(coord::normalized, filter::linear,
-                                     address::clamp_to_edge, compare_func:: less);
+                                     address::repeat, compare_func:: less);
     
     // extract color
     float3 baseColor;

@@ -29,7 +29,7 @@ vertex VertexOut vertex_background_texture(const VertexIn vertexIn [[stage_in]])
 fragment float4 fragment_background_texture(VertexOut in [[stage_in]],
                                             texture2d<float> u_baseTexture [[texture(0)]]) {
     constexpr sampler textureSampler(coord::normalized, filter::linear,
-                                     address::clamp_to_edge, compare_func:: less);
+                                     address::repeat, compare_func:: less);
     
     return u_baseTexture.sample(textureSampler, in.v_uv);
 }

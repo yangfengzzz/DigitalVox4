@@ -240,7 +240,7 @@ fragment float4 fragment_blinn_phong(VertexOut in [[stage_in]],
                                      texture2d<float> u_normalTexture [[texture(6), function_constant(hasNormalTexture)]],
                                      bool is_front_face [[front_facing]]) {
     constexpr sampler textureSampler(coord::normalized, filter::linear,
-                                     address::clamp_to_edge, compare_func:: less);
+                                     address::repeat, compare_func:: less);
     
     float4 ambient = float4(0.0);
     float4 emission = u_emissiveColor;
@@ -374,7 +374,7 @@ fragment GBufferData deferred_fragment_blinn_phong(VertexOut in [[stage_in]],
                                                    texture2d<float> u_normalTexture [[texture(6), function_constant(hasNormalTexture)]],
                                                    bool is_front_face [[front_facing]]) {
     constexpr sampler textureSampler(coord::normalized, filter::linear,
-                                     address::clamp_to_edge, compare_func:: less);
+                                     address::repeat, compare_func:: less);
     
     float4 emission = u_emissiveColor;
     float4 diffuse = u_diffuseColor;

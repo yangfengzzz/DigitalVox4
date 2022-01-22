@@ -96,7 +96,7 @@ fragment float4 fragment_unlit(VertexOut in [[stage_in]],
                                constant float &u_alphaCutoff [[buffer(1)]],
                                texture2d<float> u_baseTexture [[texture(0), function_constant(hasBaseTexture)]]) {
     constexpr sampler textureSampler(coord::normalized, filter::linear,
-                                     address::clamp_to_edge, compare_func:: less);
+                                     address::repeat, compare_func:: less);
     
     float4 baseColor = u_baseColor;
     

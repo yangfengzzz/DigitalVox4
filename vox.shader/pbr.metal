@@ -532,7 +532,7 @@ fragment float4 fragment_pbr(VertexOut in [[stage_in]],
                              texture2d<float> u_occlusionTexture [[texture(9), function_constant(hasOcclusionMap)]],
                              bool is_front_face [[front_facing]]) {
     constexpr sampler textureSampler(coord::normalized, filter::linear,
-                                     address::clamp_to_edge, compare_func:: less);
+                                     address::repeat, compare_func:: less);
     
     GeometricContext geometry;
     geometry.position = in.v_pos;

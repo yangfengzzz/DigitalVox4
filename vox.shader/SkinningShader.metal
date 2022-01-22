@@ -148,7 +148,7 @@ fragment float4 skin_fragment(VertexOut in [[stage_in]],
                                 texturecube<float> u_skyboxDiffuse [[texture(10)]],
                                 texture2d<float> u_brdfLut [[texture(11)]]) {
     constexpr sampler textureSampler(coord::normalized, filter::linear,
-                                     address::clamp_to_edge, compare_func:: less);
+                                     address::repeat, compare_func:: less);
     
     // extract color
     float3 baseColor;
