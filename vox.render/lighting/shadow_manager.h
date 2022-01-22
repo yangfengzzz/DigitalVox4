@@ -17,8 +17,10 @@
 namespace vox {
 class ShadowManager {
 public:
-    static constexpr uint32_t MAX_SHADOW = 5;
-
+    static constexpr uint32_t SHADOW_MAP_CASCADE_COUNT = 4;
+    static constexpr uint32_t MAX_SHADOW = 10;
+    static constexpr uint32_t MAX_CUBE_SHADOW = 5;
+    
     struct ShadowData {
         /**
          * Shadow bias.
@@ -42,34 +44,69 @@ public:
         float cascadeSplits[4];
     };
     
+    struct CubeShadowData {
+        /**
+         * Shadow bias.
+         */
+        float bias = 0.005;
+        /**
+         * Shadow intensity, the larger the value, the clearer and darker the shadow.
+         */
+        float intensity = 0.2;
+        /**
+         * Pixel range used for shadow PCF interpolation.
+         */
+        float radius = 1;
+        /**
+         * Light view projection matrix.(cascade)
+         */
+        Matrix4x4F vp[6];
+        
+        Vector4F lightPos;
+    };
+    
 public:
     ShadowManager(MTL::Library& library, Scene* scene);
     
+private:
     void draw(MTL::CommandBuffer& commandBuffer);
     
-    void drawSpotShadow(MTL::CommandBuffer& commandBuffer);
+    void _drawSpotShadowMap(MTL::CommandBuffer& commandBuffer);
     
-    void drawDirectionShadow(MTL::CommandBuffer& commandBuffer);
-
-    void drawPointShadow(MTL::CommandBuffer& commandBuffer);
+    void _drawDirectShadowMap(MTL::CommandBuffer& commandBuffer);
     
-private:
-    void updateSpotShadowMatrix(SpotLight* light, ShadowManager::ShadowData& shadowData);
+    void _drawPointShadowMap(MTL::CommandBuffer& commandBuffer);
+    
+    void _updateSpotShadowMatrix(SpotLight* light, ShadowManager::ShadowData& shadowData);
     
 private:
     MTL::Library& _library;
     Scene* _scene{nullptr};
+    TextureLoader _resourceLoader;
     
     MTL::RenderPassDescriptor _renderPassDescriptor;
     std::unique_ptr<RenderPass> _renderPass{nullptr};
     ShadowSubpass* _shadowSubpass{nullptr};
     
+    float _cascadeSplitLambda = 0.5f;
     const int _shadowMapSize = 2000; // resolution
+    
+    uint32_t _cubeShadowCount = 0;
+    std::array<MTL::TexturePtr, 6> _cubeMapSlices{};
+    std::vector<MTL::TexturePtr> _cubeShadowMaps{};
+    MTL::TexturePtr _packedCubeTexture{nullptr};
+    std::array<ShadowManager::CubeShadowData, ShadowManager::MAX_CUBE_SHADOW> _cubeShadowDatas{};
+    
     uint32_t _shadowCount = 0;
+    std::array<MTL::TexturePtr, SHADOW_MAP_CASCADE_COUNT> _cascadeShadowMaps{};
     std::vector<MTL::TexturePtr> _shadowMaps{};
-    std::array<ShadowManager::ShadowData, MAX_SHADOW> _shadowDatas{};
-
-    TextureLoader _resourceLoader;
+    MTL::TexturePtr _packedTexture{nullptr};
+    std::array<ShadowManager::ShadowData, ShadowManager::MAX_SHADOW> _shadowDatas{};
+    
+    ShaderProperty _shadowMapProp;
+    ShaderProperty _cubeShadowMapProp;
+    ShaderProperty _shadowDataProp;
+    ShaderProperty _cubeShadowDataProp;
 };
 }
 

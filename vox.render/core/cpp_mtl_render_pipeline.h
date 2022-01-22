@@ -244,7 +244,6 @@ public:
     std::vector<vox::ShaderUniform> cameraUniformBlock{};
     std::vector<vox::ShaderUniform> rendererUniformBlock{};
     std::vector<vox::ShaderUniform> materialUniformBlock{};
-    std::vector<vox::ShaderUniform> internalUniformBlock{};
     
     RenderPipelineState();
     
@@ -322,8 +321,7 @@ inline RenderPipelineState::RenderPipelineState(RenderPipelineState && rhs)
 sceneUniformBlock(rhs.sceneUniformBlock),
 cameraUniformBlock(rhs.cameraUniformBlock),
 rendererUniformBlock(rhs.rendererUniformBlock),
-materialUniformBlock(rhs.materialUniformBlock),
-internalUniformBlock(rhs.internalUniformBlock) {
+materialUniformBlock(rhs.materialUniformBlock) {
     rhs.m_objCObj = nullptr;
     rhs.m_device = nullptr;
 }
@@ -335,7 +333,6 @@ inline RenderPipelineState & RenderPipelineState::operator=(RenderPipelineState 
     cameraUniformBlock = rhs.cameraUniformBlock;
     rendererUniformBlock = rhs.rendererUniformBlock;
     materialUniformBlock = rhs.materialUniformBlock;
-    internalUniformBlock = rhs.internalUniformBlock;
     
     rhs.m_objCObj = nullptr;
     rhs.m_device = nullptr;

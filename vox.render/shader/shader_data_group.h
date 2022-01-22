@@ -19,9 +19,7 @@ enum class ShaderDataGroup {
     /** Renderer group. */
     Renderer,
     /** material group. */
-    Material,
-    /** internal group. */
-    Internal
+    Material
 };
 
 }

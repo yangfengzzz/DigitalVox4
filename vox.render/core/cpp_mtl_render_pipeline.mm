@@ -329,9 +329,6 @@ void RenderPipelineState::_groupingUniform(const vox::ShaderUniform &uniform,
             case vox::ShaderDataGroup::Material:
                 materialUniformBlock.push_back(uniform);
                 break;
-            case vox::ShaderDataGroup::Internal:
-                internalUniformBlock.push_back(uniform);
-                break;
         }
     } else {
         // std::cerr << "Unknown uniform group" << std::endl;
@@ -346,8 +343,7 @@ m_device(rhs.m_device),
 sceneUniformBlock(rhs.sceneUniformBlock),
 cameraUniformBlock(rhs.cameraUniformBlock),
 rendererUniformBlock(rhs.rendererUniformBlock),
-materialUniformBlock(rhs.materialUniformBlock),
-internalUniformBlock(rhs.internalUniformBlock) {
+materialUniformBlock(rhs.materialUniformBlock) {
     
 }
 
@@ -358,7 +354,6 @@ RenderPipelineState & RenderPipelineState::operator=(const RenderPipelineState &
     cameraUniformBlock = rhs.cameraUniformBlock;
     rendererUniformBlock = rhs.rendererUniformBlock;
     materialUniformBlock = rhs.materialUniformBlock;
-    internalUniformBlock = rhs.internalUniformBlock;
     
     return *this;
 }

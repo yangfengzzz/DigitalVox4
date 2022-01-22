@@ -11,7 +11,8 @@
 #include "cpp_mtl_command_queue.h"
 #include "cpp_mtl_types.h"
 #include "cpp_mtl_device.h"
-
+#include "cpp_mtl_texture.h"
+#include <vector>
 
 namespace MTL {
 class Device;
@@ -65,7 +66,22 @@ public:
     
     void addScheduledHandler(CommandBufferHandler &scheduledHandler);
     
+public:
     void synchronizeResource(MTL::Texture& resource);
+    
+    MTL::TexturePtr createTextureArray(const std::vector<MTL::TexturePtr>::iterator &texturesBegin,
+                                       const std::vector<MTL::TexturePtr>::iterator &texturesEnd,
+                                       MTL::TexturePtr packedTextures);
+    
+    MTL::TexturePtr createCubeTextureArray(const std::vector<MTL::TexturePtr>::iterator &texturesBegin,
+                                           const std::vector<MTL::TexturePtr>::iterator &texturesEnd,
+                                           MTL::TexturePtr packedTextures);
+    
+    MTL::TexturePtr createAtlas(const std::array<MTL::TexturePtr, 4> &textures,
+                                MTL::TexturePtr packedTextures);
+    
+    MTL::TexturePtr createCubeAtlas(const std::array<MTL::TexturePtr, 6> &textures,
+                                    MTL::TexturePtr packedTextures);
     
 private:
     

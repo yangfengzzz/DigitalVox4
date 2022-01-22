@@ -6,12 +6,17 @@
 //
 
 #include "shadow_manager.h"
+#include "shader/shader.h"
 
 namespace vox {
 ShadowManager::ShadowManager(MTL::Library& library, Scene* scene):
 _library(library),
 _scene(scene),
-_resourceLoader(*scene->device()) {
+_resourceLoader(*scene->device()),
+_shadowMapProp(Shader::createProperty("u_shadowMap", ShaderDataGroup::Scene)),
+_cubeShadowMapProp(Shader::createProperty("u_cubeShadowMap", ShaderDataGroup::Scene)),
+_shadowDataProp(Shader::createProperty("u_shadowData", ShaderDataGroup::Scene)),
+_cubeShadowDataProp(Shader::createProperty("u_cubeShadowData", ShaderDataGroup::Scene)) {
     scene->registerVertexUploader<std::array<ShadowManager::ShadowData, MAX_SHADOW>>([](const std::array<ShadowManager::ShadowData, MAX_SHADOW> &x,
                                                                                         size_t location, MTL::RenderCommandEncoder& encoder) {
         encoder.setVertexBytes(&x, sizeof(std::array<ShadowManager::ShadowData, MAX_SHADOW>), location);
@@ -40,11 +45,20 @@ _resourceLoader(*scene->device()) {
 }
 
 void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
-    
+    _shadowCount = 0;
+    _drawSpotShadowMap(commandBuffer);
+    _drawDirectShadowMap(commandBuffer);
+    if (_shadowCount) {
+        _packedTexture = commandBuffer.createTextureArray(_shadowMaps.begin(), _shadowMaps.begin() + _shadowCount, _packedTexture);
+    }
+    _cubeShadowCount = 0;
+    _drawPointShadowMap(commandBuffer);
+    if (_cubeShadowCount) {
+        _packedCubeTexture = commandBuffer.createCubeTextureArray(_cubeShadowMaps.begin(), _cubeShadowMaps.begin() + _cubeShadowCount, _packedCubeTexture);
+    }
 }
 
-void ShadowManager::drawSpotShadow(MTL::CommandBuffer& commandBuffer) {
-    _shadowCount = 0;
+void ShadowManager::_drawSpotShadowMap(MTL::CommandBuffer& commandBuffer) {
     const auto &lights = _scene->light_manager.spotLights();
     for (const auto &light: lights) {
         if (light->enableShadow() && _shadowCount < MAX_SHADOW) {
@@ -58,7 +72,7 @@ void ShadowManager::drawSpotShadow(MTL::CommandBuffer& commandBuffer) {
             }
             _renderPassDescriptor.depthAttachment.texture(*texture);
 
-            updateSpotShadowMatrix(light, _shadowDatas[_shadowCount]);
+            _updateSpotShadowMatrix(light, _shadowDatas[_shadowCount]);
             _shadowSubpass->setViewProjectionMatrix(_shadowDatas[_shadowCount].vp[0]);
             _renderPass->draw(commandBuffer, "Spot Shadow Pass");
             _shadowCount++;
@@ -66,15 +80,15 @@ void ShadowManager::drawSpotShadow(MTL::CommandBuffer& commandBuffer) {
     }
 }
 
-void ShadowManager::drawDirectionShadow(MTL::CommandBuffer& commandBuffer) {
+void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer& commandBuffer) {
     
 }
 
-void ShadowManager::drawPointShadow(MTL::CommandBuffer& commandBuffer) {
+void ShadowManager::_drawPointShadowMap(MTL::CommandBuffer& commandBuffer) {
     
 }
 
-void ShadowManager::updateSpotShadowMatrix(SpotLight* light, ShadowManager::ShadowData& shadowData) {
+void ShadowManager::_updateSpotShadowMatrix(SpotLight* light, ShadowManager::ShadowData& shadowData) {
     shadowData.radius = light->shadowRadius();
     shadowData.bias = light->shadowBias();
     shadowData.intensity = light->shadowIntensity();
