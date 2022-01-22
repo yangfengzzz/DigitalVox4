@@ -69,7 +69,7 @@ void IrradianceApp::loadScene(uint32_t width, uint32_t height) {
     
     for (int i = 0; i < 6; i++) {
         auto bakerEntity = rootEntity->createChild("IBL Baker Entity");
-        bakerEntity->transform->setRotation(0, 0, 90);
+        bakerEntity->transform->setRotation(90, 0, 0);
         auto bakerMaterial = std::make_shared<BakerMaterial>();
         auto bakerRenderer = bakerEntity->addComponent<MeshRenderer>();
         bakerRenderer->setMesh(PrimitiveMesh::createPlane(_device.get(), 2, 2));
