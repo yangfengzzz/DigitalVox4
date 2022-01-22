@@ -21,6 +21,7 @@ public:
     static constexpr uint32_t MAX_SHADOW = 10;
     static constexpr uint32_t MAX_CUBE_SHADOW = 5;
     static constexpr uint32_t SHADOW_MAP_RESOLUTION = 2000;
+    static constexpr MTL::PixelFormat SHADOW_MAP_FORMAT = MTL::PixelFormatDepth32Float;
 
     struct ShadowData {
         /**

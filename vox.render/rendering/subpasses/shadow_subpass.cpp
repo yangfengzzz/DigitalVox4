@@ -7,6 +7,7 @@
 #include "shadow_subpass.h"
 #include "rendering/render_pass.h"
 #include "renderer.h"
+#include "lighting/shadow_manager.h"
 
 namespace vox {
 ShadowSubpass::ShadowSubpass(View* view,
@@ -28,7 +29,7 @@ void ShadowSubpass::prepare() {
         renderPipelineDescriptor.vertexDescriptor(nullptr);
         renderPipelineDescriptor.vertexFunction(shadowVertexFunction);
         renderPipelineDescriptor.fragmentFunction(nullptr);
-        renderPipelineDescriptor.depthAttachmentPixelFormat(_pass->renderPassDescriptor()->depthAttachment.texture().pixelFormat());
+        renderPipelineDescriptor.depthAttachmentPixelFormat(ShadowManager::SHADOW_MAP_FORMAT);
         _shadowGenPipelineState = _pass->resourceCache().requestRenderPipelineState(renderPipelineDescriptor);
     }
     

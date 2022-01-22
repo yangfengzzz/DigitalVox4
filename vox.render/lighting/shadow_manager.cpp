@@ -87,7 +87,7 @@ void ShadowManager::_drawSpotShadowMap(MTL::CommandBuffer& commandBuffer) {
                 texture = _shadowMaps[_shadowCount];
             } else {
                 texture = _resourceLoader.buildTexture(SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
-                                                       MTL::PixelFormatDepth32Float);
+                                                       SHADOW_MAP_FORMAT);
                 _shadowMaps.push_back(texture);
             }
             
@@ -111,7 +111,7 @@ void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer& commandBuffer) {
                 texture = _shadowMaps[_shadowCount];
             } else {
                 texture = _resourceLoader.buildTexture(SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
-                                                       MTL::PixelFormatDepth32Float);
+                                                       SHADOW_MAP_FORMAT);
                 _shadowMaps.push_back(texture);
             }
             
@@ -119,7 +119,7 @@ void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer& commandBuffer) {
             for (int i = 0; i < SHADOW_MAP_CASCADE_COUNT; i++) {
                 if (_cascadeShadowMaps[i] == nullptr) {
                     _cascadeShadowMaps[i] = _resourceLoader.buildTexture(SHADOW_MAP_RESOLUTION / 2, SHADOW_MAP_RESOLUTION / 2,
-                                                                         MTL::PixelFormatDepth32Float);
+                                                                         SHADOW_MAP_FORMAT);
                 }
                 
                 _renderPassDescriptor.depthAttachment.texture(*_cascadeShadowMaps[i]);
@@ -141,7 +141,7 @@ void ShadowManager::_drawPointShadowMap(MTL::CommandBuffer& commandBuffer) {
                 texture = _cubeShadowMaps[_cubeShadowCount];
             } else {
                 texture = _resourceLoader.buildCubeTexture(SHADOW_MAP_RESOLUTION,
-                                                           MTL::PixelFormatDepth32Float);
+                                                           SHADOW_MAP_FORMAT);
                 _cubeShadowMaps.push_back(texture);
             }
             
@@ -149,7 +149,7 @@ void ShadowManager::_drawPointShadowMap(MTL::CommandBuffer& commandBuffer) {
             for (int i = 0; i < 6; i++) {
                 if (_cubeMapSlices[i] == nullptr) {
                     _cubeMapSlices[i] = _resourceLoader.buildTexture(SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
-                                                                     MTL::PixelFormatDepth32Float);
+                                                                     SHADOW_MAP_FORMAT);
                 }
                 
                 _renderPassDescriptor.depthAttachment.texture(*_cubeMapSlices[i]);
