@@ -25,7 +25,7 @@ public:
      * @brief Main loop sample events
      */
     void update(float delta_time) override;
-        
+    
     bool resize(uint32_t win_width, uint32_t win_height,
                 uint32_t fb_width, uint32_t fb_height) override;
     
@@ -41,7 +41,6 @@ protected:
      */
     std::unique_ptr<Scene> _scene{nullptr};
     
-private:
     MTL::RenderPassDescriptor _renderPassDescriptor;
     
     /**

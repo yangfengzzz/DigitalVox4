@@ -21,13 +21,13 @@ SkyboxSubpass::SkyboxSubpass(View* view,
 Subpass(view, scene, camera) {
 }
 
-void SkyboxSubpass::createSphere(MTL::Device* device, float radius) {
-    _mesh = PrimitiveMesh::createSphere(device, radius);
+void SkyboxSubpass::createSphere(float radius) {
+    _mesh = PrimitiveMesh::createSphere(&_view->device(), radius);
     _type = SkyBoxType::Sphere;
 }
 
-void SkyboxSubpass::createCuboid(MTL::Device* device) {
-    _mesh = PrimitiveMesh::createCuboid(device, 1, 1, 1);
+void SkyboxSubpass::createCuboid() {
+    _mesh = PrimitiveMesh::createCuboid(&_view->device(), 1, 1, 1);
     _type = SkyBoxType::Cuboid;
 }
 

@@ -7,7 +7,6 @@
 #ifndef background_hpp
 #define background_hpp
 
-#include "sky/sky.h"
 #include "color.h"
 
 namespace vox {
@@ -18,8 +17,6 @@ struct BackgroundMode {
     enum Enum {
         /* Solid color. */
         SolidColor,
-        /* Sky. */
-        Sky,
         /** Texture */
         Texture
     };
@@ -43,12 +40,6 @@ public:
      * @remarks When `mode` is `BackgroundMode.SolidColor`, the property will take effects.
      */
     Color solidColor = Color(0.25, 0.25, 0.25, 1.0);
-    
-    /**
-     * Background sky.
-     * @remarks When `mode` is `BackgroundMode.Sky`, the property will take effects.
-     */
-    Sky sky = Sky();
     
     Background() = default;
 };

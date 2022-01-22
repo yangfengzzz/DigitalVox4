@@ -28,7 +28,7 @@ public:
      * @brief Main loop sample events
      */
     void update(float delta_time) override;
-        
+    
     bool resize(uint32_t win_width, uint32_t win_height,
                 uint32_t fb_width, uint32_t fb_height) override;
     
@@ -54,7 +54,6 @@ protected:
      */
     std::unique_ptr<Scene> _scene{nullptr};
     
-private:
     MTL::RenderPassDescriptor _renderPassDescriptor;
     
     /**
@@ -62,6 +61,7 @@ private:
      */
     std::unique_ptr<RenderPass> _renderPass{nullptr};
     
+private:
     bool _needPick;
     Vector2F _pickPos;
     MTL::PixelFormat _colorPickerFormat;

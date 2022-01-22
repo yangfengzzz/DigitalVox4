@@ -22,9 +22,9 @@ public:
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 public:
-    void createSphere(MTL::Device* device, float radius);
+    void createSphere(float radius);
     
-    void createCuboid(MTL::Device* device);
+    void createCuboid();
     
     /**
      * Texture cube map of the sky box material.
