@@ -82,7 +82,15 @@ private:
     
     void _drawPointShadowMap(MTL::CommandBuffer& commandBuffer);
     
-    void _updateSpotShadowMatrix(SpotLight* light, ShadowManager::ShadowData& shadowData);
+    void _updateSpotShadow(SpotLight* light, ShadowManager::ShadowData& shadowData);
+    
+    /*
+     * Calculate frustum split depths and matrices for the shadow map cascades
+     * Based on https://johanmedestrom.wordpress.com/2016/03/18/opengl-cascaded-shadow-maps/
+     */
+    void _updateCascadesShadow(DirectLight *light);
+    
+    void _updatePointShadow(PointLight *light, ShadowManager::CubeShadowData& shadowData);
     
 private:
     MTL::Library& _library;
@@ -110,6 +118,15 @@ private:
     std::array<ShadowManager::CubeShadowData, ShadowManager::MAX_CUBE_SHADOW> _cubeShadowDatas{};
     MTL::TexturePtr _packedTexture{nullptr};
     std::array<ShadowManager::ShadowData, ShadowManager::MAX_SHADOW> _shadowDatas{};
+    
+    const std::array<std::pair<Vector3F, Vector3F>, 6> _cubeMapDirection = {
+        std::make_pair(Vector3F(10, 0, 0), Vector3F(0, 1, 0)),
+        std::make_pair(Vector3F(-10, 0, 0), Vector3F(0, 1, 0)),
+        std::make_pair(Vector3F(0, 10, 0), Vector3F(1, 0, 0)),
+        std::make_pair(Vector3F(0, -10, 0), Vector3F(1, 0, 0)),
+        std::make_pair(Vector3F(0, 0, 10), Vector3F(0, 1, 0)),
+        std::make_pair(Vector3F(0, 0, -10), Vector3F(0, 1, 0)),
+    };
 };
 }
 

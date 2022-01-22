@@ -30,10 +30,6 @@ public:
 public:
     Matrix4x4F shadowProjectionMatrix() override;
     
-    void updateShadowMatrix();
-    
-    CubeShadowData shadow;
-    
 private:
     /**
      * Mount to the current Scene.
@@ -49,15 +45,6 @@ private:
     
 private:
     friend class LightManager;
-    
-    const std::array<std::pair<Vector3F, Vector3F>, 6> cubeMapDirection = {
-        std::make_pair(Vector3F(10, 0, 0), Vector3F(0, 1, 0)),
-        std::make_pair(Vector3F(-10, 0, 0), Vector3F(0, 1, 0)),
-        std::make_pair(Vector3F(0, 10, 0), Vector3F(1, 0, 0)),
-        std::make_pair(Vector3F(0, -10, 0), Vector3F(1, 0, 0)),
-        std::make_pair(Vector3F(0, 0, 10), Vector3F(0, 1, 0)),
-        std::make_pair(Vector3F(0, 0, -10), Vector3F(0, 1, 0)),
-    };
 };
 
 }

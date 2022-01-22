@@ -43,7 +43,7 @@ void AnimationApp::loadScene(uint32_t width, uint32_t height) {
     auto light2 = rootEntity->createChild("light3");
     auto directLight = light2->addComponent<DirectLight>();
     directLight->intensity = 0.2;
-    directLight->shadow.intensity = 0.2;
+    directLight->setShadowIntensity(0.2);
     directLight->setEnableShadow(true);
     
     auto resourceLoader = TextureLoader(*_device);

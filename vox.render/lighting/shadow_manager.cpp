@@ -84,7 +84,7 @@ void ShadowManager::_drawSpotShadowMap(MTL::CommandBuffer& commandBuffer) {
             }
             _renderPassDescriptor.depthAttachment.texture(*texture);
 
-            _updateSpotShadowMatrix(light, _shadowDatas[_shadowCount]);
+            _updateSpotShadow(light, _shadowDatas[_shadowCount]);
             _shadowSubpass->setViewProjectionMatrix(_shadowDatas[_shadowCount].vp[0]);
             _renderPass->draw(commandBuffer, "Spot Shadow Pass");
             _shadowCount++;
@@ -100,7 +100,7 @@ void ShadowManager::_drawPointShadowMap(MTL::CommandBuffer& commandBuffer) {
     
 }
 
-void ShadowManager::_updateSpotShadowMatrix(SpotLight* light, ShadowManager::ShadowData& shadowData) {
+void ShadowManager::_updateSpotShadow(SpotLight* light, ShadowManager::ShadowData& shadowData) {
     shadowData.radius = light->shadowRadius();
     shadowData.bias = light->shadowBias();
     shadowData.intensity = light->shadowIntensity();
@@ -110,6 +110,26 @@ void ShadowManager::_updateSpotShadowMatrix(SpotLight* light, ShadowManager::Sha
     shadowData.vp[0] = projMatrix * viewMatrix;
     shadowData.cascadeSplits[0] = 1;
     shadowData.cascadeSplits[1] = -1; // mark cascade with negative sign
+}
+
+void ShadowManager::_updateCascadesShadow(DirectLight *light) {
+    
+}
+
+void ShadowManager::_updatePointShadow(PointLight *light, ShadowManager::CubeShadowData& shadowData) {
+    shadowData.radius = light->shadowRadius();
+    shadowData.bias = light->shadowBias();
+    shadowData.intensity = light->shadowIntensity();
+    
+    auto projMatrix = light->shadowProjectionMatrix();
+    auto worldPos = light->entity()->transform->worldPosition();
+    shadowData.lightPos = Vector4F(worldPos.x, worldPos.y, worldPos.z, 1.0);
+    
+    for (int i = 0; i < 6; i++) {
+        light->entity()->transform->lookAt(worldPos + _cubeMapDirection[i].first, _cubeMapDirection[i].second);
+        auto viewMatrix = light->entity()->transform->worldMatrix().inverse();
+        shadowData.vp[i] = projMatrix * viewMatrix;
+    }
 }
 
 }
