@@ -81,26 +81,80 @@ void ShadowManager::_drawSpotShadowMap(MTL::CommandBuffer& commandBuffer) {
             if (_shadowCount < _shadowMaps.size()) {
                 texture = _shadowMaps[_shadowCount];
             } else {
-                texture = _resourceLoader.buildTexture(_shadowMapSize, _shadowMapSize,
+                texture = _resourceLoader.buildTexture(SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
                                                        MTL::PixelFormatDepth32Float);
                 _shadowMaps.push_back(texture);
             }
-            _renderPassDescriptor.depthAttachment.texture(*texture);
             
             _updateSpotShadow(light, _shadowDatas[_shadowCount]);
-            _shadowSubpass->setViewProjectionMatrix(_shadowDatas[_shadowCount].vp[0]);
-            _renderPass->draw(commandBuffer, "Spot Shadow Pass");
+            {
+                _renderPassDescriptor.depthAttachment.texture(*texture);
+                _shadowSubpass->setViewProjectionMatrix(_shadowDatas[_shadowCount].vp[0]);
+                _renderPass->draw(commandBuffer, "Spot Shadow Pass");
+            }
             _shadowCount++;
         }
     }
 }
 
 void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer& commandBuffer) {
-    
+    const auto &lights = _scene->light_manager.directLights();
+    for (const auto &light: lights) {
+        if (light->enableShadow() && _shadowCount < MAX_SHADOW) {
+            MTL::TexturePtr texture = nullptr;
+            if (_shadowCount < _shadowMaps.size()) {
+                texture = _shadowMaps[_shadowCount];
+            } else {
+                texture = _resourceLoader.buildTexture(SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
+                                                       MTL::PixelFormatDepth32Float);
+                _shadowMaps.push_back(texture);
+            }
+            
+            _updateCascadesShadow(light, _shadowDatas[_shadowCount]);
+            for (int i = 0; i < SHADOW_MAP_CASCADE_COUNT; i++) {
+                if (_cascadeShadowMaps[i] == nullptr) {
+                    _cascadeShadowMaps[i] = _resourceLoader.buildTexture(SHADOW_MAP_RESOLUTION / 2, SHADOW_MAP_RESOLUTION / 2,
+                                                                         MTL::PixelFormatDepth32Float);
+                }
+                
+                _renderPassDescriptor.depthAttachment.texture(*_cascadeShadowMaps[i]);
+                _shadowSubpass->setViewProjectionMatrix(_shadowDatas[_shadowCount].vp[i]);
+                _renderPass->draw(commandBuffer, "Direct Shadow Pass");
+            }
+            texture = commandBuffer.createAtlas(_cascadeShadowMaps, texture);
+            _shadowCount++;
+        }
+    }
 }
 
 void ShadowManager::_drawPointShadowMap(MTL::CommandBuffer& commandBuffer) {
-    
+    const auto &lights = _scene->light_manager.pointLights();
+    for (const auto &light: lights) {
+        if (light->enableShadow() && _cubeShadowCount < MAX_CUBE_SHADOW) {
+            MTL::TexturePtr texture = nullptr;
+            if (_cubeShadowCount < _cubeShadowMaps.size()) {
+                texture = _cubeShadowMaps[_cubeShadowCount];
+            } else {
+                texture = _resourceLoader.buildCubeTexture(SHADOW_MAP_RESOLUTION,
+                                                           MTL::PixelFormatDepth32Float);
+                _cubeShadowMaps.push_back(texture);
+            }
+            
+            _updatePointShadow(light, _cubeShadowDatas[_cubeShadowCount]);
+            for (int i = 0; i < 6; i++) {
+                if (_cubeMapSlices[i] == nullptr) {
+                    _cubeMapSlices[i] = _resourceLoader.buildTexture(SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
+                                                                     MTL::PixelFormatDepth32Float);
+                }
+                
+                _renderPassDescriptor.depthAttachment.texture(*_cubeMapSlices[i]);
+                _shadowSubpass->setViewProjectionMatrix(_cubeShadowDatas[_cubeShadowCount].vp[i]);
+                _renderPass->draw(commandBuffer, "Point Shadow Pass");
+            }
+            texture = commandBuffer.createCubeAtlas(_cubeMapSlices, texture);
+            _cubeShadowCount++;
+        }
+    }
 }
 
 void ShadowManager::_updateSpotShadow(SpotLight* light, ShadowManager::ShadowData& shadowData) {
