@@ -111,6 +111,8 @@ private:
     std::array<MTL::TexturePtr, SHADOW_MAP_CASCADE_COUNT> _cascadeShadowMaps{};
     std::vector<MTL::TexturePtr> _shadowMaps{};
     
+    ShaderProperty _shadowCountProp;
+    ShaderProperty _cubeShadowCountProp;
     ShaderProperty _shadowMapProp;
     ShaderProperty _cubeShadowMapProp;
     ShaderProperty _shadowDataProp;

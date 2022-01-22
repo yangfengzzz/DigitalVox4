@@ -19,7 +19,9 @@ _resourceLoader(*scene->device()),
 _shadowMapProp(Shader::createProperty("u_shadowMap", ShaderDataGroup::Scene)),
 _cubeShadowMapProp(Shader::createProperty("u_cubeShadowMap", ShaderDataGroup::Scene)),
 _shadowDataProp(Shader::createProperty("u_shadowData", ShaderDataGroup::Scene)),
-_cubeShadowDataProp(Shader::createProperty("u_cubeShadowData", ShaderDataGroup::Scene)) {
+_cubeShadowDataProp(Shader::createProperty("u_cubeShadowData", ShaderDataGroup::Scene)),
+_shadowCountProp(Shader::createProperty("u_shadowCount", ShaderDataGroup::Scene)),
+_cubeShadowCountProp(Shader::createProperty("u_cubeShadowCount", ShaderDataGroup::Scene)) {
     scene->registerVertexUploader<std::array<ShadowManager::ShadowData, MAX_SHADOW>>([](const std::array<ShadowManager::ShadowData, MAX_SHADOW> &x,
                                                                                         size_t location, MTL::RenderCommandEncoder& encoder) {
         encoder.setVertexBytes(&x, sizeof(std::array<ShadowManager::ShadowData, MAX_SHADOW>), location);
@@ -59,13 +61,16 @@ void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
     _shadowCount = 0;
     _drawSpotShadowMap(commandBuffer);
     _drawDirectShadowMap(commandBuffer);
+    _scene->shaderData.setData(_shadowCountProp, _shadowCount);
     if (_shadowCount) {
         _packedTexture = commandBuffer.createTextureArray(_shadowMaps.begin(), _shadowMaps.begin() + _shadowCount, _packedTexture);
         _scene->shaderData.setData(_shadowMapProp, _packedTexture);
         _scene->shaderData.setData(_shadowDataProp, _shadowDatas);
     }
+    
     _cubeShadowCount = 0;
     _drawPointShadowMap(commandBuffer);
+    _scene->shaderData.setData(_cubeShadowCountProp, _cubeShadowCount);
     if (_cubeShadowCount) {
         _packedCubeTexture = commandBuffer.createCubeTextureArray(_cubeShadowMaps.begin(), _cubeShadowMaps.begin() + _cubeShadowCount, _packedCubeTexture);
         _scene->shaderData.setData(_cubeShadowMapProp, _packedCubeTexture);

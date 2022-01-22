@@ -62,6 +62,14 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
     for (auto &element : items) {
         auto macros = compileMacros;
         auto renderer = element.renderer;
+        uint32_t shadowCount = std::any_cast<uint32_t>(_scene->shaderData.getData("u_shadowCount"));
+        if (renderer->receiveShadow && shadowCount != 0) {
+            renderer->shaderData.enableMacro(SHADOW_MAP_COUNT, std::make_pair(shadowCount, MTL::DataTypeInt));
+        }
+        uint32_t cubeShadowCount = std::any_cast<uint32_t>(_scene->shaderData.getData("u_cubeShadowCount"));
+        if (renderer->receiveShadow && cubeShadowCount != 0) {
+            renderer->shaderData.enableMacro(CUBE_SHADOW_MAP_COUNT, std::make_pair(cubeShadowCount, MTL::DataTypeInt));
+        }
         renderer->shaderData.mergeMacro(macros, macros);
         
         auto material = element.material;
