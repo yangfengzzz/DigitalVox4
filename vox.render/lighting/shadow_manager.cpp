@@ -44,7 +44,7 @@ _cubeShadowCountProp(Shader::createProperty("u_cubeShadowCount", ShaderDataGroup
     
     _renderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
     _renderPass = std::make_unique<RenderPass>(_library, &_renderPassDescriptor);
-    auto shadowSubpass = std::make_unique<ShadowSubpass>(nullptr, _scene, nullptr);
+    auto shadowSubpass = std::make_unique<ShadowSubpass>(nullptr, _scene, _camera);
     _shadowSubpass = shadowSubpass.get();
     _renderPass->addSubpass(std::move(shadowSubpass));
 }
