@@ -33,10 +33,7 @@ vertex VertexOut vertex_particle(const VertexIn vertexIn [[stage_in]],
 
 fragment float4 fragment_particle(VertexOut in [[stage_in]],
                                   texture2d<float> u_particleTexture [[texture(0)]],
-                                  float2 point [[point_coord]]) {
-    constexpr sampler textureSampler(coord::normalized, filter::linear,
-                                     address::clamp_to_edge, compare_func:: less);
-    
+                                  float2 point [[point_coord]]) {    
     if (length(point - float2(0.5)) > 0.5) {
         discard_fragment();
     }
