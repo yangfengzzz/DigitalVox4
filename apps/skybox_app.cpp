@@ -21,7 +21,7 @@ bool SkyboxApp::prepare(Engine &engine) {
     
     auto skybox = std::make_unique<SkyboxSubpass>(_renderView.get(), _scene.get(), _mainCamera);
     skybox->createCuboid();
-    skybox->setTextureCubeMap(resourceLoader.loadTexture("/Users/yangfeng/Desktop/Vulkan/data/textures",
+    skybox->setTextureCubeMap(resourceLoader.loadTexture("../assets/SkyMap",
                                                          "cubemap_yokohama_rgba.ktx"));
     _renderPass->addSubpass(std::move(skybox));
     
