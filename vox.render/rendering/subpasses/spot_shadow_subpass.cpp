@@ -4,20 +4,20 @@
 //  personal capacity and am not conveying any rights to any intellectual
 //  property of any third parties.
 
-#include "shadow_subpass.h"
+#include "spot_shadow_subpass.h"
 #include "rendering/render_pass.h"
 #include "material/material.h"
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
 namespace vox {
-ShadowSubpass::ShadowSubpass(View* view,
-                             Scene* scene,
-                             Camera* camera):
+SpotShadowSubpass::SpotShadowSubpass(View* view,
+                                     Scene* scene,
+                                     Camera* camera):
 Subpass(view, scene, camera) {
 }
 
-void ShadowSubpass::prepare() {
+void SpotShadowSubpass::prepare() {
 #pragma mark Shadow pass render pipeline setup
     {
         MTL::Function *shadowVertexFunction = _pass->library().newFunctionWithName("shadow_vertex");
@@ -38,11 +38,11 @@ void ShadowSubpass::prepare() {
     }
 }
 
-void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
+void SpotShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.label("Shadow Map Pass");
     
-    auto _shadowGenPipelineState = _view->device().resourceCache().requestRenderPipelineState(_shadowGenPipelineDescriptor);
-    commandEncoder.setRenderPipelineState(_shadowGenPipelineState);
+    auto _shadowGenPipelineState = _pass->resourceCache().requestRenderPipelineState(_shadowGenPipelineDescriptor);
+    commandEncoder.setRenderPipelineState(*_shadowGenPipelineState);
     commandEncoder.setDepthStencilState(_shadowDepthStencilState);
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setDepthBias(0.015, 7, 0.02);
@@ -51,14 +51,12 @@ void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     drawMeshes(commandEncoder);
 }
 
-void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
-    Matrix4x4F viewMat;
-    Matrix4x4F projMat;
+void SpotShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
+    BoundingFrustum frustum;
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
-    _scene->_componentsManager.callRender(viewMat, projMat,
-                                          opaqueQueue, alphaTestQueue, transparentQueue);
+    _scene->_componentsManager.callRender(frustum, opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
         // reflection

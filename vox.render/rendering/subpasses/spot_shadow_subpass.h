@@ -12,11 +12,11 @@
 #include <vector>
 
 namespace vox {
-class ShadowSubpass: public Subpass {
+class SpotShadowSubpass: public Subpass {
 public:
-    ShadowSubpass(View* view,
-                  Scene* scene,
-                  Camera* camera);
+    SpotShadowSubpass(View* view,
+                      Scene* scene,
+                      Camera* camera);
     
     void prepare() override;
     
