@@ -2109,10 +2109,10 @@
 				04CD93F8279A974F0093D6CB /* fbx_loader.cpp */,
 				04CD93FF279A9C6D0093D6CB /* animator_loader.h */,
 				04CD93FE279A9C6D0093D6CB /* animator_loader.cpp */,
-				04229570278C32FA0090983F /* texture_loader.h */,
-				04229583278C32FA0090983F /* texture_loader.mm */,
 				04459376278FFE3100F04CE0 /* modelio_loader.h */,
 				04459380278FFE3100F04CE0 /* modelio_loader.mm */,
+				04229570278C32FA0090983F /* texture_loader.h */,
+				04229583278C32FA0090983F /* texture_loader.mm */,
 			);
 			path = loader;
 			sourceTree = "<group>";
