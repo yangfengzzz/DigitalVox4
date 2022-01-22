@@ -493,7 +493,6 @@ float3 getPbrNormal(VertexOut in, float u_normalIntensity,
 }
 
 fragment float4 fragment_pbr(VertexOut in [[stage_in]],
-                             sampler textureSampler [[sampler(0)]],
                              // common_frag
                              constant matrix_float4x4 &u_localMat [[buffer(0)]],
                              constant matrix_float4x4 &u_modelMat [[buffer(1)]],
@@ -532,6 +531,9 @@ fragment float4 fragment_pbr(VertexOut in [[stage_in]],
                              texture2d<float> u_specularGlossinessTexture [[texture(8), function_constant(hasSpecularGlossinessMap)]],
                              texture2d<float> u_occlusionTexture [[texture(9), function_constant(hasOcclusionMap)]],
                              bool is_front_face [[front_facing]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     GeometricContext geometry;
     geometry.position = in.v_pos;
     geometry.normal = getPbrNormal(in, u_normalIntensity, textureSampler, u_normalTexture, is_front_face);

@@ -103,7 +103,6 @@ float3 renderSkin(Lighting lighting) {
 }
 
 fragment float4 skin_fragment(VertexOut in [[stage_in]],
-                                sampler textureSampler [[sampler(0)]],
                                 // common_frag
                                 constant matrix_float4x4 &u_localMat [[buffer(0)]],
                                 constant matrix_float4x4 &u_modelMat [[buffer(1)]],
@@ -148,6 +147,9 @@ fragment float4 skin_fragment(VertexOut in [[stage_in]],
                                 texturecube<float> u_skybox [[texture(9)]],
                                 texturecube<float> u_skyboxDiffuse [[texture(10)]],
                                 texture2d<float> u_brdfLut [[texture(11)]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     // extract color
     float3 baseColor;
     if (hasBaseColorMap) {

@@ -31,15 +31,17 @@ vertex VertexOut vertex_cubemap(const VertexIn in [[stage_in]],
 }
 
 fragment float4 fragment_cubemap(VertexOut in [[stage_in]],
-                                 sampler textureSampler [[sampler(0)]],
                                  texture2d<float> u_baseTexture [[texture(0)]],
                                  constant int& u_faceIndex [[buffer(2)]]) {
+    constexpr sampler s(coord::normalized, filter::linear,
+                        address::clamp_to_edge, compare_func:: less);
+    
     float2 uv = in.v_uv;
     if (u_faceIndex == 2 || u_faceIndex == 3) {
         uv.y = 1 - uv.y;
     }
     
-    float4 baseColor = u_baseTexture.sample(textureSampler, uv);
+    float4 baseColor = u_baseTexture.sample(s, uv);
     
     return float4(baseColor.z, baseColor.y, baseColor.x, 1);
 }

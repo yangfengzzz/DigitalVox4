@@ -92,10 +92,12 @@ vertex VertexOut vertex_unlit(const VertexIn in [[stage_in]],
 }
 
 fragment float4 fragment_unlit(VertexOut in [[stage_in]],
-                               sampler textureSampler [[sampler(0)]],
                                constant float4 &u_baseColor [[buffer(0)]],
                                constant float &u_alphaCutoff [[buffer(1)]],
                                texture2d<float> u_baseTexture [[texture(0), function_constant(hasBaseTexture)]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     float4 baseColor = u_baseColor;
     
     if (hasBaseTexture) {

@@ -56,16 +56,20 @@ float LinearizeDepth(float depth) {
 }
 
 fragment float4 fragment_shadow_debugger(VertexOut in [[stage_in]],
-                                         sampler textureSampler [[sampler(0)]],
                                          texture2d_array<float> u_shadowMap [[texture(0)]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     float depth = u_shadowMap.sample(textureSampler, in.v_uv, 0).r;
     return float4(float3(1.0-LinearizeDepth(depth)), 1.0);
 }
 
 fragment float4 fragment_cascade_shadow_debugger(VertexOut in [[stage_in]],
-                                                 sampler textureSampler [[sampler(0)]],
                                                  constant ShadowData* u_shadowData [[buffer(27), function_constant(hasShadow)]],
                                                  depth2d_array<float> u_shadowMap [[texture(5), function_constant(hasShadow)]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     // Get cascade index for the current fragment's view position
     uint cascadeIndex = 0;
     for(uint i = 0; i < 4 - 1; ++i) {

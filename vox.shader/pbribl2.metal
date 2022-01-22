@@ -97,7 +97,6 @@ float3 render(Lighting lighting) {
 }
 
 fragment float4 fragment_experimental(VertexOut in [[stage_in]],
-                                      sampler textureSampler [[sampler(0)]],
                                       // common_frag
                                       constant matrix_float4x4 &u_localMat [[buffer(0)]],
                                       constant matrix_float4x4 &u_modelMat [[buffer(1)]],
@@ -144,6 +143,9 @@ fragment float4 fragment_experimental(VertexOut in [[stage_in]],
                                       texture2d<float> u_specularTexture [[texture(7), function_constant(hasSpecularMap)]],
                                       texture2d<float> u_glossinessTexture [[texture(8), function_constant(hasGlossinessMap)]],
                                       texture2d<float> u_occlusionTexture [[texture(79), function_constant(hasOcclusionMap)]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     // extract color
     float3 baseColor;
     if (hasBaseColorMap) {

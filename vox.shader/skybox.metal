@@ -28,7 +28,9 @@ vertex VertexOut vertex_skybox(const VertexIn in [[stage_in]],
 }
 
 fragment float4 fragment_skybox(VertexOut in [[stage_in]],
-                                sampler textureSampler [[sampler(0)]],
                                 texturecube<float> u_skybox [[texture(0)]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     return u_skybox.sample(textureSampler, in.v_cubeUV);
 }

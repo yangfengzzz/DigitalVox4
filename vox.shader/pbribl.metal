@@ -112,7 +112,6 @@ float3 specularContribution(float3 L, float3 V, float3 N, float3 F0,
 }
 
 fragment float4 fragment_experimental(VertexOut in [[stage_in]],
-                                      sampler textureSampler [[sampler(0)]],
                                       constant float3 &u_cameraPos [[buffer(5)]],
                                       constant float &exposure [[buffer(6)]],
                                       constant EnvMapLight &u_envMapLight [[buffer(8)]],
@@ -141,6 +140,9 @@ fragment float4 fragment_experimental(VertexOut in [[stage_in]],
                                       texture2d<float> u_specularTexture [[texture(7), function_constant(hasSpecularMap)]],
                                       texture2d<float> u_glossinessTexture [[texture(8), function_constant(hasGlossinessMap)]],
                                       texture2d<float> u_occlusionTexture [[texture(9), function_constant(hasOcclusionMap)]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     float3 N = normalize(in.normal);
     float3 V = normalize(u_cameraPos - in.worldPos);
     float3 R = reflect(-V, N);

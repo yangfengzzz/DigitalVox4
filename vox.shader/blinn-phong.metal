@@ -210,7 +210,6 @@ float3 getNormal(VertexOut in, float u_normalIntensity,
 }
 
 fragment float4 fragment_blinn_phong(VertexOut in [[stage_in]],
-                                     sampler textureSampler [[sampler(0)]],
                                      constant matrix_float4x4 &u_localMat [[buffer(0)]],
                                      constant matrix_float4x4 &u_modelMat [[buffer(1)]],
                                      constant matrix_float4x4 &u_viewMat [[buffer(2)]],
@@ -240,6 +239,9 @@ fragment float4 fragment_blinn_phong(VertexOut in [[stage_in]],
                                      texture2d<float> u_specularTexture [[texture(5), function_constant(hasSpecularTexture)]],
                                      texture2d<float> u_normalTexture [[texture(6), function_constant(hasNormalTexture)]],
                                      bool is_front_face [[front_facing]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     float4 ambient = float4(0.0);
     float4 emission = u_emissiveColor;
     float4 diffuse = u_diffuseColor;
@@ -356,7 +358,6 @@ struct GBufferData {
 };
 
 fragment GBufferData deferred_fragment_blinn_phong(VertexOut in [[stage_in]],
-                                                   sampler textureSampler [[sampler(0)]],
                                                    constant ShadowData* u_shadowData [[buffer(1), function_constant(hasShadow)]],
                                                    constant CubeShadowData* u_cubeShadowData [[buffer(2), function_constant(hasCubeShadow)]],
                                                    depth2d_array<float> u_shadowMap [[texture(1), function_constant(hasShadow)]],
@@ -372,6 +373,9 @@ fragment GBufferData deferred_fragment_blinn_phong(VertexOut in [[stage_in]],
                                                    texture2d<float> u_specularTexture [[texture(5), function_constant(hasSpecularTexture)]],
                                                    texture2d<float> u_normalTexture [[texture(6), function_constant(hasNormalTexture)]],
                                                    bool is_front_face [[front_facing]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     float4 emission = u_emissiveColor;
     float4 diffuse = u_diffuseColor;
     float4 specular = u_specularColor;

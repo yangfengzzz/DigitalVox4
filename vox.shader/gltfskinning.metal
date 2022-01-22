@@ -62,7 +62,6 @@ vertex VertexOut vertex_experimental(const VertexIn vertexIn [[stage_in]],
 }
 
 fragment float4 fragment_experimental(VertexOut in [[stage_in]],
-                                      sampler textureSampler [[sampler(0)]],
                                       //pbr base frag define
                                       constant float &u_alphaCutoff [[buffer(21)]],
                                       constant float4 &u_baseColor [[buffer(22)]],
@@ -79,6 +78,9 @@ fragment float4 fragment_experimental(VertexOut in [[stage_in]],
                                       texture2d<float> u_emissiveTexture [[texture(3), function_constant(hasEmissiveMap)]],
                                       texture2d<float> u_metallicRoughnessTexture [[texture(4), function_constant(hasMetalRoughnessMap)]],
                                       texture2d<float> u_occlusionTexture [[texture(7), function_constant(hasOcclusionMap)]]) {
+    constexpr sampler textureSampler(coord::normalized, filter::linear,
+                                     address::clamp_to_edge, compare_func:: less);
+    
     float4 color = u_baseColorTexture.sample(textureSampler, in.uv);
 
     float3 N = normalize(in.normal);
