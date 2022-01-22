@@ -427,6 +427,8 @@
 		04460436279BCC5A009108C8 /* scene_animation_clip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460434279BCC5A009108C8 /* scene_animation_clip.cpp */; };
 		04460439279BCE3B009108C8 /* scene_animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460437279BCE3B009108C8 /* scene_animator.cpp */; };
 		0446043A279BCE3B009108C8 /* scene_animator.h in Headers */ = {isa = PBXBuildFile; fileRef = 04460438279BCE3B009108C8 /* scene_animator.h */; };
+		0446043D279BD568009108C8 /* gpu_skinned_mesh_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0446043B279BD568009108C8 /* gpu_skinned_mesh_renderer.h */; };
+		0446043E279BD568009108C8 /* gpu_skinned_mesh_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446043C279BD568009108C8 /* gpu_skinned_mesh_renderer.cpp */; };
 		04B4ACC1279835BB0020576D /* spot_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971027981DF500F04CE0 /* spot_light.cpp */; };
 		04B4ACC2279836200020576D /* point_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445970C27981C3A00F04CE0 /* point_light.cpp */; };
 		04B4ACC527983DCD0020576D /* model_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACC327983DCD0020576D /* model_mesh.cpp */; };
@@ -1109,6 +1111,8 @@
 		04460434279BCC5A009108C8 /* scene_animation_clip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_animation_clip.cpp; sourceTree = "<group>"; };
 		04460437279BCE3B009108C8 /* scene_animator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_animator.cpp; sourceTree = "<group>"; };
 		04460438279BCE3B009108C8 /* scene_animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_animator.h; sourceTree = "<group>"; };
+		0446043B279BD568009108C8 /* gpu_skinned_mesh_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_skinned_mesh_renderer.h; sourceTree = "<group>"; };
+		0446043C279BD568009108C8 /* gpu_skinned_mesh_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_skinned_mesh_renderer.cpp; sourceTree = "<group>"; };
 		04B4ACC327983DCD0020576D /* model_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = model_mesh.cpp; sourceTree = "<group>"; };
 		04B4ACC427983DCD0020576D /* model_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = model_mesh.h; sourceTree = "<group>"; };
 		04B4ACC82798EB3C0020576D /* primitive_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = primitive_app.cpp; sourceTree = "<group>"; };
@@ -1960,6 +1964,8 @@
 				0445941C279292E000F04CE0 /* mesh_renderer.cpp */,
 				04CD9406279A9FF00093D6CB /* skinned_mesh_renderer.h */,
 				04CD9407279A9FF00093D6CB /* skinned_mesh_renderer.cpp */,
+				0446043B279BD568009108C8 /* gpu_skinned_mesh_renderer.h */,
+				0446043C279BD568009108C8 /* gpu_skinned_mesh_renderer.cpp */,
 			);
 			path = mesh;
 			sourceTree = "<group>";
@@ -2272,6 +2278,7 @@
 				044596502796EFD900F04CE0 /* subpass.h in Headers */,
 				04CD93F0279A841F0093D6CB /* animator_controller.h in Headers */,
 				0445962D2796EB4900F04CE0 /* engine.h in Headers */,
+				0446043D279BD568009108C8 /* gpu_skinned_mesh_renderer.h in Headers */,
 				044596362796EE4F00F04CE0 /* modelio_loader.h in Headers */,
 				0445960B2796E88B00F04CE0 /* cpp_mtl_internal_macros.h in Headers */,
 				0445967C2796F87C00F04CE0 /* blend_mode.h in Headers */,
@@ -2686,6 +2693,7 @@
 				0445969E2796F99100F04CE0 /* entity.cpp in Sources */,
 				0445971A27981EF500F04CE0 /* light_manager.cpp in Sources */,
 				0445964A2796EF9500F04CE0 /* math_utilities.cpp in Sources */,
+				0446043E279BD568009108C8 /* gpu_skinned_mesh_renderer.cpp in Sources */,
 				044596682796F85C00F04CE0 /* depth_state.cpp in Sources */,
 				04CD93A227999C960093D6CB /* color_picker_subpass.cpp in Sources */,
 				0445967F2796F87C00F04CE0 /* material.cpp in Sources */,
