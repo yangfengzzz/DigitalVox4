@@ -18,13 +18,14 @@
 #include "Irradiance_app.h"
 #include "skybox_app.h"
 #include "ibl_app.h"
+#include "gltf_app.h"
 
 int main(int argc, char * argv[]) {
     vox::UnixEngine engine{vox::UnixType::Mac, argc, argv};
         
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::IBLApp>());
+        engine.setApp(std::make_unique<vox::GLTFApp>());
         code = engine.mainLoop();
     }
     
