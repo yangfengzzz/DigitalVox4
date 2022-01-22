@@ -59,20 +59,23 @@ void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     _scene->_componentsManager.callRender(BoundingFrustum(_vp), opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
-        renderEncoder.setVertexBytes(element.renderer->entity()->transform->worldMatrix().data(), sizeof(Matrix4x4F), 11);
+        auto renderer = element.renderer;
+        if (renderer->castShadow) {
+            renderEncoder.setVertexBytes(renderer->entity()->transform->worldMatrix().data(), sizeof(Matrix4x4F), 12);
 
-        auto& submesh = element.subMesh;
-        auto& mesh = element.mesh;
-        for (auto &meshBuffer: mesh->vertexBuffers()) {
-            renderEncoder.setVertexBuffer(meshBuffer.buffer(),
-                                          meshBuffer.offset(),
-                                          meshBuffer.argumentIndex());
+            auto& submesh = element.subMesh;
+            auto& mesh = element.mesh;
+            for (auto &meshBuffer: mesh->vertexBuffers()) {
+                renderEncoder.setVertexBuffer(meshBuffer.buffer(),
+                                              meshBuffer.offset(),
+                                              meshBuffer.argumentIndex());
+            }
+            renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
+                                                submesh->indexCount(),
+                                                submesh->indexType(),
+                                                submesh->indexBuffer().buffer(),
+                                                submesh->indexBuffer().offset());
         }
-        renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
-                                            submesh->indexCount(),
-                                            submesh->indexType(),
-                                            submesh->indexBuffer().buffer(),
-                                            submesh->indexBuffer().offset());
     }
 }
 

@@ -35,18 +35,38 @@ public:
     Matrix4x4F inverseViewMatrix();
     
 public:
-    bool enableShadow() {
-        return _enableShadow;
-    }
+    bool enableShadow();
     
-    void setEnableShadow(bool enabled) {
-        _enableShadow = enabled;
-    }
+    void setEnableShadow(bool enabled);
+    
+    /**
+     * Shadow bias.
+     */
+    float shadowBias();
+    
+    void setShadowBias(float value);
+    
+    /**
+     * Shadow intensity, the larger the value, the clearer and darker the shadow.
+     */
+    float shadowIntensity();
+    
+    void setShadowIntensity(float value);
+    
+    /**
+     * Pixel range used for shadow PCF interpolation.
+     */
+    float shadowRadius();
+    
+    void setShadowRadius(float value);
     
     virtual Matrix4x4F shadowProjectionMatrix() = 0;
     
 private:
     bool _enableShadow = false;
+    float _shadowBias = 0.005;
+    float _shadowIntensity = 0.2;
+    float _shadowRadius = 1;
 };
 
 }

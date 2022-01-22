@@ -34,10 +34,6 @@ public:
 public:
     Matrix4x4F shadowProjectionMatrix() override;
     
-    void updateShadowMatrix();
-    
-    ShadowData shadow;
-    
 private:
     friend class LightManager;
     
