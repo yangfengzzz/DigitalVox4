@@ -67,15 +67,15 @@ public:
     };
     
 public:
-    ShadowManager(MTL::Library& library, Scene* scene);
+    ShadowManager(MTL::Library& library, Scene* scene, Camera* camera);
     
     float cascadeSplitLambda();
     
     void setCascadeSplitLambda(float value);
     
-private:
     void draw(MTL::CommandBuffer& commandBuffer);
     
+private:
     void _drawSpotShadowMap(MTL::CommandBuffer& commandBuffer);
     
     void _drawDirectShadowMap(MTL::CommandBuffer& commandBuffer);
@@ -88,13 +88,14 @@ private:
      * Calculate frustum split depths and matrices for the shadow map cascades
      * Based on https://johanmedestrom.wordpress.com/2016/03/18/opengl-cascaded-shadow-maps/
      */
-    void _updateCascadesShadow(DirectLight *light);
+    void _updateCascadesShadow(DirectLight *light, ShadowManager::ShadowData& shadowData);
     
     void _updatePointShadow(PointLight *light, ShadowManager::CubeShadowData& shadowData);
     
 private:
     MTL::Library& _library;
     Scene* _scene{nullptr};
+    Camera* _camera{nullptr};
     TextureLoader _resourceLoader;
     
     MTL::RenderPassDescriptor _renderPassDescriptor;
