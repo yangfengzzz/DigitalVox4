@@ -289,7 +289,6 @@
 		0445966B2796F85C00F04CE0 /* raster_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592C7278EC64A00F04CE0 /* raster_state.h */; };
 		0445966C2796F85C00F04CE0 /* shader_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592AC278EBEB900F04CE0 /* shader_property.cpp */; };
 		0445966D2796F85C00F04CE0 /* shader_uniform.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592AA278EBEB900F04CE0 /* shader_uniform.h */; };
-		0445966E2796F85C00F04CE0 /* macro_name.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445929B278EB31400F04CE0 /* macro_name.h */; };
 		0445966F2796F85C00F04CE0 /* shader_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B5278EBFC600F04CE0 /* shader_program.cpp */; };
 		044596702796F85C00F04CE0 /* shader_data_group.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459299278EB2F900F04CE0 /* shader_data_group.h */; };
 		044596712796F85C00F04CE0 /* raster_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592C6278EC64A00F04CE0 /* raster_state.cpp */; };
@@ -744,7 +743,6 @@
 		04459295278EB2EB00F04CE0 /* shader_macro_collection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_macro_collection.h; sourceTree = "<group>"; };
 		04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_macro_collection.cpp; sourceTree = "<group>"; };
 		04459299278EB2F900F04CE0 /* shader_data_group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_data_group.h; sourceTree = "<group>"; };
-		0445929B278EB31400F04CE0 /* macro_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = macro_name.h; sourceTree = "<group>"; };
 		0445929C278EB45200F04CE0 /* cpp_mtl_data_type.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = cpp_mtl_data_type.mm; sourceTree = "<group>"; };
 		0445929D278EB45200F04CE0 /* cpp_mtl_data_type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpp_mtl_data_type.h; sourceTree = "<group>"; };
 		044592A1278EB69700F04CE0 /* cpp_mtl_function_constant_values.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = cpp_mtl_function_constant_values.mm; sourceTree = "<group>"; };
@@ -1698,7 +1696,6 @@
 				044592A6278EB9DF00F04CE0 /* shader_data.cpp */,
 				04459299278EB2F900F04CE0 /* shader_data_group.h */,
 				04459290278EB29100F04CE0 /* state */,
-				0445929B278EB31400F04CE0 /* macro_name.h */,
 				044592B4278EBFC600F04CE0 /* shader_program.h */,
 				044592B5278EBFC600F04CE0 /* shader_program.cpp */,
 				044592AB278EBEB900F04CE0 /* shader_property.h */,
@@ -2315,7 +2312,6 @@
 				044596002796E88600F04CE0 /* cpp_mtl_assert.h in Headers */,
 				044596982796F99100F04CE0 /* component.h in Headers */,
 				044596A72796F99100F04CE0 /* camera.h in Headers */,
-				0445966E2796F85C00F04CE0 /* macro_name.h in Headers */,
 				044596802796F87C00F04CE0 /* blinn_phong_material.h in Headers */,
 				04CD9401279A9C6D0093D6CB /* animator_loader.h in Headers */,
 				044596162796EA5400F04CE0 /* unique_ptr.h in Headers */,

@@ -47,7 +47,8 @@ void GPUSkinnedMeshRenderer::update(float deltaTime) {
 
 void GPUSkinnedMeshRenderer::_initJoints() {
     jointMatrix.resize(_skin->joints.size() * 16);
-    matrixPalette = scene()->device()->newBufferWithLength(jointMatrix.size() * sizeof(float));
+    matrixPalette = std::shared_ptr<MTL::Buffer>(scene()->device()->newBufferWithLength(jointMatrix.size() * sizeof(float)));
+    shaderData.enableMacro(HAS_SKIN);
 }
 
 

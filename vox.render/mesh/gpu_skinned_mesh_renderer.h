@@ -41,7 +41,7 @@ private:
     
     bool _hasInitJoints = false;
     
-    MTL::Buffer* matrixPalette;
+    std::shared_ptr<MTL::Buffer> matrixPalette;
     std::vector<float> jointMatrix{};
     ShaderProperty _jointMatrixProperty;
 };
