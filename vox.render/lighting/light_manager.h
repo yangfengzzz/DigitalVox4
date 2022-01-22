@@ -19,14 +19,9 @@ namespace vox {
  * Light Manager.
  */
 class LightManager {
-public:
-    static constexpr uint32_t MAX_SHADOW = 10;
-    static constexpr uint32_t MAX_CUBE_SHADOW = 5;
-    
+public:    
     LightManager();
-    
-    void registerUploader(Scene *scene);
-    
+        
     /**
      * Register a light object to the current scene.
      * @param light render light

@@ -17,28 +17,6 @@ _spotLightProperty(Shader::createProperty("u_spotLight", ShaderDataGroup::Scene)
 _directLightProperty(Shader::createProperty("u_directLight", ShaderDataGroup::Scene)){
 }
 
-void LightManager::registerUploader(Scene *scene) {
-    scene->registerVertexUploader<std::array<ShadowData, MAX_SHADOW>>([](const std::array<ShadowData, MAX_SHADOW> &x,
-                                                                         size_t location, MTL::RenderCommandEncoder& encoder) {
-        encoder.setVertexBytes(&x, sizeof(std::array<ShadowData, MAX_SHADOW>), location);
-    });
-    
-    scene->registerFragmentUploader<std::array<ShadowData, MAX_SHADOW>>([](const std::array<ShadowData, MAX_SHADOW> &x,
-                                                                           size_t location, MTL::RenderCommandEncoder& encoder) {
-        encoder.setFragmentBytes(&x, sizeof(std::array<ShadowData, MAX_SHADOW>), location);
-    });
-    
-    scene->registerVertexUploader<std::array<CubeShadowData, MAX_CUBE_SHADOW>>([](const std::array<CubeShadowData, MAX_CUBE_SHADOW> &x,
-                                                                                  size_t location, MTL::RenderCommandEncoder& encoder) {
-        encoder.setVertexBytes(&x, sizeof(std::array<CubeShadowData, MAX_CUBE_SHADOW>), location);
-    });
-    
-    scene->registerFragmentUploader<std::array<CubeShadowData, MAX_CUBE_SHADOW>>([](const std::array<CubeShadowData, MAX_CUBE_SHADOW> &x,
-                                                                                    size_t location, MTL::RenderCommandEncoder& encoder) {
-        encoder.setFragmentBytes(&x, sizeof(std::array<CubeShadowData, MAX_CUBE_SHADOW>), location);
-    });
-}
-
 //MARK: - Point Light
 void LightManager::attachPointLight(PointLight *light) {
     auto iter = std::find(_pointLights.begin(), _pointLights.end(), light);

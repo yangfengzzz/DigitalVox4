@@ -90,7 +90,6 @@ _ambientLight(this) {
         }),
     };
     _ambientLight.registerUploader(this);
-    light_manager.registerUploader(this);
 }
 
 MTL::Device *Scene::device() {

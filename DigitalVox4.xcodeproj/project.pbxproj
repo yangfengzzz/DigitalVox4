@@ -432,8 +432,10 @@
 		04460442279BD777009108C8 /* gltf_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04460440279BD777009108C8 /* gltf_loader.h */; };
 		04460445279BE2B4009108C8 /* gltf_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460443279BE2B4009108C8 /* gltf_app.cpp */; };
 		04460449279BE694009108C8 /* scene_animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460447279BE694009108C8 /* scene_animation_app.cpp */; };
-		0446044A279BF261009108C8 /* spot_shadow_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F82791581900F04CE0 /* spot_shadow_subpass.cpp */; };
-		0446044B279BF261009108C8 /* spot_shadow_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F92791581900F04CE0 /* spot_shadow_subpass.h */; };
+		0446044A279BF261009108C8 /* shadow_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F82791581900F04CE0 /* shadow_subpass.cpp */; };
+		0446044B279BF261009108C8 /* shadow_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F92791581900F04CE0 /* shadow_subpass.h */; };
+		0446044E279BFA87009108C8 /* shadow_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446044C279BFA87009108C8 /* shadow_manager.cpp */; };
+		0446044F279BFA87009108C8 /* shadow_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0446044D279BFA87009108C8 /* shadow_manager.h */; };
 		04B4ACC1279835BB0020576D /* spot_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971027981DF500F04CE0 /* spot_light.cpp */; };
 		04B4ACC2279836200020576D /* point_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445970C27981C3A00F04CE0 /* point_light.cpp */; };
 		04B4ACC527983DCD0020576D /* model_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACC327983DCD0020576D /* model_mesh.cpp */; };
@@ -885,8 +887,8 @@
 		044593F027914EFF00F04CE0 /* render_pass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render_pass.h; sourceTree = "<group>"; };
 		044593F327914F7500F04CE0 /* subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = subpass.cpp; sourceTree = "<group>"; };
 		044593F427914F7500F04CE0 /* subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = subpass.h; sourceTree = "<group>"; };
-		044593F82791581900F04CE0 /* spot_shadow_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = spot_shadow_subpass.cpp; sourceTree = "<group>"; };
-		044593F92791581900F04CE0 /* spot_shadow_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spot_shadow_subpass.h; sourceTree = "<group>"; };
+		044593F82791581900F04CE0 /* shadow_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shadow_subpass.cpp; sourceTree = "<group>"; };
+		044593F92791581900F04CE0 /* shadow_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shadow_subpass.h; sourceTree = "<group>"; };
 		044593FC2791A58A00F04CE0 /* deferred_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = deferred_subpass.cpp; sourceTree = "<group>"; };
 		044593FD2791A58A00F04CE0 /* deferred_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = deferred_subpass.h; sourceTree = "<group>"; };
 		044594012791C04200F04CE0 /* compose_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = compose_subpass.cpp; sourceTree = "<group>"; };
@@ -1123,6 +1125,8 @@
 		04460444279BE2B4009108C8 /* gltf_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gltf_app.h; sourceTree = "<group>"; };
 		04460447279BE694009108C8 /* scene_animation_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = scene_animation_app.cpp; sourceTree = "<group>"; };
 		04460448279BE694009108C8 /* scene_animation_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scene_animation_app.h; sourceTree = "<group>"; };
+		0446044C279BFA87009108C8 /* shadow_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shadow_manager.cpp; sourceTree = "<group>"; };
+		0446044D279BFA87009108C8 /* shadow_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shadow_manager.h; sourceTree = "<group>"; };
 		04B4ACC327983DCD0020576D /* model_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = model_mesh.cpp; sourceTree = "<group>"; };
 		04B4ACC427983DCD0020576D /* model_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = model_mesh.h; sourceTree = "<group>"; };
 		04B4ACC82798EB3C0020576D /* primitive_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = primitive_app.cpp; sourceTree = "<group>"; };
@@ -1946,8 +1950,8 @@
 		044593F72791580900F04CE0 /* subpasses */ = {
 			isa = PBXGroup;
 			children = (
-				044593F92791581900F04CE0 /* spot_shadow_subpass.h */,
-				044593F82791581900F04CE0 /* spot_shadow_subpass.cpp */,
+				044593F92791581900F04CE0 /* shadow_subpass.h */,
+				044593F82791581900F04CE0 /* shadow_subpass.cpp */,
 				044594292793134C00F04CE0 /* forward_subpass.h */,
 				044594282793134C00F04CE0 /* forward_subpass.cpp */,
 				0445940A2792500900F04CE0 /* skybox_subpass.h */,
@@ -2090,6 +2094,8 @@
 		04459706279819A300F04CE0 /* lighting */ = {
 			isa = PBXGroup;
 			children = (
+				0446044D279BFA87009108C8 /* shadow_manager.h */,
+				0446044C279BFA87009108C8 /* shadow_manager.cpp */,
 				0445971927981EF500F04CE0 /* light_manager.h */,
 				0445971827981EF500F04CE0 /* light_manager.cpp */,
 				04459709279819D000F04CE0 /* light.h */,
@@ -2293,6 +2299,7 @@
 				044596502796EFD900F04CE0 /* subpass.h in Headers */,
 				04CD93F0279A841F0093D6CB /* animator_controller.h in Headers */,
 				0445962D2796EB4900F04CE0 /* engine.h in Headers */,
+				0446044F279BFA87009108C8 /* shadow_manager.h in Headers */,
 				0446043D279BD568009108C8 /* gpu_skinned_mesh_renderer.h in Headers */,
 				044596362796EE4F00F04CE0 /* modelio_loader.h in Headers */,
 				04460442279BD777009108C8 /* gltf_loader.h in Headers */,
@@ -2301,7 +2308,7 @@
 				044595EA2796E88600F04CE0 /* cpp_mtl_library.h in Headers */,
 				044596752796F85C00F04CE0 /* renderTarget_blend_state.h in Headers */,
 				044596B02796FAFD00F04CE0 /* orbit_control.h in Headers */,
-				0446044B279BF261009108C8 /* spot_shadow_subpass.h in Headers */,
+				0446044B279BF261009108C8 /* shadow_subpass.h in Headers */,
 				044596A22796F99100F04CE0 /* scene.h in Headers */,
 				044595F82796E88600F04CE0 /* cpp_mtl_data_type.h in Headers */,
 				044596A32796F99100F04CE0 /* transform.h in Headers */,
@@ -2656,6 +2663,7 @@
 				044595DA2796DC9B00F04CE0 /* glfw_window.mm in Sources */,
 				04CD93FA279A974F0093D6CB /* fbx_mesh.cpp in Sources */,
 				0445969F2796F99100F04CE0 /* components_manager.cpp in Sources */,
+				0446044E279BFA87009108C8 /* shadow_manager.cpp in Sources */,
 				04CD9400279A9C6D0093D6CB /* animator_loader.cpp in Sources */,
 				044595F52796E88600F04CE0 /* cpp_mtl_command_queue.mm in Sources */,
 				04460441279BD777009108C8 /* gltf_loader.cpp in Sources */,
@@ -2684,7 +2692,7 @@
 				04CD940B279AA2A60093D6CB /* skinned_mesh_renderer.cpp in Sources */,
 				04B4ACC1279835BB0020576D /* spot_light.cpp in Sources */,
 				044596A92796FA8800F04CE0 /* mesh_renderer.cpp in Sources */,
-				0446044A279BF261009108C8 /* spot_shadow_subpass.cpp in Sources */,
+				0446044A279BF261009108C8 /* shadow_subpass.cpp in Sources */,
 				044596DE2796FC1100F04CE0 /* metal_application.cpp in Sources */,
 				044596CB2796FBE100F04CE0 /* plane_collider_shape.cpp in Sources */,
 				044595DC2796DE3B00F04CE0 /* input_events.cpp in Sources */,

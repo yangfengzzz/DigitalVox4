@@ -4,20 +4,24 @@
 //  personal capacity and am not conveying any rights to any intellectual
 //  property of any third parties.
 
-#include "spot_shadow_subpass.h"
+#include "shadow_subpass.h"
 #include "rendering/render_pass.h"
 #include "material/material.h"
 // Include header shared between C code here, which executes Metal API commands, and .metal files
 #include "shader_types.h"
 
 namespace vox {
-SpotShadowSubpass::SpotShadowSubpass(View* view,
-                                     Scene* scene,
-                                     Camera* camera):
+ShadowSubpass::ShadowSubpass(View* view,
+                             Scene* scene,
+                             Camera* camera):
 Subpass(view, scene, camera) {
 }
 
-void SpotShadowSubpass::prepare() {
+void ShadowSubpass::setBoundingFrustum(const BoundingFrustum& frustum) {
+    _frustum = frustum;
+}
+
+void ShadowSubpass::prepare() {
 #pragma mark Shadow pass render pipeline setup
     {
         MTL::Function *shadowVertexFunction = _pass->library().newFunctionWithName("shadow_vertex");
@@ -38,25 +42,22 @@ void SpotShadowSubpass::prepare() {
     }
 }
 
-void SpotShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
+void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.label("Shadow Map Pass");
-    
-    auto _shadowGenPipelineState = _pass->resourceCache().requestRenderPipelineState(_shadowGenPipelineDescriptor);
-    commandEncoder.setRenderPipelineState(*_shadowGenPipelineState);
     commandEncoder.setDepthStencilState(_shadowDepthStencilState);
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setDepthBias(0.015, 7, 0.02);
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData")), 0, BufferIndexFrameData);
-    
     drawMeshes(commandEncoder);
 }
 
-void SpotShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
-    BoundingFrustum frustum;
+void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
+    auto _shadowGenPipelineState = _pass->resourceCache().requestRenderPipelineState(_shadowGenPipelineDescriptor);
+    renderEncoder.setRenderPipelineState(*_shadowGenPipelineState);
+    
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
-    _scene->_componentsManager.callRender(frustum, opaqueQueue, alphaTestQueue, transparentQueue);
+    _scene->_componentsManager.callRender(_frustum, opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
         // reflection

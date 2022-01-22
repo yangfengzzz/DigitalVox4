@@ -12,11 +12,13 @@
 #include <vector>
 
 namespace vox {
-class SpotShadowSubpass: public Subpass {
+class ShadowSubpass: public Subpass {
 public:
-    SpotShadowSubpass(View* view,
-                      Scene* scene,
-                      Camera* camera);
+    ShadowSubpass(View* view,
+                  Scene* scene,
+                  Camera* camera);
+    
+    void setBoundingFrustum(const BoundingFrustum& frustum);
     
     void prepare() override;
     
@@ -27,6 +29,7 @@ private:
     
     MTL::RenderPipelineDescriptor _shadowGenPipelineDescriptor;
     MTL::DepthStencilState _shadowDepthStencilState;
+    BoundingFrustum _frustum;
 };
 
 }
