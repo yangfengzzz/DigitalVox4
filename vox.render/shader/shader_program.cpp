@@ -57,8 +57,12 @@ MTL::FunctionConstantValues ShaderProgram::makeFunctionConstants(const ShaderMac
 void ShaderProgram::_createProgram(const std::string &vertexSource, const std::string &fragmentSource,
                                    const ShaderMacroCollection &macroInfo) {
     auto functionConstants = makeFunctionConstants(macroInfo);
-    _vertexShader = _library.makeFunction(vertexSource.c_str(), functionConstants);
-    _fragmentShader = _library.makeFunction(fragmentSource.c_str(), functionConstants);
+    if (vertexSource != "") {
+        _vertexShader = _library.makeFunction(vertexSource.c_str(), functionConstants);
+    }
+    if (fragmentSource != "") {
+        _fragmentShader = _library.makeFunction(fragmentSource.c_str(), functionConstants);
+    }
 }
 
 
