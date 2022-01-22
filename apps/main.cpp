@@ -20,13 +20,14 @@
 #include "ibl_app.h"
 #include "gltf_app.h"
 #include "scene_animation_app.h"
+#include "omni_shadowmap_app.h"
 
 int main(int argc, char * argv[]) {
     vox::UnixEngine engine{vox::UnixType::Mac, argc, argv};
         
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::AnimationApp>());
+        engine.setApp(std::make_unique<vox::OminiShadowMapApp>());
         code = engine.mainLoop();
     }
     

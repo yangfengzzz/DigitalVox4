@@ -30,10 +30,7 @@ void ForwardSubpass::prepare() {
 }
 
 void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
-    commandEncoder.pushDebugGroup("Draw G-Buffer");
-    commandEncoder.setCullMode(MTL::CullModeFront);
-    commandEncoder.setStencilReferenceValue(128);
-    
+    commandEncoder.pushDebugGroup("Draw G-Buffer");    
     _drawMeshes(commandEncoder);
     commandEncoder.popDebugGroup();
 }
