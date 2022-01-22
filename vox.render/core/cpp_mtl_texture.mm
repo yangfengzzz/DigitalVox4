@@ -213,4 +213,14 @@ void Texture::getBytes(void *pixelBytes,
                                 mipmapLevel:mipmapLevel];
 }
 
+std::shared_ptr<Texture> Texture::textureView(MTL::PixelFormat pixelFormat,
+                                              MTL::TextureType textureType,
+                                              Range levels, Range slices) {
+    auto texture = [((id <MTLTexture>) m_objCObj) newTextureViewWithPixelFormat:MTLPixelFormat(pixelFormat)
+                                                                    textureType:MTLTextureType(textureType)
+                                                                         levels:NSMakeRange(levels.location, levels.length)
+                                                                         slices:NSMakeRange(slices.location, slices.length)];
+    return std::make_shared<Texture>(texture, *m_device);
+}
+
 CPP_METAL_DEVICE_GETTER_IMPLEMENTATION(Texture);

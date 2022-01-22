@@ -158,6 +158,11 @@ public:
                   const Region &sourceRegion,
                   UInteger mipmapLevel);
     
+public:
+    std::shared_ptr<Texture> textureView(MTL::PixelFormat WithPixelFormat,
+                                         MTL::TextureType textureType,
+                                         Range levels, Range slices);
+    
     const Device* device() const;
     
 public: // Public methods for cpp_mtl_ internal implementation
