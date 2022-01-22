@@ -11,6 +11,7 @@ using namespace metal;
 
 typedef struct {
     float3 position [[attribute(Position)]];
+    float3 normal   [[attribute(Normal)]];
 } VertexIn;
 
 typedef struct {
@@ -18,12 +19,21 @@ typedef struct {
     float3 v_cubeUV;
 } VertexOut;
 
-vertex VertexOut vertex_skybox(const VertexIn in [[stage_in]],
-                               constant matrix_float4x4 &u_mvpNoscale [[buffer(10)]]) {
+vertex VertexOut vertex_cube_skybox(const VertexIn in [[stage_in]],
+                                    constant matrix_float4x4 &u_mvpNoscale [[buffer(10)]]) {
     VertexOut out;
     
     out.v_cubeUV = in.position.xyz;
     out.position = (u_mvpNoscale * float4( in.position, 1.0 )).xyww;
+    return out;
+}
+
+vertex VertexOut vertex_sphere_skybox(const VertexIn in [[stage_in]],
+                                      constant matrix_float4x4 &u_MVPMat [[buffer(10)]]) {
+    VertexOut out;
+    
+    out.v_cubeUV = in.normal;
+    out.position = u_MVPMat * float4( in.position, 1.0 );    
     return out;
 }
 

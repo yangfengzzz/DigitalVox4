@@ -321,9 +321,6 @@
 		0445968B2796F87C00F04CE0 /* pbr_specular_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */; };
 		0445968C2796F87C00F04CE0 /* texture_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229570278C32FA0090983F /* texture_loader.h */; };
 		0445968D2796F87C00F04CE0 /* texture_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04229583278C32FA0090983F /* texture_loader.mm */; };
-		0445968E2796F97600F04CE0 /* skybox_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941827926E3300F04CE0 /* skybox_material.h */; };
-		0445968F2796F97600F04CE0 /* skybox_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445941727926E3300F04CE0 /* skybox_material.cpp */; };
-		044596902796F97600F04CE0 /* sky.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941227926CFF00F04CE0 /* sky.h */; };
 		044596912796F99100F04CE0 /* script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445928B278EA37D00F04CE0 /* script.cpp */; };
 		044596932796F99100F04CE0 /* update_flag_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445926E278E80DC00F04CE0 /* update_flag_manager.h */; };
 		044596942796F99100F04CE0 /* background.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445941427926D1600F04CE0 /* background.h */; };
@@ -479,6 +476,8 @@
 		04CD940E279ABC6F0093D6CB /* animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD940C279ABC6F0093D6CB /* animation_app.cpp */; };
 		04CD9411279B92940093D6CB /* pbr_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD940F279B92940093D6CB /* pbr_app.cpp */; };
 		04CD9414279B94220093D6CB /* Irradiance_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9412279B94220093D6CB /* Irradiance_app.cpp */; };
+		04CD9415279BB2F40093D6CB /* skybox_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594092792500900F04CE0 /* skybox_subpass.cpp */; };
+		04CD9416279BB2F40093D6CB /* skybox_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940A2792500900F04CE0 /* skybox_subpass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -886,10 +885,7 @@
 		0445940A2792500900F04CE0 /* skybox_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skybox_subpass.h; sourceTree = "<group>"; };
 		0445940D2792545E00F04CE0 /* particle_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = particle_subpass.cpp; sourceTree = "<group>"; };
 		0445940E2792545E00F04CE0 /* particle_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_subpass.h; sourceTree = "<group>"; };
-		0445941227926CFF00F04CE0 /* sky.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sky.h; sourceTree = "<group>"; };
 		0445941427926D1600F04CE0 /* background.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = background.h; sourceTree = "<group>"; };
-		0445941727926E3300F04CE0 /* skybox_material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skybox_material.cpp; sourceTree = "<group>"; };
-		0445941827926E3300F04CE0 /* skybox_material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skybox_material.h; sourceTree = "<group>"; };
 		0445941C279292E000F04CE0 /* mesh_renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mesh_renderer.cpp; sourceTree = "<group>"; };
 		0445941D279292E000F04CE0 /* mesh_renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh_renderer.h; sourceTree = "<group>"; };
 		0445942027929A3300F04CE0 /* render_element.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = render_element.cpp; sourceTree = "<group>"; };
@@ -1308,7 +1304,6 @@
 				0445925E278E7F3300F04CE0 /* rendering */,
 				0445928F278EB27F00F04CE0 /* shader */,
 				044592D1278ED03000F04CE0 /* material */,
-				0445941127926CE400F04CE0 /* sky */,
 				04459706279819A300F04CE0 /* lighting */,
 				04B4ACC72798EA7A0020576D /* loader */,
 				0445941427926D1600F04CE0 /* background.h */,
@@ -1920,26 +1915,16 @@
 				044594012791C04200F04CE0 /* compose_subpass.cpp */,
 				044594062792472800F04CE0 /* point_light_subpass.h */,
 				044594052792472800F04CE0 /* point_light_subpass.cpp */,
-				0445940A2792500900F04CE0 /* skybox_subpass.h */,
-				044594092792500900F04CE0 /* skybox_subpass.cpp */,
 				0445940E2792545E00F04CE0 /* particle_subpass.h */,
 				0445940D2792545E00F04CE0 /* particle_subpass.cpp */,
 				044594292793134C00F04CE0 /* forward_subpass.h */,
 				044594282793134C00F04CE0 /* forward_subpass.cpp */,
+				0445940A2792500900F04CE0 /* skybox_subpass.h */,
+				044594092792500900F04CE0 /* skybox_subpass.cpp */,
 				04CD93A127999C960093D6CB /* color_picker_subpass.h */,
 				04CD93A027999C960093D6CB /* color_picker_subpass.cpp */,
 			);
 			path = subpasses;
-			sourceTree = "<group>";
-		};
-		0445941127926CE400F04CE0 /* sky */ = {
-			isa = PBXGroup;
-			children = (
-				0445941227926CFF00F04CE0 /* sky.h */,
-				0445941827926E3300F04CE0 /* skybox_material.h */,
-				0445941727926E3300F04CE0 /* skybox_material.cpp */,
-			);
-			path = sky;
 			sourceTree = "<group>";
 		};
 		0445941B2792926500F04CE0 /* mesh */ = {
@@ -2219,6 +2204,7 @@
 				04B4ACC627983DCD0020576D /* model_mesh.h in Headers */,
 				044596AC2796FAA400F04CE0 /* spherical.h in Headers */,
 				044596612796F7C800F04CE0 /* forward_subpass.h in Headers */,
+				04CD9416279BB2F40093D6CB /* skybox_subpass.h in Headers */,
 				044595D92796DC9B00F04CE0 /* glfw_window.h in Headers */,
 				0445968A2796F87C00F04CE0 /* pbr_material.h in Headers */,
 				044596DB2796FBE100F04CE0 /* translational_joint.h in Headers */,
@@ -2273,12 +2259,10 @@
 				044596A32796F99100F04CE0 /* transform.h in Headers */,
 				044596932796F99100F04CE0 /* update_flag_manager.h in Headers */,
 				0445967D2796F87C00F04CE0 /* render_queue_type.h in Headers */,
-				0445968E2796F97600F04CE0 /* skybox_material.h in Headers */,
 				044595EF2796E88600F04CE0 /* cpp_mtl_constants.h in Headers */,
 				044595F62796E88600F04CE0 /* cpp_mtl_allocator.h in Headers */,
 				04CD93F4279A89DF0093D6CB /* fbx.h in Headers */,
 				044596282796EB1B00F04CE0 /* imstb_textedit.h in Headers */,
-				044596902796F97600F04CE0 /* sky.h in Headers */,
 				0445970F27981C3A00F04CE0 /* point_light.h in Headers */,
 				044596002796E88600F04CE0 /* cpp_mtl_assert.h in Headers */,
 				044596982796F99100F04CE0 /* component.h in Headers */,
@@ -2637,7 +2621,6 @@
 				0445962C2796EB1B00F04CE0 /* imgui_tables.cpp in Sources */,
 				044596CF2796FBE100F04CE0 /* box_collider_shape.cpp in Sources */,
 				0445972127982C1100F04CE0 /* ambient_light.cpp in Sources */,
-				0445968F2796F97600F04CE0 /* skybox_material.cpp in Sources */,
 				044596C82796FBE100F04CE0 /* character_controller.cpp in Sources */,
 				044596012796E88600F04CE0 /* cpp_mtl_vertex_descriptor.mm in Sources */,
 				0445962A2796EB1B00F04CE0 /* imgui_draw.cpp in Sources */,
@@ -2716,6 +2699,7 @@
 				044596862796F87C00F04CE0 /* pbr_base_material.cpp in Sources */,
 				044596C22796FBE100F04CE0 /* joint.cpp in Sources */,
 				044596722796F85C00F04CE0 /* shader_macro_collection.cpp in Sources */,
+				04CD9415279BB2F40093D6CB /* skybox_subpass.cpp in Sources */,
 				044596912796F99100F04CE0 /* script.cpp in Sources */,
 				04CD93AD279A44970093D6CB /* imgui_impl_metal.mm in Sources */,
 				044596142796E9F900F04CE0 /* allocator.cc in Sources */,

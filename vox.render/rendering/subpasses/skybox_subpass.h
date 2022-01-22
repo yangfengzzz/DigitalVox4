@@ -21,9 +21,28 @@ public:
 
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
+public:
+    void createSphere(MTL::Device* device, float radius);
+    
+    void createCuboid(MTL::Device* device);
+    
+    /**
+     * Texture cube map of the sky box material.
+     */
+    std::shared_ptr<MTL::Texture> textureCubeMap();
+    
+    void setTextureCubeMap(std::shared_ptr<MTL::Texture> v);
+    
 private:
     MTL::RenderPipelineDescriptor _skyboxPipelineDescriptor;
     MTL::DepthStencilState _dontWriteDepthStencilState;
+    
+    enum class SkyBoxType {
+        Cuboid, Sphere
+    };
+    SkyBoxType _type;
+    std::shared_ptr<Mesh> _mesh{nullptr};
+    std::shared_ptr<MTL::Texture> _cubeMap{nullptr};
 };
 
 }

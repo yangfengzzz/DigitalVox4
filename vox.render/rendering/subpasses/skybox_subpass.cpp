@@ -6,6 +6,8 @@
 
 #include "skybox_subpass.h"
 #include "rendering/render_pass.h"
+#include "mesh/primitive_mesh.h"
+#include "camera.h"
 
 #include "material/material.h"
 
@@ -19,26 +21,50 @@ SkyboxSubpass::SkyboxSubpass(View* view,
 Subpass(view, scene, camera) {
 }
 
+void SkyboxSubpass::createSphere(MTL::Device* device, float radius) {
+    _mesh = PrimitiveMesh::createSphere(device, radius);
+    _type = SkyBoxType::Sphere;
+}
+
+void SkyboxSubpass::createCuboid(MTL::Device* device) {
+    _mesh = PrimitiveMesh::createCuboid(device, 1, 1, 1);
+    _type = SkyBoxType::Cuboid;
+}
+
+std::shared_ptr<MTL::Texture> SkyboxSubpass::textureCubeMap() {
+    return _cubeMap;
+}
+
+void SkyboxSubpass::setTextureCubeMap(std::shared_ptr<MTL::Texture> v) {
+    _cubeMap = v;
+}
+
+//MARK: - Render
 void SkyboxSubpass::prepare() {
 #pragma mark Sky render pipeline setup
     {
-        MTL::Function skyboxVertexFunction = _pass->library().makeFunction("skybox_vertex");
-        MTL::Function skyboxFragmentFunction = _pass->library().makeFunction("skybox_fragment");
-        
         _skyboxPipelineDescriptor.label("Sky");
-        _skyboxPipelineDescriptor.vertexDescriptor(&(_scene->background.sky.mesh->vertexDescriptor()));
-        _skyboxPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
-        _skyboxPipelineDescriptor.fragmentFunction(&skyboxFragmentFunction);
+        _skyboxPipelineDescriptor.vertexDescriptor(&(_mesh->vertexDescriptor()));
         _skyboxPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
         _skyboxPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
         _skyboxPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        
+        if (_type == SkyBoxType::Sphere) {
+            MTL::Function skyboxVertexFunction = _pass->library().makeFunction("vertex_sphere_skybox");
+            _skyboxPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
+        } else {
+            MTL::Function skyboxVertexFunction = _pass->library().makeFunction("vertex_cube_skybox");
+            _skyboxPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
+        }
+        MTL::Function skyboxFragmentFunction = _pass->library().makeFunction("fragment_skybox");
+        _skyboxPipelineDescriptor.fragmentFunction(&skyboxFragmentFunction);
     }
     
 #pragma mark Post lighting depth state setup
     {
         MTL::DepthStencilDescriptor depthStencilDesc;
         depthStencilDesc.label("Less -Writes");
-        depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLess);
+        depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLessEqual);
         depthStencilDesc.depthWriteEnabled(false);
         
         _dontWriteDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
@@ -47,24 +73,31 @@ void SkyboxSubpass::prepare() {
 
 void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.pushDebugGroup("Draw Sky");
-    auto _skyboxPipelineState = _view->device().resourceCache().requestRenderPipelineState(_skyboxPipelineDescriptor);
-    commandEncoder.setRenderPipelineState(_skyboxPipelineState);
+    auto _skyboxPipelineState = _pass->resourceCache().requestRenderPipelineState(_skyboxPipelineDescriptor);
+    commandEncoder.setRenderPipelineState(*_skyboxPipelineState);
     commandEncoder.setDepthStencilState(_dontWriteDepthStencilState);
-    commandEncoder.setCullMode(MTL::CullModeFront);
+    commandEncoder.setCullMode(MTL::CullModeBack);
     
-    commandEncoder.setVertexBuffer(std::any_cast<MTL::Buffer>(_scene->shaderData.getData("frameData"))
-                                   , 0, BufferIndexFrameData);
-    commandEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(_scene->background.sky.material->shaderData.getData("u_skybox")),
-                                      TextureIndexBaseColor);
+    const auto projectionMatrix = _camera->projectionMatrix();
+    auto viewMatrix = _camera->viewMatrix();
+    if (_type == SkyBoxType::Cuboid) {
+        viewMatrix[12] = 0;
+        viewMatrix[13] = 0;
+        viewMatrix[14] = 0;
+        viewMatrix[15] = 1;
+    }
+    auto _matrix = projectionMatrix * viewMatrix;
+    commandEncoder.setVertexBytes(_matrix.data(), sizeof(Matrix4x4F), 10);
+    commandEncoder.setFragmentTexture(*_cubeMap, 0);
     
-    for (auto &meshBuffer: _scene->background.sky.mesh->vertexBuffers()) {
+    for (auto &meshBuffer: _mesh->vertexBuffers()) {
         commandEncoder.setVertexBuffer(meshBuffer.buffer(),
                                        meshBuffer.offset(),
                                        meshBuffer.argumentIndex());
     }
     
     
-    for (auto &submesh: _scene->background.sky.mesh->submeshes()) {
+    for (auto &submesh: _mesh->submeshes()) {
         commandEncoder.drawIndexedPrimitives(submesh.primitiveType(),
                                              submesh.indexCount(),
                                              submesh.indexType(),
