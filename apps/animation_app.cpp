@@ -18,6 +18,7 @@
 #include "lighting/direct_light.h"
 #include "lighting/point_light.h"
 #include "lighting/spot_light.h"
+#include "loader/texture_loader.h"
 
 namespace vox {
 void AnimationApp::loadScene(uint32_t width, uint32_t height) {
@@ -45,9 +46,14 @@ void AnimationApp::loadScene(uint32_t width, uint32_t height) {
     directLight->shadow.intensity = 0.2;
     directLight->setEnableShadow(true);
     
-    auto characterMtl = std::make_shared<BlinnPhongMaterial>();
-    characterMtl->setBaseColor(Color(0.4, 0.4, 0.4, 1.0));
-
+    auto resourceLoader = TextureLoader(*_device);
+    auto characterMtl = std::make_shared<PBRMaterial>();
+    characterMtl->setBaseTexture(resourceLoader.loadTexture("../assets/models/Doggy", "T_Doggy_1_diffuse.png", false));
+    characterMtl->setOcclusionTexture(resourceLoader.loadTexture("../assets/models/Doggy", "T_Doggy_1_ao.png", false));
+    characterMtl->setNormalTexture(resourceLoader.loadTexture("../assets/models/Doggy", "T_Doggy_normal.png", false));
+    characterMtl->setMetallicRoughnessTexture(resourceLoader.createMetallicRoughnessTexture("../assets/models/Doggy", "T_Doggy_metallic.png",
+                                                                                            "T_Doggy_roughness.png", false));
+    
     auto characterEntity = rootEntity->createChild("characterEntity");
     characterEntity->transform->setScale(3, 3, 3);
     auto characterRenderer = characterEntity->addComponent<SkinnedMeshRenderer>();
