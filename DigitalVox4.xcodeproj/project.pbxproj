@@ -429,6 +429,8 @@
 		0446043A279BCE3B009108C8 /* scene_animator.h in Headers */ = {isa = PBXBuildFile; fileRef = 04460438279BCE3B009108C8 /* scene_animator.h */; };
 		0446043D279BD568009108C8 /* gpu_skinned_mesh_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0446043B279BD568009108C8 /* gpu_skinned_mesh_renderer.h */; };
 		0446043E279BD568009108C8 /* gpu_skinned_mesh_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446043C279BD568009108C8 /* gpu_skinned_mesh_renderer.cpp */; };
+		04460441279BD777009108C8 /* gltf_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446043F279BD777009108C8 /* gltf_loader.cpp */; };
+		04460442279BD777009108C8 /* gltf_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04460440279BD777009108C8 /* gltf_loader.h */; };
 		04B4ACC1279835BB0020576D /* spot_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971027981DF500F04CE0 /* spot_light.cpp */; };
 		04B4ACC2279836200020576D /* point_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445970C27981C3A00F04CE0 /* point_light.cpp */; };
 		04B4ACC527983DCD0020576D /* model_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACC327983DCD0020576D /* model_mesh.cpp */; };
@@ -1113,6 +1115,8 @@
 		04460438279BCE3B009108C8 /* scene_animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_animator.h; sourceTree = "<group>"; };
 		0446043B279BD568009108C8 /* gpu_skinned_mesh_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_skinned_mesh_renderer.h; sourceTree = "<group>"; };
 		0446043C279BD568009108C8 /* gpu_skinned_mesh_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_skinned_mesh_renderer.cpp; sourceTree = "<group>"; };
+		0446043F279BD777009108C8 /* gltf_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gltf_loader.cpp; sourceTree = "<group>"; };
+		04460440279BD777009108C8 /* gltf_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gltf_loader.h; sourceTree = "<group>"; };
 		04B4ACC327983DCD0020576D /* model_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = model_mesh.cpp; sourceTree = "<group>"; };
 		04B4ACC427983DCD0020576D /* model_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = model_mesh.h; sourceTree = "<group>"; };
 		04B4ACC82798EB3C0020576D /* primitive_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = primitive_app.cpp; sourceTree = "<group>"; };
@@ -2132,6 +2136,8 @@
 				04CD93F8279A974F0093D6CB /* fbx_loader.cpp */,
 				04CD93FF279A9C6D0093D6CB /* animator_loader.h */,
 				04CD93FE279A9C6D0093D6CB /* animator_loader.cpp */,
+				04460440279BD777009108C8 /* gltf_loader.h */,
+				0446043F279BD777009108C8 /* gltf_loader.cpp */,
 				04459376278FFE3100F04CE0 /* modelio_loader.h */,
 				04459380278FFE3100F04CE0 /* modelio_loader.mm */,
 				04229570278C32FA0090983F /* texture_loader.h */,
@@ -2280,6 +2286,7 @@
 				0445962D2796EB4900F04CE0 /* engine.h in Headers */,
 				0446043D279BD568009108C8 /* gpu_skinned_mesh_renderer.h in Headers */,
 				044596362796EE4F00F04CE0 /* modelio_loader.h in Headers */,
+				04460442279BD777009108C8 /* gltf_loader.h in Headers */,
 				0445960B2796E88B00F04CE0 /* cpp_mtl_internal_macros.h in Headers */,
 				0445967C2796F87C00F04CE0 /* blend_mode.h in Headers */,
 				044595EA2796E88600F04CE0 /* cpp_mtl_library.h in Headers */,
@@ -2642,6 +2649,7 @@
 				0445969F2796F99100F04CE0 /* components_manager.cpp in Sources */,
 				04CD9400279A9C6D0093D6CB /* animator_loader.cpp in Sources */,
 				044595F52796E88600F04CE0 /* cpp_mtl_command_queue.mm in Sources */,
+				04460441279BD777009108C8 /* gltf_loader.cpp in Sources */,
 				044595FC2796E88600F04CE0 /* cpp_mtl_pixel_format.mm in Sources */,
 				044596812796F87C00F04CE0 /* blinn_phong_material.cpp in Sources */,
 				044596962796F99100F04CE0 /* scene.cpp in Sources */,
