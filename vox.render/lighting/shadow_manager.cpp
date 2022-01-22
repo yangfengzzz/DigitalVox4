@@ -33,4 +33,20 @@ _resourceLoader(*scene->device()) {
     });
 }
 
+void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
+    
+}
+
+void ShadowManager::drawSpotShadow(MTL::CommandBuffer& commandBuffer) {
+    
+}
+
+void ShadowManager::drawDirectionShadow(MTL::CommandBuffer& commandBuffer) {
+    
+}
+
+void ShadowManager::drawPointShadow(MTL::CommandBuffer& commandBuffer) {
+    
+}
+
 }

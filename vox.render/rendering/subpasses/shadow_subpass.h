@@ -18,7 +18,7 @@ public:
                   Scene* scene,
                   Camera* camera);
     
-    void setBoundingFrustum(const BoundingFrustum& frustum);
+    void setViewProjectionMatrix(const Matrix4x4F& vp);
     
     void prepare() override;
     
@@ -27,9 +27,9 @@ public:
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
     
-    MTL::RenderPipelineDescriptor _shadowGenPipelineDescriptor;
+    MTL::RenderPipelineState *_shadowGenPipelineState{nullptr};
     MTL::DepthStencilState _shadowDepthStencilState;
-    BoundingFrustum _frustum;
+    Matrix4x4F _vp;
 };
 
 }

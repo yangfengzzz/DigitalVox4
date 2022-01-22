@@ -6,9 +6,7 @@
 
 #include "shadow_subpass.h"
 #include "rendering/render_pass.h"
-#include "material/material.h"
-// Include header shared between C code here, which executes Metal API commands, and .metal files
-#include "shader_types.h"
+#include "renderer.h"
 
 namespace vox {
 ShadowSubpass::ShadowSubpass(View* view,
@@ -17,19 +15,21 @@ ShadowSubpass::ShadowSubpass(View* view,
 Subpass(view, scene, camera) {
 }
 
-void ShadowSubpass::setBoundingFrustum(const BoundingFrustum& frustum) {
-    _frustum = frustum;
+void ShadowSubpass::setViewProjectionMatrix(const Matrix4x4F& vp) {
+    _vp = vp;
 }
 
 void ShadowSubpass::prepare() {
 #pragma mark Shadow pass render pipeline setup
     {
-        MTL::Function *shadowVertexFunction = _pass->library().newFunctionWithName("shadow_vertex");
-        _shadowGenPipelineDescriptor.label("Shadow Gen");
-        _shadowGenPipelineDescriptor.vertexDescriptor(nullptr);
-        _shadowGenPipelineDescriptor.vertexFunction(shadowVertexFunction);
-        _shadowGenPipelineDescriptor.fragmentFunction(nullptr);
-        _shadowGenPipelineDescriptor.depthAttachmentPixelFormat(_pass->renderPassDescriptor()->depthAttachment.texture().pixelFormat());
+        MTL::Function *shadowVertexFunction = _pass->library().newFunctionWithName("vertex_depth");
+        MTL::RenderPipelineDescriptor renderPipelineDescriptor;
+        renderPipelineDescriptor.label("Shadow Gen");
+        renderPipelineDescriptor.vertexDescriptor(nullptr);
+        renderPipelineDescriptor.vertexFunction(shadowVertexFunction);
+        renderPipelineDescriptor.fragmentFunction(nullptr);
+        renderPipelineDescriptor.depthAttachmentPixelFormat(_pass->renderPassDescriptor()->depthAttachment.texture().pixelFormat());
+        _shadowGenPipelineState = _pass->resourceCache().requestRenderPipelineState(renderPipelineDescriptor);
     }
     
 #pragma mark Shadow pass depth state setup
@@ -44,30 +44,24 @@ void ShadowSubpass::prepare() {
 
 void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.label("Shadow Map Pass");
+    commandEncoder.setRenderPipelineState(*_shadowGenPipelineState);
     commandEncoder.setDepthStencilState(_shadowDepthStencilState);
     commandEncoder.setCullMode(MTL::CullModeBack);
     commandEncoder.setDepthBias(0.015, 7, 0.02);
+    commandEncoder.setVertexBytes(_vp.data(), sizeof(Matrix4x4F), 11);
     drawMeshes(commandEncoder);
 }
 
 void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
-    auto _shadowGenPipelineState = _pass->resourceCache().requestRenderPipelineState(_shadowGenPipelineDescriptor);
-    renderEncoder.setRenderPipelineState(*_shadowGenPipelineState);
-    
     std::vector<RenderElement> opaqueQueue;
     std::vector<RenderElement> alphaTestQueue;
     std::vector<RenderElement> transparentQueue;
-    _scene->_componentsManager.callRender(_frustum, opaqueQueue, alphaTestQueue, transparentQueue);
+    _scene->_componentsManager.callRender(BoundingFrustum(_vp), opaqueQueue, alphaTestQueue, transparentQueue);
     
     for (auto &element : opaqueQueue) {
-        // reflection
+        renderEncoder.setVertexBytes(element.renderer->entity()->transform->worldMatrix().data(), sizeof(Matrix4x4F), 11);
+
         auto& submesh = element.subMesh;
-        auto& mat = element.material;
-        renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_diffuseTexture")), TextureIndexBaseColor);
-        renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_normalTexture")), TextureIndexNormal);
-        renderEncoder.setFragmentTexture(*std::any_cast<MTL::TexturePtr>(mat->shaderData.getData("u_specularTexture")), TextureIndexSpecular);
-        
-        // manully
         auto& mesh = element.mesh;
         for (auto &meshBuffer: mesh->vertexBuffers()) {
             renderEncoder.setVertexBuffer(meshBuffer.buffer(),

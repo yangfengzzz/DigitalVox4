@@ -19,6 +19,14 @@ public:
 
     ShadowManager(MTL::Library& library, Scene* scene);
     
+    void draw(MTL::CommandBuffer& commandBuffer);
+    
+    void drawSpotShadow(MTL::CommandBuffer& commandBuffer);
+    
+    void drawDirectionShadow(MTL::CommandBuffer& commandBuffer);
+
+    void drawPointShadow(MTL::CommandBuffer& commandBuffer);
+    
 private:
     MTL::Library& _library;
     Scene* _scene{nullptr};
