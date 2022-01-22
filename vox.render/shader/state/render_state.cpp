@@ -5,7 +5,6 @@
 //  property of any third parties.
 
 #include "render_state.h"
-#include "engine.h"
 
 namespace vox {
 void RenderState::apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,

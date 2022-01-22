@@ -9,7 +9,6 @@
 #include "shape/collider_shape.h"
 #include "../entity.h"
 #include "../scene.h"
-#include "../engine.h"
 
 namespace vox {
 namespace physics {

@@ -69,11 +69,11 @@ public:
     
     void callAnimatorUpdate(float deltaTime);
     
-    //    void addOnUpdateSceneAnimators(SceneAnimator *animator);
-    //
-    //    void removeOnUpdateSceneAnimators(SceneAnimator *animator);
-    //
-    //    void callSceneAnimatorUpdate(float deltaTime);
+    void addOnUpdateSceneAnimators(SceneAnimator *animator);
+    
+    void removeOnUpdateSceneAnimators(SceneAnimator *animator);
+    
+    void callSceneAnimatorUpdate(float deltaTime);
     
 public:
     void callCameraOnBeginRender(Camera *camera);
@@ -98,7 +98,7 @@ private:
     
     // Animatior
     std::vector<Animator *> _onUpdateAnimators;
-    //    std::vector<SceneAnimator *> _onUpdateSceneAnimators;
+    std::vector<SceneAnimator *> _onUpdateSceneAnimators;
 };
 
 }        // namespace vox

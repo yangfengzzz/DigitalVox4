@@ -425,6 +425,8 @@
 		04459758279832BA00F04CE0 /* light_debugger.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973F279832BA00F04CE0 /* light_debugger.metal */; };
 		04460435279BCC5A009108C8 /* scene_animation_clip.h in Headers */ = {isa = PBXBuildFile; fileRef = 04460433279BCC5A009108C8 /* scene_animation_clip.h */; };
 		04460436279BCC5A009108C8 /* scene_animation_clip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460434279BCC5A009108C8 /* scene_animation_clip.cpp */; };
+		04460439279BCE3B009108C8 /* scene_animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460437279BCE3B009108C8 /* scene_animator.cpp */; };
+		0446043A279BCE3B009108C8 /* scene_animator.h in Headers */ = {isa = PBXBuildFile; fileRef = 04460438279BCE3B009108C8 /* scene_animator.h */; };
 		04B4ACC1279835BB0020576D /* spot_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971027981DF500F04CE0 /* spot_light.cpp */; };
 		04B4ACC2279836200020576D /* point_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445970C27981C3A00F04CE0 /* point_light.cpp */; };
 		04B4ACC527983DCD0020576D /* model_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACC327983DCD0020576D /* model_mesh.cpp */; };
@@ -1105,6 +1107,8 @@
 		0445973F279832BA00F04CE0 /* light_debugger.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = light_debugger.metal; sourceTree = "<group>"; };
 		04460433279BCC5A009108C8 /* scene_animation_clip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_animation_clip.h; sourceTree = "<group>"; };
 		04460434279BCC5A009108C8 /* scene_animation_clip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_animation_clip.cpp; sourceTree = "<group>"; };
+		04460437279BCE3B009108C8 /* scene_animator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_animator.cpp; sourceTree = "<group>"; };
+		04460438279BCE3B009108C8 /* scene_animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_animator.h; sourceTree = "<group>"; };
 		04B4ACC327983DCD0020576D /* model_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = model_mesh.cpp; sourceTree = "<group>"; };
 		04B4ACC427983DCD0020576D /* model_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = model_mesh.h; sourceTree = "<group>"; };
 		04B4ACC82798EB3C0020576D /* primitive_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = primitive_app.cpp; sourceTree = "<group>"; };
@@ -1345,6 +1349,8 @@
 				04CD9402279A9D900093D6CB /* animator.cpp */,
 				04CD93EE279A841F0093D6CB /* animator_controller.h */,
 				04CD93ED279A841F0093D6CB /* animator_controller.cpp */,
+				04460438279BCE3B009108C8 /* scene_animator.h */,
+				04460437279BCE3B009108C8 /* scene_animator.cpp */,
 				04460433279BCC5A009108C8 /* scene_animation_clip.h */,
 				04460434279BCC5A009108C8 /* scene_animation_clip.cpp */,
 				0445942F2793A5D800F04CE0 /* forward_application.h */,
@@ -2180,6 +2186,7 @@
 				0445960D2796E88B00F04CE0 /* resource_cache.h in Headers */,
 				044596152796E9F900F04CE0 /* allocator.h in Headers */,
 				0445962F2796ED4700F04CE0 /* application.h in Headers */,
+				0446043A279BCE3B009108C8 /* scene_animator.h in Headers */,
 				044595F22796E88600F04CE0 /* cpp_mtl_render_command_encoder_dispatch_table.h in Headers */,
 				044596DD2796FC1100F04CE0 /* metal_application.h in Headers */,
 				0445964F2796EF9800F04CE0 /* render_pass.h in Headers */,
@@ -2724,6 +2731,7 @@
 				044596122796E9C900F04CE0 /* align.cc in Sources */,
 				044596B52796FBE100F04CE0 /* dynamic_collider.cpp in Sources */,
 				044596872796F87C00F04CE0 /* unlit_material.cpp in Sources */,
+				04460439279BCE3B009108C8 /* scene_animator.cpp in Sources */,
 				044596312796EDD400F04CE0 /* unix_engine.cpp in Sources */,
 				044595F42796E88600F04CE0 /* cpp_mtl_library.mm in Sources */,
 				044596392796EE4F00F04CE0 /* primitive_mesh.cpp in Sources */,
