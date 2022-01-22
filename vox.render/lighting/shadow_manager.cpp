@@ -44,17 +44,29 @@ _cubeShadowDataProp(Shader::createProperty("u_cubeShadowData", ShaderDataGroup::
     _renderPass->addSubpass(std::move(shadowSubpass));
 }
 
+float ShadowManager::cascadeSplitLambda() {
+    return _cascadeSplitLambda;
+}
+
+void ShadowManager::setCascadeSplitLambda(float value) {
+    _cascadeSplitLambda = value;
+}
+
 void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
     _shadowCount = 0;
     _drawSpotShadowMap(commandBuffer);
     _drawDirectShadowMap(commandBuffer);
     if (_shadowCount) {
         _packedTexture = commandBuffer.createTextureArray(_shadowMaps.begin(), _shadowMaps.begin() + _shadowCount, _packedTexture);
+        _scene->shaderData.setData(_shadowMapProp, _packedTexture);
+        _scene->shaderData.setData(_shadowDataProp, _shadowDatas);
     }
     _cubeShadowCount = 0;
     _drawPointShadowMap(commandBuffer);
     if (_cubeShadowCount) {
         _packedCubeTexture = commandBuffer.createCubeTextureArray(_cubeShadowMaps.begin(), _cubeShadowMaps.begin() + _cubeShadowCount, _packedCubeTexture);
+        _scene->shaderData.setData(_cubeShadowMapProp, _packedCubeTexture);
+        _scene->shaderData.setData(_cubeShadowDataProp, _cubeShadowDatas);
     }
 }
 

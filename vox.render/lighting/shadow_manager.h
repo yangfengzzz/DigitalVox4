@@ -20,7 +20,8 @@ public:
     static constexpr uint32_t SHADOW_MAP_CASCADE_COUNT = 4;
     static constexpr uint32_t MAX_SHADOW = 10;
     static constexpr uint32_t MAX_CUBE_SHADOW = 5;
-    
+    static constexpr uint32_t _shadowMapSize = 2000; // resolution
+
     struct ShadowData {
         /**
          * Shadow bias.
@@ -68,6 +69,10 @@ public:
 public:
     ShadowManager(MTL::Library& library, Scene* scene);
     
+    float cascadeSplitLambda();
+    
+    void setCascadeSplitLambda(float value);
+    
 private:
     void draw(MTL::CommandBuffer& commandBuffer);
     
@@ -89,24 +94,22 @@ private:
     ShadowSubpass* _shadowSubpass{nullptr};
     
     float _cascadeSplitLambda = 0.5f;
-    const int _shadowMapSize = 2000; // resolution
     
     uint32_t _cubeShadowCount = 0;
     std::array<MTL::TexturePtr, 6> _cubeMapSlices{};
     std::vector<MTL::TexturePtr> _cubeShadowMaps{};
-    MTL::TexturePtr _packedCubeTexture{nullptr};
-    std::array<ShadowManager::CubeShadowData, ShadowManager::MAX_CUBE_SHADOW> _cubeShadowDatas{};
-    
     uint32_t _shadowCount = 0;
     std::array<MTL::TexturePtr, SHADOW_MAP_CASCADE_COUNT> _cascadeShadowMaps{};
     std::vector<MTL::TexturePtr> _shadowMaps{};
-    MTL::TexturePtr _packedTexture{nullptr};
-    std::array<ShadowManager::ShadowData, ShadowManager::MAX_SHADOW> _shadowDatas{};
     
     ShaderProperty _shadowMapProp;
     ShaderProperty _cubeShadowMapProp;
     ShaderProperty _shadowDataProp;
     ShaderProperty _cubeShadowDataProp;
+    MTL::TexturePtr _packedCubeTexture{nullptr};
+    std::array<ShadowManager::CubeShadowData, ShadowManager::MAX_CUBE_SHADOW> _cubeShadowDatas{};
+    MTL::TexturePtr _packedTexture{nullptr};
+    std::array<ShadowManager::ShadowData, ShadowManager::MAX_SHADOW> _shadowDatas{};
 };
 }
 
