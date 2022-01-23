@@ -51,6 +51,10 @@ After clone all third-party dependencies, use the script in third_party folder t
 ./build.sh
 ```
 
+In addition, you also need to download and
+install [FBX 2016.1.2](https://www.autodesk.com/developer-network/platform-technologies/fbx-sdk-2016-1-2), then you can
+compile all the code smoothly.
+
 ## Feature
 
 You can read code in [apps](https://github.com/yangfengzzz/DigitalVox4/tree/main/apps) to find the feature in this code,
