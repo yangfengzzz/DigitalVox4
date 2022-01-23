@@ -3136,6 +3136,7 @@
 					./third_party/physx/physx/source/foundation/include,
 					./third_party/ozz/include,
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
+					./third_party/gflags/builds/include,
 				);
 			};
 			name = Debug;
@@ -3190,6 +3191,7 @@
 					./third_party/physx/physx/source/foundation/include,
 					./third_party/ozz/include,
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
+					./third_party/gflags/builds/include,
 				);
 			};
 			name = Release;
