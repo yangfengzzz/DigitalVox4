@@ -31,7 +31,7 @@ void PointLight::_updateShaderData(PointLightData &shaderData) {
 
 //MARK: - Shadow
 Matrix4x4F PointLight::shadowProjectionMatrix() {
-    return makepPerspective<float>(degreesToRadians(90), 1, 0.1, 100);
+    return makepPerspective<float>(degreesToRadians(120), 1, 0.1, 100);
 }
 
 }

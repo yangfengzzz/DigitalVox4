@@ -9,6 +9,7 @@
 #include "lighting/shadow_manager.h"
 #include "renderer.h"
 #include "camera.h"
+#include "material.h"
 
 namespace vox {
 ShadowSubpass::ShadowSubpass(View* view,
@@ -42,8 +43,7 @@ void ShadowSubpass::prepare() {
 void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     commandEncoder.label("Shadow Map Pass");
     commandEncoder.setDepthStencilState(_shadowDepthStencilState);
-    commandEncoder.setCullMode(MTL::CullModeFront);
-    commandEncoder.setDepthBias(0.015, 7, 0.02);
+    commandEncoder.setDepthBias(0.01, 1.0, 0.01);
     commandEncoder.setVertexBytes(_vp.data(), sizeof(Matrix4x4F), 11);
     drawMeshes(commandEncoder);
 }
@@ -65,6 +65,8 @@ void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
             renderer->shaderData.mergeMacro(macros, macros);
             renderEncoder.setVertexBytes(renderer->entity()->transform->worldMatrix().data(), sizeof(Matrix4x4F), 12);
 
+            auto material = element.material;
+            material->shaderData.mergeMacro(macros, macros);
             ShaderProgram *program = _pass->resourceCache().requestShader(_pass->library(), "vertex_depth", "", macros);
             if (!program->isValid()) {
                 continue;

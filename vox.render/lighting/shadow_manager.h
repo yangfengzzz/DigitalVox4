@@ -28,18 +28,25 @@ public:
          * Shadow bias.
          */
         float bias = 0.005;
+        
         /**
          * Shadow intensity, the larger the value, the clearer and darker the shadow.
          */
         float intensity = 0.2;
+        
         /**
          * Pixel range used for shadow PCF interpolation.
          */
         float radius = 1;
+        
+        /** Alignment */
+        float dump = 0;
+        
         /**
          * Light view projection matrix.(cascade)
          */
         Matrix4x4F vp[4];
+        
         /**
          * Light cascade depth.
          */
@@ -51,14 +58,20 @@ public:
          * Shadow bias.
          */
         float bias = 0.005;
+        
         /**
          * Shadow intensity, the larger the value, the clearer and darker the shadow.
          */
         float intensity = 0.2;
+        
         /**
          * Pixel range used for shadow PCF interpolation.
          */
         float radius = 1;
+        
+        /** Alignment */
+        float dump = 0;
+        
         /**
          * Light view projection matrix.(cascade)
          */
