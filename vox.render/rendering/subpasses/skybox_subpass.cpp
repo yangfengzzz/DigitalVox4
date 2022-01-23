@@ -9,11 +9,6 @@
 #include "mesh/primitive_mesh.h"
 #include "camera.h"
 
-#include "material/material.h"
-
-// Include header shared between C code here, which executes Metal API commands, and .metal files
-#include "shader_types.h"
-
 namespace vox {
 SkyboxSubpass::SkyboxSubpass(View* view,
                              Scene* scene,
@@ -45,7 +40,7 @@ void SkyboxSubpass::prepare() {
     {
         _skyboxPipelineDescriptor.label("Sky");
         _skyboxPipelineDescriptor.vertexDescriptor(&(_mesh->vertexDescriptor()));
-        _skyboxPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+        _skyboxPipelineDescriptor.colorAttachments[0].pixelFormat(_view->colorPixelFormat());
         _skyboxPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
         _skyboxPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
         

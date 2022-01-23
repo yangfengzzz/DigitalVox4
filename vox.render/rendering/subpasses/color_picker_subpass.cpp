@@ -11,10 +11,6 @@
 #include "graphics/mesh.h"
 #include "renderer.h"
 #include "camera.h"
-#include "core/cpp_mtl_assert.h"
-
-// Include header shared between C code here, which executes Metal API commands, and .metal files
-#include "shader_types.h"
 
 namespace vox {
 ColorPickerSubpass::ColorPickerSubpass(View* view,
@@ -25,7 +21,7 @@ Subpass(view, scene, camera) {
 
 void ColorPickerSubpass::prepare() {
     _forwardPipelineDescriptor.label("ColorPicker Pipeline");
-    _forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_pass->renderPassDescriptor()->colorAttachments[0].texture().pixelFormat());
+    _forwardPipelineDescriptor.colorAttachments[0].pixelFormat(_pass->renderPassDescriptor()->colorAttachments[0].texture().pixelFormat());
     _forwardPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
     
     MTL::DepthStencilDescriptor depthStencilDesc;

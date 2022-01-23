@@ -153,15 +153,6 @@ private:
                             std::vector<Vector2F> &uvs,
                             const std::vector<uint32_t> &indices,
                             bool noLongerAccessible = true);
-    
-public:
-    static MeshPtr makeSphereMesh(MTL::Device &device,
-                                  const MTL::VertexDescriptor &vertexDescriptor,
-                                  int radialSegments, int verticalSegments, float radius);
-    
-    static MeshPtr makeIcosahedronMesn(MTL::Device &device,
-                                       const MTL::VertexDescriptor &vertexDescriptor,
-                                       float radius);
 };
 
 }

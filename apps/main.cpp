@@ -7,9 +7,7 @@
 
 #include "unix_engine.h"
 #include "engine.h"
-#include "basic_deferred_app.h"
 #include "framebuffer_picker_app.h"
-#include "basic_app.h"
 #include "primitive_app.h"
 #include "physx_app.h"
 #include "physx_dynamic_app.h"

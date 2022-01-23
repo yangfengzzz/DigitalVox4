@@ -10,10 +10,6 @@
 #include "graphics/mesh.h"
 #include "renderer.h"
 #include "camera.h"
-#include "core/cpp_mtl_assert.h"
-
-// Include header shared between C code here, which executes Metal API commands, and .metal files
-#include "shader_types.h"
 
 namespace vox {
 ForwardSubpass::ForwardSubpass(View* view,
@@ -24,7 +20,7 @@ Subpass(view, scene, camera) {
 
 void ForwardSubpass::prepare() {
     _forwardPipelineDescriptor.label("Forward Pipeline");
-    _forwardPipelineDescriptor.colorAttachments[RenderTargetLighting].pixelFormat(_view->colorPixelFormat());
+    _forwardPipelineDescriptor.colorAttachments[0].pixelFormat(_view->colorPixelFormat());
     _forwardPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
     _forwardPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
 }
