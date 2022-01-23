@@ -10,6 +10,7 @@
 #include "mesh/mesh_renderer.h"
 #include "material/unlit_material.h"
 #include "camera.h"
+#include "controls/orbit_control.h"
 
 namespace vox {
 void PrimitiveApp::loadScene(uint32_t width, uint32_t height) {
