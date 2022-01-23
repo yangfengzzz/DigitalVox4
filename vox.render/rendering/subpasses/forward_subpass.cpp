@@ -26,7 +26,7 @@ void ForwardSubpass::prepare() {
 }
 
 void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
-    commandEncoder.pushDebugGroup("Draw G-Buffer");    
+    commandEncoder.pushDebugGroup("Draw Element");    
     _drawMeshes(commandEncoder);
     commandEncoder.popDebugGroup();
 }

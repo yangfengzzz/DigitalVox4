@@ -17,29 +17,10 @@ EditorApplication::~EditorApplication() {
 }
 
 bool EditorApplication::prepare(Engine &engine) {
-    MetalApplication::prepare(engine);
-    
-    _scene = std::make_unique<Scene>(_device.get());
+    ForwardApplication::prepare(engine);
     
     auto extent = engine.window().extent();
     auto scale = engine.window().contentScaleFactor();
-    loadScene(extent.width, extent.height);
-    
-    // Create a render pass descriptor for thelighting and composition pass
-    // Whatever rendered in the final pass needs to be stored so it can be displayed
-    _renderPassDescriptor.colorAttachments[0].storeAction(MTL::StoreActionStore);
-    _renderPassDescriptor.colorAttachments[0].loadAction(MTL::LoadActionClear);
-    auto& color = _scene->background.solidColor;
-    _renderPassDescriptor.colorAttachments[0].clearColor(MTL::ClearColorMake(color.r, color.g, color.b, color.a));
-    _renderPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
-    _renderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
-    _renderPassDescriptor.stencilAttachment.loadAction(MTL::LoadActionClear);
-    _renderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
-    _renderPass = std::make_unique<RenderPass>(_library, &_renderPassDescriptor);
-    _renderPass->addSubpass(std::make_unique<ForwardSubpass>(_renderView.get(), _scene.get(), _mainCamera));
-    if (_gui) {
-        _renderPass->setGUI(_gui.get());
-    }
     
     _colorPickerFormat = MTL::PixelFormatBGRA8Unorm;
     MTL::TextureDescriptor colorPickerTextureDesc;
@@ -70,6 +51,8 @@ void EditorApplication::update(float delta_time) {
     _scene->updateShaderData();
     
     MTL::CommandBuffer commandBuffer = _commandQueue.commandBuffer();
+    _shadowManager->draw(commandBuffer);
+
     MTL::Drawable *drawable = _renderView->currentDrawable();
     // The final pass can only render if a drawable is available, otherwise it needs to skip
     // rendering this frame.
@@ -100,7 +83,7 @@ void EditorApplication::update(float delta_time) {
 
 bool EditorApplication::resize(uint32_t win_width, uint32_t win_height,
                                uint32_t fb_width, uint32_t fb_height) {
-    MetalApplication::resize(win_width, win_height, fb_width, fb_height);
+    ForwardApplication::resize(win_width, win_height, fb_width, fb_height);
     
     MTL::TextureDescriptor colorPickerTextureDesc;
     colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
@@ -116,14 +99,7 @@ bool EditorApplication::resize(uint32_t win_width, uint32_t win_height,
     _colorPickerPassDescriptor.colorAttachments[0].texture(_colorPickerTexture);
     _colorPickerPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
     
-    _scene->updateSize(win_width, win_height, fb_width, fb_height);
-    _mainCamera->resize(win_width, win_height);
     return true;
-}
-
-void EditorApplication::inputEvent(const InputEvent &inputEvent) {
-    MetalApplication::inputEvent(inputEvent);
-    _scene->updateInputEvent(inputEvent);
 }
 
 void EditorApplication::pick(float offsetX, float offsetY) {

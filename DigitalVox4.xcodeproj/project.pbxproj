@@ -3566,6 +3566,10 @@
 					"-lPhysXPvdSDK_static_64",
 					"-lPhysXExtensions_static_64",
 					"-lPhysXCharacterKinematic_static_64",
+					"-lozz_base_d",
+					"-lozz_animation_d",
+					"-lozz_geometry_d",
+					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/lib/clang/debug/libfbxsdk.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -3633,6 +3637,10 @@
 					"-lPhysXPvdSDK_static_64",
 					"-lPhysXExtensions_static_64",
 					"-lPhysXCharacterKinematic_static_64",
+					"-lozz_base_r",
+					"-lozz_animation_r",
+					"-lozz_geometry_r",
+					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/lib/clang/release/libfbxsdk.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (

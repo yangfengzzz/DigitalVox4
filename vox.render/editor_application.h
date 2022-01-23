@@ -8,12 +8,12 @@
 #ifndef editor_application_hpp
 #define editor_application_hpp
 
-#include "metal_application.h"
+#include "forward_application.h"
 
 namespace vox {
 class ColorPickerSubpass;
 
-class EditorApplication: public MetalApplication {
+class EditorApplication: public ForwardApplication {
 public:
     EditorApplication() = default;
     
@@ -32,10 +32,6 @@ public:
     bool resize(uint32_t win_width, uint32_t win_height,
                 uint32_t fb_width, uint32_t fb_height) override;
     
-    void inputEvent(const InputEvent &inputEvent) override;
-    
-    virtual void loadScene(uint32_t width, uint32_t height) = 0;
-    
 public:
     virtual void pickFunctor(Renderer *renderer, MeshPtr mesh) {};
     
@@ -46,26 +42,12 @@ public:
      */
     void pick(float offsetX, float offsetY);
     
-protected:
-    Camera* _mainCamera{nullptr};
-    
-    /**
-     * @brief Holds all scene information
-     */
-    std::unique_ptr<Scene> _scene{nullptr};
-    
-    MTL::RenderPassDescriptor _renderPassDescriptor;
-    
-    /**
-     * @brief Pipeline used for rendering, it should be set up by the concrete sample
-     */
-    std::unique_ptr<RenderPass> _renderPass{nullptr};
-    
 private:
     bool _needPick;
     Vector2F _pickPos;
     MTL::PixelFormat _colorPickerFormat;
     MTL::Texture _colorPickerTexture;
+    
     MTL::RenderPassDescriptor _colorPickerPassDescriptor;
     std::unique_ptr<RenderPass> _colorPickerRenderPass{nullptr};
     ColorPickerSubpass* _colorPickerSubpass{nullptr};
