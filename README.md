@@ -9,9 +9,8 @@ demand:
 3. **DigitalVox4** : This engine is based on C++, and the underlying mathematical library is templated to support the
    precision requirements of rendering and physical simulation at the same time. The rendering layer abstraction for
    Metal makes it possible to use the C++ compiler instead of Objective-C++ globally, and encapsulates GLFW events to
-   achieve cross-platform. Further, clean up the component system and eliminate the global dependency on the Engine
-   class. And make the rendering pipeline independent of the camera, so it is easier to customize the rendering
-   pipeline.
+   achieve cross-platform. Further, clean up the component system and eliminate the global dependency. And make the
+   rendering pipeline independent of the camera, so it is easier to customize the rendering pipeline.
 
 ## Motivation
 
@@ -21,7 +20,6 @@ This project is inspired by [Oasis](https://github.com/oasis-engine) which is an
 1. [ImGui](https://github.com/ocornut/imgui): GUI system
 2. [OZZ-Animation](https://github.com/guillaumeblanc/ozz-animation): CPU Animation System
 3. [PhysX](https://github.com/NVIDIAGameWorks/PhysX): Physical System
-4. [fluid-engine-dev](https://github.com/doyubkim/fluid-engine-dev): Fluid Simulation and CPU Particle System
 
 Which can load a lot of model format including:
 
@@ -52,3 +50,10 @@ After clone all third-party dependencies, use the script in third_party folder t
 ```
 ./build.sh
 ```
+
+## Feature
+
+You can read code in [apps](https://github.com/yangfengzzz/DigitalVox4/tree/main/apps) to find the feature in this code,
+like physx and shadow:
+![PhysX](https://github.com/yangfengzzz/DigitalVox3/raw/master/doc/img/physx.gif "PhysX")
+You can also redirect to [effect](https://github.com/yangfengzzz/DigitalVoxEffect) to see more effects.
