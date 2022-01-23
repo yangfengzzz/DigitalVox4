@@ -20,6 +20,7 @@
 #include "ibl_app.h"
 #include "gltf_app.h"
 #include "scene_animation_app.h"
+#include "shadowmap_app.h"
 #include "omni_shadowmap_app.h"
 
 int main(int argc, char * argv[]) {
@@ -27,7 +28,7 @@ int main(int argc, char * argv[]) {
         
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::OminiShadowMapApp>());
+        engine.setApp(std::make_unique<vox::ShadowMapApp>());
         code = engine.mainLoop();
     }
     

@@ -437,6 +437,7 @@
 		0446044E279BFA87009108C8 /* shadow_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446044C279BFA87009108C8 /* shadow_manager.cpp */; };
 		0446044F279BFA87009108C8 /* shadow_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0446044D279BFA87009108C8 /* shadow_manager.h */; };
 		04460452279C4E28009108C8 /* omni_shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460450279C4E28009108C8 /* omni_shadowmap_app.cpp */; };
+		04460456279CDACB009108C8 /* shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460454279CDACB009108C8 /* shadowmap_app.cpp */; };
 		04B4ACC1279835BB0020576D /* spot_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971027981DF500F04CE0 /* spot_light.cpp */; };
 		04B4ACC2279836200020576D /* point_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445970C27981C3A00F04CE0 /* point_light.cpp */; };
 		04B4ACC527983DCD0020576D /* model_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACC327983DCD0020576D /* model_mesh.cpp */; };
@@ -1130,6 +1131,8 @@
 		0446044D279BFA87009108C8 /* shadow_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shadow_manager.h; sourceTree = "<group>"; };
 		04460450279C4E28009108C8 /* omni_shadowmap_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = omni_shadowmap_app.cpp; sourceTree = "<group>"; };
 		04460451279C4E28009108C8 /* omni_shadowmap_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = omni_shadowmap_app.h; sourceTree = "<group>"; };
+		04460454279CDACB009108C8 /* shadowmap_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shadowmap_app.cpp; sourceTree = "<group>"; };
+		04460455279CDACB009108C8 /* shadowmap_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shadowmap_app.h; sourceTree = "<group>"; };
 		04B4ACC327983DCD0020576D /* model_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = model_mesh.cpp; sourceTree = "<group>"; };
 		04B4ACC427983DCD0020576D /* model_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = model_mesh.h; sourceTree = "<group>"; };
 		04B4ACC82798EB3C0020576D /* primitive_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = primitive_app.cpp; sourceTree = "<group>"; };
@@ -1935,6 +1938,8 @@
 				04460447279BE694009108C8 /* scene_animation_app.cpp */,
 				04460451279C4E28009108C8 /* omni_shadowmap_app.h */,
 				04460450279C4E28009108C8 /* omni_shadowmap_app.cpp */,
+				04460455279CDACB009108C8 /* shadowmap_app.h */,
+				04460454279CDACB009108C8 /* shadowmap_app.cpp */,
 			);
 			path = apps;
 			sourceTree = "<group>";
@@ -2926,6 +2931,7 @@
 				04CD9414279B94220093D6CB /* Irradiance_app.cpp in Sources */,
 				04B4ACCD279900AD0020576D /* physx_app.cpp in Sources */,
 				04B4ACCA2798EB3C0020576D /* primitive_app.cpp in Sources */,
+				04460456279CDACB009108C8 /* shadowmap_app.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
