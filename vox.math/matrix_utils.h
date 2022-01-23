@@ -166,12 +166,12 @@ inline Matrix<T, 4, 4> makeOrtho(T left, T right, T bottom, T top, T near, T far
                            
                            0,
                            0,
-                           2 * nf,
+                           nf,
                            0,
                            
                            (left + right) * lr,
                            (top + bottom) * bt,
-                           (far + near) * nf,
+                           near * nf,
                            1);
 }
 
@@ -199,12 +199,12 @@ inline Matrix<T, 4, 4> makepPerspective(T fovy, T aspect, T near, T far) {
                            
                            0,
                            0,
-                           (far + near) * nf,
+                           far * nf,
                            -1,
                            
                            0,
                            0,
-                           2 * far * near * nf,
+                           far * near * nf,
                            0);
 }
 

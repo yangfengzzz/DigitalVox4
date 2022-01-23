@@ -39,7 +39,6 @@
 		044593CF279006DB00F04CE0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593CE279006DA00F04CE0 /* QuartzCore.framework */; };
 		044593D22790081300F04CE0 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D12790081200F04CE0 /* MetalKit.framework */; };
 		044593D42790082600F04CE0 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593D32790082600F04CE0 /* ModelIO.framework */; };
-		0445942D279397C500F04CE0 /* forward.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445942C279397C500F04CE0 /* forward.metal */; };
 		044594592793B58800F04CE0 /* matrix2x2.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594312793B58400F04CE0 /* matrix2x2.h */; };
 		0445945A2793B58800F04CE0 /* matrix4x4-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594322793B58400F04CE0 /* matrix4x4-inl.h */; };
 		0445945B2793B58800F04CE0 /* point.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594332793B58400F04CE0 /* point.h */; };
@@ -863,7 +862,6 @@
 		04459397278FFF6E00F04CE0 /* point_lights.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = point_lights.metal; sourceTree = "<group>"; };
 		04459398278FFF6E00F04CE0 /* gBuffer.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = gBuffer.metal; sourceTree = "<group>"; };
 		04459399278FFF6E00F04CE0 /* fairy.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = fairy.metal; sourceTree = "<group>"; };
-		0445939A278FFF6F00F04CE0 /* shadow.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = shadow.metal; sourceTree = "<group>"; };
 		044593B72790055000F04CE0 /* apps */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = apps; sourceTree = BUILT_PRODUCTS_DIR; };
 		044593B92790055100F04CE0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		044593C62790061E00F04CE0 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
@@ -911,7 +909,6 @@
 		044594252792B8B000F04CE0 /* resource_cache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource_cache.h; sourceTree = "<group>"; };
 		044594282793134C00F04CE0 /* forward_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = forward_subpass.cpp; sourceTree = "<group>"; };
 		044594292793134C00F04CE0 /* forward_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forward_subpass.h; sourceTree = "<group>"; };
-		0445942C279397C500F04CE0 /* forward.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = forward.metal; sourceTree = "<group>"; };
 		0445942E2793A5D800F04CE0 /* forward_application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = forward_application.cpp; sourceTree = "<group>"; };
 		0445942F2793A5D800F04CE0 /* forward_application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forward_application.h; sourceTree = "<group>"; };
 		044594312793B58400F04CE0 /* matrix2x2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix2x2.h; sourceTree = "<group>"; };
@@ -1898,12 +1895,10 @@
 				04459730279832B800F04CE0 /* SkinningShader.metal */,
 				04459395278FFF6E00F04CE0 /* config.h */,
 				04459391278FFF6E00F04CE0 /* shader_types.h */,
-				0445939A278FFF6F00F04CE0 /* shadow.metal */,
 				04459398278FFF6E00F04CE0 /* gBuffer.metal */,
 				04459399278FFF6E00F04CE0 /* fairy.metal */,
 				04459397278FFF6E00F04CE0 /* point_lights.metal */,
 				04459392278FFF6E00F04CE0 /* directional_light.metal */,
-				0445942C279397C500F04CE0 /* forward.metal */,
 			);
 			path = vox.shader;
 			sourceTree = "<group>";
@@ -2910,7 +2905,6 @@
 				04459758279832BA00F04CE0 /* light_debugger.metal in Sources */,
 				04459752279832BA00F04CE0 /* function-common.metal in Sources */,
 				04459757279832BA00F04CE0 /* deferred_compositor.metal in Sources */,
-				0445942D279397C500F04CE0 /* forward.metal in Sources */,
 				04459750279832BA00F04CE0 /* shadow-map.metal in Sources */,
 				0445974C279832BA00F04CE0 /* unlit.metal in Sources */,
 				0445974E279832BA00F04CE0 /* editor-grid.metal in Sources */,

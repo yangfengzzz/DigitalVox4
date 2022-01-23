@@ -279,7 +279,7 @@ void ShadowManager::_updateCascadesShadow(DirectLight *light, ShadowManager::Sha
         float radius = maxDist / 2.0;
         Vector3F maxExtents = Vector3F(radius, radius, radius);
         Vector3F minExtents = -maxExtents;
-        Matrix lightOrthoMatrix = makeOrtho(minExtents.x, maxExtents.x, minExtents.y, maxExtents.y, 0.0f, maxZ - minZ);
+        Matrix4x4F lightOrthoMatrix = makeOrtho(minExtents.x, maxExtents.x, minExtents.y, maxExtents.y, 0.0f, maxZ - minZ);
         
         // Store split distance and matrix in cascade
         shadowData.cascadeSplits[i] = (_camera->nearClipPlane() + splitDist * clipRange) * -1.0f;
