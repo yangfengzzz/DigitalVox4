@@ -3214,6 +3214,7 @@
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
 					./third_party/gflags/builds/include,
 					./third_party/nvcloth/NvCloth/include,
+					./third_party/nvcloth/NvCloth/extensions/include,
 				);
 			};
 			name = Debug;
@@ -3270,6 +3271,7 @@
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
 					./third_party/gflags/builds/include,
 					./third_party/nvcloth/NvCloth/include,
+					./third_party/nvcloth/NvCloth/extensions/include,
 				);
 			};
 			name = Release;
