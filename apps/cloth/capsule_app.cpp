@@ -22,10 +22,10 @@ void CapsuleApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     trackSolver(_solver);
     
     ClothMeshData clothMesh;
-    physx::PxMat44 transform = PxTransform(PxVec3(0.f, 13.f, 0.f) + offset, PxQuat(0, PxVec3(1.f, 0.f, 0.f)));
-    clothMesh.GeneratePlaneCloth(5.f, 6.f, 69, 79, false, transform);
-    clothMesh.AttachClothPlaneByAngles(69, 79);
-    clothMesh.SetInvMasses(0.5f);
+    physx::PxMat44 transform = PxTransform(PxVec3(0.f, 10.f, 0.f) + offset, PxQuat(0, PxVec3(1.f, 0.f, 0.f)));
+    clothMesh.GeneratePlaneCloth(5.f, 6.f, 20, 20, false, transform);
+//    clothMesh.AttachClothPlaneByAngles(69, 79);
+    clothMesh.SetInvMasses(0.1f);
     
     nv::cloth::ClothMeshDesc meshDesc = clothMesh.GetClothMeshDesc();
     nv::cloth::Vector<int32_t>::Type phaseTypeInfo;
@@ -34,7 +34,10 @@ void CapsuleApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     
     _clothActor.clothRenderer = entity->addComponent<ClothRenderer>();
     _clothActor.clothRenderer->setClothMeshDesc(meshDesc);
-    _clothActor.clothRenderer->setMaterial(std::make_shared<BlinnPhongMaterial>());
+    auto material = std::make_shared<BlinnPhongMaterial>();
+    material->setRenderFace(RenderFace::Double);
+    material->setBaseColor(Color(247/256.0, 186/256.0, 11/256.0));
+    _clothActor.clothRenderer->setMaterial(material);
     
     // Initialize start positions and masses for the actual cloth instance
     // (note: the particle/vertex positions do not have to match the mesh description here. Set the positions to the initial shape of this cloth instance)
@@ -52,20 +55,21 @@ void CapsuleApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     _clothActor.cloth = _factory->createCloth(nv::cloth::Range<physx::PxVec4>(&particlesCopy[0], &particlesCopy[0] + particlesCopy.size()), *_fabric);
     _clothActor.cloth->setGravity(physx::PxVec3(0.0f, -9.8f, 0.0f));
     _clothActor.cloth->setDamping(physx::PxVec3(0.1f, 0.1f, 0.1f));
-    physx::PxVec4 spheres[2] = {physx::PxVec4(physx::PxVec3(0.f, 10.f, -2.f) + offset, 3.0),
-        physx::PxVec4(physx::PxVec3(0.f, 10.f, 2.f) + offset, 1.0)};
-    _clothActor.cloth->setSpheres(nv::cloth::Range<physx::PxVec4>(spheres, spheres + 2), 0, _clothActor.cloth->getNumSpheres());
-    
+    _clothActor.cloth->setFriction(1);
+    physx::PxVec4 spheres[2] = {physx::PxVec4(physx::PxVec3(0.f, 0.f, 0.f) + offset, 1.0),
+        physx::PxVec4(physx::PxVec3(0.f, 0.f, 2.f) + offset, 1.0)};
+    _clothActor.cloth->setSpheres(nv::cloth::Range<physx::PxVec4>(spheres, spheres + 1), 0, _clothActor.cloth->getNumSpheres());
+
     uint32_t caps[4];
     caps[0] = 0;
     caps[1] = 1;
-    _clothActor.cloth->setCapsules(nv::cloth::Range<uint32_t>(caps, caps + 2), 0, _clothActor.cloth->getNumCapsules());
+//    _clothActor.cloth->setCapsules(nv::cloth::Range<uint32_t>(caps, caps + 2), 0, _clothActor.cloth->getNumCapsules());
     
     // Setup phase configs
     std::vector<nv::cloth::PhaseConfig> phases(_fabric->getNumPhases());
     for (int i = 0; i < (int) phases.size(); i++) {
         phases[i].mPhaseIndex = i;
-        phases[i].mStiffness = 1.0f;
+        phases[i].mStiffness = 0.6f;
         phases[i].mStiffnessMultiplier = 1.0f;
         phases[i].mCompressionLimit = 1.0f;
         phases[i].mStretchLimit = 1.0f;
@@ -97,7 +101,7 @@ void CapsuleApp::loadScene(uint32_t width, uint32_t height) {
     
     auto modelEntity = rootEntity->createChild();
     auto renderer = modelEntity->addComponent<MeshRenderer>();
-    renderer->setMesh(PrimitiveMesh::createCuboid(_device.get()));
+    renderer->setMesh(PrimitiveMesh::createSphere(_device.get(), 0.9));
     auto material = std::make_shared<BlinnPhongMaterial>();
     material->setBaseColor(Color(0.6, 0.4, 0.7, 1.0));
     renderer->setMaterial(material);
