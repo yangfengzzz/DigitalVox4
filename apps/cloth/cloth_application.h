@@ -12,14 +12,16 @@
 #include <NvCloth/Fabric.h>
 #include <NvCloth/Cloth.h>
 #include <map>
+
 #include "cloth/job_manager.h"
+#include "cloth/cloth_renderer.h"
 
 namespace vox {
 namespace cloth {
 class ClothApplication : public ForwardApplication {
 public:
     struct ClothActor {
-        Renderer *clothRenderable{nullptr};
+        ClothRenderer *clothRenderer{nullptr};
         nv::cloth::Cloth *cloth{nullptr};
     };
     
@@ -28,7 +30,7 @@ public:
     void update(float delta_time) override;
     
     void finish() override;
-        
+    
 protected:
     nv::cloth::Factory *_factory{nullptr};
     
@@ -55,6 +57,8 @@ protected:
     void startSimulationStep(float dt);
     
     void waitForSimulationStep();
+    
+    void updateSimulationGraphics();
     
 private:
     std::vector<ClothActor *> _clothList;

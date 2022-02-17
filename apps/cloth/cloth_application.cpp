@@ -54,6 +54,9 @@ bool ClothApplication::prepare(Engine &engine) {
 void ClothApplication::update(float delta_time) {
     startSimulationStep(delta_time);
     waitForSimulationStep();
+    updateSimulationGraphics();
+    
+    ForwardApplication::update(delta_time);
 }
 
 void ClothApplication::startSimulationStep(float dt) {
@@ -65,6 +68,17 @@ void ClothApplication::startSimulationStep(float dt) {
 void ClothApplication::waitForSimulationStep() {
     for (auto it = _solverHelpers.begin(); it != _solverHelpers.end(); ++it) {
         it->second.WaitForSimulation();
+    }
+}
+
+void ClothApplication::updateSimulationGraphics() {
+    for (auto actor: _clothList) {
+        nv::cloth::MappedRange<physx::PxVec4> particles = actor->cloth->getCurrentParticles();
+        std::vector<PxVec3> particles3(particles.size());
+        for (uint32_t i = 0; i < particles.size(); ++i)
+            particles3[i] = particles[i].getXYZ();
+        
+        actor->clothRenderer->update(particles3.data(), particles.size());
     }
 }
 

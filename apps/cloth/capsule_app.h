@@ -16,10 +16,10 @@ public:
     void loadScene(uint32_t width, uint32_t height) override;
     
 private:
-    void _initializeCloth(physx::PxVec3 offset);
+    void _initializeCloth(EntityPtr entity, physx::PxVec3 offset);
     
-    nv::cloth::Fabric* _fabric{nullptr};
-    nv::cloth::Solver* _solver{nullptr};
+    nv::cloth::Fabric *_fabric{nullptr};
+    nv::cloth::Solver *_solver{nullptr};
     ClothActor _clothActor;
 };
 
