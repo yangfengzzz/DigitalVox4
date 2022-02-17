@@ -29,7 +29,6 @@ void ClothApplication::finish() {
     //Destroy all cloths
     for (auto it: _clothList) {
         delete it->cloth;
-        delete it;
     }
     _clothList.clear();
     
