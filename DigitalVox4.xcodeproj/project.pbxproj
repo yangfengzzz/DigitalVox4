@@ -11,6 +11,8 @@
 		04229697278D71760090983F /* surface2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229693278D71760090983F /* surface2.h */; };
 		0434BBC327BDE90100026D1D /* animation_field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBC127BDE90100026D1D /* animation_field.cpp */; };
 		0434BBC427BDE90100026D1D /* animation_field.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBC227BDE90100026D1D /* animation_field.h */; };
+		0434BBC827BDF55B00026D1D /* cloth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBC627BDF55B00026D1D /* cloth.cpp */; };
+		0434BBC927BDF55B00026D1D /* cloth.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBC727BDF55B00026D1D /* cloth.h */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -683,6 +685,8 @@
 		0434BBB627BDE8AD00026D1D /* libvox.sph.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.sph.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0434BBC127BDE90100026D1D /* animation_field.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = animation_field.cpp; sourceTree = "<group>"; };
 		0434BBC227BDE90100026D1D /* animation_field.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = animation_field.h; sourceTree = "<group>"; };
+		0434BBC627BDF55B00026D1D /* cloth.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cloth.cpp; sourceTree = "<group>"; };
+		0434BBC727BDF55B00026D1D /* cloth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1352,6 +1356,7 @@
 				0445928B278EA37D00F04CE0 /* script.cpp */,
 				0445930B278F16BA00F04CE0 /* controls */,
 				04459310278F17DA00F04CE0 /* physics */,
+				0434BBC527BDF50700026D1D /* cloth */,
 				04CD9403279A9D910093D6CB /* animator.h */,
 				04CD9402279A9D900093D6CB /* animator.cpp */,
 				04CD93EE279A841F0093D6CB /* animator_controller.h */,
@@ -1617,6 +1622,15 @@
 				0434BBC127BDE90100026D1D /* animation_field.cpp */,
 			);
 			path = vox.sph;
+			sourceTree = "<group>";
+		};
+		0434BBC527BDF50700026D1D /* cloth */ = {
+			isa = PBXGroup;
+			children = (
+				0434BBC727BDF55B00026D1D /* cloth.h */,
+				0434BBC627BDF55B00026D1D /* cloth.cpp */,
+			);
+			path = cloth;
 			sourceTree = "<group>";
 		};
 		044591C4278E54D500F04CE0 /* memory */ = {
@@ -2185,6 +2199,7 @@
 				044596692796F85C00F04CE0 /* shader_program.h in Headers */,
 				044596A52796F99100F04CE0 /* renderer.h in Headers */,
 				044596242796EB1B00F04CE0 /* imgui_internal.h in Headers */,
+				0434BBC927BDF55B00026D1D /* cloth.h in Headers */,
 				044596892796F87C00F04CE0 /* base_material.h in Headers */,
 				044595E82796E88600F04CE0 /* cpp_mtl_drawable.h in Headers */,
 				0445960D2796E88B00F04CE0 /* resource_cache.h in Headers */,
@@ -2768,6 +2783,7 @@
 				044596B52796FBE100F04CE0 /* dynamic_collider.cpp in Sources */,
 				044596872796F87C00F04CE0 /* unlit_material.cpp in Sources */,
 				04460439279BCE3B009108C8 /* scene_animator.cpp in Sources */,
+				0434BBC827BDF55B00026D1D /* cloth.cpp in Sources */,
 				044596312796EDD400F04CE0 /* unix_engine.cpp in Sources */,
 				044595F42796E88600F04CE0 /* cpp_mtl_library.mm in Sources */,
 				044596392796EE4F00F04CE0 /* primitive_mesh.cpp in Sources */,
@@ -3197,6 +3213,7 @@
 					./third_party/ozz/include,
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
 					./third_party/gflags/builds/include,
+					./third_party/nvcloth/NvCloth/include,
 				);
 			};
 			name = Debug;
@@ -3252,6 +3269,7 @@
 					./third_party/ozz/include,
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
 					./third_party/gflags/builds/include,
+					./third_party/nvcloth/NvCloth/include,
 				);
 			};
 			name = Release;
