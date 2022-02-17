@@ -27,6 +27,22 @@ public:
     
 protected:
     nv::cloth::Factory* _factory{nullptr};
+    
+    //Helper functions to enable automatic deinitialize
+    //Tracking an object will delete it when autoDeinitialize is called
+    //Untracking can be used if you delete it sooner than autoDeinitialize
+    void trackClothActor(ClothActor* clothActor);
+    void untrackClothActor(ClothActor* clothActor);
+
+    void trackSolver(nv::cloth::Solver* solver);
+    void untrackSolver(nv::cloth::Solver* solver);
+
+    void trackFabric(nv::cloth::Fabric* fabric);
+    void untrackFabric(nv::cloth::Fabric* fabric);
+
+    //Help to detach cloths from solver at AutoDeinit.
+    void addClothToSolver(ClothActor* clothActor, nv::cloth::Solver* solver);
+    void addClothsToSolver(nv::cloth::Range<ClothActor*> clothActors, nv::cloth::Solver* solver); 
 };
 
 }

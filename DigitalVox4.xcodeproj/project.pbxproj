@@ -22,6 +22,10 @@
 		0434BBEB27BE388200026D1D /* cloth_mesh_generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBE927BE388200026D1D /* cloth_mesh_generator.h */; };
 		0434BBEF27BE391400026D1D /* simple_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBED27BE391400026D1D /* simple_mesh.h */; };
 		0434BBF227BE40F900026D1D /* cloth_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBF027BE40F900026D1D /* cloth_application.cpp */; };
+		0434BBF527BE433E00026D1D /* job_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBF327BE433E00026D1D /* job_manager.cpp */; };
+		0434BBF627BE433E00026D1D /* job_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBF427BE433E00026D1D /* job_manager.h */; };
+		0434BBF927BE481D00026D1D /* callback_implementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBF727BE481D00026D1D /* callback_implementations.cpp */; };
+		0434BBFA27BE481D00026D1D /* callback_implementations.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBF827BE481D00026D1D /* callback_implementations.h */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -709,6 +713,10 @@
 		0434BBED27BE391400026D1D /* simple_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = simple_mesh.h; sourceTree = "<group>"; };
 		0434BBF027BE40F900026D1D /* cloth_application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cloth_application.cpp; sourceTree = "<group>"; };
 		0434BBF127BE40F900026D1D /* cloth_application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth_application.h; sourceTree = "<group>"; };
+		0434BBF327BE433E00026D1D /* job_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = job_manager.cpp; sourceTree = "<group>"; };
+		0434BBF427BE433E00026D1D /* job_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = job_manager.h; sourceTree = "<group>"; };
+		0434BBF727BE481D00026D1D /* callback_implementations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = callback_implementations.cpp; sourceTree = "<group>"; };
+		0434BBF827BE481D00026D1D /* callback_implementations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = callback_implementations.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1663,6 +1671,10 @@
 				0434BBE927BE388200026D1D /* cloth_mesh_generator.h */,
 				0434BBE827BE388200026D1D /* cloth_mesh_generator.cpp */,
 				0434BBED27BE391400026D1D /* simple_mesh.h */,
+				0434BBF427BE433E00026D1D /* job_manager.h */,
+				0434BBF327BE433E00026D1D /* job_manager.cpp */,
+				0434BBF827BE481D00026D1D /* callback_implementations.h */,
+				0434BBF727BE481D00026D1D /* callback_implementations.cpp */,
 			);
 			path = cloth;
 			sourceTree = "<group>";
@@ -2315,6 +2327,7 @@
 				044596CA2796FBE100F04CE0 /* collider.h in Headers */,
 				044595E72796E88600F04CE0 /* cpp_mtl_depth_stencil.h in Headers */,
 				044595FF2796E88600F04CE0 /* cpp_mtl_device.h in Headers */,
+				0434BBF627BE433E00026D1D /* job_manager.h in Headers */,
 				044596332796EE4F00F04CE0 /* sub_mesh.h in Headers */,
 				044596BA2796FBE100F04CE0 /* dynamic_collider.h in Headers */,
 				044596782796F85C00F04CE0 /* render_state.h in Headers */,
@@ -2358,6 +2371,7 @@
 				044596752796F85C00F04CE0 /* renderTarget_blend_state.h in Headers */,
 				044596B02796FAFD00F04CE0 /* orbit_control.h in Headers */,
 				0446044B279BF261009108C8 /* shadow_subpass.h in Headers */,
+				0434BBFA27BE481D00026D1D /* callback_implementations.h in Headers */,
 				044596A22796F99100F04CE0 /* scene.h in Headers */,
 				044595F82796E88600F04CE0 /* cpp_mtl_data_type.h in Headers */,
 				044596A32796F99100F04CE0 /* transform.h in Headers */,
@@ -2804,6 +2818,7 @@
 				0446044A279BF261009108C8 /* shadow_subpass.cpp in Sources */,
 				044596DE2796FC1100F04CE0 /* metal_application.cpp in Sources */,
 				044596CB2796FBE100F04CE0 /* plane_collider_shape.cpp in Sources */,
+				0434BBF527BE433E00026D1D /* job_manager.cpp in Sources */,
 				044595DC2796DE3B00F04CE0 /* input_events.cpp in Sources */,
 				044596C52796FBE100F04CE0 /* spring_joint.cpp in Sources */,
 				044596022796E88600F04CE0 /* cpp_mtl_data_type.mm in Sources */,
@@ -2862,6 +2877,7 @@
 				044596D12796FBE100F04CE0 /* sphere_collider_shape.cpp in Sources */,
 				0445966C2796F85C00F04CE0 /* shader_property.cpp in Sources */,
 				044595E52796E88600F04CE0 /* cpp_mtl_resource.mm in Sources */,
+				0434BBF927BE481D00026D1D /* callback_implementations.cpp in Sources */,
 				044596862796F87C00F04CE0 /* pbr_base_material.cpp in Sources */,
 				044596C22796FBE100F04CE0 /* joint.cpp in Sources */,
 				044596722796F85C00F04CE0 /* shader_macro_collection.cpp in Sources */,
