@@ -91,7 +91,8 @@ void ClothMeshData::GeneratePlaneCloth(float width, float height, int segmentsX,
             
             mMesh.vertices[x + y * (segmentsX + 1)].normal = transform.transform(physx::PxVec3(0.f, 1.f, 0.f));
             
-            mMesh.vertices[x + y * (segmentsX + 1)].uv = physx::PxVec2(uvOx + uvSx * (float) x / (float) segmentsX, uvOy + uvSy * (1.0f - (float) y / (float) segmentsY));
+            mMesh.vertices[x + y * (segmentsX + 1)].uv = physx::PxVec2(uvOx + uvSx * (float) x / (float) segmentsX,
+                                                                       uvOy + uvSy * (1.0f - (float) y / (float) segmentsY));
         }
     }
     
@@ -139,7 +140,10 @@ void ClothMeshData::GeneratePlaneCloth(float width, float height, int segmentsX,
     }
 }
 
-void ClothMeshData::GenerateCylinderWave(float radiusTop, float radiusBottom, float height, float frequency, float ampitudeTop, float ampitudeBottom, int segmentsX, int segmentsY, physx::PxMat44 transform, bool attachTop, bool attachBottom, bool createQuads, int missingXsegments) {
+void ClothMeshData::GenerateCylinderWave(float radiusTop, float radiusBottom, float height,
+                                         float frequency, float ampitudeTop, float ampitudeBottom,
+                                         int segmentsX, int segmentsY, physx::PxMat44 transform,
+                                         bool attachTop, bool attachBottom, bool createQuads, int missingXsegments) {
     Clear();
     int particleXsegments = segmentsX - std::max(0, missingXsegments - 1);
     int triangleXsegments = segmentsX - missingXsegments;
@@ -173,7 +177,7 @@ void ClothMeshData::GenerateCylinderWave(float radiusTop, float radiusBottom, fl
             float theta = (float) x / (float) segmentsX * physx::PxTwoPi;
             float rw = r + cosf(frequency * theta) * (ampitudeBottom * w + (1.0f - w) * ampitudeTop);
             mVertices[x + y * particleXsegments] = transform.transform(physx::PxVec3(sinf(theta) * rw, h, cosf(theta) * rw));
-            mInvMasses[x + y * particleXsegments] = (y == 0 && attachTop || y == segmentsY && attachBottom) ? 0.0f : 1.0f;
+            mInvMasses[x + y * particleXsegments] = ((y == 0 && attachTop) || y == segmentsY && attachBottom) ? 0.0f : 1.0f;
             
             mMesh.vertices[x + y * particleXsegments].position = mVertices[x + y * particleXsegments];
             mMesh.vertices[x + y * particleXsegments].uv = physx::PxVec2((float) x / (float) particleXsegments, (float) y / (float) segmentsY);
@@ -248,7 +252,8 @@ void ClothMeshData::AttachClothUsingTopVertices(float thresholdY) {
     }
 }
 
-bool ClothMeshData::ReadClothFromFile(const std::string &verticesPath, const std::string &indicesPath, physx::PxMat44 transform) {
+bool ClothMeshData::ReadClothFromFile(const std::string &verticesPath,
+                                      const std::string &indicesPath, physx::PxMat44 transform) {
     std::vector<float> verticesXYZ = readValuesFromFile<float>(verticesPath);
     std::vector<uint32_t> indices = readValuesFromFile<uint32_t>(indicesPath);
     
@@ -259,7 +264,8 @@ bool ClothMeshData::ReadClothFromFile(const std::string &verticesPath, const std
 }
 
 template<typename PositionType, typename IndexType>
-bool ClothMeshData::InitializeFromData(nv::cloth::BoundedData positions, nv::cloth::BoundedData indices, physx::PxMat44 transform) {
+bool ClothMeshData::InitializeFromData(nv::cloth::BoundedData positions,
+                                       nv::cloth::BoundedData indices, physx::PxMat44 transform) {
     if (positions.count < 3 || indices.count < 3)
         return false;
     
@@ -314,13 +320,17 @@ bool ClothMeshData::InitializeFromData(nv::cloth::BoundedData positions, nv::clo
     return true;
 }
 
-template bool ClothMeshData::InitializeFromData<float, uint16_t>(nv::cloth::BoundedData positions, nv::cloth::BoundedData indices, physx::PxMat44 transform);
+template bool ClothMeshData::InitializeFromData<float, uint16_t>(nv::cloth::BoundedData positions,
+                                                                 nv::cloth::BoundedData indices, physx::PxMat44 transform);
 
-template bool ClothMeshData::InitializeFromData<float, uint32_t>(nv::cloth::BoundedData positions, nv::cloth::BoundedData indices, physx::PxMat44 transform);
+template bool ClothMeshData::InitializeFromData<float, uint32_t>(nv::cloth::BoundedData positions,
+                                                                 nv::cloth::BoundedData indices, physx::PxMat44 transform);
 
-template bool ClothMeshData::InitializeFromData<physx::PxVec3, uint16_t>(nv::cloth::BoundedData positions, nv::cloth::BoundedData indices, physx::PxMat44 transform);
+template bool ClothMeshData::InitializeFromData<physx::PxVec3, uint16_t>(nv::cloth::BoundedData positions,
+                                                                         nv::cloth::BoundedData indices, physx::PxMat44 transform);
 
-template bool ClothMeshData::InitializeFromData<physx::PxVec3, uint32_t>(nv::cloth::BoundedData positions, nv::cloth::BoundedData indices, physx::PxMat44 transform);
+template bool ClothMeshData::InitializeFromData<physx::PxVec3, uint32_t>(nv::cloth::BoundedData positions,
+                                                                         nv::cloth::BoundedData indices, physx::PxMat44 transform);
 
 void ClothMeshData::SetInvMasses(float invMass) {
     // Doesn't modify attached vertices

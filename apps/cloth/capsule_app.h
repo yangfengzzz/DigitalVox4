@@ -7,13 +7,11 @@
 #ifndef capsule_app_hpp
 #define capsule_app_hpp
 
-#include "forward_application.h"
-#include <NvCloth/Solver.h>
-#include <NvCloth/Fabric.h>
+#include "cloth_application.h"
 
 namespace vox {
 namespace cloth {
-class CapsuleApp : public ForwardApplication {
+class CapsuleApp : public ClothApplication {
 public:
     void loadScene(uint32_t width, uint32_t height) override;
     
@@ -22,6 +20,7 @@ private:
     
     nv::cloth::Fabric* _fabric{nullptr};
     std::unique_ptr<nv::cloth::Solver> _solver{nullptr};
+    ClothActor _clothActor;
 };
 
 }

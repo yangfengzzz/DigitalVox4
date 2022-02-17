@@ -21,6 +21,7 @@
 		0434BBEA27BE388200026D1D /* cloth_mesh_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBE827BE388200026D1D /* cloth_mesh_generator.cpp */; };
 		0434BBEB27BE388200026D1D /* cloth_mesh_generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBE927BE388200026D1D /* cloth_mesh_generator.h */; };
 		0434BBEF27BE391400026D1D /* simple_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBED27BE391400026D1D /* simple_mesh.h */; };
+		0434BBF227BE40F900026D1D /* cloth_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBF027BE40F900026D1D /* cloth_application.cpp */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -706,6 +707,8 @@
 		0434BBE827BE388200026D1D /* cloth_mesh_generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cloth_mesh_generator.cpp; sourceTree = "<group>"; };
 		0434BBE927BE388200026D1D /* cloth_mesh_generator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth_mesh_generator.h; sourceTree = "<group>"; };
 		0434BBED27BE391400026D1D /* simple_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = simple_mesh.h; sourceTree = "<group>"; };
+		0434BBF027BE40F900026D1D /* cloth_application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cloth_application.cpp; sourceTree = "<group>"; };
+		0434BBF127BE40F900026D1D /* cloth_application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth_application.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1679,6 +1682,8 @@
 		0434BBE427BE34DE00026D1D /* cloth */ = {
 			isa = PBXGroup;
 			children = (
+				0434BBF127BE40F900026D1D /* cloth_application.h */,
+				0434BBF027BE40F900026D1D /* cloth_application.cpp */,
 				0434BBE627BE34F500026D1D /* capsule_app.h */,
 				0434BBE527BE34F500026D1D /* capsule_app.cpp */,
 			);
@@ -3040,6 +3045,7 @@
 				04CD9414279B94220093D6CB /* Irradiance_app.cpp in Sources */,
 				04B4ACCD279900AD0020576D /* physx_app.cpp in Sources */,
 				0434BBE727BE34F500026D1D /* capsule_app.cpp in Sources */,
+				0434BBF227BE40F900026D1D /* cloth_application.cpp in Sources */,
 				04B4ACCA2798EB3C0020576D /* primitive_app.cpp in Sources */,
 				04460456279CDACB009108C8 /* shadowmap_app.cpp in Sources */,
 			);
