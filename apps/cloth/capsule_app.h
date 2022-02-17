@@ -19,7 +19,7 @@ private:
     void _initializeCloth(physx::PxVec3 offset);
     
     nv::cloth::Fabric* _fabric{nullptr};
-    std::unique_ptr<nv::cloth::Solver> _solver{nullptr};
+    nv::cloth::Solver* _solver{nullptr};
     ClothActor _clothActor;
 };
 

@@ -18,6 +18,9 @@ namespace cloth {
 using namespace physx;
 
 void CapsuleApp::_initializeCloth(physx::PxVec3 offset) {
+    _solver = _factory->createSolver();
+    trackSolver(_solver);
+
     ClothMeshData clothMesh;
     physx::PxMat44 transform = PxTransform(PxVec3(0.f, 13.f, 0.f) + offset, PxQuat(0, PxVec3(1.f, 0.f, 0.f)));
     clothMesh.GeneratePlaneCloth(5.f, 6.f, 69, 79, false, transform);
@@ -27,6 +30,7 @@ void CapsuleApp::_initializeCloth(physx::PxVec3 offset) {
     nv::cloth::ClothMeshDesc meshDesc = clothMesh.GetClothMeshDesc();
     nv::cloth::Vector<int32_t>::Type phaseTypeInfo;
     _fabric = NvClothCookFabricFromMesh(_factory, meshDesc, physx::PxVec3(0.0f, 0.0f, 1.0f), &phaseTypeInfo, false);
+    trackFabric(_fabric);
     
     // Initialize start positions and masses for the actual cloth instance
     // (note: the particle/vertex positions do not have to match the mesh description here. Set the positions to the initial shape of this cloth instance)
@@ -66,6 +70,10 @@ void CapsuleApp::_initializeCloth(physx::PxVec3 offset) {
     _clothActor.cloth->setPhaseConfig(nv::cloth::Range<nv::cloth::PhaseConfig>(&phases.front(), &phases.back()));
     _clothActor.cloth->setDragCoefficient(0.5f);
     _clothActor.cloth->setLiftCoefficient(0.6f);
+    trackClothActor(&_clothActor);
+    
+    // Add the cloth to the solver for simulation
+    addClothToSolver(&_clothActor, _solver);
 }
 
 void CapsuleApp::loadScene(uint32_t width, uint32_t height) {
