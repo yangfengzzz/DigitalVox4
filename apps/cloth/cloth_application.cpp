@@ -40,15 +40,13 @@ void ClothApplication::finish() {
     _fabricList.clear();
 }
 
-bool ClothApplication::prepare(Engine &engine) {
-    ForwardApplication::prepare(engine);
-    
+ClothApplication::ClothApplication():
+ForwardApplication() {
+    NvClothEnvironment::AllocateEnv();
     _factory = NvClothCreateFactoryCPU();
     if (!_factory) {
         // bug
     }
-    
-    return true;
 }
 
 void ClothApplication::update(float delta_time) {

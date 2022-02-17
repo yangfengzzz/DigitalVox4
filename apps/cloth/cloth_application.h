@@ -25,7 +25,7 @@ public:
         nv::cloth::Cloth *cloth{nullptr};
     };
     
-    bool prepare(Engine &engine) override;
+    ClothApplication();
     
     void update(float delta_time) override;
     

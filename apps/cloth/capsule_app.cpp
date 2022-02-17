@@ -7,7 +7,7 @@
 #include "capsule_app.h"
 #include "mesh/primitive_mesh.h"
 #include "mesh/mesh_renderer.h"
-#include "material/unlit_material.h"
+#include "material/blinn_phong_material.h"
 #include "camera.h"
 #include "controls/orbit_control.h"
 
@@ -27,12 +27,14 @@ void CapsuleApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     clothMesh.AttachClothPlaneByAngles(69, 79);
     clothMesh.SetInvMasses(0.5f);
     
-    _clothActor.clothRenderer = entity->addComponent<ClothRenderer>();
-    
     nv::cloth::ClothMeshDesc meshDesc = clothMesh.GetClothMeshDesc();
     nv::cloth::Vector<int32_t>::Type phaseTypeInfo;
     _fabric = NvClothCookFabricFromMesh(_factory, meshDesc, physx::PxVec3(0.0f, 0.0f, 1.0f), &phaseTypeInfo, false);
     trackFabric(_fabric);
+    
+    _clothActor.clothRenderer = entity->addComponent<ClothRenderer>();
+    _clothActor.clothRenderer->setClothMeshDesc(meshDesc);
+    _clothActor.clothRenderer->setMaterial(std::make_shared<BlinnPhongMaterial>());
     
     // Initialize start positions and masses for the actual cloth instance
     // (note: the particle/vertex positions do not have to match the mesh description here. Set the positions to the initial shape of this cloth instance)
@@ -79,13 +81,6 @@ void CapsuleApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
 
 void CapsuleApp::loadScene(uint32_t width, uint32_t height) {
     auto rootEntity = _scene->createRootEntity();
-    auto modelEntity = rootEntity->createChild();
-    
-    auto renderer = modelEntity->addComponent<MeshRenderer>();
-    renderer->setMesh(PrimitiveMesh::createCuboid(_device.get()));
-    auto material = std::make_shared<UnlitMaterial>();
-    material->setBaseColor(Color(0.6, 0.4, 0.7, 1.0));
-    renderer->setMaterial(material);
     
     auto cameraEntity = rootEntity->createChild();
     cameraEntity->transform->setPosition(10, 10, 10);
@@ -93,6 +88,19 @@ void CapsuleApp::loadScene(uint32_t width, uint32_t height) {
     _mainCamera = cameraEntity->addComponent<Camera>();
     _mainCamera->resize(width, height);
     cameraEntity->addComponent<control::OrbitControl>();
+    
+    // init point light
+    auto light = rootEntity->createChild("light");
+    light->transform->setPosition(0, 3, 0);
+    auto pointLight = light->addComponent<PointLight>();
+    pointLight->intensity = 0.3;
+    
+    auto modelEntity = rootEntity->createChild();
+    auto renderer = modelEntity->addComponent<MeshRenderer>();
+    renderer->setMesh(PrimitiveMesh::createCuboid(_device.get()));
+    auto material = std::make_shared<BlinnPhongMaterial>();
+    material->setBaseColor(Color(0.6, 0.4, 0.7, 1.0));
+    renderer->setMaterial(material);
     
     auto clothEntity = rootEntity->createChild();
     _initializeCloth(clothEntity, physx::PxVec3(0.0f, 0.0f, 0.0f));

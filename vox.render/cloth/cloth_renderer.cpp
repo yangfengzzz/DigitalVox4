@@ -57,19 +57,8 @@ void ClothRenderer::_render(std::vector<RenderElement> &opaqueQueue,
     shaderData.disableMacro(HAS_TANGENT);
     shaderData.disableMacro(HAS_VERTEXCOLOR);
     
-    if (_vertexDescriptor.attributes[Attributes::UV_0].format() != MTL::VertexFormatInvalid) {
-        shaderData.enableMacro(HAS_UV);
-    }
-    if (_vertexDescriptor.attributes[Attributes::Normal].format() != MTL::VertexFormatInvalid) {
-        shaderData.enableMacro(HAS_NORMAL);
-    }
-    if (_vertexDescriptor.attributes[Attributes::Tangent].format() != MTL::VertexFormatInvalid) {
-        shaderData.enableMacro(HAS_TANGENT);
-    }
-    if (_vertexDescriptor.attributes[Attributes::Color_0].format() != MTL::VertexFormatInvalid) {
-        shaderData.enableMacro(HAS_VERTEXCOLOR);
-    }
-    
+    shaderData.enableMacro(HAS_NORMAL);
+
     auto &subMeshes = _mesh->submeshes();
     for (size_t i = 0; i < subMeshes.size(); i++) {
         MaterialPtr material;
@@ -141,6 +130,11 @@ void ClothRenderer::_initialize(const void *vertices, uint32_t numVertices, uint
     // IB
     if (faces != nullptr) {
         _indexBuffers = _entity->scene()->device()->makeBuffer(faces, sizeof(uint16_t) * numFaces * 3);
+        
+        auto submesh = Submesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, numFaces * 3,
+                               MeshBuffer(_indexBuffers, 0, numFaces * 3 * sizeof(uint16_t)));
+        std::vector<MeshBuffer> buffer = {MeshBuffer(_vertexBuffers, 0, sizeof(Vertex) * _vertices.size(), 0)};
+        _mesh = std::make_shared<Mesh>(submesh, buffer, _vertexDescriptor);
     }
 }
 
