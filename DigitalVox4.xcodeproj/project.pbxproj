@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		04229696278D71760090983F /* surface3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229692278D71760090983F /* surface3.h */; };
 		04229697278D71760090983F /* surface2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229693278D71760090983F /* surface2.h */; };
+		0434BBC327BDE90100026D1D /* animation_field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBC127BDE90100026D1D /* animation_field.cpp */; };
+		0434BBC427BDE90100026D1D /* animation_field.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBC227BDE90100026D1D /* animation_field.h */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -678,6 +680,9 @@
 		04229694278D71760090983F /* surface2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface2.cpp; sourceTree = "<group>"; };
 		04229695278D71760090983F /* surface3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface3.cpp; sourceTree = "<group>"; };
 		0422969F278DAE4E0090983F /* libvox.math.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.math.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0434BBB627BDE8AD00026D1D /* libvox.sph.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.sph.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0434BBC127BDE90100026D1D /* animation_field.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = animation_field.cpp; sourceTree = "<group>"; };
+		0434BBC227BDE90100026D1D /* animation_field.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = animation_field.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1208,6 +1213,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0434BBB427BDE8AD00026D1D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		044593B42790055000F04CE0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1256,6 +1268,7 @@
 				042296A0278DAE4E0090983F /* vox.math */,
 				042295DA278D121D0090983F /* vox.geometry */,
 				04459591279518FF00F04CE0 /* vox.force */,
+				0434BBB727BDE8AD00026D1D /* vox.sph */,
 				044593A7279002C000F04CE0 /* vox.shader */,
 				04229551278C30840090983F /* vox.render */,
 				0422960A278D29760090983F /* unit_tests */,
@@ -1276,6 +1289,7 @@
 				044593B72790055000F04CE0 /* apps */,
 				04459590279518FF00F04CE0 /* libvox.force.a */,
 				04CD93B9279A4F650093D6CB /* editor */,
+				0434BBB627BDE8AD00026D1D /* libvox.sph.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1594,6 +1608,15 @@
 				044592FB278F023900F04CE0 /* spherical_harmonics3.cpp */,
 			);
 			path = vox.math;
+			sourceTree = "<group>";
+		};
+		0434BBB727BDE8AD00026D1D /* vox.sph */ = {
+			isa = PBXGroup;
+			children = (
+				0434BBC227BDE90100026D1D /* animation_field.h */,
+				0434BBC127BDE90100026D1D /* animation_field.cpp */,
+			);
+			path = vox.sph;
 			sourceTree = "<group>";
 		};
 		044591C4278E54D500F04CE0 /* memory */ = {
@@ -2383,6 +2406,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0434BBB227BDE8AD00026D1D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0434BBC427BDE90100026D1D /* animation_field.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0445958C279518FF00F04CE0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2469,6 +2500,23 @@
 			name = vox.math;
 			productName = vox.math;
 			productReference = 0422969F278DAE4E0090983F /* libvox.math.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		0434BBB527BDE8AD00026D1D /* vox.sph */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0434BBC027BDE8AD00026D1D /* Build configuration list for PBXNativeTarget "vox.sph" */;
+			buildPhases = (
+				0434BBB227BDE8AD00026D1D /* Headers */,
+				0434BBB327BDE8AD00026D1D /* Sources */,
+				0434BBB427BDE8AD00026D1D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vox.sph;
+			productName = vox.sph;
+			productReference = 0434BBB627BDE8AD00026D1D /* libvox.sph.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		044593A6279002C000F04CE0 /* vox.shader */ = {
@@ -2564,6 +2612,9 @@
 					0422969E278DAE4E0090983F = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
+					0434BBB527BDE8AD00026D1D = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					044593A6279002C000F04CE0 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -2594,6 +2645,7 @@
 				0422969E278DAE4E0090983F /* vox.math */,
 				042295D8278D121C0090983F /* vox.geometry */,
 				0445958F279518FF00F04CE0 /* vox.force */,
+				0434BBB527BDE8AD00026D1D /* vox.sph */,
 				0422954E278C30840090983F /* vox.render */,
 				044593A6279002C000F04CE0 /* vox.shader */,
 				04229608278D29760090983F /* unit_tests */,
@@ -2823,6 +2875,14 @@
 				044594A627940A3A00F04CE0 /* bounding_frustum.cpp in Sources */,
 				0445952F279501DB00F04CE0 /* parallel.cpp in Sources */,
 				044594B02794119400F04CE0 /* spherical_harmonics3.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0434BBB327BDE8AD00026D1D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0434BBC327BDE90100026D1D /* animation_field.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3334,6 +3394,34 @@
 			};
 			name = Release;
 		};
+		0434BBBE27BDE8AD00026D1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				HEADER_SEARCH_PATHS = ./vox.math;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		0434BBBF27BDE8AD00026D1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4SL5L673UU;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				HEADER_SEARCH_PATHS = ./vox.math;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		044593AB279002C000F04CE0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3718,6 +3806,15 @@
 			buildConfigurations = (
 				042296A8278DAE4E0090983F /* Debug */,
 				042296A9278DAE4E0090983F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0434BBC027BDE8AD00026D1D /* Build configuration list for PBXNativeTarget "vox.sph" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0434BBBE27BDE8AD00026D1D /* Debug */,
+				0434BBBF27BDE8AD00026D1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
