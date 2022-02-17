@@ -26,6 +26,7 @@
 		0434BBFA27BE481D00026D1D /* callback_implementations.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBF827BE481D00026D1D /* callback_implementations.h */; };
 		0434BBFD27BE523E00026D1D /* cloth_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBFB27BE523E00026D1D /* cloth_renderer.cpp */; };
 		0434BBFE27BE523E00026D1D /* cloth_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBFC27BE523E00026D1D /* cloth_renderer.h */; };
+		0434BC0127BF157B00026D1D /* ccd_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBFF27BF157B00026D1D /* ccd_app.cpp */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -717,6 +718,9 @@
 		0434BBF827BE481D00026D1D /* callback_implementations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = callback_implementations.h; sourceTree = "<group>"; };
 		0434BBFB27BE523E00026D1D /* cloth_renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cloth_renderer.cpp; sourceTree = "<group>"; };
 		0434BBFC27BE523E00026D1D /* cloth_renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth_renderer.h; sourceTree = "<group>"; };
+		0434BBFF27BF157B00026D1D /* ccd_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ccd_app.cpp; sourceTree = "<group>"; };
+		0434BC0027BF157B00026D1D /* ccd_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccd_app.h; sourceTree = "<group>"; };
+		0434BC0227BF16A000026D1D /* cloth_apps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth_apps.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1694,10 +1698,13 @@
 		0434BBE427BE34DE00026D1D /* cloth */ = {
 			isa = PBXGroup;
 			children = (
+				0434BC0227BF16A000026D1D /* cloth_apps.h */,
 				0434BBF127BE40F900026D1D /* cloth_application.h */,
 				0434BBF027BE40F900026D1D /* cloth_application.cpp */,
 				0434BBE627BE34F500026D1D /* capsule_app.h */,
 				0434BBE527BE34F500026D1D /* capsule_app.cpp */,
+				0434BC0027BF157B00026D1D /* ccd_app.h */,
+				0434BBFF27BF157B00026D1D /* ccd_app.cpp */,
 			);
 			path = cloth;
 			sourceTree = "<group>";
@@ -3055,6 +3062,7 @@
 				04CD93A62799A4600093D6CB /* framebuffer_picker_app.cpp in Sources */,
 				04460452279C4E28009108C8 /* omni_shadowmap_app.cpp in Sources */,
 				04CD940E279ABC6F0093D6CB /* animation_app.cpp in Sources */,
+				0434BC0127BF157B00026D1D /* ccd_app.cpp in Sources */,
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
 				04CD9419279BB7AE0093D6CB /* skybox_app.cpp in Sources */,
 				04CD941C279BBADB0093D6CB /* ibl_app.cpp in Sources */,

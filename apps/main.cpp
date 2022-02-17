@@ -22,14 +22,14 @@
 #include "cascade_shadowmap_app.h"
 #include "omni_shadowmap_app.h"
 
-#include "cloth/capsule_app.h"
+#include "cloth/cloth_apps.h"
 
 int main(int argc, char * argv[]) {
     vox::UnixEngine engine{vox::UnixType::Mac, argc, argv};
         
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::cloth::CapsuleApp>());
+        engine.setApp(std::make_unique<vox::cloth::CCDApp>());
         code = engine.mainLoop();
     }
     
