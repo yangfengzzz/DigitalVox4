@@ -59,12 +59,10 @@ nv::cloth::Factory *ClothController::factory() {
     return _factory;
 }
 
-std::function<void(float)> ClothController::updateFunctor() {
-    return [&](float deltaTime) {
-        startSimulationStep(deltaTime);
-        waitForSimulationStep();
-        updateSimulationGraphics();
-    };
+void ClothController::update(float deltaTime) {
+    startSimulationStep(deltaTime);
+    waitForSimulationStep();
+    updateSimulationGraphics();
 }
 
 void ClothController::startSimulationStep(float dt) {

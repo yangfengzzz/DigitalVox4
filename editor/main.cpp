@@ -16,7 +16,7 @@ int main(int argc, char * argv[]) {
         
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::Editor>());
+        engine.setApp(std::make_unique<vox::cloth::ClothEditor>());
         code = engine.mainLoop();
     }
     

@@ -25,6 +25,13 @@
 namespace vox {
 namespace cloth {
 using namespace physx;
+ClothEditor::ClothEditor() {
+    _clothController = new ClothController;
+}
+
+ClothEditor::~ClothEditor() {
+    delete _clothController;
+}
 
 void ClothEditor::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     auto clothController = ClothController::getSingletonPtr();
@@ -110,7 +117,7 @@ void ClothEditor::loadScene(uint32_t width, uint32_t height) {
     _mainCamera->resize(width, height);
     cameraEntity->addComponent<control::OrbitControl>();
     _entry = cameraEntity->addComponent<editor::GUIEntry>();
-    _entry->addEditorComponent(std::move(std::make_unique<ClothUI>()));
+    _entry->addEditorComponent(std::make_unique<ClothUI>());
 
     // init point light
     auto light = rootEntity->createChild("light");
@@ -144,6 +151,11 @@ void ClothEditor::inputEvent(const InputEvent &inputEvent) {
             pick(mouse_button.pos_x(), mouse_button.pos_y());
         }
     }
+}
+
+void ClothEditor::update(float delta_time) {
+    _clothController->update(delta_time);
+    EditorApplication::update(delta_time);
 }
 
 }

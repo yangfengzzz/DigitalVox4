@@ -34,7 +34,7 @@ public:
     
     nv::cloth::Factory *factory();
     
-    std::function<void(float)> updateFunctor();
+    void update(float deltaTime);    
     
 public:
     //Helper functions to enable automatic deinitialize

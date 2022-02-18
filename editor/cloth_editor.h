@@ -15,14 +15,21 @@ namespace vox {
 namespace cloth {
 class ClothEditor : public EditorApplication {
 public:
+    ClothEditor();
+    
+    ~ClothEditor();
+    
     void loadScene(uint32_t width, uint32_t height) override;
     
     void pickFunctor(Renderer *renderer, MeshPtr mesh) override;
     
     void inputEvent(const InputEvent &inputEvent) override;
     
+    void update(float delta_time) override;
+    
 private:
     editor::GUIEntry* _entry{nullptr};
+    ClothController* _clothController{nullptr};
     
     void _initializeCloth(EntityPtr entity, physx::PxVec3 offset);
     nv::cloth::Fabric *_fabric{nullptr};
