@@ -35,6 +35,7 @@
 		0434BC1527BF25CE00026D1D /* friction_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1327BF25CE00026D1D /* friction_app.cpp */; };
 		0434BC1827BF274C00026D1D /* geodesic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1627BF274C00026D1D /* geodesic_app.cpp */; };
 		0434BC1B27BF28C400026D1D /* inter_collision_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1927BF28C400026D1D /* inter_collision_app.cpp */; };
+		0434BC1E27BF2A3000026D1D /* local_global_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1C27BF2A3000026D1D /* local_global_app.cpp */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -743,6 +744,8 @@
 		0434BC1727BF274C00026D1D /* geodesic_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = geodesic_app.h; sourceTree = "<group>"; };
 		0434BC1927BF28C400026D1D /* inter_collision_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = inter_collision_app.cpp; sourceTree = "<group>"; };
 		0434BC1A27BF28C400026D1D /* inter_collision_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inter_collision_app.h; sourceTree = "<group>"; };
+		0434BC1C27BF2A3000026D1D /* local_global_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = local_global_app.cpp; sourceTree = "<group>"; };
+		0434BC1D27BF2A3000026D1D /* local_global_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = local_global_app.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1741,6 +1744,8 @@
 				0434BC1627BF274C00026D1D /* geodesic_app.cpp */,
 				0434BC1A27BF28C400026D1D /* inter_collision_app.h */,
 				0434BC1927BF28C400026D1D /* inter_collision_app.cpp */,
+				0434BC1D27BF2A3000026D1D /* local_global_app.h */,
+				0434BC1C27BF2A3000026D1D /* local_global_app.cpp */,
 			);
 			path = cloth;
 			sourceTree = "<group>";
@@ -3099,6 +3104,7 @@
 				04460445279BE2B4009108C8 /* gltf_app.cpp in Sources */,
 				04CD93A62799A4600093D6CB /* framebuffer_picker_app.cpp in Sources */,
 				04460452279C4E28009108C8 /* omni_shadowmap_app.cpp in Sources */,
+				0434BC1E27BF2A3000026D1D /* local_global_app.cpp in Sources */,
 				04CD940E279ABC6F0093D6CB /* animation_app.cpp in Sources */,
 				0434BC0127BF157B00026D1D /* ccd_app.cpp in Sources */,
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
