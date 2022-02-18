@@ -7,12 +7,15 @@
 #include "cloth_ui.h"
 #include "cloth_controller.h"
 #include "gui/imgui.h"
+#include "debug_frame_manager.h"
 
 namespace vox {
 namespace cloth {
 void ClothUI::onUpdate() {
     _updateClothUI();
     _updateSolverUI();
+    
+    _debugRenderBoundingBox();
 }
 
 void ClothUI::_updateClothUI() {
@@ -191,6 +194,42 @@ void ClothUI::_updateSolverUI() {
                 solver->setInterCollisionStiffness(f);
         }
         ImGui::TreePop();
+    }
+}
+
+void ClothUI::_debugRenderBoundingBox() {
+    const auto controller = ClothController::getSingletonPtr();
+    const auto debugMananger = DebugFrameManager::getSingletonPtr();
+
+    for(auto it : controller->_clothList) {
+        nv::cloth::Cloth& cloth = *it->cloth;
+
+        Matrix4x4F transform = it->clothRenderer->entity()->transform->worldMatrix();
+
+        physx::PxVec3 cTmep = cloth.getBoundingBoxCenter();
+        Vector3F c = Vector3F(cTmep.x, cTmep.y, cTmep.z);
+        physx::PxVec3 dTemp = cloth.getBoundingBoxScale();
+        Vector3F d = Vector3F(dTemp.x, dTemp.y, dTemp.z);
+        Vector3F dx = Vector3F(d.x, 0.0f, 0.0f);
+        Vector3F dy = Vector3F(0.0f, d.y, 0.0f);
+        Vector3F dz = Vector3F(0.0f, 0.0f, d.z);
+
+        debugMananger->addLine(transform,c + dy + dz - dx,c + dy + dz + dx, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c + dy - dz - dx,c + dy - dz + dx, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c - dy + dz - dx,c - dy + dz + dx, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c - dy - dz - dx,c - dy - dz + dx, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c + dy + dx - dz,c + dy + dx + dz, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c + dy - dx - dz,c + dy - dx + dz, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c - dy + dx - dz,c - dy + dx + dz, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c - dy - dx - dz,c - dy - dx + dz, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c + dz + dx - dy,c + dz + dx + dy, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c + dz - dx - dy,c + dz - dx + dy, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c - dz + dx - dy,c - dz + dx + dy, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c - dz - dx - dy,c - dz - dx + dy, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c + dy + dz + dx,c - dy - dz - dx, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c + dy + dz - dx,c - dy - dz + dx, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c - dy + dz + dx,c + dy - dz - dx, DebugFrameManager::DebugColor::RGB_DARKGREEN);
+        debugMananger->addLine(transform,c - dy + dz - dx,c + dy - dz + dx, DebugFrameManager::DebugColor::RGB_DARKGREEN);
     }
 }
 

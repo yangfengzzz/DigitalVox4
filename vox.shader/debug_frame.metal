@@ -16,7 +16,7 @@ typedef struct {
 
 typedef struct {
     float4 position [[position]];
-    uint4 color;
+    uint color;
 } VertexOut;
 
 vertex VertexOut vertex_debug_frame(const VertexIn in [[stage_in]],
@@ -28,7 +28,9 @@ vertex VertexOut vertex_debug_frame(const VertexIn in [[stage_in]],
     return out;
 }
 
-fragment uint4 fragment_debug_frame(VertexOut in [[stage_in]]) {
-    return in.color;
+fragment float4 fragment_debug_frame(VertexOut in [[stage_in]]) {
+    uint id = in.color;
+    return float4(((id & 0xff0000) >> 16) / 255.0, ((id & 0xff00) >> 8) / 255.0, (id & 0xff) / 255.0, 1.0);
+
 }
 

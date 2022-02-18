@@ -21,6 +21,8 @@ private:
     void _updateClothUI();
     
     void _updateSolverUI();
+    
+    void _debugRenderBoundingBox();
 };
 
 }

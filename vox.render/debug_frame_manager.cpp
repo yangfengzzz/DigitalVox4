@@ -30,7 +30,7 @@ _entity(entity) {
     _vertexDescriptor.attributes[0].offset(0);
     _vertexDescriptor.attributes[0].bufferIndex(0);
     _vertexDescriptor.attributes[1].format(MTL::VertexFormatUInt);
-    _vertexDescriptor.attributes[1].offset(sizeof(uint32_t));
+    _vertexDescriptor.attributes[1].offset(sizeof(Vector3F));
     _vertexDescriptor.attributes[1].bufferIndex(0);
     _vertexDescriptor.layouts[0].stride(sizeof(float) * 4);
     
@@ -56,7 +56,7 @@ void DebugFrameManager::addLine(const Vector3F &a, const Vector3F &b, uint32_t c
     _lines.indices.push_back(static_cast<uint32_t>(_lines.indices.size()));
 }
 
-void DebugFrameManager::addLine(const Matrix4x4F &t, const Vector3F &a, const Vector3F &b, unsigned int color) {
+void DebugFrameManager::addLine(const Matrix4x4F &t, const Vector3F &a, const Vector3F &b, uint32_t color) {
     _lines.vertex.push_back({ t * a, color});
     _lines.indices.push_back(static_cast<uint32_t>(_lines.indices.size()));
     _lines.vertex.push_back({ t * b, color});
