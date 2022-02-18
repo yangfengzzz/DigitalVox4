@@ -83,6 +83,8 @@ void DebugFrameManager::flush() {
                                MeshBuffer(*_lines.indicesBuffer, 0, _lines.indices.size() * sizeof(uint32_t)));
         std::vector<MeshBuffer> buffer = {MeshBuffer(*_lines.vertexBuffer, 0, vertexByteLength, 0)};
         _lines.renderer->setMesh(std::make_shared<Mesh>(submesh, buffer, _vertexDescriptor));
+    } else {
+        _lines.renderer->setMesh(nullptr);
     }
 
     
