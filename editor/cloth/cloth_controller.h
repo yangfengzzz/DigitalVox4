@@ -9,7 +9,7 @@
 
 #include "cloth/job_manager.h"
 #include "cloth/cloth_renderer.h"
-#include "../singleton.h"
+#include "singleton.h"
 #include <NvCloth/Solver.h>
 #include <NvCloth/Fabric.h>
 #include <NvCloth/Cloth.h>
@@ -34,7 +34,7 @@ public:
     
     nv::cloth::Factory *factory();
     
-    void update(float deltaTime);    
+    void update(float deltaTime);
     
 public:
     //Helper functions to enable automatic deinitialize

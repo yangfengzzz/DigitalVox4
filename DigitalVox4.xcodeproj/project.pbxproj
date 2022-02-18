@@ -50,6 +50,10 @@
 		0434BC4F27BF56DD00026D1D /* cloth_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4627BF4F7100026D1D /* cloth_ui.cpp */; };
 		0434BC5027BF56DD00026D1D /* cloth_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4B27BF54D100026D1D /* cloth_controller.cpp */; };
 		0434BC5327BF63C400026D1D /* cloth_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC5127BF63C400026D1D /* cloth_editor.cpp */; };
+		0434BC5627BF7CF500026D1D /* debug_frame_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC5427BF7CF500026D1D /* debug_frame_manager.cpp */; };
+		0434BC5727BF7CF500026D1D /* debug_frame_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BC5527BF7CF500026D1D /* debug_frame_manager.h */; };
+		0434BC5827BF7D3F00026D1D /* singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BC4A27BF548A00026D1D /* singleton.h */; };
+		0434BC5A27BF834F00026D1D /* debug_frame.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC5927BF834F00026D1D /* debug_frame.metal */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -789,6 +793,9 @@
 		0434BC4C27BF54D100026D1D /* cloth_controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth_controller.h; sourceTree = "<group>"; };
 		0434BC5127BF63C400026D1D /* cloth_editor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cloth_editor.cpp; sourceTree = "<group>"; };
 		0434BC5227BF63C400026D1D /* cloth_editor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth_editor.h; sourceTree = "<group>"; };
+		0434BC5427BF7CF500026D1D /* debug_frame_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = debug_frame_manager.cpp; sourceTree = "<group>"; };
+		0434BC5527BF7CF500026D1D /* debug_frame_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = debug_frame_manager.h; sourceTree = "<group>"; };
+		0434BC5927BF834F00026D1D /* debug_frame.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = debug_frame.metal; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1480,6 +1487,9 @@
 				0445942E2793A5D800F04CE0 /* forward_application.cpp */,
 				04CD939D2799920C0093D6CB /* editor_application.h */,
 				04CD939C2799920C0093D6CB /* editor_application.cpp */,
+				0434BC4A27BF548A00026D1D /* singleton.h */,
+				0434BC5527BF7CF500026D1D /* debug_frame_manager.h */,
+				0434BC5427BF7CF500026D1D /* debug_frame_manager.cpp */,
 			);
 			path = vox.render;
 			sourceTree = "<group>";
@@ -2078,6 +2088,7 @@
 				04459729279832B800F04CE0 /* specular_map.metal */,
 				0445972F279832B800F04CE0 /* texture_packer.metal */,
 				04459737279832B900F04CE0 /* shadow-map.metal */,
+				0434BC5927BF834F00026D1D /* debug_frame.metal */,
 				044597592798334B00F04CE0 /* core */,
 				0445973B279832B900F04CE0 /* cubemap_debugger.metal */,
 				0445973F279832BA00F04CE0 /* light_debugger.metal */,
@@ -2357,7 +2368,6 @@
 		04CD93BA279A4F650093D6CB /* editor */ = {
 			isa = PBXGroup;
 			children = (
-				0434BC4A27BF548A00026D1D /* singleton.h */,
 				04CD93CA279A4FB30093D6CB /* crude_json.h */,
 				04CD93C4279A4FB30093D6CB /* crude_json.cpp */,
 				04CD93C6279A4FB30093D6CB /* imgui_extra_math.h */,
@@ -2438,6 +2448,7 @@
 				044596322796EDD400F04CE0 /* unix_engine.h in Headers */,
 				044595FB2796E88600F04CE0 /* cpp_mtl_resource_enum.h in Headers */,
 				04CD93FB279A974F0093D6CB /* fbx_mesh.h in Headers */,
+				0434BC5827BF7D3F00026D1D /* singleton.h in Headers */,
 				0434BBEB27BE388200026D1D /* cloth_mesh_generator.h in Headers */,
 				044596952796F99100F04CE0 /* update_flag.h in Headers */,
 				04CD9408279A9FF00093D6CB /* skinned_mesh_renderer.h in Headers */,
@@ -2542,6 +2553,7 @@
 				04CD93AF279A44970093D6CB /* imgui_impl_glfw.h in Headers */,
 				044596882796F87C00F04CE0 /* pbr_base_material.h in Headers */,
 				044596972796F99100F04CE0 /* layer.h in Headers */,
+				0434BC5727BF7CF500026D1D /* debug_frame_manager.h in Headers */,
 				0445963C2796EE4F00F04CE0 /* primitive_mesh.h in Headers */,
 				044596A02796F99100F04CE0 /* entity.h in Headers */,
 				044596BF2796FBE100F04CE0 /* character_controller.h in Headers */,
@@ -2967,6 +2979,7 @@
 				0445970A279819D000F04CE0 /* light.cpp in Sources */,
 				044596042796E88600F04CE0 /* cpp_mtl_render_pass.mm in Sources */,
 				044596B12796FAFD00F04CE0 /* orbit_control.cpp in Sources */,
+				0434BC5627BF7CF500026D1D /* debug_frame_manager.cpp in Sources */,
 				0445960A2796E88600F04CE0 /* cpp_mtl_buffer.mm in Sources */,
 				044595EC2796E88600F04CE0 /* cpp_mtl_function_constant_values.mm in Sources */,
 				044596D62796FBE100F04CE0 /* translational_joint.cpp in Sources */,
@@ -3174,6 +3187,7 @@
 				04CD93A82799A61F0093D6CB /* framebuffer-picker-color.metal in Sources */,
 				04459758279832BA00F04CE0 /* light_debugger.metal in Sources */,
 				04459752279832BA00F04CE0 /* function-common.metal in Sources */,
+				0434BC5A27BF834F00026D1D /* debug_frame.metal in Sources */,
 				04459750279832BA00F04CE0 /* shadow-map.metal in Sources */,
 				0445974C279832BA00F04CE0 /* unlit.metal in Sources */,
 				0445974E279832BA00F04CE0 /* editor-grid.metal in Sources */,

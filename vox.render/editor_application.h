@@ -1,14 +1,14 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  editor_application.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/20.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef editor_application_hpp
 #define editor_application_hpp
 
 #include "forward_application.h"
+#include "debug_frame_manager.h"
 
 namespace vox {
 class ColorPickerSubpass;
@@ -53,6 +53,8 @@ private:
     ColorPickerSubpass* _colorPickerSubpass{nullptr};
     
     std::array<uint8_t, 4> _readColorFromRenderTarget();
+    
+    DebugFrameManager* _debugFrameManager{nullptr};
 };
 
 }

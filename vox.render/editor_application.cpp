@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  editor_application.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/20.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "editor_application.h"
 #include "rendering/subpasses/forward_subpass.h"
@@ -14,10 +13,13 @@
 namespace vox {
 EditorApplication::~EditorApplication() {
     _renderPass.reset();
+    delete _debugFrameManager;
 }
 
 bool EditorApplication::prepare(Engine &engine) {
     ForwardApplication::prepare(engine);
+    
+    _debugFrameManager = new DebugFrameManager(_scene->createRootEntity());
     
     auto extent = engine.window().extent();
     auto scale = engine.window().contentScaleFactor();
@@ -47,6 +49,8 @@ bool EditorApplication::prepare(Engine &engine) {
 
 void EditorApplication::update(float delta_time) {
     MetalApplication::update(delta_time);
+    DebugFrameManager::getSingletonPtr()->flush();
+    
     _scene->update(delta_time);
     _scene->updateShaderData();
     
