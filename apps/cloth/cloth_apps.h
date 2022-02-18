@@ -14,5 +14,6 @@
 #include "convex_collision_app.h" // convex collider
 #include "distance_constraint_app.h" // distance constraints
 #include "geodesic_app.h" // geodesic distance for tether constraints
+#include "inter_collision_app.h" // lap together
 
 #endif /* cloth_apps_h */
