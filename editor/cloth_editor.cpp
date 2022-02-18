@@ -54,7 +54,7 @@ void ClothEditor::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     _clothActor.clothRenderer->setClothMeshDesc(meshDesc);
     auto material = std::make_shared<BlinnPhongMaterial>();
     material->setRenderFace(RenderFace::Double);
-    material->setBaseColor(Color(247/256.0, 186/256.0, 11/256.0));
+    material->setBaseColor(Color(247/256.0, 86/256.0, 11/256.0));
     _clothActor.clothRenderer->setMaterial(material);
     
     // Initialize start positions and masses for the actual cloth instance
@@ -115,7 +115,6 @@ void ClothEditor::loadScene(uint32_t width, uint32_t height) {
     cameraEntity->transform->lookAt(Point3F(0, 0, 0));
     _mainCamera = cameraEntity->addComponent<Camera>();
     _mainCamera->resize(width, height);
-    cameraEntity->addComponent<control::OrbitControl>();
     _entry = cameraEntity->addComponent<editor::GUIEntry>();
     _entry->addEditorComponent(std::make_unique<ClothUI>());
 
@@ -151,6 +150,8 @@ void ClothEditor::inputEvent(const InputEvent &inputEvent) {
             pick(mouse_button.pos_x(), mouse_button.pos_y());
         }
     }
+    
+    _clothController->handlePickingEvent(_mainCamera, inputEvent);
 }
 
 void ClothEditor::update(float delta_time) {

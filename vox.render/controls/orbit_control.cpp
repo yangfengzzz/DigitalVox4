@@ -226,7 +226,7 @@ void OrbitControl::onMouseDown(MouseButton button, double xpos, double ypos) {
     _isMouseUp = false;
     
     switch (button) {
-        case MouseButton::Left:
+        case MouseButton::Right:
             if (enableRotate == false) return;
             
             handleMouseDownRotate(xpos, ypos);
@@ -238,12 +238,14 @@ void OrbitControl::onMouseDown(MouseButton button, double xpos, double ypos) {
             handleMouseDownZoom(xpos, ypos);
             _state = STATE::ZOOM;
             break;
-        case MouseButton::Right:
-            if (enablePan == false) return;
             
-            handleMouseDownPan(xpos, ypos);
-            _state = STATE::PAN;
-            break;
+            // Pan turn to be GUI buttom
+        // case MouseButton::Right:
+        //     if (enablePan == false) return;
+        //
+        //    handleMouseDownPan(xpos, ypos);
+        //    _state = STATE::PAN;
+        //    break;
         default:
             break;
     }
