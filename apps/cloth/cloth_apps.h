@@ -10,5 +10,6 @@
 #include "capsule_app.h" // capsule collider
 #include "ccd_app.h" // capsule collider with animation ccd
 #include "convex_collision_app.h" // plane collider
+#include "distance_constraint_app.h" // distance constraints
 
 #endif /* cloth_apps_h */
