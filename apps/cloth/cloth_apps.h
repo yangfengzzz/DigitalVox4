@@ -16,6 +16,7 @@
 #include "convex_collision_app.h" // convex collider
 #include "triangle_app.h" // mesh collider
 #include "distance_constraint_app.h" // distance constraints
+#include "virtual_particle_app.h" // virtual particles
 
 #include "stiffness_per_constraint_app.h" // setTetherConstraintStiffness
 #include "geodesic_app.h" // geodesic distance for tether constraints
