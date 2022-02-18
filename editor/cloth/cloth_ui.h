@@ -16,6 +16,11 @@ class ClothApplication;
 class ClothUI : public editor::EditorComponent {
 public:
     void onUpdate() override;
+    
+private:
+    void _updateClothUI();
+    
+    void _updateSolverUI();
 };
 
 }

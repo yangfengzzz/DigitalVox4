@@ -11,6 +11,11 @@
 namespace vox {
 namespace cloth {
 void ClothUI::onUpdate() {
+    _updateClothUI();
+    _updateSolverUI();
+}
+
+void ClothUI::_updateClothUI() {
     static int activeCloth = 0;
 
     const auto controller = ClothController::getSingletonPtr();
@@ -147,6 +152,43 @@ void ClothUI::onUpdate() {
             physx::PxVec3 f3 = cloth->getWindVelocity();
             if(ImGui::DragFloat3("Wind Velocity", &f3.x, 0.5f, -50.0f, 50.0f, "%.1f"))
                 cloth->setWindVelocity(f3);
+        }
+        ImGui::TreePop();
+    }
+}
+
+void ClothUI::_updateSolverUI() {
+    static int activeSolver = 0;
+    
+    const auto controller = ClothController::getSingletonPtr();
+    if(ImGui::TreeNode("Solver Properties"))
+    {
+        activeSolver = std::min(activeSolver, (int)controller->_solverList.size() - 1);
+        for(int i = 0; i < (int)controller->_solverList.size(); i++)
+        {
+            if(i)
+                ImGui::SameLine();
+            std::stringstream clothName;
+            clothName << "Solver " << i;
+            ImGui::RadioButton(clothName.str().c_str(), &activeSolver, i);
+        }
+
+        nv::cloth::Solver* solver = controller->_solverList[activeSolver];
+
+        {
+            float f = solver->getInterCollisionDistance();
+            if(ImGui::DragFloat("Inter Collision Distance", &f, 0.005f, 0.0f, 2.0f, "%.2f"))
+                solver->setInterCollisionDistance(f);
+        }
+        {
+            uint32_t i = solver->getInterCollisionNbIterations();
+            if(ImGui::DragInt("Inter Collision Iterations", (int*)&i, 0.25, 0, 16))
+                solver->setInterCollisionNbIterations(i);
+        }
+        {
+            float f = solver->getInterCollisionStiffness();
+            if(ImGui::DragFloat("Inter Collision Stiffness", &f, 0.005f, 0.0f, 1.0f, "%.2f"))
+                solver->setInterCollisionStiffness(f);
         }
         ImGui::TreePop();
     }
