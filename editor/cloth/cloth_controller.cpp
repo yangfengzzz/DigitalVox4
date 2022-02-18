@@ -5,10 +5,13 @@
 //  property of any third parties.
 
 #include "cloth_controller.h"
+#include "camera.h"
+#include "entity.h"
 #include <NvClothExt/ClothFabricCooker.h>
 
 namespace vox {
 template<> cloth::ClothController *Singleton<cloth::ClothController>::msSingleton = 0;
+
 //-----------------------------------------------------------------------
 cloth::ClothController *cloth::ClothController::getSingletonPtr(void) {
     return msSingleton;
@@ -85,6 +88,91 @@ void ClothController::updateSimulationGraphics() {
             particles3[i] = particles[i].getXYZ();
         
         actor->clothRenderer->update(particles3.data(), particles.size());
+    }
+}
+
+void ClothController::handlePickingEvent(Camera *mainCamera, const InputEvent &inputEvent) {
+    if (inputEvent.source() == EventSource::Mouse) {
+        const auto &mouse_button = static_cast<const MouseButtonInputEvent &>(inputEvent);
+        if (mouse_button.action() == MouseAction::Down) {
+            _draggingParticle.dist = 9999999.0f;
+            _draggingParticle.offset = 9999999.0f;
+            _draggingParticle.trackedCloth = nullptr;
+            
+            Ray3F ray = mainCamera->screenPointToRay(Vector2F(mouse_button.pos_x(), mouse_button.pos_y()));
+            for (auto it: _clothList) {
+                nv::cloth::Cloth *cloth = it->cloth;
+                Matrix4x4F modelMatrix = it->clothRenderer->entity()->transform->worldMatrix();
+                nv::cloth::Range<physx::PxVec4> particles = cloth->getCurrentParticles();
+                
+                for (int i = 0; i < (int) particles.size(); i++) {
+                    physx::PxVec4 p = particles[i];
+                    Point3F point(p.x, p.y, p.z);
+                    point = modelMatrix * point;
+                    
+                    float dist = ray.direction.dot(point - ray.origin);
+                    float offset = point.distanceTo(ray.origin + ray.direction * dist);
+                    
+                    if (offset < 0.1f) {
+                        if (_draggingParticle.dist + 0.5f * _draggingParticle.offset > dist + 0.5f * offset) {
+                            _draggingParticle.trackedCloth = it;
+                            //mDraggingParticle.mOffset = offset;
+                            _draggingParticle.dist = dist;
+                            _draggingParticle.particleIndex = i;
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (mouse_button.action() == MouseAction::Move) {
+            Ray3F ray = mainCamera->screenPointToRay(Vector2F(mouse_button.pos_x(), mouse_button.pos_y()));
+            updateParticleDragging(ray);
+        }
+        
+        if (mouse_button.action() == MouseAction::Up) {
+            _draggingParticle.trackedCloth = nullptr;
+        }
+    }
+}
+
+void ClothController::updateParticleDragging(const Ray3F &ray) {
+    if (_draggingParticle.trackedCloth) {
+        nv::cloth::Cloth *cloth = _draggingParticle.trackedCloth->cloth;
+        Matrix4x4F modelMatrix = _draggingParticle.trackedCloth->clothRenderer->entity()->transform->worldMatrix();
+        nv::cloth::Range<physx::PxVec4> particles = cloth->getCurrentParticles();
+        nv::cloth::Range<physx::PxVec4> prevParticles = cloth->getPreviousParticles();
+        
+        physx::PxVec3 particleLocal = particles[_draggingParticle.particleIndex].getXYZ();
+        Point3F particleWorld = modelMatrix * Point3F(particleLocal.x, particleLocal.y, particleLocal.z);
+        
+        float rayT = _draggingParticle.dist;
+        Point3F mousePointPlane = ray.origin + ray.direction * rayT;
+        Vector3F offset = mousePointPlane - particleWorld;
+        if (offset.lengthSquared() > 2.5f * 2.5f)
+            offset = offset.normalized() * 2.5f;
+        
+        offset = modelMatrix.inverse() * offset;
+        
+        for (int i = 0; i < (int) particles.size(); i++) {
+            physx::PxVec4 pLocal = particles[i];
+            Vector4F p = modelMatrix * Vector4F(pLocal.x, pLocal.y, pLocal.z, pLocal.w);
+            float dist = Point3F(p.x, p.y, p.z).distanceTo(particleWorld);
+            
+            //Only move dynamic points
+            if (p.w > 0.0f) {
+                const float softSelectionRadius = 0.4f;
+                const float maxWeight = 0.4f;
+                float weight = std::max(0.f, std::min(1.f, 1.f - (dist / softSelectionRadius))) * maxWeight;
+                if (weight <= 0.0f)
+                    continue;
+                Point3F point0(prevParticles[i].x, prevParticles[i].y, prevParticles[i].z);
+                point0 = point0 - weight * offset;
+                point0 = point0 * 0.99f + Vector3F(p.x, p.y, p.z) * 0.01f;
+                //move previous particle in the opposite direction to avoid invalid configurations in the next solver iteration.
+                prevParticles[i] = physx::PxVec4(point0.x, point0.y, point0.z, prevParticles[i].w);
+            }
+        }
     }
 }
 

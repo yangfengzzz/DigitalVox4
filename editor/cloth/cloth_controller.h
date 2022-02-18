@@ -10,6 +10,7 @@
 #include "cloth/job_manager.h"
 #include "cloth/cloth_renderer.h"
 #include "singleton.h"
+#include "input_events.h"
 #include <NvCloth/Solver.h>
 #include <NvCloth/Fabric.h>
 #include <NvCloth/Cloth.h>
@@ -35,6 +36,8 @@ public:
     nv::cloth::Factory *factory();
     
     void update(float deltaTime);
+    
+    void handlePickingEvent(Camera* mainCamera, const InputEvent &inputEvent);
     
 public:
     //Helper functions to enable automatic deinitialize
@@ -64,6 +67,8 @@ private:
     
     void updateSimulationGraphics();
     
+    void updateParticleDragging(const Ray3F& ray);
+    
 private:
     friend class ClothUI;
 
@@ -75,6 +80,15 @@ private:
     std::map<ClothActor *, nv::cloth::Solver *> _clothSolverMap;
     
     cloth::JobManager _jobManager;
+    
+    //Particle dragging
+    struct DraggingParticle {
+        ClothActor* trackedCloth{nullptr};
+        float dist = 0;
+        float offset = 0;
+        int particleIndex = 0;
+    };
+    DraggingParticle _draggingParticle;
 };
 
 }
