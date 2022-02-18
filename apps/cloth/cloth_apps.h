@@ -14,6 +14,7 @@
 #include "free_fall_app.h" // plane collider
 #include "friction_app.h" // friction comparsion
 #include "convex_collision_app.h" // convex collider
+#include "triangle_app.h" // mesh collider
 #include "distance_constraint_app.h" // distance constraints
 
 #include "stiffness_per_constraint_app.h" // setTetherConstraintStiffness
