@@ -12,19 +12,20 @@
 #include "controls/orbit_control.h"
 
 #include "cloth/cloth_mesh_generator.h"
+#include "cloth/simple_mesh_utils.h"
 
 namespace vox {
 namespace cloth {
 using namespace physx;
 
-void ConvexCollisionScene::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
+void ConvexCollisionApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     _solver = _factory->createSolver();
     trackSolver(_solver);
     
     ClothMeshData clothMesh;
     physx::PxMat44 transform = PxTransform(PxVec3(0.f, 10.f, 0.f) + offset, PxQuat(0, PxVec3(1.f, 0.f, 0.f)));
     clothMesh.GeneratePlaneCloth(5.f, 6.f, 20, 20, false, transform);
-//    clothMesh.AttachClothPlaneByAngles(69, 79);
+    //    clothMesh.AttachClothPlaneByAngles(69, 79);
     clothMesh.SetInvMasses(0.1f);
     
     nv::cloth::ClothMeshDesc meshDesc = clothMesh.GetClothMeshDesc();
@@ -60,14 +61,15 @@ void ConvexCollisionScene::_initializeCloth(EntityPtr entity, physx::PxVec3 offs
     // MARK: - New Collider
     //Generate collision planes
     std::vector<physx::PxVec4> planes;
-    
+    uint32_t mask1 = generateConvexPolyhedronPlanes(4, 4, physx::PxVec3(0.7f, 5.0f, -1.0f), 1.0f, &planes);
+    uint32_t mask2 = generateConvexPolyhedronPlanes(4, 4, physx::PxVec3(-0.7f, 5.0f, 0.0f), 1.0f, &planes);
     //assign as collision data
     nv::cloth::Range<const physx::PxVec4> planesR(&planes[0], &planes[0] + planes.size());
     _clothActor.cloth->setPlanes(planesR, 0, _clothActor.cloth->getNumPlanes());
     //assign convex indices
     std::vector<uint32_t> indices;
-    // indices.push_back(mask1);
-    // indices.push_back(mask2);
+    indices.push_back(mask1);
+    indices.push_back(mask2);
     nv::cloth::Range<uint32_t> cind(&indices[0], &indices[0] + indices.size());
     _clothActor.cloth->setConvexes(cind, 0, _clothActor.cloth->getNumConvexes());
     
@@ -89,7 +91,7 @@ void ConvexCollisionScene::_initializeCloth(EntityPtr entity, physx::PxVec3 offs
     addClothToSolver(&_clothActor, _solver);
 }
 
-void ConvexCollisionScene::loadScene(uint32_t width, uint32_t height) {
+void ConvexCollisionApp::loadScene(uint32_t width, uint32_t height) {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();

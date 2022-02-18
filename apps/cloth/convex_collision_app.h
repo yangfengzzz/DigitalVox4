@@ -11,7 +11,7 @@
 
 namespace vox {
 namespace cloth {
-class ConvexCollisionScene : public ClothApplication {
+class ConvexCollisionApp : public ClothApplication {
 public:
     void loadScene(uint32_t width, uint32_t height) override;
     
