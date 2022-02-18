@@ -7,7 +7,9 @@
 
 #include "unix_engine.h"
 #include "engine.h"
+
 #include "editor.h"
+#include "cloth_editor.h"
 
 int main(int argc, char * argv[]) {
     vox::UnixEngine engine{vox::UnixType::Mac, argc, argv};

@@ -47,6 +47,9 @@
 		0434BC3C27BF3F0B00026D1D /* triangle_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3A27BF3F0B00026D1D /* triangle_app.cpp */; };
 		0434BC4027BF439300026D1D /* virtual_particle_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3E27BF439300026D1D /* virtual_particle_app.cpp */; };
 		0434BC4327BF450900026D1D /* wind_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4127BF450900026D1D /* wind_app.cpp */; };
+		0434BC4F27BF56DD00026D1D /* cloth_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4627BF4F7100026D1D /* cloth_ui.cpp */; };
+		0434BC5027BF56DD00026D1D /* cloth_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4B27BF54D100026D1D /* cloth_controller.cpp */; };
+		0434BC5327BF63C400026D1D /* cloth_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC5127BF63C400026D1D /* cloth_editor.cpp */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -779,6 +782,13 @@
 		0434BC3F27BF439300026D1D /* virtual_particle_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = virtual_particle_app.h; sourceTree = "<group>"; };
 		0434BC4127BF450900026D1D /* wind_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = wind_app.cpp; sourceTree = "<group>"; };
 		0434BC4227BF450900026D1D /* wind_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wind_app.h; sourceTree = "<group>"; };
+		0434BC4627BF4F7100026D1D /* cloth_ui.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cloth_ui.cpp; sourceTree = "<group>"; };
+		0434BC4727BF4F7100026D1D /* cloth_ui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth_ui.h; sourceTree = "<group>"; };
+		0434BC4A27BF548A00026D1D /* singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = singleton.h; sourceTree = "<group>"; };
+		0434BC4B27BF54D100026D1D /* cloth_controller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cloth_controller.cpp; sourceTree = "<group>"; };
+		0434BC4C27BF54D100026D1D /* cloth_controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth_controller.h; sourceTree = "<group>"; };
+		0434BC5127BF63C400026D1D /* cloth_editor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cloth_editor.cpp; sourceTree = "<group>"; };
+		0434BC5227BF63C400026D1D /* cloth_editor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloth_editor.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1813,6 +1823,17 @@
 			name = single;
 			sourceTree = "<group>";
 		};
+		0434BC4927BF53FE00026D1D /* cloth */ = {
+			isa = PBXGroup;
+			children = (
+				0434BC4727BF4F7100026D1D /* cloth_ui.h */,
+				0434BC4627BF4F7100026D1D /* cloth_ui.cpp */,
+				0434BC4C27BF54D100026D1D /* cloth_controller.h */,
+				0434BC4B27BF54D100026D1D /* cloth_controller.cpp */,
+			);
+			path = cloth;
+			sourceTree = "<group>";
+		};
 		044591C4278E54D500F04CE0 /* memory */ = {
 			isa = PBXGroup;
 			children = (
@@ -2336,6 +2357,7 @@
 		04CD93BA279A4F650093D6CB /* editor */ = {
 			isa = PBXGroup;
 			children = (
+				0434BC4A27BF548A00026D1D /* singleton.h */,
 				04CD93CA279A4FB30093D6CB /* crude_json.h */,
 				04CD93C4279A4FB30093D6CB /* crude_json.cpp */,
 				04CD93C6279A4FB30093D6CB /* imgui_extra_math.h */,
@@ -2360,6 +2382,9 @@
 				04CD93E6279A53DF0093D6CB /* gui_entry.h */,
 				04CD93E7279A53DF0093D6CB /* gui_entry.cpp */,
 				04CD93E9279A540E0093D6CB /* editor_component.h */,
+				0434BC4927BF53FE00026D1D /* cloth */,
+				0434BC5227BF63C400026D1D /* cloth_editor.h */,
+				0434BC5127BF63C400026D1D /* cloth_editor.cpp */,
 			);
 			path = editor;
 			sourceTree = "<group>";
@@ -3216,13 +3241,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0434BC4F27BF56DD00026D1D /* cloth_ui.cpp in Sources */,
 				04CD93DF279A50E10093D6CB /* grid.cpp in Sources */,
 				04CD93D1279A4FB30093D6CB /* imgui_node_editor.cpp in Sources */,
+				0434BC5027BF56DD00026D1D /* cloth_controller.cpp in Sources */,
 				04CD93E8279A53DF0093D6CB /* gui_entry.cpp in Sources */,
 				04CD93EC279A55370093D6CB /* editor.cpp in Sources */,
 				04CD93D3279A4FB30093D6CB /* imgui_canvas.cpp in Sources */,
 				04CD93D0279A4FB30093D6CB /* crude_json.cpp in Sources */,
 				04CD93CF279A4FB30093D6CB /* imgui_zmo.cpp in Sources */,
+				0434BC5327BF63C400026D1D /* cloth_editor.cpp in Sources */,
 				04CD93D2279A4FB30093D6CB /* imgui_node_editor_api.cpp in Sources */,
 				04CD93BC279A4F650093D6CB /* main.cpp in Sources */,
 			);
@@ -3816,7 +3844,6 @@
 					./third_party/physx/physx/source/foundation/include,
 					./third_party/ozz/include,
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
-					"#include",
 					./third_party/nvcloth/NvCloth/include,
 					./third_party/nvcloth/NvCloth/extensions/include,
 				);
@@ -3898,7 +3925,6 @@
 					./third_party/physx/physx/source/foundation/include,
 					./third_party/ozz/include,
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
-					"#include",
 					./third_party/nvcloth/NvCloth/include,
 					./third_party/nvcloth/NvCloth/extensions/include,
 				);
@@ -3952,7 +3978,10 @@
 					./vox.render,
 					./vox.math,
 				);
-				LD_RUNPATH_SEARCH_PATHS = ../third_party/glog/build;
+				LD_RUNPATH_SEARCH_PATHS = (
+					../third_party/glog/build,
+					"../third_party/nvcloth/NvCloth/bin/osx64-cmake",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					./third_party/glog/build,
 					./third_party/glfw/build/src,
@@ -3960,6 +3989,7 @@
 					./third_party/ozz/build_debug/src/base,
 					./third_party/ozz/build_debug/src/animation/runtime,
 					./third_party/ozz/build_debug/src/geometry/runtime,
+					"./third_party/nvcloth/NvCloth/bin/osx64-cmake",
 				);
 				OTHER_LDFLAGS = (
 					"-lglog",
@@ -3974,6 +4004,7 @@
 					"-lozz_animation_d",
 					"-lozz_geometry_d",
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/lib/clang/debug/libfbxsdk.a",
+					"-lNvClothDEBUG",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -4001,6 +4032,8 @@
 					./third_party/physx/physx/source/physxgpu/include,
 					./third_party/physx/physx/../pxshared/include,
 					./third_party/physx/physx/source/foundation/include,
+					./third_party/nvcloth/NvCloth/include,
+					./third_party/nvcloth/NvCloth/extensions/include,
 				);
 			};
 			name = Debug;
@@ -4023,7 +4056,10 @@
 					./vox.render,
 					./vox.math,
 				);
-				LD_RUNPATH_SEARCH_PATHS = ../third_party/glog/build;
+				LD_RUNPATH_SEARCH_PATHS = (
+					../third_party/glog/build,
+					"../third_party/nvcloth/NvCloth/bin/osx64-cmake",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					./third_party/glog/build,
 					./third_party/glfw/build/src,
@@ -4031,6 +4067,7 @@
 					./third_party/ozz/build_release/src/base,
 					./third_party/ozz/build_release/src/animation/runtime,
 					./third_party/ozz/build_release/src/geometry/runtime,
+					"./third_party/nvcloth/NvCloth/bin/osx64-cmake",
 				);
 				OTHER_LDFLAGS = (
 					"-lglog",
@@ -4045,6 +4082,7 @@
 					"-lozz_animation_r",
 					"-lozz_geometry_r",
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/lib/clang/release/libfbxsdk.a",
+					"-lNvClothDEBUG",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -4072,6 +4110,8 @@
 					./third_party/physx/physx/source/physxgpu/include,
 					./third_party/physx/physx/../pxshared/include,
 					./third_party/physx/physx/source/foundation/include,
+					./third_party/nvcloth/NvCloth/include,
+					./third_party/nvcloth/NvCloth/extensions/include,
 				);
 			};
 			name = Release;
