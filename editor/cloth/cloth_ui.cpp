@@ -125,12 +125,12 @@ void ClothUI::onUpdate() {
         }
         {
             float f = cloth->getStiffnessFrequency();
-            if(ImGui::DragFloat("Stiffness Frequency", &f, 1.0f, 0.0f, 600.0f, "%.0f",1.5f))
+            if(ImGui::DragFloat("Stiffness Frequency", &f, 1.0f, 0.0f, 600.0f, "%.0f", ImGuiSliderFlags_Logarithmic))
                 cloth->setStiffnessFrequency(f);
         }
         {
             float f = cloth->getSolverFrequency();
-            if(ImGui::DragFloat("Solver Frequency", &f, 1.0f, 0.0f, 600.0f, "%.0f", 1.5f))
+            if(ImGui::DragFloat("Solver Frequency", &f, 1.0f, 0.0f, 600.0f, "%.0f", ImGuiSliderFlags_Logarithmic))
                 cloth->setSolverFrequency(f);
         }
         {
