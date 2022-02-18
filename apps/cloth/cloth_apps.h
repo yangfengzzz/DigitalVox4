@@ -13,5 +13,6 @@
 #include "friction_app.h" // friction comparsion
 #include "convex_collision_app.h" // convex collider
 #include "distance_constraint_app.h" // distance constraints
+#include "geodesic_app.h" // geodesic distance for tether constraints
 
 #endif /* cloth_apps_h */
