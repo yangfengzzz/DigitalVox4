@@ -25,4 +25,6 @@
 #include "multi_solver_app.h"
 #include "local_global_app.h"
 
+#include "teleport_app.h"
+
 #endif /* cloth_apps_h */

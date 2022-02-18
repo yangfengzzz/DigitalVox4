@@ -41,6 +41,7 @@
 		0434BC2A27BF34F200026D1D /* self_collision_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2827BF34F200026D1D /* self_collision_app.cpp */; };
 		0434BC2D27BF373100026D1D /* sphere_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2B27BF373100026D1D /* sphere_app.cpp */; };
 		0434BC3027BF388800026D1D /* stiffness_per_constraint_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2E27BF388800026D1D /* stiffness_per_constraint_app.cpp */; };
+		0434BC3327BF3A1E00026D1D /* teleport_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3127BF3A1E00026D1D /* teleport_app.cpp */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -761,6 +762,8 @@
 		0434BC2C27BF373100026D1D /* sphere_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphere_app.h; sourceTree = "<group>"; };
 		0434BC2E27BF388800026D1D /* stiffness_per_constraint_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stiffness_per_constraint_app.cpp; sourceTree = "<group>"; };
 		0434BC2F27BF388800026D1D /* stiffness_per_constraint_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stiffness_per_constraint_app.h; sourceTree = "<group>"; };
+		0434BC3127BF3A1E00026D1D /* teleport_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = teleport_app.cpp; sourceTree = "<group>"; };
+		0434BC3227BF3A1E00026D1D /* teleport_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = teleport_app.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1771,6 +1774,8 @@
 				0434BC1F27BF2C6600026D1D /* multi_solver_app.cpp */,
 				0434BC1D27BF2A3000026D1D /* local_global_app.h */,
 				0434BC1C27BF2A3000026D1D /* local_global_app.cpp */,
+				0434BC3227BF3A1E00026D1D /* teleport_app.h */,
+				0434BC3127BF3A1E00026D1D /* teleport_app.cpp */,
 			);
 			path = cloth;
 			sourceTree = "<group>";
@@ -3144,6 +3149,7 @@
 				0434BBF227BE40F900026D1D /* cloth_application.cpp in Sources */,
 				0434BC2427BF2ED400026D1D /* plane_collision_app.cpp in Sources */,
 				0434BC2A27BF34F200026D1D /* self_collision_app.cpp in Sources */,
+				0434BC3327BF3A1E00026D1D /* teleport_app.cpp in Sources */,
 				0434BC3027BF388800026D1D /* stiffness_per_constraint_app.cpp in Sources */,
 				0434BC1827BF274C00026D1D /* geodesic_app.cpp in Sources */,
 				04B4ACCA2798EB3C0020576D /* primitive_app.cpp in Sources */,
