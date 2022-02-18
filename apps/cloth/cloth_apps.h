@@ -26,5 +26,6 @@
 #include "local_global_app.h"
 
 #include "teleport_app.h"
+#include "tether_app.h"
 
 #endif /* cloth_apps_h */
