@@ -29,7 +29,7 @@ int main(int argc, char * argv[]) {
         
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::cloth::LocalGlobalApp>());
+        engine.setApp(std::make_unique<vox::cloth::MultiSolverApp>());
         code = engine.mainLoop();
     }
     
