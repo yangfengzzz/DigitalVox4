@@ -32,6 +32,7 @@
 		0434BC0C27BF1E5F00026D1D /* simple_mesh_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BC0A27BF1E5F00026D1D /* simple_mesh_utils.h */; };
 		0434BC0F27BF206900026D1D /* distance_constraint_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC0D27BF206900026D1D /* distance_constraint_app.cpp */; };
 		0434BC1227BF233B00026D1D /* free_fall_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1027BF233B00026D1D /* free_fall_app.cpp */; };
+		0434BC1527BF25CE00026D1D /* friction_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1327BF25CE00026D1D /* friction_app.cpp */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -734,6 +735,8 @@
 		0434BC0E27BF206900026D1D /* distance_constraint_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = distance_constraint_app.h; sourceTree = "<group>"; };
 		0434BC1027BF233B00026D1D /* free_fall_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = free_fall_app.cpp; sourceTree = "<group>"; };
 		0434BC1127BF233B00026D1D /* free_fall_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = free_fall_app.h; sourceTree = "<group>"; };
+		0434BC1327BF25CE00026D1D /* friction_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = friction_app.cpp; sourceTree = "<group>"; };
+		0434BC1427BF25CE00026D1D /* friction_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = friction_app.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1722,6 +1725,8 @@
 				0434BBFF27BF157B00026D1D /* ccd_app.cpp */,
 				0434BC1127BF233B00026D1D /* free_fall_app.h */,
 				0434BC1027BF233B00026D1D /* free_fall_app.cpp */,
+				0434BC1427BF25CE00026D1D /* friction_app.h */,
+				0434BC1327BF25CE00026D1D /* friction_app.cpp */,
 				0434BC0727BF18EC00026D1D /* convex_collision_app.h */,
 				0434BC0627BF18EC00026D1D /* convex_collision_app.cpp */,
 				0434BC0E27BF206900026D1D /* distance_constraint_app.h */,
@@ -3096,6 +3101,7 @@
 				04B4ACCA2798EB3C0020576D /* primitive_app.cpp in Sources */,
 				0434BC1227BF233B00026D1D /* free_fall_app.cpp in Sources */,
 				0434BC0827BF18EC00026D1D /* convex_collision_app.cpp in Sources */,
+				0434BC1527BF25CE00026D1D /* friction_app.cpp in Sources */,
 				04460456279CDACB009108C8 /* shadowmap_app.cpp in Sources */,
 				0434BC0F27BF206900026D1D /* distance_constraint_app.cpp in Sources */,
 			);
