@@ -39,6 +39,7 @@
 		0434BC2127BF2C6600026D1D /* multi_solver_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1F27BF2C6600026D1D /* multi_solver_app.cpp */; };
 		0434BC2427BF2ED400026D1D /* plane_collision_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2227BF2ED400026D1D /* plane_collision_app.cpp */; };
 		0434BC2A27BF34F200026D1D /* self_collision_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2827BF34F200026D1D /* self_collision_app.cpp */; };
+		0434BC2D27BF373100026D1D /* sphere_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2B27BF373100026D1D /* sphere_app.cpp */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -755,6 +756,8 @@
 		0434BC2327BF2ED400026D1D /* plane_collision_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plane_collision_app.h; sourceTree = "<group>"; };
 		0434BC2827BF34F200026D1D /* self_collision_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = self_collision_app.cpp; sourceTree = "<group>"; };
 		0434BC2927BF34F200026D1D /* self_collision_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = self_collision_app.h; sourceTree = "<group>"; };
+		0434BC2B27BF373100026D1D /* sphere_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sphere_app.cpp; sourceTree = "<group>"; };
+		0434BC2C27BF373100026D1D /* sphere_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphere_app.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1737,6 +1740,8 @@
 				0434BC0227BF16A000026D1D /* cloth_apps.h */,
 				0434BBF127BE40F900026D1D /* cloth_application.h */,
 				0434BBF027BE40F900026D1D /* cloth_application.cpp */,
+				0434BC2C27BF373100026D1D /* sphere_app.h */,
+				0434BC2B27BF373100026D1D /* sphere_app.cpp */,
 				0434BBE627BE34F500026D1D /* capsule_app.h */,
 				0434BBE527BE34F500026D1D /* capsule_app.cpp */,
 				0434BC0027BF157B00026D1D /* ccd_app.h */,
@@ -3112,6 +3117,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0434BC2D27BF373100026D1D /* sphere_app.cpp in Sources */,
 				04460449279BE694009108C8 /* scene_animation_app.cpp in Sources */,
 				04CB217D279CE5DA007753AA /* cascade_shadowmap_app.cpp in Sources */,
 				04CD9411279B92940093D6CB /* pbr_app.cpp in Sources */,

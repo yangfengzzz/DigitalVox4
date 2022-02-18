@@ -7,6 +7,7 @@
 #ifndef cloth_apps_h
 #define cloth_apps_h
 
+#include "sphere_app.h" // sphere collider
 #include "capsule_app.h" // capsule collider
 #include "ccd_app.h" // capsule collider with animation ccd
 #include "plane_collision_app.h" // plane collider
