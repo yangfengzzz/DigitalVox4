@@ -15,6 +15,8 @@
 #include "friction_app.h" // friction comparsion
 #include "convex_collision_app.h" // convex collider
 #include "distance_constraint_app.h" // distance constraints
+
+#include "stiffness_per_constraint_app.h" // setTetherConstraintStiffness
 #include "geodesic_app.h" // geodesic distance for tether constraints
 
 #include "inter_collision_app.h" // lap together
