@@ -11,7 +11,7 @@
 #include <foundation/PxVec2.h>
 #include <NvClothExt/ClothFabricCooker.h>
 #include <foundation/PxMat44.h>
-#include "cloth/simple_mesh.h"
+#include "simple_mesh.h"
 
 namespace vox {
 namespace cloth {

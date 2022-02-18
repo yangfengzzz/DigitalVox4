@@ -15,38 +15,6 @@
 		0434BBDC27BE289D00026D1D /* collision_detection.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBDA27BE289D00026D1D /* collision_detection.h */; };
 		0434BBE227BE2EFE00026D1D /* math_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBE027BE2EFE00026D1D /* math_functions.cpp */; };
 		0434BBE327BE2EFE00026D1D /* math_functions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBE127BE2EFE00026D1D /* math_functions.h */; };
-		0434BBE727BE34F500026D1D /* capsule_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBE527BE34F500026D1D /* capsule_app.cpp */; };
-		0434BBEA27BE388200026D1D /* cloth_mesh_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBE827BE388200026D1D /* cloth_mesh_generator.cpp */; };
-		0434BBEB27BE388200026D1D /* cloth_mesh_generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBE927BE388200026D1D /* cloth_mesh_generator.h */; };
-		0434BBEF27BE391400026D1D /* simple_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBED27BE391400026D1D /* simple_mesh.h */; };
-		0434BBF227BE40F900026D1D /* cloth_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBF027BE40F900026D1D /* cloth_application.cpp */; };
-		0434BBF527BE433E00026D1D /* job_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBF327BE433E00026D1D /* job_manager.cpp */; };
-		0434BBF627BE433E00026D1D /* job_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBF427BE433E00026D1D /* job_manager.h */; };
-		0434BBF927BE481D00026D1D /* callback_implementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBF727BE481D00026D1D /* callback_implementations.cpp */; };
-		0434BBFA27BE481D00026D1D /* callback_implementations.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBF827BE481D00026D1D /* callback_implementations.h */; };
-		0434BBFD27BE523E00026D1D /* cloth_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBFB27BE523E00026D1D /* cloth_renderer.cpp */; };
-		0434BBFE27BE523E00026D1D /* cloth_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BBFC27BE523E00026D1D /* cloth_renderer.h */; };
-		0434BC0127BF157B00026D1D /* ccd_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBFF27BF157B00026D1D /* ccd_app.cpp */; };
-		0434BC0827BF18EC00026D1D /* convex_collision_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC0627BF18EC00026D1D /* convex_collision_app.cpp */; };
-		0434BC0B27BF1E5F00026D1D /* simple_mesh_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC0927BF1E5F00026D1D /* simple_mesh_utils.cpp */; };
-		0434BC0C27BF1E5F00026D1D /* simple_mesh_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BC0A27BF1E5F00026D1D /* simple_mesh_utils.h */; };
-		0434BC0F27BF206900026D1D /* distance_constraint_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC0D27BF206900026D1D /* distance_constraint_app.cpp */; };
-		0434BC1227BF233B00026D1D /* free_fall_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1027BF233B00026D1D /* free_fall_app.cpp */; };
-		0434BC1527BF25CE00026D1D /* friction_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1327BF25CE00026D1D /* friction_app.cpp */; };
-		0434BC1827BF274C00026D1D /* geodesic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1627BF274C00026D1D /* geodesic_app.cpp */; };
-		0434BC1B27BF28C400026D1D /* inter_collision_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1927BF28C400026D1D /* inter_collision_app.cpp */; };
-		0434BC1E27BF2A3000026D1D /* local_global_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1C27BF2A3000026D1D /* local_global_app.cpp */; };
-		0434BC2127BF2C6600026D1D /* multi_solver_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC1F27BF2C6600026D1D /* multi_solver_app.cpp */; };
-		0434BC2427BF2ED400026D1D /* plane_collision_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2227BF2ED400026D1D /* plane_collision_app.cpp */; };
-		0434BC2A27BF34F200026D1D /* self_collision_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2827BF34F200026D1D /* self_collision_app.cpp */; };
-		0434BC2D27BF373100026D1D /* sphere_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2B27BF373100026D1D /* sphere_app.cpp */; };
-		0434BC3027BF388800026D1D /* stiffness_per_constraint_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2E27BF388800026D1D /* stiffness_per_constraint_app.cpp */; };
-		0434BC3327BF3A1E00026D1D /* teleport_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3127BF3A1E00026D1D /* teleport_app.cpp */; };
-		0434BC3627BF3C3D00026D1D /* tether_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3427BF3C3D00026D1D /* tether_app.cpp */; };
-		0434BC3927BF3DFC00026D1D /* time_step_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3727BF3DFC00026D1D /* time_step_app.cpp */; };
-		0434BC3C27BF3F0B00026D1D /* triangle_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3A27BF3F0B00026D1D /* triangle_app.cpp */; };
-		0434BC4027BF439300026D1D /* virtual_particle_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3E27BF439300026D1D /* virtual_particle_app.cpp */; };
-		0434BC4327BF450900026D1D /* wind_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4127BF450900026D1D /* wind_app.cpp */; };
 		0434BC4F27BF56DD00026D1D /* cloth_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4627BF4F7100026D1D /* cloth_ui.cpp */; };
 		0434BC5027BF56DD00026D1D /* cloth_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4B27BF54D100026D1D /* cloth_controller.cpp */; };
 		0434BC5327BF63C400026D1D /* cloth_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC5127BF63C400026D1D /* cloth_editor.cpp */; };
@@ -54,6 +22,11 @@
 		0434BC5727BF7CF500026D1D /* debug_frame_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BC5527BF7CF500026D1D /* debug_frame_manager.h */; };
 		0434BC5827BF7D3F00026D1D /* singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BC4A27BF548A00026D1D /* singleton.h */; };
 		0434BC5A27BF834F00026D1D /* debug_frame.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC5927BF834F00026D1D /* debug_frame.metal */; };
+		0434BC6027BFE2B700026D1D /* cloth_mesh_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBE827BE388200026D1D /* cloth_mesh_generator.cpp */; };
+		0434BC6127BFE2B700026D1D /* job_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBF327BE433E00026D1D /* job_manager.cpp */; };
+		0434BC6227BFE2B700026D1D /* simple_mesh_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC0927BF1E5F00026D1D /* simple_mesh_utils.cpp */; };
+		0434BC6327BFE2B700026D1D /* cloth_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBFB27BE523E00026D1D /* cloth_renderer.cpp */; };
+		0434BC6427BFE2B700026D1D /* callback_implementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BBF727BE481D00026D1D /* callback_implementations.cpp */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -1474,7 +1447,6 @@
 				0445928B278EA37D00F04CE0 /* script.cpp */,
 				0445930B278F16BA00F04CE0 /* controls */,
 				04459310278F17DA00F04CE0 /* physics */,
-				0434BBC527BDF50700026D1D /* cloth */,
 				04CD9403279A9D910093D6CB /* animator.h */,
 				04CD9402279A9D900093D6CB /* animator.cpp */,
 				04CD93EE279A841F0093D6CB /* animator_controller.h */,
@@ -1745,24 +1717,6 @@
 			path = vox.sph;
 			sourceTree = "<group>";
 		};
-		0434BBC527BDF50700026D1D /* cloth */ = {
-			isa = PBXGroup;
-			children = (
-				0434BBE927BE388200026D1D /* cloth_mesh_generator.h */,
-				0434BBE827BE388200026D1D /* cloth_mesh_generator.cpp */,
-				0434BBED27BE391400026D1D /* simple_mesh.h */,
-				0434BC0A27BF1E5F00026D1D /* simple_mesh_utils.h */,
-				0434BC0927BF1E5F00026D1D /* simple_mesh_utils.cpp */,
-				0434BBF427BE433E00026D1D /* job_manager.h */,
-				0434BBF327BE433E00026D1D /* job_manager.cpp */,
-				0434BBF827BE481D00026D1D /* callback_implementations.h */,
-				0434BBF727BE481D00026D1D /* callback_implementations.cpp */,
-				0434BBFC27BE523E00026D1D /* cloth_renderer.h */,
-				0434BBFB27BE523E00026D1D /* cloth_renderer.cpp */,
-			);
-			path = cloth;
-			sourceTree = "<group>";
-		};
 		0434BBCF27BE1D3A00026D1D /* vox.pbd */ = {
 			isa = PBXGroup;
 			children = (
@@ -1836,6 +1790,17 @@
 		0434BC4927BF53FE00026D1D /* cloth */ = {
 			isa = PBXGroup;
 			children = (
+				0434BBF427BE433E00026D1D /* job_manager.h */,
+				0434BBF327BE433E00026D1D /* job_manager.cpp */,
+				0434BBF827BE481D00026D1D /* callback_implementations.h */,
+				0434BBF727BE481D00026D1D /* callback_implementations.cpp */,
+				0434BBED27BE391400026D1D /* simple_mesh.h */,
+				0434BC0A27BF1E5F00026D1D /* simple_mesh_utils.h */,
+				0434BC0927BF1E5F00026D1D /* simple_mesh_utils.cpp */,
+				0434BBE927BE388200026D1D /* cloth_mesh_generator.h */,
+				0434BBE827BE388200026D1D /* cloth_mesh_generator.cpp */,
+				0434BBFC27BE523E00026D1D /* cloth_renderer.h */,
+				0434BBFB27BE523E00026D1D /* cloth_renderer.cpp */,
 				0434BC4727BF4F7100026D1D /* cloth_ui.h */,
 				0434BC4627BF4F7100026D1D /* cloth_ui.cpp */,
 				0434BC4C27BF54D100026D1D /* cloth_controller.h */,
@@ -2449,7 +2414,6 @@
 				044595FB2796E88600F04CE0 /* cpp_mtl_resource_enum.h in Headers */,
 				04CD93FB279A974F0093D6CB /* fbx_mesh.h in Headers */,
 				0434BC5827BF7D3F00026D1D /* singleton.h in Headers */,
-				0434BBEB27BE388200026D1D /* cloth_mesh_generator.h in Headers */,
 				044596952796F99100F04CE0 /* update_flag.h in Headers */,
 				04CD9408279A9FF00093D6CB /* skinned_mesh_renderer.h in Headers */,
 				044596CD2796FBE100F04CE0 /* hit_result.h in Headers */,
@@ -2473,9 +2437,7 @@
 				044596CA2796FBE100F04CE0 /* collider.h in Headers */,
 				044595E72796E88600F04CE0 /* cpp_mtl_depth_stencil.h in Headers */,
 				044595FF2796E88600F04CE0 /* cpp_mtl_device.h in Headers */,
-				0434BBF627BE433E00026D1D /* job_manager.h in Headers */,
 				044596332796EE4F00F04CE0 /* sub_mesh.h in Headers */,
-				0434BBFE27BE523E00026D1D /* cloth_renderer.h in Headers */,
 				044596BA2796FBE100F04CE0 /* dynamic_collider.h in Headers */,
 				044596782796F85C00F04CE0 /* render_state.h in Headers */,
 				044596382796EE4F00F04CE0 /* mesh.h in Headers */,
@@ -2507,7 +2469,6 @@
 				044595F12796E88600F04CE0 /* cpp_mtl_command_queue.h in Headers */,
 				044596062796E88600F04CE0 /* cpp_mtl_types.h in Headers */,
 				044596502796EFD900F04CE0 /* subpass.h in Headers */,
-				0434BC0C27BF1E5F00026D1D /* simple_mesh_utils.h in Headers */,
 				04CD93F0279A841F0093D6CB /* animator_controller.h in Headers */,
 				0445962D2796EB4900F04CE0 /* engine.h in Headers */,
 				0446044F279BFA87009108C8 /* shadow_manager.h in Headers */,
@@ -2519,7 +2480,6 @@
 				044596752796F85C00F04CE0 /* renderTarget_blend_state.h in Headers */,
 				044596B02796FAFD00F04CE0 /* orbit_control.h in Headers */,
 				0446044B279BF261009108C8 /* shadow_subpass.h in Headers */,
-				0434BBFA27BE481D00026D1D /* callback_implementations.h in Headers */,
 				044596A22796F99100F04CE0 /* scene.h in Headers */,
 				044595F82796E88600F04CE0 /* cpp_mtl_data_type.h in Headers */,
 				044596A32796F99100F04CE0 /* transform.h in Headers */,
@@ -2541,7 +2501,6 @@
 				0445971B27981EF500F04CE0 /* light_manager.h in Headers */,
 				044596662796F85C00F04CE0 /* shader.h in Headers */,
 				044596652796F85C00F04CE0 /* shader_macro_collection.h in Headers */,
-				0434BBEF27BE391400026D1D /* simple_mesh.h in Headers */,
 				044595DB2796DE3B00F04CE0 /* input_events.h in Headers */,
 				0445972227982C1100F04CE0 /* ambient_light.h in Headers */,
 				044596BB2796FBE100F04CE0 /* plane_collider_shape.h in Headers */,
@@ -2929,7 +2888,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				044596DA2796FBE100F04CE0 /* spherical_joint.cpp in Sources */,
-				0434BC0B27BF1E5F00026D1D /* simple_mesh_utils.cpp in Sources */,
 				044595FD2796E88600F04CE0 /* cpp_mtl_device_internals.mm in Sources */,
 				044596C92796FBE100F04CE0 /* collider.cpp in Sources */,
 				0445960F2796E88B00F04CE0 /* metal_view.mm in Sources */,
@@ -2968,7 +2926,6 @@
 				0446044A279BF261009108C8 /* shadow_subpass.cpp in Sources */,
 				044596DE2796FC1100F04CE0 /* metal_application.cpp in Sources */,
 				044596CB2796FBE100F04CE0 /* plane_collider_shape.cpp in Sources */,
-				0434BBF527BE433E00026D1D /* job_manager.cpp in Sources */,
 				044595DC2796DE3B00F04CE0 /* input_events.cpp in Sources */,
 				044596C52796FBE100F04CE0 /* spring_joint.cpp in Sources */,
 				044596022796E88600F04CE0 /* cpp_mtl_data_type.mm in Sources */,
@@ -3017,7 +2974,6 @@
 				044596C32796FBE100F04CE0 /* static_collider.cpp in Sources */,
 				044596B62796FBE100F04CE0 /* hinge_joint.cpp in Sources */,
 				04CD939E2799920C0093D6CB /* editor_application.cpp in Sources */,
-				0434BBFD27BE523E00026D1D /* cloth_renderer.cpp in Sources */,
 				044596082796E88600F04CE0 /* cpp_mtl_drawable.mm in Sources */,
 				044596742796F85C00F04CE0 /* blend_state.cpp in Sources */,
 				044595FA2796E88600F04CE0 /* cpp_mtl_depth_stencil.mm in Sources */,
@@ -3029,7 +2985,6 @@
 				044596D12796FBE100F04CE0 /* sphere_collider_shape.cpp in Sources */,
 				0445966C2796F85C00F04CE0 /* shader_property.cpp in Sources */,
 				044595E52796E88600F04CE0 /* cpp_mtl_resource.mm in Sources */,
-				0434BBF927BE481D00026D1D /* callback_implementations.cpp in Sources */,
 				044596862796F87C00F04CE0 /* pbr_base_material.cpp in Sources */,
 				044596C22796FBE100F04CE0 /* joint.cpp in Sources */,
 				044596722796F85C00F04CE0 /* shader_macro_collection.cpp in Sources */,
@@ -3053,7 +3008,6 @@
 				0445967B2796F87C00F04CE0 /* base_material.cpp in Sources */,
 				044596232796EB1B00F04CE0 /* imgui_widgets.cpp in Sources */,
 				044596712796F85C00F04CE0 /* raster_state.cpp in Sources */,
-				0434BBEA27BE388200026D1D /* cloth_mesh_generator.cpp in Sources */,
 				0445962B2796EB1B00F04CE0 /* imgui.cpp in Sources */,
 				044596D82796FBE100F04CE0 /* collider_shape.cpp in Sources */,
 			);
@@ -3199,42 +3153,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0434BC2D27BF373100026D1D /* sphere_app.cpp in Sources */,
 				04460449279BE694009108C8 /* scene_animation_app.cpp in Sources */,
-				0434BC3927BF3DFC00026D1D /* time_step_app.cpp in Sources */,
 				04CB217D279CE5DA007753AA /* cascade_shadowmap_app.cpp in Sources */,
 				04CD9411279B92940093D6CB /* pbr_app.cpp in Sources */,
 				04CD939B27997BCE0093D6CB /* physx_dynamic_app.cpp in Sources */,
 				04460445279BE2B4009108C8 /* gltf_app.cpp in Sources */,
 				04CD93A62799A4600093D6CB /* framebuffer_picker_app.cpp in Sources */,
 				04460452279C4E28009108C8 /* omni_shadowmap_app.cpp in Sources */,
-				0434BC1E27BF2A3000026D1D /* local_global_app.cpp in Sources */,
 				04CD940E279ABC6F0093D6CB /* animation_app.cpp in Sources */,
-				0434BC0127BF157B00026D1D /* ccd_app.cpp in Sources */,
-				0434BC3627BF3C3D00026D1D /* tether_app.cpp in Sources */,
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
 				04CD9419279BB7AE0093D6CB /* skybox_app.cpp in Sources */,
 				04CD941C279BBADB0093D6CB /* ibl_app.cpp in Sources */,
 				04CD9414279B94220093D6CB /* Irradiance_app.cpp in Sources */,
-				0434BC1B27BF28C400026D1D /* inter_collision_app.cpp in Sources */,
 				04B4ACCD279900AD0020576D /* physx_app.cpp in Sources */,
-				0434BC2127BF2C6600026D1D /* multi_solver_app.cpp in Sources */,
-				0434BBE727BE34F500026D1D /* capsule_app.cpp in Sources */,
-				0434BC3C27BF3F0B00026D1D /* triangle_app.cpp in Sources */,
-				0434BBF227BE40F900026D1D /* cloth_application.cpp in Sources */,
-				0434BC2427BF2ED400026D1D /* plane_collision_app.cpp in Sources */,
-				0434BC2A27BF34F200026D1D /* self_collision_app.cpp in Sources */,
-				0434BC3327BF3A1E00026D1D /* teleport_app.cpp in Sources */,
-				0434BC3027BF388800026D1D /* stiffness_per_constraint_app.cpp in Sources */,
-				0434BC1827BF274C00026D1D /* geodesic_app.cpp in Sources */,
 				04B4ACCA2798EB3C0020576D /* primitive_app.cpp in Sources */,
-				0434BC1227BF233B00026D1D /* free_fall_app.cpp in Sources */,
-				0434BC0827BF18EC00026D1D /* convex_collision_app.cpp in Sources */,
-				0434BC1527BF25CE00026D1D /* friction_app.cpp in Sources */,
 				04460456279CDACB009108C8 /* shadowmap_app.cpp in Sources */,
-				0434BC4027BF439300026D1D /* virtual_particle_app.cpp in Sources */,
-				0434BC0F27BF206900026D1D /* distance_constraint_app.cpp in Sources */,
-				0434BC4327BF450900026D1D /* wind_app.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3258,15 +3191,20 @@
 				0434BC4F27BF56DD00026D1D /* cloth_ui.cpp in Sources */,
 				04CD93DF279A50E10093D6CB /* grid.cpp in Sources */,
 				04CD93D1279A4FB30093D6CB /* imgui_node_editor.cpp in Sources */,
+				0434BC6327BFE2B700026D1D /* cloth_renderer.cpp in Sources */,
 				0434BC5027BF56DD00026D1D /* cloth_controller.cpp in Sources */,
 				04CD93E8279A53DF0093D6CB /* gui_entry.cpp in Sources */,
 				04CD93EC279A55370093D6CB /* editor.cpp in Sources */,
+				0434BC6227BFE2B700026D1D /* simple_mesh_utils.cpp in Sources */,
 				04CD93D3279A4FB30093D6CB /* imgui_canvas.cpp in Sources */,
 				04CD93D0279A4FB30093D6CB /* crude_json.cpp in Sources */,
 				04CD93CF279A4FB30093D6CB /* imgui_zmo.cpp in Sources */,
+				0434BC6027BFE2B700026D1D /* cloth_mesh_generator.cpp in Sources */,
+				0434BC6427BFE2B700026D1D /* callback_implementations.cpp in Sources */,
 				0434BC5327BF63C400026D1D /* cloth_editor.cpp in Sources */,
 				04CD93D2279A4FB30093D6CB /* imgui_node_editor_api.cpp in Sources */,
 				04CD93BC279A4F650093D6CB /* main.cpp in Sources */,
+				0434BC6127BFE2B700026D1D /* job_manager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

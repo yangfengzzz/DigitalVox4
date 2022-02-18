@@ -7,8 +7,8 @@
 #ifndef cloth_controller_hpp
 #define cloth_controller_hpp
 
-#include "cloth/job_manager.h"
-#include "cloth/cloth_renderer.h"
+#include "job_manager.h"
+#include "cloth_renderer.h"
 #include "singleton.h"
 #include "input_events.h"
 #include <NvCloth/Solver.h>
