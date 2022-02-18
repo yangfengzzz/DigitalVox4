@@ -30,5 +30,6 @@
 #include "teleport_app.h"
 #include "tether_app.h"
 #include "time_step_app.h"
+#include "wind_app.h"
 
 #endif /* cloth_apps_h */
