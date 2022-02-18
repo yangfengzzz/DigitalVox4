@@ -43,6 +43,7 @@
 		0434BC3027BF388800026D1D /* stiffness_per_constraint_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC2E27BF388800026D1D /* stiffness_per_constraint_app.cpp */; };
 		0434BC3327BF3A1E00026D1D /* teleport_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3127BF3A1E00026D1D /* teleport_app.cpp */; };
 		0434BC3627BF3C3D00026D1D /* tether_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3427BF3C3D00026D1D /* tether_app.cpp */; };
+		0434BC3927BF3DFC00026D1D /* time_step_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC3727BF3DFC00026D1D /* time_step_app.cpp */; };
 		044591B1278DB33600F04CE0 /* ray2_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04229679278D697B0090983F /* ray2_tests.cpp */; };
 		044591B2278DB43000F04CE0 /* ray3_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0422967B278D697B0090983F /* ray3_tests.cpp */; };
 		044591B3278DB45D00F04CE0 /* ray3-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229666278D689B0090983F /* ray3-inl.h */; };
@@ -767,6 +768,8 @@
 		0434BC3227BF3A1E00026D1D /* teleport_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = teleport_app.h; sourceTree = "<group>"; };
 		0434BC3427BF3C3D00026D1D /* tether_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tether_app.cpp; sourceTree = "<group>"; };
 		0434BC3527BF3C3D00026D1D /* tether_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tether_app.h; sourceTree = "<group>"; };
+		0434BC3727BF3DFC00026D1D /* time_step_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = time_step_app.cpp; sourceTree = "<group>"; };
+		0434BC3827BF3DFC00026D1D /* time_step_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = time_step_app.h; sourceTree = "<group>"; };
 		044591C6278E551100F04CE0 /* allocator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allocator.cc; sourceTree = "<group>"; };
 		044591C7278E551100F04CE0 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
 		044591C8278E551100F04CE0 /* unique_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unique_ptr.h; sourceTree = "<group>"; };
@@ -1781,6 +1784,8 @@
 				0434BC3127BF3A1E00026D1D /* teleport_app.cpp */,
 				0434BC3527BF3C3D00026D1D /* tether_app.h */,
 				0434BC3427BF3C3D00026D1D /* tether_app.cpp */,
+				0434BC3827BF3DFC00026D1D /* time_step_app.h */,
+				0434BC3727BF3DFC00026D1D /* time_step_app.cpp */,
 			);
 			path = cloth;
 			sourceTree = "<group>";
@@ -3134,6 +3139,7 @@
 			files = (
 				0434BC2D27BF373100026D1D /* sphere_app.cpp in Sources */,
 				04460449279BE694009108C8 /* scene_animation_app.cpp in Sources */,
+				0434BC3927BF3DFC00026D1D /* time_step_app.cpp in Sources */,
 				04CB217D279CE5DA007753AA /* cascade_shadowmap_app.cpp in Sources */,
 				04CD9411279B92940093D6CB /* pbr_app.cpp in Sources */,
 				04CD939B27997BCE0093D6CB /* physx_dynamic_app.cpp in Sources */,
