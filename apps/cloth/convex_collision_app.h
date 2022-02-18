@@ -4,18 +4,16 @@
 //  personal capacity and am not conveying any rights to any intellectual
 //  property of any third parties.
 
-#ifndef ccd_app_hpp
-#define ccd_app_hpp
+#ifndef convex_collision_app_hpp
+#define convex_collision_app_hpp
 
 #include "cloth_application.h"
 
 namespace vox {
 namespace cloth {
-class CCDApp : public ClothApplication {
+class ConvexCollisionScene : public ClothApplication {
 public:
     void loadScene(uint32_t width, uint32_t height) override;
-    
-    void update(float delta_time) override;
     
 private:
     void _initializeCloth(EntityPtr entity, physx::PxVec3 offset);
@@ -23,10 +21,8 @@ private:
     nv::cloth::Fabric *_fabric{nullptr};
     nv::cloth::Solver *_solver{nullptr};
     ClothActor _clothActor;
-    
-    physx::PxVec3 _offset;
 };
 
 }
 }
-#endif /* ccd_app_hpp */
+#endif /* convex_collision_app_hpp */

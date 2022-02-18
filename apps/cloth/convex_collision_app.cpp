@@ -4,7 +4,7 @@
 //  personal capacity and am not conveying any rights to any intellectual
 //  property of any third parties.
 
-#include "ccd_app.h"
+#include "convex_collision_app.h"
 #include "mesh/primitive_mesh.h"
 #include "mesh/mesh_renderer.h"
 #include "material/blinn_phong_material.h"
@@ -17,8 +17,7 @@ namespace vox {
 namespace cloth {
 using namespace physx;
 
-void CCDApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
-    _offset = offset;
+void ConvexCollisionScene::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     _solver = _factory->createSolver();
     trackSolver(_solver);
     
@@ -56,19 +55,21 @@ void CCDApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     _clothActor.cloth = _factory->createCloth(nv::cloth::Range<physx::PxVec4>(&particlesCopy[0], &particlesCopy[0] + particlesCopy.size()), *_fabric);
     _clothActor.cloth->setGravity(physx::PxVec3(0.0f, -9.8f, 0.0f));
     _clothActor.cloth->setDamping(physx::PxVec3(0.1f, 0.1f, 0.1f));
-    _clothActor.cloth->setSelfCollisionDistance(0.07f); // new item
-    _clothActor.cloth->enableContinuousCollision(true); // new item
-    _clothActor.cloth->setSolverFrequency(240);
     _clothActor.cloth->setFriction(1);
     
-    physx::PxVec4 spheres[2] = {physx::PxVec4(physx::PxVec3(0.f, 0.f, 0.f) + offset, 1.0),
-        physx::PxVec4(physx::PxVec3(0.f, 0.f, 2.f) + offset, 1.0)};
-    _clothActor.cloth->setSpheres(nv::cloth::Range<physx::PxVec4>(spheres, spheres + 1), 0, _clothActor.cloth->getNumSpheres());
-
-    uint32_t caps[4];
-    caps[0] = 0;
-    caps[1] = 1;
-//    _clothActor.cloth->setCapsules(nv::cloth::Range<uint32_t>(caps, caps + 2), 0, _clothActor.cloth->getNumCapsules());
+    // MARK: - New Collider
+    //Generate collision planes
+    std::vector<physx::PxVec4> planes;
+    
+    //assign as collision data
+    nv::cloth::Range<const physx::PxVec4> planesR(&planes[0], &planes[0] + planes.size());
+    _clothActor.cloth->setPlanes(planesR, 0, _clothActor.cloth->getNumPlanes());
+    //assign convex indices
+    std::vector<uint32_t> indices;
+    // indices.push_back(mask1);
+    // indices.push_back(mask2);
+    nv::cloth::Range<uint32_t> cind(&indices[0], &indices[0] + indices.size());
+    _clothActor.cloth->setConvexes(cind, 0, _clothActor.cloth->getNumConvexes());
     
     // Setup phase configs
     std::vector<nv::cloth::PhaseConfig> phases(_fabric->getNumPhases());
@@ -88,7 +89,7 @@ void CCDApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     addClothToSolver(&_clothActor, _solver);
 }
 
-void CCDApp::loadScene(uint32_t width, uint32_t height) {
+void ConvexCollisionScene::loadScene(uint32_t width, uint32_t height) {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();
@@ -114,25 +115,6 @@ void CCDApp::loadScene(uint32_t width, uint32_t height) {
     auto clothEntity = rootEntity->createChild();
     _initializeCloth(clothEntity, physx::PxVec3(0.0f, 0.0f, 0.0f));
 }
-
-void CCDApp::update(float delta_time) {
-    static float time = 0.0f;
-    time += delta_time;
-
-    physx::PxTransform invTranslation(-_offset - physx::PxVec3(0.f, 10.f, -2.f));
-    physx::PxTransform rotation(physx::PxQuat(cosf(time)*physx::PxHalfPi-physx::PxHalfPi,physx::PxVec3(0.0f,1.0f,0.0f)));
-    physx::PxTransform translation(_offset + physx::PxVec3(0.f, 10.f, -2.f) + physx::PxVec3(0.0f,0.0f,10.0f*sinf(time)));
-    physx::PxTransform totalTransform = translation.transform(rotation.transform(invTranslation));
-
-    physx::PxVec4 spheres[2] = {physx::PxVec4(totalTransform.transform(physx::PxVec3(0.f, 10.f, -2.f) + _offset),2.0),
-    physx::PxVec4(totalTransform.transform(physx::PxVec3(0.f, 11.f, 3.f) + _offset),0.5)};
-
-    // mClothActor[0]->mCloth->setSpheres(nv::cloth::Range<physx::PxVec4>(spheres, spheres + 2), 0, mClothActor[0]->mCloth->getNumSpheres());
-    // mCollisionMehs->setTransform(totalTransform);
-    
-    ClothApplication::update(delta_time);
-}
-
 
 }
 }
