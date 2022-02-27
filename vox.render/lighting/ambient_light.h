@@ -9,8 +9,9 @@
 #define ambient_light_hpp
 
 #include "scene_forward.h"
+#include <Metal/Metal.hpp>
+
 #include "spherical_harmonics3.h"
-#include "core/cpp_mtl_texture.h"
 #include "shader/shader_property.h"
 #include "shader_common.h"
 

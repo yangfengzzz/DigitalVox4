@@ -9,9 +9,7 @@
 #include <unordered_map>
 
 #define GLFW_INCLUDE_NONE
-#define GLFW_EXPOSE_NATIVE_COCOA
 #include <GLFW/glfw3.h>
-#include <GLFW/glfw3native.h>
 #include <glog/logging.h>
 
 #include "engine.h"
@@ -329,10 +327,10 @@ void GlfwWindow::_createGUIContext(const Window::Properties &properties) {
     ImGui_ImplGlfw_InitForOpenGL(_handle, true);
 }
 
-void GlfwWindow::setView(const View& view) {
-    NSWindow *nswin = glfwGetCocoaWindow(_handle);
-    nswin.contentView.layer = view.objCObj();
-    nswin.contentView.wantsLayer = YES;
+std::unique_ptr<RenderContext> GlfwWindow::createRenderContext(MTL::Device* device) {
+    int fb_width, fb_height;
+    glfwGetFramebufferSize(_handle, &fb_width, &fb_height);
+    return std::make_unique<RenderContext>(device, _handle, fb_width, fb_height);
 }
 
 bool GlfwWindow::shouldClose() {

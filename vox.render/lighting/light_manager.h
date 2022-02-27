@@ -12,7 +12,7 @@
 #include "spot_light.h"
 #include "direct_light.h"
 #include "shader/shader_data.h"
-#include "core/cpp_mtl_buffer.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 /**

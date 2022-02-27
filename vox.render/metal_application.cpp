@@ -8,7 +8,6 @@
 #include "engine.h"
 #include "shader/shader.h"
 
-#include "core/cpp_mtl_assert.h"
 #include <glog/logging.h>
 
 namespace vox {
@@ -29,8 +28,10 @@ MetalApplication::MetalApplication() {
 }
 
 MetalApplication::~MetalApplication() {
-    _renderView.reset();
-    _device.reset();
+    _renderContext.reset();
+    _library->release();
+    _commandQueue->release();
+    _device->release();
 }
 
 bool MetalApplication::prepare(Engine &engine) {
@@ -40,31 +41,24 @@ bool MetalApplication::prepare(Engine &engine) {
     
     LOG(INFO) << "Initializing Metal Application";
     
-    _device = std::unique_ptr<MTL::Device>(MTL::CreateSystemDefaultDevice());
-    printf("Selected Device: %s\n", _device->name());
+    _device = MTL::CreateSystemDefaultDevice();
+    printf("Selected Device: %s\n", _device->name()->cString(NS::StringEncoding::UTF8StringEncoding));
     
     _library = makeShaderLibrary();
     
-    _commandQueue = _device->makeCommandQueue();
-
-    auto extent = engine.window().extent();
-    auto scale = engine.window().contentScaleFactor();
-
-    _renderView = engine.createRenderView(*_device);
-    _renderView->resize(MTL::sizeMake(extent.width * scale, extent.height * scale, 0));
-    _renderView->depthStencilPixelFormat(MTL::PixelFormatDepth32Float_Stencil8);
-    _renderView->colorPixelFormat(MTL::PixelFormatBGRA8Unorm_sRGB);    
+    _commandQueue = _device->newCommandQueue();
+    _renderContext = engine.createRenderContext(_device);
     return true;
 }
 
 void MetalApplication::update(float delta_time) {
-    _renderView->draw();
+    _renderContext->nextDrawable();
 }
 
 bool MetalApplication::resize(uint32_t win_width, uint32_t win_height,
                               uint32_t fb_width, uint32_t fb_height) {
     Application::resize(win_width, win_height, fb_width, fb_height);
-    _renderView->resize(MTL::sizeMake(fb_width, fb_height, 0));
+    _renderContext->resize(fb_width, fb_height);
     return true;
 }
 
@@ -72,14 +66,16 @@ void MetalApplication::inputEvent(const InputEvent &inputEvent) {}
 
 void MetalApplication::finish() {}
 
-MTL::Library MetalApplication::makeShaderLibrary() {
-    CFErrorRef error = nullptr;
-    CFURLRef libraryURL = nullptr;
-
-    libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
-    MTL::Library shaderLibrary = _device->makeLibrary(libraryURL, &error);
+MTL::Library* MetalApplication::makeShaderLibrary() {
+    NS::Error* error;
+    CFURLRef libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
     
-    MTLAssert(!error, error, "Could not load Metal shader library");
+    
+    MTL::Library* shaderLibrary = _device->newLibrary(NS::String::string((const char *)libraryURL, NS::ASCIIStringEncoding), &error);
+    
+    if (error != nullptr) {
+        LOG(ERROR) << "Error: could not load Metal shader library: " << error << std::endl;
+    }
     
     CFRelease(libraryURL);
     return shaderLibrary;

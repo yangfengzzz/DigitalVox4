@@ -8,7 +8,7 @@
 
 #include <optional>
 #include <string>
-#include "core/metal_view.h"
+#include "rendering/render_context.h"
 
 namespace vox {
 /**
@@ -65,9 +65,9 @@ public:
     
     /**
      * @brief Gets a handle from the engine's Metal layer
-     * @param view View handle, for use by the application
+     * @param device Device handle, for use by the application
      */
-    virtual void setView(const View& view) = 0;
+    virtual std::unique_ptr<RenderContext> createRenderContext(MTL::Device* device) = 0;
     
     /**
      * @brief Checks if the window should be closed

@@ -12,7 +12,7 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
-#include "core/cpp_mtl_render_command_encoder.h"
+#include <Metal/Metal.hpp>
 
 #include "scene_forward.h"
 #include "components_manager.h"

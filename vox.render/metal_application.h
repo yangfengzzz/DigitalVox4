@@ -8,8 +8,9 @@
 #define metal_application_hpp
 
 #include "application.h"
-#include "core/cpp_mtl.h"
+#include <Metal/Metal.hpp>
 #include "rendering/render_pass.h"
+#include "rendering/render_context.h"
 #include "scene.h"
 #include "gui.h"
 
@@ -38,28 +39,28 @@ public:
     void finish() override;
     
 private:
-    MTL::Library makeShaderLibrary();
+    MTL::Library* makeShaderLibrary();
     
 protected:
     /**
      * @brief The Metal device
      */
-    std::unique_ptr<MTL::Device> _device{nullptr};
+    MTL::Device* _device{nullptr};
     
     /**
      * @brief The Metal command queue
      */
-    MTL::CommandQueue _commandQueue;
+    MTL::CommandQueue* _commandQueue{nullptr};
     
     /**
      * @brief The Metal shader library
      */
-    MTL::Library _library;
+    MTL::Library* _library{nullptr};
 
     /**
-     * @brief View used for rendering, it is responsible for managing the frames and their underlying images
+     * @brief context used for rendering, it is responsible for managing the frames and their underlying images
      */
-    std::unique_ptr<View> _renderView{nullptr};
+    std::unique_ptr<RenderContext> _renderContext{nullptr};
     
     std::unique_ptr<GUI> _gui{nullptr};
 };

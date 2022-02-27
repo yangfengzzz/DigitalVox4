@@ -8,8 +8,7 @@
 #define shader_program_hpp
 
 #include "shader_macro_collection.h"
-#include "core/cpp_mtl_library.h"
-#include "core/cpp_mtl_function_constant_values.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 /**

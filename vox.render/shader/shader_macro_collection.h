@@ -8,8 +8,8 @@
 #define shader_macro_collection_hpp
 
 #include <unordered_map>
+#include <Metal/Metal.hpp>
 #include "macro_name.h"
-#include "core/cpp_mtl_function_constant_values.h"
 
 namespace vox {
 /**

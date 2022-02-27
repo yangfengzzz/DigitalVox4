@@ -7,7 +7,7 @@
 #ifndef subpass_hpp
 #define subpass_hpp
 
-#include "core/cpp_mtl.h"
+#include "Metal/Metal.hpp"
 #include "scene.h"
 #include "shader/shader_uniform.h"
 
@@ -16,9 +16,9 @@ class RenderPass;
 
 class Subpass {
 public:
-    Subpass(View* view,
-            Scene* scene,
-            Camera* camera);
+//    Subpass(View* view,
+//            Scene* scene,
+//            Camera* camera);
     
     Subpass(const Subpass &) = delete;
     
@@ -56,7 +56,7 @@ public:
 protected:
     RenderPass* _pass{nullptr};
     
-    View* _view{nullptr};
+//    View* _view{nullptr};
     Scene* _scene{nullptr};
     Camera* _camera{nullptr};
     
