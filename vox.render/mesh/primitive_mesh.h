@@ -24,7 +24,7 @@ public:
      * @param noLongerAccessible - No longer access the vertices of the mesh after creation
      * @returns Sphere model mesh
      */
-    static MeshPtr createSphere(const std::shared_ptr<MTL::Device> &device,
+    static MeshPtr createSphere(MTL::Device &device,
                                 float radius = 0.5,
                                 size_t segments = 18,
                                 bool noLongerAccessible = true);
@@ -38,7 +38,7 @@ public:
      * @param noLongerAccessible - No longer access the vertices of the mesh after creation
      * @returns Cuboid model mesh
      */
-    static MeshPtr createCuboid(const std::shared_ptr<MTL::Device> &device,
+    static MeshPtr createCuboid(MTL::Device &device,
                                 float width = 1,
                                 float height = 1,
                                 float depth = 1,
@@ -54,7 +54,7 @@ public:
      * @param noLongerAccessible - No longer access the vertices of the mesh after creation
      * @returns Plane model mesh
      */
-    static MeshPtr createPlane(const std::shared_ptr<MTL::Device> &device,
+    static MeshPtr createPlane(MTL::Device &device,
                                float width = 1,
                                float height = 1,
                                size_t horizontalSegments = 1,
@@ -72,7 +72,7 @@ public:
      * @param noLongerAccessible - No longer access the vertices of the mesh after creation
      * @returns Cylinder model mesh
      */
-    static MeshPtr createCylinder(const std::shared_ptr<MTL::Device> &device,
+    static MeshPtr createCylinder(MTL::Device &device,
                                   float radiusTop = 0.5,
                                   float radiusBottom = 0.5,
                                   float height = 2,
@@ -91,7 +91,7 @@ public:
      * @param noLongerAccessible - No longer access the vertices of the mesh after creation
      * @returns Torus model mesh
      */
-    static MeshPtr createTorus(const std::shared_ptr<MTL::Device> &device,
+    static MeshPtr createTorus(MTL::Device &device,
                                float radius = 0.5,
                                float tubeRadius = 0.1,
                                size_t radialSegments = 30,
@@ -109,7 +109,7 @@ public:
      * @param noLongerAccessible - No longer access the vertices of the mesh after creation
      * @returns Cone model mesh
      */
-    static MeshPtr createCone(const std::shared_ptr<MTL::Device> &device,
+    static MeshPtr createCone(MTL::Device &device,
                               float radius = 0.5,
                               float height = 2,
                               size_t radialSegments = 20,
@@ -126,7 +126,7 @@ public:
      * @param noLongerAccessible - No longer access the vertices of the mesh after creation
      * @returns Capsule model mesh
      */
-    static MeshPtr createCapsule(const std::shared_ptr<MTL::Device> &device,
+    static MeshPtr createCapsule(MTL::Device &device,
                                  float radius = 0.5,
                                  float height = 2,
                                  size_t radialSegments = 6,
@@ -146,8 +146,7 @@ private:
                                   std::vector<uint32_t> &indices,
                                   size_t indicesOffset);
     
-    static void _initialize(const std::shared_ptr<MTL::Device> &device,
-                            const ModelMeshPtr &mesh,
+    static void _initialize(const ModelMeshPtr &mesh,
                             const std::vector<Vector3F> &positions,
                             const std::vector<Vector3F> &normals,
                             std::vector<Vector2F> &uvs,

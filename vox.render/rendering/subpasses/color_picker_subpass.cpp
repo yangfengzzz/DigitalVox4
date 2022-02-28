@@ -32,16 +32,16 @@ void ColorPickerSubpass::prepare() {
     depthStencilDesc->setDepthWriteEnabled(true);
     _forwardDepthStencilState
     = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilState,
-                                 _context->device()->newDepthStencilState(depthStencilDesc.get()));
+                                 _context->device().newDepthStencilState(depthStencilDesc.get()));
 }
 
-void ColorPickerSubpass::draw(std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) {
+void ColorPickerSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     _currentId = 0;
     _primitivesMap.clear();
     
-    commandEncoder.pushDebugGroup("Draw ColorPicker");
+    commandEncoder.pushDebugGroup(NS::String::string("Draw ColorPicker", NS::StringEncoding::UTF8StringEncoding));
     commandEncoder.setCullMode(MTL::CullModeFront);
-    commandEncoder.setDepthStencilState(_forwardDepthStencilState);
+    commandEncoder.setDepthStencilState(_forwardDepthStencilState.get());
     commandEncoder.setStencilReferenceValue(128);
     
     _drawMeshes(commandEncoder);
@@ -81,36 +81,36 @@ void ColorPickerSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         if (!program->isValid()) {
             continue;
         }
-        _forwardPipelineDescriptor.vertexFunction(program->vertexShader());
-        _forwardPipelineDescriptor.fragmentFunction(program->fragmentShader());
+        _forwardPipelineDescriptor->setVertexFunction(program->vertexShader().get());
+        _forwardPipelineDescriptor->setFragmentFunction(program->fragmentShader().get());
         
         // manully
         auto& mesh = element.mesh;
-        _forwardPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
+        _forwardPipelineDescriptor->setVertexDescriptor(mesh->vertexDescriptor().get());
         
-        auto m_forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
-        uploadUniforms(renderEncoder, m_forwardPipelineState->materialUniformBlock, material->shaderData);
-        uploadUniforms(renderEncoder, m_forwardPipelineState->rendererUniformBlock, renderer->shaderData);
-        uploadUniforms(renderEncoder, m_forwardPipelineState->sceneUniformBlock, _scene->shaderData);
-        uploadUniforms(renderEncoder, m_forwardPipelineState->cameraUniformBlock, _camera->shaderData);
-        renderEncoder.setRenderPipelineState(*m_forwardPipelineState);
+        auto forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(*_forwardPipelineDescriptor);
+//        uploadUniforms(renderEncoder, forwardPipelineState->materialUniformBlock, material->shaderData);
+//        uploadUniforms(renderEncoder, forwardPipelineState->rendererUniformBlock, renderer->shaderData);
+//        uploadUniforms(renderEncoder, forwardPipelineState->sceneUniformBlock, _scene->shaderData);
+//        uploadUniforms(renderEncoder, forwardPipelineState->cameraUniformBlock, _camera->shaderData);
+        renderEncoder.setRenderPipelineState(forwardPipelineState.get());
         
         _currentId += 1;
         _primitivesMap[_currentId] = std::make_pair(renderer, mesh);
         Vector3F color = id2Color(_currentId);
         renderEncoder.setFragmentBytes(&color, sizeof(Vector4F), 0);
         
-        for (auto &meshBuffer: mesh->vertexBuffers()) {
-            renderEncoder.setVertexBuffer(meshBuffer.buffer(),
-                                          meshBuffer.offset(),
-                                          meshBuffer.argumentIndex());
+        uint32_t index = 0;
+        for (auto &meshBuffer: mesh->vertexBufferBindings()) {
+            renderEncoder.setVertexBuffer(meshBuffer.get(),
+                                          0, index++);
         }
         auto& submesh = element.subMesh;
         renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
                                             submesh->indexCount(),
                                             submesh->indexType(),
-                                            submesh->indexBuffer().buffer(),
-                                            submesh->indexBuffer().offset());
+                                            submesh->indexBuffer().get(),
+                                            0);
     }
 }
 

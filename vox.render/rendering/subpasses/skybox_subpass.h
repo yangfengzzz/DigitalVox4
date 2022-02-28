@@ -19,7 +19,7 @@ public:
     
     void prepare() override;
 
-    void draw(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) override;
+    void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 public:
     void createSphere(float radius);

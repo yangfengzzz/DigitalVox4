@@ -18,7 +18,7 @@ public:
     
     void prepare() override;
     
-    void draw(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) override;
+    void draw(MTL::RenderCommandEncoder& commandEncoder) override;
     
 public:
     /**
@@ -38,9 +38,9 @@ public:
     std::pair<Renderer *, MeshPtr> getObjectByColor(const std::array<uint8_t, 4> &color);
     
 private:    
-    void _drawMeshes(const std::shared_ptr<MTL::RenderCommandEncoder> &renderEncoder);
+    void _drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
     
-    void _drawElement(const std::shared_ptr<MTL::RenderCommandEncoder> &renderEncoder,
+    void _drawElement(MTL::RenderCommandEncoder &renderEncoder,
                       const std::vector<RenderElement> &items,
                       const ShaderMacroCollection& compileMacros);
     

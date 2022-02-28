@@ -14,7 +14,7 @@
 namespace vox {
 class ShadowSubpass: public Subpass {
 public:
-    ShadowSubpass(View* view,
+    ShadowSubpass(RenderContext* context,
                   Scene* scene,
                   Camera* camera);
     
@@ -27,8 +27,8 @@ public:
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
     
-    MTL::RenderPipelineDescriptor _shadowGenDescriptor;
-    MTL::DepthStencilState _shadowDepthStencilState;
+    std::shared_ptr<MTL::RenderPipelineDescriptor> _shadowGenDescriptor;
+    std::shared_ptr<MTL::DepthStencilState> _shadowDepthStencilState;
     Matrix4x4F _vp;
 };
 

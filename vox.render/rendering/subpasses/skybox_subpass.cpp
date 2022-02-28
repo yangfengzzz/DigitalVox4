@@ -47,17 +47,17 @@ void SkyboxSubpass::prepare() {
         
         if (_type == SkyBoxType::Sphere) {
             MTL::Function* skyboxVertexFunction =
-            _pass->library()->newFunction(NS::String::string("vertex_sphere_skybox",
+            _pass->library().newFunction(NS::String::string("vertex_sphere_skybox",
                                                              NS::StringEncoding::UTF8StringEncoding));
             _skyboxPipelineDescriptor->setVertexFunction(skyboxVertexFunction);
         } else {
             MTL::Function* skyboxVertexFunction =
-            _pass->library()->newFunction(NS::String::string("vertex_cube_skybox",
+            _pass->library().newFunction(NS::String::string("vertex_cube_skybox",
                                                              NS::StringEncoding::UTF8StringEncoding));
             _skyboxPipelineDescriptor->setVertexFunction(skyboxVertexFunction);
         }
         MTL::Function* skyboxFragmentFunction =
-        _pass->library()->newFunction(NS::String::string("fragment_skybox",
+        _pass->library().newFunction(NS::String::string("fragment_skybox",
                                                          NS::StringEncoding::UTF8StringEncoding));
         _skyboxPipelineDescriptor->setFragmentFunction(skyboxFragmentFunction);
     }
@@ -73,16 +73,16 @@ void SkyboxSubpass::prepare() {
         
         _dontWriteDepthStencilState
         = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilState,
-                                     _context->device()->newDepthStencilState(depthStencilDesc.get()));
+                                     _context->device().newDepthStencilState(depthStencilDesc.get()));
     }
 }
 
-void SkyboxSubpass::draw(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) {
-    commandEncoder->pushDebugGroup(NS::String::string("Draw Sky", NS::StringEncoding::UTF8StringEncoding));
-    auto _skyboxPipelineState = _pass->resourceCache().requestRenderPipelineState(_skyboxPipelineDescriptor);
-    commandEncoder->setRenderPipelineState(_skyboxPipelineState.get());
-    commandEncoder->setDepthStencilState(_dontWriteDepthStencilState.get());
-    commandEncoder->setCullMode(MTL::CullModeBack);
+void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
+    commandEncoder.pushDebugGroup(NS::String::string("Draw Sky", NS::StringEncoding::UTF8StringEncoding));
+    auto _skyboxPipelineState = _pass->resourceCache().requestRenderPipelineState(*_skyboxPipelineDescriptor);
+    commandEncoder.setRenderPipelineState(_skyboxPipelineState.get());
+    commandEncoder.setDepthStencilState(_dontWriteDepthStencilState.get());
+    commandEncoder.setCullMode(MTL::CullModeBack);
     
     const auto projectionMatrix = _camera->projectionMatrix();
     auto viewMatrix = _camera->viewMatrix();
@@ -93,22 +93,22 @@ void SkyboxSubpass::draw(const std::shared_ptr<MTL::RenderCommandEncoder>& comma
         viewMatrix[15] = 1;
     }
     auto _matrix = projectionMatrix * viewMatrix;
-    commandEncoder->setVertexBytes(_matrix.data(), sizeof(Matrix4x4F), 10);
-    commandEncoder->setFragmentTexture(_cubeMap.get(), 0);
+    commandEncoder.setVertexBytes(_matrix.data(), sizeof(Matrix4x4F), 10);
+    commandEncoder.setFragmentTexture(_cubeMap.get(), 0);
     
     uint32_t index = 0;
     for (auto &meshBuffer: _mesh->vertexBufferBindings()) {
-        commandEncoder->setVertexBuffer(meshBuffer.get(),
+        commandEncoder.setVertexBuffer(meshBuffer.get(),
                                         0, index++);
     }
     auto submesh = _mesh->subMesh();
-    commandEncoder->drawIndexedPrimitives(submesh->primitiveType(),
+    commandEncoder.drawIndexedPrimitives(submesh->primitiveType(),
                                           submesh->indexCount(),
                                           submesh->indexType(),
                                           submesh->indexBuffer().get(),
                                           0);
     
-    commandEncoder->popDebugGroup();
+    commandEncoder.popDebugGroup();
 }
 
 }

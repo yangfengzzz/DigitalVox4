@@ -12,10 +12,10 @@
 #include "material.h"
 
 namespace vox {
-ShadowSubpass::ShadowSubpass(View* view,
+ShadowSubpass::ShadowSubpass(RenderContext* context,
                              Scene* scene,
                              Camera* camera):
-Subpass(view, scene, camera) {
+Subpass(context, scene, camera) {
 }
 
 void ShadowSubpass::setViewProjectionMatrix(const Matrix4x4F& vp) {

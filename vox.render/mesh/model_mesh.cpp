@@ -17,7 +17,7 @@ size_t ModelMesh::vertexCount() {
     return _vertexCount;
 }
 
-ModelMesh::ModelMesh(const std::shared_ptr<MTL::Device>& device, const std::string &name) :
+ModelMesh::ModelMesh(MTL::Device& device, const std::string &name) :
 Mesh(),
 _device(device) {
 }
@@ -201,15 +201,15 @@ void ModelMesh::uploadData(bool noLongerAccessible) {
     auto vertices = std::vector<float>(vertexFloatCount);
     _updateVertices(vertices);
     
-    auto newVertexBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _device->newBuffer(vertices.data(),
-                                                                                      vertexFloatCount * sizeof(float),
-                                                                                      MTL::ResourceStorageModePrivate));
+    auto newVertexBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _device.newBuffer(vertices.data(),
+                                                                                     vertexFloatCount * sizeof(float),
+                                                                                     MTL::ResourceStorageModePrivate));
     _setVertexBufferBinding(0, newVertexBuffer);
-
     
-    const auto indexBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _device->newBuffer(_indices.data(),
-                                                                                        _indices.size() * sizeof(uint32_t),
-                                                                                        MTL::ResourceStorageModePrivate));
+    
+    const auto indexBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _device.newBuffer(_indices.data(),
+                                                                                       _indices.size() * sizeof(uint32_t),
+                                                                                       MTL::ResourceStorageModePrivate));
     addSubMesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt32, _indices.size(), indexBuffer);
     
     if (noLongerAccessible) {

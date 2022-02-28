@@ -8,7 +8,7 @@
 #ifndef shadow_manager_hpp
 #define shadow_manager_hpp
 
-#include "core/cpp_mtl.h"
+#include <Metal/Metal.hpp>
 #include "loader/texture_loader.h"
 #include "rendering/render_pass.h"
 #include "rendering/subpasses/shadow_subpass.h"

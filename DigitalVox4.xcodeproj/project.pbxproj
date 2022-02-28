@@ -396,6 +396,10 @@
 		04D75EDA27CC697E00BB1519 /* render_element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942027929A3300F04CE0 /* render_element.cpp */; };
 		04D75EE127CC7C0E00BB1519 /* forward_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594282793134C00F04CE0 /* forward_subpass.cpp */; };
 		04D75EE227CC7C0E00BB1519 /* forward_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594292793134C00F04CE0 /* forward_subpass.h */; };
+		04D75EE327CC8C4900BB1519 /* skybox_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594092792500900F04CE0 /* skybox_subpass.cpp */; };
+		04D75EE427CC8C4900BB1519 /* skybox_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445940A2792500900F04CE0 /* skybox_subpass.h */; };
+		04D75EE527CC8D9900BB1519 /* color_picker_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD93A127999C960093D6CB /* color_picker_subpass.h */; };
+		04D75EE627CC8D9900BB1519 /* color_picker_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93A027999C960093D6CB /* color_picker_subpass.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2116,6 +2120,7 @@
 				04D75E9A27CC62AD00BB1519 /* update_flag.h in Headers */,
 				04D75EC627CC632C00BB1519 /* fixed_joint.h in Headers */,
 				04D75E5C27CBCB8900BB1519 /* input_events.h in Headers */,
+				04D75EE427CC8C4900BB1519 /* skybox_subpass.h in Headers */,
 				04D75E9827CC62AD00BB1519 /* layer.h in Headers */,
 				04D75EBC27CC632C00BB1519 /* configurable_joint.h in Headers */,
 				04D75EC827CC632C00BB1519 /* capsule_collider_shape.h in Headers */,
@@ -2158,6 +2163,7 @@
 				04D75EB227CC631C00BB1519 /* free_control.h in Headers */,
 				04D75EB427CC632C00BB1519 /* box_character_controller.h in Headers */,
 				04D75EC927CC632C00BB1519 /* capsule_character_controller.h in Headers */,
+				04D75EE527CC8D9900BB1519 /* color_picker_subpass.h in Headers */,
 				04D75ED927CC697E00BB1519 /* render_element.h in Headers */,
 				04D75ED427CC640400BB1519 /* resource_cache.h in Headers */,
 				04D75EA627CC630400BB1519 /* script.h in Headers */,
@@ -2585,6 +2591,7 @@
 				04D75E4B27CBC9F800BB1519 /* engine.cpp in Sources */,
 				04D75E9C27CC62AD00BB1519 /* update_flag_manager.cpp in Sources */,
 				04D75E6C27CBCE5100BB1519 /* raster_state.cpp in Sources */,
+				04D75EE627CC8D9900BB1519 /* color_picker_subpass.cpp in Sources */,
 				04D75E5D27CBCB8900BB1519 /* input_events.cpp in Sources */,
 				04D75EBE27CC632C00BB1519 /* translational_joint.cpp in Sources */,
 				04D75EAE27CC631C00BB1519 /* spherical.cpp in Sources */,
@@ -2620,6 +2627,7 @@
 				04D75E7A27CC566A00BB1519 /* shader.cpp in Sources */,
 				04D75ED227CC632C00BB1519 /* hinge_joint.cpp in Sources */,
 				04D75ED627CC65E900BB1519 /* render_pass.cpp in Sources */,
+				04D75EE327CC8C4900BB1519 /* skybox_subpass.cpp in Sources */,
 				04D75E3D27CBA59400BB1519 /* application.cpp in Sources */,
 				04D75EA727CC630400BB1519 /* renderer.cpp in Sources */,
 				04D75ECD27CC632C00BB1519 /* spherical_joint.cpp in Sources */,

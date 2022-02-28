@@ -7,7 +7,7 @@
 #ifndef cpp_mtl_KitTextureLoader_hpp
 #define cpp_mtl_KitTextureLoader_hpp
 
-#include "cpp_mtl.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 struct TextureLoaderOptions {

@@ -7,7 +7,7 @@
 #include "primitive_mesh.h"
 
 namespace vox {
-MeshPtr PrimitiveMesh::createSphere(const std::shared_ptr<MTL::Device> &device,
+MeshPtr PrimitiveMesh::createSphere(MTL::Device &device,
                                     float radius,
                                     size_t segments,
                                     bool noLongerAccessible) {
@@ -70,11 +70,11 @@ MeshPtr PrimitiveMesh::createSphere(const std::shared_ptr<MTL::Device> &device,
     bounds.lowerCorner = Point3F(-radius, -radius, -radius);
     bounds.upperCorner = Point3F(radius, radius, radius);
     
-    PrimitiveMesh::_initialize(device, mesh, positions, normals, uvs, indices, noLongerAccessible);
+    PrimitiveMesh::_initialize(mesh, positions, normals, uvs, indices, noLongerAccessible);
     return mesh;
 }
 
-MeshPtr PrimitiveMesh::createCuboid(const std::shared_ptr<MTL::Device> &device,
+MeshPtr PrimitiveMesh::createCuboid(MTL::Device &device,
                                     float width,
                                     float height,
                                     float depth,
@@ -218,12 +218,12 @@ MeshPtr PrimitiveMesh::createCuboid(const std::shared_ptr<MTL::Device> &device,
     bounds.lowerCorner = Point3F(-halfWidth, -halfHeight, -halfDepth);
     bounds.upperCorner = Point3F(halfWidth, halfHeight, halfDepth);
     
-    PrimitiveMesh::_initialize(device, mesh, positions, normals, uvs, indices, noLongerAccessible);
+    PrimitiveMesh::_initialize(mesh, positions, normals, uvs, indices, noLongerAccessible);
     return mesh;
     
 }
 
-MeshPtr PrimitiveMesh::createPlane(const std::shared_ptr<MTL::Device> &device,
+MeshPtr PrimitiveMesh::createPlane(MTL::Device &device,
                                    float width,
                                    float height,
                                    size_t horizontalSegments,
@@ -284,11 +284,11 @@ MeshPtr PrimitiveMesh::createPlane(const std::shared_ptr<MTL::Device> &device,
     bounds.lowerCorner = Point3F(-halfWidth, 0, -halfHeight);
     bounds.upperCorner = Point3F(halfWidth, 0, halfHeight);
     
-    PrimitiveMesh::_initialize(device, mesh, positions, normals, uvs, indices, noLongerAccessible);
+    PrimitiveMesh::_initialize(mesh, positions, normals, uvs, indices, noLongerAccessible);
     return mesh;
 }
 
-MeshPtr PrimitiveMesh::createCylinder(const std::shared_ptr<MTL::Device> &device,
+MeshPtr PrimitiveMesh::createCylinder(MTL::Device &device,
                                       float radiusTop,
                                       float radiusBottom,
                                       float height,
@@ -430,11 +430,11 @@ MeshPtr PrimitiveMesh::createCylinder(const std::shared_ptr<MTL::Device> &device
     bounds.lowerCorner = Point3F(-radiusMax, -halfHeight, -radiusMax);
     bounds.upperCorner = Point3F(radiusMax, halfHeight, radiusMax);
     
-    PrimitiveMesh::_initialize(device, mesh, positions, normals, uvs, indices, noLongerAccessible);
+    PrimitiveMesh::_initialize(mesh, positions, normals, uvs, indices, noLongerAccessible);
     return mesh;
 }
 
-MeshPtr PrimitiveMesh::createTorus(const std::shared_ptr<MTL::Device> &device,
+MeshPtr PrimitiveMesh::createTorus(MTL::Device &device,
                                    float radius,
                                    float tubeRadius,
                                    size_t radialSegments,
@@ -499,11 +499,11 @@ MeshPtr PrimitiveMesh::createTorus(const std::shared_ptr<MTL::Device> &device,
     bounds.lowerCorner = Point3F(-outerRadius, -outerRadius, -tubeRadius);
     bounds.upperCorner = Point3F(outerRadius, outerRadius, tubeRadius);
     
-    PrimitiveMesh::_initialize(device, mesh, positions, normals, uvs, indices, noLongerAccessible);
+    PrimitiveMesh::_initialize(mesh, positions, normals, uvs, indices, noLongerAccessible);
     return mesh;
 }
 
-MeshPtr PrimitiveMesh::createCone(const std::shared_ptr<MTL::Device> &device,
+MeshPtr PrimitiveMesh::createCone(MTL::Device &device,
                                   float radius,
                                   float height,
                                   size_t radialSegments,
@@ -611,11 +611,11 @@ MeshPtr PrimitiveMesh::createCone(const std::shared_ptr<MTL::Device> &device,
     bounds.lowerCorner = Point3F(-radius, -halfHeight, -radius);
     bounds.upperCorner = Point3F(radius, halfHeight, radius);
     
-    PrimitiveMesh::_initialize(device, mesh, positions, normals, uvs, indices, noLongerAccessible);
+    PrimitiveMesh::_initialize(mesh, positions, normals, uvs, indices, noLongerAccessible);
     return mesh;
 }
 
-MeshPtr PrimitiveMesh::createCapsule(const std::shared_ptr<MTL::Device> &device,
+MeshPtr PrimitiveMesh::createCapsule(MTL::Device &device,
                                      float radius,
                                      float height,
                                      size_t radialSegments,
@@ -713,7 +713,7 @@ MeshPtr PrimitiveMesh::createCapsule(const std::shared_ptr<MTL::Device> &device,
     bounds.lowerCorner = Point3F(-radius, -radius - halfHeight, -radius);
     bounds.upperCorner = Point3F(radius, radius + halfHeight, radius);
     
-    PrimitiveMesh::_initialize(device, mesh, positions, normals, uvs, indices, noLongerAccessible);
+    PrimitiveMesh::_initialize(mesh, positions, normals, uvs, indices, noLongerAccessible);
     return mesh;
 }
 
@@ -772,8 +772,7 @@ void PrimitiveMesh::_createCapsuleCap(float radius,
     }
 }
 
-void PrimitiveMesh::_initialize(const std::shared_ptr<MTL::Device> &device,
-                                const ModelMeshPtr &mesh,
+void PrimitiveMesh::_initialize(const ModelMeshPtr &mesh,
                                 const std::vector<Vector3F> &positions,
                                 const std::vector<Vector3F> &normals,
                                 std::vector<Vector2F> &uvs,

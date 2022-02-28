@@ -55,7 +55,7 @@ public:
      * @param device - Engine to which the mesh belongs
      * @param name - Mesh name
      */
-    ModelMesh(const std::shared_ptr<MTL::Device> &device, const std::string &name = "");
+    ModelMesh(MTL::Device &device, const std::string &name = "");
     
 public:
     /**
@@ -138,7 +138,7 @@ public:
     void uploadData(bool noLongerAccessible);
     
 private:
-    const std::shared_ptr<MTL::Device>& _device;
+    MTL::Device& _device;
     std::shared_ptr<MTL::VertexDescriptor> _updateVertexDescriptor();
     
     size_t _vertexCount = 0;
