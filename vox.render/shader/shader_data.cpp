@@ -14,6 +14,7 @@ std::any ShaderData::getData(const std::string &property_name) {
         return getData(property.value());
     } else {
         assert(false && "can't find property");
+        throw std::exception();
     }
 }
 

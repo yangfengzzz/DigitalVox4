@@ -33,6 +33,7 @@ Vector3F DirectLight::direction() {
 
 Matrix4x4F DirectLight::shadowProjectionMatrix() {
     assert(false && "cascade shadow don't use this projection");
+    throw std::exception();
 }
 
 }
