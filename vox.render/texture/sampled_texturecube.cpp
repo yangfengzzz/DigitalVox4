@@ -19,7 +19,11 @@ SampledTextureCube::SampledTextureCube(MTL::Device& device,
                                        MTL::StorageMode storage):
 SampledTexture(device) {
     _textureDesc = CLONE_METAL_CUSTOM_DELETER(MTL::TextureDescriptor, MTL::TextureDescriptor::alloc()->init());
-    _textureDesc->setTextureType(MTL::TextureTypeCube);
+    if (depthOrArrayLayers == 1) {
+        _textureDesc->setTextureType(MTL::TextureTypeCube);
+    } else {
+        _textureDesc->setTextureType(MTL::TextureTypeCubeArray);
+    }
     _textureDesc->setWidth(width);
     _textureDesc->setHeight(height);
     _textureDesc->setArrayLength(depthOrArrayLayers);
