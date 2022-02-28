@@ -5,21 +5,22 @@
 //  property of any third parties.
 
 #include "render_pass.h"
-#include "core/cpp_mtl_assert.h"
+#include "metal_helpers.h"
 #include <glog/logging.h>
 
 namespace vox {
-RenderPass::RenderPass(MTL::Library& library, MTL::RenderPassDescriptor* desc):
+RenderPass::RenderPass(const std::shared_ptr<MTL::Library>& library,
+                       const std::shared_ptr<MTL::RenderPassDescriptor>& desc):
 _library(library),
 _desc(desc),
-_resourceCache(library.device()) {
+_resourceCache(library->device()) {
 }
 
-const MTL::RenderPassDescriptor* RenderPass::renderPassDescriptor() {
+const std::shared_ptr<MTL::RenderPassDescriptor>& RenderPass::renderPassDescriptor() const {
     return _desc;
 }
 
-MTL::Library& RenderPass::library() {
+const std::shared_ptr<MTL::Library>& RenderPass::library() const {
     return _library;
 }
 
@@ -28,13 +29,14 @@ void RenderPass::setGUI(GUI* gui) {
 }
 
 //MARK: - Subpass
-void RenderPass::draw(MTL::CommandBuffer& commandBuffer,
+void RenderPass::draw(const std::shared_ptr<MTL::CommandBuffer>& commandBuffer,
                       std::optional<std::string> label) {
     assert(!_subpasses.empty() && "Render pipeline should contain at least one sub-pass");
     
-    MTL::RenderCommandEncoder encoder = commandBuffer.renderCommandEncoderWithDescriptor(*_desc);
+    std::shared_ptr<MTL::RenderCommandEncoder> encoder = CLONE_METAL_CUSTOM_DELETER(MTL::RenderCommandEncoder,
+                                                                                    commandBuffer->renderCommandEncoder(_desc.get()));
     if (label) {
-        encoder.label(label.value().c_str());
+        encoder->setLabel(NS::String::string(label.value().c_str(), NS::StringEncoding::UTF8StringEncoding));
     }
     for (size_t i = 0; i < _subpasses.size(); ++i) {
         _activeSubpassIndex = i;
@@ -45,13 +47,13 @@ void RenderPass::draw(MTL::CommandBuffer& commandBuffer,
     if (_gui) {
         ImDrawData *drawData = ImGui::GetDrawData();
         if (drawData) {
-            encoder.pushDebugGroup("GUI Rendering");
+            encoder->pushDebugGroup(NS::String::string("GUI Rendering", NS::StringEncoding::UTF8StringEncoding));
             _gui->newFrame(_desc);
             _gui->draw(drawData, commandBuffer, encoder);
-            encoder.popDebugGroup();
+            encoder->popDebugGroup();
         }
     }
-    encoder.endEncoding();
+    encoder->endEncoding();
 }
 
 void RenderPass::addSubpass(std::unique_ptr<Subpass> &&subpass) {

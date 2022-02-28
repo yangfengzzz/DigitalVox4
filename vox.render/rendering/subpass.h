@@ -7,18 +7,19 @@
 #ifndef subpass_hpp
 #define subpass_hpp
 
-#include "Metal/Metal.hpp"
+#include <Metal/Metal.hpp>
 #include "scene.h"
 #include "shader/shader_uniform.h"
+#include "render_context.h"
 
 namespace vox {
 class RenderPass;
 
 class Subpass {
 public:
-//    Subpass(View* view,
-//            Scene* scene,
-//            Camera* camera);
+    Subpass(RenderContext* context,
+            Scene* scene,
+            Camera* camera);
     
     Subpass(const Subpass &) = delete;
     
@@ -39,7 +40,7 @@ public:
      * @brief Draw virtual function
      * @param commandEncoder CommandEncoder to use to record draw commands
      */
-    virtual void draw(MTL::RenderCommandEncoder& commandEncoder) = 0;
+    virtual void draw(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) = 0;
     
     virtual void setRenderPass(RenderPass* pass);
     
@@ -49,14 +50,14 @@ public:
      * @param uniformBlock - shader Uniform block
      * @param shaderData - shader data
      */
-    void uploadUniforms(MTL::RenderCommandEncoder& commandEncoder,
+    void uploadUniforms(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder,
                         const std::vector<ShaderUniform> &uniformBlock,
                         const ShaderData &shaderData);
     
 protected:
     RenderPass* _pass{nullptr};
     
-//    View* _view{nullptr};
+    RenderContext* _context{nullptr};
     Scene* _scene{nullptr};
     Camera* _camera{nullptr};
     
@@ -64,7 +65,7 @@ protected:
     static bool _compareFromFarToNear(const RenderElement &a, const RenderElement &b);
     
 private:
-    void process(const ShaderUniform &uniform, const std::any &a, MTL::RenderCommandEncoder& encoder);
+    void process(const ShaderUniform &uniform, const std::any &a, const std::shared_ptr<MTL::RenderCommandEncoder>& encoder);
 };
 
 }
