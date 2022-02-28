@@ -8,7 +8,8 @@
 #include "material/base_material.h"
 #include "scene.h"
 #include "mesh/mesh_renderer.h"
-#include "graphics/mesh.h"
+#include "mesh/buffer_mesh.h"
+#include "metal_helpers.h"
 
 namespace vox {
 template<> DebugFrameManager *Singleton<DebugFrameManager>::msSingleton = 0;
@@ -26,13 +27,13 @@ DebugFrameManager::DebugFrameManager(EntityPtr entity):
 _entity(entity) {
     _material = std::make_shared<BaseMaterial>(Shader::create("debug_frame", "vertex_debug_frame", "fragment_debug_frame"));
     
-    _vertexDescriptor.attributes[0].format(MTL::VertexFormatFloat3);
-    _vertexDescriptor.attributes[0].offset(0);
-    _vertexDescriptor.attributes[0].bufferIndex(0);
-    _vertexDescriptor.attributes[1].format(MTL::VertexFormatUInt);
-    _vertexDescriptor.attributes[1].offset(sizeof(Vector3F));
-    _vertexDescriptor.attributes[1].bufferIndex(0);
-    _vertexDescriptor.layouts[0].stride(sizeof(float) * 4);
+    _vertexDescriptor->attributes()->object(0)->setFormat(MTL::VertexFormatFloat3);
+    _vertexDescriptor->attributes()->object(0)->setOffset(0);
+    _vertexDescriptor->attributes()->object(0)->setBufferIndex(0);
+    _vertexDescriptor->attributes()->object(1)->setFormat(MTL::VertexFormatUInt);
+    _vertexDescriptor->attributes()->object(1)->setOffset(sizeof(Vector3F));
+    _vertexDescriptor->attributes()->object(1)->setBufferIndex(0);
+    _vertexDescriptor->layouts()->object(0)->setStride(sizeof(float) * 4);
     
     _lines.renderer = _entity->addComponent<MeshRenderer>();
     _lines.renderer->setMaterial(_material);
@@ -68,21 +69,27 @@ void DebugFrameManager::flush() {
         uint32_t vertexByteLength = static_cast<uint32_t>(_lines.vertex.size() * sizeof(RenderDebugVertex));
         
         if (_lines.vertexBuffer == nullptr || _lines.vertexBuffer->length() != vertexByteLength) {
-            _lines.vertexBuffer = _entity->scene()->device()->newBufferWithBytes(_lines.vertex.data(), vertexByteLength);
+            _lines.vertexBuffer =
+            CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _entity->scene()->device().newBuffer(_lines.vertex.data(), vertexByteLength,
+                                                                                         MTL::ResourceOptionCPUCacheModeDefault));
         } else {
             memcpy(_lines.vertexBuffer->contents(), _lines.vertex.data(), vertexByteLength);
         }
         
         if (_lines.indicesBuffer == nullptr || _lines.indicesBuffer->length() != _lines.indices.size() * sizeof(uint32_t)) {
-            _lines.indicesBuffer = _entity->scene()->device()->newBufferWithBytes(_lines.indices.data(), _lines.indices.size() * sizeof(uint32_t));
+            _lines.indicesBuffer =
+            CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _entity->scene()->device().newBuffer(_lines.indices.data(),
+                                                                                         _lines.indices.size() * sizeof(uint32_t),
+                                                                                         MTL::ResourceOptionCPUCacheModeDefault));
         } else {
             memcpy(_lines.indicesBuffer->contents(), _lines.indices.data(), _lines.indices.size() * sizeof(uint32_t));
         }
         
-        auto submesh = Submesh(MTL::PrimitiveTypeLine, MTL::IndexTypeUInt32, _lines.indices.size(),
-                               MeshBuffer(*_lines.indicesBuffer, 0, _lines.indices.size() * sizeof(uint32_t)));
-        std::vector<MeshBuffer> buffer = {MeshBuffer(*_lines.vertexBuffer, 0, vertexByteLength, 0)};
-        _lines.renderer->setMesh(std::make_shared<Mesh>(submesh, buffer, _vertexDescriptor));
+        auto mesh = std::make_shared<BufferMesh>();
+        mesh->setVertexBufferBinding(_lines.vertexBuffer, 0);
+        mesh->addSubMesh(MTL::PrimitiveTypeLine, MTL::IndexTypeUInt32, _lines.indices.size(), _lines.indicesBuffer);
+        mesh->setVertexLayouts(_vertexDescriptor);
+        _lines.renderer->setMesh(mesh);
     } else {
         _lines.renderer->setMesh(nullptr);
     }

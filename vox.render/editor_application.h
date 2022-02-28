@@ -46,9 +46,9 @@ private:
     bool _needPick;
     Vector2F _pickPos;
     MTL::PixelFormat _colorPickerFormat;
-    std::shared_ptr<MTL::Texture> _colorPickerTexture;
+    std::shared_ptr<MTL::Texture> _colorPickerTexture{nullptr};
     
-    std::shared_ptr<MTL::RenderPassDescriptor> _colorPickerPassDescriptor;
+    std::shared_ptr<MTL::RenderPassDescriptor> _colorPickerPassDescriptor{nullptr};
     std::unique_ptr<RenderPass> _colorPickerRenderPass{nullptr};
     ColorPickerSubpass* _colorPickerSubpass{nullptr};
     

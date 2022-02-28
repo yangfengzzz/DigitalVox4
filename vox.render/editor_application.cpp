@@ -37,6 +37,7 @@ bool EditorApplication::prepare(Engine &engine) {
     colorPickerTextureDesc->setPixelFormat(_colorPickerFormat);
     _colorPickerTexture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, _device->newTexture(colorPickerTextureDesc.get()));
     _colorPickerTexture->setLabel(NS::String::string("ColorPicker Texture", NS::StringEncoding::UTF8StringEncoding));
+    _colorPickerPassDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPassDescriptor, MTL::RenderPassDescriptor::alloc()->init());
     _colorPickerPassDescriptor->colorAttachments()->object(0)->setTexture(_colorPickerTexture.get());
     _colorPickerPassDescriptor->depthAttachment()->setLoadAction(MTL::LoadActionClear);
     _colorPickerPassDescriptor->depthAttachment()->setTexture(_renderContext->depthStencilTexture());

@@ -439,6 +439,9 @@
 		04D75F2427CCA2C400BB1519 /* collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445931C278F1A4A00F04CE0 /* collider.cpp */; };
 		04D75F2527CCA2C400BB1519 /* static_collider.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445935A278FB14400F04CE0 /* static_collider.h */; };
 		04D75F2627CCA2C400BB1519 /* dynamic_collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459359278FB14400F04CE0 /* dynamic_collider.cpp */; };
+		04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93A42799A4600093D6CB /* framebuffer_picker_app.cpp */; };
+		04D75F2827CCB5D200BB1519 /* debug_frame_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BC5527BF7CF500026D1D /* debug_frame_manager.h */; };
+		04D75F2927CCB5D200BB1519 /* debug_frame_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC5427BF7CF500026D1D /* debug_frame_manager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2159,6 +2162,7 @@
 				04D75EED27CC94A400BB1519 /* fbx_loader.h in Headers */,
 				04D75ED827CC67F300BB1519 /* subpass.h in Headers */,
 				04D75EEC27CC901F00BB1519 /* render_pipeline_state.h in Headers */,
+				04D75F2827CCB5D200BB1519 /* debug_frame_manager.h in Headers */,
 				04D75EEE27CC94A400BB1519 /* animator_loader.h in Headers */,
 				04D75E5A27CBCB2400BB1519 /* gui.h in Headers */,
 				04D75EF527CC94BE00BB1519 /* mesh_renderer.h in Headers */,
@@ -2729,6 +2733,7 @@
 				04D75EA727CC630400BB1519 /* renderer.cpp in Sources */,
 				04D75ECD27CC632C00BB1519 /* spherical_joint.cpp in Sources */,
 				04D75EFC27CC97EE00BB1519 /* buffer_mesh.cpp in Sources */,
+				04D75F2927CCB5D200BB1519 /* debug_frame_manager.cpp in Sources */,
 				04D75F1227CC9B7700BB1519 /* light_manager.cpp in Sources */,
 				04D75ECF27CC632C00BB1519 /* capsule_collider_shape.cpp in Sources */,
 				04D75E6727CBCE5100BB1519 /* render_state.cpp in Sources */,
@@ -2881,6 +2886,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
+				04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */,
 				04D75F1D27CCA28200BB1519 /* primitive_app.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

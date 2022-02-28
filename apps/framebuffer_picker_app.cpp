@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  framebuffer_picker_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/20.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "framebuffer_picker_app.h"
 #include "mesh/primitive_mesh.h"
@@ -30,7 +29,7 @@ public:
 };
 
 void FramebufferPickerApp::loadScene(uint32_t width, uint32_t height) {
-    _gui = std::make_unique<GUI>(_device.get());
+    _gui = std::make_unique<GUI>(*_device);
     
     u = std::uniform_real_distribution<float>(0, 1);
     _scene->ambientLight().setDiffuseSolidColor(Color(1, 1, 1));
@@ -57,7 +56,7 @@ void FramebufferPickerApp::loadScene(uint32_t width, uint32_t height) {
     auto boxMtl = std::make_shared<BlinnPhongMaterial>();
     auto boxRenderer = boxEntity->addComponent<MeshRenderer>();
     boxMtl->setBaseColor(Color(0.8, 0.3, 0.3, 1.0));
-    boxRenderer->setMesh(PrimitiveMesh::createCuboid(_device.get(), cubeSize, cubeSize, cubeSize));
+    boxRenderer->setMesh(PrimitiveMesh::createCuboid(*_device, cubeSize, cubeSize, cubeSize));
     boxRenderer->setMaterial(boxMtl);
     
     // create sphere test entity
@@ -69,7 +68,7 @@ void FramebufferPickerApp::loadScene(uint32_t width, uint32_t height) {
     std::default_random_engine e;
     std::uniform_real_distribution<float> u(0, 1);
     sphereMtl->setBaseColor(Color(u(e), u(e), u(e), 1));
-    sphereRenderer->setMesh(PrimitiveMesh::createSphere(_device.get(), radius));
+    sphereRenderer->setMesh(PrimitiveMesh::createSphere(*_device, radius));
     sphereRenderer->setMaterial(sphereMtl);
 }
 

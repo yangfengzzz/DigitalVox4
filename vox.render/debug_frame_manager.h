@@ -42,8 +42,8 @@ public:
     struct RenderDebugBuffer {
         std::vector<RenderDebugVertex> vertex{};
         std::vector<uint32_t> indices{};
-        MTL::Buffer* vertexBuffer{nullptr};
-        MTL::Buffer* indicesBuffer{nullptr};
+        std::shared_ptr<MTL::Buffer> vertexBuffer{nullptr};
+        std::shared_ptr<MTL::Buffer> indicesBuffer{nullptr};
         MeshRenderer* renderer{nullptr};
         
         void clear();
