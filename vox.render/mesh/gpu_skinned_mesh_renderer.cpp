@@ -8,6 +8,7 @@
 #include "entity.h"
 #include "scene.h"
 #include "shader/shader.h"
+#include "metal_helpers.h"
 
 namespace vox {
 GPUSkinnedMeshRenderer::GPUSkinnedMeshRenderer(Entity *entity) :
@@ -37,16 +38,18 @@ void GPUSkinnedMeshRenderer::update(float deltaTime) {
             auto jointNode = _skin->joints[i];
             auto jointMat = jointNode->transform->worldMatrix() * _skin->inverseBindMatrices[i];
             jointMat = inverseTransform * jointMat;
-            std::copy(jointMat.data(), jointMat.data() + 16, jointMatrix.data() + i * 16);
+            std::copy(jointMat.data(), jointMat.data() + 16, _jointMatrix.data() + i * 16);
         }
-        memcpy(matrixPalette->contents(), jointMatrix.data(), jointMatrix.size() * sizeof(float));
-        shaderData.setData(_jointMatrixProperty, matrixPalette);
+        memcpy(_matrixPalette->contents(), _jointMatrix.data(), _jointMatrix.size() * sizeof(float));
+        shaderData.setData(_jointMatrixProperty, _matrixPalette);
     }
 }
 
 void GPUSkinnedMeshRenderer::_initJoints() {
-    jointMatrix.resize(_skin->joints.size() * 16);
-    matrixPalette = std::shared_ptr<MTL::Buffer>(scene()->device()->newBufferWithLength(jointMatrix.size() * sizeof(float)));
+    _jointMatrix.resize(_skin->joints.size() * 16);
+    _matrixPalette =
+    CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, scene()->device().newBuffer(_jointMatrix.size() * sizeof(float),
+                                                                        MTL::ResourceOptionCPUCacheModeDefault));
     shaderData.enableMacro(HAS_SKIN);
 }
 

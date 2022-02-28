@@ -44,22 +44,22 @@ void MeshRenderer::_render(std::vector<RenderElement> &opaqueQueue,
             shaderData.disableMacro(HAS_TANGENT);
             shaderData.disableMacro(HAS_VERTEXCOLOR);
             
-            if (vertexDescriptor.attributes[Attributes::UV_0].format() != MTL::VertexFormatInvalid) {
+            if (vertexDescriptor->attributes()->object(Attributes::UV_0)->format() != MTL::VertexFormatInvalid) {
                 shaderData.enableMacro(HAS_UV);
             }
-            if (vertexDescriptor.attributes[Attributes::Normal].format() != MTL::VertexFormatInvalid) {
+            if (vertexDescriptor->attributes()->object(Attributes::Normal)->format() != MTL::VertexFormatInvalid) {
                 shaderData.enableMacro(HAS_NORMAL);
             }
-            if (vertexDescriptor.attributes[Attributes::Tangent].format() != MTL::VertexFormatInvalid) {
+            if (vertexDescriptor->attributes()->object(Attributes::Tangent)->format() != MTL::VertexFormatInvalid) {
                 shaderData.enableMacro(HAS_TANGENT);
             }
-            if (vertexDescriptor.attributes[Attributes::Color_0].format() != MTL::VertexFormatInvalid) {
+            if (vertexDescriptor->attributes()->object(Attributes::Color_0)->format() != MTL::VertexFormatInvalid) {
                 shaderData.enableMacro(HAS_VERTEXCOLOR);
             }
             _meshUpdateFlag->flag = false;
         }
         
-        auto &subMeshes = _mesh->submeshes();
+        auto &subMeshes = _mesh->subMeshes();
         for (size_t i = 0; i < subMeshes.size(); i++) {
             MaterialPtr material;
             if (i < _materials.size()) {

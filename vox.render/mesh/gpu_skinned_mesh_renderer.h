@@ -8,7 +8,7 @@
 #define gpu_skinned_mesh_renderer_hpp
 
 #include "mesh_renderer.h"
-#include "core/cpp_mtl.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 
@@ -40,8 +40,8 @@ private:
     
     bool _hasInitJoints = false;
     
-    std::shared_ptr<MTL::Buffer> matrixPalette;
-    std::vector<float> jointMatrix{};
+    std::shared_ptr<MTL::Buffer> _matrixPalette{nullptr};
+    std::vector<float> _jointMatrix{};
     ShaderProperty _jointMatrixProperty;
 };
 

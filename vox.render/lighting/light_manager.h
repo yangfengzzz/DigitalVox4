@@ -67,7 +67,7 @@ public:
     const std::vector<DirectLight *> &directLights() const;
     
 public:
-    void updateShaderData(MTL::Device* device, ShaderData &shaderData);
+    void updateShaderData(MTL::Device& device, ShaderData &shaderData);
     
 private:
     std::vector<PointLight *> _pointLights;

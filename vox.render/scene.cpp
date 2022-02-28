@@ -17,7 +17,7 @@
 #include "camera.h"
 
 namespace vox {
-Scene::Scene(MTL::Device *device) :
+Scene::Scene(MTL::Device& device) :
 _device(device),
 _ambientLight(this) {
     _vertexUploader = {
@@ -92,7 +92,7 @@ _ambientLight(this) {
     _ambientLight.registerUploader(this);
 }
 
-MTL::Device *Scene::device() {
+MTL::Device& Scene::device() {
     return _device;
 }
 

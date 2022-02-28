@@ -12,7 +12,7 @@
 #include <ozz/animation/runtime/skeleton.h>
 #include <ozz/base/containers/vector.h>
 #include <ozz/base/maths/soa_transform.h>
-#include "core/cpp_mtl.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 class SkinnedMeshRenderer : public Renderer {
@@ -65,23 +65,23 @@ private:
     float _threshold;
     
     // Buffer of local transforms which stores the blending result.
-    ozz::vector<ozz::math::SoaTransform> _blendedLocals;
+    std::vector<ozz::math::SoaTransform> _blendedLocals;
     
     // Buffer of model space matrices. These are computed by the local-to-model
     // job after the blending stage.
-    ozz::vector<ozz::math::Float4x4> _models;
+    std::vector<ozz::math::Float4x4> _models;
     
     // Buffer of skinning matrices, result of the joint multiplication of the
     // inverse bind pose with the model space matrix.
-    ozz::vector<ozz::math::Float4x4> _skinningMatrices;
+    std::vector<ozz::math::Float4x4> _skinningMatrices;
     
     // The mesh used by the sample.
-    ozz::vector<ozz::loader::Mesh> _meshes;
-    ozz::vector<MTL::Buffer*> _vertexBuffers;
-    ozz::vector<MTL::Buffer*> _uvBuffers;
-    ozz::vector<MTL::Buffer*> _indexBuffers;
+    std::vector<ozz::loader::Mesh> _meshes;
+    std::vector<std::shared_ptr<MTL::Buffer>> _vertexBuffers;
+    std::vector<std::shared_ptr<MTL::Buffer>> _uvBuffers;
+    std::vector<std::shared_ptr<MTL::Buffer>> _indexBuffers;
     
-    MTL::VertexDescriptor _vertexDescriptor;
+    std::shared_ptr<MTL::VertexDescriptor> _vertexDescriptor{nullptr};
 };
 
 }

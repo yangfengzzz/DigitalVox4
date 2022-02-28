@@ -46,9 +46,9 @@ public:
      * Create scene.
      * @param device - Device
      */
-    Scene(MTL::Device *device);
+    Scene(MTL::Device& device);
     
-    MTL::Device *device();
+    MTL::Device& device();
     
     /**
      * Ambient light.
@@ -172,7 +172,7 @@ private:
     std::vector<EntityPtr> _rootEntities;
     AmbientLight _ambientLight;
     
-    MTL::Device *_device{nullptr};
+    MTL::Device& _device;
 };
 
 }        // namespace vox

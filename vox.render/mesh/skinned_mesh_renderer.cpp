@@ -11,11 +11,12 @@
 #include <glog/logging.h>
 #include "loader/animator_loader.h"
 #include "loader/fbx_loader.h"
-#include "graphics/mesh.h"
+#include "mesh/buffer_mesh.h"
 #include "entity.h"
 #include "scene.h"
 #include "animator.h"
 #include "shader_common.h"
+#include "metal_helpers.h"
 
 namespace vox {
 SkinnedMeshRenderer::SkinnedMeshRenderer(Entity *entity) :
@@ -26,17 +27,17 @@ Renderer(entity) {
     const int32_t normals_offset = sizeof(float) * 3;
     const int32_t tangents_offset = sizeof(float) * 6;
     const int32_t positions_stride = sizeof(float) * 9;
-    _vertexDescriptor.attributes[Position].format(MTL::VertexFormatFloat3);
-    _vertexDescriptor.attributes[Position].offset(positions_offset);
-    _vertexDescriptor.attributes[Position].bufferIndex(0);
+    _vertexDescriptor->attributes()->object(Position)->setFormat(MTL::VertexFormatFloat3);
+    _vertexDescriptor->attributes()->object(Position)->setOffset(positions_offset);
+    _vertexDescriptor->attributes()->object(Position)->setBufferIndex(0);
     
-    _vertexDescriptor.attributes[Normal].format(MTL::VertexFormatFloat3);
-    _vertexDescriptor.attributes[Normal].offset(normals_offset);
-    _vertexDescriptor.attributes[Normal].bufferIndex(0);
+    _vertexDescriptor->attributes()->object(Normal)->setFormat(MTL::VertexFormatFloat3);
+    _vertexDescriptor->attributes()->object(Normal)->setOffset(normals_offset);
+    _vertexDescriptor->attributes()->object(Normal)->setBufferIndex(0);
     
-    _vertexDescriptor.attributes[Tangent].format(MTL::VertexFormatFloat3);
-    _vertexDescriptor.attributes[Tangent].offset(tangents_offset);
-    _vertexDescriptor.attributes[Tangent].bufferIndex(0);
+    _vertexDescriptor->attributes()->object(Tangent)->setFormat(MTL::VertexFormatFloat3);
+    _vertexDescriptor->attributes()->object(Tangent)->setOffset(tangents_offset);
+    _vertexDescriptor->attributes()->object(Tangent)->setBufferIndex(0);
     
     // Colors and uvs are contiguous. They aren't transformed, so they can be
     // directly copied from source mesh which is non-interleaved as-well.
@@ -44,12 +45,12 @@ Renderer(entity) {
     // UVs will be skipped if _options.textured is false.
     const int32_t uvs_offset = 0;
     const int32_t uvs_stride = sizeof(float) * 2;
-    _vertexDescriptor.attributes[UV_0].format(MTL::VertexFormatFloat2);
-    _vertexDescriptor.attributes[UV_0].offset(uvs_offset);
-    _vertexDescriptor.attributes[UV_0].bufferIndex(1);
+    _vertexDescriptor->attributes()->object(UV_0)->setFormat(MTL::VertexFormatFloat2);
+    _vertexDescriptor->attributes()->object(UV_0)->setOffset(uvs_offset);
+    _vertexDescriptor->attributes()->object(UV_0)->setBufferIndex(1);
     
-    _vertexDescriptor.layouts[0].stride(positions_stride);
-    _vertexDescriptor.layouts[1].stride(uvs_stride);
+    _vertexDescriptor->layouts()->object(0)->setStride(positions_stride);
+    _vertexDescriptor->layouts()->object(1)->setStride(uvs_stride);
 }
 
 bool SkinnedMeshRenderer::loadSkeleton(const std::string &filename) {
@@ -122,7 +123,7 @@ void SkinnedMeshRenderer::update(float deltaTime) {
     ozz::animation::BlendingJob blend_job;
     blend_job.threshold = _threshold;
     blend_job.rest_pose = _skeleton.joint_rest_poses();
-    blend_job.output = make_span(_blendedLocals);
+    blend_job.output = ozz::make_span(_blendedLocals);
     if (_animator == nullptr) {
         _animator = entity()->getComponent<Animator>();
     }
@@ -141,8 +142,8 @@ void SkinnedMeshRenderer::update(float deltaTime) {
     // Setup local-to-model conversion job.
     ozz::animation::LocalToModelJob ltm_job;
     ltm_job.skeleton = &_skeleton;
-    ltm_job.input = make_span(_blendedLocals);
-    ltm_job.output = make_span(_models);
+    ltm_job.input = ozz::make_span(_blendedLocals);
+    ltm_job.output = ozz::make_span(_models);
     
     // Runs ltm job.
     if (!ltm_job.Run()) {
@@ -164,7 +165,7 @@ void SkinnedMeshRenderer::_render(std::vector<RenderElement> &opaqueQueue,
         }
         
         // Renders skin.
-        auto render_mesh = drawSkinnedMesh(index, mesh, make_span(_skinningMatrices),
+        auto render_mesh = drawSkinnedMesh(index, mesh, ozz::make_span(_skinningMatrices),
                                            ozz::math::Float4x4::identity());
         const auto &vertexDescriptor = render_mesh->vertexDescriptor();
         
@@ -173,20 +174,20 @@ void SkinnedMeshRenderer::_render(std::vector<RenderElement> &opaqueQueue,
         shaderData.disableMacro(HAS_TANGENT);
         shaderData.disableMacro(HAS_VERTEXCOLOR);
         
-        if (vertexDescriptor.attributes[Attributes::UV_0].format() != MTL::VertexFormatInvalid) {
+        if (vertexDescriptor->attributes()->object(Attributes::UV_0)->format() != MTL::VertexFormatInvalid) {
             shaderData.enableMacro(HAS_UV);
         }
-        if (vertexDescriptor.attributes[Attributes::Normal].format() != MTL::VertexFormatInvalid) {
+        if (vertexDescriptor->attributes()->object(Attributes::Normal)->format() != MTL::VertexFormatInvalid) {
             shaderData.enableMacro(HAS_NORMAL);
         }
-        if (vertexDescriptor.attributes[Attributes::Tangent].format() != MTL::VertexFormatInvalid) {
+        if (vertexDescriptor->attributes()->object(Attributes::Tangent)->format() != MTL::VertexFormatInvalid) {
             shaderData.enableMacro(HAS_TANGENT);
         }
-        if (vertexDescriptor.attributes[Attributes::Color_0].format() != MTL::VertexFormatInvalid) {
+        if (vertexDescriptor->attributes()->object(Attributes::Color_0)->format() != MTL::VertexFormatInvalid) {
             shaderData.enableMacro(HAS_VERTEXCOLOR);
         }
         
-        auto &subMeshes = render_mesh->submeshes();
+        auto &subMeshes = render_mesh->subMeshes();
         for (size_t i = 0; i < subMeshes.size(); i++) {
             MaterialPtr material;
             if (i < _materials.size()) {
@@ -402,13 +403,17 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
     }
     
     if (_vertexBuffers[index] == nullptr) {
-        _vertexBuffers[index] = _entity->scene()->device()->newBufferWithBytes(vbo_map, skinned_data_size);
+        _vertexBuffers[index] =
+        CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _entity->scene()->device().newBuffer(vbo_map, skinned_data_size,
+                                                                                     MTL::ResourceOptionCPUCacheModeDefault));
     } else {
         memcpy(_vertexBuffers[index]->contents(), vbo_map, skinned_data_size);
     }
     
     if (_uvBuffers[index] == nullptr) {
-        _uvBuffers[index] = _entity->scene()->device()->newBufferWithBytes(uv_map, uvs_size);
+        _uvBuffers[index] =
+        CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _entity->scene()->device().newBuffer(uv_map, uvs_size,
+                                                                                     MTL::ResourceOptionCPUCacheModeDefault));
     } else {
         memcpy(_uvBuffers[index]->contents(), uv_map, uvs_size);
     }
@@ -416,15 +421,19 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
     size_t indexCount = _mesh.triangle_indices.size();
     if (_indexBuffers[index] == nullptr) {
         _indexBuffers[index] =
-        _entity->scene()->device()->newBufferWithBytes(_mesh.triangle_indices.data(),
-                                                       indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type));
+        CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _entity->scene()->device().newBuffer(_mesh.triangle_indices.data(),
+                                                                                     indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type),
+                                                                                     MTL::ResourceOptionCPUCacheModeDefault));
     }
     
-    auto submesh = Submesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, indexCount,
-                           MeshBuffer(*_indexBuffers[index], 0, indexCount * sizeof(ozz::loader::Mesh::TriangleIndices::value_type)));
-    std::vector<MeshBuffer> buffer = {MeshBuffer(*_vertexBuffers[index], 0, skinned_data_size, 0), MeshBuffer(*_uvBuffers[index], 0, uvs_size, 1)};
-    auto mesh = std::make_shared<Mesh>(submesh, buffer, _vertexDescriptor);
+    auto submesh = SubMesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, indexCount, _indexBuffers[index]);
     
+    auto mesh = std::make_shared<BufferMesh>();
+    mesh->setVertexBufferBinding(_vertexBuffers[index], 0);
+    mesh->setVertexBufferBinding(_uvBuffers[index], 1);
+    mesh->addSubMesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, indexCount, _indexBuffers[index]);
+    mesh->setVertexLayouts(_vertexDescriptor);
+        
     return mesh;
 }
 
