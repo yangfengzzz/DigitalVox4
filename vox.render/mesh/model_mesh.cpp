@@ -1,12 +1,12 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  model_mesh.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/19.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "model_mesh.h"
 #include "shader_common.h"
+#include "metal_helpers.h"
 
 namespace vox {
 bool ModelMesh::accessible() {
@@ -17,7 +17,7 @@ size_t ModelMesh::vertexCount() {
     return _vertexCount;
 }
 
-ModelMesh::ModelMesh(MTL::Device *device, const std::string &name) :
+ModelMesh::ModelMesh(const std::shared_ptr<MTL::Device>& device, const std::string &name) :
 Mesh(),
 _device(device) {
 }
@@ -201,12 +201,16 @@ void ModelMesh::uploadData(bool noLongerAccessible) {
     auto vertices = std::vector<float>(vertexFloatCount);
     _updateVertices(vertices);
     
-    auto newVertexBuffer = _device->makeBuffer(vertices.data(), vertexFloatCount * sizeof(float));
-    _vertexBuffers.push_back(MeshBuffer(newVertexBuffer, 0, vertexFloatCount * sizeof(float), 0));
+    auto newVertexBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _device->newBuffer(vertices.data(),
+                                                                                      vertexFloatCount * sizeof(float),
+                                                                                      MTL::ResourceStorageModePrivate));
+    _setVertexBufferBinding(0, newVertexBuffer);
+
     
-    const auto indexBuffer = _device->makeBuffer(_indices.data(), _indices.size() * sizeof(uint32_t));
-    _submeshes.push_back(Submesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt32, _indices.size(),
-                                 MeshBuffer(indexBuffer, 0, _indices.size() * sizeof(uint32_t), 0)));
+    const auto indexBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _device->newBuffer(_indices.data(),
+                                                                                        _indices.size() * sizeof(uint32_t),
+                                                                                        MTL::ResourceStorageModePrivate));
+    addSubMesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt32, _indices.size(), indexBuffer);
     
     if (noLongerAccessible) {
         _accessible = false;
@@ -214,107 +218,107 @@ void ModelMesh::uploadData(bool noLongerAccessible) {
     }
 }
 
-MTL::VertexDescriptor ModelMesh::_updateVertexDescriptor() {
-    auto descriptor = MTL::VertexDescriptor();
-    descriptor.attributes[Attributes::Position].format(MTL::VertexFormatFloat3);
-    descriptor.attributes[Attributes::Position].offset(0);
-    descriptor.attributes[Attributes::Position].bufferIndex(0);
+std::shared_ptr<MTL::VertexDescriptor> ModelMesh::_updateVertexDescriptor() {
+    auto descriptor = CLONE_METAL_CUSTOM_DELETER(MTL::VertexDescriptor, MTL::VertexDescriptor::alloc()->init());
+    descriptor->attributes()->object(Attributes::Position)->setFormat(MTL::VertexFormatFloat3);
+    descriptor->attributes()->object(Attributes::Position)->setOffset(0);
+    descriptor->attributes()->object(Attributes::Position)->setBufferIndex(0);
     
     size_t offset = 12;
     size_t elementCount = 3;
     if (!_normals.empty()) {
-        descriptor.attributes[Attributes::Normal].format(MTL::VertexFormatFloat3);
-        descriptor.attributes[Attributes::Normal].offset(offset);
-        descriptor.attributes[Attributes::Normal].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::Normal)->setFormat(MTL::VertexFormatFloat3);
+        descriptor->attributes()->object(Attributes::Normal)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::Normal)->setBufferIndex(0);
         offset += sizeof(float) * 3;
         elementCount += 3;
     }
     
     if (!_colors.empty()) {
-        descriptor.attributes[Attributes::Color_0].format(MTL::VertexFormatFloat4);
-        descriptor.attributes[Attributes::Color_0].offset(offset);
-        descriptor.attributes[Attributes::Color_0].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::Color_0)->setFormat(MTL::VertexFormatFloat4);
+        descriptor->attributes()->object(Attributes::Color_0)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::Color_0)->setBufferIndex(0);
         offset += sizeof(float) * 4;
         elementCount += 4;
     }
     if (!_boneWeights.empty()) {
-        descriptor.attributes[Attributes::Weights_0].format(MTL::VertexFormatFloat4);
-        descriptor.attributes[Attributes::Weights_0].offset(offset);
-        descriptor.attributes[Attributes::Weights_0].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::Weights_0)->setFormat(MTL::VertexFormatFloat4);
+        descriptor->attributes()->object(Attributes::Weights_0)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::Weights_0)->setBufferIndex(0);
         offset += sizeof(float) * 4;
         elementCount += 4;
     }
     if (!_boneIndices.empty()) {
-        descriptor.attributes[Attributes::Joints_0].format(MTL::VertexFormatShort4);
-        descriptor.attributes[Attributes::Joints_0].offset(offset);
-        descriptor.attributes[Attributes::Joints_0].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::Joints_0)->setFormat(MTL::VertexFormatShort4);
+        descriptor->attributes()->object(Attributes::Joints_0)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::Joints_0)->setBufferIndex(0);
         offset += sizeof(short) * 4;
         elementCount += 1;
     }
     if (!_tangents.empty()) {
-        descriptor.attributes[Attributes::Tangent].format(MTL::VertexFormatFloat4);
-        descriptor.attributes[Attributes::Tangent].offset(offset);
-        descriptor.attributes[Attributes::Tangent].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::Tangent)->setFormat(MTL::VertexFormatFloat4);
+        descriptor->attributes()->object(Attributes::Tangent)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::Tangent)->setBufferIndex(0);
         offset += sizeof(float) * 4;
         elementCount += 4;
     }
     if (!_uv.empty()) {
-        descriptor.attributes[Attributes::UV_0].format(MTL::VertexFormatFloat2);
-        descriptor.attributes[Attributes::UV_0].offset(offset);
-        descriptor.attributes[Attributes::UV_0].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::UV_0)->setFormat(MTL::VertexFormatFloat2);
+        descriptor->attributes()->object(Attributes::UV_0)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::UV_0)->setBufferIndex(0);
         offset += sizeof(float) * 2;
         elementCount += 2;
     }
     if (!_uv1.empty()) {
-        descriptor.attributes[Attributes::UV_1].format(MTL::VertexFormatFloat2);
-        descriptor.attributes[Attributes::UV_1].offset(offset);
-        descriptor.attributes[Attributes::UV_1].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::UV_1)->setFormat(MTL::VertexFormatFloat2);
+        descriptor->attributes()->object(Attributes::UV_1)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::UV_1)->setBufferIndex(0);
         offset += sizeof(float) * 2;
         elementCount += 2;
     }
     if (!_uv2.empty()) {
-        descriptor.attributes[Attributes::UV_2].format(MTL::VertexFormatFloat2);
-        descriptor.attributes[Attributes::UV_2].offset(offset);
-        descriptor.attributes[Attributes::UV_2].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::UV_2)->setFormat(MTL::VertexFormatFloat2);
+        descriptor->attributes()->object(Attributes::UV_2)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::UV_2)->setBufferIndex(0);
         offset += sizeof(float) * 2;
         elementCount += 2;
     }
     if (!_uv3.empty()) {
-        descriptor.attributes[Attributes::UV_3].format(MTL::VertexFormatFloat2);
-        descriptor.attributes[Attributes::UV_3].offset(offset);
-        descriptor.attributes[Attributes::UV_3].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::UV_3)->setFormat(MTL::VertexFormatFloat2);
+        descriptor->attributes()->object(Attributes::UV_3)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::UV_3)->setBufferIndex(0);
         offset += sizeof(float) * 2;
         elementCount += 2;
     }
     if (!_uv4.empty()) {
-        descriptor.attributes[Attributes::UV_4].format(MTL::VertexFormatFloat2);
-        descriptor.attributes[Attributes::UV_4].offset(offset);
-        descriptor.attributes[Attributes::UV_4].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::UV_4)->setFormat(MTL::VertexFormatFloat2);
+        descriptor->attributes()->object(Attributes::UV_4)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::UV_4)->setBufferIndex(0);
         offset += sizeof(float) * 2;
         elementCount += 2;
     }
     if (!_uv5.empty()) {
-        descriptor.attributes[Attributes::UV_5].format(MTL::VertexFormatFloat2);
-        descriptor.attributes[Attributes::UV_5].offset(offset);
-        descriptor.attributes[Attributes::UV_5].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::UV_5)->setFormat(MTL::VertexFormatFloat2);
+        descriptor->attributes()->object(Attributes::UV_5)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::UV_5)->setBufferIndex(0);
         offset += sizeof(float) * 2;
         elementCount += 2;
     }
     if (!_uv6.empty()) {
-        descriptor.attributes[Attributes::UV_6].format(MTL::VertexFormatFloat2);
-        descriptor.attributes[Attributes::UV_6].offset(offset);
-        descriptor.attributes[Attributes::UV_6].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::UV_6)->setFormat(MTL::VertexFormatFloat2);
+        descriptor->attributes()->object(Attributes::UV_6)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::UV_6)->setBufferIndex(0);
         offset += sizeof(float) * 2;
         elementCount += 2;
     }
     if (!_uv7.empty()) {
-        descriptor.attributes[Attributes::UV_7].format(MTL::VertexFormatFloat2);
-        descriptor.attributes[Attributes::UV_7].offset(offset);
-        descriptor.attributes[Attributes::UV_7].bufferIndex(0);
+        descriptor->attributes()->object(Attributes::UV_7)->setFormat(MTL::VertexFormatFloat2);
+        descriptor->attributes()->object(Attributes::UV_7)->setOffset(offset);
+        descriptor->attributes()->object(Attributes::UV_7)->setBufferIndex(0);
         offset += sizeof(float) * 2;
         elementCount += 2;
     }
-    descriptor.layouts[0].stride(offset);
+    descriptor->layouts()->object(0)->setStride(offset);
     
     _elementCount = elementCount;
     return descriptor;

@@ -296,6 +296,35 @@
 		04D75E7427CC537300BB1519 /* shader_property.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592AB278EBEB900F04CE0 /* shader_property.h */; };
 		04D75E7527CC539700BB1519 /* shader_uniform.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592AA278EBEB900F04CE0 /* shader_uniform.h */; };
 		04D75E7627CC53A000BB1519 /* shader_data_group.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459299278EB2F900F04CE0 /* shader_data_group.h */; };
+		04D75E7727CC566400BB1519 /* shader_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592A6278EB9DF00F04CE0 /* shader_data.cpp */; };
+		04D75E7827CC566400BB1519 /* shader_data.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592A7278EB9DF00F04CE0 /* shader_data.h */; };
+		04D75E7927CC566A00BB1519 /* shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B1278EBEE600F04CE0 /* shader.h */; };
+		04D75E7A27CC566A00BB1519 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B0278EBEE600F04CE0 /* shader.cpp */; };
+		04D75E7B27CC568600BB1519 /* material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D9278ED11E00F04CE0 /* material.h */; };
+		04D75E7C27CC568600BB1519 /* render_queue_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D4278ED0FA00F04CE0 /* render_queue_type.h */; };
+		04D75E7D27CC568600BB1519 /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592DA278ED11F00F04CE0 /* material.cpp */; };
+		04D75E7E27CC568600BB1519 /* blend_mode.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D5278ED0FB00F04CE0 /* blend_mode.h */; };
+		04D75E7F27CC568600BB1519 /* render_face.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592D3278ED0FA00F04CE0 /* render_face.h */; };
+		04D75E8027CC56A300BB1519 /* base_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592DD278ED17E00F04CE0 /* base_material.h */; };
+		04D75E8127CC56A300BB1519 /* base_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592DE278ED17E00F04CE0 /* base_material.cpp */; };
+		04D75E8227CC56AC00BB1519 /* pbr_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E9278ED82200F04CE0 /* pbr_material.h */; };
+		04D75E8327CC56AC00BB1519 /* pbr_base_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592ED278ED88400F04CE0 /* pbr_base_material.h */; };
+		04D75E8427CC56AC00BB1519 /* unlit_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E2278ED3D200F04CE0 /* unlit_material.h */; };
+		04D75E8527CC56AC00BB1519 /* pbr_base_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592EE278ED88400F04CE0 /* pbr_base_material.cpp */; };
+		04D75E8627CC56AC00BB1519 /* unlit_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592E1278ED3D200F04CE0 /* unlit_material.cpp */; };
+		04D75E8727CC56AC00BB1519 /* blinn_phong_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592E5278ED6AE00F04CE0 /* blinn_phong_material.h */; };
+		04D75E8827CC56AC00BB1519 /* blinn_phong_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592E6278ED6AE00F04CE0 /* blinn_phong_material.cpp */; };
+		04D75E8927CC56AC00BB1519 /* pbr_specular_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592F1278EDA3200F04CE0 /* pbr_specular_material.h */; };
+		04D75E8A27CC56AC00BB1519 /* pbr_specular_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592F2278EDA3300F04CE0 /* pbr_specular_material.cpp */; };
+		04D75E8B27CC56AC00BB1519 /* pbr_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592EA278ED82300F04CE0 /* pbr_material.cpp */; };
+		04D75E8E27CC5BE000BB1519 /* sub_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E12790FBE400F04CE0 /* sub_mesh.h */; };
+		04D75E8F27CC5BE000BB1519 /* sub_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E02790FBE400F04CE0 /* sub_mesh.cpp */; };
+		04D75E9027CC5C5700BB1519 /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E52791055900F04CE0 /* mesh.h */; };
+		04D75E9127CC5C5700BB1519 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E42791055900F04CE0 /* mesh.cpp */; };
+		04D75E9227CC5FB300BB1519 /* model_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACC327983DCD0020576D /* model_mesh.cpp */; };
+		04D75E9327CC5FB300BB1519 /* model_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 04B4ACC427983DCD0020576D /* model_mesh.h */; };
+		04D75E9427CC624800BB1519 /* primitive_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593E92791107600F04CE0 /* primitive_mesh.h */; };
+		04D75E9527CC624800BB1519 /* primitive_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593E82791107600F04CE0 /* primitive_mesh.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -672,8 +701,6 @@
 		044593D32790082600F04CE0 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		044593D8279011CA00F04CE0 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = assets/Models; sourceTree = "<group>"; };
 		044593DA27902BE900F04CE0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		044593DC2790F99200F04CE0 /* mesh_buffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mesh_buffer.cpp; sourceTree = "<group>"; };
-		044593DD2790F99200F04CE0 /* mesh_buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh_buffer.h; sourceTree = "<group>"; };
 		044593E02790FBE400F04CE0 /* sub_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sub_mesh.cpp; sourceTree = "<group>"; };
 		044593E12790FBE400F04CE0 /* sub_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sub_mesh.h; sourceTree = "<group>"; };
 		044593E42791055900F04CE0 /* mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
@@ -1751,8 +1778,6 @@
 		044593DB2790F97000F04CE0 /* graphics */ = {
 			isa = PBXGroup;
 			children = (
-				044593DD2790F99200F04CE0 /* mesh_buffer.h */,
-				044593DC2790F99200F04CE0 /* mesh_buffer.cpp */,
 				044593E12790FBE400F04CE0 /* sub_mesh.h */,
 				044593E02790FBE400F04CE0 /* sub_mesh.cpp */,
 				044593E52791055900F04CE0 /* mesh.h */,
@@ -2010,33 +2035,49 @@
 				04D75E5A27CBCB2400BB1519 /* gui.h in Headers */,
 				04D75E7427CC537300BB1519 /* shader_property.h in Headers */,
 				04D75E7227CC4B7F00BB1519 /* metal_helpers.h in Headers */,
+				04D75E8427CC56AC00BB1519 /* unlit_material.h in Headers */,
 				04D75E3E27CBA5A700BB1519 /* window.h in Headers */,
 				04D75E7627CC53A000BB1519 /* shader_data_group.h in Headers */,
 				04D75E5C27CBCB8900BB1519 /* input_events.h in Headers */,
 				04D75E5527CBCAB500BB1519 /* imstb_rectpack.h in Headers */,
+				04D75E8027CC56A300BB1519 /* base_material.h in Headers */,
 				04D75E6327CBCE5100BB1519 /* render_state.h in Headers */,
 				04D75E3C27CBA59400BB1519 /* application.h in Headers */,
+				04D75E7B27CC568600BB1519 /* material.h in Headers */,
 				04D75E4827CBC92C00BB1519 /* glfw_window.h in Headers */,
+				04D75E7E27CC568600BB1519 /* blend_mode.h in Headers */,
 				04D75E5E27CBCB9600BB1519 /* timer.h in Headers */,
 				04D75E6A27CBCE5100BB1519 /* stencil_state.h in Headers */,
 				04D75E6D27CBD1A700BB1519 /* shader_program.h in Headers */,
 				04D75E5627CBCAB500BB1519 /* imgui.h in Headers */,
+				04D75E7927CC566A00BB1519 /* shader.h in Headers */,
 				04D75E6927CBCE5100BB1519 /* renderTarget_blend_state.h in Headers */,
 				04D75E4727CBB3E400BB1519 /* render_context.h in Headers */,
 				04D75E4027CBA5CF00BB1519 /* unix_engine.h in Headers */,
+				04D75E8227CC56AC00BB1519 /* pbr_material.h in Headers */,
 				04D75E5327CBCAB500BB1519 /* imconfig.h in Headers */,
 				04D75E4327CBA5EE00BB1519 /* graphics_application.h in Headers */,
 				04D75E7527CC539700BB1519 /* shader_uniform.h in Headers */,
 				04D75E5827CBCAB500BB1519 /* imgui_internal.h in Headers */,
 				04D75E5927CBCAB500BB1519 /* imgui_impl_glfw.h in Headers */,
+				04D75E8927CC56AC00BB1519 /* pbr_specular_material.h in Headers */,
+				04D75E7827CC566400BB1519 /* shader_data.h in Headers */,
+				04D75E8327CC56AC00BB1519 /* pbr_base_material.h in Headers */,
+				04D75E7C27CC568600BB1519 /* render_queue_type.h in Headers */,
 				04D75E6227CBCE5100BB1519 /* blend_state.h in Headers */,
 				04D75E5F27CBCB9600BB1519 /* std_helpers.h in Headers */,
 				04D75E6027CBCB9600BB1519 /* filesystem.h in Headers */,
+				04D75E7F27CC568600BB1519 /* render_face.h in Headers */,
+				04D75E9027CC5C5700BB1519 /* mesh.h in Headers */,
 				04D75E6F27CBD22600BB1519 /* shader_macro_collection.h in Headers */,
 				04D75E6627CBCE5100BB1519 /* raster_state.h in Headers */,
 				04D75E4F27CBCAB500BB1519 /* imstb_truetype.h in Headers */,
+				04D75E9327CC5FB300BB1519 /* model_mesh.h in Headers */,
+				04D75E8727CC56AC00BB1519 /* blinn_phong_material.h in Headers */,
+				04D75E9427CC624800BB1519 /* primitive_mesh.h in Headers */,
 				04D75E4E27CBCAB500BB1519 /* imgui_impl_metal.h in Headers */,
 				04D75E4A27CBC9F800BB1519 /* engine.h in Headers */,
+				04D75E8E27CC5BE000BB1519 /* sub_mesh.h in Headers */,
 				04D75E4D27CBCAB500BB1519 /* imstb_textedit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2411,7 +2452,12 @@
 			files = (
 				04D75E5B27CBCB2400BB1519 /* gui.cpp in Sources */,
 				04D75E5127CBCAB500BB1519 /* imgui_widgets.cpp in Sources */,
+				04D75E9127CC5C5700BB1519 /* mesh.cpp in Sources */,
+				04D75E8127CC56A300BB1519 /* base_material.cpp in Sources */,
+				04D75E8B27CC56AC00BB1519 /* pbr_material.cpp in Sources */,
+				04D75E7727CC566400BB1519 /* shader_data.cpp in Sources */,
 				04D75E5427CBCAB500BB1519 /* imgui_impl_metal.mm in Sources */,
+				04D75E8827CC56AC00BB1519 /* blinn_phong_material.cpp in Sources */,
 				04D75E6527CBCE5100BB1519 /* stencil_state.cpp in Sources */,
 				04D75E6127CBCB9600BB1519 /* filesystem.cpp in Sources */,
 				04D75E6B27CBCE5100BB1519 /* blend_state.cpp in Sources */,
@@ -2422,16 +2468,24 @@
 				04D75E5D27CBCB8900BB1519 /* input_events.cpp in Sources */,
 				04D75E4627CBB3E400BB1519 /* render_context.mm in Sources */,
 				04D75E5727CBCAB500BB1519 /* imgui.cpp in Sources */,
+				04D75E8F27CC5BE000BB1519 /* sub_mesh.cpp in Sources */,
 				04D75E5027CBCAB500BB1519 /* imgui_draw.cpp in Sources */,
+				04D75E8527CC56AC00BB1519 /* pbr_base_material.cpp in Sources */,
 				04D75E4227CBA5EE00BB1519 /* graphics_application.cpp in Sources */,
+				04D75E9227CC5FB300BB1519 /* model_mesh.cpp in Sources */,
+				04D75E7D27CC568600BB1519 /* material.cpp in Sources */,
+				04D75E9527CC624800BB1519 /* primitive_mesh.cpp in Sources */,
+				04D75E8627CC56AC00BB1519 /* unlit_material.cpp in Sources */,
 				04D75E7027CBD22600BB1519 /* shader_macro_collection.cpp in Sources */,
 				04D75E6427CBCE5100BB1519 /* depth_state.cpp in Sources */,
 				04D75E4C27CBCAB500BB1519 /* imgui_tables.cpp in Sources */,
 				04D75E4927CBC92C00BB1519 /* glfw_window.cpp in Sources */,
 				04D75E4127CBA5CF00BB1519 /* unix_engine.cpp in Sources */,
+				04D75E7A27CC566A00BB1519 /* shader.cpp in Sources */,
 				04D75E3D27CBA59400BB1519 /* application.cpp in Sources */,
 				04D75E6727CBCE5100BB1519 /* render_state.cpp in Sources */,
 				04D75E3727CB8EE700BB1519 /* timer.cpp in Sources */,
+				04D75E8A27CC56AC00BB1519 /* pbr_specular_material.cpp in Sources */,
 				04D75E7327CC537300BB1519 /* shader_property.cpp in Sources */,
 				04D75E5227CBCAB500BB1519 /* imgui_impl_glfw.cpp in Sources */,
 			);

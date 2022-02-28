@@ -10,38 +10,51 @@
 #include "sub_mesh.h"
 #include "bounding_box3.h"
 #include "update_flag_manager.h"
+#include <string>
 
 namespace vox {
 struct Mesh {
 public:
+    /** Name. */
+    std::string name = "";
     /** The bounding volume of the mesh. */
     BoundingBox3F bounds = BoundingBox3F();
     
-    Mesh();
+    /**
+     * First sub-mesh. Rendered using the first material.
+     */
+    const SubMesh* subMesh() const;
     
-    Mesh(const std::vector<Submesh> &submeshes,
-         const std::vector<MeshBuffer> &vertexBuffers,
-         MTL::VertexDescriptor vertexDescriptor);
+    /**
+     * A collection of sub-mesh, each sub-mesh can be rendered with an independent material.
+     */
+    const std::vector<SubMesh> &subMeshes() const;
+
     
-    Mesh(const Submesh &submesh,
-         const std::vector<MeshBuffer> &vertexBuffers,
-         MTL::VertexDescriptor vertexDescriptor);
+    /**
+     * Add sub-mesh, each sub-mesh can correspond to an independent material.
+     * @param subMesh - Start drawing offset, if the index buffer is set,
+     * it means the offset in the index buffer, if not set, it means the offset in the vertex buffer
+     */
+    void addSubMesh(SubMesh subMesh);
     
-    Mesh(const Mesh &rhs) = default;
     
-    Mesh(Mesh &&rhs) = default;
+    /**
+     * Add sub-mesh, each sub-mesh can correspond to an independent material.
+     * @param indexCount - Drawing count, if the index buffer is set,
+     * it means the count in the index buffer, if not set,
+     * it means the count in the vertex buffer
+     * @param primitiveType - Drawing topology, default is MeshTopology.Triangles
+     */
+    void addSubMesh(MTL::PrimitiveType primitiveType,
+                    MTL::IndexType indexType,
+                    NS::UInteger indexCount,
+                    const std::shared_ptr<MTL::Buffer>& indexBuffer);
     
-    Mesh &operator=(Mesh &rhs) = default;
-    
-    Mesh &operator=(Mesh &&rhs) = default;
-    
-    virtual ~Mesh();
-    
-    const std::vector<Submesh> &submeshes() const;
-    
-    const std::vector<MeshBuffer> &vertexBuffers() const;
-    
-    const MTL::VertexDescriptor& vertexDescriptor() const;
+    /**
+     * Clear all sub-mesh.
+     */
+    void clearSubMesh();
     
     /**
      * Register update flag, update flag will be true if the vertex element changes.
@@ -49,30 +62,27 @@ public:
      */
     std::unique_ptr<UpdateFlag> registerUpdateFlag();
     
+public:
+    const std::vector<std::shared_ptr<MTL::Buffer>> &vertexBufferBindings() const;
+    
+    const std::shared_ptr<MTL::VertexDescriptor>& vertexDescriptor() const;
+    
 protected:
-    std::vector<Submesh> _submeshes;
+    void _setVertexDescriptor(const std::shared_ptr<MTL::VertexDescriptor>& descriptor);
+
+    void _setVertexBufferBinding(size_t index, const std::shared_ptr<MTL::Buffer>& binding);
     
-    std::vector<MeshBuffer> _vertexBuffers;
-    
-    MTL::VertexDescriptor _vertexDescriptor;
-    
+protected:
+    std::vector<SubMesh> _subMeshes;
     UpdateFlagManager _updateFlagManager = UpdateFlagManager();
+
+    std::vector<std::shared_ptr<MTL::Buffer>> _vertexBufferBindings;
+    
+    std::shared_ptr<MTL::VertexDescriptor> _vertexDescriptor;
+    
+    size_t _instanceCount = 0;
 };
-
 using MeshPtr = std::shared_ptr<Mesh>;
-
-inline const std::vector<Submesh> &Mesh::submeshes() const {
-    return _submeshes;
-}
-
-inline const std::vector<MeshBuffer> &Mesh::vertexBuffers() const {
-    return _vertexBuffers;
-}
-
-inline const MTL::VertexDescriptor& Mesh::vertexDescriptor() const {
-    return _vertexDescriptor;
-}
-
 
 }
 

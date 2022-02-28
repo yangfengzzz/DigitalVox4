@@ -7,59 +7,59 @@
 #ifndef sub_mesh_hpp
 #define sub_mesh_hpp
 
-#include "mesh_buffer.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 // App specific submesh class containing data to draw a submesh
-struct Submesh {
+struct SubMesh {
 public:
-    Submesh(MTL::PrimitiveType primitiveType,
+    SubMesh(MTL::PrimitiveType primitiveType,
             MTL::IndexType indexType,
-            MTL::UInteger indexCount,
-            MeshBuffer indexBuffer);
+            NS::UInteger indexCount,
+            const std::shared_ptr<MTL::Buffer>& indexBuffer);
     
-    Submesh(const Submesh &rhs) = default;
+    SubMesh(const SubMesh &rhs) = default;
     
-    Submesh(Submesh &&rhs) = default;
+    SubMesh(SubMesh &&rhs) = default;
     
-    Submesh &operator=(Submesh &rhs) = default;
+    SubMesh &operator=(SubMesh &rhs) = default;
     
-    Submesh &operator=(Submesh &&rhs) = default;
+    SubMesh &operator=(SubMesh &&rhs) = default;
     
-    virtual ~Submesh();
+    ~SubMesh() = default;
     
     MTL::PrimitiveType primitiveType() const;
     
     MTL::IndexType indexType() const;
     
-    MTL::UInteger indexCount() const;
+    NS::UInteger indexCount() const;
     
-    const MeshBuffer &indexBuffer() const;
+    const std::shared_ptr<MTL::Buffer> &indexBuffer() const;
         
 private:
-    MTL::PrimitiveType m_primitiveType;
+    MTL::PrimitiveType _primitiveType;
     
-    MTL::IndexType m_indexType;
+    MTL::IndexType _indexType;
     
-    MTL::UInteger m_indexCount;
+    NS::UInteger _indexCount;
     
-    MeshBuffer m_indexBuffer;
+    std::shared_ptr<MTL::Buffer> _indexBuffer;
 };
 
-inline MTL::PrimitiveType Submesh::primitiveType() const {
-    return m_primitiveType;
+inline MTL::PrimitiveType SubMesh::primitiveType() const {
+    return _primitiveType;
 }
 
-inline MTL::IndexType Submesh::indexType() const {
-    return m_indexType;
+inline MTL::IndexType SubMesh::indexType() const {
+    return _indexType;
 }
 
-inline MTL::UInteger Submesh::indexCount() const {
-    return m_indexCount;
+inline NS::UInteger SubMesh::indexCount() const {
+    return _indexCount;
 }
 
-inline const MeshBuffer &Submesh::indexBuffer() const {
-    return m_indexBuffer;
+inline const std::shared_ptr<MTL::Buffer> &SubMesh::indexBuffer() const {
+    return _indexBuffer;
 }
 
 }

@@ -7,7 +7,7 @@
 #include "primitive_mesh.h"
 
 namespace vox {
-MeshPtr PrimitiveMesh::createSphere(MTL::Device *device,
+MeshPtr PrimitiveMesh::createSphere(const std::shared_ptr<MTL::Device> &device,
                                     float radius,
                                     size_t segments,
                                     bool noLongerAccessible) {
@@ -74,7 +74,7 @@ MeshPtr PrimitiveMesh::createSphere(MTL::Device *device,
     return mesh;
 }
 
-MeshPtr PrimitiveMesh::createCuboid(MTL::Device *device,
+MeshPtr PrimitiveMesh::createCuboid(const std::shared_ptr<MTL::Device> &device,
                                     float width,
                                     float height,
                                     float depth,
@@ -223,7 +223,7 @@ MeshPtr PrimitiveMesh::createCuboid(MTL::Device *device,
     
 }
 
-MeshPtr PrimitiveMesh::createPlane(MTL::Device *device,
+MeshPtr PrimitiveMesh::createPlane(const std::shared_ptr<MTL::Device> &device,
                                    float width,
                                    float height,
                                    size_t horizontalSegments,
@@ -288,7 +288,7 @@ MeshPtr PrimitiveMesh::createPlane(MTL::Device *device,
     return mesh;
 }
 
-MeshPtr PrimitiveMesh::createCylinder(MTL::Device *device,
+MeshPtr PrimitiveMesh::createCylinder(const std::shared_ptr<MTL::Device> &device,
                                       float radiusTop,
                                       float radiusBottom,
                                       float height,
@@ -434,7 +434,7 @@ MeshPtr PrimitiveMesh::createCylinder(MTL::Device *device,
     return mesh;
 }
 
-MeshPtr PrimitiveMesh::createTorus(MTL::Device *device,
+MeshPtr PrimitiveMesh::createTorus(const std::shared_ptr<MTL::Device> &device,
                                    float radius,
                                    float tubeRadius,
                                    size_t radialSegments,
@@ -503,7 +503,7 @@ MeshPtr PrimitiveMesh::createTorus(MTL::Device *device,
     return mesh;
 }
 
-MeshPtr PrimitiveMesh::createCone(MTL::Device *device,
+MeshPtr PrimitiveMesh::createCone(const std::shared_ptr<MTL::Device> &device,
                                   float radius,
                                   float height,
                                   size_t radialSegments,
@@ -615,7 +615,7 @@ MeshPtr PrimitiveMesh::createCone(MTL::Device *device,
     return mesh;
 }
 
-MeshPtr PrimitiveMesh::createCapsule(MTL::Device *device,
+MeshPtr PrimitiveMesh::createCapsule(const std::shared_ptr<MTL::Device> &device,
                                      float radius,
                                      float height,
                                      size_t radialSegments,
@@ -772,7 +772,7 @@ void PrimitiveMesh::_createCapsuleCap(float radius,
     }
 }
 
-void PrimitiveMesh::_initialize(MTL::Device *device,
+void PrimitiveMesh::_initialize(const std::shared_ptr<MTL::Device> &device,
                                 const ModelMeshPtr &mesh,
                                 const std::vector<Vector3F> &positions,
                                 const std::vector<Vector3F> &normals,

@@ -8,16 +8,13 @@
 
 namespace vox {
 // Initialize a submesh without textures
-Submesh::Submesh(MTL::PrimitiveType primitiveType,
+SubMesh::SubMesh(MTL::PrimitiveType primitiveType,
                  MTL::IndexType indexType,
-                 MTL::UInteger indexCount,
-                 MeshBuffer indexBuffer)
-: m_primitiveType(primitiveType), m_indexType(indexType),
-m_indexCount(indexCount), m_indexBuffer(indexBuffer) {
+                 NS::UInteger indexCount,
+                 const std::shared_ptr<MTL::Buffer>& indexBuffer)
+: _primitiveType(primitiveType), _indexType(indexType),
+_indexCount(indexCount), _indexBuffer(indexBuffer) {
     
-}
-
-Submesh::~Submesh() {
 }
 
 }
