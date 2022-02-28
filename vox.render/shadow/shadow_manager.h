@@ -20,7 +20,7 @@ public:
     static constexpr uint32_t MAX_CUBE_SHADOW = 5;
     static constexpr uint32_t SHADOW_MAP_RESOLUTION = 4000;
     static constexpr MTL::PixelFormat SHADOW_MAP_FORMAT = MTL::PixelFormatDepth32Float;
-
+    
     struct ShadowData {
         /**
          * Shadow bias.
@@ -109,7 +109,7 @@ private:
     Scene* _scene{nullptr};
     Camera* _camera{nullptr};
     
-    std::shared_ptr<MTL::RenderPassDescriptor> _renderPassDescriptor;
+    std::shared_ptr<MTL::RenderPassDescriptor> _renderPassDescriptor{nullptr};
     std::unique_ptr<RenderPass> _renderPass{nullptr};
     ShadowSubpass* _shadowSubpass{nullptr};
     
@@ -121,7 +121,7 @@ private:
     ShaderProperty _shadowMapProp;
     ShaderProperty _shadowDataProp;
     std::array<ShadowManager::ShadowData, ShadowManager::MAX_SHADOW> _shadowDatas{};
-
+    
     static uint32_t _cubeShadowCount;
     std::vector<std::shared_ptr<MTL::Texture>> _cubeShadowMaps{};
     std::shared_ptr<MTL::Texture> _packedCubeTexture{nullptr};
@@ -138,11 +138,11 @@ private:
         std::make_pair(Vector3F(0, 0, -10), Vector3F(0, 1, 0)),
     };
     
-    const std::array<Vector4F, SHADOW_MAP_CASCADE_COUNT> _viewport = {
-        Vector4F(0, 0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2),
-        Vector4F(SHADOW_MAP_RESOLUTION/2, 0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2),
-        Vector4F(0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2),
-        Vector4F(SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2),
+    const std::array<MTL::Viewport, SHADOW_MAP_CASCADE_COUNT> _viewport = {
+        MTL::Viewport{0, 0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, 0, 1.0},
+        MTL::Viewport{SHADOW_MAP_RESOLUTION/2, 0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, 0, 1.0},
+        MTL::Viewport{0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, 0, 1.0},
+        MTL::Viewport{SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, 0, 1.0},
     };
 };
 }

@@ -446,6 +446,8 @@
 		04D75F3027CCBB8B00BB1519 /* texture_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75F2E27CCBB8B00BB1519 /* texture_utils.h */; };
 		04D75F3227CCC0E000BB1519 /* shadow_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F82791581900F04CE0 /* shadow_subpass.cpp */; };
 		04D75F3327CCC0E000BB1519 /* shadow_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F92791581900F04CE0 /* shadow_subpass.h */; };
+		04D75F3427CCC3EC00BB1519 /* shadow_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0446044D279BFA87009108C8 /* shadow_manager.h */; };
+		04D75F3527CCC3EC00BB1519 /* shadow_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446044C279BFA87009108C8 /* shadow_manager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2236,6 +2238,7 @@
 				04D75E4327CBA5EE00BB1519 /* graphics_application.h in Headers */,
 				04D75F1427CC9BFD00BB1519 /* ambient_light.h in Headers */,
 				04D75EB627CC632C00BB1519 /* box_collider_shape.h in Headers */,
+				04D75F3427CCC3EC00BB1519 /* shadow_manager.h in Headers */,
 				04D75E7527CC539700BB1519 /* shader_uniform.h in Headers */,
 				04D75EA127CC62B600BB1519 /* scene.h in Headers */,
 				04D75E5827CBCAB500BB1519 /* imgui_internal.h in Headers */,
@@ -2736,6 +2739,7 @@
 				04D75F1027CC9B3800BB1519 /* direct_light.cpp in Sources */,
 				04D75E7027CBD22600BB1519 /* shader_macro_collection.cpp in Sources */,
 				04D75EC127CC632C00BB1519 /* spring_joint.cpp in Sources */,
+				04D75F3527CCC3EC00BB1519 /* shadow_manager.cpp in Sources */,
 				04D75E6427CBCE5100BB1519 /* depth_state.cpp in Sources */,
 				04D75F0B27CC9B3800BB1519 /* point_light.cpp in Sources */,
 				04D75E4C27CBCAB500BB1519 /* imgui_tables.cpp in Sources */,
