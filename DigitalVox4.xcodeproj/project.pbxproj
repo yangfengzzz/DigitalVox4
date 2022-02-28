@@ -207,15 +207,6 @@
 		04459755279832BA00F04CE0 /* particle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973C279832BA00F04CE0 /* particle.metal */; };
 		04459756279832BA00F04CE0 /* shadow_common.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973D279832BA00F04CE0 /* shadow_common.metal */; };
 		04459758279832BA00F04CE0 /* light_debugger.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973F279832BA00F04CE0 /* light_debugger.metal */; };
-		04460445279BE2B4009108C8 /* gltf_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460443279BE2B4009108C8 /* gltf_app.cpp */; };
-		04460449279BE694009108C8 /* scene_animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460447279BE694009108C8 /* scene_animation_app.cpp */; };
-		04460452279C4E28009108C8 /* omni_shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460450279C4E28009108C8 /* omni_shadowmap_app.cpp */; };
-		04460456279CDACB009108C8 /* shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460454279CDACB009108C8 /* shadowmap_app.cpp */; };
-		04B4ACCA2798EB3C0020576D /* primitive_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACC82798EB3C0020576D /* primitive_app.cpp */; };
-		04B4ACCD279900AD0020576D /* physx_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACCB279900AD0020576D /* physx_app.cpp */; };
-		04CB217D279CE5DA007753AA /* cascade_shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CB217B279CE5DA007753AA /* cascade_shadowmap_app.cpp */; };
-		04CD939B27997BCE0093D6CB /* physx_dynamic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD939927997BCE0093D6CB /* physx_dynamic_app.cpp */; };
-		04CD93A62799A4600093D6CB /* framebuffer_picker_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93A42799A4600093D6CB /* framebuffer_picker_app.cpp */; };
 		04CD93A82799A61F0093D6CB /* framebuffer-picker-color.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93A72799A61F0093D6CB /* framebuffer-picker-color.metal */; };
 		04CD93BC279A4F650093D6CB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93BB279A4F650093D6CB /* main.cpp */; };
 		04CD93CF279A4FB30093D6CB /* imgui_zmo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93C1279A4FB20093D6CB /* imgui_zmo.cpp */; };
@@ -234,11 +225,6 @@
 		04CD93E5279A53A10093D6CB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044593CE279006DA00F04CE0 /* QuartzCore.framework */; };
 		04CD93E8279A53DF0093D6CB /* gui_entry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93E7279A53DF0093D6CB /* gui_entry.cpp */; };
 		04CD93EC279A55370093D6CB /* editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93EB279A55370093D6CB /* editor.cpp */; };
-		04CD940E279ABC6F0093D6CB /* animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD940C279ABC6F0093D6CB /* animation_app.cpp */; };
-		04CD9411279B92940093D6CB /* pbr_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD940F279B92940093D6CB /* pbr_app.cpp */; };
-		04CD9414279B94220093D6CB /* Irradiance_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9412279B94220093D6CB /* Irradiance_app.cpp */; };
-		04CD9419279BB7AE0093D6CB /* skybox_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9417279BB7AE0093D6CB /* skybox_app.cpp */; };
-		04CD941C279BBADB0093D6CB /* ibl_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD941A279BBADB0093D6CB /* ibl_app.cpp */; };
 		04D75E3727CB8EE700BB1519 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459216278E5F1100F04CE0 /* timer.cpp */; };
 		04D75E3C27CBA59400BB1519 /* application.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459218278E5F1100F04CE0 /* application.h */; };
 		04D75E3D27CBA59400BB1519 /* application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459212278E5F1000F04CE0 /* application.cpp */; };
@@ -443,6 +429,16 @@
 		04D75F1A27CC9F2500BB1519 /* editor_application.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD939D2799920C0093D6CB /* editor_application.h */; };
 		04D75F1B27CC9F2500BB1519 /* singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BC4A27BF548A00026D1D /* singleton.h */; };
 		04D75F1C27CC9F2500BB1519 /* editor_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD939C2799920C0093D6CB /* editor_application.cpp */; };
+		04D75F1D27CCA28200BB1519 /* primitive_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACC82798EB3C0020576D /* primitive_app.cpp */; };
+		04D75F1E27CCA2C400BB1519 /* physics_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445935C278FB14400F04CE0 /* physics_manager.h */; };
+		04D75F1F27CCA2C400BB1519 /* hit_result.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445935D278FB14400F04CE0 /* hit_result.h */; };
+		04D75F2027CCA2C400BB1519 /* collider.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445931D278F1A4A00F04CE0 /* collider.h */; };
+		04D75F2127CCA2C400BB1519 /* physics_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445935F278FB14400F04CE0 /* physics_manager.cpp */; };
+		04D75F2227CCA2C400BB1519 /* static_collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445935B278FB14400F04CE0 /* static_collider.cpp */; };
+		04D75F2327CCA2C400BB1519 /* dynamic_collider.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445935E278FB14400F04CE0 /* dynamic_collider.h */; };
+		04D75F2427CCA2C400BB1519 /* collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445931C278F1A4A00F04CE0 /* collider.cpp */; };
+		04D75F2527CCA2C400BB1519 /* static_collider.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445935A278FB14400F04CE0 /* static_collider.h */; };
+		04D75F2627CCA2C400BB1519 /* dynamic_collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459359278FB14400F04CE0 /* dynamic_collider.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1867,10 +1863,10 @@
 				0434BBE427BE34DE00026D1D /* cloth */,
 				044593D02790077D00F04CE0 /* apps.entitlements */,
 				044593B92790055100F04CE0 /* main.cpp */,
-				04CD93A52799A4600093D6CB /* framebuffer_picker_app.h */,
-				04CD93A42799A4600093D6CB /* framebuffer_picker_app.cpp */,
 				04B4ACC92798EB3C0020576D /* primitive_app.h */,
 				04B4ACC82798EB3C0020576D /* primitive_app.cpp */,
+				04CD93A52799A4600093D6CB /* framebuffer_picker_app.h */,
+				04CD93A42799A4600093D6CB /* framebuffer_picker_app.cpp */,
 				04B4ACCC279900AD0020576D /* physx_app.h */,
 				04B4ACCB279900AD0020576D /* physx_app.cpp */,
 				04CD939A27997BCE0093D6CB /* physx_dynamic_app.h */,
@@ -2167,9 +2163,11 @@
 				04D75E5A27CBCB2400BB1519 /* gui.h in Headers */,
 				04D75EF527CC94BE00BB1519 /* mesh_renderer.h in Headers */,
 				04D75E9F27CC62B600BB1519 /* components_manager.h in Headers */,
+				04D75F1E27CCA2C400BB1519 /* physics_manager.h in Headers */,
 				04D75E7427CC537300BB1519 /* shader_property.h in Headers */,
 				04D75E7227CC4B7F00BB1519 /* metal_helpers.h in Headers */,
 				04D75E8427CC56AC00BB1519 /* unlit_material.h in Headers */,
+				04D75F2027CCA2C400BB1519 /* collider.h in Headers */,
 				04D75F1B27CC9F2500BB1519 /* singleton.h in Headers */,
 				04D75F1827CC9CCF00BB1519 /* forward_application.h in Headers */,
 				04D75E3E27CBA5A700BB1519 /* window.h in Headers */,
@@ -2221,11 +2219,13 @@
 				04D75E8927CC56AC00BB1519 /* pbr_specular_material.h in Headers */,
 				04D75E7827CC566400BB1519 /* shader_data.h in Headers */,
 				04D75E8327CC56AC00BB1519 /* pbr_base_material.h in Headers */,
+				04D75F2327CCA2C400BB1519 /* dynamic_collider.h in Headers */,
 				04D75F0827CC9A9600BB1519 /* gpu_skinned_mesh_renderer.h in Headers */,
 				04D75ECE27CC632C00BB1519 /* sphere_collider_shape.h in Headers */,
 				04D75F0F27CC9B3800BB1519 /* light.h in Headers */,
 				04D75EA927CC630400BB1519 /* transform.h in Headers */,
 				04D75EB227CC631C00BB1519 /* free_control.h in Headers */,
+				04D75F1F27CCA2C400BB1519 /* hit_result.h in Headers */,
 				04D75EB427CC632C00BB1519 /* box_character_controller.h in Headers */,
 				04D75EC927CC632C00BB1519 /* capsule_character_controller.h in Headers */,
 				04D75EE527CC8D9900BB1519 /* color_picker_subpass.h in Headers */,
@@ -2259,6 +2259,7 @@
 				04D75E9427CC624800BB1519 /* primitive_mesh.h in Headers */,
 				04D75E4E27CBCAB500BB1519 /* imgui_impl_metal.h in Headers */,
 				04D75EA227CC62B600BB1519 /* component.h in Headers */,
+				04D75F2527CCA2C400BB1519 /* static_collider.h in Headers */,
 				04D75EFD27CC99B600BB1519 /* skinned_mesh_renderer.h in Headers */,
 				04D75EAD27CC631C00BB1519 /* orbit_control.h in Headers */,
 				04D75F0027CC9A8000BB1519 /* animator.h in Headers */,
@@ -2638,6 +2639,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04D75E5B27CBCB2400BB1519 /* gui.cpp in Sources */,
+				04D75F2127CCA2C400BB1519 /* physics_manager.cpp in Sources */,
 				04D75E5127CBCAB500BB1519 /* imgui_widgets.cpp in Sources */,
 				04D75E9127CC5C5700BB1519 /* mesh.cpp in Sources */,
 				04D75E8127CC56A300BB1519 /* base_material.cpp in Sources */,
@@ -2650,6 +2652,7 @@
 				04D75E5427CBCAB500BB1519 /* imgui_impl_metal.mm in Sources */,
 				04D75ED727CC67F300BB1519 /* subpass.cpp in Sources */,
 				04D75EAB27CC630400BB1519 /* transform.cpp in Sources */,
+				04D75F2627CCA2C400BB1519 /* dynamic_collider.cpp in Sources */,
 				04D75EC027CC632C00BB1519 /* capsule_character_controller.cpp in Sources */,
 				04D75E8827CC56AC00BB1519 /* blinn_phong_material.cpp in Sources */,
 				04D75F0A27CC9B3800BB1519 /* spot_light.cpp in Sources */,
@@ -2670,6 +2673,7 @@
 				04D75EE627CC8D9900BB1519 /* color_picker_subpass.cpp in Sources */,
 				04D75E5D27CBCB8900BB1519 /* input_events.cpp in Sources */,
 				04D75EBE27CC632C00BB1519 /* translational_joint.cpp in Sources */,
+				04D75F2227CCA2C400BB1519 /* static_collider.cpp in Sources */,
 				04D75EFF27CC9A8000BB1519 /* animator.cpp in Sources */,
 				04D75EAE27CC631C00BB1519 /* spherical.cpp in Sources */,
 				04D75EB327CC632C00BB1519 /* joint.cpp in Sources */,
@@ -2714,6 +2718,7 @@
 				04D75EB127CC631C00BB1519 /* free_control.cpp in Sources */,
 				04D75EC427CC632C00BB1519 /* physics.cpp in Sources */,
 				04D75EFE27CC99B600BB1519 /* skinned_mesh_renderer.cpp in Sources */,
+				04D75F2427CCA2C400BB1519 /* collider.cpp in Sources */,
 				04D75E4127CBA5CF00BB1519 /* unix_engine.cpp in Sources */,
 				04D75E7A27CC566A00BB1519 /* shader.cpp in Sources */,
 				04D75ED227CC632C00BB1519 /* hinge_joint.cpp in Sources */,
@@ -2875,21 +2880,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04460449279BE694009108C8 /* scene_animation_app.cpp in Sources */,
-				04CB217D279CE5DA007753AA /* cascade_shadowmap_app.cpp in Sources */,
-				04CD9411279B92940093D6CB /* pbr_app.cpp in Sources */,
-				04CD939B27997BCE0093D6CB /* physx_dynamic_app.cpp in Sources */,
-				04460445279BE2B4009108C8 /* gltf_app.cpp in Sources */,
-				04CD93A62799A4600093D6CB /* framebuffer_picker_app.cpp in Sources */,
-				04460452279C4E28009108C8 /* omni_shadowmap_app.cpp in Sources */,
-				04CD940E279ABC6F0093D6CB /* animation_app.cpp in Sources */,
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
-				04CD9419279BB7AE0093D6CB /* skybox_app.cpp in Sources */,
-				04CD941C279BBADB0093D6CB /* ibl_app.cpp in Sources */,
-				04CD9414279B94220093D6CB /* Irradiance_app.cpp in Sources */,
-				04B4ACCD279900AD0020576D /* physx_app.cpp in Sources */,
-				04B4ACCA2798EB3C0020576D /* primitive_app.cpp in Sources */,
-				04460456279CDACB009108C8 /* shadowmap_app.cpp in Sources */,
+				04D75F1D27CCA28200BB1519 /* primitive_app.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3522,6 +3514,7 @@
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
 					./third_party/nvcloth/NvCloth/include,
 					./third_party/nvcloth/NvCloth/extensions/include,
+					"./third_party/metal-cpp",
 				);
 			};
 			name = Debug;
@@ -3603,6 +3596,7 @@
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/include",
 					./third_party/nvcloth/NvCloth/include,
 					./third_party/nvcloth/NvCloth/extensions/include,
+					"./third_party/metal-cpp",
 				);
 			};
 			name = Release;
@@ -3710,6 +3704,7 @@
 					./third_party/physx/physx/source/foundation/include,
 					./third_party/nvcloth/NvCloth/include,
 					./third_party/nvcloth/NvCloth/extensions/include,
+					"./third_party/metal-cpp",
 				);
 			};
 			name = Debug;
@@ -3788,6 +3783,7 @@
 					./third_party/physx/physx/source/foundation/include,
 					./third_party/nvcloth/NvCloth/include,
 					./third_party/nvcloth/NvCloth/extensions/include,
+					"./third_party/metal-cpp",
 				);
 			};
 			name = Release;

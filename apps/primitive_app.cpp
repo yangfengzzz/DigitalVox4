@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  primitive_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/20.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "primitive_app.h"
 #include "mesh/primitive_mesh.h"
@@ -18,7 +17,7 @@ void PrimitiveApp::loadScene(uint32_t width, uint32_t height) {
     auto modelEntity = rootEntity->createChild();
     
     auto renderer = modelEntity->addComponent<MeshRenderer>();
-    renderer->setMesh(PrimitiveMesh::createCuboid(_device.get()));
+    renderer->setMesh(PrimitiveMesh::createCuboid(*_device));
     auto material = std::make_shared<UnlitMaterial>();
     material->setBaseColor(Color(0.6, 0.4, 0.7, 1.0));
     renderer->setMaterial(material);

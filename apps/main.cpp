@@ -1,9 +1,12 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  main.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/13.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
+
+#define NS_PRIVATE_IMPLEMENTATION
+#define CA_PRIVATE_IMPLEMENTATION
+#define MTL_PRIVATE_IMPLEMENTATION
 
 #include "unix_engine.h"
 #include "engine.h"
@@ -27,7 +30,7 @@ int main(int argc, char * argv[]) {
         
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::PhysXDynamicApp>());
+        engine.setApp(std::make_unique<vox::PrimitiveApp>());
         code = engine.mainLoop();
     }
     
