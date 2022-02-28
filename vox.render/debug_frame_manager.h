@@ -9,7 +9,7 @@
 
 #include "entity.h"
 #include "singleton.h"
-#include "core/cpp_mtl.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 class DebugFrameManager : public Singleton<DebugFrameManager> {
@@ -79,7 +79,7 @@ private:
     RenderDebugBuffer _points{};
     RenderDebugBuffer _lines{};
     RenderDebugBuffer _triangles{};
-    MTL::VertexDescriptor _vertexDescriptor;
+    std::shared_ptr<MTL::VertexDescriptor> _vertexDescriptor{nullptr};
 };
 
 }

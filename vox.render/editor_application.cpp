@@ -9,6 +9,7 @@
 #include "rendering/subpasses/color_picker_subpass.h"
 #include "engine.h"
 #include "camera.h"
+#include "metal_helpers.h"
 
 namespace vox {
 EditorApplication::~EditorApplication() {
@@ -25,22 +26,22 @@ bool EditorApplication::prepare(Engine &engine) {
     auto scale = engine.window().contentScaleFactor();
     
     _colorPickerFormat = MTL::PixelFormatBGRA8Unorm;
-    MTL::TextureDescriptor colorPickerTextureDesc;
-    colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
-    colorPickerTextureDesc.width(extent.width * scale);
-    colorPickerTextureDesc.height(extent.height * scale);
-    colorPickerTextureDesc.mipmapLevelCount(1);
-    colorPickerTextureDesc.textureType(MTL::TextureType2D);
-    colorPickerTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
-    colorPickerTextureDesc.storageMode(MTL::StorageModeManaged);
-    colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
-    _colorPickerTexture = _device->makeTexture(colorPickerTextureDesc);
-    _colorPickerTexture.label("ColorPicker Texture");
-    _colorPickerPassDescriptor.colorAttachments[0].texture(_colorPickerTexture);
-    _colorPickerPassDescriptor.depthAttachment.loadAction(MTL::LoadActionClear);
-    _colorPickerPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
-    _colorPickerRenderPass = std::make_unique<RenderPass>(_library, &_colorPickerPassDescriptor);
-    auto colorPickerSubpass = std::make_unique<ColorPickerSubpass>(_renderView.get(), _scene.get(), _mainCamera);
+    auto colorPickerTextureDesc = CLONE_METAL_CUSTOM_DELETER(MTL::TextureDescriptor, MTL::TextureDescriptor::alloc()->init());
+    colorPickerTextureDesc->setPixelFormat(_colorPickerFormat);
+    colorPickerTextureDesc->setWidth(extent.width * scale);
+    colorPickerTextureDesc->setHeight(extent.height * scale);
+    colorPickerTextureDesc->setMipmapLevelCount(1);
+    colorPickerTextureDesc->setTextureType(MTL::TextureType2D);
+    colorPickerTextureDesc->setUsage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
+    colorPickerTextureDesc->setStorageMode(MTL::StorageModeManaged);
+    colorPickerTextureDesc->setPixelFormat(_colorPickerFormat);
+    _colorPickerTexture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, _device->newTexture(colorPickerTextureDesc.get()));
+    _colorPickerTexture->setLabel(NS::String::string("ColorPicker Texture", NS::StringEncoding::UTF8StringEncoding));
+    _colorPickerPassDescriptor->colorAttachments()->object(0)->setTexture(_colorPickerTexture.get());
+    _colorPickerPassDescriptor->depthAttachment()->setLoadAction(MTL::LoadActionClear);
+    _colorPickerPassDescriptor->depthAttachment()->setTexture(_renderContext->depthStencilTexture());
+    _colorPickerRenderPass = std::make_unique<RenderPass>(*_library, *_colorPickerPassDescriptor);
+    auto colorPickerSubpass = std::make_unique<ColorPickerSubpass>(_renderContext.get(), _scene.get(), _mainCamera);
     _colorPickerSubpass = colorPickerSubpass.get();
     _colorPickerRenderPass->addSubpass(std::move(colorPickerSubpass));
     
@@ -54,29 +55,31 @@ void EditorApplication::update(float delta_time) {
     _scene->update(delta_time);
     _scene->updateShaderData();
     
-    MTL::CommandBuffer commandBuffer = _commandQueue.commandBuffer();
-    _shadowManager->draw(commandBuffer);
-
-    MTL::Drawable *drawable = _renderView->currentDrawable();
+    auto commandBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::CommandBuffer, _commandQueue->commandBuffer());
+    //    _shadowManager->draw(commandBuffer);
+    
+    _renderContext->nextDrawable();
     // The final pass can only render if a drawable is available, otherwise it needs to skip
     // rendering this frame.
-    if (drawable) {
+    if (_renderContext->currentDrawable()) {
         // Render the lighting and composition pass
-        _renderPassDescriptor.colorAttachments[0].texture(*drawable->texture());
-        _renderPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
-        _renderPassDescriptor.stencilAttachment.texture(*_renderView->depthStencilTexture());
-        _renderPass->draw(commandBuffer, "Lighting & Composition Pass");
+        _renderPassDescriptor->colorAttachments()->object(0)->setTexture(_renderContext->currentDrawableTexture());
+        _renderPassDescriptor->depthAttachment()->setTexture(_renderContext->depthStencilTexture());
+        _renderPassDescriptor->stencilAttachment()->setTexture(_renderContext->depthStencilTexture());
+        _renderPass->draw(*commandBuffer, "Lighting & Composition Pass");
     }
     
     if (_needPick) {
-        _colorPickerRenderPass->draw(commandBuffer, "color Picker Pass");
-        commandBuffer.synchronizeResource(_colorPickerTexture);
+        _colorPickerRenderPass->draw(*commandBuffer, "color Picker Pass");
+        auto blit = CLONE_METAL_CUSTOM_DELETER(MTL::BlitCommandEncoder, commandBuffer->blitCommandEncoder());
+        blit->synchronizeResource(_colorPickerTexture.get());
+        blit->endEncoding();        
     }
     
     // Finalize rendering here & push the command buffer to the GPU
-    commandBuffer.commit();
-    commandBuffer.waitUntilCompleted();
-    drawable->present();
+    commandBuffer->presentDrawable(_renderContext->currentDrawable());
+    commandBuffer->commit();
+    commandBuffer->waitUntilCompleted();
     
     if (_needPick) {
         auto picker = _colorPickerSubpass->getObjectByColor(_readColorFromRenderTarget());
@@ -89,19 +92,19 @@ bool EditorApplication::resize(uint32_t win_width, uint32_t win_height,
                                uint32_t fb_width, uint32_t fb_height) {
     ForwardApplication::resize(win_width, win_height, fb_width, fb_height);
     
-    MTL::TextureDescriptor colorPickerTextureDesc;
-    colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
-    colorPickerTextureDesc.width(fb_height);
-    colorPickerTextureDesc.height(fb_height);
-    colorPickerTextureDesc.mipmapLevelCount(1);
-    colorPickerTextureDesc.textureType(MTL::TextureType2D);
-    colorPickerTextureDesc.usage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
-    colorPickerTextureDesc.storageMode(MTL::StorageModeManaged);
-    colorPickerTextureDesc.pixelFormat(_colorPickerFormat);
-    _colorPickerTexture = _device->makeTexture(colorPickerTextureDesc);
-    _colorPickerTexture.label("ColorPicker Texture");
-    _colorPickerPassDescriptor.colorAttachments[0].texture(_colorPickerTexture);
-    _colorPickerPassDescriptor.depthAttachment.texture(*_renderView->depthStencilTexture());
+    auto colorPickerTextureDesc = CLONE_METAL_CUSTOM_DELETER(MTL::TextureDescriptor, MTL::TextureDescriptor::alloc()->init());
+    colorPickerTextureDesc->setPixelFormat(_colorPickerFormat);
+    colorPickerTextureDesc->setWidth(fb_height);
+    colorPickerTextureDesc->setHeight(fb_height);
+    colorPickerTextureDesc->setMipmapLevelCount(1);
+    colorPickerTextureDesc->setTextureType(MTL::TextureType2D);
+    colorPickerTextureDesc->setUsage(MTL::TextureUsageRenderTarget | MTL::TextureUsageShaderRead);
+    colorPickerTextureDesc->setStorageMode(MTL::StorageModeManaged);
+    colorPickerTextureDesc->setPixelFormat(_colorPickerFormat);
+    _colorPickerTexture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, _device->newTexture(colorPickerTextureDesc.get()));
+    _colorPickerTexture->setLabel(NS::String::string("ColorPicker Texture", NS::StringEncoding::UTF8StringEncoding));
+    _colorPickerPassDescriptor->colorAttachments()->object(0)->setTexture(_colorPickerTexture.get());
+    _colorPickerPassDescriptor->depthAttachment()->setTexture(_renderContext->depthStencilTexture());
     
     return true;
 }
@@ -114,8 +117,8 @@ void EditorApplication::pick(float offsetX, float offsetY) {
 std::array<uint8_t, 4> EditorApplication::_readColorFromRenderTarget() {
     int clientWidth = _mainCamera->width();
     int clientHeight = _mainCamera->height();
-    int canvasWidth = static_cast<int>(_colorPickerTexture.width());
-    int canvasHeight = static_cast<int>(_colorPickerTexture.height());
+    int canvasWidth = static_cast<int>(_colorPickerTexture->width());
+    int canvasHeight = static_cast<int>(_colorPickerTexture->height());
     
     const auto px = (_pickPos.x / clientWidth) * canvasWidth;
     const auto py = (_pickPos.y / clientHeight) * canvasHeight;
@@ -130,8 +133,8 @@ std::array<uint8_t, 4> EditorApplication::_readColorFromRenderTarget() {
     const auto bottom = std::floor((1 - ny) * (canvasHeight - 1));
     std::array<uint8_t, 4> pixel;
     
-    _colorPickerTexture.getBytes(pixel.data(), sizeof(uint8_t) * 4,
-                                 MTL::regionMake2D(left, canvasHeight - bottom, 1, 1), 0);
+    _colorPickerTexture->getBytes(pixel.data(), sizeof(uint8_t) * 4,
+                                  MTL::Region(left, canvasHeight - bottom, 1, 1), 0);
     
     return pixel;
 }

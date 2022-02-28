@@ -438,6 +438,11 @@
 		04D75F1227CC9B7700BB1519 /* light_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971827981EF500F04CE0 /* light_manager.cpp */; };
 		04D75F1327CC9BFD00BB1519 /* ambient_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445971F27982C1100F04CE0 /* ambient_light.cpp */; };
 		04D75F1427CC9BFD00BB1519 /* ambient_light.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445972027982C1100F04CE0 /* ambient_light.h */; };
+		04D75F1827CC9CCF00BB1519 /* forward_application.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445942F2793A5D800F04CE0 /* forward_application.h */; };
+		04D75F1927CC9CCF00BB1519 /* forward_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942E2793A5D800F04CE0 /* forward_application.cpp */; };
+		04D75F1A27CC9F2500BB1519 /* editor_application.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CD939D2799920C0093D6CB /* editor_application.h */; };
+		04D75F1B27CC9F2500BB1519 /* singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BC4A27BF548A00026D1D /* singleton.h */; };
+		04D75F1C27CC9F2500BB1519 /* editor_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD939C2799920C0093D6CB /* editor_application.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2165,6 +2170,8 @@
 				04D75E7427CC537300BB1519 /* shader_property.h in Headers */,
 				04D75E7227CC4B7F00BB1519 /* metal_helpers.h in Headers */,
 				04D75E8427CC56AC00BB1519 /* unlit_material.h in Headers */,
+				04D75F1B27CC9F2500BB1519 /* singleton.h in Headers */,
+				04D75F1827CC9CCF00BB1519 /* forward_application.h in Headers */,
 				04D75E3E27CBA5A700BB1519 /* window.h in Headers */,
 				04D75E7627CC53A000BB1519 /* shader_data_group.h in Headers */,
 				04D75E9A27CC62AD00BB1519 /* update_flag.h in Headers */,
@@ -2203,6 +2210,7 @@
 				04D75EE227CC7C0E00BB1519 /* forward_subpass.h in Headers */,
 				04D75E8227CC56AC00BB1519 /* pbr_material.h in Headers */,
 				04D75E5327CBCAB500BB1519 /* imconfig.h in Headers */,
+				04D75F1A27CC9F2500BB1519 /* editor_application.h in Headers */,
 				04D75E4327CBA5EE00BB1519 /* graphics_application.h in Headers */,
 				04D75F1427CC9BFD00BB1519 /* ambient_light.h in Headers */,
 				04D75EB627CC632C00BB1519 /* box_collider_shape.h in Headers */,
@@ -2669,6 +2677,7 @@
 				04D75E4627CBB3E400BB1519 /* render_context.mm in Sources */,
 				04D75F0427CC9A8B00BB1519 /* scene_animation_clip.cpp in Sources */,
 				04D75E9D27CC62B600BB1519 /* scene.cpp in Sources */,
+				04D75F1927CC9CCF00BB1519 /* forward_application.cpp in Sources */,
 				04D75E5727CBCAB500BB1519 /* imgui.cpp in Sources */,
 				04D75EC227CC632C00BB1519 /* plane_collider_shape.cpp in Sources */,
 				04D75E8F27CC5BE000BB1519 /* sub_mesh.cpp in Sources */,
@@ -2686,6 +2695,7 @@
 				04D75E9227CC5FB300BB1519 /* model_mesh.cpp in Sources */,
 				04D75E7D27CC568600BB1519 /* material.cpp in Sources */,
 				04D75E9727CC62AD00BB1519 /* update_flag.cpp in Sources */,
+				04D75F1C27CC9F2500BB1519 /* editor_application.cpp in Sources */,
 				04D75EF227CC94A400BB1519 /* animator_loader.cpp in Sources */,
 				04D75E9E27CC62B600BB1519 /* components_manager.cpp in Sources */,
 				04D75E9527CC624800BB1519 /* primitive_mesh.cpp in Sources */,

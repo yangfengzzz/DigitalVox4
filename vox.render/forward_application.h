@@ -7,8 +7,8 @@
 #ifndef forward_hpp
 #define forward_hpp
 
-#include "metal_application.h"
-#include "lighting/shadow_manager.h"
+#include "graphics_application.h"
+//#include "lighting/shadow_manager.h"
 
 namespace vox {
 class ForwardApplication: public MetalApplication {
@@ -42,14 +42,14 @@ protected:
      */
     std::unique_ptr<Scene> _scene{nullptr};
     
-    MTL::RenderPassDescriptor _renderPassDescriptor;
+    std::shared_ptr<MTL::RenderPassDescriptor> _renderPassDescriptor{nullptr};
     
     /**
      * @brief Pipeline used for rendering, it should be set up by the concrete sample
      */
     std::unique_ptr<RenderPass> _renderPass{nullptr};
     
-    std::unique_ptr<ShadowManager> _shadowManager{nullptr};
+//    std::unique_ptr<ShadowManager> _shadowManager{nullptr};
 };
 
 }
