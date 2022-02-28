@@ -1307,6 +1307,7 @@
 				0445928F278EB27F00F04CE0 /* shader */,
 				044592D1278ED03000F04CE0 /* material */,
 				04D75F2C27CCBB7900BB1519 /* texture */,
+				04D75F3C27CCD16F00BB1519 /* image */,
 				04459706279819A300F04CE0 /* lighting */,
 				04D75F3127CCBC9B00BB1519 /* shadow */,
 				044593DB2790F97000F04CE0 /* graphics */,
@@ -2175,6 +2176,13 @@
 				0446044C279BFA87009108C8 /* shadow_manager.cpp */,
 			);
 			path = shadow;
+			sourceTree = "<group>";
+		};
+		04D75F3C27CCD16F00BB1519 /* image */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
