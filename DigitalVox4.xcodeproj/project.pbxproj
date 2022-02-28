@@ -442,6 +442,8 @@
 		04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93A42799A4600093D6CB /* framebuffer_picker_app.cpp */; };
 		04D75F2827CCB5D200BB1519 /* debug_frame_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0434BC5527BF7CF500026D1D /* debug_frame_manager.h */; };
 		04D75F2927CCB5D200BB1519 /* debug_frame_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC5427BF7CF500026D1D /* debug_frame_manager.cpp */; };
+		04D75F2F27CCBB8B00BB1519 /* texture_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75F2D27CCBB8B00BB1519 /* texture_utils.cpp */; };
+		04D75F3027CCBB8B00BB1519 /* texture_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75F2E27CCBB8B00BB1519 /* texture_utils.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1137,6 +1139,8 @@
 		04D75EEA27CC901F00BB1519 /* render_pipeline_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render_pipeline_state.h; sourceTree = "<group>"; };
 		04D75EF927CC97ED00BB1519 /* buffer_mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer_mesh.h; sourceTree = "<group>"; };
 		04D75EFA27CC97EE00BB1519 /* buffer_mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffer_mesh.cpp; sourceTree = "<group>"; };
+		04D75F2D27CCBB8B00BB1519 /* texture_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = texture_utils.cpp; sourceTree = "<group>"; };
+		04D75F2E27CCBB8B00BB1519 /* texture_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = texture_utils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1289,13 +1293,14 @@
 				04459212278E5F1000F04CE0 /* application.cpp */,
 				0445925B278E7C8600F04CE0 /* graphics_application.h */,
 				0445925A278E7C8600F04CE0 /* graphics_application.cpp */,
-				044593DB2790F97000F04CE0 /* graphics */,
-				0445941B2792926500F04CE0 /* mesh */,
 				0445925E278E7F3300F04CE0 /* rendering */,
 				0445928F278EB27F00F04CE0 /* shader */,
 				044592D1278ED03000F04CE0 /* material */,
+				04D75F2C27CCBB7900BB1519 /* texture */,
 				04459706279819A300F04CE0 /* lighting */,
-				04B4ACC72798EA7A0020576D /* loader */,
+				04D75F3127CCBC9B00BB1519 /* shadow */,
+				044593DB2790F97000F04CE0 /* graphics */,
+				0445941B2792926500F04CE0 /* mesh */,
 				0445941427926D1600F04CE0 /* background.h */,
 				04459271278E80DC00F04CE0 /* layer.h */,
 				0445926B278E80DC00F04CE0 /* update_flag.h */,
@@ -1321,6 +1326,7 @@
 				0445928B278EA37D00F04CE0 /* script.cpp */,
 				0445930B278F16BA00F04CE0 /* controls */,
 				04459310278F17DA00F04CE0 /* physics */,
+				04B4ACC72798EA7A0020576D /* loader */,
 				04CD9403279A9D910093D6CB /* animator.h */,
 				04CD9402279A9D900093D6CB /* animator.cpp */,
 				04CD93EE279A841F0093D6CB /* animator_controller.h */,
@@ -1910,8 +1916,6 @@
 		044593F72791580900F04CE0 /* subpasses */ = {
 			isa = PBXGroup;
 			children = (
-				044593F92791581900F04CE0 /* shadow_subpass.h */,
-				044593F82791581900F04CE0 /* shadow_subpass.cpp */,
 				044594292793134C00F04CE0 /* forward_subpass.h */,
 				044594282793134C00F04CE0 /* forward_subpass.cpp */,
 				0445940A2792500900F04CE0 /* skybox_subpass.h */,
@@ -2048,8 +2052,6 @@
 		04459706279819A300F04CE0 /* lighting */ = {
 			isa = PBXGroup;
 			children = (
-				0446044D279BFA87009108C8 /* shadow_manager.h */,
-				0446044C279BFA87009108C8 /* shadow_manager.cpp */,
 				0445971927981EF500F04CE0 /* light_manager.h */,
 				0445971827981EF500F04CE0 /* light_manager.cpp */,
 				04459709279819D000F04CE0 /* light.h */,
@@ -2143,6 +2145,26 @@
 				0434BC5127BF63C400026D1D /* cloth_editor.cpp */,
 			);
 			path = editor;
+			sourceTree = "<group>";
+		};
+		04D75F2C27CCBB7900BB1519 /* texture */ = {
+			isa = PBXGroup;
+			children = (
+				04D75F2E27CCBB8B00BB1519 /* texture_utils.h */,
+				04D75F2D27CCBB8B00BB1519 /* texture_utils.cpp */,
+			);
+			path = texture;
+			sourceTree = "<group>";
+		};
+		04D75F3127CCBC9B00BB1519 /* shadow */ = {
+			isa = PBXGroup;
+			children = (
+				044593F92791581900F04CE0 /* shadow_subpass.h */,
+				044593F82791581900F04CE0 /* shadow_subpass.cpp */,
+				0446044D279BFA87009108C8 /* shadow_manager.h */,
+				0446044C279BFA87009108C8 /* shadow_manager.cpp */,
+			);
+			path = shadow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2248,6 +2270,7 @@
 				04D75E9627CC62AD00BB1519 /* scene_forward.h in Headers */,
 				04D75EA827CC630400BB1519 /* camera.h in Headers */,
 				04D75E9027CC5C5700BB1519 /* mesh.h in Headers */,
+				04D75F3027CCBB8B00BB1519 /* texture_utils.h in Headers */,
 				04D75ED127CC632C00BB1519 /* physics.h in Headers */,
 				04D75E6F27CBD22600BB1519 /* shader_macro_collection.h in Headers */,
 				04D75F0E27CC9B3800BB1519 /* point_light.h in Headers */,
@@ -2693,6 +2716,7 @@
 				04D75EF027CC94A400BB1519 /* fbx.cc in Sources */,
 				04D75E5027CBCAB500BB1519 /* imgui_draw.cpp in Sources */,
 				04D75EBF27CC632C00BB1519 /* character_controller.cpp in Sources */,
+				04D75F2F27CCBB8B00BB1519 /* texture_utils.cpp in Sources */,
 				04D75E8527CC56AC00BB1519 /* pbr_base_material.cpp in Sources */,
 				04D75EA427CC62B600BB1519 /* entity.cpp in Sources */,
 				04D75E4227CBA5EE00BB1519 /* graphics_application.cpp in Sources */,
