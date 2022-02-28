@@ -16,6 +16,8 @@ SampledTexture2D::SampledTexture2D(MTL::Device& device,
                                    MTL::TextureUsage usage,
                                    bool mipmap):
 SampledTexture(device) {
+    _textureDesc = CLONE_METAL_CUSTOM_DELETER(MTL::TextureDescriptor, MTL::TextureDescriptor::alloc()->init());
+    _textureDesc->setTextureType(MTL::TextureType2D);
     _textureDesc->setWidth(width);
     _textureDesc->setHeight(height);
     _textureDesc->setArrayLength(depthOrArrayLayers);

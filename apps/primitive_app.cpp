@@ -5,22 +5,34 @@
 //  property of any third parties.
 
 #include "primitive_app.h"
+#include "entity.h"
 #include "mesh/primitive_mesh.h"
 #include "mesh/mesh_renderer.h"
 #include "material/unlit_material.h"
+#include "material/blinn_phong_material.h"
 #include "camera.h"
 #include "controls/orbit_control.h"
+#include "image/stb.h"
 
 namespace vox {
+namespace {
+class MoveScript : public Script {
+public:
+    MoveScript(Entity* entity): Script(entity) {}
+    
+    void onUpdate(float deltaTime) override {
+        _rTri += 90 * deltaTime;
+        entity()->transform->setRotation(0, _rTri, 0);
+    }
+    
+private:
+    float _rTri = 0;
+};
+
+}
+
 void PrimitiveApp::loadScene(uint32_t width, uint32_t height) {
     auto rootEntity = _scene->createRootEntity();
-    auto modelEntity = rootEntity->createChild();
-    
-    auto renderer = modelEntity->addComponent<MeshRenderer>();
-    renderer->setMesh(PrimitiveMesh::createCuboid(*_device));
-    auto material = std::make_shared<UnlitMaterial>();
-    material->setBaseColor(Color(0.6, 0.4, 0.7, 1.0));
-    renderer->setMaterial(material);
     
     auto cameraEntity = rootEntity->createChild();
     cameraEntity->transform->setPosition(10, 10, 10);
@@ -28,6 +40,27 @@ void PrimitiveApp::loadScene(uint32_t width, uint32_t height) {
     _mainCamera = cameraEntity->addComponent<Camera>();
     _mainCamera->resize(width, height);
     cameraEntity->addComponent<control::OrbitControl>();
+    
+    // init point light
+    auto light = rootEntity->createChild("light");
+    light->transform->setPosition(0, 3, 0);
+    auto pointLight = light->addComponent<PointLight>();
+    pointLight->intensity = 0.3;
+    
+    auto cubeEntity = rootEntity->createChild();
+    cubeEntity->addComponent<MoveScript>();
+    auto renderer = cubeEntity->addComponent<MeshRenderer>();
+    renderer->setMesh(PrimitiveMesh::createCuboid(*_device, 1));
+    auto material = std::make_shared<BlinnPhongMaterial>();
+    material->setBaseColor(Color(0.4, 0.6, 0.6));
+    renderer->setMaterial(material);
+    
+    auto planeEntity = rootEntity->createChild();
+    planeEntity->transform->setPosition(0, 5, 0);
+    auto planeRenderer = planeEntity->addComponent<MeshRenderer>();
+    planeRenderer->setMesh(PrimitiveMesh::createSphere(*_device, 1));
+    auto texturedMaterial = std::make_shared<UnlitMaterial>();
+    planeRenderer->setMaterial(texturedMaterial);
 }
 
 }

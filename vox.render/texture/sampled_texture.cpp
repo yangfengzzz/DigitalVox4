@@ -10,6 +10,7 @@
 namespace vox {
 SampledTexture::SampledTexture(MTL::Device& device):
 _device(device) {
+    _samplerDesc = CLONE_METAL_CUSTOM_DELETER(MTL::SamplerDescriptor, MTL::SamplerDescriptor::alloc()->init());
     setMinFilterMode(MTL::SamplerMinMagFilterLinear);
     setMagFilterMode(MTL::SamplerMinMagFilterLinear);
     setMipmapFilter(MTL::SamplerMipFilterLinear);
