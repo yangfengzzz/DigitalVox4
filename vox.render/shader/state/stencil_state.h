@@ -7,8 +7,7 @@
 #ifndef stencil_state_hpp
 #define stencil_state_hpp
 
-#include "core/cpp_mtl_depth_stencil.h"
-#include "core/cpp_mtl_render_command_encoder.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 /**
@@ -40,15 +39,15 @@ struct StencilState {
     /** specifying the function to use for back face when the stencil test passes, but the depth test fails. */
     MTL::StencilOperation zFailOperationBack = MTL::StencilOperationKeep;
     
-    void apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
-               MTL::DepthStencilDescriptor &depthStencilDescriptor,
-               MTL::RenderCommandEncoder &encoder) {
+    void apply(MTL::RenderPipelineDescriptor *pipelineDescriptor,
+               MTL::DepthStencilDescriptor *depthStencilDescriptor,
+               MTL::RenderCommandEncoder *encoder) {
         platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
-                       MTL::DepthStencilDescriptor &depthStencilDescriptor,
-                       MTL::RenderCommandEncoder &encoder);
+    void platformApply(MTL::RenderPipelineDescriptor *pipelineDescriptor,
+                       MTL::DepthStencilDescriptor *depthStencilDescriptor,
+                       MTL::RenderCommandEncoder *encoder);
 };
 
 }

@@ -39,23 +39,23 @@ public:
     void finish() override;
     
 private:
-    MTL::Library* makeShaderLibrary();
+    std::shared_ptr<MTL::Library> makeShaderLibrary();
     
 protected:
     /**
      * @brief The Metal device
      */
-    MTL::Device* _device{nullptr};
+    std::shared_ptr<MTL::Device> _device{nullptr};
     
     /**
      * @brief The Metal command queue
      */
-    MTL::CommandQueue* _commandQueue{nullptr};
+    std::shared_ptr<MTL::CommandQueue> _commandQueue{nullptr};
     
     /**
      * @brief The Metal shader library
      */
-    MTL::Library* _library{nullptr};
+    std::shared_ptr<MTL::Library> _library{nullptr};
 
     /**
      * @brief context used for rendering, it is responsible for managing the frames and their underlying images

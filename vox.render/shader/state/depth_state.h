@@ -7,8 +7,7 @@
 #ifndef depth_state_hpp
 #define depth_state_hpp
 
-#include "core/cpp_mtl_depth_stencil.h"
-#include "core/cpp_mtl_render_command_encoder.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 /**
@@ -25,15 +24,15 @@ struct DepthState {
     /**
      * Apply the current depth state by comparing with the last depth state.
      */
-    void apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
-               MTL::DepthStencilDescriptor &depthStencilDescriptor,
-               MTL::RenderCommandEncoder &encoder) {
+    void apply(MTL::RenderPipelineDescriptor *pipelineDescriptor,
+               MTL::DepthStencilDescriptor *depthStencilDescriptor,
+               MTL::RenderCommandEncoder *encoder) {
         platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
-                       MTL::DepthStencilDescriptor &depthStencilDescriptor,
-                       MTL::RenderCommandEncoder &encoder);
+    void platformApply(MTL::RenderPipelineDescriptor *pipelineDescriptor,
+                       MTL::DepthStencilDescriptor *depthStencilDescriptor,
+                       MTL::RenderCommandEncoder *encoder);
 };
 
 }

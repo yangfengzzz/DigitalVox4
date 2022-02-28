@@ -9,6 +9,7 @@
 #include "shader/shader.h"
 
 #include <glog/logging.h>
+#include "metal_helpers.h"
 
 namespace vox {
 MetalApplication::MetalApplication() {
@@ -41,12 +42,13 @@ bool MetalApplication::prepare(Engine &engine) {
     
     LOG(INFO) << "Initializing Metal Application";
     
-    _device = MTL::CreateSystemDefaultDevice();
+    _device = CLONE_METAL_CUSTOM_DELETER(MTL::Device, MTL::CreateSystemDefaultDevice());
     printf("Selected Device: %s\n", _device->name()->cString(NS::StringEncoding::UTF8StringEncoding));
     
     _library = makeShaderLibrary();
     
-    _commandQueue = _device->newCommandQueue();
+    _commandQueue = CLONE_METAL_CUSTOM_DELETER(MTL::CommandQueue, _device->newCommandQueue());
+    
     _renderContext = engine.createRenderContext(_device);
     return true;
 }
@@ -66,12 +68,12 @@ void MetalApplication::inputEvent(const InputEvent &inputEvent) {}
 
 void MetalApplication::finish() {}
 
-MTL::Library* MetalApplication::makeShaderLibrary() {
+std::shared_ptr<MTL::Library> MetalApplication::makeShaderLibrary() {
     NS::Error* error;
     CFURLRef libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
     
-    
-    MTL::Library* shaderLibrary = _device->newLibrary(NS::String::string((const char *)libraryURL, NS::ASCIIStringEncoding), &error);
+    std::shared_ptr<MTL::Library> shaderLibrary =
+    CLONE_METAL_CUSTOM_DELETER(MTL::Library, _device->newLibrary(NS::String::string((const char *)libraryURL, NS::ASCIIStringEncoding), &error));
     
     if (error != nullptr) {
         LOG(ERROR) << "Error: could not load Metal shader library: " << error << std::endl;

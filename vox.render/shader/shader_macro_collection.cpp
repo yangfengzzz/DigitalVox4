@@ -6,6 +6,7 @@
 
 #include "shader_macro_collection.h"
 #include "std_helpers.h"
+#include "metal_helpers.h"
 
 namespace vox {
 std::unordered_map<MacroName, std::pair<int, MTL::DataType>> ShaderMacroCollection::defaultValue = {
@@ -65,8 +66,8 @@ std::unordered_map<MacroName, std::pair<int, MTL::DataType>> ShaderMacroCollecti
     {CUBE_SHADOW_MAP_COUNT, {0, MTL::DataTypeInt}},
 };
 
-MTL::FunctionConstantValues ShaderMacroCollection::createDefaultFunction() {
-    MTL::FunctionConstantValues functionConstants = MTL::FunctionConstantValues();
+std::shared_ptr<MTL::FunctionConstantValues> ShaderMacroCollection::createDefaultFunction() {
+    std::shared_ptr<MTL::FunctionConstantValues> functionConstants = CLONE_METAL_CUSTOM_DELETER(MTL::FunctionConstantValues, MTL::FunctionConstantValues::alloc()->init());
     for (size_t i = 0; i < TOTAL_COUNT; i++) {
         const auto macro = ShaderMacroCollection::defaultValue[MacroName(i)];
         
@@ -79,9 +80,9 @@ MTL::FunctionConstantValues ShaderMacroCollection::createDefaultFunction() {
             } else {
                 property = false;
             }
-            functionConstants.setConstantValue(&property, MTL::DataTypeBool, i);
+            functionConstants->setConstantValue(&property, MTL::DataTypeBool, i);
         } else {
-            functionConstants.setConstantValue(&value, type, i);
+            functionConstants->setConstantValue(&value, type, i);
         }
     }
     return functionConstants;

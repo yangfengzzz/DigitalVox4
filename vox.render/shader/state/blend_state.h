@@ -9,7 +9,7 @@
 
 #include "renderTarget_blend_state.h"
 #include "color.h"
-#include "core/cpp_mtl_render_command_encoder.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 /**
@@ -26,15 +26,15 @@ struct BlendState {
     /**
      * Apply the current blend state by comparing with the last blend state.
      */
-    void apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
-               MTL::DepthStencilDescriptor &depthStencilDescriptor,
-               MTL::RenderCommandEncoder &encoder) {
+    void apply(MTL::RenderPipelineDescriptor *pipelineDescriptor,
+               MTL::DepthStencilDescriptor *depthStencilDescriptor,
+               MTL::RenderCommandEncoder *encoder) {
         platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
-                       MTL::DepthStencilDescriptor &depthStencilDescriptor,
-                       MTL::RenderCommandEncoder &encoder);
+    void platformApply(MTL::RenderPipelineDescriptor *pipelineDescriptor,
+                       MTL::DepthStencilDescriptor *depthStencilDescriptor,
+                       MTL::RenderCommandEncoder *encoder);
 };
 
 }

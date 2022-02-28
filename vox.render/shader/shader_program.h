@@ -16,22 +16,22 @@ namespace vox {
  */
 class ShaderProgram {
 public:
-    MTL::Function* vertexShader();
+    const std::shared_ptr<MTL::Function>& vertexShader() const;
     
-    MTL::Function* fragmentShader();
+    const std::shared_ptr<MTL::Function>& fragmentShader() const;
     
     /**
      * Whether this shader program is valid.
      */
-    bool isValid();
+    bool isValid() const;
     
-    ShaderProgram(MTL::Library& library,
+    ShaderProgram(const std::shared_ptr<MTL::Library>& library,
                   const std::string &vertexSource, const std::string &fragmentSource,
                   const ShaderMacroCollection &macroInfo);
     
     
 private:
-    MTL::FunctionConstantValues makeFunctionConstants(const ShaderMacroCollection &macroInfo);
+    std::shared_ptr<MTL::FunctionConstantValues> makeFunctionConstants(const ShaderMacroCollection &macroInfo);
     
     /**
      * init and link program with shader.
@@ -42,9 +42,9 @@ private:
     static int _counter;
     int ID;
     bool _isValid;
-    MTL::Library& _library;
-    MTL::Function _vertexShader;
-    MTL::Function _fragmentShader;
+    const std::shared_ptr<MTL::Library>& _library;
+    std::shared_ptr<MTL::Function> _vertexShader{nullptr};
+    std::shared_ptr<MTL::Function> _fragmentShader{nullptr};
 };
 
 }

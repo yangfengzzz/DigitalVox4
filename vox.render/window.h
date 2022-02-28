@@ -67,7 +67,7 @@ public:
      * @brief Gets a handle from the engine's Metal layer
      * @param device Device handle, for use by the application
      */
-    virtual std::unique_ptr<RenderContext> createRenderContext(MTL::Device* device) = 0;
+    virtual std::unique_ptr<RenderContext> createRenderContext(const std::shared_ptr<MTL::Device>& device) = 0;
     
     /**
      * @brief Checks if the window should be closed

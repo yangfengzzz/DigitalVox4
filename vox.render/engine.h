@@ -61,7 +61,7 @@ public:
         
     virtual void inputEvent(const InputEvent &inputEvent);
     
-    virtual std::unique_ptr<RenderContext> createRenderContext(MTL::Device *device);
+    virtual std::unique_ptr<RenderContext> createRenderContext(const std::shared_ptr<MTL::Device>& device);
     
 public:
     void setFocus(bool focused);

@@ -14,7 +14,7 @@
 namespace vox {
 class RenderContextImpl {
 private:
-    MTL::Device* _device{nullptr};
+    const std::shared_ptr<MTL::Device>& _device;
     GLFWwindow* _window{nullptr};
     
     CAMetalLayer* _layer = nullptr;
@@ -22,7 +22,7 @@ private:
     MTL::Texture* _currentTexture{nullptr};
     
 public:
-    RenderContextImpl(MTL::Device* device, GLFWwindow* window):
+    RenderContextImpl(const std::shared_ptr<MTL::Device>& device, GLFWwindow* window):
     _device(device), _window(window) {}
     
     void configure(MTL::PixelFormat format,
@@ -38,7 +38,7 @@ public:
         size.height = height;
         
         _layer = [CAMetalLayer layer];
-        [_layer setDevice:(__bridge id<MTLDevice>) _device];
+        [_layer setDevice:(__bridge id<MTLDevice>) _device.get()];
         [_layer setPixelFormat:MTLPixelFormatBGRA8Unorm_sRGB];
         [_layer setDrawableSize:size];
 
@@ -71,19 +71,18 @@ public:
 };
 
 //MARK: - RenderContext
-RenderContext::RenderContext(MTL::Device* device, GLFWwindow* window,
+RenderContext::RenderContext(const std::shared_ptr<MTL::Device>& device, GLFWwindow* window,
                              uint32_t width, uint32_t height):
 _device(device){
-    _impl = new RenderContextImpl(device, window);
+    _impl = std::make_unique<RenderContextImpl>(device, window);
     resize(width, height);
 }
 
 RenderContext::~RenderContext() {
-    delete _impl;
-    _impl = nullptr;
+    _impl.reset();
 }
 
-MTL::Device* RenderContext::device() {
+const std::shared_ptr<MTL::Device>& RenderContext::device() {
     return _device;
 }
 

@@ -7,8 +7,7 @@
 #ifndef raster_state_hpp
 #define raster_state_hpp
 
-#include "core/cpp_mtl_depth_stencil.h"
-#include "core/cpp_mtl_render_command_encoder.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 /**
@@ -22,15 +21,15 @@ struct RasterState {
     /** The scale factor for the variable depth offset for each polygon. */
     float slopeScaledDepthBias = 0;
     
-    void apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
-               MTL::DepthStencilDescriptor &depthStencilDescriptor,
-               MTL::RenderCommandEncoder &encoder) {
+    void apply(MTL::RenderPipelineDescriptor *pipelineDescriptor,
+               MTL::DepthStencilDescriptor *depthStencilDescriptor,
+               MTL::RenderCommandEncoder *encoder) {
         platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
-                       MTL::DepthStencilDescriptor &depthStencilDescriptor,
-                       MTL::RenderCommandEncoder &encoder);
+    void platformApply(MTL::RenderPipelineDescriptor *pipelineDescriptor,
+                       MTL::DepthStencilDescriptor *depthStencilDescriptor,
+                       MTL::RenderCommandEncoder *encoder);
 };
 
 }

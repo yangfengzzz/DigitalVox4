@@ -17,12 +17,12 @@ class RenderContextImpl;
 
 class RenderContext {
 public:
-    RenderContext(MTL::Device* device, GLFWwindow* window,
+    RenderContext(const std::shared_ptr<MTL::Device>& device, GLFWwindow* window,
                   uint32_t width, uint32_t height);
     
     ~RenderContext();
     
-    MTL::Device* device();
+    const std::shared_ptr<MTL::Device>& device();
     
     void resize(uint32_t width, uint32_t height);
     
@@ -39,7 +39,7 @@ public:
     CA::MetalDrawable* currentDrawable();
 
 private:
-    MTL::Device* _device;
+    const std::shared_ptr<MTL::Device>& _device;
     
     CA::MetalDrawable* _currentDrawable{nullptr};
     MTL::Texture* _currentTexture{nullptr};
@@ -47,7 +47,7 @@ private:
     MTL::Texture *_depthStencilTexture{nullptr};
     MTL::PixelFormat _depthStencilTextureFormat = MTL::PixelFormatDepth32Float_Stencil8;
     
-    RenderContextImpl* _impl{nullptr};    
+    std::unique_ptr<RenderContextImpl> _impl{nullptr};
 };
 
 }

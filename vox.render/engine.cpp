@@ -119,7 +119,7 @@ void Engine::resize(uint32_t win_width, uint32_t win_height,
     }
 }
 
-std::unique_ptr<RenderContext> Engine::createRenderContext(MTL::Device *device) {
+std::unique_ptr<RenderContext> Engine::createRenderContext(const std::shared_ptr<MTL::Device>& device) {
     return _window->createRenderContext(device);
 }
 

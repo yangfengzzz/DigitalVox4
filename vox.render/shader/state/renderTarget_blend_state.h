@@ -7,7 +7,7 @@
 #ifndef renderTarget_blend_state_hpp
 #define renderTarget_blend_state_hpp
 
-#include "core/cpp_mtl_render_pipeline.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 /**
