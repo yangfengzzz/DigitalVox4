@@ -491,6 +491,8 @@
 		04D75F8B27CCFE4100BB1519 /* astc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75F7227CCD52600BB1519 /* astc.cpp */; };
 		04D75F8C27CCFE4100BB1519 /* stb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75F7527CCD52700BB1519 /* stb.cpp */; };
 		04D75F8D27CCFE4100BB1519 /* ktx_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75F7427CCD52700BB1519 /* ktx_image.cpp */; };
+		04D75F9027CD09A900BB1519 /* sampled_texture2d_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75F8E27CD09A900BB1519 /* sampled_texture2d_view.cpp */; };
+		04D75F9127CD09A900BB1519 /* sampled_texture2d_view.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75F8F27CD09A900BB1519 /* sampled_texture2d_view.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1225,6 +1227,8 @@
 		04D75F8327CCF02200BB1519 /* sampled_texture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sampled_texture.h; sourceTree = "<group>"; };
 		04D75F8627CCFC8800BB1519 /* sampled_texture2d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sampled_texture2d.cpp; sourceTree = "<group>"; };
 		04D75F8727CCFC8800BB1519 /* sampled_texture2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sampled_texture2d.h; sourceTree = "<group>"; };
+		04D75F8E27CD09A900BB1519 /* sampled_texture2d_view.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sampled_texture2d_view.cpp; sourceTree = "<group>"; };
+		04D75F8F27CD09A900BB1519 /* sampled_texture2d_view.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sampled_texture2d_view.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2241,6 +2245,8 @@
 				04D75F8227CCF02200BB1519 /* sampled_texture.cpp */,
 				04D75F8727CCFC8800BB1519 /* sampled_texture2d.h */,
 				04D75F8627CCFC8800BB1519 /* sampled_texture2d.cpp */,
+				04D75F8F27CD09A900BB1519 /* sampled_texture2d_view.h */,
+				04D75F8E27CD09A900BB1519 /* sampled_texture2d_view.cpp */,
 			);
 			path = texture;
 			sourceTree = "<group>";
@@ -2405,6 +2411,7 @@
 				04D75F0227CC9A8000BB1519 /* animator_controller.h in Headers */,
 				04D75E6227CBCE5100BB1519 /* blend_state.h in Headers */,
 				04D75EB527CC632C00BB1519 /* collider_shape.h in Headers */,
+				04D75F9127CD09A900BB1519 /* sampled_texture2d_view.h in Headers */,
 				04D75E5F27CBCB9600BB1519 /* std_helpers.h in Headers */,
 				04D75EA327CC62B600BB1519 /* entity.h in Headers */,
 				04D75E6027CBCB9600BB1519 /* filesystem.h in Headers */,
@@ -2920,6 +2927,7 @@
 				04D75ED627CC65E900BB1519 /* render_pass.cpp in Sources */,
 				04D75EE327CC8C4900BB1519 /* skybox_subpass.cpp in Sources */,
 				04D75F6C27CCD45700BB1519 /* mathlib.cpp in Sources */,
+				04D75F9027CD09A900BB1519 /* sampled_texture2d_view.cpp in Sources */,
 				04D75EEB27CC901F00BB1519 /* render_pipeline_state.cpp in Sources */,
 				04D75E3D27CBA59400BB1519 /* application.cpp in Sources */,
 				04D75EA727CC630400BB1519 /* renderer.cpp in Sources */,

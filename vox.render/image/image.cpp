@@ -53,13 +53,13 @@ const std::vector<std::vector<uint64_t>> &Image::offsets() const {
     return _offsets;
 }
 
-std::shared_ptr<SampledTexture2D> Image::createSampledTexture(MTL::Device &device, MTL::TextureUsage usage) {
+std::shared_ptr<SampledTexture2D> Image::createSampledTexture(MTL::Device &device, MTL::CommandQueue& queue, MTL::TextureUsage usage) {
     auto sampledTex = std::make_shared<SampledTexture2D>(device,
                                                          _mipmaps.at(0).extent.width,
                                                          _mipmaps.at(0).extent.height,
                                                          _mipmaps.at(0).extent.depth,
                                                          _format, usage, _mipmaps.size() > 1? true:false);
-    sampledTex->setImageSource(this);
+    sampledTex->setImageSource(queue, this);
     return sampledTex;
 }
 

@@ -107,22 +107,6 @@ public:
 protected:
     uint32_t _getMipmapCount(bool mipmap);
     
-//    MTL::ImageCopyBuffer
-//    _createImageCopyBuffer(MTL::Buffer buffer,
-//                           uint64_t offset,
-//                           uint32_t bytesPerRow,
-//                           uint32_t rowsPerImage = MTL::kCopyStrideUndefined);
-//
-//    MTL::ImageCopyTexture
-//    _createImageCopyTexture(uint32_t level,
-//                            MTL::Origin3D origin,
-//                            MTL::TextureAspect aspect = MTL::TextureAspect::All);
-//
-//    MTL::TextureDataLayout
-//    _createTextureDataLayout(uint64_t offset,
-//                             uint32_t bytesPerRow,
-//                             uint32_t rowsPerImage = MTL::kCopyStrideUndefined);
-    
     MTL::Device& _device;
     std::shared_ptr<MTL::Texture> _nativeTexture;
     std::shared_ptr<MTL::SamplerState> _nativeSampler;

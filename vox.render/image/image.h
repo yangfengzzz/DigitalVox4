@@ -54,7 +54,7 @@ public:
     
 public:
     std::shared_ptr<SampledTexture2D>
-    createSampledTexture(MTL::Device &device,
+    createSampledTexture(MTL::Device &device, MTL::CommandQueue& queue,
                          MTL::TextureUsage usage = MTL::TextureUsageShaderRead);
     
 protected:
