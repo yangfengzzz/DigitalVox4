@@ -8,9 +8,8 @@
 #define shadow_manager_hpp
 
 #include <Metal/Metal.hpp>
-#include "loader/texture_loader.h"
 #include "rendering/render_pass.h"
-#include "rendering/subpasses/shadow_subpass.h"
+#include "shadow_subpass.h"
 #include "scene.h"
 
 namespace vox {
@@ -109,31 +108,26 @@ private:
     MTL::Library& _library;
     Scene* _scene{nullptr};
     Camera* _camera{nullptr};
-    TextureLoader _resourceLoader;
     
-    MTL::RenderPassDescriptor _renderPassDescriptor;
+    std::shared_ptr<MTL::RenderPassDescriptor> _renderPassDescriptor;
     std::unique_ptr<RenderPass> _renderPass{nullptr};
     ShadowSubpass* _shadowSubpass{nullptr};
     
     float _cascadeSplitLambda = 0.5f;
     
-    uint32_t _cubeShadowCount = 0;
-    std::array<MTL::TexturePtr, 6> _cubeMapSlices{};
-    std::vector<MTL::TexturePtr> _cubeShadowMaps{};
-    uint32_t _shadowCount = 0;
-    std::array<MTL::TexturePtr, SHADOW_MAP_CASCADE_COUNT> _cascadeShadowMaps{};
-    std::vector<MTL::TexturePtr> _shadowMaps{};
-    
-    ShaderProperty _shadowCountProp;
-    ShaderProperty _cubeShadowCountProp;
+    static uint32_t _shadowCount;
+    std::vector<std::shared_ptr<MTL::Texture>> _shadowMaps{};
+    std::shared_ptr<MTL::Texture> _packedTexture{nullptr};
     ShaderProperty _shadowMapProp;
-    ShaderProperty _cubeShadowMapProp;
     ShaderProperty _shadowDataProp;
-    ShaderProperty _cubeShadowDataProp;
-    MTL::TexturePtr _packedCubeTexture{nullptr};
-    std::array<ShadowManager::CubeShadowData, ShadowManager::MAX_CUBE_SHADOW> _cubeShadowDatas{};
-    MTL::TexturePtr _packedTexture{nullptr};
     std::array<ShadowManager::ShadowData, ShadowManager::MAX_SHADOW> _shadowDatas{};
+
+    static uint32_t _cubeShadowCount;
+    std::vector<std::shared_ptr<MTL::Texture>> _cubeShadowMaps{};
+    std::shared_ptr<MTL::Texture> _packedCubeTexture{nullptr};
+    ShaderProperty _cubeShadowMapProp;
+    ShaderProperty _cubeShadowDataProp;
+    std::array<ShadowManager::CubeShadowData, ShadowManager::MAX_CUBE_SHADOW> _cubeShadowDatas{};
     
     const std::array<std::pair<Vector3F, Vector3F>, 6> _cubeMapDirection = {
         std::make_pair(Vector3F(10, 0, 0), Vector3F(0, 1, 0)),
@@ -142,6 +136,13 @@ private:
         std::make_pair(Vector3F(0, -10, 0), Vector3F(1, 0, 0)),
         std::make_pair(Vector3F(0, 0, 10), Vector3F(0, 1, 0)),
         std::make_pair(Vector3F(0, 0, -10), Vector3F(0, 1, 0)),
+    };
+    
+    const std::array<Vector4F, SHADOW_MAP_CASCADE_COUNT> _viewport = {
+        Vector4F(0, 0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2),
+        Vector4F(SHADOW_MAP_RESOLUTION/2, 0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2),
+        Vector4F(0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2),
+        Vector4F(SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2),
     };
 };
 }

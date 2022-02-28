@@ -7,7 +7,7 @@
 #ifndef shadow_subpass_hpp
 #define shadow_subpass_hpp
 
-#include "../subpass.h"
+#include "rendering/subpass.h"
 #include "graphics/mesh.h"
 #include <vector>
 
@@ -20,6 +20,8 @@ public:
     
     void setViewProjectionMatrix(const Matrix4x4F& vp);
     
+    void setViewport(const std::optional<MTL::Viewport>& viewport);
+    
     void prepare() override;
     
     void draw(MTL::RenderCommandEncoder& commandEncoder) override;
@@ -30,6 +32,7 @@ private:
     std::shared_ptr<MTL::RenderPipelineDescriptor> _shadowGenDescriptor;
     std::shared_ptr<MTL::DepthStencilState> _shadowDepthStencilState;
     Matrix4x4F _vp;
+    std::optional<MTL::Viewport> _viewport = std::nullopt;
 };
 
 }

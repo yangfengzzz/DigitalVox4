@@ -444,6 +444,8 @@
 		04D75F2927CCB5D200BB1519 /* debug_frame_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC5427BF7CF500026D1D /* debug_frame_manager.cpp */; };
 		04D75F2F27CCBB8B00BB1519 /* texture_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75F2D27CCBB8B00BB1519 /* texture_utils.cpp */; };
 		04D75F3027CCBB8B00BB1519 /* texture_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75F2E27CCBB8B00BB1519 /* texture_utils.h */; };
+		04D75F3227CCC0E000BB1519 /* shadow_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044593F82791581900F04CE0 /* shadow_subpass.cpp */; };
+		04D75F3327CCC0E000BB1519 /* shadow_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F92791581900F04CE0 /* shadow_subpass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2255,6 +2257,7 @@
 				04D75EF427CC94A400BB1519 /* fbx.h in Headers */,
 				04D75ED427CC640400BB1519 /* resource_cache.h in Headers */,
 				04D75EA627CC630400BB1519 /* script.h in Headers */,
+				04D75F3327CCC0E000BB1519 /* shadow_subpass.h in Headers */,
 				04D75E7C27CC568600BB1519 /* render_queue_type.h in Headers */,
 				04D75EB027CC631C00BB1519 /* spherical.h in Headers */,
 				04D75F0627CC9A8B00BB1519 /* scene_animation_clip.h in Headers */,
@@ -2762,6 +2765,7 @@
 				04D75E8A27CC56AC00BB1519 /* pbr_specular_material.cpp in Sources */,
 				04D75E7327CC537300BB1519 /* shader_property.cpp in Sources */,
 				04D75E5227CBCAB500BB1519 /* imgui_impl_glfw.cpp in Sources */,
+				04D75F3227CCC0E000BB1519 /* shadow_subpass.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

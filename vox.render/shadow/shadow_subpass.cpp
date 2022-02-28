@@ -6,10 +6,11 @@
 
 #include "shadow_subpass.h"
 #include "rendering/render_pass.h"
-#include "lighting/shadow_manager.h"
+#include "shadow_manager.h"
 #include "renderer.h"
 #include "camera.h"
 #include "material.h"
+#include "metal_helpers.h"
 
 namespace vox {
 ShadowSubpass::ShadowSubpass(RenderContext* context,
@@ -22,29 +23,37 @@ void ShadowSubpass::setViewProjectionMatrix(const Matrix4x4F& vp) {
     _vp = vp;
 }
 
+void ShadowSubpass::setViewport(const std::optional<MTL::Viewport>& viewport) {
+    _viewport = viewport;
+}
+
 void ShadowSubpass::prepare() {
 #pragma mark Shadow pass render pipeline setup
+    _shadowGenDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineDescriptor, MTL::RenderPipelineDescriptor::alloc()->init());
     {
-        _shadowGenDescriptor.label("Shadow Gen");
-        _shadowGenDescriptor.fragmentFunction(nullptr);
-        _shadowGenDescriptor.depthAttachmentPixelFormat(ShadowManager::SHADOW_MAP_FORMAT);
+        _shadowGenDescriptor->setLabel(NS::String::string("Shadow Gen", NS::StringEncoding::UTF8StringEncoding));
+        _shadowGenDescriptor->setFragmentFunction(nullptr);
+        _shadowGenDescriptor->setDepthAttachmentPixelFormat(ShadowManager::SHADOW_MAP_FORMAT);
     }
     
 #pragma mark Shadow pass depth state setup
     {
-        MTL::DepthStencilDescriptor depthStencilDesc;
-        depthStencilDesc.label("Shadow Gen");
-        depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLessEqual);
-        depthStencilDesc.depthWriteEnabled(true);
-        _shadowDepthStencilState = _scene->device()->makeDepthStencilState(depthStencilDesc);
+        auto depthStencilDesc = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilDescriptor, MTL::DepthStencilDescriptor::alloc()->init());
+        depthStencilDesc->setLabel(NS::String::string("Shadow Gen", NS::StringEncoding::UTF8StringEncoding));
+        depthStencilDesc->setDepthCompareFunction(MTL::CompareFunctionLessEqual);
+        depthStencilDesc->setDepthWriteEnabled(true);
+        _shadowDepthStencilState = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilState, _scene->device().newDepthStencilState(depthStencilDesc.get()));
     }
 }
 
 void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
-    commandEncoder.label("Shadow Map Pass");
-    commandEncoder.setDepthStencilState(_shadowDepthStencilState);
+    commandEncoder.setLabel(NS::String::string("Shadow Map Pass", NS::StringEncoding::UTF8StringEncoding));
+    commandEncoder.setDepthStencilState(_shadowDepthStencilState.get());
     commandEncoder.setDepthBias(0.01, 1.0, 0.01);
     commandEncoder.setVertexBytes(_vp.data(), sizeof(Matrix4x4F), 11);
+    if (_viewport) {
+        commandEncoder.setViewport(*_viewport);
+    }
     drawMeshes(commandEncoder);
 }
 
@@ -71,25 +80,25 @@ void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
             if (!program->isValid()) {
                 continue;
             }
-            _shadowGenDescriptor.vertexFunction(program->vertexShader());
+            _shadowGenDescriptor->setVertexFunction(program->vertexShader().get());
             
             // manully
             auto& mesh = element.mesh;
-            _shadowGenDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
-            auto _shadowGenPipelineState = _pass->resourceCache().requestRenderPipelineState(_shadowGenDescriptor);
-            renderEncoder.setRenderPipelineState(*_shadowGenPipelineState);
+            _shadowGenDescriptor->setVertexDescriptor(mesh->vertexDescriptor().get());
+            auto _shadowGenPipelineState = _pass->resourceCache().requestRenderPipelineState(*_shadowGenDescriptor);
+            renderEncoder.setRenderPipelineState(&_shadowGenPipelineState->handle());
 
-            auto& submesh = element.subMesh;
-            for (auto &meshBuffer: mesh->vertexBuffers()) {
-                renderEncoder.setVertexBuffer(meshBuffer.buffer(),
-                                              meshBuffer.offset(),
-                                              meshBuffer.argumentIndex());
+            uint32_t index = 0;
+            for (auto &meshBuffer: mesh->vertexBufferBindings()) {
+                renderEncoder.setVertexBuffer(meshBuffer.get(),
+                                              0, index++);
             }
+            auto& submesh = element.subMesh;
             renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
                                                 submesh->indexCount(),
                                                 submesh->indexType(),
-                                                submesh->indexBuffer().buffer(),
-                                                submesh->indexBuffer().offset());
+                                                submesh->indexBuffer().get(),
+                                                0);
         }
     }
 }
