@@ -73,10 +73,11 @@ std::shared_ptr<MTL::Library> MetalApplication::makeShaderLibrary() {
     CFURLRef libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
     
     std::shared_ptr<MTL::Library> shaderLibrary =
-    CLONE_METAL_CUSTOM_DELETER(MTL::Library, _device->newLibrary(NS::String::string((const char *)libraryURL, NS::ASCIIStringEncoding), &error));
+    CLONE_METAL_CUSTOM_DELETER(MTL::Library, _device->newLibrary((NS::URL*)libraryURL, &error));
     
     if (error != nullptr) {
-        LOG(ERROR) << "Error: could not load Metal shader library: " << error << std::endl;
+        LOG(ERROR) << "Error: could not load Metal shader library: "
+        << error->description()->cString(NS::StringEncoding::UTF8StringEncoding) << std::endl;
     }
     
     CFRelease(libraryURL);

@@ -20,6 +20,7 @@ Subpass(context, scene, camera) {
 }
 
 void ColorPickerSubpass::prepare() {
+    _forwardPipelineDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineDescriptor, MTL::RenderPipelineDescriptor::alloc()->init());
     _forwardPipelineDescriptor->setLabel(NS::String::string("ColorPicker Pipeline", NS::StringEncoding::UTF8StringEncoding));
     _forwardPipelineDescriptor->colorAttachments()->object(0)->setPixelFormat(_context->drawableTextureFormat());
     _forwardPipelineDescriptor->setDepthAttachmentPixelFormat(_context->depthStencilTextureFormat());

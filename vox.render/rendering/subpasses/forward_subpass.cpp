@@ -20,6 +20,7 @@ Subpass(context, scene, camera) {
 }
 
 void ForwardSubpass::prepare() {
+    _forwardPipelineDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineDescriptor, MTL::RenderPipelineDescriptor::alloc()->init());
     _forwardPipelineDescriptor->setLabel(NS::String::string("Forward Pipeline", NS::StringEncoding::UTF8StringEncoding));
     _forwardPipelineDescriptor->colorAttachments()->object(0)->setPixelFormat(_context->drawableTextureFormat());
     _forwardPipelineDescriptor->setDepthAttachmentPixelFormat(_context->depthStencilTextureFormat());
@@ -56,14 +57,14 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
     for (auto &element : items) {
         auto macros = compileMacros;
         auto renderer = element.renderer;
-        uint32_t shadowCount = std::any_cast<uint32_t>(_scene->shaderData.getData("u_shadowCount"));
-        if (renderer->receiveShadow && shadowCount != 0) {
-            renderer->shaderData.enableMacro(SHADOW_MAP_COUNT, std::make_pair(shadowCount, MTL::DataTypeInt));
-        }
-        uint32_t cubeShadowCount = std::any_cast<uint32_t>(_scene->shaderData.getData("u_cubeShadowCount"));
-        if (renderer->receiveShadow && cubeShadowCount != 0) {
-            renderer->shaderData.enableMacro(CUBE_SHADOW_MAP_COUNT, std::make_pair(cubeShadowCount, MTL::DataTypeInt));
-        }
+//        uint32_t shadowCount = std::any_cast<uint32_t>(_scene->shaderData.getData("u_shadowCount"));
+//        if (renderer->receiveShadow && shadowCount != 0) {
+//            renderer->shaderData.enableMacro(SHADOW_MAP_COUNT, std::make_pair(shadowCount, MTL::DataTypeInt));
+//        }
+//        uint32_t cubeShadowCount = std::any_cast<uint32_t>(_scene->shaderData.getData("u_cubeShadowCount"));
+//        if (renderer->receiveShadow && cubeShadowCount != 0) {
+//            renderer->shaderData.enableMacro(CUBE_SHADOW_MAP_COUNT, std::make_pair(cubeShadowCount, MTL::DataTypeInt));
+//        }
         renderer->shaderData.mergeMacro(macros, macros);
         
         auto material = element.material;

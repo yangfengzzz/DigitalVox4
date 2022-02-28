@@ -38,6 +38,7 @@ void SkyboxSubpass::setTextureCubeMap(std::shared_ptr<MTL::Texture> v) {
 //MARK: - Render
 void SkyboxSubpass::prepare() {
 #pragma mark Sky render pipeline setup
+    _skyboxPipelineDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineDescriptor, MTL::RenderPipelineDescriptor::alloc()->init());
     {
         _skyboxPipelineDescriptor->setLabel(NS::String::string("Sky", NS::StringEncoding::UTF8StringEncoding));
         _skyboxPipelineDescriptor->setVertexDescriptor(_mesh->vertexDescriptor().get());

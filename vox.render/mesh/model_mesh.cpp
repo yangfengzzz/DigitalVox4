@@ -203,13 +203,13 @@ void ModelMesh::uploadData(bool noLongerAccessible) {
     
     auto newVertexBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _device.newBuffer(vertices.data(),
                                                                                      vertexFloatCount * sizeof(float),
-                                                                                     MTL::ResourceStorageModePrivate));
+                                                                                     MTL::ResourceOptionCPUCacheModeDefault));
     _setVertexBufferBinding(0, newVertexBuffer);
     
     
     const auto indexBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _device.newBuffer(_indices.data(),
                                                                                        _indices.size() * sizeof(uint32_t),
-                                                                                       MTL::ResourceStorageModePrivate));
+                                                                                       MTL::ResourceOptionCPUCacheModeDefault));
     addSubMesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt32, _indices.size(), indexBuffer);
     
     if (noLongerAccessible) {

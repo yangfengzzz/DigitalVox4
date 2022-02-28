@@ -14,12 +14,12 @@ RenderPipelineState::RenderPipelineState(MTL::Device *device, const MTL::RenderP
 _device(device) {
     MTL::RenderPipelineReflection *_reflection{nullptr};
     NS::Error* error{nullptr};
-
-    CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineState,
-                               _device->newRenderPipelineState(&descriptor, MTL::PipelineOptionArgumentInfo, &_reflection, &error));
+    
+    _handle = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineState,
+                                         _device->newRenderPipelineState(&descriptor, MTL::PipelineOptionArgumentInfo, &_reflection, &error));
     
     if (error != nullptr) {
-        LOG(ERROR) << "Error: failed to create Metal pipeline state: " << error;
+        LOG(ERROR) << "Error: failed to create Metal pipeline state: " << error->description()->cString(NS::StringEncoding::UTF8StringEncoding);
     }
     
     _recordVertexLocation(_reflection);
