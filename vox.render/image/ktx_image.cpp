@@ -27,7 +27,7 @@ static ktx_error_code_e KTX_APIENTRY optimal_tiling_callback(int mip_level,
     mipmap.level = mip_level;
     mipmap.extent.width = width;
     mipmap.extent.height = height;
-    mipmap.extent.depthOrArrayLayers = depth;
+    mipmap.extent.depth = depth;
     
     // Set offset for the next mip level
     auto next_mip_level = static_cast<size_t>(mip_level + 1);

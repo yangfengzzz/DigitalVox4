@@ -33,7 +33,7 @@ Image{} {
     setData(raw_data, width * height * req_comp);
     stbi_image_free(raw_data);
     
-    setFormat(wgpu::TextureFormat::RGBA8Unorm);
+    setFormat(MTL::PixelFormatRGBA8Unorm);
     setWidth(to_u32(width));
     setHeight(to_u32(height));
     setDepth(1u);

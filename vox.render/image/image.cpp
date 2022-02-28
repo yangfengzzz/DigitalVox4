@@ -20,7 +20,7 @@
 namespace vox {
 Image::Image(std::vector<uint8_t> &&d, std::vector<Mipmap> &&m) :
 _data{std::move(d)},
-_format{wgpu::TextureFormat::RGBA8Unorm},
+_format{MTL::PixelFormatRGBA8Unorm},
 _mipmaps{std::move(m)} {
 }
 
@@ -33,16 +33,16 @@ void Image::clear() {
     _data.shrink_to_fit();
 }
 
-wgpu::TextureFormat Image::format() const {
+MTL::PixelFormat Image::format() const {
     return _format;
 }
 
-const wgpu::Extent3D &Image::extent() const {
+const MTL::Size &Image::extent() const {
     return _mipmaps.at(0).extent;
 }
 
 const uint32_t Image::layers() const {
-    return _mipmaps.at(0).extent.depthOrArrayLayers;
+    return static_cast<uint32_t>(_mipmaps.at(0).extent.depth);
 }
 
 const std::vector<Mipmap> &Image::mipmaps() const {
@@ -53,11 +53,11 @@ const std::vector<std::vector<uint64_t>> &Image::offsets() const {
     return _offsets;
 }
 
-std::shared_ptr<SampledTexture2D> Image::createSampledTexture(wgpu::Device &device, wgpu::TextureUsage usage) {
+std::shared_ptr<SampledTexture2D> Image::createSampledTexture(MTL::Device &device, MTL::TextureUsage usage) {
     auto sampledTex = std::make_shared<SampledTexture2D>(device,
                                                          _mipmaps.at(0).extent.width,
                                                          _mipmaps.at(0).extent.height,
-                                                         _mipmaps.at(0).extent.depthOrArrayLayers,
+                                                         _mipmaps.at(0).extent.depth,
                                                          _format, usage, _mipmaps.size() > 1? true:false);
     sampledTex->setImageSource(this);
     return sampledTex;
@@ -75,7 +75,7 @@ void Image::generateMipmaps() {
         return;        // Do not generate again
     }
     
-    const  wgpu::Extent3D& extent = this->extent();
+    const  MTL::Size& extent = this->extent();
     auto next_width = std::max<uint32_t>(1u, extent.width / 2);
     auto next_height = std::max<uint32_t>(1u, extent.height / 2);
     auto channels = 4;
@@ -123,7 +123,7 @@ void Image::setData(const uint8_t *raw_data, size_t size) {
     _data = {raw_data, raw_data + size};
 }
 
-void Image::setFormat(const wgpu::TextureFormat f) {
+void Image::setFormat(const MTL::PixelFormat f) {
     _format = f;
 }
 
@@ -136,11 +136,11 @@ void Image::setHeight(const uint32_t height) {
 }
 
 void Image::setDepth(const uint32_t depth) {
-    _mipmaps.at(0).extent.depthOrArrayLayers = depth;
+    _mipmaps.at(0).extent.depth = depth;
 }
 
 void Image::setLayers(uint32_t l) {
-    _mipmaps.at(0).extent.depthOrArrayLayers = l;
+    _mipmaps.at(0).extent.depth = l;
 }
 
 void Image::setOffsets(const std::vector<std::vector<uint64_t>> &o) {

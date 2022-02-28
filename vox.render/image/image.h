@@ -7,7 +7,7 @@
 #ifndef image_hpp
 #define image_hpp
 
-#include <webgpu/webgpu_cpp.h>
+#include <Metal/Metal.hpp>
 #include <string>
 #include <vector>
 
@@ -25,7 +25,7 @@ struct Mipmap {
     uint32_t offset = 0;
     
     /// Width depth and height of the mipmap
-    wgpu::Extent3D extent = {0, 0, 0};
+    MTL::Size extent = {0, 0, 0};
 };
 
 class Image {
@@ -40,9 +40,9 @@ public:
     
     void clear();
     
-    wgpu::TextureFormat format() const;
+    MTL::PixelFormat format() const;
     
-    const wgpu::Extent3D &extent() const;
+    const MTL::Size &extent() const;
     
     const uint32_t layers() const;
     
@@ -54,15 +54,15 @@ public:
     
 public:
     std::shared_ptr<SampledTexture2D>
-    createSampledTexture(wgpu::Device &device,
-                         wgpu::TextureUsage usage = wgpu::TextureUsage::TextureBinding | wgpu::TextureUsage::CopyDst);
+    createSampledTexture(MTL::Device &device,
+                         MTL::TextureUsage usage = MTL::TextureUsageShaderRead);
     
 protected:
     std::vector<uint8_t> &data();
     
     void setData(const uint8_t *raw_data, size_t size);
     
-    void setFormat(wgpu::TextureFormat format);
+    void setFormat(MTL::PixelFormat format);
     
     void setWidth(uint32_t width);
     
@@ -81,7 +81,7 @@ protected:
 private:
     std::vector<uint8_t> _data;
     
-    wgpu::TextureFormat _format{wgpu::TextureFormat::Undefined};
+    MTL::PixelFormat _format{MTL::PixelFormatInvalid};
     
     std::vector<Mipmap> _mipmaps{{}};
     

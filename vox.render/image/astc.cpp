@@ -11,49 +11,63 @@
 #define MAGIC_FILE_CONSTANT 0x5CA1AB13
 
 namespace vox {
-BlockDim toBlockdim(const wgpu::TextureFormat format) {
+BlockDim toBlockdim(const MTL::PixelFormat format) {
     switch (format) {
-        case wgpu::TextureFormat::ASTC4x4Unorm:
-        case wgpu::TextureFormat::ASTC4x4UnormSrgb:
+        case MTL::PixelFormatASTC_4x4_HDR:
+        case MTL::PixelFormatASTC_4x4_LDR:
+        case MTL::PixelFormatASTC_4x4_sRGB:
             return {4, 4, 1};
-        case wgpu::TextureFormat::ASTC5x4Unorm:
-        case wgpu::TextureFormat::ASTC5x4UnormSrgb:
+        case MTL::PixelFormatASTC_5x4_HDR:
+        case MTL::PixelFormatASTC_5x4_LDR:
+        case MTL::PixelFormatASTC_5x4_sRGB:
             return {5, 4, 1};
-        case wgpu::TextureFormat::ASTC5x5Unorm:
-        case wgpu::TextureFormat::ASTC5x5UnormSrgb:
+        case MTL::PixelFormatASTC_5x5_HDR:
+        case MTL::PixelFormatASTC_5x5_LDR:
+        case MTL::PixelFormatASTC_5x5_sRGB:
             return {5, 5, 1};
-        case wgpu::TextureFormat::ASTC6x5Unorm:
-        case wgpu::TextureFormat::ASTC6x5UnormSrgb:
+        case MTL::PixelFormatASTC_6x5_HDR:
+        case MTL::PixelFormatASTC_6x5_LDR:
+        case MTL::PixelFormatASTC_6x5_sRGB:
             return {6, 5, 1};
-        case wgpu::TextureFormat::ASTC6x6Unorm:
-        case wgpu::TextureFormat::ASTC6x6UnormSrgb:
+        case MTL::PixelFormatASTC_6x6_HDR:
+        case MTL::PixelFormatASTC_6x6_LDR:
+        case MTL::PixelFormatASTC_6x6_sRGB:
             return {6, 6, 1};
-        case wgpu::TextureFormat::ASTC8x5Unorm:
-        case wgpu::TextureFormat::ASTC8x5UnormSrgb:
+        case MTL::PixelFormatASTC_8x5_HDR:
+        case MTL::PixelFormatASTC_8x5_LDR:
+        case MTL::PixelFormatASTC_8x5_sRGB:
             return {8, 5, 1};
-        case wgpu::TextureFormat::ASTC8x6Unorm:
-        case wgpu::TextureFormat::ASTC8x6UnormSrgb:
+        case MTL::PixelFormatASTC_8x6_HDR:
+        case MTL::PixelFormatASTC_8x6_LDR:
+        case MTL::PixelFormatASTC_8x6_sRGB:
             return {8, 6, 1};
-        case wgpu::TextureFormat::ASTC8x8Unorm:
-        case wgpu::TextureFormat::ASTC8x8UnormSrgb:
+        case MTL::PixelFormatASTC_8x8_HDR:
+        case MTL::PixelFormatASTC_8x8_LDR:
+        case MTL::PixelFormatASTC_8x8_sRGB:
             return {8, 8, 1};
-        case wgpu::TextureFormat::ASTC10x5Unorm:
-        case wgpu::TextureFormat::ASTC10x5UnormSrgb:
+        case MTL::PixelFormatASTC_10x5_HDR:
+        case MTL::PixelFormatASTC_10x5_LDR:
+        case MTL::PixelFormatASTC_10x5_sRGB:
             return {10, 5, 1};
-        case wgpu::TextureFormat::ASTC10x6Unorm:
-        case wgpu::TextureFormat::ASTC10x6UnormSrgb:
+        case MTL::PixelFormatASTC_10x6_HDR:
+        case MTL::PixelFormatASTC_10x6_LDR:
+        case MTL::PixelFormatASTC_10x6_sRGB:
             return {10, 6, 1};
-        case wgpu::TextureFormat::ASTC10x8Unorm:
-        case wgpu::TextureFormat::ASTC10x8UnormSrgb:
+        case MTL::PixelFormatASTC_10x8_HDR:
+        case MTL::PixelFormatASTC_10x8_LDR:
+        case MTL::PixelFormatASTC_10x8_sRGB:
             return {10, 8, 1};
-        case wgpu::TextureFormat::ASTC10x10Unorm:
-        case wgpu::TextureFormat::ASTC10x10UnormSrgb:
+        case MTL::PixelFormatASTC_10x10_HDR:
+        case MTL::PixelFormatASTC_10x10_LDR:
+        case MTL::PixelFormatASTC_10x10_sRGB:
             return {10, 10, 1};
-        case wgpu::TextureFormat::ASTC12x10Unorm:
-        case wgpu::TextureFormat::ASTC12x10UnormSrgb:
+        case MTL::PixelFormatASTC_12x10_HDR:
+        case MTL::PixelFormatASTC_12x10_LDR:
+        case MTL::PixelFormatASTC_12x10_sRGB:
             return {12, 10, 1};
-        case wgpu::TextureFormat::ASTC12x12Unorm:
-        case wgpu::TextureFormat::ASTC12x12UnormSrgb:
+        case MTL::PixelFormatASTC_12x12_HDR:
+        case MTL::PixelFormatASTC_12x12_LDR:
+        case MTL::PixelFormatASTC_12x12_sRGB:
             return {12, 12, 1};
         default:
             throw std::runtime_error{"Invalid astc format"};
@@ -83,7 +97,7 @@ void Astc::init() {
     }
 }
 
-void Astc::decode(BlockDim blockdim, wgpu::Extent3D extent, const uint8_t *data_) {
+void Astc::decode(BlockDim blockdim, MTL::Size extent, const uint8_t *data_) {
     // Actual decoding
     astc_decode_mode decode_mode = DECODE_LDR_SRGB;
     uint32_t bitness = 8;
@@ -99,9 +113,9 @@ void Astc::decode(BlockDim blockdim, wgpu::Extent3D extent, const uint8_t *data_
         throw std::runtime_error{"Error reading astc: invalid block"};
     }
     
-    int xsize = extent.width;
-    int ysize = extent.height;
-    int zsize = extent.depthOrArrayLayers;
+    int xsize = static_cast<int>(extent.width);
+    int ysize = static_cast<int>(extent.height);
+    int zsize = static_cast<int>(extent.depth);
     
     if (xsize == 0 || ysize == 0 || zsize == 0) {
         throw std::runtime_error{"Error reading astc: invalid size"};
@@ -132,7 +146,7 @@ void Astc::decode(BlockDim blockdim, wgpu::Extent3D extent, const uint8_t *data_
     }
     
     setData(astc_image->imagedata8[0][0], astc_image->xsize * astc_image->ysize * astc_image->zsize * 4);
-    setFormat(wgpu::TextureFormat::RGBA8UnormSrgb);
+    setFormat(MTL::PixelFormatRGBA8Unorm_sRGB);
     setWidth(static_cast<uint32_t>(astc_image->xsize));
     setHeight(static_cast<uint32_t>(astc_image->ysize));
     setDepth(static_cast<uint32_t>(astc_image->zsize));
@@ -168,7 +182,7 @@ Image{} {
         /* ydim = */ header.blockdim_y,
         /* zdim = */ header.blockdim_z};
     
-    wgpu::Extent3D extent = {
+    MTL::Size extent = {
         /* width  = */ static_cast<uint32_t>(header.xsize[0] + 256 * header.xsize[1] + 65536 * header.xsize[2]),
         /* height = */ static_cast<uint32_t>(header.ysize[0] + 256 * header.ysize[1] + 65536 * header.ysize[2]),
         /* depth  = */ static_cast<uint32_t>(header.zsize[0] + 256 * header.zsize[1] + 65536 * header.zsize[2])};

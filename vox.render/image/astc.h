@@ -39,7 +39,7 @@ private:
      * @param extent Extent of the image
      * @param data Pointer to ASTC image data
      */
-    void decode(BlockDim blockdim, wgpu::Extent3D extent, const uint8_t *data);
+    void decode(BlockDim blockdim, MTL::Size extent, const uint8_t *data);
     
     /**
      * @brief Initializes ASTC library
