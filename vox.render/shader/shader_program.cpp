@@ -23,7 +23,7 @@ bool ShaderProgram::isValid() const {
     return _isValid;
 }
 
-ShaderProgram::ShaderProgram(const std::shared_ptr<MTL::Library>& library,
+ShaderProgram::ShaderProgram(MTL::Library& library,
                              const std::string &vertexSource,
                              const std::string &fragmentSource,
                              const ShaderMacroCollection &macroInfo):
@@ -60,15 +60,15 @@ void ShaderProgram::_createProgram(const std::string &vertexSource, const std::s
     NS::Error* error;
     auto functionConstants = makeFunctionConstants(macroInfo);
     if (vertexSource != "") {
-        auto shader = _library->newFunction(NS::String::string(vertexSource.c_str(),
-                                                               NS::StringEncoding::UTF8StringEncoding),
-                                            functionConstants.get(), &error);
+        auto shader = _library.newFunction(NS::String::string(vertexSource.c_str(),
+                                                              NS::StringEncoding::UTF8StringEncoding),
+                                           functionConstants.get(), &error);
         _vertexShader = CLONE_METAL_CUSTOM_DELETER(MTL::Function, shader);
     }
     if (fragmentSource != "") {
-        auto shader = _library->newFunction(NS::String::string(fragmentSource.c_str(),
-                                                               NS::StringEncoding::UTF8StringEncoding),
-                                            functionConstants.get(), &error);
+        auto shader = _library.newFunction(NS::String::string(fragmentSource.c_str(),
+                                                              NS::StringEncoding::UTF8StringEncoding),
+                                           functionConstants.get(), &error);
         _fragmentShader = CLONE_METAL_CUSTOM_DELETER(MTL::Function, shader);
     }
 }

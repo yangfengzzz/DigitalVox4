@@ -7,13 +7,13 @@
 #include "raster_state.h"
 
 namespace vox {
-void RasterState::platformApply(const std::shared_ptr<MTL::RenderPipelineDescriptor>& pipelineDescriptor,
-                                const std::shared_ptr<MTL::DepthStencilDescriptor>& depthStencilDescriptor,
-                                const std::shared_ptr<MTL::RenderCommandEncoder>& encoder) {
-    encoder->setCullMode(cullMode);
+void RasterState::platformApply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
+                                MTL::DepthStencilDescriptor& depthStencilDescriptor,
+                                MTL::RenderCommandEncoder& encoder) {
+    encoder.setCullMode(cullMode);
     // apply polygonOffset.
     if (depthBias != 0 || depthBiasSlopeScale != 0) {
-        encoder->setDepthBias(depthBias, depthBiasSlopeScale, depthBiasClamp);
+        encoder.setDepthBias(depthBias, depthBiasSlopeScale, depthBiasClamp);
     }
 }
 

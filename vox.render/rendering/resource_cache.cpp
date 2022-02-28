@@ -16,14 +16,14 @@ _device{device} {
 }
 
 std::shared_ptr<MTL::RenderPipelineState>
-ResourceCache::requestRenderPipelineState(const std::shared_ptr<MTL::RenderPipelineDescriptor> &descriptor) {
-    size_t hash = descriptor->hash();
+ResourceCache::requestRenderPipelineState(const MTL::RenderPipelineDescriptor &descriptor) {
+    size_t hash = descriptor.hash();
     
     NS::Error* error;
     auto iter = _state.renderPipelineStates.find(hash);
     if (iter == _state.renderPipelineStates.end()) {
         auto pipelineState = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineState,
-                                                        _device->newRenderPipelineState(descriptor.get(), &error));
+                                                        _device->newRenderPipelineState(&descriptor, &error));
         _state.renderPipelineStates[hash] = std::move(pipelineState);
         return _state.renderPipelineStates[hash];
     } else {
@@ -32,13 +32,13 @@ ResourceCache::requestRenderPipelineState(const std::shared_ptr<MTL::RenderPipel
 }
 
 std::shared_ptr<MTL::DepthStencilState>
-ResourceCache::requestDepthStencilState(const std::shared_ptr<MTL::DepthStencilDescriptor> &descriptor) {
-    size_t hash = descriptor->hash();
+ResourceCache::requestDepthStencilState(const MTL::DepthStencilDescriptor &descriptor) {
+    size_t hash = descriptor.hash();
     
     auto iter = _state.depthStencilStates.find(hash);
     if (iter == _state.depthStencilStates.end()) {
         auto depthStencilState = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilState,
-                                                            _device->newDepthStencilState(descriptor.get()));
+                                                            _device->newDepthStencilState(&descriptor));
         _state.depthStencilStates[hash] = std::move(depthStencilState);
         return _state.depthStencilStates[hash];
     } else {
@@ -46,7 +46,7 @@ ResourceCache::requestDepthStencilState(const std::shared_ptr<MTL::DepthStencilD
     }
 }
 
-ShaderProgram *ResourceCache::requestShader(const std::shared_ptr<MTL::Library>& library,
+ShaderProgram *ResourceCache::requestShader(MTL::Library& library,
                                             const std::string &vertexSource,
                                             const std::string &fragmentSource,
                                             const ShaderMacroCollection &macroInfo) {

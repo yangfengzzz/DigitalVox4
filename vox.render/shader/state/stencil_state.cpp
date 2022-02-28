@@ -7,32 +7,32 @@
 #include "stencil_state.h"
 
 namespace vox {
-void StencilState::platformApply(const std::shared_ptr<MTL::RenderPipelineDescriptor>& pipelineDescriptor,
-                                 const std::shared_ptr<MTL::DepthStencilDescriptor>& depthStencilDescriptor,
-                                 const std::shared_ptr<MTL::RenderCommandEncoder>& encoder) {
+void StencilState::platformApply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
+                                 MTL::DepthStencilDescriptor& depthStencilDescriptor,
+                                 MTL::RenderCommandEncoder& encoder) {
     if (enabled) {
         // apply stencil func.
-        depthStencilDescriptor->frontFaceStencil()->setStencilCompareFunction(compareFunctionFront);
-        depthStencilDescriptor->frontFaceStencil()->setReadMask(mask);
+        depthStencilDescriptor.frontFaceStencil()->setStencilCompareFunction(compareFunctionFront);
+        depthStencilDescriptor.frontFaceStencil()->setReadMask(mask);
         
-        depthStencilDescriptor->backFaceStencil()->setStencilCompareFunction(compareFunctionBack);
-        depthStencilDescriptor->backFaceStencil()->setReadMask(mask);
+        depthStencilDescriptor.backFaceStencil()->setStencilCompareFunction(compareFunctionBack);
+        depthStencilDescriptor.backFaceStencil()->setReadMask(mask);
         
-        encoder->setStencilReferenceValue(referenceValue);
+        encoder.setStencilReferenceValue(referenceValue);
     }
     
     // apply stencil operation.
-    depthStencilDescriptor->frontFaceStencil()->setStencilFailureOperation(failOperationFront);
-    depthStencilDescriptor->frontFaceStencil()->setDepthFailureOperation(zFailOperationFront);
-    depthStencilDescriptor->frontFaceStencil()->setDepthStencilPassOperation(passOperationFront);
+    depthStencilDescriptor.frontFaceStencil()->setStencilFailureOperation(failOperationFront);
+    depthStencilDescriptor.frontFaceStencil()->setDepthFailureOperation(zFailOperationFront);
+    depthStencilDescriptor.frontFaceStencil()->setDepthStencilPassOperation(passOperationFront);
     
-    depthStencilDescriptor->backFaceStencil()->setStencilFailureOperation(failOperationBack);
-    depthStencilDescriptor->backFaceStencil()->setDepthFailureOperation(zFailOperationBack);
-    depthStencilDescriptor->backFaceStencil()->setDepthStencilPassOperation(passOperationBack);
+    depthStencilDescriptor.backFaceStencil()->setStencilFailureOperation(failOperationBack);
+    depthStencilDescriptor.backFaceStencil()->setDepthFailureOperation(zFailOperationBack);
+    depthStencilDescriptor.backFaceStencil()->setDepthStencilPassOperation(passOperationBack);
     
     // apply write mask.
-    depthStencilDescriptor->frontFaceStencil()->setWriteMask(writeMask);
-    depthStencilDescriptor->backFaceStencil()->setWriteMask(writeMask);
+    depthStencilDescriptor.frontFaceStencil()->setWriteMask(writeMask);
+    depthStencilDescriptor.backFaceStencil()->setWriteMask(writeMask);
 }
 }
 

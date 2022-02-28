@@ -25,7 +25,7 @@ public:
      */
     bool isValid() const;
     
-    ShaderProgram(const std::shared_ptr<MTL::Library>& library,
+    ShaderProgram(MTL::Library& library,
                   const std::string &vertexSource, const std::string &fragmentSource,
                   const ShaderMacroCollection &macroInfo);
     
@@ -42,7 +42,7 @@ private:
     static int _counter;
     int ID;
     bool _isValid;
-    const std::shared_ptr<MTL::Library>& _library;
+    MTL::Library& _library;
     std::shared_ptr<MTL::Function> _vertexShader{nullptr};
     std::shared_ptr<MTL::Function> _fragmentShader{nullptr};
 };

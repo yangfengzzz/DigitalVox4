@@ -52,12 +52,12 @@ public:
     
 public:
     std::shared_ptr<MTL::RenderPipelineState>
-    requestRenderPipelineState(const std::shared_ptr<MTL::RenderPipelineDescriptor> &descriptor);
+    requestRenderPipelineState(const MTL::RenderPipelineDescriptor &descriptor);
 
     std::shared_ptr<MTL::DepthStencilState>
-    requestDepthStencilState(const std::shared_ptr<MTL::DepthStencilDescriptor> &descriptor);
+    requestDepthStencilState(const MTL::DepthStencilDescriptor &descriptor);
 
-    ShaderProgram *requestShader(const std::shared_ptr<MTL::Library>& library,
+    ShaderProgram *requestShader(MTL::Library& library,
                                  const std::string &vertexSource,
                                  const std::string &fragmentSource,
                                  const ShaderMacroCollection &macroInfo);

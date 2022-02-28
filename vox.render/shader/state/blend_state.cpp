@@ -7,9 +7,9 @@
 #include "blend_state.h"
 
 namespace vox {
-void BlendState::platformApply(const std::shared_ptr<MTL::RenderPipelineDescriptor>& pipelineDescriptor,
-                               const std::shared_ptr<MTL::DepthStencilDescriptor>& depthStencilDescriptor,
-                               const std::shared_ptr<MTL::RenderCommandEncoder>& encoder) {
+void BlendState::platformApply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
+                               MTL::DepthStencilDescriptor& depthStencilDescriptor,
+                               MTL::RenderCommandEncoder& encoder) {
     const auto enabled = targetBlendState.enabled;
     const auto colorBlendOperation = targetBlendState.colorBlendOperation;
     const auto alphaBlendOperation = targetBlendState.alphaBlendOperation;
@@ -20,34 +20,34 @@ void BlendState::platformApply(const std::shared_ptr<MTL::RenderPipelineDescript
     const auto colorWriteMask = targetBlendState.colorWriteMask;
     
     if (enabled) {
-        pipelineDescriptor->colorAttachments()->object(0)->setBlendingEnabled(true);
+        pipelineDescriptor.colorAttachments()->object(0)->setBlendingEnabled(true);
     } else {
-        pipelineDescriptor->colorAttachments()->object(0)->setBlendingEnabled(false);
+        pipelineDescriptor.colorAttachments()->object(0)->setBlendingEnabled(false);
     }
     
     if (enabled) {
         // apply blend factor.
-        pipelineDescriptor->colorAttachments()->object(0)->setSourceRGBBlendFactor(sourceColorBlendFactor);
-        pipelineDescriptor->colorAttachments()->object(0)->setDestinationRGBBlendFactor(destinationColorBlendFactor);
-        pipelineDescriptor->colorAttachments()->object(0)->setSourceAlphaBlendFactor(sourceAlphaBlendFactor);
-        pipelineDescriptor->colorAttachments()->object(0)->setDestinationAlphaBlendFactor(destinationAlphaBlendFactor);
+        pipelineDescriptor.colorAttachments()->object(0)->setSourceRGBBlendFactor(sourceColorBlendFactor);
+        pipelineDescriptor.colorAttachments()->object(0)->setDestinationRGBBlendFactor(destinationColorBlendFactor);
+        pipelineDescriptor.colorAttachments()->object(0)->setSourceAlphaBlendFactor(sourceAlphaBlendFactor);
+        pipelineDescriptor.colorAttachments()->object(0)->setDestinationAlphaBlendFactor(destinationAlphaBlendFactor);
         
         // apply blend operation.
-        pipelineDescriptor->colorAttachments()->object(0)->setRgbBlendOperation(colorBlendOperation);
-        pipelineDescriptor->colorAttachments()->object(0)->setAlphaBlendOperation(alphaBlendOperation);
+        pipelineDescriptor.colorAttachments()->object(0)->setRgbBlendOperation(colorBlendOperation);
+        pipelineDescriptor.colorAttachments()->object(0)->setAlphaBlendOperation(alphaBlendOperation);
         
         // apply blend color.
-        encoder->setBlendColorRed(blendColor.r, blendColor.g, blendColor.b, blendColor.a);
+        encoder.setBlendColorRed(blendColor.r, blendColor.g, blendColor.b, blendColor.a);
     }
     
     // apply color mask.
-    pipelineDescriptor->colorAttachments()->object(0)->setWriteMask(colorWriteMask);
+    pipelineDescriptor.colorAttachments()->object(0)->setWriteMask(colorWriteMask);
     
     // apply alpha to coverage.
     if (alphaToCoverage) {
-        pipelineDescriptor->setAlphaToCoverageEnabled(true);
+        pipelineDescriptor.setAlphaToCoverageEnabled(true);
     } else {
-        pipelineDescriptor->setAlphaToCoverageEnabled(false);
+        pipelineDescriptor.setAlphaToCoverageEnabled(false);
     }
 }
 }

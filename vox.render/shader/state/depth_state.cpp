@@ -7,15 +7,15 @@
 #include "depth_state.h"
 
 namespace vox {
-void DepthState::platformApply(const std::shared_ptr<MTL::RenderPipelineDescriptor>& pipelineDescriptor,
-                               const std::shared_ptr<MTL::DepthStencilDescriptor>& depthStencilDescriptor,
-                               const std::shared_ptr<MTL::RenderCommandEncoder>& encoder) {
+void DepthState::platformApply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
+                               MTL::DepthStencilDescriptor& depthStencilDescriptor,
+                               MTL::RenderCommandEncoder& encoder) {
     if (enabled) {
         // apply compare func.
-        depthStencilDescriptor->setDepthCompareFunction(compareFunction);
+        depthStencilDescriptor.setDepthCompareFunction(compareFunction);
         
         // apply write enabled.
-        depthStencilDescriptor->setDepthWriteEnabled(writeEnabled);
+        depthStencilDescriptor.setDepthWriteEnabled(writeEnabled);
     }
 }
 }

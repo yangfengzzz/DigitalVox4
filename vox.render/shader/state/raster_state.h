@@ -22,15 +22,15 @@ struct RasterState {
     float depthBiasSlopeScale= 1.0;
     float depthBiasClamp = 0.01;
     
-    void apply(const std::shared_ptr<MTL::RenderPipelineDescriptor>& pipelineDescriptor,
-               const std::shared_ptr<MTL::DepthStencilDescriptor>& depthStencilDescriptor,
-               const std::shared_ptr<MTL::RenderCommandEncoder>& encoder) {
+    void apply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
+               MTL::DepthStencilDescriptor& depthStencilDescriptor,
+               MTL::RenderCommandEncoder& encoder) {
         platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void platformApply(const std::shared_ptr<MTL::RenderPipelineDescriptor>& pipelineDescriptor,
-                       const std::shared_ptr<MTL::DepthStencilDescriptor>& depthStencilDescriptor,
-                       const std::shared_ptr<MTL::RenderCommandEncoder>& encoder);
+    void platformApply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
+                       MTL::DepthStencilDescriptor& depthStencilDescriptor,
+                       MTL::RenderCommandEncoder& encoder);
 };
 
 }

@@ -394,6 +394,8 @@
 		04D75ED827CC67F300BB1519 /* subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F427914F7500F04CE0 /* subpass.h */; };
 		04D75ED927CC697E00BB1519 /* render_element.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445942127929A3300F04CE0 /* render_element.h */; };
 		04D75EDA27CC697E00BB1519 /* render_element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445942027929A3300F04CE0 /* render_element.cpp */; };
+		04D75EE127CC7C0E00BB1519 /* forward_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044594282793134C00F04CE0 /* forward_subpass.cpp */; };
+		04D75EE227CC7C0E00BB1519 /* forward_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044594292793134C00F04CE0 /* forward_subpass.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2139,6 +2141,7 @@
 				04D75E4727CBB3E400BB1519 /* render_context.h in Headers */,
 				04D75E4027CBA5CF00BB1519 /* unix_engine.h in Headers */,
 				04D75EBD27CC632C00BB1519 /* spherical_joint.h in Headers */,
+				04D75EE227CC7C0E00BB1519 /* forward_subpass.h in Headers */,
 				04D75E8227CC56AC00BB1519 /* pbr_material.h in Headers */,
 				04D75E5327CBCAB500BB1519 /* imconfig.h in Headers */,
 				04D75E4327CBA5EE00BB1519 /* graphics_application.h in Headers */,
@@ -2572,6 +2575,7 @@
 				04D75EB727CC632C00BB1519 /* sphere_collider_shape.cpp in Sources */,
 				04D75E6527CBCE5100BB1519 /* stencil_state.cpp in Sources */,
 				04D75EBA27CC632C00BB1519 /* box_character_controller.cpp in Sources */,
+				04D75EE127CC7C0E00BB1519 /* forward_subpass.cpp in Sources */,
 				04D75EC727CC632C00BB1519 /* fixed_joint.cpp in Sources */,
 				04D75E6127CBCB9600BB1519 /* filesystem.cpp in Sources */,
 				04D75E6B27CBCE5100BB1519 /* blend_state.cpp in Sources */,

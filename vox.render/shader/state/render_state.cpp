@@ -7,9 +7,9 @@
 #include "render_state.h"
 
 namespace vox {
-void RenderState::apply(const std::shared_ptr<MTL::RenderPipelineDescriptor>& pipelineDescriptor,
-                        const std::shared_ptr<MTL::DepthStencilDescriptor>& depthStencilDescriptor,
-                        const std::shared_ptr<MTL::RenderCommandEncoder>& encoder) {
+void RenderState::apply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
+                        MTL::DepthStencilDescriptor& depthStencilDescriptor,
+                        MTL::RenderCommandEncoder& encoder) {
     blendState.apply(pipelineDescriptor, depthStencilDescriptor, encoder);
     depthState.apply(pipelineDescriptor, depthStencilDescriptor, encoder);
     stencilState.apply(pipelineDescriptor, depthStencilDescriptor, encoder);

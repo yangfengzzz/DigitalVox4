@@ -26,9 +26,9 @@ struct RenderState {
     /** Raster state. */
     RasterState rasterState = RasterState();
     
-    void apply(const std::shared_ptr<MTL::RenderPipelineDescriptor>& pipelineDescriptor,
-               const std::shared_ptr<MTL::DepthStencilDescriptor>& depthStencilDescriptor,
-               const std::shared_ptr<MTL::RenderCommandEncoder>& encoder);
+    void apply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
+               MTL::DepthStencilDescriptor& depthStencilDescriptor,
+               MTL::RenderCommandEncoder& encoder);
 };
 
 }
