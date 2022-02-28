@@ -554,8 +554,6 @@
 
 /* Begin PBXFileReference section */
 		0422954F278C30840090983F /* libvox.render.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.render.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		04229570278C32FA0090983F /* texture_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture_loader.h; sourceTree = "<group>"; };
-		04229583278C32FA0090983F /* texture_loader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = texture_loader.mm; sourceTree = "<group>"; };
 		042295D9278D121C0090983F /* libvox.geometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.geometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		042295E4278D17790090983F /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		04229601278D20680090983F /* math_utils-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "math_utils-inl.h"; sourceTree = "<group>"; };
@@ -2109,8 +2107,6 @@
 				04CD93FE279A9C6D0093D6CB /* animator_loader.cpp */,
 				04460440279BD777009108C8 /* gltf_loader.h */,
 				0446043F279BD777009108C8 /* gltf_loader.cpp */,
-				04229570278C32FA0090983F /* texture_loader.h */,
-				04229583278C32FA0090983F /* texture_loader.mm */,
 			);
 			path = loader;
 			sourceTree = "<group>";
