@@ -4,7 +4,7 @@
 //  personal capacity and am not conveying any rights to any intellectual
 //  property of any third parties.
 
-#include "metal_application.h"
+#include "graphics_application.h"
 #include "engine.h"
 #include "shader/shader.h"
 

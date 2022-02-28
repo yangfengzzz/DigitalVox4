@@ -246,8 +246,8 @@
 		04D75E3F27CBA5A700BB1519 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459219278E5F1100F04CE0 /* window.cpp */; };
 		04D75E4027CBA5CF00BB1519 /* unix_engine.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459257278E708A00F04CE0 /* unix_engine.h */; };
 		04D75E4127CBA5CF00BB1519 /* unix_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459256278E708A00F04CE0 /* unix_engine.cpp */; };
-		04D75E4227CBA5EE00BB1519 /* metal_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445925A278E7C8600F04CE0 /* metal_application.cpp */; };
-		04D75E4327CBA5EE00BB1519 /* metal_application.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445925B278E7C8600F04CE0 /* metal_application.h */; };
+		04D75E4227CBA5EE00BB1519 /* graphics_application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0445925A278E7C8600F04CE0 /* graphics_application.cpp */; };
+		04D75E4327CBA5EE00BB1519 /* graphics_application.h in Headers */ = {isa = PBXBuildFile; fileRef = 0445925B278E7C8600F04CE0 /* graphics_application.h */; };
 		04D75E4627CBB3E400BB1519 /* render_context.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04D75E4427CBB3E400BB1519 /* render_context.mm */; };
 		04D75E4727CBB3E400BB1519 /* render_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75E4527CBB3E400BB1519 /* render_context.h */; };
 		04D75E4827CBC92C00BB1519 /* glfw_window.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459253278E6D4700F04CE0 /* glfw_window.h */; };
@@ -292,6 +292,10 @@
 		04D75E6F27CBD22600BB1519 /* shader_macro_collection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459295278EB2EB00F04CE0 /* shader_macro_collection.h */; };
 		04D75E7027CBD22600BB1519 /* shader_macro_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */; };
 		04D75E7227CC4B7F00BB1519 /* metal_helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75E7127CC4B7F00BB1519 /* metal_helpers.h */; };
+		04D75E7327CC537300BB1519 /* shader_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592AC278EBEB900F04CE0 /* shader_property.cpp */; };
+		04D75E7427CC537300BB1519 /* shader_property.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592AB278EBEB900F04CE0 /* shader_property.h */; };
+		04D75E7527CC539700BB1519 /* shader_uniform.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592AA278EBEB900F04CE0 /* shader_uniform.h */; };
+		04D75E7627CC53A000BB1519 /* shader_data_group.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459299278EB2F900F04CE0 /* shader_data_group.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -537,8 +541,8 @@
 		04459253278E6D4700F04CE0 /* glfw_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw_window.h; sourceTree = "<group>"; };
 		04459256278E708A00F04CE0 /* unix_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unix_engine.cpp; sourceTree = "<group>"; };
 		04459257278E708A00F04CE0 /* unix_engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unix_engine.h; sourceTree = "<group>"; };
-		0445925A278E7C8600F04CE0 /* metal_application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = metal_application.cpp; sourceTree = "<group>"; };
-		0445925B278E7C8600F04CE0 /* metal_application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metal_application.h; sourceTree = "<group>"; };
+		0445925A278E7C8600F04CE0 /* graphics_application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_application.cpp; sourceTree = "<group>"; };
+		0445925B278E7C8600F04CE0 /* graphics_application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics_application.h; sourceTree = "<group>"; };
 		0445926B278E80DC00F04CE0 /* update_flag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = update_flag.h; sourceTree = "<group>"; };
 		0445926C278E80DC00F04CE0 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
 		0445926D278E80DC00F04CE0 /* update_flag_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = update_flag_manager.cpp; sourceTree = "<group>"; };
@@ -1137,8 +1141,8 @@
 				04459256278E708A00F04CE0 /* unix_engine.cpp */,
 				04459218278E5F1100F04CE0 /* application.h */,
 				04459212278E5F1000F04CE0 /* application.cpp */,
-				0445925B278E7C8600F04CE0 /* metal_application.h */,
-				0445925A278E7C8600F04CE0 /* metal_application.cpp */,
+				0445925B278E7C8600F04CE0 /* graphics_application.h */,
+				0445925A278E7C8600F04CE0 /* graphics_application.cpp */,
 				044593DB2790F97000F04CE0 /* graphics */,
 				0445941B2792926500F04CE0 /* mesh */,
 				0445925E278E7F3300F04CE0 /* rendering */,
@@ -2004,8 +2008,10 @@
 			files = (
 				04D75E6827CBCE5100BB1519 /* depth_state.h in Headers */,
 				04D75E5A27CBCB2400BB1519 /* gui.h in Headers */,
+				04D75E7427CC537300BB1519 /* shader_property.h in Headers */,
 				04D75E7227CC4B7F00BB1519 /* metal_helpers.h in Headers */,
 				04D75E3E27CBA5A700BB1519 /* window.h in Headers */,
+				04D75E7627CC53A000BB1519 /* shader_data_group.h in Headers */,
 				04D75E5C27CBCB8900BB1519 /* input_events.h in Headers */,
 				04D75E5527CBCAB500BB1519 /* imstb_rectpack.h in Headers */,
 				04D75E6327CBCE5100BB1519 /* render_state.h in Headers */,
@@ -2019,7 +2025,8 @@
 				04D75E4727CBB3E400BB1519 /* render_context.h in Headers */,
 				04D75E4027CBA5CF00BB1519 /* unix_engine.h in Headers */,
 				04D75E5327CBCAB500BB1519 /* imconfig.h in Headers */,
-				04D75E4327CBA5EE00BB1519 /* metal_application.h in Headers */,
+				04D75E4327CBA5EE00BB1519 /* graphics_application.h in Headers */,
+				04D75E7527CC539700BB1519 /* shader_uniform.h in Headers */,
 				04D75E5827CBCAB500BB1519 /* imgui_internal.h in Headers */,
 				04D75E5927CBCAB500BB1519 /* imgui_impl_glfw.h in Headers */,
 				04D75E6227CBCE5100BB1519 /* blend_state.h in Headers */,
@@ -2416,7 +2423,7 @@
 				04D75E4627CBB3E400BB1519 /* render_context.mm in Sources */,
 				04D75E5727CBCAB500BB1519 /* imgui.cpp in Sources */,
 				04D75E5027CBCAB500BB1519 /* imgui_draw.cpp in Sources */,
-				04D75E4227CBA5EE00BB1519 /* metal_application.cpp in Sources */,
+				04D75E4227CBA5EE00BB1519 /* graphics_application.cpp in Sources */,
 				04D75E7027CBD22600BB1519 /* shader_macro_collection.cpp in Sources */,
 				04D75E6427CBCE5100BB1519 /* depth_state.cpp in Sources */,
 				04D75E4C27CBCAB500BB1519 /* imgui_tables.cpp in Sources */,
@@ -2425,6 +2432,7 @@
 				04D75E3D27CBA59400BB1519 /* application.cpp in Sources */,
 				04D75E6727CBCE5100BB1519 /* render_state.cpp in Sources */,
 				04D75E3727CB8EE700BB1519 /* timer.cpp in Sources */,
+				04D75E7327CC537300BB1519 /* shader_property.cpp in Sources */,
 				04D75E5227CBCAB500BB1519 /* imgui_impl_glfw.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

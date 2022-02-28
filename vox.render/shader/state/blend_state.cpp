@@ -7,9 +7,9 @@
 #include "blend_state.h"
 
 namespace vox {
-void BlendState::platformApply(MTL::RenderPipelineDescriptor *pipelineDescriptor,
-                               MTL::DepthStencilDescriptor *depthStencilDescriptor,
-                               MTL::RenderCommandEncoder *encoder) {
+void BlendState::platformApply(const std::shared_ptr<MTL::RenderPipelineDescriptor>& pipelineDescriptor,
+                               const std::shared_ptr<MTL::DepthStencilDescriptor>& depthStencilDescriptor,
+                               const std::shared_ptr<MTL::RenderCommandEncoder>& encoder) {
     const auto enabled = targetBlendState.enabled;
     const auto colorBlendOperation = targetBlendState.colorBlendOperation;
     const auto alphaBlendOperation = targetBlendState.alphaBlendOperation;

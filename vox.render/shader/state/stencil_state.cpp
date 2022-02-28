@@ -7,9 +7,9 @@
 #include "stencil_state.h"
 
 namespace vox {
-void StencilState::platformApply(MTL::RenderPipelineDescriptor *pipelineDescriptor,
-                                 MTL::DepthStencilDescriptor *depthStencilDescriptor,
-                                 MTL::RenderCommandEncoder *encoder) {
+void StencilState::platformApply(const std::shared_ptr<MTL::RenderPipelineDescriptor>& pipelineDescriptor,
+                                 const std::shared_ptr<MTL::DepthStencilDescriptor>& depthStencilDescriptor,
+                                 const std::shared_ptr<MTL::RenderCommandEncoder>& encoder) {
     if (enabled) {
         // apply stencil func.
         depthStencilDescriptor->frontFaceStencil()->setStencilCompareFunction(compareFunctionFront);

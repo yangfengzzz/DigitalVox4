@@ -13,15 +13,15 @@
 namespace vox {
 class GUI {
 public:
-    GUI(MTL::Device* device);
+    GUI(const std::shared_ptr<MTL::Device>& device);
     
     ~GUI();
     
-    void newFrame(MTL::RenderPassDescriptor* renderPassDescriptor);
+    void newFrame(const std::shared_ptr<MTL::RenderPassDescriptor>& renderPassDescriptor);
     
     void draw(ImDrawData* drawData,
-              MTL::CommandBuffer* commandBuffer,
-              MTL::RenderCommandEncoder* commandEncoder);
+              const std::shared_ptr<MTL::CommandBuffer>& commandBuffer,
+              const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder);
 };
 
 }

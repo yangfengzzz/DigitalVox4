@@ -8,22 +8,22 @@
 #include "gui/imgui_impl_metal.h"
 
 namespace vox {
-GUI::GUI(MTL::Device* device) {
-    ImGui_ImplMetal_Init(device);
+GUI::GUI(const std::shared_ptr<MTL::Device>& device) {
+    ImGui_ImplMetal_Init(device.get());
 }
 
 GUI::~GUI() {
     ImGui_ImplMetal_Shutdown();
 }
 
-void GUI::newFrame(MTL::RenderPassDescriptor* renderPassDescriptor) {
-    ImGui_ImplMetal_NewFrame(renderPassDescriptor);
+void GUI::newFrame(const std::shared_ptr<MTL::RenderPassDescriptor>& renderPassDescriptor) {
+    ImGui_ImplMetal_NewFrame(renderPassDescriptor.get());
 }
 
 void GUI::draw(ImDrawData* drawData,
-               MTL::CommandBuffer* commandBuffer,
-               MTL::RenderCommandEncoder* commandEncoder) {
-    ImGui_ImplMetal_RenderDrawData(drawData, commandBuffer, commandEncoder);
+               const std::shared_ptr<MTL::CommandBuffer>& commandBuffer,
+               const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) {
+    ImGui_ImplMetal_RenderDrawData(drawData, commandBuffer.get(), commandEncoder.get());
 }
 
 }
