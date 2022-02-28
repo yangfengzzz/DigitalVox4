@@ -86,11 +86,11 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         
         auto _forwardDepthStencilState = _pass->resourceCache().requestDepthStencilState(*depthStencilDesc);
         auto _forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(*_forwardPipelineDescriptor);
-        //        uploadUniforms(renderEncoder, _forwardPipelineState->materialUniformBlock, material->shaderData);
-        //        uploadUniforms(renderEncoder, _forwardPipelineState->rendererUniformBlock, renderer->shaderData);
-        //        uploadUniforms(renderEncoder, _forwardPipelineState->sceneUniformBlock, _scene->shaderData);
-        //        uploadUniforms(renderEncoder, _forwardPipelineState->cameraUniformBlock, _camera->shaderData);
-        renderEncoder.setRenderPipelineState(_forwardPipelineState.get());
+        uploadUniforms(renderEncoder, _forwardPipelineState->materialUniformBlock, material->shaderData);
+        uploadUniforms(renderEncoder, _forwardPipelineState->rendererUniformBlock, renderer->shaderData);
+        uploadUniforms(renderEncoder, _forwardPipelineState->sceneUniformBlock, _scene->shaderData);
+        uploadUniforms(renderEncoder, _forwardPipelineState->cameraUniformBlock, _camera->shaderData);
+        renderEncoder.setRenderPipelineState(&_forwardPipelineState->handle());
         renderEncoder.setDepthStencilState(_forwardDepthStencilState.get());
         
         uint32_t index = 0;

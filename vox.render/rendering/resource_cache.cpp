@@ -15,22 +15,6 @@ ResourceCache::ResourceCache(MTL::Device* device) :
 _device{device} {
 }
 
-std::shared_ptr<MTL::RenderPipelineState>
-ResourceCache::requestRenderPipelineState(const MTL::RenderPipelineDescriptor &descriptor) {
-    size_t hash = descriptor.hash();
-    
-    NS::Error* error;
-    auto iter = _state.renderPipelineStates.find(hash);
-    if (iter == _state.renderPipelineStates.end()) {
-        auto pipelineState = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineState,
-                                                        _device->newRenderPipelineState(&descriptor, &error));
-        _state.renderPipelineStates[hash] = std::move(pipelineState);
-        return _state.renderPipelineStates[hash];
-    } else {
-        return iter->second;
-    }
-}
-
 std::shared_ptr<MTL::DepthStencilState>
 ResourceCache::requestDepthStencilState(const MTL::DepthStencilDescriptor &descriptor) {
     size_t hash = descriptor.hash();
@@ -43,6 +27,20 @@ ResourceCache::requestDepthStencilState(const MTL::DepthStencilDescriptor &descr
         return _state.depthStencilStates[hash];
     } else {
         return iter->second;
+    }
+}
+
+RenderPipelineState*
+ResourceCache::requestRenderPipelineState(const MTL::RenderPipelineDescriptor &descriptor) {
+    size_t hash = descriptor.hash();
+    
+    auto iter = _state.renderPipelineStates.find(hash);
+    if (iter == _state.renderPipelineStates.end()) {
+        auto pipelineState = std::make_unique<RenderPipelineState>(_device, descriptor);
+        _state.renderPipelineStates[hash] = std::move(pipelineState);
+        return _state.renderPipelineStates[hash].get();
+    } else {
+        return iter->second.get();
     }
 }
 

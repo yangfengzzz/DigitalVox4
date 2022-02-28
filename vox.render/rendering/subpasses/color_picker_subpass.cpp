@@ -89,11 +89,11 @@ void ColorPickerSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         _forwardPipelineDescriptor->setVertexDescriptor(mesh->vertexDescriptor().get());
         
         auto forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(*_forwardPipelineDescriptor);
-//        uploadUniforms(renderEncoder, forwardPipelineState->materialUniformBlock, material->shaderData);
-//        uploadUniforms(renderEncoder, forwardPipelineState->rendererUniformBlock, renderer->shaderData);
-//        uploadUniforms(renderEncoder, forwardPipelineState->sceneUniformBlock, _scene->shaderData);
-//        uploadUniforms(renderEncoder, forwardPipelineState->cameraUniformBlock, _camera->shaderData);
-        renderEncoder.setRenderPipelineState(forwardPipelineState.get());
+        uploadUniforms(renderEncoder, forwardPipelineState->materialUniformBlock, material->shaderData);
+        uploadUniforms(renderEncoder, forwardPipelineState->rendererUniformBlock, renderer->shaderData);
+        uploadUniforms(renderEncoder, forwardPipelineState->sceneUniformBlock, _scene->shaderData);
+        uploadUniforms(renderEncoder, forwardPipelineState->cameraUniformBlock, _camera->shaderData);
+        renderEncoder.setRenderPipelineState(&forwardPipelineState->handle());
         
         _currentId += 1;
         _primitivesMap[_currentId] = std::make_pair(renderer, mesh);

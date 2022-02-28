@@ -9,6 +9,7 @@
 
 #include "shader/shader_program.h"
 #include "shader/shader_macro_collection.h"
+#include "render_pipeline_state.h"
 #include <unordered_map>
 
 namespace vox {
@@ -19,9 +20,9 @@ class ShaderProgram;
  *
  */
 struct ResourceCacheState {
-    std::unordered_map<std::size_t, std::shared_ptr<MTL::RenderPipelineState>> renderPipelineStates;
-    
     std::unordered_map<std::size_t, std::shared_ptr<MTL::DepthStencilState>> depthStencilStates;
+
+    std::unordered_map<std::size_t, std::unique_ptr<RenderPipelineState>> renderPipelineStates;
     
     std::unordered_map<std::size_t, std::unique_ptr<ShaderProgram>> shaders;
 };
@@ -51,11 +52,11 @@ public:
     ResourceCache &operator=(ResourceCache &&) = delete;
     
 public:
-    std::shared_ptr<MTL::RenderPipelineState>
-    requestRenderPipelineState(const MTL::RenderPipelineDescriptor &descriptor);
-
     std::shared_ptr<MTL::DepthStencilState>
     requestDepthStencilState(const MTL::DepthStencilDescriptor &descriptor);
+    
+    RenderPipelineState*
+    requestRenderPipelineState(const MTL::RenderPipelineDescriptor &descriptor);
 
     ShaderProgram *requestShader(MTL::Library& library,
                                  const std::string &vertexSource,
