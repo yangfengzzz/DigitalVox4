@@ -11,22 +11,22 @@
 namespace vox {
 class ForwardSubpass: public Subpass {
 public:
-    ForwardSubpass(View* view,
+    ForwardSubpass(RenderContext* context,
                    Scene* scene,
                    Camera* camera);
     
     void prepare() override;
     
-    void draw(MTL::RenderCommandEncoder& commandEncoder) override;
+    void draw(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) override;
     
 private:    
-    void _drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
+    void _drawMeshes(const std::shared_ptr<MTL::RenderCommandEncoder> &renderEncoder);
     
-    void _drawElement(MTL::RenderCommandEncoder &renderEncoder,
+    void _drawElement(const std::shared_ptr<MTL::RenderCommandEncoder> &renderEncoder,
                       const std::vector<RenderElement> &items,
                       const ShaderMacroCollection& compileMacros);
     
-    MTL::RenderPipelineDescriptor _forwardPipelineDescriptor;
+    std::shared_ptr<MTL::RenderPipelineDescriptor> _forwardPipelineDescriptor;
 };
 
 }

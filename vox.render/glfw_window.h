@@ -22,7 +22,7 @@ public:
     
     virtual ~GlfwWindow();
     
-    std::unique_ptr<RenderContext> createRenderContext(const std::shared_ptr<MTL::Device>&  device) override;
+    std::unique_ptr<RenderContext> createRenderContext(MTL::Device&  device) override;
 
     bool shouldClose() override;
     

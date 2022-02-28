@@ -11,22 +11,6 @@
 #include "shader/shader_macro_collection.h"
 #include <unordered_map>
 
-namespace MTL {
-class Device;
-
-class Library;
-
-class RenderPipelineState;
-
-class RenderPipelineDescriptor;
-
-class DepthStencilState;
-
-class DepthStencilDescriptor;
-
-class Function;
-}
-
 namespace vox {
 class ShaderProgram;
 

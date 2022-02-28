@@ -8,21 +8,22 @@
 #include "rendering/render_pass.h"
 #include "mesh/primitive_mesh.h"
 #include "camera.h"
+#include "metal_helpers.h"
 
 namespace vox {
-SkyboxSubpass::SkyboxSubpass(View* view,
+SkyboxSubpass::SkyboxSubpass(RenderContext* context,
                              Scene* scene,
                              Camera* camera):
-Subpass(view, scene, camera) {
+Subpass(context, scene, camera) {
 }
 
 void SkyboxSubpass::createSphere(float radius) {
-    _mesh = PrimitiveMesh::createSphere(&_view->device(), radius);
+    _mesh = PrimitiveMesh::createSphere(_context->device(), radius);
     _type = SkyBoxType::Sphere;
 }
 
 void SkyboxSubpass::createCuboid() {
-    _mesh = PrimitiveMesh::createCuboid(&_view->device(), 1, 1, 1);
+    _mesh = PrimitiveMesh::createCuboid(_context->device(), 1, 1, 1);
     _type = SkyBoxType::Cuboid;
 }
 
@@ -38,40 +39,50 @@ void SkyboxSubpass::setTextureCubeMap(std::shared_ptr<MTL::Texture> v) {
 void SkyboxSubpass::prepare() {
 #pragma mark Sky render pipeline setup
     {
-        _skyboxPipelineDescriptor.label("Sky");
-        _skyboxPipelineDescriptor.vertexDescriptor(&(_mesh->vertexDescriptor()));
-        _skyboxPipelineDescriptor.colorAttachments[0].pixelFormat(_view->colorPixelFormat());
-        _skyboxPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
-        _skyboxPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
+        _skyboxPipelineDescriptor->setLabel(NS::String::string("Sky", NS::StringEncoding::UTF8StringEncoding));
+        _skyboxPipelineDescriptor->setVertexDescriptor(_mesh->vertexDescriptor().get());
+        _skyboxPipelineDescriptor->colorAttachments()->object(0)->setPixelFormat(_context->drawableTextureFormat());
+        _skyboxPipelineDescriptor->setDepthAttachmentPixelFormat(_context->depthStencilTextureFormat());
+        _skyboxPipelineDescriptor->setStencilAttachmentPixelFormat(_context->depthStencilTextureFormat());
         
         if (_type == SkyBoxType::Sphere) {
-            MTL::Function skyboxVertexFunction = _pass->library().makeFunction("vertex_sphere_skybox");
-            _skyboxPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
+            MTL::Function* skyboxVertexFunction =
+            _pass->library()->newFunction(NS::String::string("vertex_sphere_skybox",
+                                                             NS::StringEncoding::UTF8StringEncoding));
+            _skyboxPipelineDescriptor->setVertexFunction(skyboxVertexFunction);
         } else {
-            MTL::Function skyboxVertexFunction = _pass->library().makeFunction("vertex_cube_skybox");
-            _skyboxPipelineDescriptor.vertexFunction(&skyboxVertexFunction);
+            MTL::Function* skyboxVertexFunction =
+            _pass->library()->newFunction(NS::String::string("vertex_cube_skybox",
+                                                             NS::StringEncoding::UTF8StringEncoding));
+            _skyboxPipelineDescriptor->setVertexFunction(skyboxVertexFunction);
         }
-        MTL::Function skyboxFragmentFunction = _pass->library().makeFunction("fragment_skybox");
-        _skyboxPipelineDescriptor.fragmentFunction(&skyboxFragmentFunction);
+        MTL::Function* skyboxFragmentFunction =
+        _pass->library()->newFunction(NS::String::string("fragment_skybox",
+                                                         NS::StringEncoding::UTF8StringEncoding));
+        _skyboxPipelineDescriptor->setFragmentFunction(skyboxFragmentFunction);
     }
     
 #pragma mark Post lighting depth state setup
     {
-        MTL::DepthStencilDescriptor depthStencilDesc;
-        depthStencilDesc.label("Less -Writes");
-        depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLessEqual);
-        depthStencilDesc.depthWriteEnabled(false);
+        std::shared_ptr<MTL::DepthStencilDescriptor> depthStencilDesc
+        = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilDescriptor,
+                                     MTL::DepthStencilDescriptor::alloc()->init());
+        depthStencilDesc->setLabel(NS::String::string("Less -Writes", NS::StringEncoding::UTF8StringEncoding));
+        depthStencilDesc->setDepthCompareFunction(MTL::CompareFunctionLessEqual);
+        depthStencilDesc->setDepthWriteEnabled(false);
         
-        _dontWriteDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
+        _dontWriteDepthStencilState
+        = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilState,
+                                     _context->device()->newDepthStencilState(depthStencilDesc.get()));
     }
 }
 
-void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
-    commandEncoder.pushDebugGroup("Draw Sky");
+void SkyboxSubpass::draw(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) {
+    commandEncoder->pushDebugGroup(NS::String::string("Draw Sky", NS::StringEncoding::UTF8StringEncoding));
     auto _skyboxPipelineState = _pass->resourceCache().requestRenderPipelineState(_skyboxPipelineDescriptor);
-    commandEncoder.setRenderPipelineState(*_skyboxPipelineState);
-    commandEncoder.setDepthStencilState(_dontWriteDepthStencilState);
-    commandEncoder.setCullMode(MTL::CullModeBack);
+    commandEncoder->setRenderPipelineState(_skyboxPipelineState.get());
+    commandEncoder->setDepthStencilState(_dontWriteDepthStencilState.get());
+    commandEncoder->setCullMode(MTL::CullModeBack);
     
     const auto projectionMatrix = _camera->projectionMatrix();
     auto viewMatrix = _camera->viewMatrix();
@@ -82,24 +93,22 @@ void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
         viewMatrix[15] = 1;
     }
     auto _matrix = projectionMatrix * viewMatrix;
-    commandEncoder.setVertexBytes(_matrix.data(), sizeof(Matrix4x4F), 10);
-    commandEncoder.setFragmentTexture(*_cubeMap, 0);
+    commandEncoder->setVertexBytes(_matrix.data(), sizeof(Matrix4x4F), 10);
+    commandEncoder->setFragmentTexture(_cubeMap.get(), 0);
     
-    for (auto &meshBuffer: _mesh->vertexBuffers()) {
-        commandEncoder.setVertexBuffer(meshBuffer.buffer(),
-                                       meshBuffer.offset(),
-                                       meshBuffer.argumentIndex());
+    uint32_t index = 0;
+    for (auto &meshBuffer: _mesh->vertexBufferBindings()) {
+        commandEncoder->setVertexBuffer(meshBuffer.get(),
+                                        0, index++);
     }
+    auto submesh = _mesh->subMesh();
+    commandEncoder->drawIndexedPrimitives(submesh->primitiveType(),
+                                          submesh->indexCount(),
+                                          submesh->indexType(),
+                                          submesh->indexBuffer().get(),
+                                          0);
     
-    
-    for (auto &submesh: _mesh->submeshes()) {
-        commandEncoder.drawIndexedPrimitives(submesh.primitiveType(),
-                                             submesh.indexCount(),
-                                             submesh.indexType(),
-                                             submesh.indexBuffer().buffer(),
-                                             submesh.indexBuffer().offset());
-    }
-    commandEncoder.popDebugGroup();
+    commandEncoder->popDebugGroup();
 }
 
 }

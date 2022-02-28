@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  color_picker_subpass.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/20.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef color_picker_subpass_hpp
 #define color_picker_subpass_hpp
@@ -13,13 +12,13 @@
 namespace vox {
 class ColorPickerSubpass: public Subpass {
 public:
-    ColorPickerSubpass(View* view,
+    ColorPickerSubpass(RenderContext* context,
                        Scene* scene,
                        Camera* camera);
     
     void prepare() override;
     
-    void draw(MTL::RenderCommandEncoder& commandEncoder) override;
+    void draw(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) override;
     
 public:
     /**
@@ -39,14 +38,14 @@ public:
     std::pair<Renderer *, MeshPtr> getObjectByColor(const std::array<uint8_t, 4> &color);
     
 private:    
-    void _drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
+    void _drawMeshes(const std::shared_ptr<MTL::RenderCommandEncoder> &renderEncoder);
     
-    void _drawElement(MTL::RenderCommandEncoder &renderEncoder,
+    void _drawElement(const std::shared_ptr<MTL::RenderCommandEncoder> &renderEncoder,
                       const std::vector<RenderElement> &items,
                       const ShaderMacroCollection& compileMacros);
     
-    MTL::RenderPipelineDescriptor _forwardPipelineDescriptor;
-    MTL::DepthStencilState _forwardDepthStencilState;
+    std::shared_ptr<MTL::RenderPipelineDescriptor> _forwardPipelineDescriptor;
+    std::shared_ptr<MTL::DepthStencilState> _forwardDepthStencilState;
     
     uint32_t _currentId = 0;
     std::unordered_map<size_t, std::pair<Renderer *, MeshPtr>> _primitivesMap;

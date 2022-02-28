@@ -13,13 +13,13 @@
 namespace vox {
 class SkyboxSubpass: public Subpass {
 public:
-    SkyboxSubpass(View* view,
+    SkyboxSubpass(RenderContext* context,
                   Scene* scene,
                   Camera* camera);
     
     void prepare() override;
 
-    void draw(MTL::RenderCommandEncoder& commandEncoder) override;
+    void draw(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) override;
     
 public:
     void createSphere(float radius);
@@ -34,8 +34,8 @@ public:
     void setTextureCubeMap(std::shared_ptr<MTL::Texture> v);
     
 private:
-    MTL::RenderPipelineDescriptor _skyboxPipelineDescriptor;
-    MTL::DepthStencilState _dontWriteDepthStencilState;
+    std::shared_ptr<MTL::RenderPipelineDescriptor> _skyboxPipelineDescriptor;
+    std::shared_ptr<MTL::DepthStencilState> _dontWriteDepthStencilState;
     
     enum class SkyBoxType {
         Cuboid, Sphere

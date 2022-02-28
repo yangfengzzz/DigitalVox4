@@ -10,28 +10,29 @@
 #include "graphics/mesh.h"
 #include "renderer.h"
 #include "camera.h"
+#include "metal_helpers.h"
 
 namespace vox {
-ForwardSubpass::ForwardSubpass(View* view,
+ForwardSubpass::ForwardSubpass(RenderContext* context,
                                Scene* scene,
                                Camera* camera):
-Subpass(view, scene, camera) {
+Subpass(context, scene, camera) {
 }
 
 void ForwardSubpass::prepare() {
-    _forwardPipelineDescriptor.label("Forward Pipeline");
-    _forwardPipelineDescriptor.colorAttachments[0].pixelFormat(_view->colorPixelFormat());
-    _forwardPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
-    _forwardPipelineDescriptor.stencilAttachmentPixelFormat(_view->depthStencilPixelFormat());
+    _forwardPipelineDescriptor->setLabel(NS::String::string("Forward Pipeline", NS::StringEncoding::UTF8StringEncoding));
+    _forwardPipelineDescriptor->colorAttachments()->object(0)->setPixelFormat(_context->drawableTextureFormat());
+    _forwardPipelineDescriptor->setDepthAttachmentPixelFormat(_context->depthStencilTextureFormat());
+    _forwardPipelineDescriptor->setStencilAttachmentPixelFormat(_context->depthStencilTextureFormat());
 }
 
-void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
-    commandEncoder.pushDebugGroup("Draw Element");    
+void ForwardSubpass::draw(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) {
+    commandEncoder->pushDebugGroup(NS::String::string("Draw Element", NS::StringEncoding::UTF8StringEncoding));
     _drawMeshes(commandEncoder);
-    commandEncoder.popDebugGroup();
+    commandEncoder->popDebugGroup();
 }
 
-void ForwardSubpass::_drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
+void ForwardSubpass::_drawMeshes(const std::shared_ptr<MTL::RenderCommandEncoder> &renderEncoder) {
     auto compileMacros = ShaderMacroCollection();
     _scene->shaderData.mergeMacro(compileMacros, compileMacros);
     _camera->shaderData.mergeMacro(compileMacros, compileMacros);
@@ -49,7 +50,7 @@ void ForwardSubpass::_drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     _drawElement(renderEncoder, transparentQueue, compileMacros);
 }
 
-void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
+void ForwardSubpass::_drawElement(const std::shared_ptr<MTL::RenderCommandEncoder> &renderEncoder,
                                   const std::vector<RenderElement> &items,
                                   const ShaderMacroCollection& compileMacros) {
     for (auto &element : items) {
@@ -72,36 +73,37 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         if (!program->isValid()) {
             continue;
         }
-        _forwardPipelineDescriptor.vertexFunction(program->vertexShader());
-        _forwardPipelineDescriptor.fragmentFunction(program->fragmentShader());
+        _forwardPipelineDescriptor->setVertexFunction(program->vertexShader().get());
+        _forwardPipelineDescriptor->setFragmentFunction(program->fragmentShader().get());
         
         // manully
         auto& mesh = element.mesh;
-        _forwardPipelineDescriptor.vertexDescriptor(&mesh->vertexDescriptor());
+        _forwardPipelineDescriptor->setVertexDescriptor(mesh->vertexDescriptor().get());
         
-        MTL::DepthStencilDescriptor depthStencilDesc;
+        std::shared_ptr<MTL::DepthStencilDescriptor> depthStencilDesc
+        = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilDescriptor, MTL::DepthStencilDescriptor::alloc()->init());
         material->renderState.apply(_forwardPipelineDescriptor, depthStencilDesc, renderEncoder);
         
         auto _forwardDepthStencilState = _pass->resourceCache().requestDepthStencilState(depthStencilDesc);
         auto _forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(_forwardPipelineDescriptor);
-        uploadUniforms(renderEncoder, _forwardPipelineState->materialUniformBlock, material->shaderData);
-        uploadUniforms(renderEncoder, _forwardPipelineState->rendererUniformBlock, renderer->shaderData);
-        uploadUniforms(renderEncoder, _forwardPipelineState->sceneUniformBlock, _scene->shaderData);
-        uploadUniforms(renderEncoder, _forwardPipelineState->cameraUniformBlock, _camera->shaderData);
-        renderEncoder.setRenderPipelineState(*_forwardPipelineState);
-        renderEncoder.setDepthStencilState(*_forwardDepthStencilState);
-
-        for (auto &meshBuffer: mesh->vertexBuffers()) {
-            renderEncoder.setVertexBuffer(meshBuffer.buffer(),
-                                          meshBuffer.offset(),
-                                          meshBuffer.argumentIndex());
+        //        uploadUniforms(renderEncoder, _forwardPipelineState->materialUniformBlock, material->shaderData);
+        //        uploadUniforms(renderEncoder, _forwardPipelineState->rendererUniformBlock, renderer->shaderData);
+        //        uploadUniforms(renderEncoder, _forwardPipelineState->sceneUniformBlock, _scene->shaderData);
+        //        uploadUniforms(renderEncoder, _forwardPipelineState->cameraUniformBlock, _camera->shaderData);
+        renderEncoder->setRenderPipelineState(_forwardPipelineState.get());
+        renderEncoder->setDepthStencilState(_forwardDepthStencilState.get());
+        
+        uint32_t index = 0;
+        for (auto &meshBuffer: mesh->vertexBufferBindings()) {
+            renderEncoder->setVertexBuffer(meshBuffer.get(),
+                                           0, index++);
         }
         auto& submesh = element.subMesh;
-        renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
-                                            submesh->indexCount(),
-                                            submesh->indexType(),
-                                            submesh->indexBuffer().buffer(),
-                                            submesh->indexBuffer().offset());
+        renderEncoder->drawIndexedPrimitives(submesh->primitiveType(),
+                                             submesh->indexCount(),
+                                             submesh->indexType(),
+                                             submesh->indexBuffer().get(),
+                                             0);
     }
 }
 

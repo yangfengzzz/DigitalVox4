@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  color_picker_subpass.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/20.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "color_picker_subpass.h"
 #include "rendering/render_pass.h"
@@ -11,27 +10,32 @@
 #include "graphics/mesh.h"
 #include "renderer.h"
 #include "camera.h"
+#include "metal_helpers.h"
 
 namespace vox {
-ColorPickerSubpass::ColorPickerSubpass(View* view,
+ColorPickerSubpass::ColorPickerSubpass(RenderContext* context,
                                        Scene* scene,
                                        Camera* camera):
-Subpass(view, scene, camera) {
+Subpass(context, scene, camera) {
 }
 
 void ColorPickerSubpass::prepare() {
-    _forwardPipelineDescriptor.label("ColorPicker Pipeline");
-    _forwardPipelineDescriptor.colorAttachments[0].pixelFormat(_pass->renderPassDescriptor()->colorAttachments[0].texture().pixelFormat());
-    _forwardPipelineDescriptor.depthAttachmentPixelFormat(_view->depthStencilPixelFormat());
+    _forwardPipelineDescriptor->setLabel(NS::String::string("ColorPicker Pipeline", NS::StringEncoding::UTF8StringEncoding));
+    _forwardPipelineDescriptor->colorAttachments()->object(0)->setPixelFormat(_context->drawableTextureFormat());
+    _forwardPipelineDescriptor->setDepthAttachmentPixelFormat(_context->depthStencilTextureFormat());
     
-    MTL::DepthStencilDescriptor depthStencilDesc;
-    depthStencilDesc.label("ColorPicker Creation");
-    depthStencilDesc.depthCompareFunction(MTL::CompareFunctionLess);
-    depthStencilDesc.depthWriteEnabled(true);
-    _forwardDepthStencilState = _view->device().makeDepthStencilState(depthStencilDesc);
+    std::shared_ptr<MTL::DepthStencilDescriptor> depthStencilDesc
+    = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilDescriptor,
+                                 MTL::DepthStencilDescriptor::alloc()->init());
+    depthStencilDesc->setLabel(NS::String::string("ColorPicker Creation", NS::StringEncoding::UTF8StringEncoding));
+    depthStencilDesc->setDepthCompareFunction(MTL::CompareFunctionLess);
+    depthStencilDesc->setDepthWriteEnabled(true);
+    _forwardDepthStencilState
+    = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilState,
+                                 _context->device()->newDepthStencilState(depthStencilDesc.get()));
 }
 
-void ColorPickerSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
+void ColorPickerSubpass::draw(std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) {
     _currentId = 0;
     _primitivesMap.clear();
     

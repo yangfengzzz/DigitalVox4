@@ -49,7 +49,7 @@ bool MetalApplication::prepare(Engine &engine) {
     
     _commandQueue = CLONE_METAL_CUSTOM_DELETER(MTL::CommandQueue, _device->newCommandQueue());
     
-    _renderContext = engine.createRenderContext(_device);
+    _renderContext = engine.createRenderContext(*_device);
     return true;
 }
 

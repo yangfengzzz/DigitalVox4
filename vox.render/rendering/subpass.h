@@ -40,7 +40,7 @@ public:
      * @brief Draw virtual function
      * @param commandEncoder CommandEncoder to use to record draw commands
      */
-    virtual void draw(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder) = 0;
+    virtual void draw(MTL::RenderCommandEncoder& commandEncoder) = 0;
     
     virtual void setRenderPass(RenderPass* pass);
     
@@ -50,7 +50,7 @@ public:
      * @param uniformBlock - shader Uniform block
      * @param shaderData - shader data
      */
-    void uploadUniforms(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder,
+    void uploadUniforms(MTL::RenderCommandEncoder& commandEncoder,
                         const std::vector<ShaderUniform> &uniformBlock,
                         const ShaderData &shaderData);
     
@@ -65,7 +65,7 @@ protected:
     static bool _compareFromFarToNear(const RenderElement &a, const RenderElement &b);
     
 private:
-    void process(const ShaderUniform &uniform, const std::any &a, const std::shared_ptr<MTL::RenderCommandEncoder>& encoder);
+    void process(const ShaderUniform &uniform, const std::any &a, MTL::RenderCommandEncoder& encoder);
 };
 
 }

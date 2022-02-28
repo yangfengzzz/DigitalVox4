@@ -9,18 +9,18 @@
 #include <glog/logging.h>
 
 namespace vox {
-RenderPass::RenderPass(const std::shared_ptr<MTL::Library>& library,
-                       const std::shared_ptr<MTL::RenderPassDescriptor>& desc):
+RenderPass::RenderPass(MTL::Library& library,
+                       MTL::RenderPassDescriptor& desc):
 _library(library),
 _desc(desc),
-_resourceCache(library->device()) {
+_resourceCache(library.device()) {
 }
 
-const std::shared_ptr<MTL::RenderPassDescriptor>& RenderPass::renderPassDescriptor() const {
+const MTL::RenderPassDescriptor& RenderPass::renderPassDescriptor() const {
     return _desc;
 }
 
-const std::shared_ptr<MTL::Library>& RenderPass::library() const {
+MTL::Library& RenderPass::library() {
     return _library;
 }
 
@@ -29,18 +29,18 @@ void RenderPass::setGUI(GUI* gui) {
 }
 
 //MARK: - Subpass
-void RenderPass::draw(const std::shared_ptr<MTL::CommandBuffer>& commandBuffer,
+void RenderPass::draw(MTL::CommandBuffer& commandBuffer,
                       std::optional<std::string> label) {
     assert(!_subpasses.empty() && "Render pipeline should contain at least one sub-pass");
     
     std::shared_ptr<MTL::RenderCommandEncoder> encoder = CLONE_METAL_CUSTOM_DELETER(MTL::RenderCommandEncoder,
-                                                                                    commandBuffer->renderCommandEncoder(_desc.get()));
+                                                                                    commandBuffer.renderCommandEncoder(&_desc));
     if (label) {
         encoder->setLabel(NS::String::string(label.value().c_str(), NS::StringEncoding::UTF8StringEncoding));
     }
     for (size_t i = 0; i < _subpasses.size(); ++i) {
         _activeSubpassIndex = i;
-        _subpasses[i]->draw(encoder);
+        _subpasses[i]->draw(*encoder);
     }
     _activeSubpassIndex = 0;
     
@@ -49,7 +49,7 @@ void RenderPass::draw(const std::shared_ptr<MTL::CommandBuffer>& commandBuffer,
         if (drawData) {
             encoder->pushDebugGroup(NS::String::string("GUI Rendering", NS::StringEncoding::UTF8StringEncoding));
             _gui->newFrame(_desc);
-            _gui->draw(drawData, commandBuffer, encoder);
+            _gui->draw(drawData, commandBuffer, *encoder);
             encoder->popDebugGroup();
         }
     }

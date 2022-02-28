@@ -17,12 +17,12 @@ class RenderContextImpl;
 
 class RenderContext {
 public:
-    RenderContext(const std::shared_ptr<MTL::Device>& device, GLFWwindow* window,
+    RenderContext(MTL::Device& device, GLFWwindow* window,
                   uint32_t width, uint32_t height);
     
     ~RenderContext();
     
-    const std::shared_ptr<MTL::Device>& device();
+    MTL::Device& device();
     
     void resize(uint32_t width, uint32_t height);
     
@@ -39,7 +39,7 @@ public:
     CA::MetalDrawable* currentDrawable();
 
 private:
-    const std::shared_ptr<MTL::Device>& _device;
+    MTL::Device& _device;
     
     CA::MetalDrawable* _currentDrawable{nullptr};
     MTL::Texture* _currentTexture{nullptr};

@@ -33,7 +33,7 @@ void Subpass::setRenderPass(RenderPass* pass) {
     prepare();
 }
 
-void Subpass::uploadUniforms(const std::shared_ptr<MTL::RenderCommandEncoder>& commandEncoder,
+void Subpass::uploadUniforms(MTL::RenderCommandEncoder& commandEncoder,
                              const std::vector<ShaderUniform> &uniformBlock,
                              const ShaderData &shaderData) {
     const auto &properties = shaderData.properties();
@@ -48,12 +48,12 @@ void Subpass::uploadUniforms(const std::shared_ptr<MTL::RenderCommandEncoder>& c
 }
 
 void Subpass::process(const ShaderUniform &uniform, const std::any &a,
-                      const std::shared_ptr<MTL::RenderCommandEncoder>& encoder) {
+                      MTL::RenderCommandEncoder& encoder) {
     const auto &any_uploader = uniform.type == MTL::FunctionTypeVertex ?
     _scene->vertexUploader() : _scene->fragmentUploader();
     
     if (const auto it = any_uploader.find(std::type_index(a.type())); it != any_uploader.cend()) {
-        it->second(a, uniform.location, *encoder);
+        it->second(a, uniform.location, encoder);
     } else {
         LOG(INFO) << "Unregistered type " << std::quoted(a.type().name());
     }

@@ -15,8 +15,8 @@
 namespace vox {
 class RenderPass {
 public:
-    RenderPass(const std::shared_ptr<MTL::Library>& library,
-               const std::shared_ptr<MTL::RenderPassDescriptor>& desc);
+    RenderPass(MTL::Library& library,
+               MTL::RenderPassDescriptor& desc);
     
     RenderPass(const RenderPass &) = delete;
     
@@ -28,12 +28,12 @@ public:
     
     RenderPass &operator=(RenderPass &&) = delete;
     
-    void draw(const std::shared_ptr<MTL::CommandBuffer>& commandBuffer,
+    void draw(MTL::CommandBuffer& commandBuffer,
               std::optional<std::string> label = std::nullopt);
     
-    const std::shared_ptr<MTL::Library>& library() const;
+    MTL::Library& library();
     
-    const std::shared_ptr<MTL::RenderPassDescriptor>& renderPassDescriptor() const;
+    const MTL::RenderPassDescriptor& renderPassDescriptor() const;
     
     void setGUI(GUI* gui);
     
@@ -65,8 +65,8 @@ public:
     ResourceCache& resourceCache();
     
 private:
-    const std::shared_ptr<MTL::RenderPassDescriptor>& _desc{nullptr};
-    const std::shared_ptr<MTL::Library>& _library{nullptr};
+    MTL::RenderPassDescriptor& _desc;
+    MTL::Library& _library;
     
     std::vector<std::unique_ptr<Subpass>> _subpasses;
     size_t _activeSubpassIndex{0};
