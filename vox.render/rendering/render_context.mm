@@ -41,26 +41,30 @@ public:
         [_layer setDevice:(__bridge id<MTLDevice>) &_device];
         [_layer setPixelFormat:MTLPixelFormatBGRA8Unorm_sRGB];
         [_layer setDrawableSize:size];
-
+        
         constexpr uint32_t kFramebufferOnlyTextureUsages = MTL::TextureUsageRenderTarget;
         bool hasOnlyFramebufferUsages = !(usage & (~kFramebufferOnlyTextureUsages));
         if (hasOnlyFramebufferUsages) {
             [_layer setFramebufferOnly:YES];
         }
-            
+        
         [contentView setLayer:_layer];
     }
     
     CA::MetalDrawable* nextDrawable() {
         if (_currentDrawable) {
             _currentDrawable->release();
+            _currentDrawable = nullptr;
         }
         _currentDrawable = ( __bridge CA::MetalDrawable* )[_layer nextDrawable];
+        _currentDrawable->retain();
         
         if (_currentTexture) {
             _currentTexture->release();
+            _currentTexture = nullptr;
         }
         _currentTexture = _currentDrawable->texture();
+        _currentTexture->retain();
         
         return _currentDrawable;
     }
@@ -94,12 +98,12 @@ void RenderContext::nextDrawable() {
 void RenderContext::resize(uint32_t width, uint32_t height){
     _impl->configure(_colorTextureFormat, MTL::TextureUsageRenderTarget, width, height);
     
+    // managed by internal no need to release
     MTL::TextureDescriptor *descriptor = MTL::TextureDescriptor::texture2DDescriptor(_depthStencilTextureFormat,
                                                                                      width, height, false);
     descriptor->setUsage(MTL::TextureUsageShaderRead | MTL::TextureUsageRenderTarget);
     descriptor->setStorageMode(MTL::StorageModePrivate);
     _depthStencilTexture = _device.newTexture(descriptor);
-    descriptor->release();
 }
 
 MTL::Texture* RenderContext::currentDrawableTexture() {

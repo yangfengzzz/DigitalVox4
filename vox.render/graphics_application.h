@@ -19,7 +19,7 @@ class MetalApplication : public Application {
 public:
     MetalApplication();
     
-    virtual ~MetalApplication();
+    virtual ~MetalApplication() = default;
     
     /**
      * @brief Additional sample initialization

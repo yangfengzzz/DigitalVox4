@@ -53,7 +53,6 @@ void ForwardApplication::update(float delta_time) {
     auto commandBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::CommandBuffer, _commandQueue->commandBuffer());
     //    _shadowManager->draw(commandBuffer);
     
-    _renderContext->nextDrawable();
     // The final pass can only render if a drawable is available, otherwise it needs to skip
     // rendering this frame.
     if (_renderContext->currentDrawable()) {

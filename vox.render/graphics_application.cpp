@@ -28,13 +28,6 @@ MetalApplication::MetalApplication() {
     Shader::create("experimental", "vertex_experimental", "fragment_experimental");
 }
 
-MetalApplication::~MetalApplication() {
-    _renderContext.reset();
-    _library->release();
-    _commandQueue->release();
-    _device->release();
-}
-
 bool MetalApplication::prepare(Engine &engine) {
     if (!Application::prepare(engine)) {
         return false;
