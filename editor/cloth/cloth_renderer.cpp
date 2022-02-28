@@ -106,6 +106,7 @@ void ClothRenderer::setClothMeshDesc(const nv::cloth::ClothMeshDesc &desc) {
     for (physx::PxU32 i = 0; i < numVertices; ++i)
         _vertices[i].normal.normalize();
     
+    _vertexDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::VertexDescriptor, MTL::VertexDescriptor::alloc()->init());
     _vertexDescriptor->attributes()->object(Position)->setFormat(MTL::VertexFormatFloat3);
     _vertexDescriptor->attributes()->object(Position)->setOffset(0);
     _vertexDescriptor->attributes()->object(Position)->setBufferIndex(0);
