@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  shadow_manager.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/22.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "shadow_manager.h"
 #include "shader/shader.h"

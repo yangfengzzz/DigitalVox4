@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  ambient_light.hpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/19.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef ambient_light_hpp
 #define ambient_light_hpp
@@ -29,7 +28,8 @@ enum class DiffuseMode {
         /**
          * SH mode
          * @remarks
-         * Use SH3 to represent irradiance environment maps efficiently, allowing for interactive rendering of diffuse objects under distant illumination.
+         * Use SH3 to represent irradiance environment maps efficiently,
+         * allowing for interactive rendering of diffuse objects under distant illumination.
          */
         SphericalHarmonics
 };

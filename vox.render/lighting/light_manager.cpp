@@ -1,13 +1,13 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  light_manager.cpp
-//  vox.render
-//
-//  Created by 杨丰 on 2022/1/19.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "light_manager.h"
 #include "shader/shader.h"
 #include "scene.h"
+#include "metal_helpers.h"
 #include <glog/logging.h>
 
 namespace vox {
@@ -81,7 +81,7 @@ const std::vector<DirectLight *> &LightManager::directLights() const {
 }
 
 //MARK: - Internal Uploader
-void LightManager::updateShaderData(MTL::Device* device, ShaderData &shaderData) {
+void LightManager::updateShaderData(MTL::Device& device, ShaderData &shaderData) {
     size_t pointLightCount = _pointLights.size();
     _pointLightDatas.resize(pointLightCount);
     size_t spotLightCount = _spotLights.size();
@@ -103,8 +103,10 @@ void LightManager::updateShaderData(MTL::Device* device, ShaderData &shaderData)
     
     if (directLightCount) {
         if (_directLightBuffer == nullptr || _directLightBuffer->length() != sizeof(DirectLightData) * _directLightDatas.size()) {
-            _directLightBuffer = std::shared_ptr<MTL::Buffer>(device->newBufferWithBytes(_directLightDatas.data(),
-                                                                                         _directLightDatas.size() * sizeof(DirectLightData)));
+            _directLightBuffer =
+            CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(_directLightDatas.data(),
+                                                                     _directLightDatas.size() * sizeof(DirectLightData),
+                                                                     MTL::ResourceOptionCPUCacheModeDefault));
         } else {
             memcpy(_directLightBuffer->contents(), _directLightDatas.data(), _directLightDatas.size() * sizeof(DirectLightData));
         }
@@ -117,8 +119,10 @@ void LightManager::updateShaderData(MTL::Device* device, ShaderData &shaderData)
     
     if (pointLightCount) {
         if (_pointLightBuffer == nullptr || _pointLightBuffer->length() != sizeof(PointLightData) * _pointLightDatas.size()) {
-            _pointLightBuffer = std::shared_ptr<MTL::Buffer>(device->newBufferWithBytes(_pointLightDatas.data(),
-                                                                                        _pointLightDatas.size() * sizeof(PointLightData)));
+            _pointLightBuffer =
+            CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(_pointLightDatas.data(),
+                                                                     _pointLightDatas.size() * sizeof(PointLightData),
+                                                                     MTL::ResourceOptionCPUCacheModeDefault));
         } else {
             memcpy(_pointLightBuffer->contents(), _pointLightDatas.data(), _pointLightDatas.size() * sizeof(PointLightData));
         }
@@ -131,8 +135,10 @@ void LightManager::updateShaderData(MTL::Device* device, ShaderData &shaderData)
     
     if (spotLightCount) {
         if (_spotLightBuffer == nullptr || _spotLightBuffer->length() != sizeof(SpotLightData) * _spotLightDatas.size()) {
-            _spotLightBuffer = std::shared_ptr<MTL::Buffer>(device->newBufferWithBytes(_spotLightDatas.data(),
-                                                                                       _spotLightDatas.size() * sizeof(SpotLightData)));
+            _spotLightBuffer =
+            CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(_spotLightDatas.data(),
+                                                                     _spotLightDatas.size() * sizeof(SpotLightData),
+                                                                     MTL::ResourceOptionCPUCacheModeDefault));
         } else {
             memcpy(_spotLightBuffer->contents(), _spotLightDatas.data(), _spotLightDatas.size() * sizeof(SpotLightData));
         }
