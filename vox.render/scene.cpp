@@ -49,13 +49,8 @@ _ambientLight(this) {
                                                         MTL::RenderCommandEncoder& encoder) {
             encoder.setVertexBuffer(x.get(), 0, location);
         }),
-        toAnyUploader<SampledTexture2DPtr>([](const SampledTexture2DPtr &x, size_t location,
-                                              MTL::RenderCommandEncoder& encoder) {
-            encoder.setVertexTexture(x->textureView().get(), location);
-            encoder.setVertexSamplerState(&x->sampler(), location);
-        }),
-        toAnyUploader<SampledTextureCubePtr>([](const SampledTextureCubePtr &x, size_t location,
-                                                MTL::RenderCommandEncoder& encoder) {
+        toAnyUploader<SampledTexturePtr>([](const SampledTexturePtr &x, size_t location,
+                                            MTL::RenderCommandEncoder& encoder) {
             encoder.setVertexTexture(x->textureView().get(), location);
             encoder.setVertexSamplerState(&x->sampler(), location);
         }),
@@ -90,13 +85,8 @@ _ambientLight(this) {
                                                         MTL::RenderCommandEncoder& encoder) {
             encoder.setFragmentBuffer(x.get(), 0, location);
         }),
-        toAnyUploader<SampledTexture2DPtr>([](const SampledTexture2DPtr &x, size_t location,
-                                              MTL::RenderCommandEncoder& encoder) {
-            encoder.setFragmentTexture(x->textureView().get(), location);
-            encoder.setFragmentSamplerState(&x->sampler(), location);
-        }),
-        toAnyUploader<SampledTextureCubePtr>([](const SampledTextureCubePtr &x, size_t location,
-                                                MTL::RenderCommandEncoder& encoder) {
+        toAnyUploader<SampledTexturePtr>([](const SampledTexturePtr &x, size_t location,
+                                            MTL::RenderCommandEncoder& encoder) {
             encoder.setFragmentTexture(x->textureView().get(), location);
             encoder.setFragmentSamplerState(&x->sampler(), location);
         }),

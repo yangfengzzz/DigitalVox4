@@ -37,7 +37,7 @@ std::shared_ptr<MTL::Texture> SampledTextureCube::textureView() {
                                       _nativeTexture->newTextureView(_textureDesc->pixelFormat(),
                                                                      _dimension,
                                                                      NS::Range(0, _textureDesc->mipmapLevelCount()),
-                                                                     NS::Range(0, _textureDesc->arrayLength())));
+                                                                     NS::Range(0, _textureDesc->arrayLength() * 6)));
 }
 
 SampledTexture2DViewPtr SampledTextureCube::textureView2D(uint32_t mipmapLevel, uint32_t layer) {
