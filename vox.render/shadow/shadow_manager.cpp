@@ -12,6 +12,16 @@
 #include "texture/texture_utils.h"
 
 namespace vox {
+uint32_t ShadowManager::_shadowCount = 0;
+uint32_t ShadowManager::_cubeShadowCount = 0;
+uint32_t ShadowManager::shadowCount() {
+    return _shadowCount;
+}
+
+uint32_t ShadowManager::cubeShadowCount() {
+    return _cubeShadowCount;
+}
+
 ShadowManager::ShadowManager(MTL::Library& library, Scene* scene, Camera* camera):
 _library(library),
 _scene(scene),
@@ -82,14 +92,13 @@ void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
     _cubeShadowCount = 0;
     _drawPointShadowMap(commandBuffer);
     if (_cubeShadowCount) {
-        if (!_packedCubeTexture || _packedCubeTexture->arrayLength() != _shadowCount) {
+        if (!_packedCubeTexture || _packedCubeTexture->arrayLength() != _cubeShadowCount) {
             auto descriptor = CLONE_METAL_CUSTOM_DELETER(MTL::TextureDescriptor, MTL::TextureDescriptor::alloc()->init());
             descriptor->setTextureType(MTL::TextureType::TextureTypeCubeArray);
             descriptor->setPixelFormat(SHADOW_MAP_FORMAT);
             descriptor->setWidth(SHADOW_MAP_RESOLUTION);
             descriptor->setHeight(SHADOW_MAP_RESOLUTION);
-            descriptor->setDepth(6);
-            descriptor->setArrayLength(_shadowCount);
+            descriptor->setArrayLength(_cubeShadowCount);
             descriptor->setStorageMode(MTL::StorageMode::StorageModePrivate);
             _packedCubeTexture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, _scene->device().newTexture(descriptor.get()));
             
@@ -119,6 +128,7 @@ void ShadowManager::_drawSpotShadowMap(MTL::CommandBuffer& commandBuffer) {
                 descriptor->setWidth(SHADOW_MAP_RESOLUTION);
                 descriptor->setHeight(SHADOW_MAP_RESOLUTION);
                 descriptor->setStorageMode(MTL::StorageMode::StorageModePrivate);
+                descriptor->setUsage(MTL::TextureUsageRenderTarget);
                 texture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, _scene->device().newTexture(descriptor.get()));
                 _shadowMaps.push_back(texture);
             }
@@ -149,6 +159,7 @@ void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer& commandBuffer) {
                 descriptor->setWidth(SHADOW_MAP_RESOLUTION);
                 descriptor->setHeight(SHADOW_MAP_RESOLUTION);
                 descriptor->setStorageMode(MTL::StorageMode::StorageModePrivate);
+                descriptor->setUsage(MTL::TextureUsageRenderTarget);
                 texture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, _scene->device().newTexture(descriptor.get()));
                 _shadowMaps.push_back(texture);
             }
@@ -186,8 +197,8 @@ void ShadowManager::_drawPointShadowMap(MTL::CommandBuffer& commandBuffer) {
                 descriptor->setPixelFormat(SHADOW_MAP_FORMAT);
                 descriptor->setWidth(SHADOW_MAP_RESOLUTION);
                 descriptor->setHeight(SHADOW_MAP_RESOLUTION);
-                descriptor->setDepth(6);
                 descriptor->setStorageMode(MTL::StorageMode::StorageModePrivate);
+                descriptor->setUsage(MTL::TextureUsageRenderTarget);
                 texture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, _scene->device().newTexture(descriptor.get()));
                 _cubeShadowMaps.push_back(texture);
             }

@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  omni_shadowMap_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/22.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "omni_shadowmap_app.h"
 #include "mesh/primitive_mesh.h"
@@ -54,7 +53,7 @@ void OminiShadowMapApp::loadScene(uint32_t width, uint32_t height) {
     directLight->intensity = 0.5;
     directLight->setEnableShadow(true);
     
-    auto planeMesh = PrimitiveMesh::createPlane(_device.get(), 10, 10);
+    auto planeMesh = PrimitiveMesh::createPlane(*_device, 10, 10);
     
     auto planeEntity = rootEntity->createChild("PlaneEntity");
     planeEntity->transform->setPosition(0, 5, 0);
@@ -111,7 +110,7 @@ void OminiShadowMapApp::loadScene(uint32_t width, uint32_t height) {
     
     // create box test entity
     float cubeSize = 1.0;
-    auto boxMesh = PrimitiveMesh::createCuboid(_device.get(), cubeSize, cubeSize, cubeSize);
+    auto boxMesh = PrimitiveMesh::createCuboid(*_device, cubeSize, cubeSize, cubeSize);
     auto boxMtl = std::make_shared<BlinnPhongMaterial>();
     boxMtl->setBaseColor(Color(1.0, 0.0, 0.0, 0.5));
     boxMtl->setRenderFace(RenderFace::Double); // bug

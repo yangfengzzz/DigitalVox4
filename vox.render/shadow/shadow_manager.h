@@ -78,6 +78,10 @@ public:
         Vector4F lightPos;
     };
     
+    static uint32_t shadowCount();
+    
+    static uint32_t cubeShadowCount();
+    
 public:
     ShadowManager(MTL::Library& library, Scene* scene, Camera* camera);
     

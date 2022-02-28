@@ -23,7 +23,7 @@ bool ForwardApplication::prepare(Engine &engine) {
     auto extent = engine.window().extent();
     loadScene(extent.width, extent.height);
     
-    //    _shadowManager = std::make_unique<ShadowManager>(_library, _scene.get(), _mainCamera);
+    _shadowManager = std::make_unique<ShadowManager>(*_library, _scene.get(), _mainCamera);
     
     // Create a render pass descriptor for thelighting and composition pass
     // Whatever rendered in the final pass needs to be stored so it can be displayed
@@ -51,7 +51,7 @@ void ForwardApplication::update(float delta_time) {
     _scene->updateShaderData();
     
     auto commandBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::CommandBuffer, _commandQueue->commandBuffer());
-    //    _shadowManager->draw(commandBuffer);
+    _shadowManager->draw(*commandBuffer);
     
     // The final pass can only render if a drawable is available, otherwise it needs to skip
     // rendering this frame.

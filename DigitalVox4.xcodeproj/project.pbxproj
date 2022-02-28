@@ -448,6 +448,7 @@
 		04D75F3327CCC0E000BB1519 /* shadow_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 044593F92791581900F04CE0 /* shadow_subpass.h */; };
 		04D75F3427CCC3EC00BB1519 /* shadow_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0446044D279BFA87009108C8 /* shadow_manager.h */; };
 		04D75F3527CCC3EC00BB1519 /* shadow_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446044C279BFA87009108C8 /* shadow_manager.cpp */; };
+		04D75F3627CCCA2800BB1519 /* omni_shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460450279C4E28009108C8 /* omni_shadowmap_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1878,6 +1879,12 @@
 				04B4ACC82798EB3C0020576D /* primitive_app.cpp */,
 				04CD93A52799A4600093D6CB /* framebuffer_picker_app.h */,
 				04CD93A42799A4600093D6CB /* framebuffer_picker_app.cpp */,
+				04460455279CDACB009108C8 /* shadowmap_app.h */,
+				04460454279CDACB009108C8 /* shadowmap_app.cpp */,
+				04CB217C279CE5DA007753AA /* cascade_shadowmap_app.h */,
+				04CB217B279CE5DA007753AA /* cascade_shadowmap_app.cpp */,
+				04460451279C4E28009108C8 /* omni_shadowmap_app.h */,
+				04460450279C4E28009108C8 /* omni_shadowmap_app.cpp */,
 				04B4ACCC279900AD0020576D /* physx_app.h */,
 				04B4ACCB279900AD0020576D /* physx_app.cpp */,
 				04CD939A27997BCE0093D6CB /* physx_dynamic_app.h */,
@@ -1896,12 +1903,6 @@
 				04460443279BE2B4009108C8 /* gltf_app.cpp */,
 				04460448279BE694009108C8 /* scene_animation_app.h */,
 				04460447279BE694009108C8 /* scene_animation_app.cpp */,
-				04460455279CDACB009108C8 /* shadowmap_app.h */,
-				04460454279CDACB009108C8 /* shadowmap_app.cpp */,
-				04CB217C279CE5DA007753AA /* cascade_shadowmap_app.h */,
-				04CB217B279CE5DA007753AA /* cascade_shadowmap_app.cpp */,
-				04460451279C4E28009108C8 /* omni_shadowmap_app.h */,
-				04460450279C4E28009108C8 /* omni_shadowmap_app.cpp */,
 			);
 			path = apps;
 			sourceTree = "<group>";
@@ -2914,6 +2915,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
+				04D75F3627CCCA2800BB1519 /* omni_shadowmap_app.cpp in Sources */,
 				04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */,
 				04D75F1D27CCA28200BB1519 /* primitive_app.cpp in Sources */,
 			);
