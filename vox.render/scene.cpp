@@ -47,11 +47,11 @@ _ambientLight(this) {
         }),
         toAnyUploader<std::shared_ptr<MTL::Buffer>> ([](const std::shared_ptr<MTL::Buffer> &x, size_t location,
                                                         MTL::RenderCommandEncoder& encoder) {
-            encoder.setVertexBuffer(*x, 0, location);
+            encoder.setVertexBuffer(x.get(), 0, location);
         }),
         toAnyUploader<std::shared_ptr<MTL::Texture>>([](const std::shared_ptr<MTL::Texture> &x, size_t location,
                                                         MTL::RenderCommandEncoder& encoder) {
-            encoder.setVertexTexture(*x, location);
+            encoder.setVertexTexture(x.get(), location);
         }),
     };
     
@@ -82,11 +82,11 @@ _ambientLight(this) {
         }),
         toAnyUploader<std::shared_ptr<MTL::Buffer>> ([](const std::shared_ptr<MTL::Buffer> &x, size_t location,
                                                         MTL::RenderCommandEncoder& encoder) {
-            encoder.setFragmentBuffer(*x, 0, location);
+            encoder.setFragmentBuffer(x.get(), 0, location);
         }),
         toAnyUploader<std::shared_ptr<MTL::Texture>>([](const std::shared_ptr<MTL::Texture> &x, size_t location,
                                                         MTL::RenderCommandEncoder& encoder) {
-            encoder.setFragmentTexture(*x, location);
+            encoder.setFragmentTexture(x.get(), location);
         }),
     };
     _ambientLight.registerUploader(this);
