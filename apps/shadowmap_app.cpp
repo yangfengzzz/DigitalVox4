@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  shadowmap_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/23.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "shadowmap_app.h"
 #include "mesh/primitive_mesh.h"
@@ -85,7 +84,7 @@ void ShadowMapApp::loadScene(uint32_t width, uint32_t height) {
     boxMtl->setBaseColor(Color(0.3, 0.3, 0.3, 0.5));
     
     auto boxRenderer = boxEntity->addComponent<MeshRenderer>();
-    boxRenderer->setMesh(PrimitiveMesh::createCuboid(_device.get(), cubeSize, cubeSize, cubeSize));
+    boxRenderer->setMesh(PrimitiveMesh::createCuboid(*_device, cubeSize, cubeSize, cubeSize));
     boxRenderer->setMaterial(boxMtl);
     boxRenderer->castShadow = true;
     
@@ -95,7 +94,7 @@ void ShadowMapApp::loadScene(uint32_t width, uint32_t height) {
     planeMtl->setRenderFace(RenderFace::Double);
     
     auto planeRenderer = planeEntity->addComponent<MeshRenderer>();
-    planeRenderer->setMesh(PrimitiveMesh::createPlane(_device.get(), 10, 10));
+    planeRenderer->setMesh(PrimitiveMesh::createPlane(*_device, 10, 10));
     planeRenderer->setMaterial(planeMtl);
     planeRenderer->receiveShadow = true;
 }

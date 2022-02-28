@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  cascade_shadowmap_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/23.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "cascade_shadowmap_app.h"
 #include "mesh/primitive_mesh.h"
@@ -32,7 +31,7 @@ void CascadeShadowMapApp::loadScene(uint32_t width, uint32_t height) {
     
     // create box test entity
     float cubeSize = 2.0;
-    auto boxMesh = PrimitiveMesh::createCuboid(_device.get(), cubeSize, cubeSize, cubeSize);
+    auto boxMesh = PrimitiveMesh::createCuboid(*_device, cubeSize, cubeSize, cubeSize);
     auto boxMtl = std::make_shared<BlinnPhongMaterial>();
     boxMtl->setBaseColor(Color(0.3, 0.3, 0.3, 0.5));
     for (int i = 0; i < 6; i++) {
@@ -51,7 +50,7 @@ void CascadeShadowMapApp::loadScene(uint32_t width, uint32_t height) {
     planeMtl->setRenderFace(RenderFace::Double);
     
     auto planeRenderer = planeEntity->addComponent<MeshRenderer>();
-    planeRenderer->setMesh(PrimitiveMesh::createPlane(_device.get(), 10, 80));
+    planeRenderer->setMesh(PrimitiveMesh::createPlane(*_device, 10, 80));
     planeRenderer->setMaterial(planeMtl);
     planeRenderer->receiveShadow = true;
 }

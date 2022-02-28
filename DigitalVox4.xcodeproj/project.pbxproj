@@ -449,6 +449,8 @@
 		04D75F3427CCC3EC00BB1519 /* shadow_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0446044D279BFA87009108C8 /* shadow_manager.h */; };
 		04D75F3527CCC3EC00BB1519 /* shadow_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446044C279BFA87009108C8 /* shadow_manager.cpp */; };
 		04D75F3627CCCA2800BB1519 /* omni_shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460450279C4E28009108C8 /* omni_shadowmap_app.cpp */; };
+		04D75F3727CCCC6F00BB1519 /* cascade_shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CB217B279CE5DA007753AA /* cascade_shadowmap_app.cpp */; };
+		04D75F3827CCCCB100BB1519 /* shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460454279CDACB009108C8 /* shadowmap_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2916,6 +2918,8 @@
 			files = (
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
 				04D75F3627CCCA2800BB1519 /* omni_shadowmap_app.cpp in Sources */,
+				04D75F3827CCCCB100BB1519 /* shadowmap_app.cpp in Sources */,
+				04D75F3727CCCC6F00BB1519 /* cascade_shadowmap_app.cpp in Sources */,
 				04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */,
 				04D75F1D27CCA28200BB1519 /* primitive_app.cpp in Sources */,
 			);
