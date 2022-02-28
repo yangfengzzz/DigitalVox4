@@ -7,7 +7,7 @@
 #include "pbr_base_material.h"
 
 namespace vox {
-Color PBRBaseMaterial::baseColor() {
+Color PBRBaseMaterial::baseColor() const {
     return std::any_cast<Color>(shaderData.getData(PBRBaseMaterial::_baseColorProp));
 }
 
@@ -15,11 +15,11 @@ void PBRBaseMaterial::setBaseColor(const Color &newValue) {
     shaderData.setData(PBRBaseMaterial::_baseColorProp, newValue);
 }
 
-std::shared_ptr<MTL::Texture> PBRBaseMaterial::baseTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(PBRBaseMaterial::_baseTextureProp));
+SampledTexture2DPtr PBRBaseMaterial::baseTexture() const {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_baseTextureProp));
 }
 
-void PBRBaseMaterial::setBaseTexture(std::shared_ptr<MTL::Texture> newValue) {
+void PBRBaseMaterial::setBaseTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(PBRBaseMaterial::_baseTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_BASE_COLORMAP);
@@ -28,11 +28,11 @@ void PBRBaseMaterial::setBaseTexture(std::shared_ptr<MTL::Texture> newValue) {
     }
 }
 
-std::shared_ptr<MTL::Texture> PBRBaseMaterial::normalTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(PBRBaseMaterial::_normalTextureProp));
+SampledTexture2DPtr PBRBaseMaterial::normalTexture() const {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_normalTextureProp));
 }
 
-void PBRBaseMaterial::setNormalTexture(std::shared_ptr<MTL::Texture> newValue) {
+void PBRBaseMaterial::setNormalTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(PBRBaseMaterial::_normalTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_NORMAL_TEXTURE);
@@ -41,7 +41,7 @@ void PBRBaseMaterial::setNormalTexture(std::shared_ptr<MTL::Texture> newValue) {
     }
 }
 
-float PBRBaseMaterial::normalTextureIntensity() {
+float PBRBaseMaterial::normalTextureIntensity() const {
     return std::any_cast<float>(shaderData.getData(PBRBaseMaterial::_normalTextureIntensityProp));
 }
 
@@ -49,7 +49,7 @@ void PBRBaseMaterial::setNormalTextureIntensity(float newValue) {
     shaderData.setData(PBRBaseMaterial::_normalTextureIntensityProp, newValue);
 }
 
-Color PBRBaseMaterial::emissiveColor() {
+Color PBRBaseMaterial::emissiveColor() const {
     return std::any_cast<Color>(shaderData.getData(PBRBaseMaterial::_emissiveColorProp));
 }
 
@@ -57,11 +57,11 @@ void PBRBaseMaterial::setEmissiveColor(const Color &newValue) {
     shaderData.setData(PBRBaseMaterial::_emissiveColorProp, newValue);
 }
 
-std::shared_ptr<MTL::Texture> PBRBaseMaterial::emissiveTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(PBRBaseMaterial::_emissiveTextureProp));
+SampledTexture2DPtr PBRBaseMaterial::emissiveTexture() const {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_emissiveTextureProp));
 }
 
-void PBRBaseMaterial::setEmissiveTexture(std::shared_ptr<MTL::Texture> newValue) {
+void PBRBaseMaterial::setEmissiveTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(PBRBaseMaterial::_emissiveTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_EMISSIVEMAP);
@@ -70,11 +70,11 @@ void PBRBaseMaterial::setEmissiveTexture(std::shared_ptr<MTL::Texture> newValue)
     }
 }
 
-std::shared_ptr<MTL::Texture> PBRBaseMaterial::occlusionTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(PBRBaseMaterial::_occlusionTextureProp));
+SampledTexture2DPtr PBRBaseMaterial::occlusionTexture() const {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_occlusionTextureProp));
 }
 
-void PBRBaseMaterial::setOcclusionTexture(std::shared_ptr<MTL::Texture> newValue) {
+void PBRBaseMaterial::setOcclusionTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(PBRBaseMaterial::_occlusionTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_OCCLUSIONMAP);
@@ -83,7 +83,7 @@ void PBRBaseMaterial::setOcclusionTexture(std::shared_ptr<MTL::Texture> newValue
     }
 }
 
-float PBRBaseMaterial::occlusionTextureIntensity() {
+float PBRBaseMaterial::occlusionTextureIntensity() const {
     return std::any_cast<float>(shaderData.getData(PBRBaseMaterial::_occlusionTextureIntensityProp));
 }
 
@@ -91,7 +91,7 @@ void PBRBaseMaterial::setOcclusionTextureIntensity(float newValue) {
     shaderData.setData(PBRBaseMaterial::_occlusionTextureIntensityProp, newValue);
 }
 
-Vector4F PBRBaseMaterial::tilingOffset() {
+Vector4F PBRBaseMaterial::tilingOffset() const {
     return std::any_cast<Vector4F>(shaderData.getData(PBRBaseMaterial::_tilingOffsetProp));
 }
 

@@ -7,7 +7,7 @@
 #include "base_material.h"
 
 namespace vox {
-bool BaseMaterial::isTransparent() {
+bool BaseMaterial::isTransparent() const {
     return _isTransparent;
 }
 
@@ -32,7 +32,7 @@ void BaseMaterial::setIsTransparent(bool newValue) {
     }
 }
 
-float BaseMaterial::alphaCutoff() {
+float BaseMaterial::alphaCutoff() const {
     return std::any_cast<float>(shaderData.getData(BaseMaterial::_alphaCutoffProp));
 }
 
@@ -48,7 +48,7 @@ void BaseMaterial::setAlphaCutoff(float newValue) {
     }
 }
 
-const RenderFace &BaseMaterial::renderFace() {
+const RenderFace &BaseMaterial::renderFace() const {
     return _renderFace;
 }
 
@@ -68,7 +68,7 @@ void BaseMaterial::setRenderFace(const RenderFace &newValue) {
     }
 }
 
-const BlendMode &BaseMaterial::blendMode() {
+const BlendMode &BaseMaterial::blendMode() const {
     return _blendMode;
 }
 

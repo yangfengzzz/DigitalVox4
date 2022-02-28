@@ -18,14 +18,14 @@ public:
     /**
      * Specular color.
      */
-    Color specularColor();
+    Color specularColor() const;
     
     void setSpecularColor(const Color &newValue);
     
     /**
      * Glossiness.
      */
-    float glossiness();
+    float glossiness() const;
     
     void setGlossiness(float newValue);
     
@@ -33,9 +33,9 @@ public:
      * Specular glossiness texture.
      * @remarks RGB is specular, A is glossiness
      */
-    std::shared_ptr<MTL::Texture> specularGlossinessTexture();
+    SampledTexture2DPtr specularGlossinessTexture() const;
     
-    void setSpecularGlossinessTexture(std::shared_ptr<MTL::Texture> newValue);
+    void setSpecularGlossinessTexture(const SampledTexture2DPtr& newValue);
     
     /**
      * Create a pbr specular-glossiness workflow material instance.

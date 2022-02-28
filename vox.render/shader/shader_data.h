@@ -19,9 +19,9 @@ namespace vox {
  */
 class ShaderData {
 public:
-    std::any getData(const std::string &property_name);
+    std::any getData(const std::string &property_name) const;
     
-    std::any getData(const ShaderProperty &property);
+    std::any getData(const ShaderProperty &property) const;
     
     void setData(const std::string &property, std::any value);
     

@@ -9,6 +9,7 @@
 
 #include "../subpass.h"
 #include "graphics/mesh.h"
+#include "texture/sampled_texturecube.h"
 
 namespace vox {
 class SkyboxSubpass: public Subpass {
@@ -29,9 +30,9 @@ public:
     /**
      * Texture cube map of the sky box material.
      */
-    std::shared_ptr<MTL::Texture> textureCubeMap();
+    const SampledTextureCubePtr& textureCubeMap() const;
     
-    void setTextureCubeMap(std::shared_ptr<MTL::Texture> v);
+    void setTextureCubeMap(const SampledTextureCubePtr& v);
     
 private:
     std::shared_ptr<MTL::RenderPipelineDescriptor> _skyboxPipelineDescriptor;
@@ -42,7 +43,7 @@ private:
     };
     SkyBoxType _type;
     std::shared_ptr<Mesh> _mesh{nullptr};
-    std::shared_ptr<MTL::Texture> _cubeMap{nullptr};
+    SampledTextureCubePtr _cubeMap{nullptr};
 };
 
 }

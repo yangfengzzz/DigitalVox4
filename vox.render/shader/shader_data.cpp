@@ -8,7 +8,7 @@
 #include "shader.h"
 
 namespace vox {
-std::any ShaderData::getData(const std::string &property_name) {
+std::any ShaderData::getData(const std::string &property_name) const {
     auto property = Shader::getPropertyByName(property_name);
     if (property.has_value()) {
         return getData(property.value());
@@ -18,7 +18,7 @@ std::any ShaderData::getData(const std::string &property_name) {
     }
 }
 
-std::any ShaderData::getData(const ShaderProperty &property) {
+std::any ShaderData::getData(const ShaderProperty &property) const {
     auto iter = _properties.find(property.uniqueId);
     if (iter != _properties.end()) {
         return iter->second;

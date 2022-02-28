@@ -18,14 +18,14 @@ public:
     /**
      * Metallic.
      */
-    float metallic();
+    float metallic() const;
     
     void setMetallic(float newValue);
     
     /**
      * Roughness.
      */
-    float roughness();
+    float roughness() const;
     
     void setRoughness(float newValue);
     
@@ -33,9 +33,9 @@ public:
      * Roughness metallic texture.
      * @remarks G channel is roughness, B channel is metallic
      */
-    std::shared_ptr<MTL::Texture> metallicRoughnessTexture();
+    SampledTexture2DPtr metallicRoughnessTexture();
     
-    void setMetallicRoughnessTexture(std::shared_ptr<MTL::Texture> newValue);
+    void setMetallicRoughnessTexture(const SampledTexture2DPtr& newValue);
     
     /**
      * Create a pbr metallic-roughness workflow material instance.

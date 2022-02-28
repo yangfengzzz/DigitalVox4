@@ -7,7 +7,7 @@
 #include "unlit_material.h"
 
 namespace vox {
-Color UnlitMaterial::baseColor() {
+Color UnlitMaterial::baseColor() const {
     return std::any_cast<Color>(shaderData.getData(_baseColorProp));
 }
 
@@ -15,11 +15,11 @@ void UnlitMaterial::setBaseColor(const Color &newValue) {
     shaderData.setData(UnlitMaterial::_baseColorProp, newValue);
 }
 
-std::shared_ptr<MTL::Texture> UnlitMaterial::baseTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(_baseTextureProp));
+SampledTexture2DPtr UnlitMaterial::baseTexture() const {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(_baseTextureProp));
 }
 
-void UnlitMaterial::setBaseTexture(std::shared_ptr<MTL::Texture> newValue) {
+void UnlitMaterial::setBaseTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(UnlitMaterial::_baseTextureProp, newValue);
     
     if (newValue) {
@@ -29,7 +29,7 @@ void UnlitMaterial::setBaseTexture(std::shared_ptr<MTL::Texture> newValue) {
     }
 }
 
-Vector4F UnlitMaterial::tilingOffset() {
+Vector4F UnlitMaterial::tilingOffset() const {
     return std::any_cast<Vector4F>(shaderData.getData(_tilingOffsetProp));
 }
 

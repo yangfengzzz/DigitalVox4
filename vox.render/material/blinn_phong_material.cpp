@@ -7,7 +7,7 @@
 #include "blinn_phong_material.h"
 
 namespace vox {
-Color BlinnPhongMaterial::baseColor() {
+Color BlinnPhongMaterial::baseColor() const {
     return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_diffuseColorProp));
 }
 
@@ -15,11 +15,11 @@ void BlinnPhongMaterial::setBaseColor(const Color &newValue) {
     shaderData.setData(BlinnPhongMaterial::_diffuseColorProp, newValue);
 }
 
-std::shared_ptr<MTL::Texture> BlinnPhongMaterial::baseTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(BlinnPhongMaterial::_baseTextureProp));
+SampledTexture2DPtr BlinnPhongMaterial::baseTexture() const {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_baseTextureProp));
 }
 
-void BlinnPhongMaterial::setBaseTexture(std::shared_ptr<MTL::Texture> newValue) {
+void BlinnPhongMaterial::setBaseTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(BlinnPhongMaterial::_baseTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_DIFFUSE_TEXTURE);
@@ -28,7 +28,7 @@ void BlinnPhongMaterial::setBaseTexture(std::shared_ptr<MTL::Texture> newValue) 
     }
 }
 
-Color BlinnPhongMaterial::specularColor() {
+Color BlinnPhongMaterial::specularColor() const {
     return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_specularColorProp));
 }
 
@@ -36,11 +36,11 @@ void BlinnPhongMaterial::setSpecularColor(const Color &newValue) {
     shaderData.setData(BlinnPhongMaterial::_specularColorProp, newValue);
 }
 
-std::shared_ptr<MTL::Texture> BlinnPhongMaterial::specularTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(BlinnPhongMaterial::_specularTextureProp));
+SampledTexture2DPtr BlinnPhongMaterial::specularTexture() const {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_specularTextureProp));
 }
 
-void BlinnPhongMaterial::setSpecularTexture(std::shared_ptr<MTL::Texture> newValue) {
+void BlinnPhongMaterial::setSpecularTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(BlinnPhongMaterial::_specularTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_SPECULAR_TEXTURE);
@@ -49,7 +49,7 @@ void BlinnPhongMaterial::setSpecularTexture(std::shared_ptr<MTL::Texture> newVal
     }
 }
 
-Color BlinnPhongMaterial::emissiveColor() {
+Color BlinnPhongMaterial::emissiveColor() const {
     return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_emissiveColorProp));
 }
 
@@ -57,11 +57,11 @@ void BlinnPhongMaterial::setEmissiveColor(const Color &newValue) {
     shaderData.setData(BlinnPhongMaterial::_emissiveColorProp, newValue);
 }
 
-std::shared_ptr<MTL::Texture> BlinnPhongMaterial::emissiveTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(BlinnPhongMaterial::_emissiveTextureProp));
+SampledTexture2DPtr BlinnPhongMaterial::emissiveTexture() const {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_emissiveTextureProp));
 }
 
-void BlinnPhongMaterial::BlinnPhongMaterial::setEmissiveTexture(std::shared_ptr<MTL::Texture> newValue) {
+void BlinnPhongMaterial::BlinnPhongMaterial::setEmissiveTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(BlinnPhongMaterial::_emissiveTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_EMISSIVE_TEXTURE);
@@ -70,11 +70,11 @@ void BlinnPhongMaterial::BlinnPhongMaterial::setEmissiveTexture(std::shared_ptr<
     }
 }
 
-std::shared_ptr<MTL::Texture> BlinnPhongMaterial::normalTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(BlinnPhongMaterial::_normalTextureProp));
+SampledTexture2DPtr BlinnPhongMaterial::normalTexture() const {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_normalTextureProp));
 }
 
-void BlinnPhongMaterial::setNormalTexture(std::shared_ptr<MTL::Texture> newValue) {
+void BlinnPhongMaterial::setNormalTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(BlinnPhongMaterial::_normalTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_NORMAL_TEXTURE);
@@ -83,7 +83,7 @@ void BlinnPhongMaterial::setNormalTexture(std::shared_ptr<MTL::Texture> newValue
     }
 }
 
-float BlinnPhongMaterial::normalIntensity() {
+float BlinnPhongMaterial::normalIntensity() const {
     return std::any_cast<float>(shaderData.getData(BlinnPhongMaterial::_normalIntensityProp));
 }
 
@@ -91,7 +91,7 @@ void BlinnPhongMaterial::setNormalIntensity(float newValue) {
     shaderData.setData(BlinnPhongMaterial::_normalIntensityProp, newValue);
 }
 
-float BlinnPhongMaterial::shininess() {
+float BlinnPhongMaterial::shininess() const {
     return std::any_cast<float>(shaderData.getData(BlinnPhongMaterial::_shininessProp));
 }
 
@@ -99,7 +99,7 @@ void BlinnPhongMaterial::setShininess(float newValue) {
     shaderData.setData(BlinnPhongMaterial::_shininessProp, newValue);
 }
 
-Vector4F BlinnPhongMaterial::tilingOffset() {
+Vector4F BlinnPhongMaterial::tilingOffset() const {
     return std::any_cast<Vector4F>(shaderData.getData(BlinnPhongMaterial::_tilingOffsetProp));
 }
 

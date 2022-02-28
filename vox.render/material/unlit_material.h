@@ -10,6 +10,7 @@
 #include "base_material.h"
 #include "color.h"
 #include "vector4.h"
+#include "texture/sampled_texture2d.h"
 
 namespace vox {
 /**
@@ -20,21 +21,21 @@ public:
     /**
      * Base color.
      */
-    Color baseColor();
+    Color baseColor() const;
     
     void setBaseColor(const Color &newValue);
     
     /**
      * Base texture.
      */
-    std::shared_ptr<MTL::Texture> baseTexture();
+    SampledTexture2DPtr baseTexture() const;
     
-    void setBaseTexture(std::shared_ptr<MTL::Texture> newValue);
+    void setBaseTexture(const SampledTexture2DPtr& newValue);
     
     /**
      * Tiling and offset of main textures.
      */
-    Vector4F tilingOffset();
+    Vector4F tilingOffset() const;
     
     void setTilingOffset(const Vector4F &newValue);
     

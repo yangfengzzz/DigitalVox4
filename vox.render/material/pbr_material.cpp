@@ -7,7 +7,7 @@
 #include "pbr_material.h"
 
 namespace vox {
-float PBRMaterial::metallic() {
+float PBRMaterial::metallic() const {
     return std::any_cast<float>(shaderData.getData(PBRMaterial::_metallicProp));
 }
 
@@ -15,7 +15,7 @@ void PBRMaterial::setMetallic(float newValue) {
     shaderData.setData(PBRMaterial::_metallicProp, newValue);
 }
 
-float PBRMaterial::roughness() {
+float PBRMaterial::roughness() const {
     return std::any_cast<float>(shaderData.getData(PBRMaterial::_roughnessProp));
 }
 
@@ -23,11 +23,11 @@ void PBRMaterial::setRoughness(float newValue) {
     shaderData.setData(PBRMaterial::_roughnessProp, newValue);
 }
 
-std::shared_ptr<MTL::Texture> PBRMaterial::metallicRoughnessTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(PBRMaterial::_metallicRoughnessTextureProp));
+SampledTexture2DPtr PBRMaterial::metallicRoughnessTexture() {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRMaterial::_metallicRoughnessTextureProp));
 }
 
-void PBRMaterial::setMetallicRoughnessTexture(std::shared_ptr<MTL::Texture> newValue) {
+void PBRMaterial::setMetallicRoughnessTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(PBRMaterial::_metallicRoughnessTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_METALROUGHNESSMAP);

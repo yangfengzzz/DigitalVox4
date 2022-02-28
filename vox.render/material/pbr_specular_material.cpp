@@ -6,7 +6,7 @@
 #include "pbr_specular_material.h"
 
 namespace vox {
-Color PBRSpecularMaterial::specularColor() {
+Color PBRSpecularMaterial::specularColor() const {
     return std::any_cast<Color>(shaderData.getData(PBRSpecularMaterial::_specularColorProp));
 }
 
@@ -14,7 +14,7 @@ void PBRSpecularMaterial::setSpecularColor(const Color &newValue) {
     shaderData.setData(PBRSpecularMaterial::_specularColorProp, newValue);
 }
 
-float PBRSpecularMaterial::glossiness() {
+float PBRSpecularMaterial::glossiness() const {
     return std::any_cast<float>(shaderData.getData(PBRSpecularMaterial::_glossinessProp));
 }
 
@@ -22,11 +22,11 @@ void PBRSpecularMaterial::setGlossiness(float newValue) {
     shaderData.setData(PBRSpecularMaterial::_glossinessProp, newValue);
 }
 
-std::shared_ptr<MTL::Texture> PBRSpecularMaterial::specularGlossinessTexture() {
-    return std::any_cast<std::shared_ptr<MTL::Texture>>(shaderData.getData(PBRSpecularMaterial::_specularGlossinessTextureProp));
+SampledTexture2DPtr PBRSpecularMaterial::specularGlossinessTexture() const {
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRSpecularMaterial::_specularGlossinessTextureProp));
 }
 
-void PBRSpecularMaterial::setSpecularGlossinessTexture(std::shared_ptr<MTL::Texture> newValue) {
+void PBRSpecularMaterial::setSpecularGlossinessTexture(const SampledTexture2DPtr& newValue) {
     shaderData.setData(PBRSpecularMaterial::_specularGlossinessTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_SPECULARGLOSSINESSMAP);

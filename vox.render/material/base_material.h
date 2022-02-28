@@ -19,7 +19,7 @@ public:
      * @remarks
      * If material is transparent, transparent blend mode will be affected by `blendMode`, default is `BlendMode.Normal`.
      */
-    bool isTransparent();
+    bool isTransparent() const;
     
     void setIsTransparent(bool newValue);
     
@@ -29,14 +29,14 @@ public:
      * Fragments with alpha channel lower than cutoff value will be discarded.
      * `0` means no fragment will be discarded.
      */
-    float alphaCutoff();
+    float alphaCutoff() const;
     
     void setAlphaCutoff(float newValue);
     
     /**
      * Set which face for render.
      */
-    const RenderFace &renderFace();
+    const RenderFace &renderFace() const;
     
     void setRenderFace(const RenderFace &newValue);
     
@@ -45,7 +45,7 @@ public:
      * @remarks
      * Only take effect when `isTransparent` is `true`.
      */
-    const BlendMode &blendMode();
+    const BlendMode &blendMode() const;
     
     void setBlendMode(const BlendMode &newValue);
     

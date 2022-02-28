@@ -27,11 +27,11 @@ void SkyboxSubpass::createCuboid() {
     _type = SkyBoxType::Cuboid;
 }
 
-std::shared_ptr<MTL::Texture> SkyboxSubpass::textureCubeMap() {
+const SampledTextureCubePtr& SkyboxSubpass::textureCubeMap() const {
     return _cubeMap;
 }
 
-void SkyboxSubpass::setTextureCubeMap(std::shared_ptr<MTL::Texture> v) {
+void SkyboxSubpass::setTextureCubeMap(const SampledTextureCubePtr& v) {
     _cubeMap = v;
 }
 
@@ -95,7 +95,7 @@ void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     }
     auto _matrix = projectionMatrix * viewMatrix;
     commandEncoder.setVertexBytes(_matrix.data(), sizeof(Matrix4x4F), 10);
-    commandEncoder.setFragmentTexture(_cubeMap.get(), 0);
+    commandEncoder.setFragmentTexture(&_cubeMap->texture(), 0);
     
     uint32_t index = 0;
     for (auto &meshBuffer: _mesh->vertexBufferBindings()) {
