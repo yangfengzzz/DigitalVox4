@@ -30,7 +30,7 @@ int main(int argc, char * argv[]) {
         
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::PrimitiveApp>());
+        engine.setApp(std::make_unique<vox::OminiShadowMapApp>());
         code = engine.mainLoop();
     }
     

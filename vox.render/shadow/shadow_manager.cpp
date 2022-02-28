@@ -75,8 +75,8 @@ void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
     if (_shadowCount) {
         if (!_packedTexture || _packedTexture->arrayLength() != _shadowCount) {
             _packedTexture = std::make_shared<SampledTexture2D>(_scene->device(), SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
-                                                                _shadowCount, SHADOW_MAP_FORMAT,
-                                                                MTL::TextureUsageShaderRead, false);
+                                                                _shadowCount, false, SHADOW_MAP_FORMAT,
+                                                                MTL::TextureUsageShaderRead);
             _packedTexture->setTextureViewDimension(MTL::TextureType2DArray);
             _packedTexture->setCompareFunction(MTL::CompareFunctionLess);
             _packedTexture->setAddressModeU(MTL::SamplerAddressModeClampToEdge);
@@ -94,8 +94,8 @@ void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
     if (_cubeShadowCount) {
         if (!_packedCubeTexture || _packedCubeTexture->arrayLength() != _cubeShadowCount) {
             _packedCubeTexture = std::make_shared<SampledTextureCube>(_scene->device(), SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
-                                                                      _cubeShadowCount, SHADOW_MAP_FORMAT,
-                                                                      MTL::TextureUsageShaderRead, false);
+                                                                      _cubeShadowCount, false, SHADOW_MAP_FORMAT,
+                                                                      MTL::TextureUsageShaderRead);
             _packedCubeTexture->setTextureViewDimension(MTL::TextureTypeCubeArray);
             _packedCubeTexture->setCompareFunction(MTL::CompareFunctionLess);
             _packedCubeTexture->setAddressModeU(MTL::SamplerAddressModeClampToEdge);

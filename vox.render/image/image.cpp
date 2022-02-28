@@ -58,7 +58,8 @@ std::shared_ptr<SampledTexture2D> Image::createSampledTexture(MTL::Device &devic
                                                          _mipmaps.at(0).extent.width,
                                                          _mipmaps.at(0).extent.height,
                                                          _mipmaps.at(0).extent.depth,
-                                                         _format, usage, _mipmaps.size() > 1? true:false);
+                                                         _mipmaps.size() > 1? true:false,
+                                                         _format, usage);
     sampledTex->setImageSource(queue, this);
     return sampledTex;
 }

@@ -25,9 +25,10 @@ public:
                        uint32_t width,
                        uint32_t height,
                        uint32_t depthOrArrayLayers = 1,
+                       bool mipmap = true,
                        MTL::PixelFormat format = MTL::PixelFormatRGBA8Unorm,
                        MTL::TextureUsage usage = MTL::TextureUsageShaderRead,
-                       bool mipmap = true);
+                       MTL::StorageMode storage = MTL::StorageModePrivate);
     
     std::shared_ptr<MTL::Texture> textureView() override;
     

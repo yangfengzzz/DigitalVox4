@@ -13,10 +13,12 @@ SampledTextureCube::SampledTextureCube(MTL::Device& device,
                                        uint32_t width,
                                        uint32_t height,
                                        uint32_t depthOrArrayLayers,
+                                       bool mipmap,
                                        MTL::PixelFormat format,
                                        MTL::TextureUsage usage,
-                                       bool mipmap):
+                                       MTL::StorageMode storage):
 SampledTexture(device) {
+    _textureDesc = CLONE_METAL_CUSTOM_DELETER(MTL::TextureDescriptor, MTL::TextureDescriptor::alloc()->init());
     _textureDesc->setTextureType(MTL::TextureTypeCube);
     _textureDesc->setWidth(width);
     _textureDesc->setHeight(height);
@@ -24,6 +26,7 @@ SampledTexture(device) {
     _textureDesc->setPixelFormat(format);
     _textureDesc->setUsage(usage);
     _textureDesc->setMipmapLevelCount(_getMipmapCount(mipmap));
+    _textureDesc->setStorageMode(storage);
     
     _dimension = MTL::TextureTypeCube;
     _nativeTexture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, device.newTexture(_textureDesc.get()));
