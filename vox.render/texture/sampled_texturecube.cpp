@@ -29,7 +29,7 @@ SampledTexture(device) {
     _nativeTexture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, device.newTexture(_textureDesc.get()));
 }
 
-std::shared_ptr<MTL::Texture> SampledTexture2D::textureView() {
+std::shared_ptr<MTL::Texture> SampledTextureCube::textureView() {
     return CLONE_METAL_CUSTOM_DELETER(MTL::Texture,
                                       _nativeTexture->newTextureView(_textureDesc->pixelFormat(),
                                                                      _dimension,

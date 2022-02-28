@@ -38,7 +38,7 @@ void AmbientLight::registerUploader(Scene *scene) {
     });
 }
 
-DiffuseMode AmbientLight::diffuseMode() {
+DiffuseMode AmbientLight::diffuseMode() const {
     return _diffuseMode;
 }
 
@@ -62,7 +62,7 @@ void AmbientLight::setDiffuseMode(DiffuseMode value) {
     }
 }
 
-Color AmbientLight::diffuseSolidColor() {
+Color AmbientLight::diffuseSolidColor() const {
     return Color(_envMapLight.diffuse.x, _envMapLight.diffuse.y, _envMapLight.diffuse.z);
 }
 
@@ -71,7 +71,7 @@ void AmbientLight::setDiffuseSolidColor(const Color &value) {
     _scene->shaderData.setData(AmbientLight::_envMapProperty, _envMapLight);
 }
 
-const SphericalHarmonics3 &AmbientLight::diffuseSphericalHarmonics() {
+const SphericalHarmonics3 &AmbientLight::diffuseSphericalHarmonics() const {
     return _diffuseSphericalHarmonics;
 }
 
@@ -82,11 +82,11 @@ void AmbientLight::setDiffuseSphericalHarmonics(const SphericalHarmonics3 &value
     _scene->shaderData.setData(AmbientLight::_diffuseSHProperty, _preComputeSH(value));
 }
 
-std::shared_ptr<MTL::Texture> AmbientLight::diffuseTexture() {
+SampledTextureCubePtr AmbientLight::diffuseTexture() const {
     return _diffuseTexture;
 }
 
-void AmbientLight::setDiffuseTexture(std::shared_ptr<MTL::Texture> value) {
+void AmbientLight::setDiffuseTexture(const SampledTextureCubePtr& value) {
     _diffuseTexture = value;
     if (!_scene) return;
     
@@ -112,7 +112,7 @@ void AmbientLight::setDiffuseIntensity(float value) {
 }
 
 //MARK: - Specular
-bool AmbientLight::specularTextureDecodeRGBM() {
+bool AmbientLight::specularTextureDecodeRGBM() const {
     return _specularTextureDecodeRGBM;
 }
 
@@ -120,11 +120,11 @@ void AmbientLight::setSpecularTextureDecodeRGBM(bool value) {
     
 }
 
-std::shared_ptr<MTL::Texture> AmbientLight::specularTexture() {
+SampledTextureCubePtr AmbientLight::specularTexture() const {
     return _specularReflection;
 }
 
-void AmbientLight::setSpecularTexture(std::shared_ptr<MTL::Texture> value) {
+void AmbientLight::setSpecularTexture(const SampledTextureCubePtr& value) {
     _specularReflection = value;
     if (!_scene) return;
     
@@ -132,7 +132,7 @@ void AmbientLight::setSpecularTexture(std::shared_ptr<MTL::Texture> value) {
     
     if (value) {
         shaderData.setData(AmbientLight::_specularTextureProperty, _specularReflection);
-        _envMapLight.mipMapLevel = static_cast<int>(value->mipmapLevelCount() - 1);
+        _envMapLight.mipMapLevel = static_cast<int>(value->mipmapCount() - 1);
         _scene->shaderData.setData(AmbientLight::_envMapProperty, _envMapLight);
         shaderData.enableMacro(HAS_SPECULAR_ENV);
     } else {
@@ -140,7 +140,7 @@ void AmbientLight::setSpecularTexture(std::shared_ptr<MTL::Texture> value) {
     }
 }
 
-float AmbientLight::specularIntensity() {
+float AmbientLight::specularIntensity() const {
     return _envMapLight.specularIntensity;
 }
 
@@ -152,11 +152,11 @@ void AmbientLight::setSpecularIntensity(float value) {
 }
 
 //MARK: - BRDF Texture
-std::shared_ptr<MTL::Texture> AmbientLight::brdfTexture() {
+SampledTexture2DPtr AmbientLight::brdfTexture() const {
     return _brdfLutTexture;
 }
 
-void AmbientLight::setBRDFTexture(std::shared_ptr<MTL::Texture> value) {
+void AmbientLight::setBRDFTexture(const SampledTexture2DPtr& value) {
     
 }
 

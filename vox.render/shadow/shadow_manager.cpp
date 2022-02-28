@@ -10,6 +10,8 @@
 #include "matrix_utils.h"
 #include "metal_helpers.h"
 #include "texture/texture_utils.h"
+#include "texture/sampled_texture2d.h"
+#include "texture/sampled_texturecube.h"
 
 namespace vox {
 uint32_t ShadowManager::_shadowCount = 0;
@@ -72,19 +74,17 @@ void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
     _drawDirectShadowMap(commandBuffer);
     if (_shadowCount) {
         if (!_packedTexture || _packedTexture->arrayLength() != _shadowCount) {
-            auto descriptor = CLONE_METAL_CUSTOM_DELETER(MTL::TextureDescriptor, MTL::TextureDescriptor::alloc()->init());
-            descriptor->setTextureType(MTL::TextureType::TextureType2DArray);
-            descriptor->setPixelFormat(SHADOW_MAP_FORMAT);
-            descriptor->setWidth(SHADOW_MAP_RESOLUTION);
-            descriptor->setHeight(SHADOW_MAP_RESOLUTION);
-            descriptor->setArrayLength(_shadowCount);
-            descriptor->setStorageMode(MTL::StorageMode::StorageModePrivate);
-            _packedTexture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, _scene->device().newTexture(descriptor.get()));
-            
+            _packedTexture = std::make_shared<SampledTexture2D>(_scene->device(), SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
+                                                                _shadowCount, SHADOW_MAP_FORMAT,
+                                                                MTL::TextureUsageShaderRead, false);
+            _packedTexture->setTextureViewDimension(MTL::TextureType2DArray);
+            _packedTexture->setCompareFunction(MTL::CompareFunctionLess);
+            _packedTexture->setAddressModeU(MTL::SamplerAddressModeClampToEdge);
+            _packedTexture->setAddressModeV(MTL::SamplerAddressModeClampToEdge);
         }
         TextureUtils::buildTextureArray(_shadowMaps.begin(), _shadowMaps.begin() + _shadowCount,
                                         SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
-                                        _packedTexture, commandBuffer);
+                                        _packedTexture->texture(), commandBuffer);
         _scene->shaderData.setData(_shadowMapProp, _packedTexture);
         _scene->shaderData.setData(_shadowDataProp, _shadowDatas);
     }
@@ -93,19 +93,17 @@ void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
     _drawPointShadowMap(commandBuffer);
     if (_cubeShadowCount) {
         if (!_packedCubeTexture || _packedCubeTexture->arrayLength() != _cubeShadowCount) {
-            auto descriptor = CLONE_METAL_CUSTOM_DELETER(MTL::TextureDescriptor, MTL::TextureDescriptor::alloc()->init());
-            descriptor->setTextureType(MTL::TextureType::TextureTypeCubeArray);
-            descriptor->setPixelFormat(SHADOW_MAP_FORMAT);
-            descriptor->setWidth(SHADOW_MAP_RESOLUTION);
-            descriptor->setHeight(SHADOW_MAP_RESOLUTION);
-            descriptor->setArrayLength(_cubeShadowCount);
-            descriptor->setStorageMode(MTL::StorageMode::StorageModePrivate);
-            _packedCubeTexture = CLONE_METAL_CUSTOM_DELETER(MTL::Texture, _scene->device().newTexture(descriptor.get()));
-            
+            _packedCubeTexture = std::make_shared<SampledTextureCube>(_scene->device(), SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
+                                                                      _cubeShadowCount, SHADOW_MAP_FORMAT,
+                                                                      MTL::TextureUsageShaderRead, false);
+            _packedCubeTexture->setTextureViewDimension(MTL::TextureTypeCubeArray);
+            _packedCubeTexture->setCompareFunction(MTL::CompareFunctionLess);
+            _packedCubeTexture->setAddressModeU(MTL::SamplerAddressModeClampToEdge);
+            _packedCubeTexture->setAddressModeV(MTL::SamplerAddressModeClampToEdge);
         }
         TextureUtils::buildCubeTextureArray(_cubeShadowMaps.begin(), _cubeShadowMaps.begin() + _cubeShadowCount,
                                             SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
-                                            _packedCubeTexture, commandBuffer);
+                                            _packedCubeTexture->texture(), commandBuffer);
         
         _scene->shaderData.setData(_cubeShadowMapProp, _packedCubeTexture);
         _scene->shaderData.setData(_cubeShadowDataProp, _cubeShadowDatas);

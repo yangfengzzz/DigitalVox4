@@ -3693,6 +3693,7 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					../third_party/glog/build,
 					"../third_party/nvcloth/NvCloth/bin/osx64-cmake",
+					../third_party/ktx/build,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					./third_party/glog/build,
@@ -3702,6 +3703,7 @@
 					./third_party/ozz/build_debug/src/animation/runtime,
 					./third_party/ozz/build_debug/src/geometry/runtime,
 					"./third_party/nvcloth/NvCloth/bin/osx64-cmake",
+					./third_party/ktx/build,
 				);
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -3718,6 +3720,7 @@
 					"-lozz_geometry_d",
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/lib/clang/debug/libfbxsdk.a",
 					"-lNvClothDEBUG",
+					"-lktx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -3779,6 +3782,7 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					../third_party/glog/build,
 					"../third_party/nvcloth/NvCloth/bin/osx64-cmake",
+					../third_party/ktx/build,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					./third_party/glog/build,
@@ -3788,6 +3792,7 @@
 					./third_party/ozz/build_release/src/animation/runtime,
 					./third_party/ozz/build_release/src/geometry/runtime,
 					"./third_party/nvcloth/NvCloth/bin/osx64-cmake",
+					./third_party/ktx/build,
 				);
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -3804,6 +3809,7 @@
 					"-lozz_geometry_r",
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/lib/clang/release/libfbxsdk.a",
 					"-lNvClothDEBUG",
+					"-lktx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -3894,6 +3900,7 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					../third_party/glog/build,
 					"../third_party/nvcloth/NvCloth/bin/osx64-cmake",
+					../third_party/ktx/build,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					./third_party/glog/build,
@@ -3903,6 +3910,7 @@
 					./third_party/ozz/build_debug/src/animation/runtime,
 					./third_party/ozz/build_debug/src/geometry/runtime,
 					"./third_party/nvcloth/NvCloth/bin/osx64-cmake",
+					./third_party/ktx/build,
 				);
 				OTHER_LDFLAGS = (
 					"-lglog",
@@ -3918,6 +3926,7 @@
 					"-lozz_geometry_d",
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/lib/clang/debug/libfbxsdk.a",
 					"-lNvClothDEBUG",
+					"-lktx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (
@@ -3977,6 +3986,7 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					../third_party/glog/build,
 					"../third_party/nvcloth/NvCloth/bin/osx64-cmake",
+					../third_party/ktx/build,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					./third_party/glog/build,
@@ -3986,6 +3996,7 @@
 					./third_party/ozz/build_release/src/animation/runtime,
 					./third_party/ozz/build_release/src/geometry/runtime,
 					"./third_party/nvcloth/NvCloth/bin/osx64-cmake",
+					./third_party/ktx/build,
 				);
 				OTHER_LDFLAGS = (
 					"-lglog",
@@ -4001,6 +4012,7 @@
 					"-lozz_geometry_r",
 					"/Applications/Autodesk/FBX\\ SDK/2016.1.2/lib/clang/release/libfbxsdk.a",
 					"-lNvClothDEBUG",
+					"-lktx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_HEADER_SEARCH_PATHS = (

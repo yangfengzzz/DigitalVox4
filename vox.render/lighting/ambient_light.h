@@ -13,6 +13,7 @@
 #include "spherical_harmonics3.h"
 #include "shader/shader_property.h"
 #include "shader_common.h"
+#include "texture/sampled_texturecube.h"
 
 namespace vox {
 /**
@@ -46,7 +47,7 @@ public:
     /**
      * Diffuse mode of ambient light.
      */
-    DiffuseMode diffuseMode();
+    DiffuseMode diffuseMode() const;
     
     void setDiffuseMode(DiffuseMode value);
     
@@ -54,7 +55,7 @@ public:
      * Diffuse reflection solid color.
      * @remarks Effective when diffuse reflection mode is `DiffuseMode.SolidColor`.
      */
-    Color diffuseSolidColor();
+    Color diffuseSolidColor() const;
     
     void setDiffuseSolidColor(const Color &value);
     
@@ -62,7 +63,7 @@ public:
      * Diffuse reflection spherical harmonics 3.
      * @remarks Effective when diffuse reflection mode is `DiffuseMode.SphericalHarmonics`.
      */
-    const SphericalHarmonics3 &diffuseSphericalHarmonics();
+    const SphericalHarmonics3 &diffuseSphericalHarmonics() const;
     
     void setDiffuseSphericalHarmonics(const SphericalHarmonics3 &value);
     
@@ -70,9 +71,9 @@ public:
      * Diffuse reflection texture.
      * @remarks This texture must be baked from MetalLoader::createIrradianceTexture
      */
-    std::shared_ptr<MTL::Texture> diffuseTexture();
+    SampledTextureCubePtr diffuseTexture() const;
     
-    void setDiffuseTexture(std::shared_ptr<MTL::Texture> value);
+    void setDiffuseTexture(const SampledTextureCubePtr& value);
     
     /**
      * Diffuse reflection intensity.
@@ -85,7 +86,7 @@ public:
     /**
      * Whether to decode from specularTexture with RGBM format.
      */
-    bool specularTextureDecodeRGBM();
+    bool specularTextureDecodeRGBM() const;
     
     void setSpecularTextureDecodeRGBM(bool value);
     
@@ -93,14 +94,14 @@ public:
      * Specular reflection texture.
      * @remarks This texture must be baked from MetalLoader::createSpecularTexture
      */
-    std::shared_ptr<MTL::Texture> specularTexture();
+    SampledTextureCubePtr specularTexture() const;
     
-    void setSpecularTexture(std::shared_ptr<MTL::Texture> value);
+    void setSpecularTexture(const SampledTextureCubePtr& value);
     
     /**
      * Specular reflection intensity.
      */
-    float specularIntensity();
+    float specularIntensity() const;
     
     void setSpecularIntensity(float value);
     
@@ -109,9 +110,9 @@ public:
      * brdf loopup texture.
      * @remarks This texture must be baked from MetalLoader::createBRDFLookupTable
      */
-    std::shared_ptr<MTL::Texture> brdfTexture();
+    SampledTexture2DPtr brdfTexture() const;
     
-    void setBRDFTexture(std::shared_ptr<MTL::Texture> value);
+    void setBRDFTexture(const SampledTexture2DPtr& value);
     
 private:
     std::array<float, 27> _preComputeSH(const SphericalHarmonics3 &sh);
@@ -127,13 +128,13 @@ private:
     
     DiffuseMode _diffuseMode = DiffuseMode::SolidColor;
     SphericalHarmonics3 _diffuseSphericalHarmonics;
-    std::array<float, 27> _shArray;
-    std::shared_ptr<MTL::Texture> _diffuseTexture = nullptr;
+    std::array<float, 27> _shArray{};
+    SampledTextureCubePtr _diffuseTexture{nullptr};
     
-    bool _specularTextureDecodeRGBM = false;
-    std::shared_ptr<MTL::Texture> _specularReflection = nullptr;
+    bool _specularTextureDecodeRGBM{false};
+    SampledTextureCubePtr _specularReflection{nullptr};
     
-    std::shared_ptr<MTL::Texture> _brdfLutTexture = nullptr;
+    SampledTexture2DPtr _brdfLutTexture{nullptr};
 };
 
 }

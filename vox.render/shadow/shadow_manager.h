@@ -121,14 +121,14 @@ private:
     
     static uint32_t _shadowCount;
     std::vector<std::shared_ptr<MTL::Texture>> _shadowMaps{};
-    std::shared_ptr<MTL::Texture> _packedTexture{nullptr};
+    SampledTexturePtr _packedTexture{nullptr};
     ShaderProperty _shadowMapProp;
     ShaderProperty _shadowDataProp;
     std::array<ShadowManager::ShadowData, ShadowManager::MAX_SHADOW> _shadowDatas{};
     
     static uint32_t _cubeShadowCount;
     std::vector<std::shared_ptr<MTL::Texture>> _cubeShadowMaps{};
-    std::shared_ptr<MTL::Texture> _packedCubeTexture{nullptr};
+    SampledTexturePtr _packedCubeTexture{nullptr};
     ShaderProperty _cubeShadowMapProp;
     ShaderProperty _cubeShadowDataProp;
     std::array<ShadowManager::CubeShadowData, ShadowManager::MAX_CUBE_SHADOW> _cubeShadowDatas{};
