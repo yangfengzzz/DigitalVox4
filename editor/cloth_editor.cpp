@@ -103,7 +103,7 @@ void ClothEditor::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
 
 
 void ClothEditor::loadScene(uint32_t width, uint32_t height) {
-    _gui = std::make_unique<GUI>(_device.get());
+    _gui = std::make_unique<GUI>(*_device);
     _scene->background.solidColor = Color(0.9, 0.9, 0.9, 1.0);
     _scene->ambientLight().setDiffuseSolidColor(Color(1, 1, 1));
     
@@ -126,7 +126,7 @@ void ClothEditor::loadScene(uint32_t width, uint32_t height) {
     
     auto modelEntity = rootEntity->createChild();
     auto renderer = modelEntity->addComponent<MeshRenderer>();
-    renderer->setMesh(PrimitiveMesh::createSphere(_device.get(), 0.9));
+    renderer->setMesh(PrimitiveMesh::createSphere(*_device, 0.9));
     auto material = std::make_shared<BlinnPhongMaterial>();
     material->setBaseColor(Color(0.6, 0.4, 0.7, 1.0));
     renderer->setMaterial(material);

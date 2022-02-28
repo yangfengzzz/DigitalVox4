@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  functionConstant.metal
-//  vox.render
-//
-//  Created by 杨丰 on 2021/10/21.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef function_constant_h
 #define function_constant_h

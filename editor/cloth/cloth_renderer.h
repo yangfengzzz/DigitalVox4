@@ -8,7 +8,7 @@
 #define cloth_renderer_hpp
 
 #include "renderer.h"
-#include "core/cpp_mtl.h"
+#include <Metal/Metal.hpp>
 #include <NvClothExt/ClothMeshDesc.h>
 
 namespace vox {
@@ -42,9 +42,9 @@ private:
     uint32_t _numVertices;
     uint32_t _vertexSize;
     
-    MTL::Buffer _vertexBuffers;
-    MTL::Buffer _indexBuffers;
-    MTL::VertexDescriptor _vertexDescriptor;
+    std::shared_ptr<MTL::Buffer> _vertexBuffers{nullptr};
+    std::shared_ptr<MTL::Buffer> _indexBuffers{nullptr};
+    std::shared_ptr<MTL::VertexDescriptor> _vertexDescriptor{nullptr};
     
     MeshPtr _mesh{nullptr};
 };

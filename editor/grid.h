@@ -1,15 +1,14 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  grid.hpp
-//  editor
-//
-//  Created by 杨丰 on 2021/12/12.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef grid_hpp
 #define grid_hpp
 
 #include "script.h"
-#include "core/cpp_mtl_device.h"
+#include <Metal/Metal.hpp>
 
 namespace vox {
 namespace editor {
@@ -18,7 +17,7 @@ public:
     Grid(Entity *entity);
     
 private:
-    ModelMeshPtr createPlane(MTL::Device *device);
+    ModelMeshPtr createPlane(MTL::Device &device);
     
 private:
     MeshRenderer *_renderer;

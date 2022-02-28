@@ -1,9 +1,12 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  main.cpp
-//  editor
-//
-//  Created by 杨丰 on 2022/1/21.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
+
+#define NS_PRIVATE_IMPLEMENTATION
+#define CA_PRIVATE_IMPLEMENTATION
+#define MTL_PRIVATE_IMPLEMENTATION
 
 #include "unix_engine.h"
 #include "engine.h"

@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  grid.cpp
-//  editor
-//
-//  Created by 杨丰 on 2021/12/12.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "grid.h"
 #include "entity.h"
@@ -30,7 +29,7 @@ Script(entity) {
     _renderer->setMaterial(std::make_shared<GridMaterial>());
 }
 
-ModelMeshPtr Grid::createPlane(MTL::Device *device) {
+ModelMeshPtr Grid::createPlane(MTL::Device &device) {
     auto mesh = std::make_shared<ModelMesh>(device);
     
     auto positions = std::vector<Vector3F>(4);

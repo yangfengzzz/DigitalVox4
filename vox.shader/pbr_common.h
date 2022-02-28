@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  pbr_common.h
-//  DigitalVox3
-//
-//  Created by 杨丰 on 2021/12/19.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef pbr_common_h
 #define pbr_common_h

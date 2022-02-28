@@ -6,9 +6,10 @@
 
 #include "cloth_renderer.h"
 #include "shader_common.h"
-#include "graphics/mesh.h"
+#include "mesh/buffer_mesh.h"
 #include "entity.h"
 #include "scene.h"
+#include "metal_helpers.h"
 #include <foundation/PxStrideIterator.h>
 
 namespace vox {
@@ -59,7 +60,7 @@ void ClothRenderer::_render(std::vector<RenderElement> &opaqueQueue,
     
     shaderData.enableMacro(HAS_NORMAL);
 
-    auto &subMeshes = _mesh->submeshes();
+    auto &subMeshes = _mesh->subMeshes();
     for (size_t i = 0; i < subMeshes.size(); i++) {
         MaterialPtr material;
         if (i < _materials.size()) {
@@ -105,13 +106,13 @@ void ClothRenderer::setClothMeshDesc(const nv::cloth::ClothMeshDesc &desc) {
     for (physx::PxU32 i = 0; i < numVertices; ++i)
         _vertices[i].normal.normalize();
     
-    _vertexDescriptor.attributes[Position].format(MTL::VertexFormatFloat3);
-    _vertexDescriptor.attributes[Position].offset(0);
-    _vertexDescriptor.attributes[Position].bufferIndex(0);
-    _vertexDescriptor.attributes[Normal].format(MTL::VertexFormatFloat3);
-    _vertexDescriptor.attributes[Normal].offset(sizeof(float) * 3);
-    _vertexDescriptor.attributes[Normal].bufferIndex(0);
-    _vertexDescriptor.layouts[0].stride(sizeof(float) * 6);
+    _vertexDescriptor->attributes()->object(Position)->setFormat(MTL::VertexFormatFloat3);
+    _vertexDescriptor->attributes()->object(Position)->setOffset(0);
+    _vertexDescriptor->attributes()->object(Position)->setBufferIndex(0);
+    _vertexDescriptor->attributes()->object(Normal)->setFormat(MTL::VertexFormatFloat3);
+    _vertexDescriptor->attributes()->object(Normal)->setOffset(sizeof(float) * 3);
+    _vertexDescriptor->attributes()->object(Normal)->setBufferIndex(0);
+    _vertexDescriptor->layouts()->object(0)->setStride(sizeof(float) * 6);
     
     _initialize(_vertices.data(), (uint32_t) _vertices.size(), sizeof(Vertex),
                 _indices.data(), (uint32_t) _indices.size() / 3);
@@ -124,17 +125,22 @@ void ClothRenderer::_initialize(const void *vertices, uint32_t numVertices, uint
     _numFaces = numFaces;
     // VB
     {
-        _vertexBuffers = _entity->scene()->device()->makeBuffer(vertices, vertexSize * numVertices);
+        _vertexBuffers =
+        CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _entity->scene()->device().newBuffer(vertices, vertexSize * numVertices,
+                                                                                     MTL::ResourceOptionCPUCacheModeDefault));
     }
     
     // IB
     if (faces != nullptr) {
-        _indexBuffers = _entity->scene()->device()->makeBuffer(faces, sizeof(uint16_t) * numFaces * 3);
+        _indexBuffers =
+        CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _entity->scene()->device().newBuffer(faces, sizeof(uint16_t) * numFaces * 3,
+                                                                                     MTL::ResourceOptionCPUCacheModeDefault));
         
-        auto submesh = Submesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, numFaces * 3,
-                               MeshBuffer(_indexBuffers, 0, numFaces * 3 * sizeof(uint16_t)));
-        std::vector<MeshBuffer> buffer = {MeshBuffer(_vertexBuffers, 0, sizeof(Vertex) * _vertices.size(), 0)};
-        _mesh = std::make_shared<Mesh>(submesh, buffer, _vertexDescriptor);
+        auto mesh = std::make_shared<BufferMesh>();
+        mesh->setVertexBufferBinding(_vertexBuffers, 0);
+        mesh->addSubMesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, numFaces * 3, _indexBuffers);
+        mesh->setVertexLayouts(_vertexDescriptor);
+        _mesh = mesh;
     }
 }
 
@@ -163,7 +169,7 @@ void ClothRenderer::update(const physx::PxVec3 *positions, uint32_t numVertices)
     for (physx::PxU32 i = 0; i < numVertices; ++i)
         vertices[i].normal.normalize();
     
-    memcpy(_vertexBuffers.contents(), _vertices.data(), sizeof(Vertex) * _vertices.size());
+    memcpy(_vertexBuffers->contents(), _vertices.data(), sizeof(Vertex) * _vertices.size());
 }
 
 

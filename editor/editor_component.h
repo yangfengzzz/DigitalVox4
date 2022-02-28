@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  editor_component.hpp
-//  editor
-//
-//  Created by 杨丰 on 2021/12/14.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef editor_component_hpp
 #define editor_component_hpp
