@@ -451,6 +451,9 @@
 		04D75F3627CCCA2800BB1519 /* omni_shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460450279C4E28009108C8 /* omni_shadowmap_app.cpp */; };
 		04D75F3727CCCC6F00BB1519 /* cascade_shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CB217B279CE5DA007753AA /* cascade_shadowmap_app.cpp */; };
 		04D75F3827CCCCB100BB1519 /* shadowmap_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460454279CDACB009108C8 /* shadowmap_app.cpp */; };
+		04D75F3927CCCCEE00BB1519 /* physx_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B4ACCB279900AD0020576D /* physx_app.cpp */; };
+		04D75F3A27CCCD1600BB1519 /* physx_dynamic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD939927997BCE0093D6CB /* physx_dynamic_app.cpp */; };
+		04D75F3B27CCCD9100BB1519 /* pbr_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD940F279B92940093D6CB /* pbr_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1891,8 +1894,6 @@
 				04B4ACCB279900AD0020576D /* physx_app.cpp */,
 				04CD939A27997BCE0093D6CB /* physx_dynamic_app.h */,
 				04CD939927997BCE0093D6CB /* physx_dynamic_app.cpp */,
-				04CD940D279ABC6F0093D6CB /* animation_app.h */,
-				04CD940C279ABC6F0093D6CB /* animation_app.cpp */,
 				04CD9410279B92940093D6CB /* pbr_app.h */,
 				04CD940F279B92940093D6CB /* pbr_app.cpp */,
 				04CD9413279B94220093D6CB /* Irradiance_app.h */,
@@ -1901,6 +1902,8 @@
 				04CD9417279BB7AE0093D6CB /* skybox_app.cpp */,
 				04CD941B279BBADB0093D6CB /* ibl_app.h */,
 				04CD941A279BBADB0093D6CB /* ibl_app.cpp */,
+				04CD940D279ABC6F0093D6CB /* animation_app.h */,
+				04CD940C279ABC6F0093D6CB /* animation_app.cpp */,
 				04460444279BE2B4009108C8 /* gltf_app.h */,
 				04460443279BE2B4009108C8 /* gltf_app.cpp */,
 				04460448279BE694009108C8 /* scene_animation_app.h */,
@@ -2921,6 +2924,9 @@
 				04D75F3827CCCCB100BB1519 /* shadowmap_app.cpp in Sources */,
 				04D75F3727CCCC6F00BB1519 /* cascade_shadowmap_app.cpp in Sources */,
 				04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */,
+				04D75F3927CCCCEE00BB1519 /* physx_app.cpp in Sources */,
+				04D75F3A27CCCD1600BB1519 /* physx_dynamic_app.cpp in Sources */,
+				04D75F3B27CCCD9100BB1519 /* pbr_app.cpp in Sources */,
 				04D75F1D27CCA28200BB1519 /* primitive_app.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

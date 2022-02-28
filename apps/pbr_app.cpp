@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  pbr_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/22.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "pbr_app.h"
 #include "mesh/primitive_mesh.h"
@@ -46,7 +45,7 @@ void PBRApp::loadScene(uint32_t width, uint32_t height) {
     auto directionLight = light->addComponent<DirectLight>();
     directionLight->intensity = 0.3;
     
-    auto sphere = PrimitiveMesh::createSphere(_device.get(), 0.5, 30);
+    auto sphere = PrimitiveMesh::createSphere(*_device, 0.5, 30);
     for (int i = 0; i < 7; i++) {
         for (int j = 0; j < 7; j++) {
             auto sphereEntity = rootEntity->createChild("SphereEntity" + std::to_string(i) + std::to_string(j));

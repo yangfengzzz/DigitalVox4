@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  physx_dynamic_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/20.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "physx_dynamic_app.h"
 #include "mesh/primitive_mesh.h"
@@ -103,7 +102,7 @@ void PhysXDynamicApp::loadScene(uint32_t width, uint32_t height) {
         
         auto renderer = planeEntity->addComponent<MeshRenderer>();
         renderer->receiveShadow = true;
-        renderer->setMesh(PrimitiveMesh::createCuboid(_device.get(), size.x, size.y, size.z));
+        renderer->setMesh(PrimitiveMesh::createCuboid(*_device, size.x, size.y, size.z));
         renderer->setMaterial(mtl);
         planeEntity->transform->setPosition(position);
         planeEntity->transform->setRotationQuaternion(rotation);
@@ -121,7 +120,7 @@ void PhysXDynamicApp::loadScene(uint32_t width, uint32_t height) {
         auto boxEntity = _rootEntity->createChild("BoxEntity");
         auto boxRenderer = boxEntity->addComponent<MeshRenderer>();
         boxRenderer->castShadow = true;
-        boxRenderer->setMesh(PrimitiveMesh::createCuboid(_device.get(), size.x, size.y, size.z));
+        boxRenderer->setMesh(PrimitiveMesh::createCuboid(*_device, size.x, size.y, size.z));
         boxRenderer->setMaterial(boxMtl);
         boxEntity->transform->setPosition(position);
         boxEntity->transform->setRotationQuaternion(rotation);
@@ -145,7 +144,7 @@ void PhysXDynamicApp::loadScene(uint32_t width, uint32_t height) {
         auto capsuleEntity = _rootEntity->createChild();
         auto renderer = capsuleEntity->addComponent<MeshRenderer>();
         renderer->castShadow = true;
-        renderer->setMesh(PrimitiveMesh::createCapsule(_device.get(), radius, height, 20));
+        renderer->setMesh(PrimitiveMesh::createCapsule(*_device, radius, height, 20));
         renderer->setMaterial(mtl);
         capsuleEntity->transform->setPosition(position);
         capsuleEntity->transform->setRotationQuaternion(rotation);
@@ -259,7 +258,7 @@ EntityPtr PhysXDynamicApp::addSphere(float radius, const Point3F &position,
     auto sphereEntity = _rootEntity->createChild();
     auto renderer = sphereEntity->addComponent<MeshRenderer>();
     renderer->castShadow = true;
-    renderer->setMesh(PrimitiveMesh::createSphere(_device.get(), radius));
+    renderer->setMesh(PrimitiveMesh::createSphere(*_device, radius));
     renderer->setMaterial(mtl);
     sphereEntity->transform->setPosition(position);
     sphereEntity->transform->setRotationQuaternion(rotation);
@@ -286,7 +285,7 @@ EntityPtr PhysXDynamicApp::addCapsule(float radius, float height,
     auto capsuleEntity = _rootEntity->createChild();
     auto renderer = capsuleEntity->addComponent<MeshRenderer>();
     renderer->castShadow = true;
-    renderer->setMesh(PrimitiveMesh::createCapsule(_device.get(), radius, height));
+    renderer->setMesh(PrimitiveMesh::createCapsule(*_device, radius, height));
     renderer->setMaterial(mtl);
     capsuleEntity->transform->setPosition(position);
     capsuleEntity->transform->setRotationQuaternion(rotation);

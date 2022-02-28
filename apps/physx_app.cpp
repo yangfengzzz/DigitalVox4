@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  physx_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/20.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "physx_app.h"
 #include "mesh/primitive_mesh.h"
@@ -88,7 +87,7 @@ void PhysXApp::loadScene(uint32_t width, uint32_t height) {
     auto boxMtl = std::make_shared<BlinnPhongMaterial>();
     auto boxRenderer = boxEntity->addComponent<MeshRenderer>();
     boxMtl->setBaseColor(Color(0.8, 0.3, 0.3, 1.0));
-    boxRenderer->setMesh(PrimitiveMesh::createCuboid(_device.get(), cubeSize, cubeSize, cubeSize));
+    boxRenderer->setMesh(PrimitiveMesh::createCuboid(*_device, cubeSize, cubeSize, cubeSize));
     boxRenderer->setMaterial(boxMtl);
     
     auto boxCollider = boxEntity->addComponent<physics::StaticCollider>();
@@ -105,7 +104,7 @@ void PhysXApp::loadScene(uint32_t width, uint32_t height) {
     std::default_random_engine e;
     std::uniform_real_distribution<float> u(0, 1);
     sphereMtl->setBaseColor(Color(u(e), u(e), u(e), 1));
-    sphereRenderer->setMesh(PrimitiveMesh::createSphere(_device.get(), radius));
+    sphereRenderer->setMesh(PrimitiveMesh::createSphere(*_device, radius));
     sphereRenderer->setMaterial(sphereMtl);
     
     auto sphereCollider = sphereEntity->addComponent<physics::DynamicCollider>();
