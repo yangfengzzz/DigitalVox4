@@ -20,7 +20,7 @@ SampledTexture2DPtr BlinnPhongMaterial::baseTexture() const {
 }
 
 void BlinnPhongMaterial::setBaseTexture(const SampledTexture2DPtr& newValue) {
-    shaderData.setData(BlinnPhongMaterial::_baseTextureProp, newValue);
+    shaderData.setSampledTexure(BlinnPhongMaterial::_baseTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_DIFFUSE_TEXTURE);
     } else {
@@ -41,7 +41,7 @@ SampledTexture2DPtr BlinnPhongMaterial::specularTexture() const {
 }
 
 void BlinnPhongMaterial::setSpecularTexture(const SampledTexture2DPtr& newValue) {
-    shaderData.setData(BlinnPhongMaterial::_specularTextureProp, newValue);
+    shaderData.setSampledTexure(BlinnPhongMaterial::_specularTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_SPECULAR_TEXTURE);
     } else {
@@ -62,7 +62,7 @@ SampledTexture2DPtr BlinnPhongMaterial::emissiveTexture() const {
 }
 
 void BlinnPhongMaterial::BlinnPhongMaterial::setEmissiveTexture(const SampledTexture2DPtr& newValue) {
-    shaderData.setData(BlinnPhongMaterial::_emissiveTextureProp, newValue);
+    shaderData.setSampledTexure(BlinnPhongMaterial::_emissiveTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_EMISSIVE_TEXTURE);
     } else {
@@ -75,7 +75,7 @@ SampledTexture2DPtr BlinnPhongMaterial::normalTexture() const {
 }
 
 void BlinnPhongMaterial::setNormalTexture(const SampledTexture2DPtr& newValue) {
-    shaderData.setData(BlinnPhongMaterial::_normalTextureProp, newValue);
+    shaderData.setSampledTexure(BlinnPhongMaterial::_normalTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_NORMAL_TEXTURE);
     } else {

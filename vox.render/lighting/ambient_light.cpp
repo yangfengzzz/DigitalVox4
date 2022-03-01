@@ -22,7 +22,7 @@ _brdfTextureProperty(Shader::createProperty("u_env_brdfTexture", ShaderDataGroup
     _envMapLight.diffuseIntensity = 1.0;
     _envMapLight.specularIntensity = 1.0;
     _scene->shaderData.setData(AmbientLight::_envMapProperty, _envMapLight);
-    // _scene->shaderData.setData(AmbientLight::_brdfTextureProperty,
+    // _scene->shaderData.setSampledTexure(AmbientLight::_brdfTextureProperty,
     //                           value->engine()->resourceLoader()->createBRDFLookupTable());
 }
 
@@ -93,7 +93,7 @@ void AmbientLight::setDiffuseTexture(const SampledTextureCubePtr& value) {
     auto &shaderData = _scene->shaderData;
     
     if (value) {
-        shaderData.setData(AmbientLight::_diffuseTextureProperty, _diffuseTexture);
+        shaderData.setSampledTexure(AmbientLight::_diffuseTextureProperty, _diffuseTexture);
         shaderData.enableMacro(HAS_DIFFUSE_ENV);
     } else {
         shaderData.disableMacro(HAS_DIFFUSE_ENV);
@@ -131,7 +131,7 @@ void AmbientLight::setSpecularTexture(const SampledTextureCubePtr& value) {
     auto &shaderData = _scene->shaderData;
     
     if (value) {
-        shaderData.setData(AmbientLight::_specularTextureProperty, _specularReflection);
+        shaderData.setSampledTexure(AmbientLight::_specularTextureProperty, _specularReflection);
         _envMapLight.mipMapLevel = static_cast<int>(value->mipmapCount() - 1);
         _scene->shaderData.setData(AmbientLight::_envMapProperty, _envMapLight);
         shaderData.enableMacro(HAS_SPECULAR_ENV);

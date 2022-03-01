@@ -10,6 +10,7 @@
 #include "shader_data_group.h"
 #include "shader_macro_collection.h"
 #include "shader_property.h"
+#include "texture/sampled_texture.h"
 #include <any>
 #include <unordered_map>
 
@@ -26,6 +27,10 @@ public:
     void setData(const std::string &property, std::any value);
     
     void setData(ShaderProperty property, std::any value);
+    
+    void setSampledTexure(const std::string &property, const SampledTexturePtr& value);
+    
+    void setSampledTexure(ShaderProperty property, const SampledTexturePtr& value);
     
     const std::unordered_map<int, std::any> &properties() const;
     

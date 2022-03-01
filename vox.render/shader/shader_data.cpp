@@ -40,6 +40,14 @@ void ShaderData::setData(ShaderProperty property, std::any value) {
     _properties[property.uniqueId] = value;
 }
 
+void ShaderData::setSampledTexure(const std::string &property, const SampledTexturePtr& value) {
+    setData(property, value);
+}
+
+void ShaderData::setSampledTexure(ShaderProperty property, const SampledTexturePtr& value) {
+    setData(property, value);
+}
+
 const std::unordered_map<int, std::any> &ShaderData::properties() const {
     return _properties;
 }

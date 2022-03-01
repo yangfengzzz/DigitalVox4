@@ -28,7 +28,7 @@ SampledTexture2DPtr PBRMaterial::metallicRoughnessTexture() {
 }
 
 void PBRMaterial::setMetallicRoughnessTexture(const SampledTexture2DPtr& newValue) {
-    shaderData.setData(PBRMaterial::_metallicRoughnessTextureProp, newValue);
+    shaderData.setSampledTexure(PBRMaterial::_metallicRoughnessTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_METALROUGHNESSMAP);
     } else {

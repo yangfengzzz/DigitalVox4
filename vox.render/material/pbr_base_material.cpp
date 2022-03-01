@@ -20,7 +20,7 @@ SampledTexture2DPtr PBRBaseMaterial::baseTexture() const {
 }
 
 void PBRBaseMaterial::setBaseTexture(const SampledTexture2DPtr& newValue) {
-    shaderData.setData(PBRBaseMaterial::_baseTextureProp, newValue);
+    shaderData.setSampledTexure(PBRBaseMaterial::_baseTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_BASE_COLORMAP);
     } else {
@@ -33,7 +33,7 @@ SampledTexture2DPtr PBRBaseMaterial::normalTexture() const {
 }
 
 void PBRBaseMaterial::setNormalTexture(const SampledTexture2DPtr& newValue) {
-    shaderData.setData(PBRBaseMaterial::_normalTextureProp, newValue);
+    shaderData.setSampledTexure(PBRBaseMaterial::_normalTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_NORMAL_TEXTURE);
     } else {
@@ -62,7 +62,7 @@ SampledTexture2DPtr PBRBaseMaterial::emissiveTexture() const {
 }
 
 void PBRBaseMaterial::setEmissiveTexture(const SampledTexture2DPtr& newValue) {
-    shaderData.setData(PBRBaseMaterial::_emissiveTextureProp, newValue);
+    shaderData.setSampledTexure(PBRBaseMaterial::_emissiveTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_EMISSIVEMAP);
     } else {
@@ -75,7 +75,7 @@ SampledTexture2DPtr PBRBaseMaterial::occlusionTexture() const {
 }
 
 void PBRBaseMaterial::setOcclusionTexture(const SampledTexture2DPtr& newValue) {
-    shaderData.setData(PBRBaseMaterial::_occlusionTextureProp, newValue);
+    shaderData.setSampledTexure(PBRBaseMaterial::_occlusionTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_OCCLUSIONMAP);
     } else {

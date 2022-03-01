@@ -24,7 +24,7 @@ public:
     }
     
     void setBaseTexture(MTL::TexturePtr newValue) {
-        shaderData.setData(_baseTextureProp, newValue);
+        shaderData.setSampledTexure(_baseTextureProp, newValue);
     }
     
     /// Tiling and offset of main textures.

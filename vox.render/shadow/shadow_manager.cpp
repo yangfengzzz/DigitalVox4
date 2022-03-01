@@ -85,7 +85,7 @@ void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
         TextureUtils::buildTextureArray(_shadowMaps.begin(), _shadowMaps.begin() + _shadowCount,
                                         SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
                                         _packedTexture->texture(), commandBuffer);
-        _scene->shaderData.setData(_shadowMapProp, _packedTexture);
+        _scene->shaderData.setSampledTexure(_shadowMapProp, _packedTexture);
         _scene->shaderData.setData(_shadowDataProp, _shadowDatas);
     }
     
@@ -105,7 +105,7 @@ void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
                                             SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION,
                                             _packedCubeTexture->texture(), commandBuffer);
         
-        _scene->shaderData.setData(_cubeShadowMapProp, _packedCubeTexture);
+        _scene->shaderData.setSampledTexure(_cubeShadowMapProp, _packedCubeTexture);
         _scene->shaderData.setData(_cubeShadowDataProp, _cubeShadowDatas);
     }
 }

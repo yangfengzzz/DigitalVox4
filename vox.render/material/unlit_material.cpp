@@ -20,7 +20,7 @@ SampledTexture2DPtr UnlitMaterial::baseTexture() const {
 }
 
 void UnlitMaterial::setBaseTexture(const SampledTexture2DPtr& newValue) {
-    shaderData.setData(UnlitMaterial::_baseTextureProp, newValue);
+    shaderData.setSampledTexure(UnlitMaterial::_baseTextureProp, newValue);
     
     if (newValue) {
         shaderData.enableMacro(HAS_BASE_TEXTURE);
