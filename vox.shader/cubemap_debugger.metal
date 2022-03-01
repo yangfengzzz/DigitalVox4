@@ -42,5 +42,5 @@ fragment float4 fragment_cubemap(VertexOut in [[stage_in]],
     
     float4 baseColor = u_baseTexture.sample(s, uv);
     
-    return float4(baseColor.z, baseColor.y, baseColor.x, 1);
+    return float4(baseColor.x, baseColor.y, baseColor.z, 1);
 }
