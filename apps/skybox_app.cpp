@@ -1,28 +1,39 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  skybox_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/22.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "skybox_app.h"
 #include "mesh/primitive_mesh.h"
 #include "mesh/mesh_renderer.h"
 #include "material/unlit_material.h"
 #include "rendering/subpasses/skybox_subpass.h"
-#include "loader/texture_loader.h"
 #include "camera.h"
+#include "image/stb.h"
+#include "texture/sampled_texturecube.h"
 
 namespace vox {
 bool SkyboxApp::prepare(Engine &engine) {
     ForwardApplication::prepare(engine);
     
-    auto resourceLoader = TextureLoader(*_device);
+    const std::string path = "SkyMap/country/";
+    const std::array<std::string, 6> imageNames = {"posx.png", "negx.png", "posy.png", "negy.png", "posz.png", "negz.png"};
+    std::array<std::unique_ptr<Image>, 6> images;
+    std::array<Image*, 6> imagePtr;
+    for (int i = 0; i < 6; i++) {
+        images[i] = Image::load(path + imageNames[i]);
+        imagePtr[i] = images[i].get();
+    }
+    auto cubeMap = std::make_shared<SampledTextureCube>(*_device,
+                                                        images[0]->extent().width, images[0]->extent().height, 1, true,
+                                                        images[0]->format());
+    cubeMap->setPixelBuffer(*_commandQueue, imagePtr);
     
-    auto skybox = std::make_unique<SkyboxSubpass>(_renderView.get(), _scene.get(), _mainCamera);
+    
+    auto skybox = std::make_unique<SkyboxSubpass>(_renderContext.get(), _scene.get(), _mainCamera);
     skybox->createCuboid();
-    skybox->setTextureCubeMap(resourceLoader.loadTexture("../assets/SkyMap",
-                                                         "cubemap_yokohama_rgba.ktx"));
+    skybox->setTextureCubeMap(cubeMap);
     _renderPass->addSubpass(std::move(skybox));
     
     return true;
@@ -40,7 +51,7 @@ void SkyboxApp::loadScene(uint32_t width, uint32_t height) {
     
     auto modelEntity = rootEntity->createChild();
     auto renderer = modelEntity->addComponent<MeshRenderer>();
-    renderer->setMesh(PrimitiveMesh::createCuboid(_device.get()));
+    renderer->setMesh(PrimitiveMesh::createCuboid(*_device));
     auto material = std::make_shared<UnlitMaterial>();
     material->setBaseColor(Color(0.6, 0.4, 0.7, 1.0));
     renderer->setMaterial(material);

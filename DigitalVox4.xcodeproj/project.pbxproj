@@ -495,6 +495,7 @@
 		04D75F9127CD09A900BB1519 /* sampled_texture2d_view.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75F8F27CD09A900BB1519 /* sampled_texture2d_view.h */; };
 		04D75F9427CD0BBF00BB1519 /* sampled_texturecube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75F9227CD0BBF00BB1519 /* sampled_texturecube.cpp */; };
 		04D75F9527CD0BBF00BB1519 /* sampled_texturecube.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75F9327CD0BBF00BB1519 /* sampled_texturecube.h */; };
+		04D75F9627CDA2AA00BB1519 /* skybox_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9417279BB7AE0093D6CB /* skybox_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1977,20 +1978,20 @@
 				04B4ACCB279900AD0020576D /* physx_app.cpp */,
 				04CD939A27997BCE0093D6CB /* physx_dynamic_app.h */,
 				04CD939927997BCE0093D6CB /* physx_dynamic_app.cpp */,
-				04CD9410279B92940093D6CB /* pbr_app.h */,
-				04CD940F279B92940093D6CB /* pbr_app.cpp */,
-				04CD9413279B94220093D6CB /* Irradiance_app.h */,
-				04CD9412279B94220093D6CB /* Irradiance_app.cpp */,
 				04CD9418279BB7AE0093D6CB /* skybox_app.h */,
 				04CD9417279BB7AE0093D6CB /* skybox_app.cpp */,
-				04CD941B279BBADB0093D6CB /* ibl_app.h */,
-				04CD941A279BBADB0093D6CB /* ibl_app.cpp */,
 				04CD940D279ABC6F0093D6CB /* animation_app.h */,
 				04CD940C279ABC6F0093D6CB /* animation_app.cpp */,
 				04460444279BE2B4009108C8 /* gltf_app.h */,
 				04460443279BE2B4009108C8 /* gltf_app.cpp */,
 				04460448279BE694009108C8 /* scene_animation_app.h */,
 				04460447279BE694009108C8 /* scene_animation_app.cpp */,
+				04CD9410279B92940093D6CB /* pbr_app.h */,
+				04CD940F279B92940093D6CB /* pbr_app.cpp */,
+				04CD9413279B94220093D6CB /* Irradiance_app.h */,
+				04CD9412279B94220093D6CB /* Irradiance_app.cpp */,
+				04CD941B279BBADB0093D6CB /* ibl_app.h */,
+				04CD941A279BBADB0093D6CB /* ibl_app.cpp */,
 			);
 			path = apps;
 			sourceTree = "<group>";
@@ -3104,6 +3105,7 @@
 				04D75F3827CCCCB100BB1519 /* shadowmap_app.cpp in Sources */,
 				04D75F3727CCCC6F00BB1519 /* cascade_shadowmap_app.cpp in Sources */,
 				04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */,
+				04D75F9627CDA2AA00BB1519 /* skybox_app.cpp in Sources */,
 				04D75F3927CCCCEE00BB1519 /* physx_app.cpp in Sources */,
 				04D75F3A27CCCD1600BB1519 /* physx_dynamic_app.cpp in Sources */,
 				04D75F3B27CCCD9100BB1519 /* pbr_app.cpp in Sources */,
