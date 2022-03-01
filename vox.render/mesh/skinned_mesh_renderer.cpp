@@ -27,6 +27,7 @@ Renderer(entity) {
     const int32_t normals_offset = sizeof(float) * 3;
     const int32_t tangents_offset = sizeof(float) * 6;
     const int32_t positions_stride = sizeof(float) * 9;
+    _vertexDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::VertexDescriptor, MTL::VertexDescriptor::alloc()->init());
     _vertexDescriptor->attributes()->object(Position)->setFormat(MTL::VertexFormatFloat3);
     _vertexDescriptor->attributes()->object(Position)->setOffset(positions_offset);
     _vertexDescriptor->attributes()->object(Position)->setBufferIndex(0);

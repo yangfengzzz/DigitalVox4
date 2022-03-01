@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  animation_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/21.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "animation_app.h"
 #include "camera.h"
@@ -18,7 +17,7 @@
 #include "lighting/direct_light.h"
 #include "lighting/point_light.h"
 #include "lighting/spot_light.h"
-#include "loader/texture_loader.h"
+#include "image/stb.h"
 
 namespace vox {
 void AnimationApp::loadScene(uint32_t width, uint32_t height) {
@@ -46,13 +45,18 @@ void AnimationApp::loadScene(uint32_t width, uint32_t height) {
     directLight->setShadowIntensity(0.2);
     directLight->setEnableShadow(true);
     
-    auto resourceLoader = TextureLoader(*_device);
     auto characterMtl = std::make_shared<PBRMaterial>();
-    characterMtl->setBaseTexture(resourceLoader.loadTexture("../assets/models/Doggy", "T_Doggy_1_diffuse.png", false));
-    characterMtl->setOcclusionTexture(resourceLoader.loadTexture("../assets/models/Doggy", "T_Doggy_1_ao.png", false));
-    characterMtl->setNormalTexture(resourceLoader.loadTexture("../assets/models/Doggy", "T_Doggy_normal.png", false));
-    characterMtl->setMetallicRoughnessTexture(resourceLoader.createMetallicRoughnessTexture("../assets/models/Doggy", "T_Doggy_metallic.png",
-                                                                                            "T_Doggy_roughness.png", false));
+    characterMtl->setBaseTexture(Image::load("Models/Doggy/T_Doggy_1_diffuse.png",
+                                             true)->createSampledTexture(*_device, *_commandQueue));
+
+    characterMtl->setOcclusionTexture(Image::load("Models/Doggy/T_Doggy_1_ao.png",
+                                                  true)->createSampledTexture(*_device, *_commandQueue));
+
+    characterMtl->setNormalTexture(Image::load("Models/Doggy/T_Doggy_normal.png",
+                                               true)->createSampledTexture(*_device, *_commandQueue));
+    
+//    characterMtl->setMetallicRoughnessTexture(resourceLoader.createMetallicRoughnessTexture("../assets/models/Doggy", "T_Doggy_metallic.png",
+//                                                                                            "T_Doggy_roughness.png", false));
     
     auto characterEntity = rootEntity->createChild("characterEntity");
     characterEntity->transform->setScale(3, 3, 3);
@@ -70,7 +74,7 @@ void AnimationApp::loadScene(uint32_t width, uint32_t height) {
     planeMtl->setRenderFace(RenderFace::Double);
     
     auto planeRenderer = planeEntity->addComponent<MeshRenderer>();
-    planeRenderer->setMesh(PrimitiveMesh::createPlane(_device.get(), 10, 10));
+    planeRenderer->setMesh(PrimitiveMesh::createPlane(*_device, 10, 10));
     planeRenderer->setMaterial(planeMtl);
     planeRenderer->receiveShadow = true;
 }

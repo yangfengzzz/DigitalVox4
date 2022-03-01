@@ -52,17 +52,11 @@ public:
     }
     
     CA::MetalDrawable* nextDrawable() {
-        if (_currentDrawable) {
-            _currentDrawable->release();
-            _currentDrawable = nullptr;
-        }
+        _currentDrawable->release();
         _currentDrawable = ( __bridge CA::MetalDrawable* )[_layer nextDrawable];
         _currentDrawable->retain();
         
-        if (_currentTexture) {
-            _currentTexture->release();
-            _currentTexture = nullptr;
-        }
+        _currentTexture->release();
         _currentTexture = _currentDrawable->texture();
         _currentTexture->retain();
         

@@ -496,6 +496,7 @@
 		04D75F9427CD0BBF00BB1519 /* sampled_texturecube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75F9227CD0BBF00BB1519 /* sampled_texturecube.cpp */; };
 		04D75F9527CD0BBF00BB1519 /* sampled_texturecube.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75F9327CD0BBF00BB1519 /* sampled_texturecube.h */; };
 		04D75F9627CDA2AA00BB1519 /* skybox_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9417279BB7AE0093D6CB /* skybox_app.cpp */; };
+		04D75F9727CDA3AF00BB1519 /* animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD940C279ABC6F0093D6CB /* animation_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3105,6 +3106,7 @@
 				04D75F3827CCCCB100BB1519 /* shadowmap_app.cpp in Sources */,
 				04D75F3727CCCC6F00BB1519 /* cascade_shadowmap_app.cpp in Sources */,
 				04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */,
+				04D75F9727CDA3AF00BB1519 /* animation_app.cpp in Sources */,
 				04D75F9627CDA2AA00BB1519 /* skybox_app.cpp in Sources */,
 				04D75F3927CCCCEE00BB1519 /* physx_app.cpp in Sources */,
 				04D75F3A27CCCD1600BB1519 /* physx_dynamic_app.cpp in Sources */,
