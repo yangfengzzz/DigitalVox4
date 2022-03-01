@@ -12,19 +12,19 @@
 #include <vector>
 
 namespace vox {
-class ShadowSubpass: public Subpass {
+class ShadowSubpass : public Subpass {
 public:
-    ShadowSubpass(RenderContext* context,
-                  Scene* scene,
-                  Camera* camera);
+    ShadowSubpass(RenderContext *context,
+                  Scene *scene,
+                  Camera *camera);
     
-    void setViewProjectionMatrix(const Matrix4x4F& vp);
+    void setViewProjectionMatrix(const Matrix4x4F &vp);
     
-    void setViewport(const std::optional<MTL::Viewport>& viewport);
+    void setViewport(const std::optional<MTL::Viewport> &viewport);
     
     void prepare() override;
     
-    void draw(MTL::RenderCommandEncoder& commandEncoder) override;
+    void draw(MTL::RenderCommandEncoder &commandEncoder) override;
     
 private:
     void drawMeshes(MTL::RenderCommandEncoder &renderEncoder);

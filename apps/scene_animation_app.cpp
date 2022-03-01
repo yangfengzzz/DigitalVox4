@@ -31,7 +31,7 @@ void SceneAnimationApp::loadScene(uint32_t width, uint32_t height) {
     auto modelEntity = rootEntity->createChild();
     auto loader = loader::GLTFLoader(*_device, *_commandQueue);
     loader.loadFromFile("Models/CesiumMan/CesiumMan.gltf", modelEntity);
-
+    
     auto animator = modelEntity->getComponent<SceneAnimator>();
     animator->play("0");
 }

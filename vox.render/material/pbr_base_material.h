@@ -30,14 +30,14 @@ public:
      */
     SampledTexture2DPtr baseTexture() const;
     
-    void setBaseTexture(const SampledTexture2DPtr& newValue);
+    void setBaseTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Normal texture.
      */
     SampledTexture2DPtr normalTexture() const;
     
-    void setNormalTexture(const SampledTexture2DPtr& newValue);
+    void setNormalTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Normal texture intensity.
@@ -58,14 +58,14 @@ public:
      */
     SampledTexture2DPtr emissiveTexture() const;
     
-    void setEmissiveTexture(const SampledTexture2DPtr& newValue);
+    void setEmissiveTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Occlusion texture.
      */
     SampledTexture2DPtr occlusionTexture() const;
     
-    void setOcclusionTexture(const SampledTexture2DPtr& newValue);
+    void setOcclusionTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Occlusion texture intensity.

@@ -33,7 +33,7 @@ public:
     
     void resize(uint32_t win_width, uint32_t win_height,
                 uint32_t fb_width, uint32_t fb_height) override;
-
+    
 public:
     /**
      * Keyboard press event.
@@ -67,7 +67,7 @@ public:
      * @param beta - Radian to rotate around the x axis
      */
     void rotate(float alpha = 0, float beta = 0);
-        
+    
     /**
      * must updateSpherical after quaternion has been changed
      * @example

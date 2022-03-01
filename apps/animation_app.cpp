@@ -48,10 +48,10 @@ void AnimationApp::loadScene(uint32_t width, uint32_t height) {
     auto characterMtl = std::make_shared<PBRMaterial>();
     characterMtl->setBaseTexture(Image::load("Models/Doggy/T_Doggy_1_diffuse.png",
                                              true)->createSampledTexture(*_device, *_commandQueue));
-
+    
     characterMtl->setOcclusionTexture(Image::load("Models/Doggy/T_Doggy_1_ao.png",
                                                   true)->createSampledTexture(*_device, *_commandQueue));
-
+    
     characterMtl->setNormalTexture(Image::load("Models/Doggy/T_Doggy_normal.png",
                                                true)->createSampledTexture(*_device, *_commandQueue));
     

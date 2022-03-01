@@ -26,7 +26,7 @@ SampledTexture2DPtr PBRSpecularMaterial::specularGlossinessTexture() const {
     return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRSpecularMaterial::_specularGlossinessTextureProp));
 }
 
-void PBRSpecularMaterial::setSpecularGlossinessTexture(const SampledTexture2DPtr& newValue) {
+void PBRSpecularMaterial::setSpecularGlossinessTexture(const SampledTexture2DPtr &newValue) {
     shaderData.setSampledTexure(PBRSpecularMaterial::_specularGlossinessTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_SPECULARGLOSSINESSMAP);

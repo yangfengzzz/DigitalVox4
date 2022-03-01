@@ -10,15 +10,15 @@
 #include "../subpass.h"
 
 namespace vox {
-class ColorPickerSubpass: public Subpass {
+class ColorPickerSubpass : public Subpass {
 public:
-    ColorPickerSubpass(RenderContext* context,
-                       Scene* scene,
-                       Camera* camera);
+    ColorPickerSubpass(RenderContext *context,
+                       Scene *scene,
+                       Camera *camera);
     
     void prepare() override;
     
-    void draw(MTL::RenderCommandEncoder& commandEncoder) override;
+    void draw(MTL::RenderCommandEncoder &commandEncoder) override;
     
 public:
     /**
@@ -37,12 +37,12 @@ public:
      */
     std::pair<Renderer *, MeshPtr> getObjectByColor(const std::array<uint8_t, 4> &color);
     
-private:    
+private:
     void _drawMeshes(MTL::RenderCommandEncoder &renderEncoder);
     
     void _drawElement(MTL::RenderCommandEncoder &renderEncoder,
                       const std::vector<RenderElement> &items,
-                      const ShaderMacroCollection& compileMacros);
+                      const ShaderMacroCollection &compileMacros);
     
     std::shared_ptr<MTL::RenderPipelineDescriptor> _forwardPipelineDescriptor;
     std::shared_ptr<MTL::DepthStencilState> _forwardDepthStencilState;

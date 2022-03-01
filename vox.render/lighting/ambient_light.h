@@ -20,19 +20,19 @@ namespace vox {
  * Diffuse mode.
  */
 enum class DiffuseMode {
-        /** Solid color mode. */
-        SolidColor,
-        
-        /** Texture mode. */
-        Texture,
-        
-        /**
-         * SH mode
-         * @remarks
-         * Use SH3 to represent irradiance environment maps efficiently,
-         * allowing for interactive rendering of diffuse objects under distant illumination.
-         */
-        SphericalHarmonics
+    /** Solid color mode. */
+    SolidColor,
+    
+    /** Texture mode. */
+    Texture,
+    
+    /**
+     * SH mode
+     * @remarks
+     * Use SH3 to represent irradiance environment maps efficiently,
+     * allowing for interactive rendering of diffuse objects under distant illumination.
+     */
+    SphericalHarmonics
 };
 
 /**
@@ -73,7 +73,7 @@ public:
      */
     SampledTextureCubePtr diffuseTexture() const;
     
-    void setDiffuseTexture(const SampledTextureCubePtr& value);
+    void setDiffuseTexture(const SampledTextureCubePtr &value);
     
     /**
      * Diffuse reflection intensity.
@@ -96,7 +96,7 @@ public:
      */
     SampledTextureCubePtr specularTexture() const;
     
-    void setSpecularTexture(const SampledTextureCubePtr& value);
+    void setSpecularTexture(const SampledTextureCubePtr &value);
     
     /**
      * Specular reflection intensity.
@@ -112,7 +112,7 @@ public:
      */
     SampledTexture2DPtr brdfTexture() const;
     
-    void setBRDFTexture(const SampledTexture2DPtr& value);
+    void setBRDFTexture(const SampledTexture2DPtr &value);
     
 private:
     std::array<float, 27> _preComputeSH(const SphericalHarmonics3 &sh);

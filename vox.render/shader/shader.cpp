@@ -19,11 +19,11 @@ _vertexSource(vertexSource),
 _fragmentSource(fragmentSource) {
 }
 
-const std::string& Shader::vertexSource() {
+const std::string &Shader::vertexSource() {
     return _vertexSource;
 }
 
-const std::string& Shader::fragmentSource() {
+const std::string &Shader::fragmentSource() {
     return _fragmentSource;
 }
 

@@ -44,7 +44,7 @@ public:
         std::vector<uint32_t> indices{};
         std::shared_ptr<MTL::Buffer> vertexBuffer{nullptr};
         std::shared_ptr<MTL::Buffer> indicesBuffer{nullptr};
-        MeshRenderer* renderer{nullptr};
+        MeshRenderer *renderer{nullptr};
         
         void clear();
     };

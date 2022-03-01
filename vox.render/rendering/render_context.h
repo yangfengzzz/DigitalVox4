@@ -17,32 +17,32 @@ class RenderContextImpl;
 
 class RenderContext {
 public:
-    RenderContext(MTL::Device& device, GLFWwindow* window,
+    RenderContext(MTL::Device &device, GLFWwindow *window,
                   uint32_t width, uint32_t height);
     
     ~RenderContext();
     
-    MTL::Device& device();
+    MTL::Device &device();
     
     void resize(uint32_t width, uint32_t height);
     
     void nextDrawable();
-        
-    MTL::Texture* currentDrawableTexture();
+    
+    MTL::Texture *currentDrawableTexture();
     
     MTL::PixelFormat drawableTextureFormat();
     
-    MTL::Texture* depthStencilTexture();
+    MTL::Texture *depthStencilTexture();
     
     MTL::PixelFormat depthStencilTextureFormat();
     
-    CA::MetalDrawable* currentDrawable();
-
-private:
-    MTL::Device& _device;
+    CA::MetalDrawable *currentDrawable();
     
-    CA::MetalDrawable* _currentDrawable{nullptr};
-    MTL::Texture* _currentTexture{nullptr};
+private:
+    MTL::Device &_device;
+    
+    CA::MetalDrawable *_currentDrawable{nullptr};
+    MTL::Texture *_currentTexture{nullptr};
     MTL::PixelFormat _colorTextureFormat = MTL::PixelFormatBGRA8Unorm_sRGB;
     MTL::Texture *_depthStencilTexture{nullptr};
     MTL::PixelFormat _depthStencilTextureFormat = MTL::PixelFormatDepth32Float_Stencil8;

@@ -130,7 +130,7 @@ void FbxSceneLoader::importScene(FbxImporter *_importer,
         if (imported) {
             FbxGlobalSettings &settings = scene_->GetGlobalSettings();
             converter_ = New<FbxSystemConverter>(settings.GetAxisSystem(),
-                                                      settings.GetSystemUnit());
+                                                 settings.GetSystemUnit());
         }
         
         // Clear the scene if import failed.
@@ -242,20 +242,20 @@ FbxSystemConverter::FbxSystemConverter(const FbxAxisSystem &_from_axis,
 math::Float4x4 FbxSystemConverter::convertMatrix(const FbxAMatrix &_m) const {
     const math::Float4x4 m = {{
         math::simd_float4::Load(static_cast<float>(_m[0][0]), static_cast<float>(_m[0][1]),
-                                     static_cast<float>(_m[0][2]), static_cast<float>(_m[0][3])),
+                                static_cast<float>(_m[0][2]), static_cast<float>(_m[0][3])),
         math::simd_float4::Load(static_cast<float>(_m[1][0]), static_cast<float>(_m[1][1]),
-                                     static_cast<float>(_m[1][2]), static_cast<float>(_m[1][3])),
+                                static_cast<float>(_m[1][2]), static_cast<float>(_m[1][3])),
         math::simd_float4::Load(static_cast<float>(_m[2][0]), static_cast<float>(_m[2][1]),
-                                     static_cast<float>(_m[2][2]), static_cast<float>(_m[2][3])),
+                                static_cast<float>(_m[2][2]), static_cast<float>(_m[2][3])),
         math::simd_float4::Load(static_cast<float>(_m[3][0]), static_cast<float>(_m[3][1]),
-                                     static_cast<float>(_m[3][2]), static_cast<float>(_m[3][3])),
+                                static_cast<float>(_m[3][2]), static_cast<float>(_m[3][3])),
     }};
     return convert_ * m * inverse_convert_;
 }
 
 math::Float3 FbxSystemConverter::convertPoint(const FbxVector4 &_p) const {
     const math::SimdFloat4 p_in = math::simd_float4::Load(static_cast<float>(_p[0]), static_cast<float>(_p[1]),
-                                                                    static_cast<float>(_p[2]), 1.f);
+                                                          static_cast<float>(_p[2]), 1.f);
     const math::SimdFloat4 p_out = convert_ * p_in;
     math::Float3 ret;
     math::Store3PtrU(p_out, &ret.x);
@@ -264,7 +264,7 @@ math::Float3 FbxSystemConverter::convertPoint(const FbxVector4 &_p) const {
 
 math::Float3 FbxSystemConverter::convertVector(const FbxVector4 &_p) const {
     const math::SimdFloat4 p_in = math::simd_float4::Load(static_cast<float>(_p[0]), static_cast<float>(_p[1]),
-                                                                    static_cast<float>(_p[2]), 0.f);
+                                                          static_cast<float>(_p[2]), 0.f);
     const math::SimdFloat4 p_out = inverse_transpose_convert_ * p_in;
     math::Float3 ret;
     math::Store3PtrU(p_out, &ret.x);

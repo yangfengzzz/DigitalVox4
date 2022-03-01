@@ -9,27 +9,27 @@
 #include <glog/logging.h>
 
 namespace vox {
-RenderPass::RenderPass(MTL::Library& library,
-                       MTL::RenderPassDescriptor& desc):
+RenderPass::RenderPass(MTL::Library &library,
+                       MTL::RenderPassDescriptor &desc) :
 _library(library),
 _desc(desc),
 _resourceCache(library.device()) {
 }
 
-const MTL::RenderPassDescriptor& RenderPass::renderPassDescriptor() const {
+const MTL::RenderPassDescriptor &RenderPass::renderPassDescriptor() const {
     return _desc;
 }
 
-MTL::Library& RenderPass::library() {
+MTL::Library &RenderPass::library() {
     return _library;
 }
 
-void RenderPass::setGUI(GUI* gui) {
+void RenderPass::setGUI(GUI *gui) {
     _gui = gui;
 }
 
 //MARK: - Subpass
-void RenderPass::draw(MTL::CommandBuffer& commandBuffer,
+void RenderPass::draw(MTL::CommandBuffer &commandBuffer,
                       std::optional<std::string> label) {
     assert(!_subpasses.empty() && "Render pipeline should contain at least one sub-pass");
     
@@ -70,7 +70,7 @@ std::unique_ptr<Subpass> &RenderPass::activeSubpass() {
 }
 
 //MARK: - ParentPass
-void RenderPass::addParentPass(const std::string& name, RenderPass* pass) {
+void RenderPass::addParentPass(const std::string &name, RenderPass *pass) {
     auto iter = _parentPass.find(name);
     if (iter == _parentPass.end()) {
         _parentPass[name] = pass;
@@ -79,7 +79,7 @@ void RenderPass::addParentPass(const std::string& name, RenderPass* pass) {
     }
 }
 
-RenderPass* RenderPass::removeParentPass(const std::string& name) {
+RenderPass *RenderPass::removeParentPass(const std::string &name) {
     auto iter = _parentPass.find(name);
     if (iter != _parentPass.end()) {
         auto pass = iter->second;
@@ -91,7 +91,7 @@ RenderPass* RenderPass::removeParentPass(const std::string& name) {
     }
 }
 
-RenderPass* RenderPass::findPass(const std::string& name) {
+RenderPass *RenderPass::findPass(const std::string &name) {
     auto iter = _parentPass.find(name);
     if (iter != _parentPass.end()) {
         return iter->second;
@@ -104,7 +104,7 @@ void RenderPass::clearParentPass() {
     _parentPass.clear();
 }
 
-ResourceCache& RenderPass::resourceCache() {
+ResourceCache &RenderPass::resourceCache() {
     return _resourceCache;
 }
 

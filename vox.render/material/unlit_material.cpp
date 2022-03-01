@@ -19,7 +19,7 @@ SampledTexture2DPtr UnlitMaterial::baseTexture() const {
     return std::any_cast<SampledTexture2DPtr>(shaderData.getData(_baseTextureProp));
 }
 
-void UnlitMaterial::setBaseTexture(const SampledTexture2DPtr& newValue) {
+void UnlitMaterial::setBaseTexture(const SampledTexture2DPtr &newValue) {
     shaderData.setSampledTexure(UnlitMaterial::_baseTextureProp, newValue);
     
     if (newValue) {

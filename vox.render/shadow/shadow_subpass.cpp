@@ -13,23 +13,24 @@
 #include "metal_helpers.h"
 
 namespace vox {
-ShadowSubpass::ShadowSubpass(RenderContext* context,
-                             Scene* scene,
-                             Camera* camera):
+ShadowSubpass::ShadowSubpass(RenderContext *context,
+                             Scene *scene,
+                             Camera *camera) :
 Subpass(context, scene, camera) {
 }
 
-void ShadowSubpass::setViewProjectionMatrix(const Matrix4x4F& vp) {
+void ShadowSubpass::setViewProjectionMatrix(const Matrix4x4F &vp) {
     _vp = vp;
 }
 
-void ShadowSubpass::setViewport(const std::optional<MTL::Viewport>& viewport) {
+void ShadowSubpass::setViewport(const std::optional<MTL::Viewport> &viewport) {
     _viewport = viewport;
 }
 
 void ShadowSubpass::prepare() {
 #pragma mark Shadow pass render pipeline setup
-    _shadowGenDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineDescriptor, MTL::RenderPipelineDescriptor::alloc()->init());
+    _shadowGenDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineDescriptor,
+                                                      MTL::RenderPipelineDescriptor::alloc()->init());
     {
         _shadowGenDescriptor->setLabel(NS::String::string("Shadow Gen", NS::StringEncoding::UTF8StringEncoding));
         _shadowGenDescriptor->setFragmentFunction(nullptr);
@@ -38,15 +39,17 @@ void ShadowSubpass::prepare() {
     
 #pragma mark Shadow pass depth state setup
     {
-        auto depthStencilDesc = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilDescriptor, MTL::DepthStencilDescriptor::alloc()->init());
+        auto depthStencilDesc = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilDescriptor,
+                                                           MTL::DepthStencilDescriptor::alloc()->init());
         depthStencilDesc->setLabel(NS::String::string("Shadow Gen", NS::StringEncoding::UTF8StringEncoding));
         depthStencilDesc->setDepthCompareFunction(MTL::CompareFunctionLessEqual);
         depthStencilDesc->setDepthWriteEnabled(true);
-        _shadowDepthStencilState = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilState, _scene->device().newDepthStencilState(depthStencilDesc.get()));
+        _shadowDepthStencilState = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilState,
+                                                              _scene->device().newDepthStencilState(depthStencilDesc.get()));
     }
 }
 
-void ShadowSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
+void ShadowSubpass::draw(MTL::RenderCommandEncoder &commandEncoder) {
     commandEncoder.setLabel(NS::String::string("Shadow Map Pass", NS::StringEncoding::UTF8StringEncoding));
     commandEncoder.setDepthStencilState(_shadowDepthStencilState.get());
     commandEncoder.setDepthBias(0.01, 1.0, 0.01);
@@ -67,13 +70,13 @@ void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
     std::vector<RenderElement> transparentQueue;
     _scene->_componentsManager.callRender(BoundingFrustum(_vp), opaqueQueue, alphaTestQueue, transparentQueue);
     
-    for (auto &element : opaqueQueue) {
+    for (auto &element: opaqueQueue) {
         auto macros = compileMacros;
         auto renderer = element.renderer;
         if (renderer->castShadow) {
             renderer->shaderData.mergeMacro(macros, macros);
             renderEncoder.setVertexBytes(renderer->entity()->transform->worldMatrix().data(), sizeof(Matrix4x4F), 12);
-
+            
             auto material = element.material;
             material->shaderData.mergeMacro(macros, macros);
             ShaderProgram *program = _pass->resourceCache().requestShader(_pass->library(), "vertex_depth", "", macros);
@@ -83,17 +86,17 @@ void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
             _shadowGenDescriptor->setVertexFunction(program->vertexShader().get());
             
             // manully
-            auto& mesh = element.mesh;
+            auto &mesh = element.mesh;
             _shadowGenDescriptor->setVertexDescriptor(mesh->vertexDescriptor().get());
             auto _shadowGenPipelineState = _pass->resourceCache().requestRenderPipelineState(*_shadowGenDescriptor);
             renderEncoder.setRenderPipelineState(&_shadowGenPipelineState->handle());
-
+            
             uint32_t index = 0;
             for (auto &meshBuffer: mesh->vertexBufferBindings()) {
                 renderEncoder.setVertexBuffer(meshBuffer.get(),
                                               0, index++);
             }
-            auto& submesh = element.subMesh;
+            auto &submesh = element.subMesh;
             renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
                                                 submesh->indexCount(),
                                                 submesh->indexType(),

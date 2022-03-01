@@ -12,15 +12,15 @@
 #include "texture/sampled_texturecube.h"
 
 namespace vox {
-class SkyboxSubpass: public Subpass {
+class SkyboxSubpass : public Subpass {
 public:
-    SkyboxSubpass(RenderContext* context,
-                  Scene* scene,
-                  Camera* camera);
+    SkyboxSubpass(RenderContext *context,
+                  Scene *scene,
+                  Camera *camera);
     
     void prepare() override;
-
-    void draw(MTL::RenderCommandEncoder& commandEncoder) override;
+    
+    void draw(MTL::RenderCommandEncoder &commandEncoder) override;
     
 public:
     void createSphere(float radius);
@@ -30,9 +30,9 @@ public:
     /**
      * Texture cube map of the sky box material.
      */
-    const SampledTextureCubePtr& textureCubeMap() const;
+    const SampledTextureCubePtr &textureCubeMap() const;
     
-    void setTextureCubeMap(const SampledTextureCubePtr& v);
+    void setTextureCubeMap(const SampledTextureCubePtr &v);
     
 private:
     std::shared_ptr<MTL::RenderPipelineDescriptor> _skyboxPipelineDescriptor;

@@ -228,7 +228,7 @@ private:
     void _projMatChange();
     
     Point3F _innerViewportToWorldPoint(const Vector3F &point, const Matrix4x4F &invViewProjMat);
-        
+    
     /**
      * The inverse matrix of view projection matrix.
      */

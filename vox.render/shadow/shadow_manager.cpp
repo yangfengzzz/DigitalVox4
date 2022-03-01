@@ -16,6 +16,7 @@
 namespace vox {
 uint32_t ShadowManager::_shadowCount = 0;
 uint32_t ShadowManager::_cubeShadowCount = 0;
+
 uint32_t ShadowManager::shadowCount() {
     return _shadowCount;
 }
@@ -24,7 +25,7 @@ uint32_t ShadowManager::cubeShadowCount() {
     return _cubeShadowCount;
 }
 
-ShadowManager::ShadowManager(MTL::Library& library, Scene* scene, Camera* camera):
+ShadowManager::ShadowManager(MTL::Library &library, Scene *scene, Camera *camera) :
 _library(library),
 _scene(scene),
 _camera(camera),
@@ -33,22 +34,22 @@ _cubeShadowMapProp(Shader::createProperty("u_cubeShadowMap", ShaderDataGroup::Sc
 _shadowDataProp(Shader::createProperty("u_shadowData", ShaderDataGroup::Scene)),
 _cubeShadowDataProp(Shader::createProperty("u_cubeShadowData", ShaderDataGroup::Scene)) {
     scene->registerVertexUploader<std::array<ShadowManager::ShadowData, MAX_SHADOW>>([](const std::array<ShadowManager::ShadowData, MAX_SHADOW> &x,
-                                                                                        size_t location, MTL::RenderCommandEncoder& encoder) {
+                                                                                        size_t location, MTL::RenderCommandEncoder &encoder) {
         encoder.setVertexBytes(&x, sizeof(std::array<ShadowManager::ShadowData, MAX_SHADOW>), location);
     });
     
     scene->registerFragmentUploader<std::array<ShadowManager::ShadowData, MAX_SHADOW>>([](const std::array<ShadowManager::ShadowData, MAX_SHADOW> &x,
-                                                                                          size_t location, MTL::RenderCommandEncoder& encoder) {
+                                                                                          size_t location, MTL::RenderCommandEncoder &encoder) {
         encoder.setFragmentBytes(&x, sizeof(std::array<ShadowManager::ShadowData, MAX_SHADOW>), location);
     });
     
     scene->registerVertexUploader<std::array<ShadowManager::CubeShadowData, MAX_CUBE_SHADOW>>([](const std::array<ShadowManager::CubeShadowData, MAX_CUBE_SHADOW> &x,
-                                                                                                 size_t location, MTL::RenderCommandEncoder& encoder) {
+                                                                                                 size_t location, MTL::RenderCommandEncoder &encoder) {
         encoder.setVertexBytes(&x, sizeof(std::array<CubeShadowData, MAX_CUBE_SHADOW>), location);
     });
     
     scene->registerFragmentUploader<std::array<ShadowManager::CubeShadowData, MAX_CUBE_SHADOW>>([](const std::array<ShadowManager::CubeShadowData, MAX_CUBE_SHADOW> &x,
-                                                                                                   size_t location, MTL::RenderCommandEncoder& encoder) {
+                                                                                                   size_t location, MTL::RenderCommandEncoder &encoder) {
         encoder.setFragmentBytes(&x, sizeof(std::array<CubeShadowData, MAX_CUBE_SHADOW>), location);
     });
     
@@ -68,7 +69,7 @@ void ShadowManager::setCascadeSplitLambda(float value) {
     _cascadeSplitLambda = value;
 }
 
-void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
+void ShadowManager::draw(MTL::CommandBuffer &commandBuffer) {
     _shadowCount = 0;
     _drawSpotShadowMap(commandBuffer);
     _drawDirectShadowMap(commandBuffer);
@@ -110,7 +111,7 @@ void ShadowManager::draw(MTL::CommandBuffer& commandBuffer) {
     }
 }
 
-void ShadowManager::_drawSpotShadowMap(MTL::CommandBuffer& commandBuffer) {
+void ShadowManager::_drawSpotShadowMap(MTL::CommandBuffer &commandBuffer) {
     const auto &lights = _scene->light_manager.spotLights();
     for (const auto &light: lights) {
         if (light->enableShadow() && _shadowCount < MAX_SHADOW) {
@@ -141,12 +142,12 @@ void ShadowManager::_drawSpotShadowMap(MTL::CommandBuffer& commandBuffer) {
     }
 }
 
-void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer& commandBuffer) {
+void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer &commandBuffer) {
     const auto &lights = _scene->light_manager.directLights();
     for (const auto &light: lights) {
         if (light->enableShadow() && _shadowCount < MAX_SHADOW) {
             _updateCascadesShadow(light, _shadowDatas[_shadowCount]);
-
+            
             std::shared_ptr<MTL::Texture> texture{nullptr};
             if (_shadowCount < _shadowMaps.size()) {
                 texture = _shadowMaps[_shadowCount];
@@ -162,7 +163,7 @@ void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer& commandBuffer) {
                 _shadowMaps.push_back(texture);
             }
             _renderPassDescriptor->depthAttachment()->setTexture(texture.get());
-
+            
             for (int i = 0; i < SHADOW_MAP_CASCADE_COUNT; i++) {
                 _shadowSubpass->setViewport(_viewport[i]);
                 if (i == 0) {
@@ -180,7 +181,7 @@ void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer& commandBuffer) {
     _shadowSubpass->setViewport(std::nullopt);
 }
 
-void ShadowManager::_drawPointShadowMap(MTL::CommandBuffer& commandBuffer) {
+void ShadowManager::_drawPointShadowMap(MTL::CommandBuffer &commandBuffer) {
     const auto &lights = _scene->light_manager.pointLights();
     for (const auto &light: lights) {
         if (light->enableShadow() && _cubeShadowCount < MAX_CUBE_SHADOW) {
@@ -213,7 +214,7 @@ void ShadowManager::_drawPointShadowMap(MTL::CommandBuffer& commandBuffer) {
     }
 }
 
-void ShadowManager::_updateSpotShadow(SpotLight* light, ShadowManager::ShadowData& shadowData) {
+void ShadowManager::_updateSpotShadow(SpotLight *light, ShadowManager::ShadowData &shadowData) {
     shadowData.radius = light->shadowRadius();
     shadowData.bias = light->shadowBias();
     shadowData.intensity = light->shadowIntensity();
@@ -225,7 +226,7 @@ void ShadowManager::_updateSpotShadow(SpotLight* light, ShadowManager::ShadowDat
     shadowData.cascadeSplits[1] = -1; // mark cascade with negative sign
 }
 
-void ShadowManager::_updateCascadesShadow(DirectLight *light, ShadowManager::ShadowData& shadowData) {
+void ShadowManager::_updateCascadesShadow(DirectLight *light, ShadowManager::ShadowData &shadowData) {
     shadowData.radius = light->shadowRadius();
     shadowData.bias = light->shadowBias();
     shadowData.intensity = light->shadowIntensity();
@@ -340,7 +341,7 @@ void ShadowManager::_updateCascadesShadow(DirectLight *light, ShadowManager::Sha
     }
 }
 
-void ShadowManager::_updatePointShadow(PointLight *light, ShadowManager::CubeShadowData& shadowData) {
+void ShadowManager::_updatePointShadow(PointLight *light, ShadowManager::CubeShadowData &shadowData) {
     shadowData.radius = light->shadowRadius();
     shadowData.bias = light->shadowBias();
     shadowData.intensity = light->shadowIntensity();

@@ -185,9 +185,9 @@ public:
     
 private:
     friend class ComponentsManager;
-
+    
     friend class Component;
-
+    
     friend class Transform;
     
     friend class Script;

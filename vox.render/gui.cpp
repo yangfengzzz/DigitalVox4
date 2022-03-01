@@ -8,7 +8,7 @@
 #include "gui/imgui_impl_metal.h"
 
 namespace vox {
-GUI::GUI(MTL::Device& device) {
+GUI::GUI(MTL::Device &device) {
     ImGui_ImplMetal_Init(&device);
 }
 
@@ -16,13 +16,13 @@ GUI::~GUI() {
     ImGui_ImplMetal_Shutdown();
 }
 
-void GUI::newFrame(MTL::RenderPassDescriptor& renderPassDescriptor) {
+void GUI::newFrame(MTL::RenderPassDescriptor &renderPassDescriptor) {
     ImGui_ImplMetal_NewFrame(&renderPassDescriptor);
 }
 
-void GUI::draw(ImDrawData* drawData,
-               MTL::CommandBuffer& commandBuffer,
-               MTL::RenderCommandEncoder& commandEncoder) {
+void GUI::draw(ImDrawData *drawData,
+               MTL::CommandBuffer &commandBuffer,
+               MTL::RenderCommandEncoder &commandEncoder) {
     ImGui_ImplMetal_RenderDrawData(drawData, &commandBuffer, &commandEncoder);
 }
 

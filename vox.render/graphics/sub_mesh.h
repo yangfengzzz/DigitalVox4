@@ -16,7 +16,7 @@ public:
     SubMesh(MTL::PrimitiveType primitiveType,
             MTL::IndexType indexType,
             NS::UInteger indexCount,
-            const std::shared_ptr<MTL::Buffer>& indexBuffer);
+            const std::shared_ptr<MTL::Buffer> &indexBuffer);
     
     SubMesh(const SubMesh &rhs) = default;
     
@@ -35,7 +35,7 @@ public:
     NS::UInteger indexCount() const;
     
     const std::shared_ptr<MTL::Buffer> &indexBuffer() const;
-        
+    
 private:
     MTL::PrimitiveType _primitiveType;
     

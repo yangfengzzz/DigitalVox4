@@ -7,6 +7,7 @@
 #include "filesystem.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+
 #include <stb_image_write.h>
 
 #include <glog/logging.h>
@@ -24,7 +25,8 @@ const std::unordered_map<Type, std::string> relative_paths = {{Type::Assets, "..
     {Type::Graphs, "output/graphs/"}};
 
 const std::string get(const Type type, const std::string &file) {
-    assert(relative_paths.size() == Type::TotalRelativePathTypes && "Not all paths are defined in filesystem, please check that each enum is specified");
+    assert(relative_paths.size() == Type::TotalRelativePathTypes
+           && "Not all paths are defined in filesystem, please check that each enum is specified");
     
     // Check for special cases first
     if (type == Type::WorkingDir) {

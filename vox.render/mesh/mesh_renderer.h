@@ -10,10 +10,10 @@
 #include "renderer.h"
 
 namespace vox {
-class MeshRenderer: public Renderer {
+class MeshRenderer : public Renderer {
 public:
     explicit MeshRenderer(Entity *entity);
-
+    
     /**
      * Mesh assigned to the renderer.
      */

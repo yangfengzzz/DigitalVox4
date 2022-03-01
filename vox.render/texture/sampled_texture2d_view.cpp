@@ -7,7 +7,8 @@
 #include "sampled_texture2d_view.h"
 
 namespace vox {
-SampledTexture2DView::SampledTexture2DView(MTL::Device& device, std::function<std::shared_ptr<MTL::Texture>()> creator):
+SampledTexture2DView::SampledTexture2DView(MTL::Device &device, std::function<std::shared_ptr<MTL::Texture>()> creator)
+:
 SampledTexture2D(device),
 _creator(creator) {
     

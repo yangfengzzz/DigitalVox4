@@ -26,15 +26,15 @@ struct BlendState {
     /**
      * Apply the current blend state by comparing with the last blend state.
      */
-    void apply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
-               MTL::DepthStencilDescriptor& depthStencilDescriptor,
-               MTL::RenderCommandEncoder& encoder) {
+    void apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+               MTL::DepthStencilDescriptor &depthStencilDescriptor,
+               MTL::RenderCommandEncoder &encoder) {
         platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void platformApply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
-                       MTL::DepthStencilDescriptor& depthStencilDescriptor,
-                       MTL::RenderCommandEncoder& encoder);
+    void platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+                       MTL::DepthStencilDescriptor &depthStencilDescriptor,
+                       MTL::RenderCommandEncoder &encoder);
 };
 
 }

@@ -30,7 +30,7 @@ public:
      */
     SampledTexture2DPtr baseTexture() const;
     
-    void setBaseTexture(const SampledTexture2DPtr& newValue);
+    void setBaseTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Specular color.
@@ -44,7 +44,7 @@ public:
      */
     SampledTexture2DPtr specularTexture() const;
     
-    void setSpecularTexture(const SampledTexture2DPtr& newValue);
+    void setSpecularTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Emissive color.
@@ -58,14 +58,14 @@ public:
      */
     SampledTexture2DPtr emissiveTexture() const;
     
-    void setEmissiveTexture(const SampledTexture2DPtr& newValue);
+    void setEmissiveTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Normal texture.
      */
     SampledTexture2DPtr normalTexture() const;
     
-    void setNormalTexture(const SampledTexture2DPtr& newValue);
+    void setNormalTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Normal texture intensity.

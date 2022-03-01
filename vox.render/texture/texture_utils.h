@@ -18,27 +18,27 @@ public:
     static void buildTextureArray(const std::vector<std::shared_ptr<MTL::Texture>>::iterator &texturesBegin,
                                   const std::vector<std::shared_ptr<MTL::Texture>>::iterator &texturesEnd,
                                   uint32_t width, uint32_t height,
-                                  MTL::Texture& textureArray,
-                                  MTL::CommandBuffer& commandBuffer);
+                                  MTL::Texture &textureArray,
+                                  MTL::CommandBuffer &commandBuffer);
     
     // 6n -> 1
     static void buildCubeTextureArray(const std::vector<std::shared_ptr<MTL::Texture>>::iterator &texturesBegin,
                                       const std::vector<std::shared_ptr<MTL::Texture>>::iterator &texturesEnd,
                                       uint32_t width, uint32_t height,
-                                      MTL::Texture& textureArray,
-                                      MTL::CommandBuffer& commandBuffer);
+                                      MTL::Texture &textureArray,
+                                      MTL::CommandBuffer &commandBuffer);
     
 public:
     static std::shared_ptr<SampledTexture2D>
-    createMetallicRoughnessTexture(const MTL::Texture& metallic, const MTL::Texture& roughness,
-                                   MTL::Device& device, MTL::Library& library, MTL::CommandQueue& queue);
+    createMetallicRoughnessTexture(const MTL::Texture &metallic, const MTL::Texture &roughness,
+                                   MTL::Device &device, MTL::Library &library, MTL::CommandQueue &queue);
     
     static std::shared_ptr<SampledTexture2D>
-    createBRDFLookupTable(MTL::Device& device, MTL::Library& library, MTL::CommandQueue& queue);
+    createBRDFLookupTable(MTL::Device &device, MTL::Library &library, MTL::CommandQueue &queue);
     
     static std::shared_ptr<SampledTextureCube>
-    createSpecularTexture(const MTL::Texture& cube,
-                          MTL::Device& device, MTL::Library& library, MTL::CommandQueue& queue);
+    createSpecularTexture(const MTL::Texture &cube,
+                          MTL::Device &device, MTL::Library &library, MTL::CommandQueue &queue);
 };
 
 }

@@ -57,16 +57,18 @@ bool MetalApplication::resize(uint32_t win_width, uint32_t win_height,
     return true;
 }
 
-void MetalApplication::inputEvent(const InputEvent &inputEvent) {}
+void MetalApplication::inputEvent(const InputEvent &inputEvent) {
+}
 
-void MetalApplication::finish() {}
+void MetalApplication::finish() {
+}
 
 std::shared_ptr<MTL::Library> MetalApplication::makeShaderLibrary() {
-    NS::Error* error;
-    CFURLRef libraryURL = CFBundleCopyResourceURL( CFBundleGetMainBundle() , CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
+    NS::Error *error;
+    CFURLRef libraryURL = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("vox.shader"), CFSTR("metallib"), nullptr);
     
     std::shared_ptr<MTL::Library> shaderLibrary =
-    CLONE_METAL_CUSTOM_DELETER(MTL::Library, _device->newLibrary((NS::URL*)libraryURL, &error));
+    CLONE_METAL_CUSTOM_DELETER(MTL::Library, _device->newLibrary((NS::URL *) libraryURL, &error));
     
     if (error != nullptr) {
         LOG(ERROR) << "Error: could not load Metal shader library: "

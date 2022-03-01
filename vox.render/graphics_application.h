@@ -33,7 +33,7 @@ public:
     
     bool resize(uint32_t win_width, uint32_t win_height,
                 uint32_t fb_width, uint32_t fb_height) override;
-        
+    
     void inputEvent(const InputEvent &inputEvent) override;
     
     void finish() override;
@@ -56,7 +56,7 @@ protected:
      * @brief The Metal shader library
      */
     std::shared_ptr<MTL::Library> _library{nullptr};
-
+    
     /**
      * @brief context used for rendering, it is responsible for managing the frames and their underlying images
      */

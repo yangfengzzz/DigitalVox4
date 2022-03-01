@@ -12,8 +12,8 @@ namespace vox {
 void TextureUtils::buildTextureArray(const std::vector<std::shared_ptr<MTL::Texture>>::iterator &texturesBegin,
                                      const std::vector<std::shared_ptr<MTL::Texture>>::iterator &texturesEnd,
                                      uint32_t width, uint32_t height,
-                                     MTL::Texture& textureArray,
-                                     MTL::CommandBuffer& commandBuffer) {
+                                     MTL::Texture &textureArray,
+                                     MTL::CommandBuffer &commandBuffer) {
     auto blit = CLONE_METAL_CUSTOM_DELETER(MTL::BlitCommandEncoder, commandBuffer.blitCommandEncoder());
     MTL::Origin origin = MTL::Origin(0, 0, 0);
     MTL::Size size = MTL::Size(textureArray.width(), textureArray.height(), 1);
@@ -28,8 +28,8 @@ void TextureUtils::buildTextureArray(const std::vector<std::shared_ptr<MTL::Text
 void TextureUtils::buildCubeTextureArray(const std::vector<std::shared_ptr<MTL::Texture>>::iterator &texturesBegin,
                                          const std::vector<std::shared_ptr<MTL::Texture>>::iterator &texturesEnd,
                                          uint32_t width, uint32_t height,
-                                         MTL::Texture& textureArray,
-                                         MTL::CommandBuffer& commandBuffer) {
+                                         MTL::Texture &textureArray,
+                                         MTL::CommandBuffer &commandBuffer) {
     auto blit = CLONE_METAL_CUSTOM_DELETER(MTL::BlitCommandEncoder, commandBuffer.blitCommandEncoder());
     int destinationSlice = 0;
     for (auto iter = texturesBegin; iter < texturesEnd; iter++) {
@@ -41,8 +41,8 @@ void TextureUtils::buildCubeTextureArray(const std::vector<std::shared_ptr<MTL::
 
 //MARK: - PBR
 std::shared_ptr<SampledTexture2D>
-TextureUtils::createMetallicRoughnessTexture(const MTL::Texture& metallic, const MTL::Texture& roughness,
-                                             MTL::Device& device, MTL::Library& library, MTL::CommandQueue& queue) {
+TextureUtils::createMetallicRoughnessTexture(const MTL::Texture &metallic, const MTL::Texture &roughness,
+                                             MTL::Device &device, MTL::Library &library, MTL::CommandQueue &queue) {
     auto mergedTexture = std::make_shared<SampledTexture2D>(device,
                                                             metallic.width(), metallic.height(), 1, false,
                                                             metallic.pixelFormat(),
@@ -66,14 +66,14 @@ TextureUtils::createMetallicRoughnessTexture(const MTL::Texture& metallic, const
     commandEncoder->setTexture(&metallic, 0);
     commandEncoder->setTexture(&roughness, 1);
     commandEncoder->setTexture(&mergedTexture->texture(), 2);
-
+    
     auto size = metallic.width();
     auto threadsPerThreadgroup = MTL::Size(std::min<size_t>(size, 16), std::min<size_t>(size, 16), 1);
     auto threadgroups = MTL::Size(metallic.width() / threadsPerThreadgroup.width,
                                   metallic.height() / threadsPerThreadgroup.height, 1);
     commandEncoder->dispatchThreadgroups(threadgroups, threadsPerThreadgroup);
     commandEncoder->endEncoding();
-
+    
     commandBuffer->commit();
     commandBuffer->waitUntilCompleted();
     
@@ -81,7 +81,7 @@ TextureUtils::createMetallicRoughnessTexture(const MTL::Texture& metallic, const
 }
 
 std::shared_ptr<SampledTexture2D>
-TextureUtils::createBRDFLookupTable(MTL::Device& device, MTL::Library& library, MTL::CommandQueue& queue) {
+TextureUtils::createBRDFLookupTable(MTL::Device &device, MTL::Library &library, MTL::CommandQueue &queue) {
     auto brdfFunction =
     CLONE_METAL_CUSTOM_DELETER(MTL::Function,
                                library.newFunction(NS::String::string("integrateBRDF",
@@ -115,12 +115,12 @@ TextureUtils::createBRDFLookupTable(MTL::Device& device, MTL::Library& library, 
 }
 
 std::shared_ptr<SampledTextureCube>
-TextureUtils::createSpecularTexture(const MTL::Texture& cube,
-                                    MTL::Device& device, MTL::Library& library, MTL::CommandQueue& queue) {
+TextureUtils::createSpecularTexture(const MTL::Texture &cube,
+                                    MTL::Device &device, MTL::Library &library, MTL::CommandQueue &queue) {
     auto specularTexture = std::make_shared<SampledTextureCube>(device,
-                                                    cube.width(), cube.height(), 1, true,
-                                                    cube.pixelFormat(),
-                                                    cube.usage() | MTL::TextureUsageShaderRead);
+                                                                cube.width(), cube.height(), 1, true,
+                                                                cube.pixelFormat(),
+                                                                cube.usage() | MTL::TextureUsageShaderRead);
     
     auto function =
     CLONE_METAL_CUSTOM_DELETER(MTL::Function,
@@ -164,12 +164,11 @@ TextureUtils::createSpecularTexture(const MTL::Texture& cube,
         blitEncoder->copyFromTexture(outputTexture.get(), 0, 0, &specularTexture->texture(), 0, level, 6, 1);
         blitEncoder->endEncoding();
     }
-
+    
     commandBuffer->commit();
     commandBuffer->waitUntilCompleted();
     return specularTexture;
 }
-
 
 
 }

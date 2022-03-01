@@ -9,6 +9,7 @@
 #include "filesystem.h"
 
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
+
 #include <stb_image_resize.h>
 
 #include "image/stb.h"
@@ -53,12 +54,12 @@ const std::vector<std::vector<uint64_t>> &Image::offsets() const {
     return _offsets;
 }
 
-std::shared_ptr<SampledTexture2D> Image::createSampledTexture(MTL::Device &device, MTL::CommandQueue& queue, MTL::TextureUsage usage) {
+std::shared_ptr<SampledTexture2D> Image::createSampledTexture(MTL::Device &device, MTL::CommandQueue &queue, MTL::TextureUsage usage) {
     auto sampledTex = std::make_shared<SampledTexture2D>(device,
                                                          _mipmaps.at(0).extent.width,
                                                          _mipmaps.at(0).extent.height,
                                                          _mipmaps.at(0).extent.depth,
-                                                         _mipmaps.size() > 1? true:false,
+                                                         _mipmaps.size() > 1 ? true : false,
                                                          _format, usage);
     sampledTex->setImageSource(queue, this);
     return sampledTex;
@@ -76,7 +77,7 @@ void Image::generateMipmaps() {
         return;        // Do not generate again
     }
     
-    const  MTL::Size& extent = this->extent();
+    const MTL::Size &extent = this->extent();
     auto next_width = std::max<uint32_t>(1u, static_cast<uint32_t>(extent.width) / 2);
     auto next_height = std::max<uint32_t>(1u, static_cast<uint32_t>(extent.height) / 2);
     auto channels = 4;

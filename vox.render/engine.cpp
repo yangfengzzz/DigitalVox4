@@ -79,7 +79,7 @@ void Engine::terminate(ExitCode code) {
     
     _activeApp.reset();
     _window.reset();
-        
+    
     // Halt on all unsuccessful exit codes unless ForceClose is in use
     if (code != ExitCode::Success) {
         std::cout << "Press any key to continue";
@@ -119,7 +119,7 @@ void Engine::resize(uint32_t win_width, uint32_t win_height,
     }
 }
 
-std::unique_ptr<RenderContext> Engine::createRenderContext(MTL::Device& device) {
+std::unique_ptr<RenderContext> Engine::createRenderContext(MTL::Device &device) {
     return _window->createRenderContext(device);
 }
 
@@ -138,7 +138,7 @@ Application &Engine::app() const {
     return *_activeApp;
 }
 
-void Engine::setApp(std::unique_ptr<Application>&& new_app) {
+void Engine::setApp(std::unique_ptr<Application> &&new_app) {
     if (_activeApp) {
         auto execution_time = _timer.stop();
         LOG(INFO) << "Closing App (Runtime: " << execution_time << ")";
@@ -163,7 +163,7 @@ bool Engine::startApp() {
         LOG(ERROR) << "Failed to prepare metal app.";
         return false;
     }
-        
+    
     return true;
 }
 
@@ -210,7 +210,6 @@ void Engine::setExternalStorageDirectory(const std::string &dir) {
 void Engine::setTempDirectory(const std::string &dir) {
     _tempDirectory = dir;
 }
-
 
 
 }        // namespace vox

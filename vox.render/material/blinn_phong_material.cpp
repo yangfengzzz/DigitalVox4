@@ -19,7 +19,7 @@ SampledTexture2DPtr BlinnPhongMaterial::baseTexture() const {
     return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_baseTextureProp));
 }
 
-void BlinnPhongMaterial::setBaseTexture(const SampledTexture2DPtr& newValue) {
+void BlinnPhongMaterial::setBaseTexture(const SampledTexture2DPtr &newValue) {
     shaderData.setSampledTexure(BlinnPhongMaterial::_baseTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_DIFFUSE_TEXTURE);
@@ -40,7 +40,7 @@ SampledTexture2DPtr BlinnPhongMaterial::specularTexture() const {
     return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_specularTextureProp));
 }
 
-void BlinnPhongMaterial::setSpecularTexture(const SampledTexture2DPtr& newValue) {
+void BlinnPhongMaterial::setSpecularTexture(const SampledTexture2DPtr &newValue) {
     shaderData.setSampledTexure(BlinnPhongMaterial::_specularTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_SPECULAR_TEXTURE);
@@ -61,7 +61,7 @@ SampledTexture2DPtr BlinnPhongMaterial::emissiveTexture() const {
     return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_emissiveTextureProp));
 }
 
-void BlinnPhongMaterial::BlinnPhongMaterial::setEmissiveTexture(const SampledTexture2DPtr& newValue) {
+void BlinnPhongMaterial::BlinnPhongMaterial::setEmissiveTexture(const SampledTexture2DPtr &newValue) {
     shaderData.setSampledTexure(BlinnPhongMaterial::_emissiveTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_EMISSIVE_TEXTURE);
@@ -74,7 +74,7 @@ SampledTexture2DPtr BlinnPhongMaterial::normalTexture() const {
     return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_normalTextureProp));
 }
 
-void BlinnPhongMaterial::setNormalTexture(const SampledTexture2DPtr& newValue) {
+void BlinnPhongMaterial::setNormalTexture(const SampledTexture2DPtr &newValue) {
     shaderData.setSampledTexure(BlinnPhongMaterial::_normalTextureProp, newValue);
     if (newValue) {
         shaderData.enableMacro(HAS_NORMAL_TEXTURE);
@@ -118,7 +118,7 @@ _normalIntensityProp(Shader::createProperty("u_normalIntensity", ShaderDataGroup
 _baseTextureProp(Shader::createProperty("u_diffuseTexture", ShaderDataGroup::Material)),
 _specularTextureProp(Shader::createProperty("u_specularTexture", ShaderDataGroup::Material)),
 _emissiveTextureProp(Shader::createProperty("u_emissiveTexture", ShaderDataGroup::Material)),
-_normalTextureProp(Shader::createProperty("u_normalTexture", ShaderDataGroup::Material)){
+_normalTextureProp(Shader::createProperty("u_normalTexture", ShaderDataGroup::Material)) {
     shaderData.enableMacro(NEED_WORLDPOS);
     shaderData.enableMacro(NEED_TILINGOFFSET);
     

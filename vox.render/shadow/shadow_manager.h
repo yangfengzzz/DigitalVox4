@@ -83,39 +83,39 @@ public:
     static uint32_t cubeShadowCount();
     
 public:
-    ShadowManager(MTL::Library& library, Scene* scene, Camera* camera);
+    ShadowManager(MTL::Library &library, Scene *scene, Camera *camera);
     
     float cascadeSplitLambda();
     
     void setCascadeSplitLambda(float value);
     
-    void draw(MTL::CommandBuffer& commandBuffer);
+    void draw(MTL::CommandBuffer &commandBuffer);
     
 private:
-    void _drawSpotShadowMap(MTL::CommandBuffer& commandBuffer);
+    void _drawSpotShadowMap(MTL::CommandBuffer &commandBuffer);
     
-    void _drawDirectShadowMap(MTL::CommandBuffer& commandBuffer);
+    void _drawDirectShadowMap(MTL::CommandBuffer &commandBuffer);
     
-    void _drawPointShadowMap(MTL::CommandBuffer& commandBuffer);
+    void _drawPointShadowMap(MTL::CommandBuffer &commandBuffer);
     
-    void _updateSpotShadow(SpotLight* light, ShadowManager::ShadowData& shadowData);
+    void _updateSpotShadow(SpotLight *light, ShadowManager::ShadowData &shadowData);
     
     /*
      * Calculate frustum split depths and matrices for the shadow map cascades
      * Based on https://johanmedestrom.wordpress.com/2016/03/18/opengl-cascaded-shadow-maps/
      */
-    void _updateCascadesShadow(DirectLight *light, ShadowManager::ShadowData& shadowData);
+    void _updateCascadesShadow(DirectLight *light, ShadowManager::ShadowData &shadowData);
     
-    void _updatePointShadow(PointLight *light, ShadowManager::CubeShadowData& shadowData);
+    void _updatePointShadow(PointLight *light, ShadowManager::CubeShadowData &shadowData);
     
 private:
-    MTL::Library& _library;
-    Scene* _scene{nullptr};
-    Camera* _camera{nullptr};
+    MTL::Library &_library;
+    Scene *_scene{nullptr};
+    Camera *_camera{nullptr};
     
     std::shared_ptr<MTL::RenderPassDescriptor> _renderPassDescriptor{nullptr};
     std::unique_ptr<RenderPass> _renderPass{nullptr};
-    ShadowSubpass* _shadowSubpass{nullptr};
+    ShadowSubpass *_shadowSubpass{nullptr};
     
     float _cascadeSplitLambda = 0.5f;
     
@@ -143,10 +143,10 @@ private:
     };
     
     const std::array<MTL::Viewport, SHADOW_MAP_CASCADE_COUNT> _viewport = {
-        MTL::Viewport{0, 0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, 0, 1.0},
-        MTL::Viewport{SHADOW_MAP_RESOLUTION/2, 0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, 0, 1.0},
-        MTL::Viewport{0, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, 0, 1.0},
-        MTL::Viewport{SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, SHADOW_MAP_RESOLUTION/2, 0, 1.0},
+        MTL::Viewport{0, 0, SHADOW_MAP_RESOLUTION / 2, SHADOW_MAP_RESOLUTION / 2, 0, 1.0},
+        MTL::Viewport{SHADOW_MAP_RESOLUTION / 2, 0, SHADOW_MAP_RESOLUTION / 2, SHADOW_MAP_RESOLUTION / 2, 0, 1.0},
+        MTL::Viewport{0, SHADOW_MAP_RESOLUTION / 2, SHADOW_MAP_RESOLUTION / 2, SHADOW_MAP_RESOLUTION / 2, 0, 1.0},
+        MTL::Viewport{SHADOW_MAP_RESOLUTION / 2, SHADOW_MAP_RESOLUTION / 2, SHADOW_MAP_RESOLUTION / 2, SHADOW_MAP_RESOLUTION / 2, 0, 1.0},
     };
 };
 }

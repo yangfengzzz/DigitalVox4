@@ -20,7 +20,7 @@ public:
     
 private:
     SampledTextureCubePtr _cubeMap{nullptr};
-
+    
     struct Material {
         std::string name;
         Color baseColor;
@@ -36,6 +36,7 @@ private:
             baseColor = c;
         };
     };
+    
     std::vector<Material> _materials;
     
     std::string _path;

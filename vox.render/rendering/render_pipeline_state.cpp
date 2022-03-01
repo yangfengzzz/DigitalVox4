@@ -10,16 +10,17 @@
 #include <glog/logging.h>
 
 namespace vox {
-RenderPipelineState::RenderPipelineState(MTL::Device *device, const MTL::RenderPipelineDescriptor &descriptor):
+RenderPipelineState::RenderPipelineState(MTL::Device *device, const MTL::RenderPipelineDescriptor &descriptor) :
 _device(device) {
     MTL::RenderPipelineReflection *_reflection{nullptr};
-    NS::Error* error{nullptr};
+    NS::Error *error{nullptr};
     
     _handle = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineState,
                                          _device->newRenderPipelineState(&descriptor, MTL::PipelineOptionArgumentInfo, &_reflection, &error));
     
     if (error != nullptr) {
-        LOG(ERROR) << "Error: failed to create Metal pipeline state: " << error->description()->cString(NS::StringEncoding::UTF8StringEncoding);
+        LOG(ERROR) << "Error: failed to create Metal pipeline state: "
+        << error->description()->cString(NS::StringEncoding::UTF8StringEncoding);
     }
     
     _recordVertexLocation(_reflection);
@@ -29,7 +30,7 @@ void RenderPipelineState::_recordVertexLocation(MTL::RenderPipelineReflection *r
     auto count = reflection->vertexArguments()->count();
     if (count != 0) {
         for (size_t i = 0; i < count; i++) {
-            const MTL::Argument* aug = static_cast<MTL::Argument*>(reflection->vertexArguments()->object(i));
+            const MTL::Argument *aug = static_cast<MTL::Argument *>(reflection->vertexArguments()->object(i));
             const auto name = aug->name()->cString(NS::StringEncoding::UTF8StringEncoding);
             const auto location = aug->index();
             const auto group = Shader::getShaderPropertyGroup(name);
@@ -46,7 +47,7 @@ void RenderPipelineState::_recordVertexLocation(MTL::RenderPipelineReflection *r
     count = reflection->fragmentArguments()->count();
     if (count != 0) {
         for (size_t i = 0; i < count; i++) {
-            const MTL::Argument* aug = static_cast<MTL::Argument*>(reflection->fragmentArguments()->object(i));
+            const MTL::Argument *aug = static_cast<MTL::Argument *>(reflection->fragmentArguments()->object(i));
             const auto name = aug->name()->cString(NS::StringEncoding::UTF8StringEncoding);
             const auto location = aug->index();
             const auto group = Shader::getShaderPropertyGroup(name);

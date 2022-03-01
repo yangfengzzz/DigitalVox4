@@ -11,9 +11,9 @@
 #include "metal_helpers.h"
 
 namespace vox {
-SkyboxSubpass::SkyboxSubpass(RenderContext* context,
-                             Scene* scene,
-                             Camera* camera):
+SkyboxSubpass::SkyboxSubpass(RenderContext *context,
+                             Scene *scene,
+                             Camera *camera) :
 Subpass(context, scene, camera) {
 }
 
@@ -27,11 +27,11 @@ void SkyboxSubpass::createCuboid() {
     _type = SkyBoxType::Cuboid;
 }
 
-const SampledTextureCubePtr& SkyboxSubpass::textureCubeMap() const {
+const SampledTextureCubePtr &SkyboxSubpass::textureCubeMap() const {
     return _cubeMap;
 }
 
-void SkyboxSubpass::setTextureCubeMap(const SampledTextureCubePtr& v) {
+void SkyboxSubpass::setTextureCubeMap(const SampledTextureCubePtr &v) {
     _cubeMap = v;
 }
 
@@ -47,19 +47,19 @@ void SkyboxSubpass::prepare() {
         _skyboxPipelineDescriptor->setStencilAttachmentPixelFormat(_context->depthStencilTextureFormat());
         
         if (_type == SkyBoxType::Sphere) {
-            MTL::Function* skyboxVertexFunction =
+            MTL::Function *skyboxVertexFunction =
             _pass->library().newFunction(NS::String::string("vertex_sphere_skybox",
-                                                             NS::StringEncoding::UTF8StringEncoding));
+                                                            NS::StringEncoding::UTF8StringEncoding));
             _skyboxPipelineDescriptor->setVertexFunction(skyboxVertexFunction);
         } else {
-            MTL::Function* skyboxVertexFunction =
+            MTL::Function *skyboxVertexFunction =
             _pass->library().newFunction(NS::String::string("vertex_cube_skybox",
-                                                             NS::StringEncoding::UTF8StringEncoding));
+                                                            NS::StringEncoding::UTF8StringEncoding));
             _skyboxPipelineDescriptor->setVertexFunction(skyboxVertexFunction);
         }
-        MTL::Function* skyboxFragmentFunction =
+        MTL::Function *skyboxFragmentFunction =
         _pass->library().newFunction(NS::String::string("fragment_skybox",
-                                                         NS::StringEncoding::UTF8StringEncoding));
+                                                        NS::StringEncoding::UTF8StringEncoding));
         _skyboxPipelineDescriptor->setFragmentFunction(skyboxFragmentFunction);
     }
     
@@ -78,7 +78,7 @@ void SkyboxSubpass::prepare() {
     }
 }
 
-void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
+void SkyboxSubpass::draw(MTL::RenderCommandEncoder &commandEncoder) {
     commandEncoder.pushDebugGroup(NS::String::string("Draw Sky", NS::StringEncoding::UTF8StringEncoding));
     auto _skyboxPipelineState = _pass->resourceCache().requestRenderPipelineState(*_skyboxPipelineDescriptor);
     commandEncoder.setRenderPipelineState(&_skyboxPipelineState->handle());
@@ -100,14 +100,14 @@ void SkyboxSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
     uint32_t index = 0;
     for (auto &meshBuffer: _mesh->vertexBufferBindings()) {
         commandEncoder.setVertexBuffer(meshBuffer.get(),
-                                        0, index++);
+                                       0, index++);
     }
     auto submesh = _mesh->subMesh();
     commandEncoder.drawIndexedPrimitives(submesh->primitiveType(),
-                                          submesh->indexCount(),
-                                          submesh->indexType(),
-                                          submesh->indexBuffer().get(),
-                                          0);
+                                         submesh->indexCount(),
+                                         submesh->indexType(),
+                                         submesh->indexBuffer().get(),
+                                         0);
     
     commandEncoder.popDebugGroup();
 }

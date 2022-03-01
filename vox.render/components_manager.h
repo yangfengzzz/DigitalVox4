@@ -52,7 +52,7 @@ public:
     
     void callRendererOnUpdate(float deltaTime);
     
-    void callRender(Camera* camera,
+    void callRender(Camera *camera,
                     std::vector<RenderElement> &opaqueQueue,
                     std::vector<RenderElement> &alphaTestQueue,
                     std::vector<RenderElement> &transparentQueue);

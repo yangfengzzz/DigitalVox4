@@ -117,8 +117,8 @@ protected:
     virtual void update(float deltaTime) {
     }
     
-    void updateShaderData(const Matrix4x4F& viewMat,
-                           const Matrix4x4F& projMat);
+    void updateShaderData(const Matrix4x4F &viewMat,
+                          const Matrix4x4F &projMat);
     
 protected:
     MaterialPtr _createInstanceMaterial(const MaterialPtr &material, size_t index);

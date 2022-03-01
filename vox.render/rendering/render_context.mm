@@ -6,7 +6,9 @@
 
 #include "render_context.h"
 #include <GLFW/glfw3.h>
+
 #define GLFW_EXPOSE_NATIVE_COCOA
+
 #include <GLFW/glfw3native.h>
 #import <QuartzCore/CAMetalLayer.h>
 #import <QuartzCore/QuartzCore.hpp>
@@ -14,23 +16,24 @@
 namespace vox {
 class RenderContextImpl {
 private:
-    const MTL::Device& _device;
-    GLFWwindow* _window{nullptr};
+    const MTL::Device &_device;
+    GLFWwindow *_window{nullptr};
     
-    CAMetalLayer* _layer = nullptr;
-    CA::MetalDrawable* _currentDrawable{nullptr};
-    MTL::Texture* _currentTexture{nullptr};
+    CAMetalLayer *_layer{nullptr};
+    CA::MetalDrawable *_currentDrawable{nullptr};
+    MTL::Texture *_currentTexture{nullptr};
     
 public:
-    RenderContextImpl(MTL::Device& device, GLFWwindow* window):
-    _device(device), _window(window) {}
+    RenderContextImpl(MTL::Device &device, GLFWwindow *window) :
+    _device(device), _window(window) {
+    }
     
     void configure(MTL::PixelFormat format,
                    MTL::TextureUsage usage,
                    uint32_t width,
                    uint32_t height) {
         NSWindow *nswin = glfwGetCocoaWindow(_window);
-        NSView* contentView = [nswin contentView];
+        NSView *contentView = [nswin contentView];
         [contentView setWantsLayer:YES];
         
         CGSize size = {};
@@ -38,7 +41,7 @@ public:
         size.height = height;
         
         _layer = [CAMetalLayer layer];
-        [_layer setDevice:(__bridge id<MTLDevice>) &_device];
+        [_layer setDevice:(__bridge id <MTLDevice>) &_device];
         [_layer setPixelFormat:MTLPixelFormatBGRA8Unorm_sRGB];
         [_layer setDrawableSize:size];
         
@@ -51,9 +54,9 @@ public:
         [contentView setLayer:_layer];
     }
     
-    CA::MetalDrawable* nextDrawable() {
+    CA::MetalDrawable *nextDrawable() {
         _currentDrawable->release();
-        _currentDrawable = ( __bridge CA::MetalDrawable* )[_layer nextDrawable];
+        _currentDrawable = ( __bridge CA::MetalDrawable *) [_layer nextDrawable];
         _currentDrawable->retain();
         
         _currentTexture->release();
@@ -63,15 +66,15 @@ public:
         return _currentDrawable;
     }
     
-    MTL::Texture* currentTexture() {
+    MTL::Texture *currentTexture() {
         return _currentTexture;
     }
 };
 
 //MARK: - RenderContext
-RenderContext::RenderContext(MTL::Device& device, GLFWwindow* window,
-                             uint32_t width, uint32_t height):
-_device(device){
+RenderContext::RenderContext(MTL::Device &device, GLFWwindow *window,
+                             uint32_t width, uint32_t height) :
+_device(device) {
     _impl = std::make_unique<RenderContextImpl>(device, window);
     resize(width, height);
 }
@@ -80,7 +83,7 @@ RenderContext::~RenderContext() {
     _impl.reset();
 }
 
-MTL::Device& RenderContext::device() {
+MTL::Device &RenderContext::device() {
     return _device;
 }
 
@@ -89,7 +92,7 @@ void RenderContext::nextDrawable() {
     _currentTexture = _impl->currentTexture();
 }
 
-void RenderContext::resize(uint32_t width, uint32_t height){
+void RenderContext::resize(uint32_t width, uint32_t height) {
     _impl->configure(_colorTextureFormat, MTL::TextureUsageRenderTarget, width, height);
     
     // managed by internal no need to release
@@ -100,7 +103,7 @@ void RenderContext::resize(uint32_t width, uint32_t height){
     _depthStencilTexture = _device.newTexture(descriptor);
 }
 
-MTL::Texture* RenderContext::currentDrawableTexture() {
+MTL::Texture *RenderContext::currentDrawableTexture() {
     return _currentTexture;
 }
 
@@ -108,7 +111,7 @@ MTL::PixelFormat RenderContext::drawableTextureFormat() {
     return _colorTextureFormat;
 }
 
-MTL::Texture* RenderContext::depthStencilTexture() {
+MTL::Texture *RenderContext::depthStencilTexture() {
     return _depthStencilTexture;
 }
 
@@ -116,7 +119,7 @@ MTL::PixelFormat RenderContext::depthStencilTextureFormat() {
     return _depthStencilTextureFormat;
 }
 
-CA::MetalDrawable* RenderContext::currentDrawable() {
+CA::MetalDrawable *RenderContext::currentDrawable() {
     return _currentDrawable;
 }
 

@@ -40,11 +40,11 @@ void ShaderData::setData(ShaderProperty property, std::any value) {
     _properties[property.uniqueId] = value;
 }
 
-void ShaderData::setSampledTexure(const std::string &property, const SampledTexturePtr& value) {
+void ShaderData::setSampledTexure(const std::string &property, const SampledTexturePtr &value) {
     setData(property, value);
 }
 
-void ShaderData::setSampledTexure(ShaderProperty property, const SampledTexturePtr& value) {
+void ShaderData::setSampledTexure(ShaderProperty property, const SampledTexturePtr &value) {
     setData(property, value);
 }
 

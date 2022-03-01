@@ -24,15 +24,15 @@ struct DepthState {
     /**
      * Apply the current depth state by comparing with the last depth state.
      */
-    void apply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
-               MTL::DepthStencilDescriptor& depthStencilDescriptor,
-               MTL::RenderCommandEncoder& encoder) {
+    void apply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+               MTL::DepthStencilDescriptor &depthStencilDescriptor,
+               MTL::RenderCommandEncoder &encoder) {
         platformApply(pipelineDescriptor, depthStencilDescriptor, encoder);
     }
     
-    void platformApply(MTL::RenderPipelineDescriptor& pipelineDescriptor,
-                       MTL::DepthStencilDescriptor& depthStencilDescriptor,
-                       MTL::RenderCommandEncoder& encoder);
+    void platformApply(MTL::RenderPipelineDescriptor &pipelineDescriptor,
+                       MTL::DepthStencilDescriptor &depthStencilDescriptor,
+                       MTL::RenderCommandEncoder &encoder);
 };
 
 }

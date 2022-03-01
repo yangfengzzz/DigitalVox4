@@ -26,11 +26,11 @@ namespace {
 class ControllerScript : public Script {
 private:
     EntityPtr _camera{nullptr};
-    physics::CharacterController* _character = nullptr;
+    physics::CharacterController *_character = nullptr;
     Vector3F _displacement = Vector3F();
     
 public:
-    ControllerScript(Entity* entity):Script(entity) {
+    ControllerScript(Entity *entity) : Script(entity) {
         _character = entity->getComponent<physics::CapsuleCharacterController>();
     }
     
@@ -153,7 +153,7 @@ void PhysXDynamicApp::loadScene(uint32_t width, uint32_t height) {
         physx::PxCapsuleControllerDesc characterControllerDesc;
         characterControllerDesc.radius = radius;
         characterControllerDesc.height = height;
-        characterControllerDesc.material = physics::PhysicsManager::_nativePhysics()->createMaterial(0,0,0);
+        characterControllerDesc.material = physics::PhysicsManager::_nativePhysics()->createMaterial(0, 0, 0);
         auto worldPos = capsuleEntity->transform->worldPosition();
         characterControllerDesc.position = physx::PxExtendedVec3(worldPos.x, worldPos.y, worldPos.z);
         characterController->setDesc(characterControllerDesc);
@@ -228,7 +228,7 @@ void PhysXDynamicApp::inputEvent(const InputEvent &inputEvent) {
                 mtl->setBaseColor(Color(u(e), u(e), u(e), 1));
                 
                 auto meshes = hit.entity->getComponentsIncludeChildren<MeshRenderer>();
-                for (auto& mesh : meshes) {
+                for (auto &mesh: meshes) {
                     mesh->setMaterial(mtl);
                 }
             }

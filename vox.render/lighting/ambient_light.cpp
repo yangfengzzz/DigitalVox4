@@ -9,7 +9,7 @@
 #include "scene.h"
 
 namespace vox {
-AmbientLight::AmbientLight(Scene *value):
+AmbientLight::AmbientLight(Scene *value) :
 _envMapProperty(Shader::createProperty("u_envMapLight", ShaderDataGroup::Scene)),
 _diffuseSHProperty(Shader::createProperty("u_env_sh", ShaderDataGroup::Scene)),
 _diffuseTextureProperty(Shader::createProperty("u_env_diffuseTexture", ShaderDataGroup::Scene)),
@@ -28,12 +28,12 @@ _brdfTextureProperty(Shader::createProperty("u_env_brdfTexture", ShaderDataGroup
 
 void AmbientLight::registerUploader(Scene *scene) {
     _scene->registerFragmentUploader<EnvMapLight>([](const EnvMapLight &x, size_t location,
-                                                     MTL::RenderCommandEncoder& encoder) {
+                                                     MTL::RenderCommandEncoder &encoder) {
         encoder.setFragmentBytes(&x, sizeof(EnvMapLight), location);
     });
     
     _scene->registerFragmentUploader<std::array<float, 27>>([](const std::array<float, 27> &x, size_t location,
-                                                               MTL::RenderCommandEncoder& encoder) {
+                                                               MTL::RenderCommandEncoder &encoder) {
         encoder.setFragmentBytes(&x, sizeof(std::array<float, 27>), location);
     });
 }
@@ -86,7 +86,7 @@ SampledTextureCubePtr AmbientLight::diffuseTexture() const {
     return _diffuseTexture;
 }
 
-void AmbientLight::setDiffuseTexture(const SampledTextureCubePtr& value) {
+void AmbientLight::setDiffuseTexture(const SampledTextureCubePtr &value) {
     _diffuseTexture = value;
     if (!_scene) return;
     
@@ -124,7 +124,7 @@ SampledTextureCubePtr AmbientLight::specularTexture() const {
     return _specularReflection;
 }
 
-void AmbientLight::setSpecularTexture(const SampledTextureCubePtr& value) {
+void AmbientLight::setSpecularTexture(const SampledTextureCubePtr &value) {
     _specularReflection = value;
     if (!_scene) return;
     
@@ -156,7 +156,7 @@ SampledTexture2DPtr AmbientLight::brdfTexture() const {
     return _brdfLutTexture;
 }
 
-void AmbientLight::setBRDFTexture(const SampledTexture2DPtr& value) {
+void AmbientLight::setBRDFTexture(const SampledTexture2DPtr &value) {
     
 }
 

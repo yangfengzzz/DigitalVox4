@@ -434,7 +434,7 @@ std::shared_ptr<Mesh> SkinnedMeshRenderer::drawSkinnedMesh(size_t index,
     mesh->setVertexBufferBinding(_uvBuffers[index], 1);
     mesh->addSubMesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt16, indexCount, _indexBuffers[index]);
     mesh->setVertexLayouts(_vertexDescriptor);
-        
+    
     return mesh;
 }
 

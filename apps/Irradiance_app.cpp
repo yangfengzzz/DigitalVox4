@@ -23,7 +23,7 @@ public:
         return _texture;
     }
     
-    void setBaseTexture(const SampledTexture2DPtr& newValue) {
+    void setBaseTexture(const SampledTexture2DPtr &newValue) {
         _texture = newValue;
         shaderData.setSampledTexure(_baseTextureProp, newValue);
     }
@@ -89,7 +89,7 @@ void IrradianceApp::loadScene(uint32_t width, uint32_t height) {
     const std::string path = "SkyMap/country/";
     const std::array<std::string, 6> imageNames = {"posx.png", "negx.png", "posy.png", "negy.png", "posz.png", "negz.png"};
     std::array<std::unique_ptr<Image>, 6> images;
-    std::array<Image*, 6> imagePtr;
+    std::array<Image *, 6> imagePtr;
     for (int i = 0; i < 6; i++) {
         images[i] = Image::load(path + imageNames[i]);
         imagePtr[i] = images[i].get();
@@ -105,7 +105,7 @@ void IrradianceApp::loadScene(uint32_t width, uint32_t height) {
         for (uint32_t i = 0; i < 6; i++) {
             auto material = planeMaterials[i];
             material->setBaseTexture(_cubeMap->textureView2D(mipLevel, i));
-            material->setFaceInex((int)i);
+            material->setFaceInex((int) i);
         }
     };
     changeMip(0);

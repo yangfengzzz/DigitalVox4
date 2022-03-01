@@ -14,9 +14,9 @@
 #include "metal_helpers.h"
 
 namespace vox {
-ForwardSubpass::ForwardSubpass(RenderContext* context,
-                               Scene* scene,
-                               Camera* camera):
+ForwardSubpass::ForwardSubpass(RenderContext *context,
+                               Scene *scene,
+                               Camera *camera) :
 Subpass(context, scene, camera) {
 }
 
@@ -28,7 +28,7 @@ void ForwardSubpass::prepare() {
     _forwardPipelineDescriptor->setStencilAttachmentPixelFormat(_context->depthStencilTextureFormat());
 }
 
-void ForwardSubpass::draw(MTL::RenderCommandEncoder& commandEncoder) {
+void ForwardSubpass::draw(MTL::RenderCommandEncoder &commandEncoder) {
     commandEncoder.pushDebugGroup(NS::String::string("Draw Element", NS::StringEncoding::UTF8StringEncoding));
     _drawMeshes(commandEncoder);
     commandEncoder.popDebugGroup();
@@ -54,8 +54,8 @@ void ForwardSubpass::_drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
 
 void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
                                   const std::vector<RenderElement> &items,
-                                  const ShaderMacroCollection& compileMacros) {
-    for (auto &element : items) {
+                                  const ShaderMacroCollection &compileMacros) {
+    for (auto &element: items) {
         auto macros = compileMacros;
         auto renderer = element.renderer;
         uint32_t shadowCount = ShadowManager::shadowCount();
@@ -79,7 +79,7 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         _forwardPipelineDescriptor->setFragmentFunction(program->fragmentShader().get());
         
         // manully
-        auto& mesh = element.mesh;
+        auto &mesh = element.mesh;
         _forwardPipelineDescriptor->setVertexDescriptor(mesh->vertexDescriptor().get());
         
         std::shared_ptr<MTL::DepthStencilDescriptor> depthStencilDesc
@@ -100,7 +100,7 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
             renderEncoder.setVertexBuffer(meshBuffer.get(),
                                           0, index++);
         }
-        auto& submesh = element.subMesh;
+        auto &submesh = element.subMesh;
         renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
                                             submesh->indexCount(),
                                             submesh->indexType(),

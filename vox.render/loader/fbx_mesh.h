@@ -56,7 +56,9 @@ struct Mesh {
     }
     
     // Returns the number of joints used to skin the mesh.
-    int num_joints() const { return static_cast<int>(inverse_bind_poses.size()); }
+    int num_joints() const {
+        return static_cast<int>(inverse_bind_poses.size());
+    }
     
     // Returns the highest joint number used in the skeleton.
     int highest_joint_index() const {
@@ -67,7 +69,9 @@ struct Mesh {
     // Defines a portion of the mesh. A mesh is subdivided in sets of vertices
     // with the same number of joint influences.
     struct Part {
-        int vertex_count() const { return static_cast<int>(positions.size()) / 3; }
+        int vertex_count() const {
+            return static_cast<int>(positions.size()) / 3;
+        }
         
         int influences_count() const {
             const int _vertex_count = vertex_count();
@@ -79,23 +83,33 @@ struct Mesh {
         
         typedef vector<float> Positions;
         Positions positions;
-        enum { kPositionsCpnts = 3 };  // x, y, z components
+        enum {
+            kPositionsCpnts = 3
+        };  // x, y, z components
         
         typedef vector<float> Normals;
         Normals normals;
-        enum { kNormalsCpnts = 3 };  // x, y, z components
+        enum {
+            kNormalsCpnts = 3
+        };  // x, y, z components
         
         typedef vector<float> Tangents;
         Tangents tangents;
-        enum { kTangentsCpnts = 4 };  // x, y, z, right or left handed.
+        enum {
+            kTangentsCpnts = 4
+        };  // x, y, z, right or left handed.
         
         typedef vector<float> UVs;
         UVs uvs;  // u, v components
-        enum { kUVsCpnts = 2 };
+        enum {
+            kUVsCpnts = 2
+        };
         
         typedef vector<uint8_t> Colors;
         Colors colors;
-        enum { kColorsCpnts = 4 };  // r, g, b, a components
+        enum {
+            kColorsCpnts = 4
+        };  // r, g, b, a components
         
         typedef vector<uint16_t> JointIndices;
         JointIndices joint_indices;  // Stride equals influences_count
@@ -103,6 +117,7 @@ struct Mesh {
         typedef vector<float> JointWeights;
         JointWeights joint_weights;  // Stride equals influences_count - 1
     };
+    
     typedef vector<Part> Parts;
     Parts parts;
     
@@ -126,22 +141,24 @@ namespace io {
 OZZ_IO_TYPE_TAG("ozz-sample-Mesh-Part", loader::Mesh::Part)
 OZZ_IO_TYPE_VERSION(1, loader::Mesh::Part)
 
-template <>
+template<>
 struct Extern<loader::Mesh::Part> {
-    static void Save(OArchive& _archive, const loader::Mesh::Part* _parts,
+    static void Save(OArchive &_archive, const loader::Mesh::Part *_parts,
                      size_t _count);
-    static void Load(IArchive& _archive, loader::Mesh::Part* _parts,
+    
+    static void Load(IArchive &_archive, loader::Mesh::Part *_parts,
                      size_t _count, uint32_t _version);
 };
 
 OZZ_IO_TYPE_TAG("ozz-sample-Mesh", loader::Mesh)
 OZZ_IO_TYPE_VERSION(1, loader::Mesh)
 
-template <>
+template<>
 struct Extern<loader::Mesh> {
-    static void Save(OArchive& _archive, const loader::Mesh* _meshes,
+    static void Save(OArchive &_archive, const loader::Mesh *_meshes,
                      size_t _count);
-    static void Load(IArchive& _archive, loader::Mesh* _meshes, size_t _count,
+    
+    static void Load(IArchive &_archive, loader::Mesh *_meshes, size_t _count,
                      uint32_t _version);
 };
 

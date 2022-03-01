@@ -23,13 +23,13 @@ public:
     /**
      * First sub-mesh. Rendered using the first material.
      */
-    const SubMesh* subMesh() const;
+    const SubMesh *subMesh() const;
     
     /**
      * A collection of sub-mesh, each sub-mesh can be rendered with an independent material.
      */
     const std::vector<SubMesh> &subMeshes() const;
-
+    
     
     /**
      * Add sub-mesh, each sub-mesh can correspond to an independent material.
@@ -49,7 +49,7 @@ public:
     void addSubMesh(MTL::PrimitiveType primitiveType,
                     MTL::IndexType indexType,
                     NS::UInteger indexCount,
-                    const std::shared_ptr<MTL::Buffer>& indexBuffer);
+                    const std::shared_ptr<MTL::Buffer> &indexBuffer);
     
     /**
      * Clear all sub-mesh.
@@ -65,23 +65,24 @@ public:
 public:
     const std::vector<std::shared_ptr<MTL::Buffer>> &vertexBufferBindings() const;
     
-    const std::shared_ptr<MTL::VertexDescriptor>& vertexDescriptor() const;
+    const std::shared_ptr<MTL::VertexDescriptor> &vertexDescriptor() const;
     
 protected:
-    void _setVertexDescriptor(const std::shared_ptr<MTL::VertexDescriptor>& descriptor);
-
-    void _setVertexBufferBinding(size_t index, const std::shared_ptr<MTL::Buffer>& binding);
+    void _setVertexDescriptor(const std::shared_ptr<MTL::VertexDescriptor> &descriptor);
+    
+    void _setVertexBufferBinding(size_t index, const std::shared_ptr<MTL::Buffer> &binding);
     
 protected:
     std::vector<SubMesh> _subMeshes;
     UpdateFlagManager _updateFlagManager = UpdateFlagManager();
-
+    
     std::vector<std::shared_ptr<MTL::Buffer>> _vertexBufferBindings;
     
     std::shared_ptr<MTL::VertexDescriptor> _vertexDescriptor;
     
     size_t _instanceCount = 0;
 };
+
 using MeshPtr = std::shared_ptr<Mesh>;
 
 }

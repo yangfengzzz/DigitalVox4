@@ -10,7 +10,7 @@
 #include "graphics/mesh.h"
 
 namespace vox {
-class BufferMesh:public Mesh {
+class BufferMesh : public Mesh {
 public:
     /**
      * Instanced count, disable instanced drawing when set zero.
@@ -22,32 +22,32 @@ public:
     /**
      * Vertex buffer binding collection.
      */
-    const std::vector<std::shared_ptr<MTL::Buffer>>& vertexBufferBindings();
+    const std::vector<std::shared_ptr<MTL::Buffer>> &vertexBufferBindings();
     
     /**
      * Vertex layout collection.
      */
-    const std::shared_ptr<MTL::VertexDescriptor>& vertexDescriptor();
-
+    const std::shared_ptr<MTL::VertexDescriptor> &vertexDescriptor();
+    
     /**
      * Set vertex layouts.
      * @param layouts - Vertex layouts collection
      */
-    void setVertexLayouts(const std::shared_ptr<MTL::VertexDescriptor>& layouts);
+    void setVertexLayouts(const std::shared_ptr<MTL::VertexDescriptor> &layouts);
     
     /**
      * Set vertex buffer binding.
      * @param buffer - Vertex buffer binding
      * @param index - Vertex buffer index, the default value is 0
      */
-    void setVertexBufferBinding(const std::shared_ptr<MTL::Buffer>& buffer, size_t index = 0);
-
+    void setVertexBufferBinding(const std::shared_ptr<MTL::Buffer> &buffer, size_t index = 0);
+    
     /**
      * Set vertex buffer binding.
      * @param vertexBufferBindings - Vertex buffer binding
      * @param firstIndex - First vertex buffer index, the default value is 0
      */
-    void setVertexBufferBindings(const std::vector<std::shared_ptr<MTL::Buffer>>& vertexBufferBindings, size_t firstIndex = 0);
+    void setVertexBufferBindings(const std::vector<std::shared_ptr<MTL::Buffer>> &vertexBufferBindings, size_t firstIndex = 0);
 };
 
 }

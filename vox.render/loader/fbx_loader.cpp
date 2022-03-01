@@ -19,16 +19,16 @@ typedef vector<uint16_t> ControlPointRemap;
 typedef vector<ControlPointRemap> ControlPointsRemap;
 
 // Triangle indices naive sort function.
-int SortTriangles(const void* _left, const void* _right) {
-    const uint16_t* left = static_cast<const uint16_t*>(_left);
-    const uint16_t* right = static_cast<const uint16_t*>(_right);
+int SortTriangles(const void *_left, const void *_right) {
+    const uint16_t *left = static_cast<const uint16_t *>(_left);
+    const uint16_t *right = static_cast<const uint16_t *>(_right);
     return (left[0] + left[1] + left[2]) - (right[0] + right[1] + right[2]);
 }
 
 // Generic function that gets an element from a layer.
-template <typename _Element>
-bool GetElement(const _Element& _layer, int _vertex_id, int _control_point,
-                typename _Element::ArrayElementType* _out) {
+template<typename _Element>
+bool GetElement(const _Element &_layer, int _vertex_id, int _control_point,
+                typename _Element::ArrayElementType *_out) {
     assert(_out);
     
     int direct_array_id;
@@ -74,19 +74,18 @@ bool GetElement(const _Element& _layer, int _vertex_id, int _control_point,
 }
 
 // Compare raw elements. Returns true if all elements from _a and _b are equals.
-template <typename _T>
-bool Compare(const _T* _a, const _T* _b, size_t _count) {
+template<typename _T>
+bool Compare(const _T *_a, const _T *_b, size_t _count) {
     size_t i = 0;
-    for (; i < _count && _a[i] == _b[i]; ++i)
-        ;
+    for (; i < _count && _a[i] == _b[i]; ++i);
     return i == _count;
 }
 }  // namespace
 
-bool BuildVertices(FbxMesh* _fbx_mesh,
-                   loader::FbxSystemConverter* _converter,
-                   ControlPointsRemap* _remap,
-                   loader::Mesh* _output_mesh) {
+bool BuildVertices(FbxMesh *_fbx_mesh,
+                   loader::FbxSystemConverter *_converter,
+                   ControlPointsRemap *_remap,
+                   loader::Mesh *_output_mesh) {
     // This function treat all layers like if they were using mapping mode
     // eByPolygonVertex. This allow to use a single code path for all mapping
     // modes. It requires one more pass (compare to eByControlPoint mode), which
@@ -104,18 +103,18 @@ bool BuildVertices(FbxMesh* _fbx_mesh,
     }
     
     assert(_fbx_mesh->GetElementNormalCount() > 0);
-    const FbxGeometryElementNormal* element_normals =
+    const FbxGeometryElementNormal *element_normals =
     _fbx_mesh->GetElementNormal(0);
     assert(element_normals);
     
     // Checks uvs availability.
-    const FbxGeometryElementUV* element_uvs = nullptr;
+    const FbxGeometryElementUV *element_uvs = nullptr;
     if (_fbx_mesh->GetElementUVCount() > 0) {
         element_uvs = _fbx_mesh->GetElementUV(0);
     }
     
     // Checks tangents availability.
-    const FbxGeometryElementTangent* element_tangents = nullptr;
+    const FbxGeometryElementTangent *element_tangents = nullptr;
     if (element_uvs) {  // UVs are needed to generate tangents.
         // Regenerate tangents if they're not available.
         if (!_fbx_mesh->GenerateTangentsData(0, false)) {
@@ -127,7 +126,7 @@ bool BuildVertices(FbxMesh* _fbx_mesh,
     }
     
     // Checks vertex colors availability.
-    const FbxGeometryElementVertexColor* element_colors = nullptr;
+    const FbxGeometryElementVertexColor *element_colors = nullptr;
     if (_fbx_mesh->GetElementVertexColorCount() > 0) {
         element_colors = _fbx_mesh->GetElementVertexColor(0);
     }
@@ -139,7 +138,7 @@ bool BuildVertices(FbxMesh* _fbx_mesh,
     
     // Reserve vertex buffers. Real size is unknown as redundant vertices will be
     // rejected.
-    loader::Mesh::Part& part = _output_mesh->parts[0];
+    loader::Mesh::Part &part = _output_mesh->parts[0];
     part.positions.reserve(vertex_count *
                            loader::Mesh::Part::kPositionsCpnts);
     part.normals.reserve(vertex_count * loader::Mesh::Part::kNormalsCpnts);
@@ -167,7 +166,7 @@ bool BuildVertices(FbxMesh* _fbx_mesh,
             // Get control point.
             const int ctrl_point = _fbx_mesh->GetPolygonVertex(p, v);
             assert(ctrl_point >= 0);
-            ControlPointRemap& remap = _remap->at(ctrl_point);
+            ControlPointRemap &remap = _remap->at(ctrl_point);
             
             // Get vertex position.
             const math::Float3 position =
@@ -179,7 +178,7 @@ bool BuildVertices(FbxMesh* _fbx_mesh,
                 return false;
             }
             const math::Float3 normal = NormalizeSafe(_converter->convertVector(src_normal),
-                                                           math::Float3::y_axis());
+                                                      math::Float3::y_axis());
             
             // Get vertex tangent.
             FbxVector4 src_tangent(1.f, 0.f, 0.f, 0.f);
@@ -190,9 +189,9 @@ bool BuildVertices(FbxMesh* _fbx_mesh,
                 }
             }
             const math::Float3 tangent3 = NormalizeSafe(_converter->convertVector(src_tangent),
-                                                             math::Float3::x_axis());
+                                                        math::Float3::x_axis());
             const math::Float4 tangent(tangent3,
-                                            static_cast<float>(src_tangent[3]));
+                                       static_cast<float>(src_tangent[3]));
             
             // Get vertex uv.
             FbxVector2 src_uv;
@@ -204,7 +203,7 @@ bool BuildVertices(FbxMesh* _fbx_mesh,
                 src_uv = FbxVector2(0., 0.);
             }
             const math::Float2 uv(static_cast<float>(src_uv[0]),
-                                       static_cast<float>(src_uv[1]));
+                                  static_cast<float>(src_uv[1]));
             
             // Get vertex colors.
             FbxColor src_color;
@@ -348,19 +347,19 @@ typedef vector<SkinMapping> SkinMappings;
 typedef vector<SkinMappings> VertexSkinMappings;
 
 // Sort highest weight first.
-bool SortInfluenceWeights(const SkinMapping& _left, const SkinMapping& _right) {
+bool SortInfluenceWeights(const SkinMapping &_left, const SkinMapping &_right) {
     return _left.weight > _right.weight;
 }
 }  // namespace
 
-bool BuildSkin(FbxMesh* _fbx_mesh,
-               loader::FbxSystemConverter* _converter,
-               const ControlPointsRemap& _remap,
-               const animation::Skeleton& _skeleton,
-               loader::Mesh* _output_mesh) {
+bool BuildSkin(FbxMesh *_fbx_mesh,
+               loader::FbxSystemConverter *_converter,
+               const ControlPointsRemap &_remap,
+               const animation::Skeleton &_skeleton,
+               loader::Mesh *_output_mesh) {
     assert(_output_mesh->parts.size() == 1 &&
            _output_mesh->parts[0].vertex_count() != 0);
-    loader::Mesh::Part& part = _output_mesh->parts[0];
+    loader::Mesh::Part &part = _output_mesh->parts[0];
     
     const int skin_count = _fbx_mesh->GetDeformerCount(FbxDeformer::eSkin);
     if (skin_count == 0) {
@@ -374,8 +373,8 @@ bool BuildSkin(FbxMesh* _fbx_mesh,
     }
     
     // Get skinning indices and weights.
-    FbxSkin* deformer =
-    static_cast<FbxSkin*>(_fbx_mesh->GetDeformer(0, FbxDeformer::eSkin));
+    FbxSkin *deformer =
+    static_cast<FbxSkin *>(_fbx_mesh->GetDeformer(0, FbxDeformer::eSkin));
     FbxSkin::EType skinning_type = deformer->GetSkinningType();
     if (skinning_type != FbxSkin::eRigid && skinning_type != FbxSkin::eLinear) {
         LOG(ERROR) << "Unsupported skinning type" << std::endl;
@@ -408,8 +407,8 @@ bool BuildSkin(FbxMesh* _fbx_mesh,
     
     const int cluster_count = deformer->GetClusterCount();
     for (int cl = 0; cl < cluster_count; ++cl) {
-        const FbxCluster* cluster = deformer->GetCluster(cl);
-        const FbxNode* node = cluster->GetLink();
+        const FbxCluster *cluster = deformer->GetCluster(cl);
+        const FbxNode *node = cluster->GetLink();
         if (!node) {
             LOG(INFO) << "No node linked to cluster " << cluster->GetName()
             << "." << std::endl;
@@ -450,8 +449,8 @@ bool BuildSkin(FbxMesh* _fbx_mesh,
         // Affect joint to all vertices of the cluster.
         const int ctrl_point_index_count = cluster->GetControlPointIndicesCount();
         
-        const int* ctrl_point_indices = cluster->GetControlPointIndices();
-        const double* ctrl_point_weights = cluster->GetControlPointWeights();
+        const int *ctrl_point_indices = cluster->GetControlPointIndices();
+        const double *ctrl_point_weights = cluster->GetControlPointWeights();
         for (int cpi = 0; cpi < ctrl_point_index_count; ++cpi) {
             const SkinMapping mapping = {joint,
                 static_cast<float>(ctrl_point_weights[cpi])};
@@ -466,7 +465,7 @@ bool BuildSkin(FbxMesh* _fbx_mesh,
             // polygon of the mesh. Sometimes, the mesh can have less points than at
             // the time of the skinning because a smooth operator was active when
             // skinning but has been deactivated during export.
-            const ControlPointRemap& remap = _remap[ctrl_point];
+            const ControlPointRemap &remap = _remap[ctrl_point];
             for (size_t v = 0; v < remap.size(); ++v) {
                 vertex_skin_mappings[remap[v]].push_back(mapping);
             }
@@ -504,8 +503,8 @@ bool BuildSkin(FbxMesh* _fbx_mesh,
     bool vertex_isnt_influenced = false;
     for (size_t i = 0; i < vertex_count; ++i) {
         VertexSkinMappings::const_reference inv = vertex_skin_mappings[i];
-        uint16_t* indices = &part.joint_indices[i * max_influences];
-        float* weights = &part.joint_weights[i * max_influences];
+        uint16_t *indices = &part.joint_indices[i * max_influences];
+        float *weights = &part.joint_weights[i * max_influences];
         
         // Stores joint's indices and weights.
         size_t influence_count = inv.size();
@@ -536,10 +535,10 @@ bool BuildSkin(FbxMesh* _fbx_mesh,
 }
 
 // Limits the number of joints influencing a vertex.
-bool LimitInfluences(loader::Mesh& _skinned_mesh, int _limit) {
+bool LimitInfluences(loader::Mesh &_skinned_mesh, int _limit) {
     assert(_skinned_mesh.parts.size() == 1);
     
-    loader::Mesh::Part& in_part = _skinned_mesh.parts.front();
+    loader::Mesh::Part &in_part = _skinned_mesh.parts.front();
     
     // Check if it's actually needed to limit the number of influences.
     const int max_influences = in_part.influences_count();
@@ -580,10 +579,10 @@ bool LimitInfluences(loader::Mesh& _skinned_mesh, int _limit) {
 // The mesh might not use all skeleton joints, so this function remaps joint
 // indices to the subset of used joints. It also reorders inverse bin pose
 // matrices.
-bool RemapIndices(loader::Mesh* _skinned_mesh) {
+bool RemapIndices(loader::Mesh *_skinned_mesh) {
     assert(_skinned_mesh->parts.size() == 1);
     
-    loader::Mesh::Part& in_part = _skinned_mesh->parts.front();
+    loader::Mesh::Part &in_part = _skinned_mesh->parts.front();
     assert(in_part.influences_count() > 0);
     
     // Collects all unique indices.
@@ -595,7 +594,7 @@ bool RemapIndices(loader::Mesh* _skinned_mesh) {
     // Build mapping table of mesh original joints to the new ones. Unused joints
     // are set to 0.
     loader::Mesh::Part::JointIndices original_remap(
-                                                         _skinned_mesh->num_joints(), 0);
+                                                    _skinned_mesh->num_joints(), 0);
     for (size_t i = 0; i < local_indices.size(); ++i) {
         original_remap[local_indices[i]] =
         static_cast<loader::Mesh::Part::JointIndices::value_type>(i);
@@ -621,12 +620,12 @@ bool RemapIndices(loader::Mesh* _skinned_mesh) {
 
 // Split the skinned mesh into parts. For each part, all vertices has the same
 // number of influencing joints.
-bool SplitParts(const loader::Mesh& _skinned_mesh,
-                loader::Mesh* _partitionned_mesh) {
+bool SplitParts(const loader::Mesh &_skinned_mesh,
+                loader::Mesh *_partitionned_mesh) {
     assert(_skinned_mesh.parts.size() == 1);
     assert(_partitionned_mesh->parts.size() == 0);
     
-    const loader::Mesh::Part& in_part = _skinned_mesh.parts.front();
+    const loader::Mesh::Part &in_part = _skinned_mesh.parts.front();
     const size_t vertex_count = in_part.vertex_count();
     
     // Creates one mesh part per influence.
@@ -639,7 +638,7 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
     bucked_vertices.resize(max_influences);
     if (max_influences > 1) {
         for (size_t i = 0; i < vertex_count; ++i) {
-            const float* weights = &in_part.joint_weights[i * max_influences];
+            const float *weights = &in_part.joint_weights[i * max_influences];
             int j = 0;
             for (; j < max_influences && weights[j] > 0.f; ++j) {
             }
@@ -673,7 +672,7 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
     // Fills mesh parts.
     _partitionned_mesh->parts.reserve(max_influences);
     for (int i = 0; i < max_influences; ++i) {
-        const vector<size_t>& bucket = bucked_vertices[i];
+        const vector<size_t> &bucket = bucked_vertices[i];
         const size_t bucket_vertex_count = bucket.size();
         if (bucket_vertex_count == 0) {
             // No Mesh part if no vertices.
@@ -682,7 +681,7 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
         
         // Adds a new part.
         _partitionned_mesh->parts.resize(_partitionned_mesh->parts.size() + 1);
-        loader::Mesh::Part& out_part = _partitionned_mesh->parts.back();
+        loader::Mesh::Part &out_part = _partitionned_mesh->parts.back();
         
         // Resize output part.
         const int influences = i + 1;
@@ -710,9 +709,9 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
             const size_t bucket_vertex_index = bucket[j];
             
             // Fills positions.
-            float* out_pos =
+            float *out_pos =
             &out_part.positions[j * loader::Mesh::Part::kPositionsCpnts];
-            const float* in_pos =
+            const float *in_pos =
             &in_part.positions[bucket_vertex_index *
                                loader::Mesh::Part::kPositionsCpnts];
             out_pos[0] = in_pos[0];
@@ -720,9 +719,9 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
             out_pos[2] = in_pos[2];
             
             // Fills normals.
-            float* out_normal =
+            float *out_normal =
             &out_part.normals[j * loader::Mesh::Part::kNormalsCpnts];
-            const float* in_normal =
+            const float *in_normal =
             &in_part.normals[bucket_vertex_index *
                              loader::Mesh::Part::kNormalsCpnts];
             out_normal[0] = in_normal[0];
@@ -731,8 +730,8 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
             
             // Fills uvs.
             if (in_part.uvs.size()) {
-                float* out_uv = &out_part.uvs[j * loader::Mesh::Part::kUVsCpnts];
-                const float* in_uv =
+                float *out_uv = &out_part.uvs[j * loader::Mesh::Part::kUVsCpnts];
+                const float *in_uv =
                 &in_part
                     .uvs[bucket_vertex_index * loader::Mesh::Part::kUVsCpnts];
                 out_uv[0] = in_uv[0];
@@ -740,9 +739,9 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
             }
             // Fills colors.
             if (in_part.colors.size()) {
-                uint8_t* out_color =
+                uint8_t *out_color =
                 &out_part.colors[j * loader::Mesh::Part::kColorsCpnts];
-                const uint8_t* in_color =
+                const uint8_t *in_color =
                 &in_part.colors[bucket_vertex_index *
                                 loader::Mesh::Part::kColorsCpnts];
                 out_color[0] = in_color[0];
@@ -752,9 +751,9 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
             }
             // Fills tangents.
             if (in_part.tangents.size()) {
-                float* out_tangent =
+                float *out_tangent =
                 &out_part.tangents[j * loader::Mesh::Part::kTangentsCpnts];
-                const float* in_tangent =
+                const float *in_tangent =
                 &in_part.tangents[bucket_vertex_index *
                                   loader::Mesh::Part::kTangentsCpnts];
                 out_tangent[0] = in_tangent[0];
@@ -764,9 +763,9 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
             }
             
             // Fills joints indices.
-            const uint16_t* in_indices =
+            const uint16_t *in_indices =
             &in_part.joint_indices[bucket_vertex_index * max_influences];
-            uint16_t* out_indices = &out_part.joint_indices[j * influences];
+            uint16_t *out_indices = &out_part.joint_indices[j * influences];
             for (int k = 0; k < influences; ++k) {
                 out_indices[k] = in_indices[k];
             }
@@ -774,9 +773,9 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
             // Fills weights. Note that there's no weight if there's only one joint
             // influencing a vertex.
             if (influences > 1) {
-                const float* in_weights =
+                const float *in_weights =
                 &in_part.joint_weights[bucket_vertex_index * max_influences];
-                float* out_weights = &out_part.joint_weights[j * influences];
+                float *out_weights = &out_part.joint_weights[j * influences];
                 for (int k = 0; k < influences; ++k) {
                     out_weights[k] = in_weights[k];
                 }
@@ -789,7 +788,7 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
     vertices_remap.resize(vertex_count);
     uint16_t processed_vertices = 0;
     for (size_t i = 0; i < bucked_vertices.size(); ++i) {
-        const vector<size_t>& bucket = bucked_vertices[i];
+        const vector<size_t> &bucket = bucked_vertices[i];
         const uint16_t bucket_vertex_count = static_cast<uint16_t>(bucket.size());
         for (uint16_t j = 0; j < bucket_vertex_count; ++j) {
             vertices_remap[bucket[j]] = j + processed_vertices;
@@ -814,9 +813,9 @@ bool SplitParts(const loader::Mesh& _skinned_mesh,
 
 // Removes the less significant weight, which is recomputed at runtime (sum of
 // weights equals 1).
-bool StripWeights(loader::Mesh* _mesh) {
+bool StripWeights(loader::Mesh *_mesh) {
     for (size_t i = 0; i < _mesh->parts.size(); ++i) {
-        loader::Mesh::Part& part = _mesh->parts[i];
+        loader::Mesh::Part &part = _mesh->parts[i];
         const int influence_count = part.influences_count();
         const int vertex_count = part.vertex_count();
         if (influence_count <= 1) {
@@ -840,8 +839,8 @@ bool StripWeights(loader::Mesh* _mesh) {
 }
 
 //MARK: - Loader
-bool loadScene(const char* _filename, const animation::Skeleton& skeleton,
-               vector<Mesh>& meshes) {
+bool loadScene(const char *_filename, const animation::Skeleton &skeleton,
+               vector<Mesh> &meshes) {
     // Import Fbx content.
     loader::FbxManagerInstance fbx_manager;
     loader::FbxDefaultIOSettings settings(fbx_manager);
@@ -880,10 +879,10 @@ bool loadScene(const char* _filename, const animation::Skeleton& skeleton,
     meshes.resize(num_meshes);
     
     for (int m = 0; m < num_meshes; ++m) {
-        FbxMesh* mesh = scene_loader.scene()->GetSrcObject<FbxMesh>(m);
+        FbxMesh *mesh = scene_loader.scene()->GetSrcObject<FbxMesh>(m);
         
         // Allocates output mesh.
-        loader::Mesh& output_mesh = meshes[m];
+        loader::Mesh &output_mesh = meshes[m];
         output_mesh.parts.resize(1);
         
         ControlPointsRemap remap;
@@ -942,7 +941,7 @@ bool loadScene(const char* _filename, const animation::Skeleton& skeleton,
     return true;
 }
 
-bool loadMesh(const char* _filename, Mesh* _mesh) {
+bool loadMesh(const char *_filename, Mesh *_mesh) {
     assert(_filename && _mesh);
     LOG(INFO) << "Loading mesh archive: " << _filename << "." << std::endl;
     io::File file(_filename, "rb");
@@ -964,7 +963,7 @@ bool loadMesh(const char* _filename, Mesh* _mesh) {
     return true;
 }
 
-bool loadMeshes(const char* _filename, vector<Mesh>* _meshes) {
+bool loadMeshes(const char *_filename, vector<Mesh> *_meshes) {
     assert(_filename && _meshes);
     LOG(INFO) << "Loading meshes archive: " << _filename << "." << std::endl;
     io::File file(_filename, "rb");

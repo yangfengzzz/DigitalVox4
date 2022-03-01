@@ -14,7 +14,7 @@ uint32_t bytesPerPixel(MTL::PixelFormat format);
 
 class SampledTexture {
 public:
-    SampledTexture(MTL::Device& device);
+    SampledTexture(MTL::Device &device);
     
     /**
      * The width of the texture.
@@ -46,7 +46,7 @@ public:
      */
     MTL::PixelFormat format();
     
-    MTL::Texture& texture();
+    MTL::Texture &texture();
     
 public:
     MTL::TextureType textureViewDimension();
@@ -102,12 +102,12 @@ public:
     
     void setCompareFunction(MTL::CompareFunction function);
     
-    MTL::SamplerState& sampler();
+    MTL::SamplerState &sampler();
     
 protected:
     uint32_t _getMipmapCount(bool mipmap);
     
-    MTL::Device& _device;
+    MTL::Device &_device;
     std::shared_ptr<MTL::Texture> _nativeTexture;
     std::shared_ptr<MTL::SamplerState> _nativeSampler;
     std::shared_ptr<MTL::TextureDescriptor> _textureDesc;
@@ -115,6 +115,7 @@ protected:
     MTL::TextureType _dimension;
     bool _isDirty{false};
 };
+
 using SampledTexturePtr = std::shared_ptr<SampledTexture>;
 
 

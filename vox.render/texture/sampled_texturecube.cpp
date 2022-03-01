@@ -9,14 +9,14 @@
 #include <array>
 
 namespace vox {
-SampledTextureCube::SampledTextureCube(MTL::Device& device,
+SampledTextureCube::SampledTextureCube(MTL::Device &device,
                                        uint32_t width,
                                        uint32_t height,
                                        uint32_t depthOrArrayLayers,
                                        bool mipmap,
                                        MTL::PixelFormat format,
                                        MTL::TextureUsage usage,
-                                       MTL::StorageMode storage):
+                                       MTL::StorageMode storage) :
 SampledTexture(device) {
     _textureDesc = CLONE_METAL_CUSTOM_DELETER(MTL::TextureDescriptor, MTL::TextureDescriptor::alloc()->init());
     if (depthOrArrayLayers == 1) {
@@ -45,7 +45,7 @@ std::shared_ptr<MTL::Texture> SampledTextureCube::textureView() {
 }
 
 SampledTexture2DViewPtr SampledTextureCube::textureView2D(uint32_t mipmapLevel, uint32_t layer) {
-    return std::make_shared<SampledTexture2DView>(_device, [mipmapLevel, layer, this]()->auto {
+    return std::make_shared<SampledTexture2DView>(_device, [mipmapLevel, layer, this]() -> auto {
         return CLONE_METAL_CUSTOM_DELETER(MTL::Texture,
                                           _nativeTexture->newTextureView(_textureDesc->pixelFormat(),
                                                                          MTL::TextureType2D,
@@ -54,13 +54,13 @@ SampledTexture2DViewPtr SampledTextureCube::textureView2D(uint32_t mipmapLevel, 
     });
 }
 
-void SampledTextureCube::setPixelBuffer(MTL::CommandQueue& queue, std::array<Image*, 6> images) {
+void SampledTextureCube::setPixelBuffer(MTL::CommandQueue &queue, std::array<Image *, 6> images) {
     std::vector<std::shared_ptr<MTL::Buffer>> stagingBuffers;
-
+    
     auto commandBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::CommandBuffer, queue.commandBuffer());
     auto blit = CLONE_METAL_CUSTOM_DELETER(MTL::BlitCommandEncoder, commandBuffer->blitCommandEncoder());
     for (uint32_t i = 0; i < 6; i++) {
-        const Image* image = images[i];
+        const Image *image = images[i];
         const std::vector<uint8_t> &data = image->data();
         
         auto stagingBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _device.newBuffer(data.data(), data.size(),

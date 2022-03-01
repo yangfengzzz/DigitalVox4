@@ -9,6 +9,7 @@
 #include <unordered_map>
 
 #define GLFW_INCLUDE_NONE
+
 #include <GLFW/glfw3.h>
 #include <glog/logging.h>
 
@@ -327,7 +328,7 @@ void GlfwWindow::_createGUIContext(const Window::Properties &properties) {
     ImGui_ImplGlfw_InitForOpenGL(_handle, true);
 }
 
-std::unique_ptr<RenderContext> GlfwWindow::createRenderContext(MTL::Device& device) {
+std::unique_ptr<RenderContext> GlfwWindow::createRenderContext(MTL::Device &device) {
     int fb_width, fb_height;
     glfwGetFramebufferSize(_handle, &fb_width, &fb_height);
     return std::make_unique<RenderContext>(device, _handle, fb_width, fb_height);

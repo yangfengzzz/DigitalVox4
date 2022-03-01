@@ -30,7 +30,7 @@ bool ForwardApplication::prepare(Engine &engine) {
     _renderPassDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPassDescriptor, MTL::RenderPassDescriptor::alloc()->init());
     _renderPassDescriptor->colorAttachments()->object(0)->setStoreAction(MTL::StoreActionStore);
     _renderPassDescriptor->colorAttachments()->object(0)->setLoadAction(MTL::LoadActionClear);
-    auto& color = _scene->background.solidColor;
+    auto &color = _scene->background.solidColor;
     _renderPassDescriptor->colorAttachments()->object(0)->setClearColor(MTL::ClearColor(color.r, color.g, color.b, color.a));
     _renderPassDescriptor->depthAttachment()->setLoadAction(MTL::LoadActionClear);
     _renderPassDescriptor->depthAttachment()->setTexture(_renderContext->depthStencilTexture());

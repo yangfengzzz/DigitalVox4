@@ -113,7 +113,7 @@ void ComponentsManager::callRendererOnUpdate(float deltaTime) {
     }
 }
 
-void ComponentsManager::callRender(Camera* camera,
+void ComponentsManager::callRender(Camera *camera,
                                    std::vector<RenderElement> &opaqueQueue,
                                    std::vector<RenderElement> &alphaTestQueue,
                                    std::vector<RenderElement> &transparentQueue) {
@@ -222,6 +222,7 @@ void ComponentsManager::removeOnUpdateSceneAnimators(SceneAnimator *animator) {
     _onUpdateSceneAnimators.erase(_onUpdateSceneAnimators.begin() + animator->_onUpdateIndex);
     animator->_onUpdateIndex = -1;
 }
+
 void ComponentsManager::callSceneAnimatorUpdate(float deltaTime) {
     const auto &elements = _onUpdateSceneAnimators;
     for (size_t i = 0; i < _onUpdateSceneAnimators.size(); i++) {

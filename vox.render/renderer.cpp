@@ -165,8 +165,8 @@ float Renderer::distanceForSort() {
     return _distanceForSort;
 }
 
-void Renderer::updateShaderData(const Matrix4x4F& viewMat,
-                                const Matrix4x4F& projMat) {
+void Renderer::updateShaderData(const Matrix4x4F &viewMat,
+                                const Matrix4x4F &projMat) {
     auto worldMatrix = entity()->transform->worldMatrix();
     _mvMatrix = viewMat * worldMatrix;
     _mvpMatrix = projMat * viewMat * worldMatrix;

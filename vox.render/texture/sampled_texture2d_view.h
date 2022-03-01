@@ -12,13 +12,14 @@
 namespace vox {
 class SampledTexture2DView final : public SampledTexture2D {
 public:
-    SampledTexture2DView(MTL::Device& device, std::function<std::shared_ptr<MTL::Texture>()> creator);
+    SampledTexture2DView(MTL::Device &device, std::function<std::shared_ptr<MTL::Texture>()> creator);
     
     std::shared_ptr<MTL::Texture> textureView() override;
     
 private:
     std::function<std::shared_ptr<MTL::Texture>()> _creator;
 };
+
 using SampledTexture2DViewPtr = std::shared_ptr<SampledTexture2DView>;
 
 }

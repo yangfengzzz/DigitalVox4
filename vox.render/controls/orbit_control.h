@@ -57,7 +57,7 @@ public:
             PAN = 3
         };
     };
-        
+    
     float fov = 45;
     // Target position.
     Point3F target = Point3F();
@@ -320,7 +320,7 @@ public:
     void onTouchEnd();
     
 private:
-    Entity* _cameraEntity;
+    Entity *_cameraEntity;
     
     Point3F _position;
     Vector3F _offset;

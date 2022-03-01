@@ -35,7 +35,7 @@ public:
      */
     SampledTexture2DPtr metallicRoughnessTexture();
     
-    void setMetallicRoughnessTexture(const SampledTexture2DPtr& newValue);
+    void setMetallicRoughnessTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Create a pbr metallic-roughness workflow material instance.

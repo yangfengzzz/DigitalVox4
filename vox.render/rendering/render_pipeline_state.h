@@ -22,7 +22,7 @@ public:
     
     RenderPipelineState(MTL::Device *device, const MTL::RenderPipelineDescriptor &descriptor);
     
-    const MTL::RenderPipelineState& handle() const {
+    const MTL::RenderPipelineState &handle() const {
         return *_handle;
     }
     

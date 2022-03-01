@@ -20,20 +20,20 @@ bool Subpass::_compareFromFarToNear(const RenderElement &a, const RenderElement 
     (b.renderer->distanceForSort() < a.renderer->distanceForSort());
 }
 
-Subpass::Subpass(RenderContext* context,
-                 Scene* scene,
-                 Camera* camera):
+Subpass::Subpass(RenderContext *context,
+                 Scene *scene,
+                 Camera *camera) :
 _context(context),
 _scene(scene),
 _camera(camera) {
 }
 
-void Subpass::setRenderPass(RenderPass* pass) {
+void Subpass::setRenderPass(RenderPass *pass) {
     _pass = pass;
     prepare();
 }
 
-void Subpass::uploadUniforms(MTL::RenderCommandEncoder& commandEncoder,
+void Subpass::uploadUniforms(MTL::RenderCommandEncoder &commandEncoder,
                              const std::vector<ShaderUniform> &uniformBlock,
                              const ShaderData &shaderData) {
     const auto &properties = shaderData.properties();
@@ -48,7 +48,7 @@ void Subpass::uploadUniforms(MTL::RenderCommandEncoder& commandEncoder,
 }
 
 void Subpass::process(const ShaderUniform &uniform, const std::any &a,
-                      MTL::RenderCommandEncoder& encoder) {
+                      MTL::RenderCommandEncoder &encoder) {
     const auto &any_uploader = uniform.type == MTL::FunctionTypeVertex ?
     _scene->vertexUploader() : _scene->fragmentUploader();
     

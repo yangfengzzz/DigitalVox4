@@ -74,7 +74,7 @@ void OminiShadowMapApp::loadScene(uint32_t width, uint32_t height) {
     planeRenderer2->setMesh(planeMesh);
     planeRenderer2->setMaterial(planeMtl2);
     planeRenderer2->receiveShadow = true;
-
+    
     auto planeEntity3 = rootEntity->createChild("PlaneEntity3");
     planeEntity3->transform->setPosition(5, 0, 0);
     planeEntity3->transform->setRotation(0, 0, 90);
@@ -85,7 +85,7 @@ void OminiShadowMapApp::loadScene(uint32_t width, uint32_t height) {
     planeRenderer3->setMesh(planeMesh);
     planeRenderer3->setMaterial(planeMtl3);
     planeRenderer3->receiveShadow = true;
-
+    
     auto planeEntity4 = rootEntity->createChild("PlaneEntity4");
     planeEntity4->transform->setPosition(-5, 0, 0);
     planeEntity4->transform->setRotation(0, 0, -90);
@@ -96,7 +96,7 @@ void OminiShadowMapApp::loadScene(uint32_t width, uint32_t height) {
     planeRenderer4->setMesh(planeMesh);
     planeRenderer4->setMaterial(planeMtl4);
     planeRenderer4->receiveShadow = true;
-
+    
     auto planeEntity5 = rootEntity->createChild("PlaneEntity5");
     planeEntity5->transform->setPosition(0, 0, -5);
     planeEntity5->transform->setRotation(90, 0, 0);

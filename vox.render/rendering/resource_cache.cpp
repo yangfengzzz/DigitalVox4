@@ -11,7 +11,7 @@
 
 //MARK: - ResourceCache
 namespace vox {
-ResourceCache::ResourceCache(MTL::Device* device) :
+ResourceCache::ResourceCache(MTL::Device *device) :
 _device{device} {
 }
 
@@ -30,7 +30,7 @@ ResourceCache::requestDepthStencilState(const MTL::DepthStencilDescriptor &descr
     }
 }
 
-RenderPipelineState*
+RenderPipelineState *
 ResourceCache::requestRenderPipelineState(const MTL::RenderPipelineDescriptor &descriptor) {
     size_t hash = descriptor.hash();
     
@@ -44,7 +44,7 @@ ResourceCache::requestRenderPipelineState(const MTL::RenderPipelineDescriptor &d
     }
 }
 
-ShaderProgram *ResourceCache::requestShader(MTL::Library& library,
+ShaderProgram *ResourceCache::requestShader(MTL::Library &library,
                                             const std::string &vertexSource,
                                             const std::string &fragmentSource,
                                             const ShaderMacroCollection &macroInfo) {

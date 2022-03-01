@@ -11,7 +11,7 @@
 #include "shadow/shadow_manager.h"
 
 namespace vox {
-class ForwardApplication: public MetalApplication {
+class ForwardApplication : public MetalApplication {
 public:
     ForwardApplication() = default;
     
@@ -35,7 +35,7 @@ public:
     virtual void loadScene(uint32_t width, uint32_t height) = 0;
     
 protected:
-    Camera* _mainCamera{nullptr};
+    Camera *_mainCamera{nullptr};
     
     /**
      * @brief Holds all scene information

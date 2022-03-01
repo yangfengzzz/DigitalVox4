@@ -28,7 +28,7 @@ public:
     Matrix4x4F shadowProjectionMatrix() override;
     
     Vector3F direction();
-        
+    
 private:
     friend class LightManager;
     

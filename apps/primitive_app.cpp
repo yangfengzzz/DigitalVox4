@@ -18,7 +18,8 @@ namespace vox {
 namespace {
 class MoveScript : public Script {
 public:
-    MoveScript(Entity* entity): Script(entity) {}
+    MoveScript(Entity *entity) : Script(entity) {
+    }
     
     void onUpdate(float deltaTime) override {
         _rTri += 90 * deltaTime;

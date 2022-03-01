@@ -18,9 +18,9 @@ namespace vox {
  * Light Manager.
  */
 class LightManager {
-public:    
+public:
     LightManager();
-        
+    
     /**
      * Register a light object to the current scene.
      * @param light render light
@@ -66,7 +66,7 @@ public:
     const std::vector<DirectLight *> &directLights() const;
     
 public:
-    void updateShaderData(MTL::Device& device, ShaderData &shaderData);
+    void updateShaderData(MTL::Device &device, ShaderData &shaderData);
     
 private:
     std::vector<PointLight *> _pointLights;

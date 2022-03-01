@@ -17,9 +17,9 @@ class RenderPass;
 
 class Subpass {
 public:
-    Subpass(RenderContext* context,
-            Scene* scene,
-            Camera* camera);
+    Subpass(RenderContext *context,
+            Scene *scene,
+            Camera *camera);
     
     Subpass(const Subpass &) = delete;
     
@@ -40,9 +40,9 @@ public:
      * @brief Draw virtual function
      * @param commandEncoder CommandEncoder to use to record draw commands
      */
-    virtual void draw(MTL::RenderCommandEncoder& commandEncoder) = 0;
+    virtual void draw(MTL::RenderCommandEncoder &commandEncoder) = 0;
     
-    virtual void setRenderPass(RenderPass* pass);
+    virtual void setRenderPass(RenderPass *pass);
     
 public:
     /**
@@ -50,22 +50,23 @@ public:
      * @param uniformBlock - shader Uniform block
      * @param shaderData - shader data
      */
-    void uploadUniforms(MTL::RenderCommandEncoder& commandEncoder,
+    void uploadUniforms(MTL::RenderCommandEncoder &commandEncoder,
                         const std::vector<ShaderUniform> &uniformBlock,
                         const ShaderData &shaderData);
     
 protected:
-    RenderPass* _pass{nullptr};
+    RenderPass *_pass{nullptr};
     
-    RenderContext* _context{nullptr};
-    Scene* _scene{nullptr};
-    Camera* _camera{nullptr};
+    RenderContext *_context{nullptr};
+    Scene *_scene{nullptr};
+    Camera *_camera{nullptr};
     
     static bool _compareFromNearToFar(const RenderElement &a, const RenderElement &b);
+    
     static bool _compareFromFarToNear(const RenderElement &a, const RenderElement &b);
     
 private:
-    void process(const ShaderUniform &uniform, const std::any &a, MTL::RenderCommandEncoder& encoder);
+    void process(const ShaderUniform &uniform, const std::any &a, MTL::RenderCommandEncoder &encoder);
 };
 
 }

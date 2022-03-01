@@ -21,7 +21,7 @@ public:
      * @param format - Texture format. default  `TextureFormat.R8G8B8A8`
      * @param mipmap - Whether to use multi-level texture
      */
-    SampledTextureCube(MTL::Device& device,
+    SampledTextureCube(MTL::Device &device,
                        uint32_t width,
                        uint32_t height,
                        uint32_t depthOrArrayLayers = 1,
@@ -34,8 +34,9 @@ public:
     
     SampledTexture2DViewPtr textureView2D(uint32_t mipmapLevel, uint32_t layer);
     
-    void setPixelBuffer(MTL::CommandQueue& queue, std::array<Image*, 6> images);
+    void setPixelBuffer(MTL::CommandQueue &queue, std::array<Image *, 6> images);
 };
+
 using SampledTextureCubePtr = std::shared_ptr<SampledTextureCube>;
 
 }

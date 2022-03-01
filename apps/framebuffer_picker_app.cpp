@@ -15,9 +15,10 @@
 #include "gui.h"
 
 namespace vox {
-class GUIScript: public Script {
+class GUIScript : public Script {
 public:
-    GUIScript(Entity* entity):Script(entity) {}
+    GUIScript(Entity *entity) : Script(entity) {
+    }
     
     void onUpdate(float deltaTime) override {
         ImGui::NewFrame();

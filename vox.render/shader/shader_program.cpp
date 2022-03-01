@@ -11,11 +11,11 @@
 namespace vox {
 int ShaderProgram::_counter = 0;
 
-const std::shared_ptr<MTL::Function>& ShaderProgram::vertexShader() const {
+const std::shared_ptr<MTL::Function> &ShaderProgram::vertexShader() const {
     return _vertexShader;
 }
 
-const std::shared_ptr<MTL::Function>& ShaderProgram::fragmentShader() const {
+const std::shared_ptr<MTL::Function> &ShaderProgram::fragmentShader() const {
     return _fragmentShader;
 }
 
@@ -23,10 +23,10 @@ bool ShaderProgram::isValid() const {
     return _isValid;
 }
 
-ShaderProgram::ShaderProgram(MTL::Library& library,
+ShaderProgram::ShaderProgram(MTL::Library &library,
                              const std::string &vertexSource,
                              const std::string &fragmentSource,
-                             const ShaderMacroCollection &macroInfo):
+                             const ShaderMacroCollection &macroInfo) :
 _library(library) {
     ID = ShaderProgram::_counter;
     ShaderProgram::_counter += 1;
@@ -57,7 +57,7 @@ std::shared_ptr<MTL::FunctionConstantValues> ShaderProgram::makeFunctionConstant
 
 void ShaderProgram::_createProgram(const std::string &vertexSource, const std::string &fragmentSource,
                                    const ShaderMacroCollection &macroInfo) {
-    NS::Error* error;
+    NS::Error *error;
     auto functionConstants = makeFunctionConstants(macroInfo);
     if (vertexSource != "") {
         auto shader = _library.newFunction(NS::String::string(vertexSource.c_str(),

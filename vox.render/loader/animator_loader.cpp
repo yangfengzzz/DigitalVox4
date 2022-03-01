@@ -10,7 +10,7 @@
 
 namespace ozz {
 namespace loader {
-bool LoadSkeleton(const char* _filename, animation::Skeleton* _skeleton) {
+bool LoadSkeleton(const char *_filename, animation::Skeleton *_skeleton) {
     assert(_filename && _skeleton);
     LOG(INFO) << "Loading skeleton archive " << _filename << "."
     << std::endl;
@@ -33,7 +33,7 @@ bool LoadSkeleton(const char* _filename, animation::Skeleton* _skeleton) {
     return true;
 }
 
-bool LoadAnimation(const char* _filename, animation::Animation* _animation) {
+bool LoadAnimation(const char *_filename, animation::Animation *_animation) {
     assert(_filename && _animation);
     LOG(INFO) << "Loading animation archive: " << _filename << "."
     << std::endl;
@@ -57,8 +57,8 @@ bool LoadAnimation(const char* _filename, animation::Animation* _animation) {
 }
 
 namespace {
-template <typename _Track>
-bool LoadTrackImpl(const char* _filename, _Track* _track) {
+template<typename _Track>
+bool LoadTrackImpl(const char *_filename, _Track *_track) {
     assert(_filename && _track);
     LOG(INFO) << "Loading track archive: " << _filename << "." << std::endl;
     io::File file(_filename, "rb");
@@ -81,23 +81,23 @@ bool LoadTrackImpl(const char* _filename, _Track* _track) {
 }
 }  // namespace
 
-bool LoadTrack(const char* _filename, animation::FloatTrack* _track) {
+bool LoadTrack(const char *_filename, animation::FloatTrack *_track) {
     return LoadTrackImpl(_filename, _track);
 }
 
-bool LoadTrack(const char* _filename, animation::Float2Track* _track) {
+bool LoadTrack(const char *_filename, animation::Float2Track *_track) {
     return LoadTrackImpl(_filename, _track);
 }
 
-bool LoadTrack(const char* _filename, animation::Float3Track* _track) {
+bool LoadTrack(const char *_filename, animation::Float3Track *_track) {
     return LoadTrackImpl(_filename, _track);
 }
 
-bool LoadTrack(const char* _filename, animation::Float4Track* _track) {
+bool LoadTrack(const char *_filename, animation::Float4Track *_track) {
     return LoadTrackImpl(_filename, _track);
 }
 
-bool LoadTrack(const char* _filename, animation::QuaternionTrack* _track) {
+bool LoadTrack(const char *_filename, animation::QuaternionTrack *_track) {
     return LoadTrackImpl(_filename, _track);
 }
 

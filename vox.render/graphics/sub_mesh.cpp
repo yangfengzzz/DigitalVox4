@@ -11,7 +11,7 @@ namespace vox {
 SubMesh::SubMesh(MTL::PrimitiveType primitiveType,
                  MTL::IndexType indexType,
                  NS::UInteger indexCount,
-                 const std::shared_ptr<MTL::Buffer>& indexBuffer)
+                 const std::shared_ptr<MTL::Buffer> &indexBuffer)
 : _primitiveType(primitiveType), _indexType(indexType),
 _indexCount(indexCount), _indexBuffer(indexBuffer) {
     

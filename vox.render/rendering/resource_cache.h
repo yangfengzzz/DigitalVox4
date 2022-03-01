@@ -21,7 +21,7 @@ class ShaderProgram;
  */
 struct ResourceCacheState {
     std::unordered_map<std::size_t, std::shared_ptr<MTL::DepthStencilState>> depthStencilStates;
-
+    
     std::unordered_map<std::size_t, std::unique_ptr<RenderPipelineState>> renderPipelineStates;
     
     std::unordered_map<std::size_t, std::unique_ptr<ShaderProgram>> shaders;
@@ -41,7 +41,7 @@ struct ResourceCacheState {
  */
 class ResourceCache {
 public:
-    ResourceCache(MTL::Device* device);
+    ResourceCache(MTL::Device *device);
     
     ResourceCache(const ResourceCache &) = delete;
     
@@ -55,16 +55,16 @@ public:
     std::shared_ptr<MTL::DepthStencilState>
     requestDepthStencilState(const MTL::DepthStencilDescriptor &descriptor);
     
-    RenderPipelineState*
+    RenderPipelineState *
     requestRenderPipelineState(const MTL::RenderPipelineDescriptor &descriptor);
-
-    ShaderProgram *requestShader(MTL::Library& library,
+    
+    ShaderProgram *requestShader(MTL::Library &library,
                                  const std::string &vertexSource,
                                  const std::string &fragmentSource,
                                  const ShaderMacroCollection &macroInfo);
     
 private:
-    MTL::Device* _device;
+    MTL::Device *_device;
     
     ResourceCacheState _state;
 };

@@ -23,6 +23,6 @@ private:
     std::default_random_engine e;
     std::uniform_real_distribution<float> u;
 };
- 
+
 }
 #endif /* framebuffer_picker_app_hpp */

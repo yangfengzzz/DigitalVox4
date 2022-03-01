@@ -138,11 +138,12 @@ public:
     void uploadData(bool noLongerAccessible);
     
 private:
-    MTL::Device& _device;
+    MTL::Device &_device;
+    
     std::shared_ptr<MTL::VertexDescriptor> _updateVertexDescriptor();
     
     size_t _vertexCount = 0;
-
+    
     void _updateVertices(std::vector<float> &vertices);
     
     void _releaseCache();
@@ -173,6 +174,7 @@ private:
     std::vector<Vector4F> _boneWeights;
     std::vector<Vector4F> _boneIndices;
 };
+
 using ModelMeshPtr = std::shared_ptr<ModelMesh>;
 
 

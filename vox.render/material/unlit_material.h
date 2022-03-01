@@ -30,7 +30,7 @@ public:
      */
     SampledTexture2DPtr baseTexture() const;
     
-    void setBaseTexture(const SampledTexture2DPtr& newValue);
+    void setBaseTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Tiling and offset of main textures.

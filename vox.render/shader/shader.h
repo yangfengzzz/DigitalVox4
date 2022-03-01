@@ -25,9 +25,9 @@ public:
     
     Shader(const std::string &name, const std::string &vertexSource, const std::string &fragmentSource);
     
-    const std::string& vertexSource();
+    const std::string &vertexSource();
     
-    const std::string& fragmentSource();
+    const std::string &fragmentSource();
     
     /**
      * Create a shader.

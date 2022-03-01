@@ -56,7 +56,7 @@ float MouseButtonInputEvent::pos_y() const {
 }
 
 //MARK: - Scroll Event
-ScrollInputEvent::ScrollInputEvent(float offset_x, float offset_y):
+ScrollInputEvent::ScrollInputEvent(float offset_x, float offset_y) :
 InputEvent{EventSource::Scroll},
 _offset_x(offset_x),
 _offset_y(offset_y) {

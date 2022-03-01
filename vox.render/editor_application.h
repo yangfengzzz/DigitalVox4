@@ -13,7 +13,7 @@
 namespace vox {
 class ColorPickerSubpass;
 
-class EditorApplication: public ForwardApplication {
+class EditorApplication : public ForwardApplication {
 public:
     EditorApplication() = default;
     
@@ -33,7 +33,8 @@ public:
                 uint32_t fb_width, uint32_t fb_height) override;
     
 public:
-    virtual void pickFunctor(Renderer *renderer, MeshPtr mesh) {};
+    virtual void pickFunctor(Renderer *renderer, MeshPtr mesh) {
+    };
     
     /**
      * Pick the object at the screen coordinate position.
@@ -50,11 +51,11 @@ private:
     
     std::shared_ptr<MTL::RenderPassDescriptor> _colorPickerPassDescriptor{nullptr};
     std::unique_ptr<RenderPass> _colorPickerRenderPass{nullptr};
-    ColorPickerSubpass* _colorPickerSubpass{nullptr};
+    ColorPickerSubpass *_colorPickerSubpass{nullptr};
     
     std::array<uint8_t, 4> _readColorFromRenderTarget();
     
-    DebugFrameManager* _debugFrameManager{nullptr};
+    DebugFrameManager *_debugFrameManager{nullptr};
 };
 
 }

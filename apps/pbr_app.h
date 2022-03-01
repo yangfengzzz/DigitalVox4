@@ -31,6 +31,7 @@ private:
             baseColor = c;
         };
     };
+    
     std::vector<Material> _materials;
 };
 

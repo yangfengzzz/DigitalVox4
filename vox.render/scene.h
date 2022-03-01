@@ -46,9 +46,9 @@ public:
      * Create scene.
      * @param device - Device
      */
-    Scene(MTL::Device& device);
+    Scene(MTL::Device &device);
     
-    MTL::Device& device();
+    MTL::Device &device();
     
     /**
      * Ambient light.
@@ -137,19 +137,19 @@ public:
         _fragmentUploader.insert(toAnyUploader<T>(f));
     }
     
-    const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>>&
+    const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder &)>> &
     vertexUploader();
     
-    const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>>&
+    const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder &)>> &
     fragmentUploader();
     
 private:
     template<class T, class F>
-    inline std::pair<const std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>>
+    inline std::pair<const std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder &)>>
     toAnyUploader(F const &f) {
         return {
             std::type_index(typeid(T)),
-            [g = f](std::any const &a, size_t location, MTL::RenderCommandEncoder& encoder) {
+            [g = f](std::any const &a, size_t location, MTL::RenderCommandEncoder &encoder) {
                 if constexpr (std::is_void_v<T>)
                     g();
                 else
@@ -158,12 +158,12 @@ private:
         };
     }
     
-    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>> _vertexUploader{};
-    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder&)>> _fragmentUploader{};
+    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder &)>> _vertexUploader{};
+    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder &)>> _fragmentUploader{};
     
 private:
     void _processActive(bool active);
-        
+    
     void _removeEntity(EntityPtr entity);
     
     std::vector<Camera *> _activeCameras;
@@ -172,7 +172,7 @@ private:
     std::vector<EntityPtr> _rootEntities;
     AmbientLight _ambientLight;
     
-    MTL::Device& _device;
+    MTL::Device &_device;
 };
 
 }        // namespace vox

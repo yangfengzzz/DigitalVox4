@@ -35,7 +35,7 @@ public:
      */
     SampledTexture2DPtr specularGlossinessTexture() const;
     
-    void setSpecularGlossinessTexture(const SampledTexture2DPtr& newValue);
+    void setSpecularGlossinessTexture(const SampledTexture2DPtr &newValue);
     
     /**
      * Create a pbr specular-glossiness workflow material instance.

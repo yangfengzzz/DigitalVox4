@@ -28,9 +28,9 @@ public:
     
     void setData(ShaderProperty property, std::any value);
     
-    void setSampledTexure(const std::string &property, const SampledTexturePtr& value);
+    void setSampledTexure(const std::string &property, const SampledTexturePtr &value);
     
-    void setSampledTexure(ShaderProperty property, const SampledTexturePtr& value);
+    void setSampledTexure(ShaderProperty property, const SampledTexturePtr &value);
     
     const std::unordered_map<int, std::any> &properties() const;
     

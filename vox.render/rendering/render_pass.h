@@ -15,8 +15,8 @@
 namespace vox {
 class RenderPass {
 public:
-    RenderPass(MTL::Library& library,
-               MTL::RenderPassDescriptor& desc);
+    RenderPass(MTL::Library &library,
+               MTL::RenderPassDescriptor &desc);
     
     RenderPass(const RenderPass &) = delete;
     
@@ -28,14 +28,14 @@ public:
     
     RenderPass &operator=(RenderPass &&) = delete;
     
-    void draw(MTL::CommandBuffer& commandBuffer,
+    void draw(MTL::CommandBuffer &commandBuffer,
               std::optional<std::string> label = std::nullopt);
     
-    MTL::Library& library();
+    MTL::Library &library();
     
-    const MTL::RenderPassDescriptor& renderPassDescriptor() const;
+    const MTL::RenderPassDescriptor &renderPassDescriptor() const;
     
-    void setGUI(GUI* gui);
+    void setGUI(GUI *gui);
     
 public:
     /**
@@ -53,29 +53,29 @@ public:
     std::unique_ptr<Subpass> &activeSubpass();
     
 public:
-    void addParentPass(const std::string& name, RenderPass* pass);
+    void addParentPass(const std::string &name, RenderPass *pass);
     
-    RenderPass* removeParentPass(const std::string& name);
+    RenderPass *removeParentPass(const std::string &name);
     
-    RenderPass* findPass(const std::string& name);
+    RenderPass *findPass(const std::string &name);
     
     void clearParentPass();
     
 public:
-    ResourceCache& resourceCache();
+    ResourceCache &resourceCache();
     
 private:
-    MTL::RenderPassDescriptor& _desc;
-    MTL::Library& _library;
+    MTL::RenderPassDescriptor &_desc;
+    MTL::Library &_library;
     
     std::vector<std::unique_ptr<Subpass>> _subpasses;
     size_t _activeSubpassIndex{0};
     
-    std::unordered_map<std::string, RenderPass*> _parentPass;
+    std::unordered_map<std::string, RenderPass *> _parentPass;
     
     ResourceCache _resourceCache;
     
-    GUI* _gui{nullptr};
+    GUI *_gui{nullptr};
 };
 
 }

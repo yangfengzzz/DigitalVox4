@@ -74,9 +74,9 @@ inline MTL::SamplerAddressMode find_wrap_mode(int wrap) {
     }
 };
 
-bool loadImageDataFuncEmpty(tinygltf::Image* image, const int imageIndex,
-                            std::string* error, std::string* warning, int req_width, int req_height,
-                            const unsigned char* bytes, int size, void* userData) {
+bool loadImageDataFuncEmpty(tinygltf::Image *image, const int imageIndex,
+                            std::string *error, std::string *warning, int req_width, int req_height,
+                            const unsigned char *bytes, int size, void *userData) {
     // This function will be used for samples that don't require images to be loaded
     return true;
 }
@@ -103,7 +103,7 @@ tinygltf::Value *GLTFLoader::getExtension(tinygltf::ExtensionMap &tinygltf_exten
     }
 }
 
-GLTFLoader::GLTFLoader(MTL::Device& device, MTL::CommandQueue& queue):
+GLTFLoader::GLTFLoader(MTL::Device &device, MTL::CommandQueue &queue) :
 _device(device),
 _queue(queue) {
 }
@@ -139,7 +139,7 @@ void GLTFLoader::loadFromFile(std::string filename, EntityPtr defaultSceneRoot, 
     loadScene(gltfModel);
 }
 
-void GLTFLoader::loadScene(tinygltf::Model& gltfModel) {
+void GLTFLoader::loadScene(tinygltf::Model &gltfModel) {
     // Check extensions
     for (auto &used_extension: gltfModel.extensionsUsed) {
         if (used_extension == "KHR_materials_pbrSpecularGlossiness") {
@@ -151,11 +151,13 @@ void GLTFLoader::loadScene(tinygltf::Model& gltfModel) {
         // Check if extension isn't supported by the GLTFLoader
         if (it == _supportedExtensions.end()) {
             // If extension is required then we shouldn't allow the scene to be loaded
-            if (std::find(gltfModel.extensionsRequired.begin(), gltfModel.extensionsRequired.end(), used_extension) != gltfModel.extensionsRequired.end()) {
+            if (std::find(gltfModel.extensionsRequired.begin(), gltfModel.extensionsRequired.end(),
+                          used_extension) != gltfModel.extensionsRequired.end()) {
                 throw std::runtime_error("Cannot load glTF file. Contains a required unsupported extension: " + used_extension);
             } else {
                 // Otherwise, if extension isn't required (but is in the file) then print a warning to the user
-                LOG(WARNING) << "glTF file contains an unsupported extension, unexpected results may occur: " << used_extension << std::endl;;
+                LOG(WARNING) << "glTF file contains an unsupported extension, unexpected results may occur: "
+                << used_extension << std::endl;;
             }
         } else {
             // Extension is supported, so enable it
@@ -192,7 +194,7 @@ void GLTFLoader::loadScene(tinygltf::Model& gltfModel) {
         loadAnimations(gltfModel);
     }
     loadSkins(gltfModel);
-    for (auto node : _linearNodes) {
+    for (auto node: _linearNodes) {
         // Assign skins
         if (node.second.second > -1) {
             node.second.first->getComponent<GPUSkinnedMeshRenderer>()->setSkin(skins[node.second.second]);
@@ -205,8 +207,8 @@ void GLTFLoader::loadScene(tinygltf::Model& gltfModel) {
     }
 }
 
-void GLTFLoader::loadNode(EntityPtr parent, const tinygltf::Node& node, uint32_t nodeIndex,
-                          const tinygltf::Model& model) {
+void GLTFLoader::loadNode(EntityPtr parent, const tinygltf::Node &node, uint32_t nodeIndex,
+                          const tinygltf::Model &model) {
     EntityPtr newNode = nullptr;
     if (parent) {
         newNode = parent->createChild(node.name);
@@ -235,8 +237,8 @@ void GLTFLoader::loadNode(EntityPtr parent, const tinygltf::Node& node, uint32_t
     }
     
     if (node.mesh >= 0) {
-        const auto& meshMats = renderers[node.mesh];
-        for (const auto& meshMat : meshMats) {
+        const auto &meshMats = renderers[node.mesh];
+        for (const auto &meshMat: meshMats) {
             auto renderer = newNode->addComponent<GPUSkinnedMeshRenderer>();
             renderer->setMesh(meshMat.first);
             renderer->setMaterial(meshMat.second);
@@ -252,8 +254,8 @@ void GLTFLoader::loadNode(EntityPtr parent, const tinygltf::Node& node, uint32_t
     }
 }
 
-void GLTFLoader::loadImages(tinygltf::Model& gltfModel) {
-    for (tinygltf::Image &gltf_image : gltfModel.images) {
+void GLTFLoader::loadImages(tinygltf::Model &gltfModel) {
+    for (tinygltf::Image &gltf_image: gltfModel.images) {
         std::unique_ptr<Image> image{nullptr};
         
         if (!gltf_image.image.empty()) {
@@ -284,7 +286,7 @@ void GLTFLoader::loadSampler(const tinygltf::Sampler &gltf_sampler, SampledTextu
     texture->setMagFilterMode(find_mag_filter(gltf_sampler.magFilter));
 }
 
-void GLTFLoader::loadTextures(tinygltf::Model& gltfModel) {
+void GLTFLoader::loadTextures(tinygltf::Model &gltfModel) {
     for (auto &gltf_texture: gltfModel.textures) {
         auto image = images.at(gltf_texture.source).get();
         SampledTexture2DPtr texture = image->createSampledTexture(_device, _queue);
@@ -295,8 +297,8 @@ void GLTFLoader::loadTextures(tinygltf::Model& gltfModel) {
     }
 }
 
-void GLTFLoader::loadMaterials(tinygltf::Model& gltfModel) {
-    for (tinygltf::Material &mat : gltfModel.materials) {
+void GLTFLoader::loadMaterials(tinygltf::Model &gltfModel) {
+    for (tinygltf::Material &mat: gltfModel.materials) {
         auto material = std::make_shared<PBRMaterial>();
         if (mat.values.find("baseColorTexture") != mat.values.end()) {
             material->setBaseTexture(textures[gltfModel.textures[mat.values["baseColorTexture"].TextureIndex()].source]);
@@ -343,7 +345,7 @@ void GLTFLoader::loadMaterials(tinygltf::Model& gltfModel) {
     materials.push_back(std::make_shared<PBRMaterial>());
 }
 
-void GLTFLoader::loadMeshes(tinygltf::Model& model) {
+void GLTFLoader::loadMeshes(tinygltf::Model &model) {
     for (auto &gltf_mesh: model.meshes) {
         std::vector<std::pair<MeshPtr, MaterialPtr>> renderer{};
         for (auto &primitive: gltf_mesh.primitives) {
@@ -361,7 +363,7 @@ void GLTFLoader::loadMeshes(tinygltf::Model& model) {
                 const float *bufferPos = nullptr;
                 const float *bufferNormals = nullptr;
                 const float *bufferTexCoords = nullptr;
-                const float* bufferColors = nullptr;
+                const float *bufferColors = nullptr;
                 const float *bufferTangents = nullptr;
                 uint32_t numColorComponents = 0;
                 const uint16_t *bufferJoints = nullptr;
@@ -390,11 +392,11 @@ void GLTFLoader::loadMeshes(tinygltf::Model& model) {
                 }
                 
                 if (primitive.attributes.find("COLOR_0") != primitive.attributes.end()) {
-                    const tinygltf::Accessor& colorAccessor = model.accessors[primitive.attributes.find("COLOR_0")->second];
-                    const tinygltf::BufferView& colorView = model.bufferViews[colorAccessor.bufferView];
+                    const tinygltf::Accessor &colorAccessor = model.accessors[primitive.attributes.find("COLOR_0")->second];
+                    const tinygltf::BufferView &colorView = model.bufferViews[colorAccessor.bufferView];
                     // Color buffer are either of type vec3 or vec4
                     numColorComponents = colorAccessor.type == TINYGLTF_PARAMETER_TYPE_FLOAT_VEC3 ? 3 : 4;
-                    bufferColors = reinterpret_cast<const float*>(&(model.buffers[colorView.buffer].data[colorAccessor.byteOffset + colorView.byteOffset]));
+                    bufferColors = reinterpret_cast<const float *>(&(model.buffers[colorView.buffer].data[colorAccessor.byteOffset + colorView.byteOffset]));
                 }
                 
                 if (primitive.attributes.find("TANGENT") != primitive.attributes.end()) {
@@ -498,7 +500,7 @@ void GLTFLoader::loadMeshes(tinygltf::Model& model) {
                             case 4:
                                 vertexBuffer.insert(vertexBuffer.end(), &bufferColors[v * 4], &bufferColors[v * 4 + 4]);
                             default:
-                                LOG(ERROR) << "numColorComponents has problem" <<std::endl;
+                                LOG(ERROR) << "numColorComponents has problem" << std::endl;
                         }
                     }
                     if (bufferTangents) {
@@ -545,7 +547,8 @@ void GLTFLoader::loadMeshes(tinygltf::Model& model) {
                         break;
                     }
                     default:
-                        LOG(ERROR) << "Index component type " << accessor.componentType << " not supported!" << std::endl;
+                        LOG(ERROR) << "Index component type " << accessor.componentType << " not supported!"
+                        << std::endl;
                         return;
                 }
             }
@@ -565,13 +568,13 @@ void GLTFLoader::loadMeshes(tinygltf::Model& model) {
     }
 }
 
-void GLTFLoader::loadSkins(tinygltf::Model& gltfModel) {
-    for (tinygltf::Skin &source : gltfModel.skins) {
+void GLTFLoader::loadSkins(tinygltf::Model &gltfModel) {
+    for (tinygltf::Skin &source: gltfModel.skins) {
         GPUSkinnedMeshRenderer::SkinPtr newSkin = std::make_shared<GPUSkinnedMeshRenderer::Skin>();
         newSkin->name = source.name;
         
         // Find joint nodes
-        for (int jointIndex : source.joints) {
+        for (int jointIndex: source.joints) {
             EntityPtr node = _linearNodes[jointIndex].first;
             if (node) {
                 newSkin->joints.push_back(node.get());
@@ -584,21 +587,22 @@ void GLTFLoader::loadSkins(tinygltf::Model& gltfModel) {
             const tinygltf::BufferView &bufferView = gltfModel.bufferViews[accessor.bufferView];
             const tinygltf::Buffer &buffer = gltfModel.buffers[bufferView.buffer];
             newSkin->inverseBindMatrices.resize(accessor.count);
-            memcpy(newSkin->inverseBindMatrices.data(), &buffer.data[accessor.byteOffset + bufferView.byteOffset], accessor.count * sizeof(Matrix4x4F));
+            memcpy(newSkin->inverseBindMatrices.data(), &buffer.data[accessor.byteOffset + bufferView.byteOffset],
+                   accessor.count * sizeof(Matrix4x4F));
         }
         
         skins.push_back(std::move(newSkin));
     }
 }
 
-void GLTFLoader::loadAnimations(tinygltf::Model& gltfModel) {
+void GLTFLoader::loadAnimations(tinygltf::Model &gltfModel) {
     auto animator = _defaultSceneRoot->addComponent<SceneAnimator>();
     for (size_t i = 0; i < gltfModel.animations.size(); i++) {
-        const auto& anim = gltfModel.animations[i];
-        auto animation = std::make_unique<SceneAnimationClip>(anim.name.empty()? std::to_string(i):anim.name);
+        const auto &anim = gltfModel.animations[i];
+        auto animation = std::make_unique<SceneAnimationClip>(anim.name.empty() ? std::to_string(i) : anim.name);
         
         // Samplers
-        for (auto &samp : anim.samplers) {
+        for (auto &samp: anim.samplers) {
             SceneAnimationClip::AnimationSampler sampler{};
             
             if (samp.interpolation == "LINEAR") {
@@ -625,7 +629,7 @@ void GLTFLoader::loadAnimations(tinygltf::Model& gltfModel) {
                     sampler.inputs.push_back(buf[index]);
                 }
                 
-                for (auto input : sampler.inputs) {
+                for (auto input: sampler.inputs) {
                     if (input < animation->start()) {
                         animation->setStart(input);
                     };

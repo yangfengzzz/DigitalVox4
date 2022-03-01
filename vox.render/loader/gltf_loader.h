@@ -12,6 +12,7 @@
 #include "texture/sampled_texture2d.h"
 
 #define TINYGLTF_NO_STB_IMAGE_WRITE
+
 #include <tiny_gltf.h>
 
 namespace vox {
@@ -25,33 +26,33 @@ public:
     std::vector<std::vector<std::pair<MeshPtr, MaterialPtr>>> renderers;
     std::vector<GPUSkinnedMeshRenderer::SkinPtr> skins;
     
-    GLTFLoader(MTL::Device& device, MTL::CommandQueue& queue);
+    GLTFLoader(MTL::Device &device, MTL::CommandQueue &queue);
     
     void loadFromFile(std::string filename, EntityPtr defaultSceneRoot, float scale = 1.0f);
-
-private:
-    void loadScene(tinygltf::Model& gltfModel);
     
-    void loadNode(EntityPtr parent, const tinygltf::Node& node, uint32_t nodeIndex,
-                  const tinygltf::Model& model);
-
-    void loadImages(tinygltf::Model& gltfModel);
+private:
+    void loadScene(tinygltf::Model &gltfModel);
+    
+    void loadNode(EntityPtr parent, const tinygltf::Node &node, uint32_t nodeIndex,
+                  const tinygltf::Model &model);
+    
+    void loadImages(tinygltf::Model &gltfModel);
     
     void loadSampler(const tinygltf::Sampler &gltf_sampler, SampledTexture2DPtr texture) const;
     
-    void loadTextures(tinygltf::Model& gltfModel);
-
-    void loadMaterials(tinygltf::Model& gltfModel);
-
-    void loadMeshes(tinygltf::Model& gltfModel);
+    void loadTextures(tinygltf::Model &gltfModel);
     
-    void loadSkins(tinygltf::Model& gltfModel);
+    void loadMaterials(tinygltf::Model &gltfModel);
     
-    void loadAnimations(tinygltf::Model& gltfModel);
+    void loadMeshes(tinygltf::Model &gltfModel);
+    
+    void loadSkins(tinygltf::Model &gltfModel);
+    
+    void loadAnimations(tinygltf::Model &gltfModel);
     
 private:
-    MTL::Device& _device;
-    MTL::CommandQueue& _queue;
+    MTL::Device &_device;
+    MTL::CommandQueue &_queue;
     
     std::string _path{};
     

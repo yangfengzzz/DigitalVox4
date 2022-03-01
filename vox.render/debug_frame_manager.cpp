@@ -13,6 +13,7 @@
 
 namespace vox {
 template<> DebugFrameManager *Singleton<DebugFrameManager>::msSingleton = 0;
+
 //-----------------------------------------------------------------------
 DebugFrameManager *DebugFrameManager::getSingletonPtr(void) {
     return msSingleton;
@@ -23,7 +24,7 @@ DebugFrameManager &DebugFrameManager::getSingleton(void) {
     return (*msSingleton);
 }
 
-DebugFrameManager::DebugFrameManager(EntityPtr entity):
+DebugFrameManager::DebugFrameManager(EntityPtr entity) :
 _entity(entity) {
     _material = std::make_shared<BaseMaterial>(Shader::create("debug_frame", "vertex_debug_frame", "fragment_debug_frame"));
     
@@ -58,9 +59,9 @@ void DebugFrameManager::addLine(const Vector3F &a, const Vector3F &b, uint32_t c
 }
 
 void DebugFrameManager::addLine(const Matrix4x4F &t, const Vector3F &a, const Vector3F &b, uint32_t color) {
-    _lines.vertex.push_back({ t * a, color});
+    _lines.vertex.push_back({t * a, color});
     _lines.indices.push_back(static_cast<uint32_t>(_lines.indices.size()));
-    _lines.vertex.push_back({ t * b, color});
+    _lines.vertex.push_back({t * b, color});
     _lines.indices.push_back(static_cast<uint32_t>(_lines.indices.size()));
 }
 
@@ -93,7 +94,7 @@ void DebugFrameManager::flush() {
     } else {
         _lines.renderer->setMesh(nullptr);
     }
-
+    
     
     clear();
 }

@@ -58,10 +58,10 @@ public:
     
     virtual void resize(uint32_t win_width, uint32_t win_height,
                         uint32_t fb_width, uint32_t fb_height);
-        
+    
     virtual void inputEvent(const InputEvent &inputEvent);
     
-    virtual std::unique_ptr<RenderContext> createRenderContext(MTL::Device& device);
+    virtual std::unique_ptr<RenderContext> createRenderContext(MTL::Device &device);
     
 public:
     void setFocus(bool focused);
@@ -77,7 +77,7 @@ public:
     
     Application &app();
     
-    void setApp(std::unique_ptr<Application>&& active_app);
+    void setApp(std::unique_ptr<Application> &&active_app);
     
     bool startApp();
     

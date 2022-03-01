@@ -22,8 +22,8 @@ public:
     
     virtual ~GlfwWindow();
     
-    std::unique_ptr<RenderContext> createRenderContext(MTL::Device&  device) override;
-
+    std::unique_ptr<RenderContext> createRenderContext(MTL::Device &device) override;
+    
     bool shouldClose() override;
     
     void processEvents() override;

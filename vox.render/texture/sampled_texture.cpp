@@ -8,7 +8,7 @@
 #include "metal_helpers.h"
 
 namespace vox {
-SampledTexture::SampledTexture(MTL::Device& device):
+SampledTexture::SampledTexture(MTL::Device &device) :
 _device(device) {
     _samplerDesc = CLONE_METAL_CUSTOM_DELETER(MTL::SamplerDescriptor, MTL::SamplerDescriptor::alloc()->init());
     setMinFilterMode(MTL::SamplerMinMagFilterLinear);
@@ -54,11 +54,11 @@ uint32_t SampledTexture::_getMipmapCount(bool mipmap) {
     return mipmap ? log2(fmax(_textureDesc->width(), _textureDesc->height())) + 1 : 1;
 }
 
-MTL::Texture& SampledTexture::texture() {
+MTL::Texture &SampledTexture::texture() {
     return *_nativeTexture;
 }
 
-MTL::SamplerState& SampledTexture::sampler() {
+MTL::SamplerState &SampledTexture::sampler() {
     if (_isDirty) {
         _nativeSampler = CLONE_METAL_CUSTOM_DELETER(MTL::SamplerState, _device.newSamplerState(_samplerDesc.get()));
         _isDirty = false;
