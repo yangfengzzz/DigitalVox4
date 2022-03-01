@@ -11,7 +11,6 @@
 #include "camera.h"
 #include "image/stb.h"
 #include "texture/texture_utils.h"
-#include "texture/sampled_texturecube.h"
 
 namespace vox {
 class BakerMaterial : public BaseMaterial {
@@ -95,10 +94,11 @@ void IrradianceApp::loadScene(uint32_t width, uint32_t height) {
         images[i] = Image::load(path + imageNames[i]);
         imagePtr[i] = images[i].get();
     }
-    auto _cubeMap = std::make_shared<SampledTextureCube>(*_device,
-                                                         images[0]->extent().width, images[0]->extent().height, 1, false,
-                                                         images[0]->format());
+    _cubeMap = std::make_shared<SampledTextureCube>(*_device,
+                                                    images[0]->extent().width, images[0]->extent().height, 1, true,
+                                                    images[0]->format());
     _cubeMap->setPixelBuffer(*_commandQueue, imagePtr);
+    
     _scene->ambientLight().setSpecularTexture(TextureUtils::createSpecularTexture(_cubeMap->texture(), *_device, *_library, *_commandQueue));
     
     auto changeMip = [&](uint32_t mipLevel) {
