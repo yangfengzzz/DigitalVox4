@@ -77,8 +77,8 @@ void Image::generateMipmaps() {
     }
     
     const  MTL::Size& extent = this->extent();
-    auto next_width = std::max<uint32_t>(1u, extent.width / 2);
-    auto next_height = std::max<uint32_t>(1u, extent.height / 2);
+    auto next_width = std::max<uint32_t>(1u, static_cast<uint32_t>(extent.width) / 2);
+    auto next_height = std::max<uint32_t>(1u, static_cast<uint32_t>(extent.height) / 2);
     auto channels = 4;
     auto next_size = next_width * next_height * channels;
     
@@ -95,8 +95,12 @@ void Image::generateMipmaps() {
         next_mipmap.extent = {next_width, next_height, 1u};
         
         // Fill next mipmap memory
-        stbir_resize_uint8(_data.data() + prev_mipmap.offset, prev_mipmap.extent.width, prev_mipmap.extent.height, 0,
-                           _data.data() + next_mipmap.offset, next_mipmap.extent.width, next_mipmap.extent.height, 0, channels);
+        stbir_resize_uint8(_data.data() + prev_mipmap.offset,
+                           static_cast<uint32_t>(prev_mipmap.extent.width),
+                           static_cast<uint32_t>(prev_mipmap.extent.height), 0,
+                           _data.data() + next_mipmap.offset,
+                           static_cast<uint32_t>(next_mipmap.extent.width),
+                           static_cast<uint32_t>(next_mipmap.extent.height), 0, channels);
         
         _mipmaps.emplace_back(std::move(next_mipmap));
         
