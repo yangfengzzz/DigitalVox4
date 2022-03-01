@@ -1,9 +1,8 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  gltf_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/22.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "gltf_app.h"
 #include "mesh/primitive_mesh.h"
@@ -28,8 +27,8 @@ void GLTFApp::loadScene(uint32_t width, uint32_t height) {
     light->addComponent<PointLight>();
     
     auto modelEntity = rootEntity->createChild();
-    auto loader = loader::GLTFLoader(_device.get());
-    loader.loadFromFile("../assets/Models/sponza/sponza.gltf", modelEntity);
+    auto loader = loader::GLTFLoader(*_device, *_commandQueue);
+    loader.loadFromFile("Models/sponza/sponza.gltf", modelEntity);
 }
 
 }

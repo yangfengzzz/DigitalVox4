@@ -499,6 +499,8 @@
 		04D75F9727CDA3AF00BB1519 /* animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD940C279ABC6F0093D6CB /* animation_app.cpp */; };
 		04D75F9827CDA51600BB1519 /* gltf_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04460440279BD777009108C8 /* gltf_loader.h */; };
 		04D75F9927CDA51600BB1519 /* gltf_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446043F279BD777009108C8 /* gltf_loader.cpp */; };
+		04D75F9A27CDA97D00BB1519 /* gltf_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460443279BE2B4009108C8 /* gltf_app.cpp */; };
+		04D75F9B27CDA9E000BB1519 /* scene_animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460447279BE694009108C8 /* scene_animation_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3105,8 +3107,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D75F9B27CDA9E000BB1519 /* scene_animation_app.cpp in Sources */,
 				044593BA2790055100F04CE0 /* main.cpp in Sources */,
 				04D75F3627CCCA2800BB1519 /* omni_shadowmap_app.cpp in Sources */,
+				04D75F9A27CDA97D00BB1519 /* gltf_app.cpp in Sources */,
 				04D75F3827CCCCB100BB1519 /* shadowmap_app.cpp in Sources */,
 				04D75F3727CCCC6F00BB1519 /* cascade_shadowmap_app.cpp in Sources */,
 				04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */,
