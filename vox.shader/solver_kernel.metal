@@ -89,3 +89,64 @@ void integrateParticles(IParticles curParticles, IParticles prevParticles, uint3
         prevParticles.set(i, prevPos);
     }
 }
+
+kernel void cloth_solver(device float4* bParticles,
+                         device float4* bSelfCollisionParticles,
+                         device float4* bSelfCollisionData,
+                         
+                         device DxFrameData* bFrameData,
+                         
+                         device DxClothData* bClothData,
+                         device DxIterationData* bIterData,
+                         
+                         device DxPhaseConfig* bPhaseConfigs,
+                         device DxConstraint* bConstraints,
+                         device DxTether* bTetherConstraints,
+                         
+                         device IndexPair* bCapsuleIndices,
+                         device float4* bCollisionSpheres,
+
+                         device uint32_t* bConvexMasks,
+                         device float4* bCollisionPlanes,
+
+                         device float3* bCollisionTriangles,
+
+                         device float4* bMotionConstraints,
+                         device float4* bSeparationConstraints,
+
+                         device float4* bParticleAccelerations,
+
+                         device float4* bRestPositions,
+
+                         device int32_t* bSelfCollisionIndices,
+
+                         device float* bPerConstraintStiffness,
+
+                         //cloth mesh triangle information for air drag/lift
+                         //Note that the buffer actually contains uint16_t values
+                         device uint32_t* bTriangles,
+
+                         device int32_t* bVirtualParticleSetSizes,
+                         device uint4* bVirtualParticleIndices,
+                         device float4* bVirtualParticleWeights,
+
+                         uint32_t blockIdx [[ simdgroup_index_in_threadgroup ]],
+                         uint32_t threadIdx [[ thread_index_in_simdgroup ]]) {
+    threadgroup DxClothData gClothData;
+    threadgroup DxFrameData gFrameData;
+    threadgroup DxIterationData gIterData;
+    threadgroup uint gCurParticles[MaxParticlesInSharedMem * 4];
+
+    threadgroup float gBounds[192];
+    
+    if (!threadIdx) {
+        gClothData = bClothData[blockIdx];
+        gFrameData = bFrameData[blockIdx];
+    }
+    simdgroup_barrier(mem_flags::mem_threadgroup); // wait for gClothData being written
+    
+    if (!threadIdx) {
+        bFrameData[blockIdx] = gFrameData;
+    }
+}
+
