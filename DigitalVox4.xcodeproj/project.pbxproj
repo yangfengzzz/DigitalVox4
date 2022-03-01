@@ -497,6 +497,8 @@
 		04D75F9527CD0BBF00BB1519 /* sampled_texturecube.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75F9327CD0BBF00BB1519 /* sampled_texturecube.h */; };
 		04D75F9627CDA2AA00BB1519 /* skybox_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9417279BB7AE0093D6CB /* skybox_app.cpp */; };
 		04D75F9727CDA3AF00BB1519 /* animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD940C279ABC6F0093D6CB /* animation_app.cpp */; };
+		04D75F9827CDA51600BB1519 /* gltf_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04460440279BD777009108C8 /* gltf_loader.h */; };
+		04D75F9927CDA51600BB1519 /* gltf_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446043F279BD777009108C8 /* gltf_loader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2361,6 +2363,7 @@
 				04D75ED027CC632C00BB1519 /* translational_joint.h in Headers */,
 				04D75E5527CBCAB500BB1519 /* imstb_rectpack.h in Headers */,
 				04D75F0C27CC9B3800BB1519 /* spot_light.h in Headers */,
+				04D75F9827CDA51600BB1519 /* gltf_loader.h in Headers */,
 				04D75E8027CC56A300BB1519 /* base_material.h in Headers */,
 				04D75E6327CBCE5100BB1519 /* render_state.h in Headers */,
 				04D75ECC27CC632C00BB1519 /* spring_joint.h in Headers */,
@@ -2837,6 +2840,7 @@
 				04D75EDA27CC697E00BB1519 /* render_element.cpp in Sources */,
 				04D75E7727CC566400BB1519 /* shader_data.cpp in Sources */,
 				04D75E5427CBCAB500BB1519 /* imgui_impl_metal.mm in Sources */,
+				04D75F9927CDA51600BB1519 /* gltf_loader.cpp in Sources */,
 				04D75ED727CC67F300BB1519 /* subpass.cpp in Sources */,
 				04D75EAB27CC630400BB1519 /* transform.cpp in Sources */,
 				04D75F2627CCA2C400BB1519 /* dynamic_collider.cpp in Sources */,
