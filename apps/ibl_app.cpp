@@ -1,27 +1,26 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  ibl_app.cpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/22.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #include "ibl_app.h"
 #include "mesh/primitive_mesh.h"
 #include "mesh/mesh_renderer.h"
 #include "material/pbr_material.h"
 #include "rendering/subpasses/skybox_subpass.h"
-#include "loader/texture_loader.h"
 #include "camera.h"
+#include "image/stb.h"
+#include "texture/texture_utils.h"
+#include "texture/sampled_texturecube.h"
 
 namespace vox {
 bool IBLApp::prepare(Engine &engine) {
     ForwardApplication::prepare(engine);
     
-    auto resourceLoader = TextureLoader(*_device);
-    
-    auto skybox = std::make_unique<SkyboxSubpass>(_renderView.get(), _scene.get(), _mainCamera);
+    auto skybox = std::make_unique<SkyboxSubpass>(_renderContext.get(), _scene.get(), _mainCamera);
     skybox->createCuboid();
-    skybox->setTextureCubeMap(resourceLoader.loadCubeTexture(_path, _images));
+    skybox->setTextureCubeMap(_cubeMap);
     _renderPass->addSubpass(std::move(skybox));
     
     return true;
@@ -45,15 +44,23 @@ void IBLApp::loadScene(uint32_t width, uint32_t height) {
     const int materialIndex = 0;
     Material mat = _materials[materialIndex];
     
-    _path = "../assets/SkyMap/country";
-    _images = {"posx.png", "negx.png", "posy.png", "negy.png", "posz.png", "negz.png"};
+    const std::string path = "SkyMap/country/";
+    const std::array<std::string, 6> imageNames = {"posx.png", "negx.png", "posy.png", "negy.png", "posz.png", "negz.png"};
+    std::array<std::unique_ptr<Image>, 6> images;
+    std::array<Image*, 6> imagePtr;
+    for (int i = 0; i < 6; i++) {
+        images[i] = Image::load(path + imageNames[i]);
+        imagePtr[i] = images[i].get();
+    }
+    _cubeMap = std::make_shared<SampledTextureCube>(*_device,
+                                                    images[0]->extent().width, images[0]->extent().height, 1, true,
+                                                    images[0]->format());
+    _cubeMap->setPixelBuffer(*_commandQueue, imagePtr);
     
-    auto resourceLoader = TextureLoader(*_device);
-    auto specularTexture = resourceLoader.createSpecularTexture(_path, _images);
+    auto specularTexture = TextureUtils::createSpecularTexture(_cubeMap->texture(), *_device, *_library, *_commandQueue);
     _scene->ambientLight().setSpecularTexture(specularTexture);
     
-    auto diffuseTexture = resourceLoader.createIrradianceTexture(_path, _images);
-    _scene->ambientLight().setDiffuseTexture(diffuseTexture);
+    _scene->ambientLight().setDiffuseTexture(_cubeMap); // todo
     
     auto rootEntity = _scene->createRootEntity();
     auto cameraEntity = rootEntity->createChild();
@@ -69,7 +76,7 @@ void IBLApp::loadScene(uint32_t width, uint32_t height) {
     auto directionLight = light->addComponent<DirectLight>();
     directionLight->intensity = 0.3;
     
-    auto sphere = PrimitiveMesh::createSphere(_device.get(), 0.5, 64);
+    auto sphere = PrimitiveMesh::createSphere(*_device, 0.5, 64);
     for (int i = 0; i < 7; i++) {
         for (int j = 0; j < 7; j++) {
             auto sphereEntity = rootEntity->createChild("SphereEntity" + std::to_string(i) + std::to_string(j));

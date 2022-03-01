@@ -501,6 +501,8 @@
 		04D75F9927CDA51600BB1519 /* gltf_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0446043F279BD777009108C8 /* gltf_loader.cpp */; };
 		04D75F9A27CDA97D00BB1519 /* gltf_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460443279BE2B4009108C8 /* gltf_app.cpp */; };
 		04D75F9B27CDA9E000BB1519 /* scene_animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460447279BE694009108C8 /* scene_animation_app.cpp */; };
+		04D75F9C27CDB85100BB1519 /* Irradiance_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9412279B94220093D6CB /* Irradiance_app.cpp */; };
+		04D75F9D27CDBA0400BB1519 /* ibl_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD941A279BBADB0093D6CB /* ibl_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3112,12 +3114,14 @@
 				04D75F3627CCCA2800BB1519 /* omni_shadowmap_app.cpp in Sources */,
 				04D75F9A27CDA97D00BB1519 /* gltf_app.cpp in Sources */,
 				04D75F3827CCCCB100BB1519 /* shadowmap_app.cpp in Sources */,
+				04D75F9D27CDBA0400BB1519 /* ibl_app.cpp in Sources */,
 				04D75F3727CCCC6F00BB1519 /* cascade_shadowmap_app.cpp in Sources */,
 				04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */,
 				04D75F9727CDA3AF00BB1519 /* animation_app.cpp in Sources */,
 				04D75F9627CDA2AA00BB1519 /* skybox_app.cpp in Sources */,
 				04D75F3927CCCCEE00BB1519 /* physx_app.cpp in Sources */,
 				04D75F3A27CCCD1600BB1519 /* physx_dynamic_app.cpp in Sources */,
+				04D75F9C27CDB85100BB1519 /* Irradiance_app.cpp in Sources */,
 				04D75F3B27CCCD9100BB1519 /* pbr_app.cpp in Sources */,
 				04D75F1D27CCA28200BB1519 /* primitive_app.cpp in Sources */,
 			);

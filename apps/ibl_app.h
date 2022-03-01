@@ -1,15 +1,15 @@
+//  Copyright (c) 2022 Feng Yang
 //
-//  ibl_app.hpp
-//  apps
-//
-//  Created by 杨丰 on 2022/1/22.
-//
+//  I am making my contributions/submissions to this project solely in my
+//  personal capacity and am not conveying any rights to any intellectual
+//  property of any third parties.
 
 #ifndef ibl_app_hpp
 #define ibl_app_hpp
 
 #include "forward_application.h"
 #include "controls/orbit_control.h"
+#include "texture/sampled_texturecube.h"
 
 namespace vox {
 class IBLApp : public ForwardApplication {
@@ -19,6 +19,8 @@ public:
     void loadScene(uint32_t width, uint32_t height) override;
     
 private:
+    SampledTextureCubePtr _cubeMap{nullptr};
+
     struct Material {
         std::string name;
         Color baseColor;
