@@ -14,6 +14,8 @@ class ParticleManager {
 public:
     ParticleManager() = default;
     
+    const std::vector<Particle*>& particles() const;
+    
     void addParticle(Particle* particle);
     
     void removeParticle(Particle* particle);

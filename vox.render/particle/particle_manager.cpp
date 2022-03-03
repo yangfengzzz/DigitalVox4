@@ -8,6 +8,10 @@
 #include <glog/logging.h>
 
 namespace vox {
+const std::vector<Particle*>& ParticleManager::particles() const {
+    return _particles;
+}
+
 void ParticleManager::addParticle(Particle* particle) {
     auto iter = std::find(_particles.begin(), _particles.end(), particle);
     if (iter == _particles.end()) {
