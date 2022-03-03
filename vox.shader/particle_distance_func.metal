@@ -8,7 +8,7 @@
 using namespace metal;
 #include "particle_distance_func.h"
 
-float compute_gradient(float3 p, float3 normal) {
+float compute_gradient(float3 p, thread float3& normal) {
     const float d = sample_distance(p);
     
     const float2 eps = float2(1e-2f, 0.0f);

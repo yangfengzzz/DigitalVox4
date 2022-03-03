@@ -11,10 +11,12 @@
 
 // Classical Perlin Noise 2D
 float pnoise(float2 pt, float2 scaledTileRes, int uPerlinNoisePermutationSeed);
+
 float pnoise(float2 pt, int uPerlinNoisePermutationSeed);
 
 // Derivative Perlin Noise 2D
 float3 dpnoise(float2 pt, float2 scaledTileRes, int uPerlinNoisePermutationSeed);
+
 float3 dpnoise(float2 pt, int uPerlinNoisePermutationSeed);
 
 /// @note

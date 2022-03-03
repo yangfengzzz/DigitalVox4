@@ -11,6 +11,7 @@
 
 // Classical Perlin Noise 3D
 float pnoise(float3 pt, float3 scaledTileRes, int uPerlinNoisePermutationSeed);
+
 float pnoise(float3 pt, int uPerlinNoisePermutationSeed);
 
 // Classical Perlin Noise 2D + time

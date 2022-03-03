@@ -10,7 +10,7 @@
 #include "particle_config.h"
 
 // Return the distance to the closest object and its normal.
-float compute_gradient(float3 p, float3 normal);
+float compute_gradient(float3 p, thread float3& normal);
 
 // Return the distance to the closest object.
 float sample_distance(float3 p);
