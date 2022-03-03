@@ -7,11 +7,22 @@
 #ifndef particle_manager_hpp
 #define particle_manager_hpp
 
-#include <stdio.h>
+#include "particle.h"
 
+namespace vox {
 class ParticleManager {
 public:
+    ParticleManager() = default;
     
+    void addParticle(Particle* particle);
+    
+    void removeParticle(Particle* particle);
+    
+    void update(float deltaTime);
+    
+private:
+    std::vector<Particle*> _particles{nullptr};
 };
 
+}
 #endif /* particle_manager_hpp */

@@ -116,6 +116,11 @@ public:
     void setParticleMaxAge(float age);
     
 private:
+    void _onEnable() override;
+    
+    void _onDisable() override;
+    
+private:
     std::shared_ptr<ParticleMaterial> _material{nullptr};
     std::shared_ptr<SampledTexture3D> _field{nullptr};
     

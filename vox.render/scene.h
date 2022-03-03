@@ -19,6 +19,7 @@
 #include "physics/physics_manager.h"
 #include "lighting/light_manager.h"
 #include "lighting/ambient_light.h"
+#include "particle/particle_manager.h"
 #include "shader/shader_data.h"
 #include "background.h"
 
@@ -32,6 +33,7 @@ public:
     
     ComponentsManager _componentsManager;
     physics::PhysicsManager _physicsManager;
+    ParticleManager _particleManager;
     
     /** Light Manager */
     LightManager light_manager;

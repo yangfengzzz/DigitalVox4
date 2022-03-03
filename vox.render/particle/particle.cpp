@@ -6,7 +6,9 @@
 
 #include "particle.h"
 #include "entity.h"
+#include "scene.h"
 #include "mesh/mesh_renderer.h"
+#include "particle_manager.h"
 
 namespace vox {
 Particle::Particle(Entity *entity) :
@@ -179,6 +181,14 @@ float Particle::particleMaxAge() const {
 
 void Particle::setParticleMaxAge(float age) {
     _particleMaxAge = age;
+}
+
+void Particle::_onEnable() {
+    entity()->scene()->_particleManager.addParticle(this);
+}
+
+void Particle::_onDisable() {
+    entity()->scene()->_particleManager.removeParticle(this);
 }
 
 }
