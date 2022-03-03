@@ -19,7 +19,10 @@ void ParticleComputeSubpass::prepare() {
 }
 
 void ParticleComputeSubpass::compute(MTL::ComputeCommandEncoder &commandEncoder) {
-    
+    auto particles = _scene->_particleManager.particles();
+    for (auto& particle : particles) {
+        commandEncoder.setBytes(&particle->timeStep(), sizeof(float), 0);
+    }
 }
 
 }

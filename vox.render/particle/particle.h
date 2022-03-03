@@ -34,7 +34,7 @@ public:
     ParticleMaterial& material();
     
 public:
-    float timeStep() const;
+    const float& timeStep() const;
     
     void setTimeStep(float step);
     
@@ -42,56 +42,56 @@ public:
     
     void setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field);
     
-    SimulationVolume boundingVolumeType() const;
+    const SimulationVolume& boundingVolumeType() const;
     
     void setBoundingVolumeType(SimulationVolume vol);
     
-    float bboxSize() const;
+    const float& bboxSize() const;
     
     void setBBoxSize(float size);
     
-    float scatteringFactor() const;
+    const float& scatteringFactor() const;
     
     void setScatteringFactor(float factor);
     
-    float vectorFieldFactor() const;
+    const float& vectorFieldFactor() const;
     
     void setVectorFieldFactor(float factor);
     
-    float curlNoiseFactor() const;
+    const float& curlNoiseFactor() const;
     
     void setCurlNoiseFactor(float factor);
     
-    float curlNoiseScale() const;
+    const float& curlNoiseScale() const;
     
     void setCurlNoiseScale(float scale);
     
-    float velocityFactor() const;
+    const float& velocityFactor() const;
     
     void setVelocityFactor(float factor);
     
-    bool enableScattering() const;
+    const bool& enableScattering() const;
     
     void setEnableScattering(bool flag);
     
-    bool enableVectorField() const;
+    const bool& enableVectorField() const;
     
     void setEnableVectorField(bool flag);
     
-    bool enableCurlNoise() const;
+    const bool& enableCurlNoise() const;
     
     void setEnableCurlNoise(bool flag);
     
-    bool enableVelocityControl() const;
+    const bool& enableVelocityControl() const;
     
     void setEnableVelocityControl(bool flag);
     
 public:
-    uint32_t emitCount() const;
+    const uint32_t& emitCount() const;
     
     void setEmitCount(uint32_t count);
     
-    EmitterType emitterType() const;
+    const EmitterType& emitterType() const;
     
     void setEmitterType(EmitterType type);
     
@@ -103,15 +103,15 @@ public:
     
     void setEmitterDirection(const Vector3F& direction);
     
-    float emitterRadius() const;
+    const float& emitterRadius() const;
     
     void setEmitterRadius(float radius);
     
-    float particleMinAge() const;
+    const float& particleMinAge() const;
     
     void setParticleMinAge(float age);
     
-    float particleMaxAge() const;
+    const float& particleMaxAge() const;
     
     void setParticleMaxAge(float age);
     

@@ -22,7 +22,7 @@ ParticleMaterial& Particle::material() {
     return *_material;
 }
 
-float Particle::timeStep() const {
+const float& Particle::timeStep() const {
     return _timeStep;
 }
 
@@ -38,7 +38,7 @@ void Particle::setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& fi
     _field = field;
 }
 
-Particle::SimulationVolume Particle::boundingVolumeType() const {
+const Particle::SimulationVolume& Particle::boundingVolumeType() const {
     return _boundingVolume;
 }
 
@@ -46,7 +46,7 @@ void Particle::setBoundingVolumeType(SimulationVolume type) {
     _boundingVolume = type;
 }
 
-float Particle::bboxSize() const {
+const float& Particle::bboxSize() const {
     return _bboxSize;
 }
 
@@ -54,7 +54,7 @@ void Particle::setBBoxSize(float size) {
     _bboxSize = size;
 }
 
-float Particle::scatteringFactor() const {
+const float& Particle::scatteringFactor() const {
     return _scatteringFactor;
 }
 
@@ -62,7 +62,7 @@ void Particle::setScatteringFactor(float factor) {
     _scatteringFactor = factor;
 }
 
-float Particle::vectorFieldFactor() const {
+const float& Particle::vectorFieldFactor() const {
     return _vectorFieldFactor;
 }
 
@@ -70,7 +70,7 @@ void Particle::setVectorFieldFactor(float factor) {
     _vectorFieldFactor = factor;
 }
 
-float Particle::curlNoiseFactor() const {
+const float& Particle::curlNoiseFactor() const {
     return _curlNoiseFactor;
 }
 
@@ -78,7 +78,7 @@ void Particle::setCurlNoiseFactor(float factor) {
     _curlNoiseFactor = factor;
 }
 
-float Particle::curlNoiseScale() const {
+const float& Particle::curlNoiseScale() const {
     return _curlNoiseScale;
 }
 
@@ -86,7 +86,7 @@ void Particle::setCurlNoiseScale(float scale) {
     _curlNoiseScale = scale;
 }
 
-float Particle::velocityFactor() const {
+const float& Particle::velocityFactor() const {
     return _velocityFactor;
 }
 
@@ -94,7 +94,7 @@ void Particle::setVelocityFactor(float factor) {
     _velocityFactor = factor;
 }
 
-bool Particle::enableScattering() const {
+const bool& Particle::enableScattering() const {
     return _enableScattering;
 }
 
@@ -102,7 +102,7 @@ void Particle::setEnableScattering(bool flag) {
     _enableScattering = flag;
 }
 
-bool Particle::enableVectorField() const {
+const bool& Particle::enableVectorField() const {
     return _enableVectorField;
 }
 
@@ -110,7 +110,7 @@ void Particle::setEnableVectorField(bool flag) {
     _enableVectorField = flag;
 }
 
-bool Particle::enableCurlNoise() const {
+const bool& Particle::enableCurlNoise() const {
     return _enableCurlNoise;
 }
 
@@ -118,7 +118,7 @@ void Particle::setEnableCurlNoise(bool flag) {
     _enableCurlNoise = flag;
 }
 
-bool Particle::enableVelocityControl() const {
+const bool& Particle::enableVelocityControl() const {
     return _enableVelocityControl;
 }
 
@@ -127,7 +127,7 @@ void Particle::setEnableVelocityControl(bool flag) {
 }
 
 //MARK: - Emitter
-uint32_t Particle::emitCount() const {
+const uint32_t& Particle::emitCount() const {
     return _emitCount;
 }
 
@@ -135,7 +135,7 @@ void Particle::setEmitCount(uint32_t count) {
     _emitCount = count;
 }
 
-Particle::EmitterType Particle::emitterType() const {
+const Particle::EmitterType& Particle::emitterType() const {
     return _emitterType;
 }
 
@@ -159,7 +159,7 @@ void Particle::setEmitterDirection(const Vector3F& direction) {
     _emitterDirection = direction;
 }
 
-float Particle::emitterRadius() const {
+const float& Particle::emitterRadius() const {
     return _emitterRadius;
 }
 
@@ -167,7 +167,7 @@ void Particle::setEmitterRadius(float radius) {
     _emitterRadius = radius;
 }
 
-float Particle::particleMinAge() const {
+const float& Particle::particleMinAge() const {
     return _particleMinAge;
 }
 
@@ -175,7 +175,7 @@ void Particle::setParticleMinAge(float age) {
     _particleMinAge = age;
 }
 
-float Particle::particleMaxAge() const {
+const float& Particle::particleMaxAge() const {
     return _particleMaxAge;
 }
 
