@@ -36,11 +36,11 @@ void Particle::setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& fi
     _field = field;
 }
 
-Particle::BoundingVolumeType Particle::boundingVolumeType() const {
+Particle::SimulationVolume Particle::boundingVolumeType() const {
     return _boundingVolume;
 }
 
-void Particle::setBoundingVolumeType(BoundingVolumeType type) {
+void Particle::setBoundingVolumeType(SimulationVolume type) {
     _boundingVolume = type;
 }
 
@@ -124,5 +124,61 @@ void Particle::setEnableVelocityControl(bool flag) {
     _enableVelocityControl = flag;
 }
 
+//MARK: - Emitter
+uint32_t Particle::emitCount() const {
+    return _emitCount;
+}
+
+void Particle::setEmitCount(uint32_t count) {
+    _emitCount = count;
+}
+
+Particle::EmitterType Particle::emitterType() const {
+    return _emitterType;
+}
+
+void Particle::setEmitterType(EmitterType type) {
+    _emitterType = type;
+}
+
+const Vector3F& Particle::emitterPosition() const {
+    return _emitterPosition;
+}
+
+void Particle::setEmitterPosition(const Vector3F& position) {
+    _emitterPosition = position;
+}
+
+const Vector3F& Particle::emitterDirection() const {
+    return _emitterDirection;
+}
+
+void Particle::setEmitterDirection(const Vector3F& direction) {
+    _emitterDirection = direction;
+}
+
+float Particle::emitterRadius() const {
+    return _emitterRadius;
+}
+
+void Particle::setEmitterRadius(float radius) {
+    _emitterRadius = radius;
+}
+
+float Particle::particleMinAge() const {
+    return _particleMinAge;
+}
+
+void Particle::setParticleMinAge(float age) {
+    _particleMinAge = age;
+}
+
+float Particle::particleMaxAge() const {
+    return _particleMaxAge;
+}
+
+void Particle::setParticleMaxAge(float age) {
+    _particleMaxAge = age;
+}
 
 }

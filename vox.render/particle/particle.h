@@ -14,9 +14,19 @@
 namespace vox {
 class Particle : public Component {
 public:
-    enum class BoundingVolumeType : uint32_t {
-        Sphere,
-        Box,
+    enum class EmitterType : uint32_t {
+        POINT,
+        DISK,
+        SPHERE,
+        BALL,
+        kNumEmitterType
+    };
+    
+    enum class SimulationVolume : uint32_t {
+        SPHERE,
+        BOX,
+        NONE,
+        kNumSimulationVolume
     };
     
     explicit Particle(Entity *entity);
@@ -32,9 +42,9 @@ public:
     
     void setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field);
     
-    BoundingVolumeType boundingVolumeType() const;
+    SimulationVolume boundingVolumeType() const;
     
-    void setBoundingVolumeType(BoundingVolumeType vol);
+    void setBoundingVolumeType(SimulationVolume vol);
     
     float bboxSize() const;
     
@@ -76,12 +86,41 @@ public:
     
     void setEnableVelocityControl(bool flag);
     
+public:
+    uint32_t emitCount() const;
+    
+    void setEmitCount(uint32_t count);
+    
+    EmitterType emitterType() const;
+    
+    void setEmitterType(EmitterType type);
+    
+    const Vector3F& emitterPosition() const;
+    
+    void setEmitterPosition(const Vector3F& position);
+    
+    const Vector3F& emitterDirection() const;
+    
+    void setEmitterDirection(const Vector3F& direction);
+    
+    float emitterRadius() const;
+    
+    void setEmitterRadius(float radius);
+    
+    float particleMinAge() const;
+    
+    void setParticleMinAge(float age);
+    
+    float particleMaxAge() const;
+    
+    void setParticleMaxAge(float age);
+    
 private:
     std::shared_ptr<ParticleMaterial> _material{nullptr};
     std::shared_ptr<SampledTexture3D> _field{nullptr};
-
+    
     float _timeStep;
-    BoundingVolumeType _boundingVolume;
+    SimulationVolume _boundingVolume;
     float _bboxSize;
     float _scatteringFactor;
     float _vectorFieldFactor;
@@ -92,6 +131,14 @@ private:
     bool _enableVectorField;
     bool _enableCurlNoise;
     bool _enableVelocityControl;
+    
+    uint32_t _emitCount;
+    EmitterType _emitterType;
+    Vector3F _emitterPosition;
+    Vector3F _emitterDirection;
+    float _emitterRadius;
+    float _particleMinAge;
+    float _particleMaxAge;
 };
 }
 
