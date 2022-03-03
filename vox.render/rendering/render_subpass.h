@@ -15,7 +15,7 @@ class RenderPass;
 
 class RenderSubpass: public Subpass {
 public:
-    Subpass::Type type() override;
+    Subpass::Type type() override final;
     
     RenderSubpass(RenderContext *context,
                   Scene *scene,

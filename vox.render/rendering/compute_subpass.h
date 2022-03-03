@@ -12,7 +12,7 @@
 namespace vox {
 class ComputeSubpass: public Subpass {
 public:
-    Subpass::Type type() override;
+    Subpass::Type type() override final;
     
     ComputeSubpass(RenderContext *context,
                    Scene *scene,
