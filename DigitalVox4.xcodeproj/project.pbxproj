@@ -1252,7 +1252,6 @@
 		04D75FF527D0678200BB1519 /* particle_emission.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_emission.metal; sourceTree = "<group>"; };
 		04D75FF727D0683D00BB1519 /* particle_math.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_math.metal; sourceTree = "<group>"; };
 		04D75FF927D0695E00BB1519 /* particle_math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_math.h; sourceTree = "<group>"; };
-		04D75FFC27D06A4E00BB1519 /* particle_emission.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_emission.h; sourceTree = "<group>"; };
 		04D75FFD27D06B1900BB1519 /* particle_distance_utils.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_distance_utils.metal; sourceTree = "<group>"; };
 		04D75FFF27D06BA900BB1519 /* particle_distance_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_distance_utils.h; sourceTree = "<group>"; };
 		04D7600027D06C2600BB1519 /* particle_distance_func.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_distance_func.metal; sourceTree = "<group>"; };
@@ -1938,8 +1937,6 @@
 				04D75FF427D0671C00BB1519 /* particle_config.h */,
 				04D75FF927D0695E00BB1519 /* particle_math.h */,
 				04D75FF727D0683D00BB1519 /* particle_math.metal */,
-				04D75FFC27D06A4E00BB1519 /* particle_emission.h */,
-				04D75FF527D0678200BB1519 /* particle_emission.metal */,
 				04D75FFF27D06BA900BB1519 /* particle_distance_utils.h */,
 				04D75FFD27D06B1900BB1519 /* particle_distance_utils.metal */,
 				04D7600227D06C3A00BB1519 /* particle_distance_func.h */,
@@ -1952,6 +1949,7 @@
 				04D7600927D070F600BB1519 /* particle_perlin_3d.metal */,
 				04D7600C27D07F6500BB1519 /* particle_curl_noise.h */,
 				04D7600D27D07F6E00BB1519 /* particle_curl_noise.metal */,
+				04D75FF527D0678200BB1519 /* particle_emission.metal */,
 				04D7600F27D081EE00BB1519 /* particle_simulation.metal */,
 				04D75FF327D0670B00BB1519 /* particle */,
 				0445973B279832B900F04CE0 /* cubemap_debugger.metal */,

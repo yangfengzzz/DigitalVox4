@@ -6,13 +6,54 @@
 
 #include <metal_stdlib>
 using namespace metal;
-#include "particle_emission.h"
+#include "particle_math.h"
 
-void createParticle(device float* randbuffer,
-                    float3 uEmitterPosition,
-                    float uEmitterRadius,
-                    uint uEmitCount,
+void pushParticle(float3 position,
+                  float3 velocity,
+                  float age,
+#if SPARKLE_USE_SOA_LAYOUT
+                  device float4* positions [[buffer(8)]],
+                  device float4* velocities [[buffer(9)]],
+                  device float4* attributes [[buffer(10)]],
+#else
+                  device TParticle* particles [[buffer(11)]],
+#endif
+                  device atomic_uint* write_count) {
+    // Emit particle id.
+    const uint id = atomic_fetch_add_explicit(write_count, 1, memory_order::memory_order_relaxed);
+    
+#if SPARKLE_USE_SOA_LAYOUT
+    positions[id]  = float4(position, 1.0f);
+    velocities[id] = float4(velocity, 0.0f);
+    attributes[id] = float4(age, age, 0.0f, as_type<float>(id));
+#else
+    TParticle p;
+    p.position = float4(position, 1.0f);
+    p.velocity = float4(velocity, 0.0f);
+    p.start_age = age;
+    p.age = age;
+    p.id = id;
+    
+    particles[id] = p;
+#endif
+}
+
+void createParticle(uint uEmitCount,
                     uint uEmitterType,
+                    float3 uEmitterPosition,
+                    float3 uEmitterDirection,
+                    float uEmitterRadius,
+                    float uParticleMinAge,
+                    float uParticleMaxAge,
+                    device atomic_uint* write_count,
+#if SPARKLE_USE_SOA_LAYOUT
+                    device float4* positions [[buffer(8)]],
+                    device float4* velocities [[buffer(9)]],
+                    device float4* attributes [[buffer(10)]],
+#else
+                    device TParticle* particles [[buffer(11)]],
+#endif
+                    device float* randbuffer,
                     const uint gid) {
     // Random vector.
     const uint rid = 3u * gid;
@@ -28,6 +69,66 @@ void createParticle(device float* randbuffer,
     } else if (uEmitterType == 3) {
         pos += ball_distribution(uEmitterRadius, rn);
     }
+    
+    // Velocity
+    float3 vel = uEmitterDirection;
+    
+    // Age
+    // The age is set by thread groups to assure we have a number of particles
+    // factors of groupWidth, this method is safe but prevents continuous emission.
+    // const float group_rand = randbuffer[gid];
+    // [As the threadgroup are not full, some dead particles might appears if not
+    // skipped in following stages].
+    const float single_rand = randbuffer[gid];
+    
+    const float age = mix( uParticleMinAge, uParticleMaxAge, single_rand);
+    
+    pushParticle(pos, vel, age,
+#if SPARKLE_USE_SOA_LAYOUT
+                 positions,
+                 velocities,
+                 attributes,
+#else
+                 particles,
+#endif
+                 write_count);
 }
 
 
+kernel void particle_emission(constant uint& uEmitCount [[buffer(0)]],
+                              constant uint& uEmitterType [[buffer(1)]],
+                              constant float3& uEmitterPosition [[buffer(2)]],
+                              constant float3& uEmitterDirection [[buffer(3)]],
+                              constant float& uEmitterRadius [[buffer(4)]],
+                              constant float& uParticleMinAge [[buffer(5)]],
+                              constant float& uParticleMaxAge [[buffer(6)]],
+                              device atomic_uint* write_count [[buffer(7)]],
+#if SPARKLE_USE_SOA_LAYOUT
+                              device float4* positions [[buffer(8)]],
+                              device float4* velocities [[buffer(9)]],
+                              device float4* attributes [[buffer(10)]],
+#else
+                              device TParticle* particles [[buffer(11)]],
+#endif
+                              device float* randbuffer [[buffer(12)]],
+                              const uint gid [[ thread_position_in_grid ]]) {
+    if (gid < uEmitCount) {
+        createParticle(uEmitCount,
+                       uEmitterType,
+                       uEmitterPosition,
+                       uEmitterDirection,
+                       uEmitterRadius,
+                       uParticleMinAge,
+                       uParticleMaxAge,
+                       write_count,
+#if SPARKLE_USE_SOA_LAYOUT
+                       positions,
+                       velocities,
+                       attributes,
+#else
+                       particles,
+#endif
+                       randbuffer,
+                       gid);
+    }
+}

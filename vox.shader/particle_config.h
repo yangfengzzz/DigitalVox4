@@ -14,7 +14,7 @@
 
 // Decide which structure layout to use.
 #ifndef SPARKLE_USE_SOA_LAYOUT
-#define SPARKLE_USE_SOA_LAYOUT 0
+#define SPARKLE_USE_SOA_LAYOUT 1
 #endif
 
 struct TParticle {

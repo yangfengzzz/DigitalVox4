@@ -8,12 +8,13 @@
 using namespace metal;
 #include "particle_curl_noise.h"
 
-TParticle popParticle(device TParticle* read_particles,
-                      device atomic_uint* read_count,
+TParticle popParticle(device atomic_uint* read_count,
 #if SPARKLE_USE_SOA_LAYOUT
                       device float4* read_positions,
                       device float4* read_velocities,
                       device float4* read_attributes,
+#else
+                      device TParticle* read_particles,
 #endif
                       uint index) {
     atomic_fetch_sub_explicit(read_count, 1, memory_order::memory_order_relaxed);
@@ -260,19 +261,21 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
                                 device float4* write_positions [[buffer(17)]],
                                 device float4* write_velocities [[buffer(18)]],
                                 device float4* write_attributes [[buffer(19)]],
-#endif
+#else
                                 device TParticle* read_particles [[buffer(20)]],
                                 device TParticle* write_particles [[buffer(21)]],
+#endif
                                 constant int& uPerlinNoisePermutationSeed [[buffer(22)]],
                                 device float* randbuffer [[buffer(23)]],
                                 uint gid [[ thread_position_in_grid ]]) {
     // Local copy of the particle.
-    TParticle p = popParticle(read_particles,
-                              read_count,
+    TParticle p = popParticle(read_count,
 #if SPARKLE_USE_SOA_LAYOUT
                               read_positions,
                               read_velocities,
                               read_attributes,
+#else
+                              read_particles,
 #endif
                               gid);
     
