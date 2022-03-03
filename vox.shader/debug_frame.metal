@@ -33,3 +33,7 @@ fragment float4 fragment_debug_frame(VertexOut in [[stage_in]]) {
 
 }
 
+kernel void ttt(device atomic_int* a) {
+    a += 1;
+}
+

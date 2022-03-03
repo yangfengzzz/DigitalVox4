@@ -7,12 +7,12 @@
 #ifndef shadow_subpass_hpp
 #define shadow_subpass_hpp
 
-#include "rendering/subpass.h"
+#include "rendering/render_subpass.h"
 #include "graphics/mesh.h"
 #include <vector>
 
 namespace vox {
-class ShadowSubpass : public Subpass {
+class ShadowSubpass : public RenderSubpass {
 public:
     ShadowSubpass(RenderContext *context,
                   Scene *scene,

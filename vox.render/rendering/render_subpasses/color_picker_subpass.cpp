@@ -16,7 +16,7 @@ namespace vox {
 ColorPickerSubpass::ColorPickerSubpass(RenderContext *context,
                                        Scene *scene,
                                        Camera *camera) :
-Subpass(context, scene, camera) {
+RenderSubpass(context, scene, camera) {
 }
 
 void ColorPickerSubpass::prepare() {

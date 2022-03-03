@@ -5,8 +5,8 @@
 //  property of any third parties.
 
 #include "editor_application.h"
-#include "rendering/subpasses/forward_subpass.h"
-#include "rendering/subpasses/color_picker_subpass.h"
+#include "rendering/render_subpasses/forward_subpass.h"
+#include "rendering/render_subpasses/color_picker_subpass.h"
 #include "engine.h"
 #include "camera.h"
 #include "metal_helpers.h"

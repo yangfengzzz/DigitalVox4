@@ -7,10 +7,10 @@
 #ifndef color_picker_subpass_hpp
 #define color_picker_subpass_hpp
 
-#include "../subpass.h"
+#include "rendering/render_subpass.h"
 
 namespace vox {
-class ColorPickerSubpass : public Subpass {
+class ColorPickerSubpass : public RenderSubpass {
 public:
     ColorPickerSubpass(RenderContext *context,
                        Scene *scene,

@@ -8,7 +8,7 @@
 #include "mesh/primitive_mesh.h"
 #include "mesh/mesh_renderer.h"
 #include "material/unlit_material.h"
-#include "rendering/subpasses/skybox_subpass.h"
+#include "rendering/render_subpasses/skybox_subpass.h"
 #include "camera.h"
 #include "image/stb.h"
 #include "texture/sampled_texturecube.h"
