@@ -11,7 +11,7 @@ using namespace metal;
 void pushParticle(float3 position,
                   float3 velocity,
                   float age,
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
                   device float4* positions [[buffer(8)]],
                   device float4* velocities [[buffer(9)]],
                   device float4* attributes [[buffer(10)]],
@@ -22,7 +22,7 @@ void pushParticle(float3 position,
     // Emit particle id.
     const uint id = atomic_fetch_add_explicit(write_count, 1, memory_order::memory_order_relaxed);
     
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
     positions[id]  = float4(position, 1.0f);
     velocities[id] = float4(velocity, 0.0f);
     attributes[id] = float4(age, age, 0.0f, as_type<float>(id));
@@ -46,7 +46,7 @@ void createParticle(uint uEmitCount,
                     float uParticleMinAge,
                     float uParticleMaxAge,
                     device atomic_uint* write_count,
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
                     device float4* positions [[buffer(8)]],
                     device float4* velocities [[buffer(9)]],
                     device float4* attributes [[buffer(10)]],
@@ -84,7 +84,7 @@ void createParticle(uint uEmitCount,
     const float age = mix( uParticleMinAge, uParticleMaxAge, single_rand);
     
     pushParticle(pos, vel, age,
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
                  positions,
                  velocities,
                  attributes,
@@ -103,7 +103,7 @@ kernel void particle_emission(constant uint& uEmitCount [[buffer(0)]],
                               constant float& uParticleMinAge [[buffer(5)]],
                               constant float& uParticleMaxAge [[buffer(6)]],
                               device atomic_uint* write_count [[buffer(7)]],
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
                               device float4* positions [[buffer(8)]],
                               device float4* velocities [[buffer(9)]],
                               device float4* attributes [[buffer(10)]],
@@ -121,7 +121,7 @@ kernel void particle_emission(constant uint& uEmitCount [[buffer(0)]],
                        uParticleMinAge,
                        uParticleMaxAge,
                        write_count,
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
                        positions,
                        velocities,
                        attributes,

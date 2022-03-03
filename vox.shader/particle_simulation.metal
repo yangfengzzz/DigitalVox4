@@ -9,7 +9,7 @@ using namespace metal;
 #include "particle_curl_noise.h"
 
 TParticle popParticle(device atomic_uint* read_count,
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
                       device float4* read_positions,
                       device float4* read_velocities,
                       device float4* read_attributes,
@@ -21,7 +21,7 @@ TParticle popParticle(device atomic_uint* read_count,
     
     TParticle p;
     
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
     p.position   = read_positions[index];
     p.velocity   = read_velocities[index];
     float4 attribs = read_attributes[index];
@@ -38,7 +38,7 @@ TParticle popParticle(device atomic_uint* read_count,
 
 void pushParticle(TParticle p
                   , device atomic_uint* write_count
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
                   , device float4* write_positions
                   , device float4* write_velocities
                   , device float4* write_attributes
@@ -48,7 +48,7 @@ void pushParticle(TParticle p
                   ) {
     const uint index = atomic_fetch_add_explicit(write_count, 1, memory_order::memory_order_relaxed);
     
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
     write_positions[index]  = p.position;
     write_velocities[index] = p.velocity;
     write_attributes[index] = float4(p.start_age, p.age, 0.0f, as_type<float>(p.id));
@@ -254,7 +254,7 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
                                 constant bool& uEnableVelocityControl [[buffer(11)]],
                                 device atomic_uint* read_count [[buffer(12)]],
                                 device atomic_uint* write_count [[buffer(13)]],
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
                                 device float4* read_positions [[buffer(14)]],
                                 device float4* read_velocities [[buffer(15)]],
                                 device float4* read_attributes [[buffer(16)]],
@@ -270,7 +270,7 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
                                 uint gid [[ thread_position_in_grid ]]) {
     // Local copy of the particle.
     TParticle p = popParticle(read_count,
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
                               read_positions,
                               read_velocities,
                               read_attributes,
@@ -322,7 +322,7 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
         
         // Save it in buffer.
         pushParticle(p, write_count
-#if SPARKLE_USE_SOA_LAYOUT
+#if USE_SOA_LAYOUT
                      , write_positions
                      , write_velocities
                      , write_attributes

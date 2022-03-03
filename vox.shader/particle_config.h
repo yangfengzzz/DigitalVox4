@@ -9,12 +9,9 @@
 
 #import <simd/simd.h>
 
-// Kernel group width used across the particles pipeline.
-#define PARTICLES_KERNEL_GROUP_WIDTH 512u
-
 // Decide which structure layout to use.
-#ifndef SPARKLE_USE_SOA_LAYOUT
-#define SPARKLE_USE_SOA_LAYOUT 1
+#ifndef USE_SOA_LAYOUT
+#define USE_SOA_LAYOUT 1
 #endif
 
 struct TParticle {
