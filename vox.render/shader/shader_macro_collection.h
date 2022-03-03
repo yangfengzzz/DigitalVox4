@@ -32,7 +32,7 @@ struct ShaderMacroCollection {
     size_t hash() const;
     
 private:
-    friend class ShaderProgram;
+    friend class ResourceCache;
     
     friend class ShaderData;
     

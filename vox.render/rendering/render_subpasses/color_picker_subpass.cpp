@@ -77,13 +77,11 @@ void ColorPickerSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         
         auto material = element.material;
         material->shaderData.mergeMacro(macros, macros);
-        ShaderProgram *program = _pass->resourceCache().requestShader(_pass->library(), "vertex_picker",
-                                                                      "fragment_picker", macros);
-        if (!program->isValid()) {
-            continue;
-        }
-        _forwardPipelineDescriptor->setVertexFunction(program->vertexShader().get());
-        _forwardPipelineDescriptor->setFragmentFunction(program->fragmentShader().get());
+        
+        auto vertexFunction = _pass->resourceCache().requestFunction(_pass->library(), "vertex_picker", macros);
+        auto fragmentFunction = _pass->resourceCache().requestFunction(_pass->library(), "fragment_picker", macros);
+        _forwardPipelineDescriptor->setVertexFunction(vertexFunction);
+        _forwardPipelineDescriptor->setFragmentFunction(fragmentFunction);
         
         // manully
         auto &mesh = element.mesh;

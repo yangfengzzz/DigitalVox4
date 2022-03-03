@@ -267,8 +267,6 @@
 		04D75E6A27CBCE5100BB1519 /* stencil_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B9278EC19E00F04CE0 /* stencil_state.h */; };
 		04D75E6B27CBCE5100BB1519 /* blend_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592CD278EC79200F04CE0 /* blend_state.cpp */; };
 		04D75E6C27CBCE5100BB1519 /* raster_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592C6278EC64A00F04CE0 /* raster_state.cpp */; };
-		04D75E6D27CBD1A700BB1519 /* shader_program.h in Headers */ = {isa = PBXBuildFile; fileRef = 044592B4278EBFC600F04CE0 /* shader_program.h */; };
-		04D75E6E27CBD1A700BB1519 /* shader_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 044592B5278EBFC600F04CE0 /* shader_program.cpp */; };
 		04D75E6F27CBD22600BB1519 /* shader_macro_collection.h in Headers */ = {isa = PBXBuildFile; fileRef = 04459295278EB2EB00F04CE0 /* shader_macro_collection.h */; };
 		04D75E7027CBD22600BB1519 /* shader_macro_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04459296278EB2EB00F04CE0 /* shader_macro_collection.cpp */; };
 		04D75E7227CC4B7F00BB1519 /* metal_helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75E7127CC4B7F00BB1519 /* metal_helpers.h */; };
@@ -791,8 +789,6 @@
 		044592AC278EBEB900F04CE0 /* shader_property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_property.cpp; sourceTree = "<group>"; };
 		044592B0278EBEE600F04CE0 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		044592B1278EBEE600F04CE0 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
-		044592B4278EBFC600F04CE0 /* shader_program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_program.h; sourceTree = "<group>"; };
-		044592B5278EBFC600F04CE0 /* shader_program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_program.cpp; sourceTree = "<group>"; };
 		044592B8278EC19E00F04CE0 /* stencil_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stencil_state.cpp; sourceTree = "<group>"; };
 		044592B9278EC19E00F04CE0 /* stencil_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stencil_state.h; sourceTree = "<group>"; };
 		044592BC278EC58900F04CE0 /* render_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render_state.cpp; sourceTree = "<group>"; };
@@ -1796,8 +1792,6 @@
 				044592A6278EB9DF00F04CE0 /* shader_data.cpp */,
 				04459299278EB2F900F04CE0 /* shader_data_group.h */,
 				04459290278EB29100F04CE0 /* state */,
-				044592B4278EBFC600F04CE0 /* shader_program.h */,
-				044592B5278EBFC600F04CE0 /* shader_program.cpp */,
 				044592AB278EBEB900F04CE0 /* shader_property.h */,
 				044592AC278EBEB900F04CE0 /* shader_property.cpp */,
 				044592AA278EBEB900F04CE0 /* shader_uniform.h */,
@@ -2451,7 +2445,6 @@
 				04D75ED527CC65E900BB1519 /* render_pass.h in Headers */,
 				04D75E5E27CBCB9600BB1519 /* timer.h in Headers */,
 				04D75E6A27CBCE5100BB1519 /* stencil_state.h in Headers */,
-				04D75E6D27CBD1A700BB1519 /* shader_program.h in Headers */,
 				04D75EB927CC632C00BB1519 /* character_controller.h in Headers */,
 				04D75E9927CC62AD00BB1519 /* background.h in Headers */,
 				04D75EC527CC632C00BB1519 /* hinge_joint.h in Headers */,
@@ -2889,7 +2882,6 @@
 				04D75E6B27CBCE5100BB1519 /* blend_state.cpp in Sources */,
 				04D75EA027CC62B600BB1519 /* component.cpp in Sources */,
 				04D75E3F27CBA5A700BB1519 /* window.cpp in Sources */,
-				04D75E6E27CBD1A700BB1519 /* shader_program.cpp in Sources */,
 				04D75E4B27CBC9F800BB1519 /* engine.cpp in Sources */,
 				04D75E9C27CC62AD00BB1519 /* update_flag_manager.cpp in Sources */,
 				04D75E6C27CBCE5100BB1519 /* raster_state.cpp in Sources */,

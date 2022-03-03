@@ -15,7 +15,7 @@ ResourceCache::ResourceCache(MTL::Device *device) :
 _device{device} {
 }
 
-std::shared_ptr<MTL::DepthStencilState>
+MTL::DepthStencilState*
 ResourceCache::requestDepthStencilState(const MTL::DepthStencilDescriptor &descriptor) {
     size_t hash = descriptor.hash();
     
@@ -24,9 +24,9 @@ ResourceCache::requestDepthStencilState(const MTL::DepthStencilDescriptor &descr
         auto depthStencilState = CLONE_METAL_CUSTOM_DELETER(MTL::DepthStencilState,
                                                             _device->newDepthStencilState(&descriptor));
         _state.depthStencilStates[hash] = std::move(depthStencilState);
-        return _state.depthStencilStates[hash];
+        return _state.depthStencilStates[hash].get();
     } else {
-        return iter->second;
+        return iter->second.get();
     }
 }
 
@@ -44,23 +44,48 @@ ResourceCache::requestRenderPipelineState(const MTL::RenderPipelineDescriptor &d
     }
 }
 
-ShaderProgram *ResourceCache::requestShader(MTL::Library &library,
-                                            const std::string &vertexSource,
-                                            const std::string &fragmentSource,
-                                            const ShaderMacroCollection &macroInfo) {
+MTL::Function *ResourceCache::requestFunction(MTL::Library &library,
+                                              const std::string &source,
+                                              const ShaderMacroCollection &macroInfo) {
     std::size_t hash{0U};
-    hash_combine(hash, std::hash<std::string>{}(vertexSource));
-    hash_combine(hash, std::hash<std::string>{}(fragmentSource));
+    hash_combine(hash, std::hash<std::string>{}(source));
     hash_combine(hash, macroInfo.hash());
     
-    auto iter = _state.shaders.find(hash);
-    if (iter == _state.shaders.end()) {
-        auto shader = std::make_unique<ShaderProgram>(library, vertexSource, fragmentSource, macroInfo);
-        _state.shaders[hash] = std::move(shader);
-        return _state.shaders[hash].get();
+    auto iter = _state.functions.find(hash);
+    if (iter == _state.functions.end()) {
+        NS::Error *error;
+        auto functionConstants = _makeFunctionConstants(macroInfo);
+        auto shader =
+        CLONE_METAL_CUSTOM_DELETER(MTL::Function,
+                                   library.newFunction(NS::String::string(source.c_str(),
+                                                                          NS::StringEncoding::UTF8StringEncoding),
+                                                       functionConstants.get(), &error));
+        _state.functions[hash] = std::move(shader);
+        return _state.functions[hash].get();
     } else {
         return iter->second.get();
     }
+}
+
+std::shared_ptr<MTL::FunctionConstantValues>
+ResourceCache::_makeFunctionConstants(const ShaderMacroCollection &macroInfo) {
+    auto functionConstants = ShaderMacroCollection::createDefaultFunction();
+    std::for_each(macroInfo._value.begin(), macroInfo._value.end(),
+                  [&](const std::pair<MacroName, std::pair<int, MTL::DataType>> &info) {
+        if (info.second.second == MTL::DataTypeBool) {
+            bool property;
+            if (info.second.first == 1) {
+                property = true;
+            } else {
+                property = false;
+            }
+            functionConstants->setConstantValue(&property, MTL::DataTypeBool, info.first);
+        } else {
+            auto &property = info.second.first;
+            functionConstants->setConstantValue(&property, info.second.second, info.first);
+        }
+    });
+    return functionConstants;
 }
 
 }

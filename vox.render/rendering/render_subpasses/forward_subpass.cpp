@@ -70,13 +70,11 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         
         auto material = element.material;
         material->shaderData.mergeMacro(macros, macros);
-        ShaderProgram *program = _pass->resourceCache().requestShader(_pass->library(), material->shader->vertexSource(),
-                                                                      material->shader->fragmentSource(), macros);
-        if (!program->isValid()) {
-            continue;
-        }
-        _forwardPipelineDescriptor->setVertexFunction(program->vertexShader().get());
-        _forwardPipelineDescriptor->setFragmentFunction(program->fragmentShader().get());
+        
+        auto vertexFunction = _pass->resourceCache().requestFunction(_pass->library(), material->shader->vertexSource(), macros);
+        auto fragmentFunction = _pass->resourceCache().requestFunction(_pass->library(), material->shader->fragmentSource(), macros);
+        _forwardPipelineDescriptor->setVertexFunction(vertexFunction);
+        _forwardPipelineDescriptor->setFragmentFunction(fragmentFunction);
         
         // manully
         auto &mesh = element.mesh;
@@ -93,7 +91,7 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         uploadUniforms(renderEncoder, _forwardPipelineState->sceneUniformBlock, _scene->shaderData);
         uploadUniforms(renderEncoder, _forwardPipelineState->cameraUniformBlock, _camera->shaderData);
         renderEncoder.setRenderPipelineState(&_forwardPipelineState->handle());
-        renderEncoder.setDepthStencilState(_forwardDepthStencilState.get());
+        renderEncoder.setDepthStencilState(_forwardDepthStencilState);
         
         uint32_t index = 0;
         for (auto &meshBuffer: mesh->vertexBufferBindings()) {

@@ -79,11 +79,8 @@ void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
             
             auto material = element.material;
             material->shaderData.mergeMacro(macros, macros);
-            ShaderProgram *program = _pass->resourceCache().requestShader(_pass->library(), "vertex_depth", "", macros);
-            if (!program->isValid()) {
-                continue;
-            }
-            _shadowGenDescriptor->setVertexFunction(program->vertexShader().get());
+            MTL::Function* function = _pass->resourceCache().requestFunction(_pass->library(), "vertex_depth", macros);
+            _shadowGenDescriptor->setVertexFunction(function);
             
             // manully
             auto &mesh = element.mesh;

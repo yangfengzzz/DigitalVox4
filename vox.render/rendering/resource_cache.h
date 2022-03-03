@@ -7,7 +7,6 @@
 #ifndef resource_cache_hpp
 #define resource_cache_hpp
 
-#include "shader/shader_program.h"
 #include "shader/shader_macro_collection.h"
 #include "render_pipeline_state.h"
 #include <unordered_map>
@@ -22,9 +21,9 @@ class ShaderProgram;
 struct ResourceCacheState {
     std::unordered_map<std::size_t, std::shared_ptr<MTL::DepthStencilState>> depthStencilStates;
     
-    std::unordered_map<std::size_t, std::unique_ptr<RenderPipelineState>> renderPipelineStates;
+    std::unordered_map<std::size_t, std::shared_ptr<MTL::Function>> functions;
     
-    std::unordered_map<std::size_t, std::unique_ptr<ShaderProgram>> shaders;
+    std::unordered_map<std::size_t, std::unique_ptr<RenderPipelineState>> renderPipelineStates;
 };
 
 /**
@@ -52,16 +51,19 @@ public:
     ResourceCache &operator=(ResourceCache &&) = delete;
     
 public:
-    std::shared_ptr<MTL::DepthStencilState>
+    MTL::DepthStencilState *
     requestDepthStencilState(const MTL::DepthStencilDescriptor &descriptor);
+    
+    MTL::Function *
+    requestFunction(MTL::Library &library, const std::string &source,
+                    const ShaderMacroCollection &macroInfo);
     
     RenderPipelineState *
     requestRenderPipelineState(const MTL::RenderPipelineDescriptor &descriptor);
     
-    ShaderProgram *requestShader(MTL::Library &library,
-                                 const std::string &vertexSource,
-                                 const std::string &fragmentSource,
-                                 const ShaderMacroCollection &macroInfo);
+private:
+    std::shared_ptr<MTL::FunctionConstantValues>
+    _makeFunctionConstants(const ShaderMacroCollection &macroInfo);
     
 private:
     MTL::Device *_device;

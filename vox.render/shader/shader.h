@@ -11,7 +11,6 @@
 #include <string>
 #include <optional>
 #include "shader_property.h"
-#include "shader_program.h"
 #include "shader_macro_collection.h"
 
 namespace vox {
