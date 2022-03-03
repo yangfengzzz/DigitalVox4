@@ -24,13 +24,14 @@
 #include "shadowmap_app.h"
 #include "cascade_shadowmap_app.h"
 #include "omni_shadowmap_app.h"
+#include "atomic_compute.h"
 
 int main(int argc, char *argv[]) {
     vox::UnixEngine engine{vox::UnixType::Mac, argc, argv};
     
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::IrradianceApp>());
+        engine.setApp(std::make_unique<vox::AtomicComputeApp>());
         code = engine.mainLoop();
     }
     
