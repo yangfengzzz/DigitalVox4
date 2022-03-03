@@ -18,90 +18,7 @@ ComputeSubpass(context, scene, camera){
 }
 
 void ParticleComputeSubpass::prepare() {
-    NS::Error* error;
-    // emission
-    {
-        _emissionCompute =
-        CLONE_METAL_CUSTOM_DELETER(MTL::Function,
-                                   _pass->library().newFunction(NS::String::string("particle_emission",
-                                                                                   NS::StringEncoding::UTF8StringEncoding)));
-        _emissionState = CLONE_METAL_CUSTOM_DELETER(MTL::ComputePipelineState,
-                                                    _context->device().newComputePipelineState(_emissionCompute.get(), &error));
-        if (error != nullptr) {
-            LOG(ERROR) << "Error: could not load Metal shader: "
-            << error->description()->cString(NS::StringEncoding::UTF8StringEncoding) << std::endl;
-        }
-    }
-    
-    // simulation
-    {
-        _simulationCompute =
-        CLONE_METAL_CUSTOM_DELETER(MTL::Function,
-                                   _pass->library().newFunction(NS::String::string("particle_simulation",
-                                                                                   NS::StringEncoding::UTF8StringEncoding)));
-        _simulationState = CLONE_METAL_CUSTOM_DELETER(MTL::ComputePipelineState,
-                                                      _context->device().newComputePipelineState(_simulationCompute.get(), &error));
-        if (error != nullptr) {
-            LOG(ERROR) << "Error: could not load Metal shader: "
-            << error->description()->cString(NS::StringEncoding::UTF8StringEncoding) << std::endl;
-        }
-    }
-    
-    // fillIndices
-    {
-        _fillIndicesCompute =
-        CLONE_METAL_CUSTOM_DELETER(MTL::Function,
-                                   _pass->library().newFunction(NS::String::string("particle_fill_indices",
-                                                                                   NS::StringEncoding::UTF8StringEncoding)));
-        _fillIndicesState = CLONE_METAL_CUSTOM_DELETER(MTL::ComputePipelineState,
-                                                       _context->device().newComputePipelineState(_fillIndicesCompute.get(), &error));
-        if (error != nullptr) {
-            LOG(ERROR) << "Error: could not load Metal shader: "
-            << error->description()->cString(NS::StringEncoding::UTF8StringEncoding) << std::endl;
-        }
-    }
-    
-    // calculate dp
-    {
-        _calculateDPCompute =
-        CLONE_METAL_CUSTOM_DELETER(MTL::Function,
-                                   _pass->library().newFunction(NS::String::string("particle_calculate_dp",
-                                                                                   NS::StringEncoding::UTF8StringEncoding)));
-        _calculateDPState = CLONE_METAL_CUSTOM_DELETER(MTL::ComputePipelineState,
-                                                       _context->device().newComputePipelineState(_calculateDPCompute.get(), &error));
-        if (error != nullptr) {
-            LOG(ERROR) << "Error: could not load Metal shader: "
-            << error->description()->cString(NS::StringEncoding::UTF8StringEncoding) << std::endl;
-        }
-    }
-    
-    // sort step
-    {
-        _sortStepCompute =
-        CLONE_METAL_CUSTOM_DELETER(MTL::Function,
-                                   _pass->library().newFunction(NS::String::string("particle_sort_step",
-                                                                                   NS::StringEncoding::UTF8StringEncoding)));
-        _sortStepState = CLONE_METAL_CUSTOM_DELETER(MTL::ComputePipelineState,
-                                                    _context->device().newComputePipelineState(_sortStepCompute.get(), &error));
-        if (error != nullptr) {
-            LOG(ERROR) << "Error: could not load Metal shader: "
-            << error->description()->cString(NS::StringEncoding::UTF8StringEncoding) << std::endl;
-        }
-    }
-    
-    // sort final
-    {
-        _sortFinalCompute =
-        CLONE_METAL_CUSTOM_DELETER(MTL::Function,
-                                   _pass->library().newFunction(NS::String::string("particle_sort_final",
-                                                                                   NS::StringEncoding::UTF8StringEncoding)));
-        _sortFinalState = CLONE_METAL_CUSTOM_DELETER(MTL::ComputePipelineState,
-                                                     _context->device().newComputePipelineState(_sortFinalCompute.get(), &error));
-        if (error != nullptr) {
-            LOG(ERROR) << "Error: could not load Metal shader: "
-            << error->description()->cString(NS::StringEncoding::UTF8StringEncoding) << std::endl;
-        }
-    }
+    _pipelineDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::ComputePipelineDescriptor, MTL::ComputePipelineDescriptor::alloc()->init());
 }
 
 void ParticleComputeSubpass::compute(MTL::ComputeCommandEncoder &commandEncoder) {
@@ -114,17 +31,53 @@ void ParticleComputeSubpass::compute(MTL::ComputeCommandEncoder &commandEncoder)
 void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeCommandEncoder &commandEncoder) {
     commandEncoder.setBytes(&particle->timeStep(), sizeof(float), 0);
     
-    commandEncoder.setComputePipelineState(_emissionState.get());
-    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
-    commandEncoder.setComputePipelineState(_simulationState.get());
-    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
-    commandEncoder.setComputePipelineState(_fillIndicesState.get());
-    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
-    commandEncoder.setComputePipelineState(_calculateDPState.get());
-    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
-    commandEncoder.setComputePipelineState(_sortStepState.get());
-    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
-    commandEncoder.setComputePipelineState(_sortFinalState.get());
+    {
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_emission", ShaderMacroCollection());
+        _pipelineDescriptor->setComputeFunction(function);
+        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        commandEncoder.setComputePipelineState(&pipelineState->handle());
+        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+    }
+    
+    {
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_simulation", ShaderMacroCollection());
+        _pipelineDescriptor->setComputeFunction(function);
+        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        commandEncoder.setComputePipelineState(&pipelineState->handle());
+        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+    }
+    
+    {
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_fill_indices", ShaderMacroCollection());
+        _pipelineDescriptor->setComputeFunction(function);
+        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        commandEncoder.setComputePipelineState(&pipelineState->handle());
+        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+    }
+    
+    {
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_calculate_dp", ShaderMacroCollection());
+        _pipelineDescriptor->setComputeFunction(function);
+        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        commandEncoder.setComputePipelineState(&pipelineState->handle());
+        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+    }
+    
+    {
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_step", ShaderMacroCollection());
+        _pipelineDescriptor->setComputeFunction(function);
+        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        commandEncoder.setComputePipelineState(&pipelineState->handle());
+        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+    }
+    
+    {
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_final", ShaderMacroCollection());
+        _pipelineDescriptor->setComputeFunction(function);
+        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        commandEncoder.setComputePipelineState(&pipelineState->handle());
+        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+    }
 }
 
 
