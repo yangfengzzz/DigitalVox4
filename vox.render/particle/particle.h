@@ -32,9 +32,9 @@ public:
     
     void setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field);
     
-    BoundingVolumeType boundingVolume() const;
+    BoundingVolumeType boundingVolumeType() const;
     
-    void setBoundingVolume(BoundingVolumeType vol);
+    void setBoundingVolumeType(BoundingVolumeType vol);
     
     float bboxSize() const;
     
@@ -66,15 +66,15 @@ public:
     
     bool enableVectorField() const;
     
-    void setEnableVectorField(bool flag) const;
+    void setEnableVectorField(bool flag);
     
     bool enableCurlNoise() const;
     
-    void setEnableCurlNoise(bool flag) const;
+    void setEnableCurlNoise(bool flag);
     
     bool enableVelocityControl() const;
     
-    void setEnableVelocityControl(bool flag) const;
+    void setEnableVelocityControl(bool flag);
     
 private:
     std::shared_ptr<ParticleMaterial> _material{nullptr};
