@@ -24,13 +24,17 @@ void ParticleComputeSubpass::prepare() {
 void ParticleComputeSubpass::compute(MTL::ComputeCommandEncoder &commandEncoder) {
     auto particles = _scene->_particleManager.particles();
     for (auto& particle : particles) {
-        _computeSingle(particle, commandEncoder);
+        auto compileMacros = ShaderMacroCollection();
+        particle->shaderData.mergeMacro(compileMacros, compileMacros);
+        _computeSingle(particle, commandEncoder, compileMacros);
     }
 }
 
-void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeCommandEncoder &commandEncoder) {
+void ParticleComputeSubpass::_computeSingle(Particle* particle,
+                                            MTL::ComputeCommandEncoder &commandEncoder,
+                                            const ShaderMacroCollection &compileMacros) {
     {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_emission", ShaderMacroCollection());
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_emission", compileMacros);
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
         uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
@@ -39,7 +43,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
     }
     
     {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_simulation", ShaderMacroCollection());
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_simulation", compileMacros);
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
         uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
@@ -48,7 +52,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
     }
     
     {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_fill_indices", ShaderMacroCollection());
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_fill_indices", compileMacros);
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
         uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
@@ -57,7 +61,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
     }
     
     {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_calculate_dp", ShaderMacroCollection());
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_calculate_dp", compileMacros);
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
         uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
@@ -66,7 +70,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
     }
     
     {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_step", ShaderMacroCollection());
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_step", compileMacros);
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
         uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
@@ -75,7 +79,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
     }
     
     {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_final", ShaderMacroCollection());
+        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_final", compileMacros);
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
         uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);

@@ -12,7 +12,7 @@
 
 namespace vox {
 Particle::Particle(Entity *entity) :
-Component(entity),
+Script(entity),
 _timeStepProp(Shader::createProperty("uTimeStep", ShaderDataGroup::Compute)),
 _vectorFieldTextureProp(Shader::createProperty("uVectorFieldTexture", ShaderDataGroup::Compute)),
 _boundingVolumeProp(Shader::createProperty("uBoundingVolume", ShaderDataGroup::Compute)),
@@ -35,6 +35,10 @@ _particleMaxAgeProp(Shader::createProperty("uParticleMaxAge", ShaderDataGroup::C
     renderer->setMaterial(_material);
 }
 
+void Particle::onUpdate(float deltaTime) {
+    
+}
+
 ParticleMaterial& Particle::material() {
     return *_material;
 }
@@ -45,14 +49,6 @@ float Particle::timeStep() const {
 
 void Particle::setTimeStep(float step) {
     shaderData.setData(_timeStepProp, step);
-}
-
-std::shared_ptr<SampledTexture3D> Particle::vectorFieldTexture() const {
-    return std::any_cast<std::shared_ptr<SampledTexture3D>>(shaderData.getData(_vectorFieldTextureProp));
-}
-
-void Particle::setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field) {
-    shaderData.setSampledTexure(_vectorFieldTextureProp, field);
 }
 
 Particle::SimulationVolume Particle::boundingVolumeType() const {
@@ -76,7 +72,17 @@ float Particle::scatteringFactor() const {
 }
 
 void Particle::setScatteringFactor(float factor) {
+    shaderData.enableMacro(NEED_PARTICLE_SCATTERING);
     shaderData.setData(_scatteringFactorProp, factor);
+}
+
+std::shared_ptr<SampledTexture3D> Particle::vectorFieldTexture() const {
+    return std::any_cast<std::shared_ptr<SampledTexture3D>>(shaderData.getData(_vectorFieldTextureProp));
+}
+
+void Particle::setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field) {
+    shaderData.enableMacro(NEED_PARTICLE_VECTOR_FIELD);
+    shaderData.setSampledTexure(_vectorFieldTextureProp, field);
 }
 
 float Particle::vectorFieldFactor() const {
@@ -84,6 +90,7 @@ float Particle::vectorFieldFactor() const {
 }
 
 void Particle::setVectorFieldFactor(float factor) {
+    shaderData.enableMacro(NEED_PARTICLE_VECTOR_FIELD);
     shaderData.setData(_vectorFieldFactorProp, factor);
 }
 
@@ -92,6 +99,7 @@ float Particle::curlNoiseFactor() const {
 }
 
 void Particle::setCurlNoiseFactor(float factor) {
+    shaderData.enableMacro(NEED_PARTICLE_CURL_NOISE);
     shaderData.setData(_curlNoiseFactorProp, factor);
 }
 
@@ -100,6 +108,7 @@ float Particle::curlNoiseScale() const {
 }
 
 void Particle::setCurlNoiseScale(float scale) {
+    shaderData.enableMacro(NEED_PARTICLE_CURL_NOISE);
     shaderData.setData(_curlNoiseScaleProp, scale);
 }
 
@@ -108,6 +117,7 @@ float Particle::velocityFactor() const {
 }
 
 void Particle::setVelocityFactor(float factor) {
+    shaderData.enableMacro(NEED_PARTICLE_VELOCITY_CONTROL);
     shaderData.setData(_velocityFactorProp, factor);
 }
 

@@ -23,7 +23,8 @@ public:
     void compute(MTL::ComputeCommandEncoder &commandEncoder) override;
 
 private:
-    void _computeSingle(Particle* particle, MTL::ComputeCommandEncoder &commandEncoder);
+    void _computeSingle(Particle* particle, MTL::ComputeCommandEncoder &commandEncoder,
+                        const ShaderMacroCollection &compileMacros);
     
     std::shared_ptr<MTL::ComputePipelineDescriptor> _pipelineDescriptor{nullptr};
 };

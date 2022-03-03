@@ -7,12 +7,12 @@
 #ifndef particle_hpp
 #define particle_hpp
 
-#include "component.h"
+#include "script.h"
 #include "particle_material.h"
 #include "texture/sampled_texture3d.h"
 
 namespace vox {
-class Particle : public Component {
+class Particle : public Script {
 public:
     enum class EmitterType : uint32_t {
         POINT,
@@ -36,13 +36,12 @@ public:
     ShaderData shaderData;
     
 public:
+    void onUpdate(float deltaTime) override;
+    
+public:
     float timeStep() const;
     
     void setTimeStep(float step);
-    
-    std::shared_ptr<SampledTexture3D> vectorFieldTexture() const;
-    
-    void setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field);
     
     SimulationVolume boundingVolumeType() const;
     
@@ -59,6 +58,10 @@ public:
     float vectorFieldFactor() const;
     
     void setVectorFieldFactor(float factor);
+    
+    std::shared_ptr<SampledTexture3D> vectorFieldTexture() const;
+    
+    void setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field);
     
     float curlNoiseFactor() const;
     
