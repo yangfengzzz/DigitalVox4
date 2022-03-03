@@ -9,8 +9,8 @@
 
 #include "particle_config.h"
 
-#define NOISE_ENABLE_TILING   0
-#define NOISE_TILE_RES        vec3(512.0f)
+#define NOISE_ENABLE_TILING 0
+#define NOISE_TILE_RES float3(512.0f)
 
 // Fast computation of x modulo 289
 float3 mod289(float3 x);
