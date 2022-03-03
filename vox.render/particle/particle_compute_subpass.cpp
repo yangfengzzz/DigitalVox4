@@ -115,10 +115,15 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
     commandEncoder.setBytes(&particle->timeStep(), sizeof(float), 0);
     
     commandEncoder.setComputePipelineState(_emissionState.get());
+    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     commandEncoder.setComputePipelineState(_simulationState.get());
+    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     commandEncoder.setComputePipelineState(_fillIndicesState.get());
+    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     commandEncoder.setComputePipelineState(_calculateDPState.get());
+    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     commandEncoder.setComputePipelineState(_sortStepState.get());
+    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     commandEncoder.setComputePipelineState(_sortFinalState.get());
 }
 
