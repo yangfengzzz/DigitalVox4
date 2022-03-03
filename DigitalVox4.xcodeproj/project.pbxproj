@@ -516,6 +516,7 @@
 		04D7601427D0959100BB1519 /* particle_fill_indices.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601327D0959100BB1519 /* particle_fill_indices.metal */; };
 		04D7601627D0960800BB1519 /* particle_sort_step.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601527D0960800BB1519 /* particle_sort_step.metal */; };
 		04D7601827D096E500BB1519 /* particle_sort_final.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601727D096E500BB1519 /* particle_sort_final.metal */; };
+		04D7601A27D0A26800BB1519 /* particle_draw.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601927D0A26800BB1519 /* particle_draw.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1273,6 +1274,7 @@
 		04D7601327D0959100BB1519 /* particle_fill_indices.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_fill_indices.metal; sourceTree = "<group>"; };
 		04D7601527D0960800BB1519 /* particle_sort_step.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_sort_step.metal; sourceTree = "<group>"; };
 		04D7601727D096E500BB1519 /* particle_sort_final.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_sort_final.metal; sourceTree = "<group>"; };
+		04D7601927D0A26800BB1519 /* particle_draw.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_draw.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1963,6 +1965,7 @@
 				04D7601327D0959100BB1519 /* particle_fill_indices.metal */,
 				04D7601527D0960800BB1519 /* particle_sort_step.metal */,
 				04D7601727D096E500BB1519 /* particle_sort_final.metal */,
+				04D7601927D0A26800BB1519 /* particle_draw.metal */,
 				04D75FF327D0670B00BB1519 /* particle */,
 				0445973B279832B900F04CE0 /* cubemap_debugger.metal */,
 				0445973F279832BA00F04CE0 /* light_debugger.metal */,
@@ -3043,6 +3046,7 @@
 				0445974F279832BA00F04CE0 /* brdf_lut.metal in Sources */,
 				04459755279832BA00F04CE0 /* particle.metal in Sources */,
 				04459741279832BA00F04CE0 /* pbr_common.metal in Sources */,
+				04D7601A27D0A26800BB1519 /* particle_draw.metal in Sources */,
 				04D75FF827D0683D00BB1519 /* particle_math.metal in Sources */,
 				04D7600E27D07F6E00BB1519 /* particle_curl_noise.metal in Sources */,
 				04D7600A27D070F600BB1519 /* particle_perlin_3d.metal in Sources */,
