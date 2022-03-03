@@ -100,8 +100,8 @@ vertex VertexOut particle_vertex(const VertexIn in [[stage_in]],
 }
 
 float4 compute_color(float3 base_color, float decay, float2 texcoord,
-                     float uFadeCoefficient, bool uDebugDaw) {
-    if (uDebugDaw) {
+                     float uFadeCoefficient, bool uDebugDraw) {
+    if (uDebugDraw) {
         return float4(1.0f);
     }
     
@@ -123,7 +123,7 @@ float4 compute_color(float3 base_color, float decay, float2 texcoord,
 
 fragment float4 particle_fragment(VertexOut in [[stage_in]],
                                   constant float& uFadeCoefficient [[buffer(5)]],
-                                  constant bool& uDebugDaw [[buffer(6)]]) {
+                                  constant bool& uDebugDraw [[buffer(6)]]) {
     return compute_color(in.color, in.decay, in.pointSize,
-                         uFadeCoefficient, uDebugDaw);
+                         uFadeCoefficient, uDebugDraw);
 }

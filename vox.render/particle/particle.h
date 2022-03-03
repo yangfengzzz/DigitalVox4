@@ -15,6 +15,11 @@ class Particle : public Component {
 public:
     explicit Particle(Entity *entity);
     
+    ParticleMaterial& material();
+    
+public:
+    
+    
 private:
     std::shared_ptr<ParticleMaterial> _material{nullptr};
 };

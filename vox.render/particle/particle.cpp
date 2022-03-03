@@ -16,4 +16,9 @@ Component(entity) {
     renderer->setMaterial(_material);
 }
 
+ParticleMaterial& Particle::material() {
+    return *_material;
+}
+
+
 }
