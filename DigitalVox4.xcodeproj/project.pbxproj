@@ -505,6 +505,7 @@
 		04D75FF227D0510000BB1519 /* compute_debugger.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FF127D0510000BB1519 /* compute_debugger.metal */; };
 		04D75FF827D0683D00BB1519 /* particle_math.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FF727D0683D00BB1519 /* particle_math.metal */; };
 		04D75FFB27D069EE00BB1519 /* particle_emission.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FF527D0678200BB1519 /* particle_emission.metal */; };
+		04D75FFE27D06B1900BB1519 /* particle_distance_utils.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FFD27D06B1900BB1519 /* particle_distance_utils.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1246,6 +1247,8 @@
 		04D75FF727D0683D00BB1519 /* particle_math.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_math.metal; sourceTree = "<group>"; };
 		04D75FF927D0695E00BB1519 /* particle_math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_math.h; sourceTree = "<group>"; };
 		04D75FFC27D06A4E00BB1519 /* particle_emission.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_emission.h; sourceTree = "<group>"; };
+		04D75FFD27D06B1900BB1519 /* particle_distance_utils.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_distance_utils.metal; sourceTree = "<group>"; };
+		04D75FFF27D06BA900BB1519 /* particle_distance_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_distance_utils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1920,6 +1923,8 @@
 				04D75FF727D0683D00BB1519 /* particle_math.metal */,
 				04D75FFC27D06A4E00BB1519 /* particle_emission.h */,
 				04D75FF527D0678200BB1519 /* particle_emission.metal */,
+				04D75FFF27D06BA900BB1519 /* particle_distance_utils.h */,
+				04D75FFD27D06B1900BB1519 /* particle_distance_utils.metal */,
 				04D75FF327D0670B00BB1519 /* particle */,
 				0445973B279832B900F04CE0 /* cubemap_debugger.metal */,
 				0445973F279832BA00F04CE0 /* light_debugger.metal */,
@@ -3010,6 +3015,7 @@
 				04459749279832BA00F04CE0 /* texture_packer.metal in Sources */,
 				04459754279832BA00F04CE0 /* cubemap_debugger.metal in Sources */,
 				04459742279832BA00F04CE0 /* background-texture.metal in Sources */,
+				04D75FFE27D06B1900BB1519 /* particle_distance_utils.metal in Sources */,
 				04CD93A82799A61F0093D6CB /* framebuffer-picker-color.metal in Sources */,
 				04459758279832BA00F04CE0 /* light_debugger.metal in Sources */,
 				04459752279832BA00F04CE0 /* function-common.metal in Sources */,
