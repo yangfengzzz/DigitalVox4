@@ -14,6 +14,11 @@
 namespace vox {
 class Particle : public Component {
 public:
+    enum class BoundingVolumeType : uint32_t {
+        Sphere,
+        Box,
+    };
+    
     explicit Particle(Entity *entity);
     
     ParticleMaterial& material();
@@ -27,9 +32,9 @@ public:
     
     void setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field);
     
-    int boundingVolume() const;
+    BoundingVolumeType boundingVolume() const;
     
-    void setBoundingVolume(int vol);
+    void setBoundingVolume(BoundingVolumeType vol);
     
     float bboxSize() const;
     
@@ -69,10 +74,24 @@ public:
     
     bool enableVelocityControl() const;
     
-    bool setEnableVelocityControl(bool flag) const;
+    void setEnableVelocityControl(bool flag) const;
     
 private:
     std::shared_ptr<ParticleMaterial> _material{nullptr};
+    std::shared_ptr<SampledTexture3D> _field{nullptr};
+
+    float _timeStep;
+    BoundingVolumeType _boundingVolume;
+    float _bboxSize;
+    float _scatteringFactor;
+    float _vectorFieldFactor;
+    float _curlNoiseFactor;
+    float _curlNoiseScale;
+    float _velocityFactor;
+    bool _enableScattering;
+    bool _enableVectorField;
+    bool _enableCurlNoise;
+    bool _enableVelocityControl;
 };
 }
 
