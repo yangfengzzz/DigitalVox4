@@ -507,6 +507,7 @@
 		04D75FFB27D069EE00BB1519 /* particle_emission.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FF527D0678200BB1519 /* particle_emission.metal */; };
 		04D75FFE27D06B1900BB1519 /* particle_distance_utils.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FFD27D06B1900BB1519 /* particle_distance_utils.metal */; };
 		04D7600127D06C2600BB1519 /* particle_distance_func.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7600027D06C2600BB1519 /* particle_distance_func.metal */; };
+		04D7600427D06CEE00BB1519 /* particle_perlin.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7600327D06CEE00BB1519 /* particle_perlin.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1252,6 +1253,8 @@
 		04D75FFF27D06BA900BB1519 /* particle_distance_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_distance_utils.h; sourceTree = "<group>"; };
 		04D7600027D06C2600BB1519 /* particle_distance_func.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_distance_func.metal; sourceTree = "<group>"; };
 		04D7600227D06C3A00BB1519 /* particle_distance_func.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_distance_func.h; sourceTree = "<group>"; };
+		04D7600327D06CEE00BB1519 /* particle_perlin.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_perlin.metal; sourceTree = "<group>"; };
+		04D7600527D06D0100BB1519 /* particle_perlin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_perlin.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1930,6 +1933,8 @@
 				04D75FFD27D06B1900BB1519 /* particle_distance_utils.metal */,
 				04D7600227D06C3A00BB1519 /* particle_distance_func.h */,
 				04D7600027D06C2600BB1519 /* particle_distance_func.metal */,
+				04D7600527D06D0100BB1519 /* particle_perlin.h */,
+				04D7600327D06CEE00BB1519 /* particle_perlin.metal */,
 				04D75FF327D0670B00BB1519 /* particle */,
 				0445973B279832B900F04CE0 /* cubemap_debugger.metal */,
 				0445973F279832BA00F04CE0 /* light_debugger.metal */,
@@ -3016,6 +3021,7 @@
 				04D7600127D06C2600BB1519 /* particle_distance_func.metal in Sources */,
 				04D75FFB27D069EE00BB1519 /* particle_emission.metal in Sources */,
 				0445974B279832BA00F04CE0 /* blinn-phong.metal in Sources */,
+				04D7600427D06CEE00BB1519 /* particle_perlin.metal in Sources */,
 				04459744279832BA00F04CE0 /* specular_map.metal in Sources */,
 				04459756279832BA00F04CE0 /* shadow_common.metal in Sources */,
 				04459749279832BA00F04CE0 /* texture_packer.metal in Sources */,
