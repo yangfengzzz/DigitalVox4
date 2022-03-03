@@ -14,6 +14,8 @@
 namespace vox {
 class Particle : public Script {
 public:
+    static float constexpr kDefaultSimulationVolumeSize = 256.0f;
+    
     enum class EmitterType : uint32_t {
         POINT,
         DISK,
@@ -129,6 +131,23 @@ private:
     ShaderProperty _emitterRadiusProp;
     ShaderProperty _particleMinAgeProp;
     ShaderProperty _particleMaxAgeProp;
+    
+    // [STATIC]
+    static unsigned int const kThreadsGroupWidth;
+    
+    // [USER DEFINED]
+    static unsigned int const kMaxParticleCount = (1u << 18u);
+    static unsigned int const kBatchEmitCount   = std::max(256u, (kMaxParticleCount >> 4u));
+    
+    static
+    unsigned int GetThreadsGroupCount(unsigned int const nthreads) {
+        return (nthreads + kThreadsGroupWidth-1u) / kThreadsGroupWidth;
+    }
+    
+    static
+    unsigned int FloorParticleCount(unsigned int const nparticles) {
+        return kThreadsGroupWidth * (nparticles / kThreadsGroupWidth);
+    }
 };
 }
 

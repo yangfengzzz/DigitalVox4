@@ -22,8 +22,14 @@ public:
     
     void update(float deltaTime);
     
+public:
+    float timeStepFactor() const;
+
+    void setTimeStepFactor(float factor);
+    
 private:
     std::vector<Particle*> _particles{nullptr};
+    float _timeStepFactor = 1.0f;
 };
 
 }

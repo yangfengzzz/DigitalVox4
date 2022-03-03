@@ -16,7 +16,12 @@ _birthGradientProp(Shader::createProperty("uBirthGradient", ShaderDataGroup::Mat
 _deathGradientProp(Shader::createProperty("uDeathGradient", ShaderDataGroup::Material)),
 _fadeCoefficientProp(Shader::createProperty("uFadeCoefficient", ShaderDataGroup::Material)),
 _debugDrawProp(Shader::createProperty("uDebugDraw", ShaderDataGroup::Material)) {
-    
+    setColorMode(ColorMode::DEFAULT);
+    setBirthGradient(Vector3F(0, 1, 0));
+    setDeathGradient(Vector3F(1, 0, 0));
+    setMinParticleSize(0.75f);
+    setMaxParticleSize(25.0f);
+    setFadeCoefficient(0.35f);
 }
 
 float ParticleMaterial::minParticleSize() const {

@@ -29,9 +29,18 @@ void ParticleManager::removeParticle(Particle* particle) {
 }
 
 void ParticleManager::update(float deltaTime) {
+    deltaTime *= _timeStepFactor;
     for (auto& particle : _particles) {
         particle->setTimeStep(deltaTime);
     }
+}
+
+float ParticleManager::timeStepFactor() const {
+    return _timeStepFactor;
+}
+
+void ParticleManager::setTimeStepFactor(float factor) {
+    _timeStepFactor = factor;
 }
 
 }
