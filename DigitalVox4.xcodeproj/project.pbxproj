@@ -503,6 +503,8 @@
 		04D75FEB27D04CCD00BB1519 /* compute_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75FE927D04CCD00BB1519 /* compute_subpass.h */; };
 		04D75FF027D04FDF00BB1519 /* atomic_compute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FEE27D04FDF00BB1519 /* atomic_compute.cpp */; };
 		04D75FF227D0510000BB1519 /* compute_debugger.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FF127D0510000BB1519 /* compute_debugger.metal */; };
+		04D75FF827D0683D00BB1519 /* particle_math.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FF727D0683D00BB1519 /* particle_math.metal */; };
+		04D75FFB27D069EE00BB1519 /* particle_emission.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FF527D0678200BB1519 /* particle_emission.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1239,6 +1241,11 @@
 		04D75FEE27D04FDF00BB1519 /* atomic_compute.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = atomic_compute.cpp; sourceTree = "<group>"; };
 		04D75FEF27D04FDF00BB1519 /* atomic_compute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atomic_compute.h; sourceTree = "<group>"; };
 		04D75FF127D0510000BB1519 /* compute_debugger.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = compute_debugger.metal; sourceTree = "<group>"; };
+		04D75FF427D0671C00BB1519 /* particle_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_config.h; sourceTree = "<group>"; };
+		04D75FF527D0678200BB1519 /* particle_emission.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_emission.metal; sourceTree = "<group>"; };
+		04D75FF727D0683D00BB1519 /* particle_math.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_math.metal; sourceTree = "<group>"; };
+		04D75FF927D0695E00BB1519 /* particle_math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_math.h; sourceTree = "<group>"; };
+		04D75FFC27D06A4E00BB1519 /* particle_emission.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_emission.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1908,6 +1915,12 @@
 				04459737279832B900F04CE0 /* shadow-map.metal */,
 				0434BC5927BF834F00026D1D /* debug_frame.metal */,
 				044597592798334B00F04CE0 /* core */,
+				04D75FF427D0671C00BB1519 /* particle_config.h */,
+				04D75FF927D0695E00BB1519 /* particle_math.h */,
+				04D75FF727D0683D00BB1519 /* particle_math.metal */,
+				04D75FFC27D06A4E00BB1519 /* particle_emission.h */,
+				04D75FF527D0678200BB1519 /* particle_emission.metal */,
+				04D75FF327D0670B00BB1519 /* particle */,
 				0445973B279832B900F04CE0 /* cubemap_debugger.metal */,
 				0445973F279832BA00F04CE0 /* light_debugger.metal */,
 				0445973A279832B900F04CE0 /* shadow_debugger.metal */,
@@ -2288,6 +2301,13 @@
 				04D75F4E27CCD45600BB1519 /* softfloat.cpp */,
 			);
 			path = astc;
+			sourceTree = "<group>";
+		};
+		04D75FF327D0670B00BB1519 /* particle */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = particle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2980,8 +3000,10 @@
 				0445974F279832BA00F04CE0 /* brdf_lut.metal in Sources */,
 				04459755279832BA00F04CE0 /* particle.metal in Sources */,
 				04459741279832BA00F04CE0 /* pbr_common.metal in Sources */,
+				04D75FF827D0683D00BB1519 /* particle_math.metal in Sources */,
 				044593AF279002D500F04CE0 /* skybox.metal in Sources */,
 				04459753279832BA00F04CE0 /* shadow_debugger.metal in Sources */,
+				04D75FFB27D069EE00BB1519 /* particle_emission.metal in Sources */,
 				0445974B279832BA00F04CE0 /* blinn-phong.metal in Sources */,
 				04459744279832BA00F04CE0 /* specular_map.metal in Sources */,
 				04459756279832BA00F04CE0 /* shadow_common.metal in Sources */,
