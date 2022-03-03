@@ -12,7 +12,24 @@
 
 namespace vox {
 Particle::Particle(Entity *entity) :
-Component(entity) {
+Component(entity),
+_timeStepProp(Shader::createProperty("uTimeStep", ShaderDataGroup::Compute)),
+_vectorFieldTextureProp(Shader::createProperty("uVectorFieldTexture", ShaderDataGroup::Compute)),
+_boundingVolumeProp(Shader::createProperty("uBoundingVolume", ShaderDataGroup::Compute)),
+_bboxSizeProp(Shader::createProperty("uBBoxSize", ShaderDataGroup::Compute)),
+_scatteringFactorProp(Shader::createProperty("uScatteringFactor", ShaderDataGroup::Compute)),
+_vectorFieldFactorProp(Shader::createProperty("uVectorFieldFactor", ShaderDataGroup::Compute)),
+_curlNoiseFactorProp(Shader::createProperty("uCurlNoiseFactor", ShaderDataGroup::Compute)),
+_curlNoiseScaleProp(Shader::createProperty("uCurlNoiseScale", ShaderDataGroup::Compute)),
+_velocityFactorProp(Shader::createProperty("uVelocityFactor", ShaderDataGroup::Compute)),
+
+_emitCountProp(Shader::createProperty("uEmitCount", ShaderDataGroup::Compute)),
+_emitterTypeProp(Shader::createProperty("uEmitterType", ShaderDataGroup::Compute)),
+_emitterPositionProp(Shader::createProperty("uEmitterPosition", ShaderDataGroup::Compute)),
+_emitterDirectionProp(Shader::createProperty("uEmitterDirection", ShaderDataGroup::Compute)),
+_emitterRadiusProp(Shader::createProperty("uEmitterRadius", ShaderDataGroup::Compute)),
+_particleMinAgeProp(Shader::createProperty("uParticleMinAge", ShaderDataGroup::Compute)),
+_particleMaxAgeProp(Shader::createProperty("uParticleMaxAge", ShaderDataGroup::Compute)) {
     auto renderer = entity->addComponent<MeshRenderer>();
     _material = std::make_shared<ParticleMaterial>();
     renderer->setMaterial(_material);
@@ -22,165 +39,133 @@ ParticleMaterial& Particle::material() {
     return *_material;
 }
 
-const float& Particle::timeStep() const {
-    return _timeStep;
+float Particle::timeStep() const {
+    return std::any_cast<float>(shaderData.getData(_timeStepProp));
 }
 
 void Particle::setTimeStep(float step) {
-    _timeStep = step;
+    shaderData.setData(_timeStepProp, step);
 }
 
 std::shared_ptr<SampledTexture3D> Particle::vectorFieldTexture() const {
-    return _field;
+    return std::any_cast<std::shared_ptr<SampledTexture3D>>(shaderData.getData(_vectorFieldTextureProp));
 }
 
 void Particle::setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field) {
-    _field = field;
+    shaderData.setSampledTexure(_vectorFieldTextureProp, field);
 }
 
-const Particle::SimulationVolume& Particle::boundingVolumeType() const {
-    return _boundingVolume;
+Particle::SimulationVolume Particle::boundingVolumeType() const {
+    return (Particle::SimulationVolume)std::any_cast<uint32_t>(shaderData.getData(_boundingVolumeProp));
 }
 
 void Particle::setBoundingVolumeType(SimulationVolume type) {
-    _boundingVolume = type;
+    shaderData.setData(_boundingVolumeProp, (uint32_t)type);
 }
 
-const float& Particle::bboxSize() const {
-    return _bboxSize;
+float Particle::bboxSize() const {
+    return std::any_cast<float>(shaderData.getData(_bboxSizeProp));
 }
 
 void Particle::setBBoxSize(float size) {
-    _bboxSize = size;
+    shaderData.setData(_bboxSizeProp, size);
 }
 
-const float& Particle::scatteringFactor() const {
-    return _scatteringFactor;
+float Particle::scatteringFactor() const {
+    return std::any_cast<float>(shaderData.getData(_scatteringFactorProp));
 }
 
 void Particle::setScatteringFactor(float factor) {
-    _scatteringFactor = factor;
+    shaderData.setData(_scatteringFactorProp, factor);
 }
 
-const float& Particle::vectorFieldFactor() const {
-    return _vectorFieldFactor;
+float Particle::vectorFieldFactor() const {
+    return std::any_cast<float>(shaderData.getData(_vectorFieldFactorProp));
 }
 
 void Particle::setVectorFieldFactor(float factor) {
-    _vectorFieldFactor = factor;
+    shaderData.setData(_vectorFieldFactorProp, factor);
 }
 
-const float& Particle::curlNoiseFactor() const {
-    return _curlNoiseFactor;
+float Particle::curlNoiseFactor() const {
+    return std::any_cast<float>(shaderData.getData(_curlNoiseFactorProp));
 }
 
 void Particle::setCurlNoiseFactor(float factor) {
-    _curlNoiseFactor = factor;
+    shaderData.setData(_curlNoiseFactorProp, factor);
 }
 
-const float& Particle::curlNoiseScale() const {
-    return _curlNoiseScale;
+float Particle::curlNoiseScale() const {
+    return std::any_cast<float>(shaderData.getData(_curlNoiseScaleProp));
 }
 
 void Particle::setCurlNoiseScale(float scale) {
-    _curlNoiseScale = scale;
+    shaderData.setData(_curlNoiseScaleProp, scale);
 }
 
-const float& Particle::velocityFactor() const {
-    return _velocityFactor;
+float Particle::velocityFactor() const {
+    return std::any_cast<float>(shaderData.getData(_velocityFactorProp));
 }
 
 void Particle::setVelocityFactor(float factor) {
-    _velocityFactor = factor;
-}
-
-const bool& Particle::enableScattering() const {
-    return _enableScattering;
-}
-
-void Particle::setEnableScattering(bool flag) {
-    _enableScattering = flag;
-}
-
-const bool& Particle::enableVectorField() const {
-    return _enableVectorField;
-}
-
-void Particle::setEnableVectorField(bool flag) {
-    _enableVectorField = flag;
-}
-
-const bool& Particle::enableCurlNoise() const {
-    return _enableCurlNoise;
-}
-
-void Particle::setEnableCurlNoise(bool flag) {
-    _enableCurlNoise = flag;
-}
-
-const bool& Particle::enableVelocityControl() const {
-    return _enableVelocityControl;
-}
-
-void Particle::setEnableVelocityControl(bool flag) {
-    _enableVelocityControl = flag;
+    shaderData.setData(_velocityFactorProp, factor);
 }
 
 //MARK: - Emitter
-const uint32_t& Particle::emitCount() const {
-    return _emitCount;
+uint32_t Particle::emitCount() const {
+    return std::any_cast<uint32_t>(shaderData.getData(_emitCountProp));
 }
 
 void Particle::setEmitCount(uint32_t count) {
-    _emitCount = count;
+    shaderData.setData(_emitCountProp, count);
 }
 
-const Particle::EmitterType& Particle::emitterType() const {
-    return _emitterType;
+Particle::EmitterType Particle::emitterType() const {
+    return (Particle::EmitterType)std::any_cast<uint32_t>(shaderData.getData(_emitterTypeProp));
 }
 
 void Particle::setEmitterType(EmitterType type) {
-    _emitterType = type;
+    shaderData.setData(_emitterTypeProp, (uint32_t)type);
 }
 
-const Vector3F& Particle::emitterPosition() const {
-    return _emitterPosition;
+Vector3F Particle::emitterPosition() const {
+    return std::any_cast<Vector3F>(shaderData.getData(_emitterPositionProp));
 }
 
 void Particle::setEmitterPosition(const Vector3F& position) {
-    _emitterPosition = position;
+    shaderData.setData(_emitterPositionProp, position);
 }
 
-const Vector3F& Particle::emitterDirection() const {
-    return _emitterDirection;
+Vector3F Particle::emitterDirection() const {
+    return std::any_cast<Vector3F>(shaderData.getData(_emitterDirectionProp));
 }
 
 void Particle::setEmitterDirection(const Vector3F& direction) {
-    _emitterDirection = direction;
+    shaderData.setData(_emitterDirectionProp, direction);
 }
 
-const float& Particle::emitterRadius() const {
-    return _emitterRadius;
+float Particle::emitterRadius() const {
+    return std::any_cast<float>(shaderData.getData(_emitterRadiusProp));
 }
 
 void Particle::setEmitterRadius(float radius) {
-    _emitterRadius = radius;
+    shaderData.setData(_emitterRadiusProp, radius);
 }
 
-const float& Particle::particleMinAge() const {
-    return _particleMinAge;
+float Particle::particleMinAge() const {
+    return std::any_cast<float>(shaderData.getData(_particleMinAgeProp));
 }
 
 void Particle::setParticleMinAge(float age) {
-    _particleMinAge = age;
+    shaderData.setData(_particleMinAgeProp, age);
 }
 
-const float& Particle::particleMaxAge() const {
-    return _particleMaxAge;
+float Particle::particleMaxAge() const {
+    return std::any_cast<float>(shaderData.getData(_particleMaxAgeProp));
 }
 
 void Particle::setParticleMaxAge(float age) {
-    _particleMaxAge = age;
+    shaderData.setData(_particleMaxAgeProp, age);
 }
 
 void Particle::_onEnable() {

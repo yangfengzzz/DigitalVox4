@@ -61,13 +61,10 @@ constant bool hasSH [[function_constant(HAS_SH)]];
 constant bool hasSpecularEnv [[function_constant(HAS_SPECULAR_ENV)]];
 constant bool hasDiffuseEnv [[function_constant(HAS_DIFFUSE_ENV)]];
 
-constant bool hasParticleTexture [[function_constant(HAS_PARTICLE_TEXTURE)]];
-constant bool needRotateToVelocity [[function_constant(NEED_ROTATE_TO_VELOCITY)]];
-constant bool needUseOriginColor [[function_constant(NEED_USE_ORIGIN_COLOR)]];
-constant bool needScaleByLifetime [[function_constant(NEED_SCALE_BY_LIFE_TIME)]];
-constant bool needFadeIn [[function_constant(NEED_FADE_IN)]];
-constant bool needFadeOut [[function_constant(NEED_FADE_OUT)]];
-constant bool is2D [[function_constant(IS_2D)]];
+constant bool needParticleScattering [[function_constant(NEED_PARTICLE_SCATTERING)]];
+constant bool needParticleVectorField [[function_constant(NEED_PARTICLE_VECTOR_FIELD)]];
+constant bool needParticleCurlNoise [[function_constant(NEED_PARTICLE_CURL_NOISE)]];
+constant bool needParticleVelocityControl [[function_constant(NEED_PARTICLE_VELOCITY_CONTROL)]];
 
 constant int shadowMapCount [[function_constant(SHADOW_MAP_COUNT)]];
 constant int cubeShadowMapCount [[function_constant(CUBE_SHADOW_MAP_COUNT)]];

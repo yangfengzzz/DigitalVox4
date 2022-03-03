@@ -53,13 +53,10 @@ std::unordered_map<MacroName, std::pair<int, MTL::DataType>> ShaderMacroCollecti
     {HAS_DIFFUSE_ENV, {0, MTL::DataTypeBool}},
     
     // Particle Render
-    {HAS_PARTICLE_TEXTURE, {0, MTL::DataTypeBool}},
-    {NEED_ROTATE_TO_VELOCITY, {0, MTL::DataTypeBool}},
-    {NEED_USE_ORIGIN_COLOR, {0, MTL::DataTypeBool}},
-    {NEED_SCALE_BY_LIFE_TIME, {0, MTL::DataTypeBool}},
-    {NEED_FADE_IN, {0, MTL::DataTypeBool}},
-    {NEED_FADE_OUT, {0, MTL::DataTypeBool}},
-    {IS_2D, {0, MTL::DataTypeBool}},
+    {NEED_PARTICLE_SCATTERING, {0, MTL::DataTypeBool}},
+    {NEED_PARTICLE_VECTOR_FIELD, {0, MTL::DataTypeBool}},
+    {NEED_PARTICLE_CURL_NOISE, {0, MTL::DataTypeBool}},
+    {NEED_PARTICLE_VELOCITY_CONTROL, {0, MTL::DataTypeBool}},
     
     // Shadow
     {SHADOW_MAP_COUNT, {0, MTL::DataTypeInt}},

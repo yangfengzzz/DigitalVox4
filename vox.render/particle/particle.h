@@ -33,8 +33,10 @@ public:
     
     ParticleMaterial& material();
     
+    ShaderData shaderData;
+    
 public:
-    const float& timeStep() const;
+    float timeStep() const;
     
     void setTimeStep(float step);
     
@@ -42,76 +44,60 @@ public:
     
     void setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field);
     
-    const SimulationVolume& boundingVolumeType() const;
+    SimulationVolume boundingVolumeType() const;
     
     void setBoundingVolumeType(SimulationVolume vol);
     
-    const float& bboxSize() const;
+    float bboxSize() const;
     
     void setBBoxSize(float size);
     
-    const float& scatteringFactor() const;
+    float scatteringFactor() const;
     
     void setScatteringFactor(float factor);
     
-    const float& vectorFieldFactor() const;
+    float vectorFieldFactor() const;
     
     void setVectorFieldFactor(float factor);
     
-    const float& curlNoiseFactor() const;
+    float curlNoiseFactor() const;
     
     void setCurlNoiseFactor(float factor);
     
-    const float& curlNoiseScale() const;
+    float curlNoiseScale() const;
     
     void setCurlNoiseScale(float scale);
     
-    const float& velocityFactor() const;
+    float velocityFactor() const;
     
     void setVelocityFactor(float factor);
     
-    const bool& enableScattering() const;
-    
-    void setEnableScattering(bool flag);
-    
-    const bool& enableVectorField() const;
-    
-    void setEnableVectorField(bool flag);
-    
-    const bool& enableCurlNoise() const;
-    
-    void setEnableCurlNoise(bool flag);
-    
-    const bool& enableVelocityControl() const;
-    
-    void setEnableVelocityControl(bool flag);
-    
 public:
-    const uint32_t& emitCount() const;
+    uint32_t emitCount() const;
     
     void setEmitCount(uint32_t count);
     
-    const EmitterType& emitterType() const;
+    EmitterType emitterType() const;
     
     void setEmitterType(EmitterType type);
     
-    const Vector3F& emitterPosition() const;
+    Vector3F emitterPosition() const;
     
     void setEmitterPosition(const Vector3F& position);
     
-    const Vector3F& emitterDirection() const;
+    Vector3F emitterDirection() const;
     
     void setEmitterDirection(const Vector3F& direction);
     
-    const float& emitterRadius() const;
+    float emitterRadius() const;
     
     void setEmitterRadius(float radius);
     
-    const float& particleMinAge() const;
+    float particleMinAge() const;
     
     void setParticleMinAge(float age);
     
-    const float& particleMaxAge() const;
+    float particleMaxAge() const;
     
     void setParticleMaxAge(float age);
     
@@ -122,28 +108,24 @@ private:
     
 private:
     std::shared_ptr<ParticleMaterial> _material{nullptr};
-    std::shared_ptr<SampledTexture3D> _field{nullptr};
     
-    float _timeStep;
-    SimulationVolume _boundingVolume;
-    float _bboxSize;
-    float _scatteringFactor;
-    float _vectorFieldFactor;
-    float _curlNoiseFactor;
-    float _curlNoiseScale;
-    float _velocityFactor;
-    bool _enableScattering;
-    bool _enableVectorField;
-    bool _enableCurlNoise;
-    bool _enableVelocityControl;
+    ShaderProperty _timeStepProp;
+    ShaderProperty _vectorFieldTextureProp;
+    ShaderProperty _boundingVolumeProp;
+    ShaderProperty _bboxSizeProp;
+    ShaderProperty _scatteringFactorProp;
+    ShaderProperty _vectorFieldFactorProp;
+    ShaderProperty _curlNoiseFactorProp;
+    ShaderProperty _curlNoiseScaleProp;
+    ShaderProperty _velocityFactorProp;
     
-    uint32_t _emitCount;
-    EmitterType _emitterType;
-    Vector3F _emitterPosition;
-    Vector3F _emitterDirection;
-    float _emitterRadius;
-    float _particleMinAge;
-    float _particleMaxAge;
+    ShaderProperty _emitCountProp;
+    ShaderProperty _emitterTypeProp;
+    ShaderProperty _emitterPositionProp;
+    ShaderProperty _emitterDirectionProp;
+    ShaderProperty _emitterRadiusProp;
+    ShaderProperty _particleMinAgeProp;
+    ShaderProperty _particleMaxAgeProp;
 };
 }
 

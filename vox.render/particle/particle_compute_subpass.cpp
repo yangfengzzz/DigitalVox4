@@ -29,12 +29,11 @@ void ParticleComputeSubpass::compute(MTL::ComputeCommandEncoder &commandEncoder)
 }
 
 void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeCommandEncoder &commandEncoder) {
-    commandEncoder.setBytes(&particle->timeStep(), sizeof(float), 0);
-    
     {
         auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_emission", ShaderMacroCollection());
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
         commandEncoder.setComputePipelineState(&pipelineState->handle());
         commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     }
@@ -43,6 +42,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
         auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_simulation", ShaderMacroCollection());
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
         commandEncoder.setComputePipelineState(&pipelineState->handle());
         commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     }
@@ -51,6 +51,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
         auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_fill_indices", ShaderMacroCollection());
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
         commandEncoder.setComputePipelineState(&pipelineState->handle());
         commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     }
@@ -59,6 +60,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
         auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_calculate_dp", ShaderMacroCollection());
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
         commandEncoder.setComputePipelineState(&pipelineState->handle());
         commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     }
@@ -67,6 +69,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
         auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_step", ShaderMacroCollection());
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
         commandEncoder.setComputePipelineState(&pipelineState->handle());
         commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     }
@@ -75,6 +78,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle, MTL::ComputeComm
         auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_final", ShaderMacroCollection());
         _pipelineDescriptor->setComputeFunction(function);
         auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
         commandEncoder.setComputePipelineState(&pipelineState->handle());
         commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
     }

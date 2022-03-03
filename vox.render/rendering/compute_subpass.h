@@ -8,6 +8,7 @@
 #define compute_subpass_hpp
 
 #include "subpass.h"
+#include "shader/shader_uniform.h"
 
 namespace vox {
 class ComputeSubpass: public Subpass {
@@ -33,6 +34,19 @@ public:
      * @param commandEncoder CommandEncoder to use to record compute commands
      */
     virtual void compute(MTL::ComputeCommandEncoder &commandEncoder) = 0;
+    
+public:
+    /**
+     * Upload constant shader data in shader uniform block.
+     * @param uniformBlock - shader Uniform block
+     * @param shaderData - shader data
+     */
+    void uploadUniforms(MTL::ComputeCommandEncoder &commandEncoder,
+                        const std::vector<ShaderUniform> &uniformBlock,
+                        const ShaderData &shaderData);
+    
+private:
+    void process(const ShaderUniform &uniform, const std::any &a, MTL::ComputeCommandEncoder &encoder);
 };
 
 }

@@ -79,6 +79,8 @@ void RenderPipelineState::_groupingUniform(const ShaderUniform &uniform,
             case ShaderDataGroup::Material:
                 materialUniformBlock.push_back(uniform);
                 break;
+            default:
+                break;
         }
     } else {
         // std::cerr << "Unknown uniform group" << std::endl;

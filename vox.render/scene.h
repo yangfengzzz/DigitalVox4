@@ -129,14 +129,21 @@ public:
     inline void registerVertexUploader(F const &f) {
         std::cout << "Register uploader for type "
         << std::quoted(typeid(T).name()) << '\n';
-        _vertexUploader.insert(toAnyUploader<T>(f));
+        _vertexUploader.insert(toAnyUploader<T, MTL::RenderCommandEncoder>(f));
     }
     
     template<class T, class F>
     inline void registerFragmentUploader(F const &f) {
         std::cout << "Register uploader for type "
         << std::quoted(typeid(T).name()) << '\n';
-        _fragmentUploader.insert(toAnyUploader<T>(f));
+        _fragmentUploader.insert(toAnyUploader<T, MTL::RenderCommandEncoder>(f));
+    }
+    
+    template<class T, class F>
+    inline void registerComputeUploader(F const &f) {
+        std::cout << "Register uploader for type "
+        << std::quoted(typeid(T).name()) << '\n';
+        _fragmentUploader.insert(toAnyUploader<T, MTL::ComputeCommandEncoder>(f));
     }
     
     const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder &)>> &
@@ -144,14 +151,17 @@ public:
     
     const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder &)>> &
     fragmentUploader();
+
+    const std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::ComputeCommandEncoder &)>> &
+    computeUploader();
     
-private:
-    template<class T, class F>
-    inline std::pair<const std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder &)>>
+private:    
+    template<class T, class Encoder, class F>
+    inline std::pair<const std::type_index, std::function<void(std::any const &, size_t, Encoder &)>>
     toAnyUploader(F const &f) {
         return {
             std::type_index(typeid(T)),
-            [g = f](std::any const &a, size_t location, MTL::RenderCommandEncoder &encoder) {
+            [g = f](std::any const &a, size_t location, Encoder &encoder) {
                 if constexpr (std::is_void_v<T>)
                     g();
                 else
@@ -162,7 +172,8 @@ private:
     
     std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder &)>> _vertexUploader{};
     std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::RenderCommandEncoder &)>> _fragmentUploader{};
-    
+    std::unordered_map<std::type_index, std::function<void(std::any const &, size_t, MTL::ComputeCommandEncoder &)>> _computeUploader{};
+
 private:
     void _processActive(bool active);
     
