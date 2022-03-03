@@ -513,6 +513,9 @@
 		04D7600E27D07F6E00BB1519 /* particle_curl_noise.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7600D27D07F6E00BB1519 /* particle_curl_noise.metal */; };
 		04D7601027D081EE00BB1519 /* particle_simulation.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7600F27D081EE00BB1519 /* particle_simulation.metal */; };
 		04D7601227D093B700BB1519 /* particle_calculate_dp.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601127D093B700BB1519 /* particle_calculate_dp.metal */; };
+		04D7601427D0959100BB1519 /* particle_fill_indices.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601327D0959100BB1519 /* particle_fill_indices.metal */; };
+		04D7601627D0960800BB1519 /* particle_sort_step.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601527D0960800BB1519 /* particle_sort_step.metal */; };
+		04D7601827D096E500BB1519 /* particle_sort_final.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601727D096E500BB1519 /* particle_sort_final.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1267,6 +1270,9 @@
 		04D7600D27D07F6E00BB1519 /* particle_curl_noise.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_curl_noise.metal; sourceTree = "<group>"; };
 		04D7600F27D081EE00BB1519 /* particle_simulation.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_simulation.metal; sourceTree = "<group>"; };
 		04D7601127D093B700BB1519 /* particle_calculate_dp.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_calculate_dp.metal; sourceTree = "<group>"; };
+		04D7601327D0959100BB1519 /* particle_fill_indices.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_fill_indices.metal; sourceTree = "<group>"; };
+		04D7601527D0960800BB1519 /* particle_sort_step.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_sort_step.metal; sourceTree = "<group>"; };
+		04D7601727D096E500BB1519 /* particle_sort_final.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_sort_final.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1954,6 +1960,9 @@
 				04D75FF527D0678200BB1519 /* particle_emission.metal */,
 				04D7600F27D081EE00BB1519 /* particle_simulation.metal */,
 				04D7601127D093B700BB1519 /* particle_calculate_dp.metal */,
+				04D7601327D0959100BB1519 /* particle_fill_indices.metal */,
+				04D7601527D0960800BB1519 /* particle_sort_step.metal */,
+				04D7601727D096E500BB1519 /* particle_sort_final.metal */,
 				04D75FF327D0670B00BB1519 /* particle */,
 				0445973B279832B900F04CE0 /* cubemap_debugger.metal */,
 				0445973F279832BA00F04CE0 /* light_debugger.metal */,
@@ -3046,14 +3055,17 @@
 				04D7600427D06CEE00BB1519 /* particle_perlin.metal in Sources */,
 				04459744279832BA00F04CE0 /* specular_map.metal in Sources */,
 				04459756279832BA00F04CE0 /* shadow_common.metal in Sources */,
+				04D7601627D0960800BB1519 /* particle_sort_step.metal in Sources */,
 				04459749279832BA00F04CE0 /* texture_packer.metal in Sources */,
 				04D7600827D06DF800BB1519 /* particle_perlin_2d.metal in Sources */,
 				04459754279832BA00F04CE0 /* cubemap_debugger.metal in Sources */,
 				04459742279832BA00F04CE0 /* background-texture.metal in Sources */,
 				04D75FFE27D06B1900BB1519 /* particle_distance_utils.metal in Sources */,
+				04D7601827D096E500BB1519 /* particle_sort_final.metal in Sources */,
 				04CD93A82799A61F0093D6CB /* framebuffer-picker-color.metal in Sources */,
 				04D7601027D081EE00BB1519 /* particle_simulation.metal in Sources */,
 				04459758279832BA00F04CE0 /* light_debugger.metal in Sources */,
+				04D7601427D0959100BB1519 /* particle_fill_indices.metal in Sources */,
 				04459752279832BA00F04CE0 /* function-common.metal in Sources */,
 				0434BC5A27BF834F00026D1D /* debug_frame.metal in Sources */,
 				04459750279832BA00F04CE0 /* shadow-map.metal in Sources */,

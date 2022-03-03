@@ -12,7 +12,7 @@ float4 positionWS(
 #if USE_SOA_LAYOUT
                   device float4* positions,
 #else
-                  device TParticle* position,
+                  device TParticle* particles,
 #endif
                   uint id)
 {
@@ -29,7 +29,7 @@ kernel void particle_calculate_dp(
 #if USE_SOA_LAYOUT
                                   device float4* positions [[buffer(0)]],
 #else
-                                  device TParticle* position [[buffer(0)]],
+                                  device TParticle* positions [[buffer(0)]],
 #endif
                                   device float* dp  [[buffer(1)]],
                                   constant matrix_float4x4& uViewMatrix [[buffer(2)]],
