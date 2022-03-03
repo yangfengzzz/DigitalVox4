@@ -7,6 +7,7 @@
 #include <metal_stdlib>
 using namespace metal;
 #include "particle_curl_noise.h"
+#include "function-constant.h"
 
 TParticle popParticle(device atomic_uint* read_count,
 #if USE_SOA_LAYOUT
@@ -71,13 +72,9 @@ void updateParticle(thread TParticle& p,
     p.age = age;
 }
 
-float3 calculateScattering(bool uEnableScattering,
-                           float uScatteringFactor,
+float3 calculateScattering(float uScatteringFactor,
                            device const float* randbuffer,
                            uint gid) {
-    if (!uEnableScattering) {
-        return float3(0.0f);
-    }
     float3 randforce = float3(randbuffer[gid], randbuffer[gid+1u], randbuffer[gid+2u]);
     randforce = 2.0f * randforce - 1.0f;
     return uScatteringFactor * randforce;
@@ -119,14 +116,9 @@ float3 calculateTargetMesh(TParticle p) {
 }
 
 float3 calculateVectorField(TParticle p,
-                            bool uEnableVectorField,
                             float uVectorFieldFactor,
                             texture3d<float, access::sample> uVectorFieldTexture,
                             sampler uVectorFieldSampler) {
-    if (!uEnableVectorField) {
-        return float3(0.0f);
-    }
-    
     const float3 extent = 0.5f * float3(uVectorFieldTexture.get_width(),
                                         uVectorFieldTexture.get_height(),
                                         uVectorFieldTexture.get_depth());
@@ -137,41 +129,11 @@ float3 calculateVectorField(TParticle p,
 }
 
 float3 calculateCurlNoise(TParticle p,
-                          bool uEnableCurlNoise,
                           float uCurlNoiseScale,
                           float uCurlNoiseFactor,
                           int uPerlinNoisePermutationSeed) {
-    if (!uEnableCurlNoise) {
-        return float3(0.0f);
-    }
     float3 curl_velocity = compute_curl(p.position.xyz * uCurlNoiseScale, uPerlinNoisePermutationSeed);
     return uCurlNoiseFactor * curl_velocity;
-}
-
-float3 calculateForces(TParticle p,
-                       bool uEnableScattering,
-                       float uScatteringFactor,
-                       device const float* randbuffer,
-                       bool uEnableVectorField,
-                       float uVectorFieldFactor,
-                       texture3d<float, access::sample> uVectorFieldTexture,
-                       sampler uVectorFieldSampler,
-                       bool uEnableCurlNoise,
-                       float uCurlNoiseScale,
-                       float uCurlNoiseFactor,
-                       int uPerlinNoisePermutationSeed,
-                       uint gid) {
-    float3 force = float3(0.0f);
-    
-    force += calculateScattering(uEnableScattering, uScatteringFactor, randbuffer, gid);
-    force += calculateRepulsion(p);
-    force += calculateTargetMesh(p);
-    force += calculateVectorField(p, uEnableVectorField, uVectorFieldFactor,
-                                  uVectorFieldTexture, uVectorFieldSampler);
-    force += calculateCurlNoise(p, uEnableCurlNoise, uCurlNoiseScale,
-                                uCurlNoiseFactor, uPerlinNoisePermutationSeed);
-    
-    return force;
 }
 
 void collideSphere(float r, float3 center, thread float3& pos, thread float3& vel) {
@@ -237,36 +199,35 @@ void collisionHandling(thread float3& pos, thread float3& vel,
 }
 
 kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
-                                // Vector field sampler.
-                                sampler uVectorFieldSampler [[sampler(0)]],
-                                texture3d<float, access::sample> uVectorFieldTexture [[texture(0)]],
-                                // Simulation volume.
                                 constant int& uBoundingVolume [[buffer(1)]],
                                 constant float& uBBoxSize [[buffer(2)]],
-                                constant float& uScatteringFactor [[buffer(3)]],
-                                constant float& uVectorFieldFactor [[buffer(4)]],
-                                constant float& uCurlNoiseFactor [[buffer(5)]],
-                                constant float& uCurlNoiseScale [[buffer(6)]],
-                                constant float& uVelocityFactor [[buffer(7)]],
-                                constant bool& uEnableScattering [[buffer(8)]],
-                                constant bool& uEnableVectorField [[buffer(9)]],
-                                constant bool& uEnableCurlNoise [[buffer(10)]],
-                                constant bool& uEnableVelocityControl [[buffer(11)]],
-                                device atomic_uint* read_count [[buffer(12)]],
-                                device atomic_uint* write_count [[buffer(13)]],
+                                
+                                constant float& uScatteringFactor [[buffer(3), function_constant(needParticleScattering)]],
+                                device float* randbuffer [[buffer(4), function_constant(needParticleScattering)]],
+                                
+                                constant float& uVectorFieldFactor [[buffer(5), function_constant(needParticleVectorField)]],
+                                sampler uVectorFieldSampler [[sampler(0), function_constant(needParticleVectorField)]],
+                                texture3d<float, access::sample> uVectorFieldTexture [[texture(0), function_constant(needParticleVectorField)]],
+                                                                
+                                constant float& uCurlNoiseFactor [[buffer(6), function_constant(needParticleCurlNoise)]],
+                                constant float& uCurlNoiseScale [[buffer(7), function_constant(needParticleCurlNoise)]],
+                                
+                                constant float& uVelocityFactor [[buffer(8), function_constant(needParticleVelocityControl)]],
+
+                                device atomic_uint* read_count [[buffer(9)]],
+                                device atomic_uint* write_count [[buffer(10)]],
 #if USE_SOA_LAYOUT
-                                device float4* read_positions [[buffer(14)]],
-                                device float4* read_velocities [[buffer(15)]],
-                                device float4* read_attributes [[buffer(16)]],
-                                device float4* write_positions [[buffer(17)]],
-                                device float4* write_velocities [[buffer(18)]],
-                                device float4* write_attributes [[buffer(19)]],
+                                device float4* read_positions [[buffer(11)]],
+                                device float4* read_velocities [[buffer(12)]],
+                                device float4* read_attributes [[buffer(13)]],
+                                device float4* write_positions [[buffer(14)]],
+                                device float4* write_velocities [[buffer(15)]],
+                                device float4* write_attributes [[buffer(16)]],
 #else
-                                device TParticle* read_particles [[buffer(20)]],
-                                device TParticle* write_particles [[buffer(21)]],
+                                device TParticle* read_particles [[buffer(17)]],
+                                device TParticle* write_particles [[buffer(18)]],
 #endif
-                                constant int& uPerlinNoisePermutationSeed [[buffer(22)]],
-                                device float* randbuffer [[buffer(23)]],
+                                constant int& uPerlinNoisePermutationSeed [[buffer(19)]],
                                 uint gid [[ thread_position_in_grid ]]) {
     // Local copy of the particle.
     TParticle p = popParticle(read_count,
@@ -283,19 +244,21 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
     
     if (age > 0.0f) {
         // Calculate external forces.
-        float3 force = calculateForces(p,
-                                       uEnableScattering,
-                                       uScatteringFactor,
-                                       randbuffer,
-                                       uEnableVectorField,
-                                       uVectorFieldFactor,
-                                       uVectorFieldTexture,
-                                       uVectorFieldSampler,
-                                       uEnableCurlNoise,
-                                       uCurlNoiseScale,
-                                       uCurlNoiseFactor,
-                                       uPerlinNoisePermutationSeed,
-                                       gid);
+        float3 force = float3(0.0f);
+        
+        if (needParticleScattering) {
+            force += calculateScattering(uScatteringFactor, randbuffer, gid);
+        }
+        force += calculateRepulsion(p);
+        force += calculateTargetMesh(p);
+        if (needParticleVectorField) {
+            force += calculateVectorField(p, uVectorFieldFactor,
+                                          uVectorFieldTexture, uVectorFieldSampler);
+        }
+        if (needParticleCurlNoise) {
+            force += calculateCurlNoise(p, uCurlNoiseScale,
+                                        uCurlNoiseFactor, uPerlinNoisePermutationSeed);
+        }
         
         // Integrations vectors.
         const float3 dt = float3(uTimeStep);
@@ -305,7 +268,7 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
         // Integrate velocity.
         velocity = fma(force, dt, velocity);
         
-        if (uEnableVelocityControl) {
+        if (needParticleVelocityControl) {
             velocity = uVelocityFactor * normalize(velocity);
         }
         
