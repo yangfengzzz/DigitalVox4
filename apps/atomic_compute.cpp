@@ -20,7 +20,6 @@ namespace vox {
 namespace {
 class AtomicComputeSubpass: public ComputeSubpass {
 private:
-    uint32_t _counter = 0;
     std::shared_ptr<MTL::Function> _atomicCompute{nullptr};
     std::shared_ptr<MTL::ComputePipelineState> _state{nullptr};
     std::shared_ptr<MTL::Buffer> _atomicBuffer{nullptr};
@@ -45,8 +44,6 @@ public:
     }
     
     void compute(MTL::ComputeCommandEncoder &commandEncoder) override {
-        _counter = 0;
-        memcpy(_atomicBuffer->contents(), &_counter, sizeof(uint32_t));
         commandEncoder.setComputePipelineState(_state.get());
         commandEncoder.setBuffer(_atomicBuffer.get(), 0, 0);
         commandEncoder.dispatchThreadgroups(MTL::Size(1,1,1), MTL::Size(1,1,1));
