@@ -85,7 +85,7 @@ void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
             // manully
             auto &mesh = element.mesh;
             _shadowGenDescriptor->setVertexDescriptor(mesh->vertexDescriptor().get());
-            auto _shadowGenPipelineState = _pass->resourceCache().requestRenderPipelineState(*_shadowGenDescriptor);
+            auto _shadowGenPipelineState = _pass->resourceCache().requestPipelineState(*_shadowGenDescriptor);
             renderEncoder.setRenderPipelineState(&_shadowGenPipelineState->handle());
             
             uint32_t index = 0;

@@ -80,7 +80,7 @@ void SkyboxSubpass::prepare() {
 
 void SkyboxSubpass::draw(MTL::RenderCommandEncoder &commandEncoder) {
     commandEncoder.pushDebugGroup(NS::String::string("Draw Sky", NS::StringEncoding::UTF8StringEncoding));
-    auto _skyboxPipelineState = _pass->resourceCache().requestRenderPipelineState(*_skyboxPipelineDescriptor);
+    auto _skyboxPipelineState = _pass->resourceCache().requestPipelineState(*_skyboxPipelineDescriptor);
     commandEncoder.setRenderPipelineState(&_skyboxPipelineState->handle());
     commandEncoder.setDepthStencilState(_dontWriteDepthStencilState.get());
     commandEncoder.setCullMode(MTL::CullModeBack);

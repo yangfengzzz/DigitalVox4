@@ -85,7 +85,7 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         material->renderState.apply(*_forwardPipelineDescriptor, *depthStencilDesc, renderEncoder);
         
         auto _forwardDepthStencilState = _pass->resourceCache().requestDepthStencilState(*depthStencilDesc);
-        auto _forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(*_forwardPipelineDescriptor);
+        auto _forwardPipelineState = _pass->resourceCache().requestPipelineState(*_forwardPipelineDescriptor);
         uploadUniforms(renderEncoder, _forwardPipelineState->materialUniformBlock, material->shaderData);
         uploadUniforms(renderEncoder, _forwardPipelineState->rendererUniformBlock, renderer->shaderData);
         uploadUniforms(renderEncoder, _forwardPipelineState->sceneUniformBlock, _scene->shaderData);

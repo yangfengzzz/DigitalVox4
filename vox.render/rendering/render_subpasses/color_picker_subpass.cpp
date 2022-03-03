@@ -87,7 +87,7 @@ void ColorPickerSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         auto &mesh = element.mesh;
         _forwardPipelineDescriptor->setVertexDescriptor(mesh->vertexDescriptor().get());
         
-        auto forwardPipelineState = _pass->resourceCache().requestRenderPipelineState(*_forwardPipelineDescriptor);
+        auto forwardPipelineState = _pass->resourceCache().requestPipelineState(*_forwardPipelineDescriptor);
         uploadUniforms(renderEncoder, forwardPipelineState->materialUniformBlock, material->shaderData);
         uploadUniforms(renderEncoder, forwardPipelineState->rendererUniformBlock, renderer->shaderData);
         uploadUniforms(renderEncoder, forwardPipelineState->sceneUniformBlock, _scene->shaderData);

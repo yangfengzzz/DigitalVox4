@@ -16,7 +16,8 @@ _device(device) {
     NS::Error *error{nullptr};
     
     _handle = CLONE_METAL_CUSTOM_DELETER(MTL::RenderPipelineState,
-                                         _device->newRenderPipelineState(&descriptor, MTL::PipelineOptionArgumentInfo, &_reflection, &error));
+                                         _device->newRenderPipelineState(&descriptor, MTL::PipelineOptionArgumentInfo,
+                                                                         &_reflection, &error));
     
     if (error != nullptr) {
         LOG(ERROR) << "Error: failed to create Metal pipeline state: "

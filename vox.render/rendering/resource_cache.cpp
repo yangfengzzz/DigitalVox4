@@ -15,6 +15,34 @@ ResourceCache::ResourceCache(MTL::Device *device) :
 _device{device} {
 }
 
+RenderPipelineState *
+ResourceCache::requestPipelineState(const MTL::RenderPipelineDescriptor &descriptor) {
+    size_t hash = descriptor.hash();
+    
+    auto iter = _state.renderPipelineStates.find(hash);
+    if (iter == _state.renderPipelineStates.end()) {
+        auto pipelineState = std::make_unique<RenderPipelineState>(_device, descriptor);
+        _state.renderPipelineStates[hash] = std::move(pipelineState);
+        return _state.renderPipelineStates[hash].get();
+    } else {
+        return iter->second.get();
+    }
+}
+
+ComputePipelineState *
+ResourceCache::requestPipelineState(const MTL::ComputePipelineDescriptor &descriptor) {
+    size_t hash = descriptor.hash();
+    
+    auto iter = _state.computePipelineStates.find(hash);
+    if (iter == _state.computePipelineStates.end()) {
+        auto pipelineState = std::make_unique<ComputePipelineState>(_device, descriptor);
+        _state.computePipelineStates[hash] = std::move(pipelineState);
+        return _state.computePipelineStates[hash].get();
+    } else {
+        return iter->second.get();
+    }
+}
+
 MTL::DepthStencilState*
 ResourceCache::requestDepthStencilState(const MTL::DepthStencilDescriptor &descriptor) {
     size_t hash = descriptor.hash();
@@ -25,20 +53,6 @@ ResourceCache::requestDepthStencilState(const MTL::DepthStencilDescriptor &descr
                                                             _device->newDepthStencilState(&descriptor));
         _state.depthStencilStates[hash] = std::move(depthStencilState);
         return _state.depthStencilStates[hash].get();
-    } else {
-        return iter->second.get();
-    }
-}
-
-RenderPipelineState *
-ResourceCache::requestRenderPipelineState(const MTL::RenderPipelineDescriptor &descriptor) {
-    size_t hash = descriptor.hash();
-    
-    auto iter = _state.renderPipelineStates.find(hash);
-    if (iter == _state.renderPipelineStates.end()) {
-        auto pipelineState = std::make_unique<RenderPipelineState>(_device, descriptor);
-        _state.renderPipelineStates[hash] = std::move(pipelineState);
-        return _state.renderPipelineStates[hash].get();
     } else {
         return iter->second.get();
     }
