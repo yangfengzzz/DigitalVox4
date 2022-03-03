@@ -67,7 +67,7 @@ public:
     void compute(MTL::ComputeCommandEncoder &commandEncoder) override {
         commandEncoder.setComputePipelineState(_state.get());
         commandEncoder.setBuffer(_atomicBuffer.get(), 0, 0);
-        commandEncoder.dispatchThreadgroups(MTL::Size(1,1,1), MTL::Size(1,1,1));
+        commandEncoder.dispatchThreadgroups(MTL::Size(2,2,2), MTL::Size(1,1,1));
     }
 };
 
