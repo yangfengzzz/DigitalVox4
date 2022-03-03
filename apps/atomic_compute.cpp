@@ -18,17 +18,37 @@
 
 namespace vox {
 namespace {
+class AtomicMaterial: public BaseMaterial {
+private:
+    ShaderProperty _atomicProp;
+    
+public:
+    AtomicMaterial():
+    BaseMaterial(Shader::find("atomicRender")),
+    _atomicProp(Shader::createProperty("u_atomic", ShaderDataGroup::Material)) {}
+    
+    void setAtomicBuffer(const std::shared_ptr<MTL::Buffer>& buffer) {
+        shaderData.setData(_atomicProp, buffer);
+    }
+};
+
 class AtomicComputeSubpass: public ComputeSubpass {
 private:
     std::shared_ptr<MTL::Function> _atomicCompute{nullptr};
     std::shared_ptr<MTL::ComputePipelineState> _state{nullptr};
     std::shared_ptr<MTL::Buffer> _atomicBuffer{nullptr};
     
+    AtomicMaterial* _material{nullptr};
+    
 public:
     AtomicComputeSubpass(RenderContext *context,
                          Scene *scene,
                          Camera *camera):
     ComputeSubpass(context, scene, camera) {
+    }
+    
+    void setAtomicMaterial(AtomicMaterial* mat) {
+        _material = mat;
     }
     
     void prepare() override {
@@ -41,6 +61,7 @@ public:
                                             _context->device().newComputePipelineState(_atomicCompute.get(), &error))
         
         _atomicBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _context->device().newBuffer(sizeof(uint32_t), MTL::ResourceOptionCPUCacheModeDefault));
+        _material->setAtomicBuffer(_atomicBuffer);
     }
     
     void compute(MTL::ComputeCommandEncoder &commandEncoder) override {
@@ -49,18 +70,22 @@ public:
         commandEncoder.dispatchThreadgroups(MTL::Size(1,1,1), MTL::Size(1,1,1));
     }
 };
+
 } // namespace
 
 bool AtomicComputeApp::prepare(Engine &engine) {
     ForwardApplication::prepare(engine);
     
     auto subpass = std::make_unique<AtomicComputeSubpass>(_renderContext.get(), _scene.get(), _mainCamera);
+    subpass->setAtomicMaterial(static_cast<AtomicMaterial*>(_material.get()));
     _renderPass->addSubpass(std::move(subpass));
     
     return true;
 }
 
 void AtomicComputeApp::loadScene(uint32_t width, uint32_t height) {
+    Shader::create("atomicRender", "vertex_unlit", "fragment_atomic");
+    
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();
@@ -79,9 +104,8 @@ void AtomicComputeApp::loadScene(uint32_t width, uint32_t height) {
     auto cubeEntity = rootEntity->createChild();
     auto renderer = cubeEntity->addComponent<MeshRenderer>();
     renderer->setMesh(PrimitiveMesh::createCuboid(*_device, 1));
-    auto material = std::make_shared<BlinnPhongMaterial>();
-    material->setBaseColor(Color(0.4, 0.6, 0.6));
-    renderer->setMaterial(material);
+    _material = std::make_shared<AtomicMaterial>();
+    renderer->setMaterial(_material);
 }
 
 }
