@@ -43,7 +43,6 @@ void ParticleApp::loadScene(uint32_t width, uint32_t height) {
     pointLight->intensity = 0.3;
     
     auto particleEntity = rootEntity->createChild();
-    particleEntity->transform->setPosition(0, 10, 0);
     particleEntity->addComponent<Particle>();
     
     auto cubeEntity = rootEntity->createChild();

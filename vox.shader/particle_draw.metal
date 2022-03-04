@@ -123,7 +123,8 @@ float4 compute_color(float3 base_color, float decay, float2 texcoord,
 
 fragment float4 particle_fragment(VertexOut in [[stage_in]],
                                   constant float& uFadeCoefficient [[buffer(5)]],
-                                  constant bool& uDebugDraw [[buffer(6)]]) {
-    return compute_color(in.color, in.decay, in.pointSize,
+                                  constant bool& uDebugDraw [[buffer(6)]],
+                                  float2 point [[point_coord]]) {
+    return compute_color(in.color, in.decay, point,
                          uFadeCoefficient, uDebugDraw);
 }
