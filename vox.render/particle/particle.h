@@ -114,8 +114,6 @@ public:
     void setParticleMaxAge(float age);
     
 public:
-    const uint32_t numParticles() const;
-
     const uint32_t numAliveParticles() const;
 
     const std::shared_ptr<MTL::Buffer>& randomBuffer() const;
@@ -168,7 +166,6 @@ private:
     std::vector<float> _randomVec{};
     std::shared_ptr<MTL::Buffer> _randomBuffer{nullptr};
     
-    uint32_t _numParticles;
     uint32_t _numAliveParticles;
     
     uint32_t _read = 0;
@@ -203,17 +200,6 @@ private:
     ShaderProperty _emitterRadiusProp;
     ShaderProperty _particleMinAgeProp;
     ShaderProperty _particleMaxAgeProp;
-    
-    // [STATIC]
-    static uint32_t const kThreadsGroupWidth;
-    
-    static uint32_t threadsGroupCount(uint32_t const nthreads) {
-        return (nthreads + kThreadsGroupWidth-1u) / kThreadsGroupWidth;
-    }
-    
-    static uint32_t floorParticleCount(uint32_t const nparticles) {
-        return kThreadsGroupWidth * (nparticles / kThreadsGroupWidth);
-    }
 };
 }
 

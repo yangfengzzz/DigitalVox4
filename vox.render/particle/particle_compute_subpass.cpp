@@ -43,7 +43,7 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle,
                                             MTL::ComputeCommandEncoder &commandEncoder,
                                             const ShaderMacroCollection &compileMacros) {
     /* Max number of particles able to be spawned. */
-    uint32_t const num_dead_particles = particle->numParticles() - particle->numAliveParticles();
+    uint32_t const num_dead_particles = Particle::kMaxParticleCount - particle->numAliveParticles();
     /* Number of particles to be emitted. */
     uint32_t const emit_count = std::min(Particle::kBatchEmitCount, num_dead_particles); //
     _emissionSingle(emit_count, particle, commandEncoder, compileMacros);
@@ -94,9 +94,17 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle,
     }
 }
 
-void ParticleComputeSubpass::_emissionSingle(const unsigned int count,
+void ParticleComputeSubpass::_emissionSingle(const uint32_t count,
                                              Particle* particle, MTL::ComputeCommandEncoder &commandEncoder,
                                              const ShaderMacroCollection &compileMacros) {
+    /* Emit only if a minimum count is reached. */
+    if (!count) {
+        return;
+    }
+    if (count < Particle::kBatchEmitCount) {
+        //return;
+    }
+    
     auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_emission", compileMacros);
     _pipelineDescriptor->setComputeFunction(function);
     auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
@@ -112,7 +120,9 @@ void ParticleComputeSubpass::_emissionSingle(const unsigned int count,
     commandEncoder.setBuffer(particle->readAppendConsumeBuffer().get(), 0, 11);
 #endif
     commandEncoder.setBuffer(particle->randomBuffer().get(), 0, 12);
-    commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+    
+    auto nWidth = pipelineState->handle().threadExecutionWidth();
+    commandEncoder.dispatchThreads(MTL::Size(count, 1, 1), MTL::Size(nWidth, 1, 1));
 }
 
 

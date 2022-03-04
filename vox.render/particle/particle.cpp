@@ -66,11 +66,10 @@ void Particle::_allocBuffer() {
     auto& device = entity()->scene()->device();
     
     /* Assert than the number of particles will be a factor of threadGroupWidth */
-    _numParticles = floorParticleCount(kMaxParticleCount); //
-    fprintf(stderr, "[ %u particles, %u per batch ]\n", _numParticles , kBatchEmitCount);
+    fprintf(stderr, "[ %u particles, %u per batch ]\n", kMaxParticleCount , kBatchEmitCount);
     
     /* Random value buffer */
-    uint32_t const num_randvalues = 3u * _numParticles;
+    uint32_t const num_randvalues = 3u * kMaxParticleCount;
     _randomVec.resize(num_randvalues);
     _randomBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(float) * num_randvalues,
                                                                              MTL::ResourceOptionCPUCacheModeDefault));
@@ -84,24 +83,24 @@ void Particle::_allocBuffer() {
     
     /* Append Consume */
 #if USE_SOA_LAYOUT
-    _positionBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
+    _positionBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
                                                                                   MTL::ResourceOptionCPUCacheModeDefault));
-    _positionBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
-                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
-    
-    _velocityBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
-                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
-    _velocityBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
+    _positionBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
                                                                                   MTL::ResourceOptionCPUCacheModeDefault));
     
-    _attributeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
+    _velocityBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
+                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
+    _velocityBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
+                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
+    
+    _attributeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
                                                                                    MTL::ResourceOptionCPUCacheModeDefault));
-    _attributeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
+    _attributeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
                                                                                    MTL::ResourceOptionCPUCacheModeDefault));
 #else
-    _appendConsumeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * _numParticles,
+    _appendConsumeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * kMaxParticleCount,
                                                                                        MTL::ResourceOptionCPUCacheModeDefault));
-    _appendConsumeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * _numParticles,
+    _appendConsumeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * kMaxParticleCount,
                                                                                        MTL::ResourceOptionCPUCacheModeDefault));
 #endif
     
@@ -322,10 +321,6 @@ void Particle::_onDisable() {
 }
 
 //MARK: - Buffer
-const uint32_t Particle::numParticles() const {
-    return _numParticles;
-}
-
 const uint32_t Particle::numAliveParticles() const {
     return _numAliveParticles;
 }

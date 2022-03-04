@@ -26,10 +26,11 @@ private:
     void _computeSingle(Particle* particle, MTL::ComputeCommandEncoder &commandEncoder,
                         const ShaderMacroCollection &compileMacros);
     
-    void _emissionSingle(const unsigned int count,
+    void _emissionSingle(const uint32_t count,
                          Particle* particle, MTL::ComputeCommandEncoder &commandEncoder,
                          const ShaderMacroCollection &compileMacros);
     
+private:
     std::shared_ptr<MTL::ComputePipelineDescriptor> _pipelineDescriptor{nullptr};
 };
 }
