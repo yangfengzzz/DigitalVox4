@@ -11,7 +11,7 @@
 
 // Decide which structure layout to use.
 #ifndef USE_SOA_LAYOUT
-#define USE_SOA_LAYOUT 1
+#define USE_SOA_LAYOUT 0
 #endif
 
 struct TParticle {

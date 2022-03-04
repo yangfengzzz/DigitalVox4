@@ -355,7 +355,7 @@ const std::shared_ptr<MTL::Buffer>& Particle::writeAttributeBuffer() const {
 
 #else
 const std::shared_ptr<MTL::Buffer>& Particle::readAppendConsumeBuffer() const {
-    return _appendConsumeBuffer[_raed];
+    return _appendConsumeBuffer[_read];
 }
 
 const std::shared_ptr<MTL::Buffer>& Particle::writeAppendConsumeBuffer() const {
