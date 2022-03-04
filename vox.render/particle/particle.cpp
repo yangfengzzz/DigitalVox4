@@ -47,6 +47,7 @@ _particleMaxAgeProp(Shader::createProperty("uParticleMaxAge", ShaderDataGroup::C
     setParticleMaxAge(100.f);
     setEmitterType(EmitterType::SPHERE);
     setEmitterDirection(Vector3F(0, 1, 0));
+    setEmitterPosition(Vector3F()); // todo
     setEmitterRadius(32.0f);
     setBoundingVolumeType(SimulationVolume::SPHERE);
     setBBoxSize(kDefaultSimulationVolumeSize);

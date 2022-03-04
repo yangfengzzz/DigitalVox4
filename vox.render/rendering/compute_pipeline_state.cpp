@@ -12,7 +12,8 @@
 
 namespace vox {
 ComputePipelineState::ComputePipelineState(MTL::Device *device,
-                                           const MTL::ComputePipelineDescriptor &descriptor) {
+                                           const MTL::ComputePipelineDescriptor &descriptor) :
+_device(device) {
     MTL::ComputePipelineReflection *_reflection{nullptr};
     NS::Error *error{nullptr};
     

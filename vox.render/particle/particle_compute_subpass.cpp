@@ -47,8 +47,8 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle,
     /* Number of particles to be emitted. */
     uint32_t const emit_count = std::min(Particle::kBatchEmitCount, num_dead_particles); //
     _emission(emit_count, particle, commandEncoder, compileMacros);
-    _simulation(emit_count, particle, commandEncoder, compileMacros);
-    
+//    _simulation(emit_count, particle, commandEncoder, compileMacros);
+//
 //    {
 //        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_fill_indices", compileMacros);
 //        _pipelineDescriptor->setComputeFunction(function);
@@ -96,6 +96,8 @@ void ParticleComputeSubpass::_emission(const uint32_t count,
     if (count < Particle::kBatchEmitCount) {
         //return;
     }
+    
+    particle->setEmitCount(count);
     
     auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_emission", compileMacros);
     _pipelineDescriptor->setComputeFunction(function);

@@ -99,11 +99,11 @@ _ambientLight(this) {
     };
     
     _computeUploader = {
-        toAnyUploader<int32_t, MTL::ComputeCommandEncoder>([](const int &x, size_t location, MTL::ComputeCommandEncoder &encoder) {
-            encoder.setBytes(&x, sizeof(int), location);
+        toAnyUploader<int32_t, MTL::ComputeCommandEncoder>([](const int32_t &x, size_t location, MTL::ComputeCommandEncoder &encoder) {
+            encoder.setBytes(&x, sizeof(int32_t), location);
         }),
-        toAnyUploader<uint32_t, MTL::ComputeCommandEncoder>([](const int &x, size_t location, MTL::ComputeCommandEncoder &encoder) {
-            encoder.setBytes(&x, sizeof(int), location);
+        toAnyUploader<uint32_t, MTL::ComputeCommandEncoder>([](const uint32_t &x, size_t location, MTL::ComputeCommandEncoder &encoder) {
+            encoder.setBytes(&x, sizeof(uint32_t), location);
         }),
         toAnyUploader<float, MTL::ComputeCommandEncoder>([](const float &x, size_t location, MTL::ComputeCommandEncoder &encoder) {
             encoder.setBytes(&x, sizeof(float), location);
