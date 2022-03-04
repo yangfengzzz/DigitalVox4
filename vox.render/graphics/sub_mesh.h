@@ -34,6 +34,8 @@ public:
     
     NS::UInteger indexCount() const;
     
+    void setIndexCount(NS::UInteger count);
+    
     const std::shared_ptr<MTL::Buffer> &indexBuffer() const;
     
 private:
@@ -43,7 +45,7 @@ private:
     
     NS::UInteger _indexCount;
     
-    std::shared_ptr<MTL::Buffer> _indexBuffer;
+    std::shared_ptr<MTL::Buffer> _indexBuffer{nullptr};
 };
 
 inline MTL::PrimitiveType SubMesh::primitiveType() const {

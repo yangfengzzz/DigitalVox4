@@ -15,12 +15,12 @@
 #endif
 
 struct TParticle {
-    float4 position;
-    float4 velocity;
+    simd_float4 position;
+    simd_float4 velocity;
     float start_age;
     float age;
     float _padding0;
-    uint id;
+    uint32_t id;
 };
 
 

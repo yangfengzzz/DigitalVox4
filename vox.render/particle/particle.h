@@ -10,6 +10,9 @@
 #include "script.h"
 #include "particle_material.h"
 #include "texture/sampled_texture3d.h"
+#include "mesh/buffer_mesh.h"
+#include "particle_config.h"
+#include <random>
 
 namespace vox {
 class Particle : public Script {
@@ -39,7 +42,7 @@ public:
     
 public:
     void onUpdate(float deltaTime) override;
-    
+        
 public:
     float timeStep() const;
     
@@ -111,9 +114,37 @@ private:
     
     void _onDisable() override;
     
+    void _allocBuffer();
+    
+    void _allocMesh();
+    
+    void _generateRandomValues();
+    
 private:
     std::shared_ptr<ParticleMaterial> _material{nullptr};
     
+    std::random_device _randomDevice;
+    std::mt19937 _mt;
+    float _minValue = 0.0;
+    float _maxValue = 1.0;
+    std::vector<float> _randomVec{};
+    std::shared_ptr<MTL::Buffer> _randomBuffer{nullptr};
+    
+    uint32_t _read = 0;
+    uint32_t _write = 1;
+    MeshRenderer* _renderer{nullptr};
+    std::shared_ptr<BufferMesh> _meshes[2];
+    std::shared_ptr<MTL::Buffer> _atomicBuffer[2];
+#if USE_SOA_LAYOUT
+    std::shared_ptr<MTL::Buffer> _positionBuffer[2];
+    std::shared_ptr<MTL::Buffer> _velocityBuffer[2];
+    std::shared_ptr<MTL::Buffer> _attributeBuffer[2];
+#else
+    std::shared_ptr<MTL::Buffer> _appendConsumeBuffer[2];
+#endif
+    std::shared_ptr<MTL::Buffer> _dpBuffer{nullptr};
+    std::shared_ptr<MTL::Buffer> _sortIndicesBuffer{nullptr};
+
     ShaderProperty _timeStepProp;
     ShaderProperty _vectorFieldTextureProp;
     ShaderProperty _boundingVolumeProp;
@@ -140,12 +171,12 @@ private:
     static unsigned int const kBatchEmitCount   = std::max(256u, (kMaxParticleCount >> 4u));
     
     static
-    unsigned int GetThreadsGroupCount(unsigned int const nthreads) {
+    unsigned int threadsGroupCount(unsigned int const nthreads) {
         return (nthreads + kThreadsGroupWidth-1u) / kThreadsGroupWidth;
     }
     
     static
-    unsigned int FloorParticleCount(unsigned int const nparticles) {
+    unsigned int floorParticleCount(unsigned int const nparticles) {
         return kThreadsGroupWidth * (nparticles / kThreadsGroupWidth);
     }
 };

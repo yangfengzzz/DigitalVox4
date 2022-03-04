@@ -15,6 +15,14 @@ const SubMesh *Mesh::subMesh() const {
     }
 }
 
+SubMesh *Mesh::subMesh() {
+    if (_subMeshes.size() > 0) {
+        return &_subMeshes[0];
+    } else {
+        return nullptr;
+    }
+}
+
 const std::vector<SubMesh> &Mesh::subMeshes() const {
     return _subMeshes;
 }
