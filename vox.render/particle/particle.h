@@ -20,7 +20,7 @@ public:
     static float constexpr kDefaultSimulationVolumeSize = 256.0f;
     
     // [USER DEFINED]
-    static uint32_t const kMaxParticleCount = (1u << 18u);
+    static uint32_t const kMaxParticleCount = (1u << 15u);
     static uint32_t const kBatchEmitCount = std::max(256u, (kMaxParticleCount >> 4u));
     
     enum class EmitterType : uint32_t {

@@ -21,6 +21,9 @@ Scene::Scene(MTL::Device &device) :
 _device(device),
 _ambientLight(this) {
     _vertexUploader = {
+        toAnyUploader<bool, MTL::RenderCommandEncoder>([](const bool &x, size_t location, MTL::RenderCommandEncoder &encoder) {
+            encoder.setVertexBytes(&x, sizeof(bool), location);
+        }),
         toAnyUploader<int32_t, MTL::RenderCommandEncoder>([](const int &x, size_t location, MTL::RenderCommandEncoder &encoder) {
             encoder.setVertexBytes(&x, sizeof(int), location);
         }),
@@ -60,6 +63,9 @@ _ambientLight(this) {
     };
     
     _fragmentUploader = {
+        toAnyUploader<bool, MTL::RenderCommandEncoder>([](const bool &x, size_t location, MTL::RenderCommandEncoder &encoder) {
+            encoder.setFragmentBytes(&x, sizeof(bool), location);
+        }),
         toAnyUploader<int32_t, MTL::RenderCommandEncoder>([](const int &x, size_t location, MTL::RenderCommandEncoder &encoder) {
             encoder.setFragmentBytes(&x, sizeof(int), location);
         }),
@@ -297,6 +303,8 @@ void Scene::update(float deltaTime) {
     _physicsManager.update(deltaTime);
     _physicsManager.callColliderOnLateUpdate();
     _physicsManager.callCharacterControllerOnLateUpdate();
+    
+    _particleManager.update(deltaTime);
     
     _componentsManager.callScriptOnUpdate(deltaTime);
     _componentsManager.callAnimatorUpdate(deltaTime);

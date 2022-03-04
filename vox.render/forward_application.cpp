@@ -65,6 +65,7 @@ void ForwardApplication::update(float delta_time) {
     // Finalize rendering here & push the command buffer to the GPU
     commandBuffer->presentDrawable(_renderContext->currentDrawable());
     commandBuffer->commit();
+    commandBuffer->waitUntilCompleted();
 }
 
 bool ForwardApplication::resize(uint32_t win_width, uint32_t win_height,

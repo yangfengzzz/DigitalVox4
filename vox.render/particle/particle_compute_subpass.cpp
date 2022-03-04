@@ -47,8 +47,8 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle,
     /* Number of particles to be emitted. */
     uint32_t const emit_count = std::min(Particle::kBatchEmitCount, num_dead_particles); //
     _emission(emit_count, particle, commandEncoder, compileMacros);
-//    _simulation(emit_count, particle, commandEncoder, compileMacros);
-//
+    _simulation(emit_count, particle, commandEncoder, compileMacros);
+
 //    {
 //        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_fill_indices", compileMacros);
 //        _pipelineDescriptor->setComputeFunction(function);
@@ -148,7 +148,7 @@ void ParticleComputeSubpass::_simulation(const uint32_t count,
     commandEncoder.setBuffer(particle->randomBuffer().get(), 0, 4);
     
     auto nWidth = pipelineState->handle().threadExecutionWidth();
-    commandEncoder.dispatchThreadgroups(MTL::Size(particle->numAliveParticles() + count, 1, 1), MTL::Size(nWidth, 1, 1));
+    commandEncoder.dispatchThreads(MTL::Size(particle->numAliveParticles() + count, 1, 1), MTL::Size(nWidth, 1, 1));
 }
 
 

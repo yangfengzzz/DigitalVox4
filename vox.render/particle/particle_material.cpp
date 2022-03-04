@@ -20,8 +20,11 @@ _debugDrawProp(Shader::createProperty("uDebugDraw", ShaderDataGroup::Material)) 
     setBirthGradient(Vector3F(0, 1, 0));
     setDeathGradient(Vector3F(1, 0, 0));
     setMinParticleSize(0.75f);
-    setMaxParticleSize(25.0f);
+    setMaxParticleSize(2.0f);
     setFadeCoefficient(0.35f);
+    setDebugDraw(false);
+    
+//    setIsTransparent(true);
 }
 
 float ParticleMaterial::minParticleSize() const {

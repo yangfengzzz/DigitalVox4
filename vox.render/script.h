@@ -112,8 +112,7 @@ public:
                         uint32_t fb_width, uint32_t fb_height) {
     }
     
-    
-private:
+protected:
     friend class Entity;
     
     friend class ComponentsManager;

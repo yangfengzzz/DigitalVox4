@@ -48,7 +48,7 @@ _particleMaxAgeProp(Shader::createProperty("uParticleMaxAge", ShaderDataGroup::C
     setEmitterType(EmitterType::SPHERE);
     setEmitterDirection(Vector3F(0, 1, 0));
     setEmitterPosition(Vector3F()); // todo
-    setEmitterRadius(32.0f);
+    setEmitterRadius(2.0f);
     setBoundingVolumeType(SimulationVolume::SPHERE);
     setBBoxSize(kDefaultSimulationVolumeSize);
     
@@ -59,6 +59,7 @@ _particleMaxAgeProp(Shader::createProperty("uParticleMaxAge", ShaderDataGroup::C
     setVelocityFactor(8.f);
     
     _allocBuffer();
+    _allocMesh();
     
     _renderer = entity->addComponent<MeshRenderer>();
     _material = std::make_shared<ParticleMaterial>();
@@ -171,9 +172,9 @@ void Particle::onUpdate(float deltaTime) {
     _write = 1 - _write;
     _read = 1 - _read;
     
-    memcpy(&_numAliveParticles, _atomicBuffer[_write]->contents(), sizeof(uint32_t));
-    _meshes[_write]->subMesh()->setIndexCount(_numAliveParticles);
-    _renderer->setMesh(_meshes[_write]);
+    memcpy(&_numAliveParticles, _atomicBuffer[_read]->contents(), sizeof(uint32_t));
+    _meshes[_read]->subMesh()->setIndexCount(_numAliveParticles);
+    _renderer->setMesh(_meshes[_read]);
     _generateRandomValues();
 }
 
@@ -316,10 +317,12 @@ void Particle::setParticleMaxAge(float age) {
 }
 
 void Particle::_onEnable() {
+    Script::_onEnable();
     entity()->scene()->_particleManager.addParticle(this);
 }
 
 void Particle::_onDisable() {
+    Script::_onDisable();
     entity()->scene()->_particleManager.removeParticle(this);
 }
 

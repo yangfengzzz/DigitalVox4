@@ -12,11 +12,11 @@ void pushParticle(float3 position,
                   float3 velocity,
                   float age,
 #if USE_SOA_LAYOUT
-                  device float4* positions [[buffer(8)]],
-                  device float4* velocities [[buffer(9)]],
-                  device float4* attributes [[buffer(10)]],
+                  device float4* positions,
+                  device float4* velocities,
+                  device float4* attributes,
 #else
-                  device TParticle* particles [[buffer(11)]],
+                  device TParticle* particles,
 #endif
                   device atomic_uint* write_count) {
     // Emit particle id.
@@ -47,11 +47,11 @@ void createParticle(uint uEmitCount,
                     float uParticleMaxAge,
                     device atomic_uint* write_count,
 #if USE_SOA_LAYOUT
-                    device float4* positions [[buffer(8)]],
-                    device float4* velocities [[buffer(9)]],
-                    device float4* attributes [[buffer(10)]],
+                    device float4* positions,
+                    device float4* velocities,
+                    device float4* attributes,
 #else
-                    device TParticle* particles [[buffer(11)]],
+                    device TParticle* particles,
 #endif
                     device float* randbuffer,
                     const uint gid) {
@@ -111,24 +111,22 @@ kernel void particle_emission(constant uint& uEmitCount [[buffer(0)]],
                               device TParticle* particles [[buffer(11)]],
 #endif
                               device float* randbuffer [[buffer(12)]],
-                              const uint gid [[ thread_position_in_grid ]]) {
-    if (gid < uEmitCount) {
-        createParticle(uEmitCount,
-                       uEmitterType,
-                       uEmitterPosition,
-                       uEmitterDirection,
-                       uEmitterRadius,
-                       uParticleMinAge,
-                       uParticleMaxAge,
-                       write_count,
+                              const uint gid [[ thread_position_in_grid ]]) {    
+    createParticle(uEmitCount,
+                   uEmitterType,
+                   uEmitterPosition,
+                   uEmitterDirection,
+                   uEmitterRadius,
+                   uParticleMinAge,
+                   uParticleMaxAge,
+                   write_count,
 #if USE_SOA_LAYOUT
-                       positions,
-                       velocities,
-                       attributes,
+                   positions,
+                   velocities,
+                   attributes,
 #else
-                       particles,
+                   particles,
 #endif
-                       randbuffer,
-                       gid);
-    }
+                   randbuffer,
+                   gid);
 }

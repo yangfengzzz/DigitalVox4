@@ -73,12 +73,12 @@ float3 base_color(float3 position, float decay,
 
 
 vertex VertexOut particle_vertex(const VertexIn in [[stage_in]],
-                                 constant matrix_float4x4& u_MVPMat,
-                                 constant float& uMinParticleSize,
-                                 constant float& uMaxParticleSize,
-                                 constant float& uColorMode,
-                                 constant float3& uBirthGradient,
-                                 constant float3& uDeathGradient) {
+                                 constant matrix_float4x4& u_MVPMat [[buffer(6)]],
+                                 constant float& uMinParticleSize [[buffer(7)]],
+                                 constant float& uMaxParticleSize [[buffer(8)]],
+                                 constant float& uColorMode [[buffer(9)]],
+                                 constant float3& uBirthGradient [[buffer(10)]],
+                                 constant float3& uDeathGradient [[buffer(11)]]) {
     VertexOut out;
     const float3 p = in.position.xyz;
     
@@ -88,7 +88,7 @@ vertex VertexOut particle_vertex(const VertexIn in [[stage_in]],
     
     // Vertex attributes.
     out.position = u_MVPMat * float4(p, 1.0f);
-    out.pointSize = compute_size(out.position.z, decay, uMinParticleSize, uMaxParticleSize);
+    out.pointSize = compute_size(out.position.z/out.position.w, decay, uMinParticleSize, uMaxParticleSize);
     
     // Output parameters.
     out.local_pos = p;
