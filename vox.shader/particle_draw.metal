@@ -73,7 +73,7 @@ float3 base_color(float3 position, float decay,
 
 
 vertex VertexOut particle_vertex(const VertexIn in [[stage_in]],
-                                 constant matrix_float4x4& uMVP,
+                                 constant matrix_float4x4& u_MVPMat,
                                  constant float& uMinParticleSize,
                                  constant float& uMaxParticleSize,
                                  constant float& uColorMode,
@@ -87,7 +87,7 @@ vertex VertexOut particle_vertex(const VertexIn in [[stage_in]],
     const float decay = curve_inout(dAge, 0.55f);
     
     // Vertex attributes.
-    out.position = uMVP * float4(p, 1.0f);
+    out.position = u_MVPMat * float4(p, 1.0f);
     out.pointSize = compute_size(out.position.z, decay, uMinParticleSize, uMaxParticleSize);
     
     // Output parameters.

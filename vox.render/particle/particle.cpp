@@ -22,6 +22,8 @@ uint32_t closestPowerOfTwo(uint32_t const n) {
 
 }  // namespace
 
+uint32_t const Particle::kBatchEmitCount;
+
 Particle::Particle(Entity *entity) :
 Script(entity),
 _timeStepProp(Shader::createProperty("uTimeStep", ShaderDataGroup::Compute)),

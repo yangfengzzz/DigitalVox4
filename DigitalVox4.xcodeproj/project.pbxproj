@@ -527,6 +527,7 @@
 		04D7602F27D0B84A00BB1519 /* sampled_texture3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602D27D0B84A00BB1519 /* sampled_texture3d.h */; };
 		04D7603227D0E4E800BB1519 /* compute_pipeline_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7603027D0E4E800BB1519 /* compute_pipeline_state.cpp */; };
 		04D7603327D0E4E800BB1519 /* compute_pipeline_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7603127D0E4E800BB1519 /* compute_pipeline_state.h */; };
+		04D7603627D1B88200BB1519 /* particle_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7603427D1B88200BB1519 /* particle_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1295,6 +1296,8 @@
 		04D7602D27D0B84A00BB1519 /* sampled_texture3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sampled_texture3d.h; sourceTree = "<group>"; };
 		04D7603027D0E4E800BB1519 /* compute_pipeline_state.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = compute_pipeline_state.cpp; sourceTree = "<group>"; };
 		04D7603127D0E4E800BB1519 /* compute_pipeline_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compute_pipeline_state.h; sourceTree = "<group>"; };
+		04D7603427D1B88200BB1519 /* particle_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = particle_app.cpp; sourceTree = "<group>"; };
+		04D7603527D1B88200BB1519 /* particle_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_app.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2045,6 +2048,8 @@
 				04CD941A279BBADB0093D6CB /* ibl_app.cpp */,
 				04D75FEF27D04FDF00BB1519 /* atomic_compute.h */,
 				04D75FEE27D04FDF00BB1519 /* atomic_compute.cpp */,
+				04D7603527D1B88200BB1519 /* particle_app.h */,
+				04D7603427D1B88200BB1519 /* particle_app.cpp */,
 			);
 			path = apps;
 			sourceTree = "<group>";
@@ -3138,6 +3143,7 @@
 				04D75F9A27CDA97D00BB1519 /* gltf_app.cpp in Sources */,
 				04D75F3827CCCCB100BB1519 /* shadowmap_app.cpp in Sources */,
 				04D75F9D27CDBA0400BB1519 /* ibl_app.cpp in Sources */,
+				04D7603627D1B88200BB1519 /* particle_app.cpp in Sources */,
 				04D75F3727CCCC6F00BB1519 /* cascade_shadowmap_app.cpp in Sources */,
 				04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */,
 				04D75F9727CDA3AF00BB1519 /* animation_app.cpp in Sources */,
