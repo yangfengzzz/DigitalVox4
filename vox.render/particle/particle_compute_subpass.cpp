@@ -49,41 +49,41 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle,
     _emission(emit_count, particle, commandEncoder, compileMacros);
     _simulation(emit_count, particle, commandEncoder, compileMacros);
     
-    {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_fill_indices", compileMacros);
-        _pipelineDescriptor->setComputeFunction(function);
-        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
-        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
-        commandEncoder.setComputePipelineState(&pipelineState->handle());
-        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
-    }
-    
-    {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_calculate_dp", compileMacros);
-        _pipelineDescriptor->setComputeFunction(function);
-        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
-        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
-        commandEncoder.setComputePipelineState(&pipelineState->handle());
-        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
-    }
-    
-    {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_step", compileMacros);
-        _pipelineDescriptor->setComputeFunction(function);
-        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
-        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
-        commandEncoder.setComputePipelineState(&pipelineState->handle());
-        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
-    }
-    
-    {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_final", compileMacros);
-        _pipelineDescriptor->setComputeFunction(function);
-        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
-        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
-        commandEncoder.setComputePipelineState(&pipelineState->handle());
-        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
-    }
+//    {
+//        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_fill_indices", compileMacros);
+//        _pipelineDescriptor->setComputeFunction(function);
+//        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+//        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
+//        commandEncoder.setComputePipelineState(&pipelineState->handle());
+//        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+//    }
+//
+//    {
+//        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_calculate_dp", compileMacros);
+//        _pipelineDescriptor->setComputeFunction(function);
+//        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+//        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
+//        commandEncoder.setComputePipelineState(&pipelineState->handle());
+//        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+//    }
+//
+//    {
+//        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_step", compileMacros);
+//        _pipelineDescriptor->setComputeFunction(function);
+//        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+//        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
+//        commandEncoder.setComputePipelineState(&pipelineState->handle());
+//        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+//    }
+//
+//    {
+//        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_sort_final", compileMacros);
+//        _pipelineDescriptor->setComputeFunction(function);
+//        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+//        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
+//        commandEncoder.setComputePipelineState(&pipelineState->handle());
+//        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
+//    }
 }
 
 void ParticleComputeSubpass::_emission(const uint32_t count,

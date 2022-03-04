@@ -28,7 +28,7 @@ public:
     void setTimeStepFactor(float factor);
     
 private:
-    std::vector<Particle*> _particles{nullptr};
+    std::vector<Particle*> _particles{};
     float _timeStepFactor = 1.0f;
 };
 
