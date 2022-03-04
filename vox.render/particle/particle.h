@@ -17,7 +17,7 @@
 namespace vox {
 class Particle : public Script {
 public:
-    static float constexpr kDefaultSimulationVolumeSize = 256.0f;
+    static float constexpr kDefaultSimulationVolumeSize = 32.0f;
     
     // [USER DEFINED]
     static uint32_t const kMaxParticleCount = (1u << 15u);

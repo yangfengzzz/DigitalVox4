@@ -26,11 +26,12 @@ bool ParticleApp::prepare(Engine &engine) {
     return true;
 }
 
-void ParticleApp::loadScene(uint32_t width, uint32_t height) {    
+void ParticleApp::loadScene(uint32_t width, uint32_t height) {
+    _scene->background.solidColor = Color(0, 0, 0, 1);
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();
-    cameraEntity->transform->setPosition(10, 10, 10);
+    cameraEntity->transform->setPosition(-30, 30, 30);
     cameraEntity->transform->lookAt(Point3F(0, 0, 0));
     _mainCamera = cameraEntity->addComponent<Camera>();
     _mainCamera->resize(width, height);
@@ -43,7 +44,31 @@ void ParticleApp::loadScene(uint32_t width, uint32_t height) {
     pointLight->intensity = 0.3;
     
     auto particleEntity = rootEntity->createChild();
-    particleEntity->addComponent<Particle>();
+    auto particle = particleEntity->addComponent<Particle>();
+    // emitter
+    particle->setParticleMinAge(50.f);
+    particle->setParticleMaxAge(100.f);
+    particle->setEmitterType(Particle::EmitterType::SPHERE);
+    particle->setEmitterDirection(Vector3F(0, 1, 0));
+    particle->setEmitterPosition(Vector3F()); // todo
+    particle->setEmitterRadius(2.0f);
+    particle->setBoundingVolumeType(Particle::SimulationVolume::SPHERE);
+    particle->setBBoxSize(Particle::kDefaultSimulationVolumeSize);
+    
+    // simulation
+    particle->setScatteringFactor(1.f);
+    particle->setVectorFieldFactor(1.f);
+    particle->setCurlNoiseFactor(16.f);
+    particle->setCurlNoiseScale(128.f);
+    particle->setVelocityFactor(8.f);
+    
+    // material
+    particle->material().setBirthGradient(Vector3F(0, 1, 0));
+    particle->material().setDeathGradient(Vector3F(1, 0, 0));
+    particle->material().setMinParticleSize(0.75f);
+    particle->material().setMaxParticleSize(4.0f);
+    particle->material().setFadeCoefficient(0.35f);
+    particle->material().setDebugDraw(false);
     
     auto cubeEntity = rootEntity->createChild();
     auto renderer = cubeEntity->addComponent<MeshRenderer>();

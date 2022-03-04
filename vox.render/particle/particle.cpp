@@ -42,22 +42,7 @@ _emitterPositionProp(Shader::createProperty("uEmitterPosition", ShaderDataGroup:
 _emitterDirectionProp(Shader::createProperty("uEmitterDirection", ShaderDataGroup::Compute)),
 _emitterRadiusProp(Shader::createProperty("uEmitterRadius", ShaderDataGroup::Compute)),
 _particleMinAgeProp(Shader::createProperty("uParticleMinAge", ShaderDataGroup::Compute)),
-_particleMaxAgeProp(Shader::createProperty("uParticleMaxAge", ShaderDataGroup::Compute)) {
-    setParticleMinAge(50.f);
-    setParticleMaxAge(100.f);
-    setEmitterType(EmitterType::SPHERE);
-    setEmitterDirection(Vector3F(0, 1, 0));
-    setEmitterPosition(Vector3F()); // todo
-    setEmitterRadius(2.0f);
-    setBoundingVolumeType(SimulationVolume::SPHERE);
-    setBBoxSize(kDefaultSimulationVolumeSize);
-    
-    setScatteringFactor(1.f);
-    setVectorFieldFactor(1.f);
-    setCurlNoiseFactor(16.f);
-    setCurlNoiseScale(128.f);
-    setVelocityFactor(8.f);
-    
+_particleMaxAgeProp(Shader::createProperty("uParticleMaxAge", ShaderDataGroup::Compute)) {    
     _allocBuffer();
     _allocMesh();
     
