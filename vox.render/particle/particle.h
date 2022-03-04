@@ -166,7 +166,7 @@ private:
     std::vector<float> _randomVec{};
     std::shared_ptr<MTL::Buffer> _randomBuffer{nullptr};
     
-    uint32_t _numAliveParticles;
+    uint32_t _numAliveParticles = 0;
     
     uint32_t _read = 0;
     uint32_t _write = 1;

@@ -46,16 +46,8 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle,
     uint32_t const num_dead_particles = Particle::kMaxParticleCount - particle->numAliveParticles();
     /* Number of particles to be emitted. */
     uint32_t const emit_count = std::min(Particle::kBatchEmitCount, num_dead_particles); //
-    _emissionSingle(emit_count, particle, commandEncoder, compileMacros);
-    
-    {
-        auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_simulation", compileMacros);
-        _pipelineDescriptor->setComputeFunction(function);
-        auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
-        uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
-        commandEncoder.setComputePipelineState(&pipelineState->handle());
-        commandEncoder.dispatchThreadgroups(MTL::Size(1, 1, 1), MTL::Size(1, 1, 1));
-    }
+    _emission(emit_count, particle, commandEncoder, compileMacros);
+    _simulation(emit_count, particle, commandEncoder, compileMacros);
     
     {
         auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_fill_indices", compileMacros);
@@ -94,9 +86,9 @@ void ParticleComputeSubpass::_computeSingle(Particle* particle,
     }
 }
 
-void ParticleComputeSubpass::_emissionSingle(const uint32_t count,
-                                             Particle* particle, MTL::ComputeCommandEncoder &commandEncoder,
-                                             const ShaderMacroCollection &compileMacros) {
+void ParticleComputeSubpass::_emission(const uint32_t count,
+                                       Particle* particle, MTL::ComputeCommandEncoder &commandEncoder,
+                                       const ShaderMacroCollection &compileMacros) {
     /* Emit only if a minimum count is reached. */
     if (!count) {
         return;
@@ -123,6 +115,38 @@ void ParticleComputeSubpass::_emissionSingle(const uint32_t count,
     
     auto nWidth = pipelineState->handle().threadExecutionWidth();
     commandEncoder.dispatchThreads(MTL::Size(count, 1, 1), MTL::Size(nWidth, 1, 1));
+}
+
+void ParticleComputeSubpass::_simulation(const uint32_t count,
+                                         Particle* particle, MTL::ComputeCommandEncoder &commandEncoder,
+                                         const ShaderMacroCollection &compileMacros) {
+    if (particle->numAliveParticles() + count == 0u) {
+        return;
+    }
+    
+    auto function = _pass->resourceCache().requestFunction(_pass->library(), "particle_simulation", compileMacros);
+    _pipelineDescriptor->setComputeFunction(function);
+    auto pipelineState = _pass->resourceCache().requestPipelineState(*_pipelineDescriptor);
+    uploadUniforms(commandEncoder, pipelineState->uniformBlock, particle->shaderData);
+    commandEncoder.setComputePipelineState(&pipelineState->handle());
+    
+    commandEncoder.setBuffer(particle->readAtomicBuffer().get(), 0, 9);
+    commandEncoder.setBuffer(particle->writeAtomicBuffer().get(), 0, 10);
+#if USE_SOA_LAYOUT
+    commandEncoder.setBuffer(particle->readPositionBuffer().get(), 0, 11);
+    commandEncoder.setBuffer(particle->readVelocityBuffer().get(), 0, 12);
+    commandEncoder.setBuffer(particle->readAttributeBuffer().get(), 0, 13);
+    commandEncoder.setBuffer(particle->writePositionBuffer().get(), 0, 14);
+    commandEncoder.setBuffer(particle->writeVelocityBuffer().get(), 0, 15);
+    commandEncoder.setBuffer(particle->writeAttributeBuffer().get(), 0, 16);
+#else
+    commandEncoder.setBuffer(particle->readAppendConsumeBuffer().get(), 0, 17);
+    commandEncoder.setBuffer(particle->writeAppendConsumeBuffer().get(), 0, 18);
+#endif
+    commandEncoder.setBuffer(particle->randomBuffer().get(), 0, 4);
+    
+    auto nWidth = pipelineState->handle().threadExecutionWidth();
+    commandEncoder.dispatchThreadgroups(MTL::Size(particle->numAliveParticles() + count, 1, 1), MTL::Size(nWidth, 1, 1));
 }
 
 
