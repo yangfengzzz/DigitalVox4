@@ -19,6 +19,10 @@ class Particle : public Script {
 public:
     static float constexpr kDefaultSimulationVolumeSize = 256.0f;
     
+    // [USER DEFINED]
+    static uint32_t const kMaxParticleCount = (1u << 18u);
+    static uint32_t const kBatchEmitCount = std::max(256u, (kMaxParticleCount >> 4u));
+    
     enum class EmitterType : uint32_t {
         POINT,
         DISK,
@@ -109,6 +113,40 @@ public:
     
     void setParticleMaxAge(float age);
     
+public:
+    const uint32_t numParticles() const;
+
+    const uint32_t numAliveParticles() const;
+
+    const std::shared_ptr<MTL::Buffer>& randomBuffer() const;
+
+    const std::shared_ptr<MTL::Buffer>& readAtomicBuffer() const;
+
+    const std::shared_ptr<MTL::Buffer>& writeAtomicBuffer() const;    
+
+#if USE_SOA_LAYOUT
+    const std::shared_ptr<MTL::Buffer>& readPositionBuffer() const;
+    
+    const std::shared_ptr<MTL::Buffer>& writePositionBuffer() const;
+    
+    const std::shared_ptr<MTL::Buffer>& readVelocityBuffer() const;
+    
+    const std::shared_ptr<MTL::Buffer>& writeVelocityBuffer() const;
+    
+    const std::shared_ptr<MTL::Buffer>& readAttributeBuffer() const;
+    
+    const std::shared_ptr<MTL::Buffer>& writeAttributeBuffer() const;
+    
+#else
+    const std::shared_ptr<MTL::Buffer>& readAppendConsumeBuffer() const;
+    
+    const std::shared_ptr<MTL::Buffer>& writeAppendConsumeBuffer() const;
+#endif
+    
+    const std::shared_ptr<MTL::Buffer>& dpBuffer() const;
+    
+    const std::shared_ptr<MTL::Buffer>& sortIndicesBuffer() const;
+    
 private:
     void _onEnable() override;
     
@@ -129,6 +167,9 @@ private:
     float _maxValue = 1.0;
     std::vector<float> _randomVec{};
     std::shared_ptr<MTL::Buffer> _randomBuffer{nullptr};
+    
+    uint32_t _numParticles;
+    uint32_t _numAliveParticles;
     
     uint32_t _read = 0;
     uint32_t _write = 1;
@@ -164,19 +205,13 @@ private:
     ShaderProperty _particleMaxAgeProp;
     
     // [STATIC]
-    static unsigned int const kThreadsGroupWidth;
+    static uint32_t const kThreadsGroupWidth;
     
-    // [USER DEFINED]
-    static unsigned int const kMaxParticleCount = (1u << 18u);
-    static unsigned int const kBatchEmitCount   = std::max(256u, (kMaxParticleCount >> 4u));
-    
-    static
-    unsigned int threadsGroupCount(unsigned int const nthreads) {
+    static uint32_t threadsGroupCount(uint32_t const nthreads) {
         return (nthreads + kThreadsGroupWidth-1u) / kThreadsGroupWidth;
     }
     
-    static
-    unsigned int floorParticleCount(unsigned int const nparticles) {
+    static uint32_t floorParticleCount(uint32_t const nparticles) {
         return kThreadsGroupWidth * (nparticles / kThreadsGroupWidth);
     }
 };

@@ -13,17 +13,10 @@
 
 namespace vox {
 namespace {
-unsigned int closestPowerOfTwo(unsigned int const n) {
-    unsigned int r = 1u;
-    for (unsigned int i = 0u; r < n; r <<= 1u)
+uint32_t closestPowerOfTwo(uint32_t const n) {
+    uint32_t r = 1u;
+    for (uint32_t i = 0u; r < n; r <<= 1u)
         ++i;
-    return r;
-}
-
-unsigned int numTrailingBits(unsigned int const n) {
-    unsigned int r = 0u;
-    for (unsigned int i = n; i > 1u; i >>= 1u)
-        ++r;
     return r;
 }
 
@@ -73,11 +66,11 @@ void Particle::_allocBuffer() {
     auto& device = entity()->scene()->device();
     
     /* Assert than the number of particles will be a factor of threadGroupWidth */
-    unsigned int const num_particles = floorParticleCount(kMaxParticleCount); //
-    fprintf(stderr, "[ %u particles, %u per batch ]\n", num_particles , kBatchEmitCount);
+    _numParticles = floorParticleCount(kMaxParticleCount); //
+    fprintf(stderr, "[ %u particles, %u per batch ]\n", _numParticles , kBatchEmitCount);
     
     /* Random value buffer */
-    unsigned int const num_randvalues = 3u * num_particles;
+    uint32_t const num_randvalues = 3u * _numParticles;
     _randomVec.resize(num_randvalues);
     _randomBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(float) * num_randvalues,
                                                                              MTL::ResourceOptionCPUCacheModeDefault));
@@ -91,24 +84,24 @@ void Particle::_allocBuffer() {
     
     /* Append Consume */
 #if USE_SOA_LAYOUT
-    _positionBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * num_particles,
+    _positionBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
                                                                                   MTL::ResourceOptionCPUCacheModeDefault));
-    _positionBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * num_particles,
-                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
-    
-    _velocityBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * num_particles,
-                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
-    _velocityBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * num_particles,
+    _positionBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
                                                                                   MTL::ResourceOptionCPUCacheModeDefault));
     
-    _attributeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * num_particles,
+    _velocityBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
+                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
+    _velocityBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
+                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
+    
+    _attributeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
                                                                                    MTL::ResourceOptionCPUCacheModeDefault));
-    _attributeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * num_particles,
+    _attributeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * _numParticles,
                                                                                    MTL::ResourceOptionCPUCacheModeDefault));
 #else
-    _appendConsumeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * num_particles,
+    _appendConsumeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * _numParticles,
                                                                                        MTL::ResourceOptionCPUCacheModeDefault));
-    _appendConsumeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * num_particles,
+    _appendConsumeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * _numParticles,
                                                                                        MTL::ResourceOptionCPUCacheModeDefault));
 #endif
     
@@ -176,7 +169,8 @@ void Particle::onUpdate(float deltaTime) {
     _write = 1 - _write;
     _read = 1 - _read;
     
-    _meshes[_write]->subMesh()->setIndexCount(0);
+    memcpy(&_numAliveParticles, _atomicBuffer[_write]->contents(), sizeof(uint32_t));
+    _meshes[_write]->subMesh()->setIndexCount(_numAliveParticles);
     _renderer->setMesh(_meshes[_write]);
     _generateRandomValues();
 }
@@ -325,6 +319,70 @@ void Particle::_onEnable() {
 
 void Particle::_onDisable() {
     entity()->scene()->_particleManager.removeParticle(this);
+}
+
+//MARK: - Buffer
+const uint32_t Particle::numParticles() const {
+    return _numParticles;
+}
+
+const uint32_t Particle::numAliveParticles() const {
+    return _numAliveParticles;
+}
+
+const std::shared_ptr<MTL::Buffer>& Particle::randomBuffer() const {
+    return _randomBuffer;
+}
+
+const std::shared_ptr<MTL::Buffer>& Particle::readAtomicBuffer() const {
+    return _atomicBuffer[_read];
+}
+
+const std::shared_ptr<MTL::Buffer>& Particle::writeAtomicBuffer() const {
+    return _atomicBuffer[_write];
+}
+
+#if USE_SOA_LAYOUT
+const std::shared_ptr<MTL::Buffer>& Particle::readPositionBuffer() const {
+    return _positionBuffer[_read];
+}
+
+const std::shared_ptr<MTL::Buffer>& Particle::writePositionBuffer() const {
+    return _positionBuffer[_write];
+}
+
+const std::shared_ptr<MTL::Buffer>& Particle::readVelocityBuffer() const {
+    return _velocityBuffer[_read];
+}
+
+const std::shared_ptr<MTL::Buffer>& Particle::writeVelocityBuffer() const {
+    return _velocityBuffer[_write];
+}
+
+const std::shared_ptr<MTL::Buffer>& Particle::readAttributeBuffer() const {
+    return _attributeBuffer[_read];
+}
+
+const std::shared_ptr<MTL::Buffer>& Particle::writeAttributeBuffer() const {
+    return _attributeBuffer[_write];
+}
+
+#else
+const std::shared_ptr<MTL::Buffer>& Particle::readAppendConsumeBuffer() const {
+    return _appendConsumeBuffer[_raed];
+}
+
+const std::shared_ptr<MTL::Buffer>& Particle::writeAppendConsumeBuffer() const {
+    return _appendConsumeBuffer[_write];
+}
+#endif
+
+const std::shared_ptr<MTL::Buffer>& Particle::dpBuffer() const {
+    return _dpBuffer;
+}
+
+const std::shared_ptr<MTL::Buffer>& Particle::sortIndicesBuffer() const {
+    return _sortIndicesBuffer;
 }
 
 }
