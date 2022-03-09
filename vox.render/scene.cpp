@@ -304,8 +304,6 @@ void Scene::update(float deltaTime) {
     _physicsManager.callColliderOnLateUpdate();
     _physicsManager.callCharacterControllerOnLateUpdate();
     
-    _particleManager.update(deltaTime);
-    
     _componentsManager.callScriptOnUpdate(deltaTime);
     _componentsManager.callAnimatorUpdate(deltaTime);
     _componentsManager.callSceneAnimatorUpdate(deltaTime);

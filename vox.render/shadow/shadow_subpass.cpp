@@ -16,7 +16,7 @@ namespace vox {
 ShadowSubpass::ShadowSubpass(RenderContext *context,
                              Scene *scene,
                              Camera *camera) :
-RenderSubpass(context, scene, camera) {
+Subpass(context, scene, camera) {
 }
 
 void ShadowSubpass::setViewProjectionMatrix(const Matrix4x4F &vp) {

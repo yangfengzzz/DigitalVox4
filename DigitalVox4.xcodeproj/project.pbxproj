@@ -495,11 +495,8 @@
 		04D75F9B27CDA9E000BB1519 /* scene_animation_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04460447279BE694009108C8 /* scene_animation_app.cpp */; };
 		04D75F9C27CDB85100BB1519 /* Irradiance_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD9412279B94220093D6CB /* Irradiance_app.cpp */; };
 		04D75F9D27CDBA0400BB1519 /* ibl_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD941A279BBADB0093D6CB /* ibl_app.cpp */; };
-		04D75FE627D0424A00BB1519 /* render_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FE427D0424A00BB1519 /* render_subpass.cpp */; };
-		04D75FE727D0424A00BB1519 /* render_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75FE527D0424A00BB1519 /* render_subpass.h */; };
-		04D75FEA27D04CCD00BB1519 /* compute_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FE827D04CCD00BB1519 /* compute_subpass.cpp */; };
-		04D75FEB27D04CCD00BB1519 /* compute_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75FE927D04CCD00BB1519 /* compute_subpass.h */; };
-		04D75FF027D04FDF00BB1519 /* atomic_compute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FEE27D04FDF00BB1519 /* atomic_compute.cpp */; };
+		04D75FEA27D04CCD00BB1519 /* compute_pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FE827D04CCD00BB1519 /* compute_pass.cpp */; };
+		04D75FEB27D04CCD00BB1519 /* compute_pass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D75FE927D04CCD00BB1519 /* compute_pass.h */; };
 		04D75FF227D0510000BB1519 /* compute_debugger.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FF127D0510000BB1519 /* compute_debugger.metal */; };
 		04D75FF827D0683D00BB1519 /* particle_math.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FF727D0683D00BB1519 /* particle_math.metal */; };
 		04D75FFB27D069EE00BB1519 /* particle_emission.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FF527D0678200BB1519 /* particle_emission.metal */; };
@@ -515,19 +512,10 @@
 		04D7601627D0960800BB1519 /* particle_sort_step.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601527D0960800BB1519 /* particle_sort_step.metal */; };
 		04D7601827D096E500BB1519 /* particle_sort_final.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601727D096E500BB1519 /* particle_sort_final.metal */; };
 		04D7601A27D0A26800BB1519 /* particle_draw.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601927D0A26800BB1519 /* particle_draw.metal */; };
-		04D7601E27D0AEBA00BB1519 /* particle_compute_subpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601C27D0AEBA00BB1519 /* particle_compute_subpass.cpp */; };
-		04D7601F27D0AEBA00BB1519 /* particle_compute_subpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7601D27D0AEBA00BB1519 /* particle_compute_subpass.h */; };
-		04D7602227D0AFC400BB1519 /* particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7602027D0AFC400BB1519 /* particle.cpp */; };
-		04D7602327D0AFC400BB1519 /* particle.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602127D0AFC400BB1519 /* particle.h */; };
-		04D7602627D0B01800BB1519 /* particle_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7602427D0B01800BB1519 /* particle_material.cpp */; };
-		04D7602727D0B01800BB1519 /* particle_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602527D0B01800BB1519 /* particle_material.h */; };
-		04D7602A27D0B12A00BB1519 /* particle_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7602827D0B12A00BB1519 /* particle_manager.cpp */; };
-		04D7602B27D0B12A00BB1519 /* particle_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602927D0B12A00BB1519 /* particle_manager.h */; };
 		04D7602E27D0B84A00BB1519 /* sampled_texture3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7602C27D0B84A00BB1519 /* sampled_texture3d.cpp */; };
 		04D7602F27D0B84A00BB1519 /* sampled_texture3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602D27D0B84A00BB1519 /* sampled_texture3d.h */; };
 		04D7603227D0E4E800BB1519 /* compute_pipeline_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7603027D0E4E800BB1519 /* compute_pipeline_state.cpp */; };
 		04D7603327D0E4E800BB1519 /* compute_pipeline_state.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7603127D0E4E800BB1519 /* compute_pipeline_state.h */; };
-		04D7603627D1B88200BB1519 /* particle_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7603427D1B88200BB1519 /* particle_app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1255,10 +1243,8 @@
 		04D75F8F27CD09A900BB1519 /* sampled_texture2d_view.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sampled_texture2d_view.h; sourceTree = "<group>"; };
 		04D75F9227CD0BBF00BB1519 /* sampled_texturecube.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sampled_texturecube.cpp; sourceTree = "<group>"; };
 		04D75F9327CD0BBF00BB1519 /* sampled_texturecube.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sampled_texturecube.h; sourceTree = "<group>"; };
-		04D75FE427D0424A00BB1519 /* render_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = render_subpass.cpp; sourceTree = "<group>"; };
-		04D75FE527D0424A00BB1519 /* render_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render_subpass.h; sourceTree = "<group>"; };
-		04D75FE827D04CCD00BB1519 /* compute_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = compute_subpass.cpp; sourceTree = "<group>"; };
-		04D75FE927D04CCD00BB1519 /* compute_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compute_subpass.h; sourceTree = "<group>"; };
+		04D75FE827D04CCD00BB1519 /* compute_pass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = compute_pass.cpp; sourceTree = "<group>"; };
+		04D75FE927D04CCD00BB1519 /* compute_pass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compute_pass.h; sourceTree = "<group>"; };
 		04D75FEE27D04FDF00BB1519 /* atomic_compute.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = atomic_compute.cpp; sourceTree = "<group>"; };
 		04D75FEF27D04FDF00BB1519 /* atomic_compute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atomic_compute.h; sourceTree = "<group>"; };
 		04D75FF127D0510000BB1519 /* compute_debugger.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = compute_debugger.metal; sourceTree = "<group>"; };
@@ -1432,6 +1418,8 @@
 				04459212278E5F1000F04CE0 /* application.cpp */,
 				0445925B278E7C8600F04CE0 /* graphics_application.h */,
 				0445925A278E7C8600F04CE0 /* graphics_application.cpp */,
+				044593DB2790F97000F04CE0 /* graphics */,
+				0445941B2792926500F04CE0 /* mesh */,
 				0445925E278E7F3300F04CE0 /* rendering */,
 				0445928F278EB27F00F04CE0 /* shader */,
 				044592D1278ED03000F04CE0 /* material */,
@@ -1439,8 +1427,6 @@
 				04D75F3C27CCD16F00BB1519 /* image */,
 				04459706279819A300F04CE0 /* lighting */,
 				04D75F3127CCBC9B00BB1519 /* shadow */,
-				044593DB2790F97000F04CE0 /* graphics */,
-				0445941B2792926500F04CE0 /* mesh */,
 				04D7601B27D0ABF900BB1519 /* particle */,
 				0445941427926D1600F04CE0 /* background.h */,
 				04459271278E80DC00F04CE0 /* layer.h */,
@@ -1775,15 +1761,13 @@
 				04D7603027D0E4E800BB1519 /* compute_pipeline_state.cpp */,
 				044594252792B8B000F04CE0 /* resource_cache.h */,
 				044594242792B8AF00F04CE0 /* resource_cache.cpp */,
+				04D75FE927D04CCD00BB1519 /* compute_pass.h */,
+				04D75FE827D04CCD00BB1519 /* compute_pass.cpp */,
 				044593F027914EFF00F04CE0 /* render_pass.h */,
 				044593EF27914EFF00F04CE0 /* render_pass.cpp */,
 				044593F427914F7500F04CE0 /* subpass.h */,
 				044593F327914F7500F04CE0 /* subpass.cpp */,
-				04D75FE527D0424A00BB1519 /* render_subpass.h */,
-				04D75FE427D0424A00BB1519 /* render_subpass.cpp */,
-				044593F72791580900F04CE0 /* render_subpasses */,
-				04D75FE927D04CCD00BB1519 /* compute_subpass.h */,
-				04D75FE827D04CCD00BB1519 /* compute_subpass.cpp */,
+				044593F72791580900F04CE0 /* subpasses */,
 				0445942127929A3300F04CE0 /* render_element.h */,
 				0445942027929A3300F04CE0 /* render_element.cpp */,
 				04D75E4527CBB3E400BB1519 /* render_context.h */,
@@ -2065,7 +2049,7 @@
 			path = graphics;
 			sourceTree = "<group>";
 		};
-		044593F72791580900F04CE0 /* render_subpasses */ = {
+		044593F72791580900F04CE0 /* subpasses */ = {
 			isa = PBXGroup;
 			children = (
 				044594292793134C00F04CE0 /* forward_subpass.h */,
@@ -2075,7 +2059,7 @@
 				04CD93A127999C960093D6CB /* color_picker_subpass.h */,
 				04CD93A027999C960093D6CB /* color_picker_subpass.cpp */,
 			);
-			path = render_subpasses;
+			path = subpasses;
 			sourceTree = "<group>";
 		};
 		0445941B2792926500F04CE0 /* mesh */ = {
@@ -2408,7 +2392,6 @@
 			files = (
 				04D75E6827CBCE5100BB1519 /* depth_state.h in Headers */,
 				04D75ECB27CC632C00BB1519 /* joint.h in Headers */,
-				04D7601F27D0AEBA00BB1519 /* particle_compute_subpass.h in Headers */,
 				04D75EB827CC632C00BB1519 /* plane_collider_shape.h in Headers */,
 				04D75EED27CC94A400BB1519 /* fbx_loader.h in Headers */,
 				04D75ED827CC67F300BB1519 /* subpass.h in Headers */,
@@ -2443,7 +2426,6 @@
 				04D75ED027CC632C00BB1519 /* translational_joint.h in Headers */,
 				04D75E5527CBCAB500BB1519 /* imstb_rectpack.h in Headers */,
 				04D75F0C27CC9B3800BB1519 /* spot_light.h in Headers */,
-				04D7602727D0B01800BB1519 /* particle_material.h in Headers */,
 				04D75F9827CDA51600BB1519 /* gltf_loader.h in Headers */,
 				04D75E8027CC56A300BB1519 /* base_material.h in Headers */,
 				04D75E6327CBCE5100BB1519 /* render_state.h in Headers */,
@@ -2452,7 +2434,6 @@
 				04D75E7B27CC568600BB1519 /* material.h in Headers */,
 				04D75E4827CBC92C00BB1519 /* glfw_window.h in Headers */,
 				04D75E7E27CC568600BB1519 /* blend_mode.h in Headers */,
-				04D7602327D0AFC400BB1519 /* particle.h in Headers */,
 				04D75ED527CC65E900BB1519 /* render_pass.h in Headers */,
 				04D75E5E27CBCB9600BB1519 /* timer.h in Headers */,
 				04D75E6A27CBCE5100BB1519 /* stencil_state.h in Headers */,
@@ -2463,7 +2444,7 @@
 				04D75F0327CC9A8B00BB1519 /* scene_animator.h in Headers */,
 				04D75E7927CC566A00BB1519 /* shader.h in Headers */,
 				04D7603327D0E4E800BB1519 /* compute_pipeline_state.h in Headers */,
-				04D75FEB27D04CCD00BB1519 /* compute_subpass.h in Headers */,
+				04D75FEB27D04CCD00BB1519 /* compute_pass.h in Headers */,
 				04D75E6927CBCE5100BB1519 /* renderTarget_blend_state.h in Headers */,
 				04D75E4727CBB3E400BB1519 /* render_context.h in Headers */,
 				04D75E4027CBA5CF00BB1519 /* unix_engine.h in Headers */,
@@ -2514,8 +2495,6 @@
 				04D75F0D27CC9B3800BB1519 /* direct_light.h in Headers */,
 				04D75E7F27CC568600BB1519 /* render_face.h in Headers */,
 				04D75E9627CC62AD00BB1519 /* scene_forward.h in Headers */,
-				04D75FE727D0424A00BB1519 /* render_subpass.h in Headers */,
-				04D7602B27D0B12A00BB1519 /* particle_manager.h in Headers */,
 				04D75EA827CC630400BB1519 /* camera.h in Headers */,
 				04D75E9027CC5C5700BB1519 /* mesh.h in Headers */,
 				04D75F3027CCBB8B00BB1519 /* texture_utils.h in Headers */,
@@ -2878,11 +2857,9 @@
 				04D75F0A27CC9B3800BB1519 /* spot_light.cpp in Sources */,
 				04D75EB727CC632C00BB1519 /* sphere_collider_shape.cpp in Sources */,
 				04D75F6527CCD45700BB1519 /* astc_compress_symbolic.cpp in Sources */,
-				04D75FEA27D04CCD00BB1519 /* compute_subpass.cpp in Sources */,
+				04D75FEA27D04CCD00BB1519 /* compute_pass.cpp in Sources */,
 				04D75E6527CBCE5100BB1519 /* stencil_state.cpp in Sources */,
-				04D75FE627D0424A00BB1519 /* render_subpass.cpp in Sources */,
 				04D75F6E27CCD45700BB1519 /* astc_quantization.cpp in Sources */,
-				04D7602627D0B01800BB1519 /* particle_material.cpp in Sources */,
 				04D75F7027CCD45700BB1519 /* astc_percentile_tables.cpp in Sources */,
 				04D75EBA27CC632C00BB1519 /* box_character_controller.cpp in Sources */,
 				04D75EE127CC7C0E00BB1519 /* forward_subpass.cpp in Sources */,
@@ -2909,7 +2886,6 @@
 				04D75F0427CC9A8B00BB1519 /* scene_animation_clip.cpp in Sources */,
 				04D75E9D27CC62B600BB1519 /* scene.cpp in Sources */,
 				04D75F1927CC9CCF00BB1519 /* forward_application.cpp in Sources */,
-				04D7601E27D0AEBA00BB1519 /* particle_compute_subpass.cpp in Sources */,
 				04D75E5727CBCAB500BB1519 /* imgui.cpp in Sources */,
 				04D75EC227CC632C00BB1519 /* plane_collider_shape.cpp in Sources */,
 				04D75F6A27CCD45700BB1519 /* astc_kmeans_partitioning.cpp in Sources */,
@@ -2950,7 +2926,6 @@
 				04D75EC127CC632C00BB1519 /* spring_joint.cpp in Sources */,
 				04D75F3527CCC3EC00BB1519 /* shadow_manager.cpp in Sources */,
 				04D75E6427CBCE5100BB1519 /* depth_state.cpp in Sources */,
-				04D7602227D0AFC400BB1519 /* particle.cpp in Sources */,
 				04D75F0B27CC9B3800BB1519 /* point_light.cpp in Sources */,
 				04D75F5D27CCD45600BB1519 /* astc_encoding_choice_error.cpp in Sources */,
 				04D75F6327CCD45700BB1519 /* astc_weight_align.cpp in Sources */,
@@ -2961,7 +2936,6 @@
 				04D75F0727CC9A9600BB1519 /* gpu_skinned_mesh_renderer.cpp in Sources */,
 				04D75EA527CC630400BB1519 /* script.cpp in Sources */,
 				04D75EB127CC631C00BB1519 /* free_control.cpp in Sources */,
-				04D7602A27D0B12A00BB1519 /* particle_manager.cpp in Sources */,
 				04D75F5A27CCD45600BB1519 /* astc_integer_sequence.cpp in Sources */,
 				04D75EC427CC632C00BB1519 /* physics.cpp in Sources */,
 				04D75EFE27CC99B600BB1519 /* skinned_mesh_renderer.cpp in Sources */,
@@ -3143,11 +3117,9 @@
 				04D75F9A27CDA97D00BB1519 /* gltf_app.cpp in Sources */,
 				04D75F3827CCCCB100BB1519 /* shadowmap_app.cpp in Sources */,
 				04D75F9D27CDBA0400BB1519 /* ibl_app.cpp in Sources */,
-				04D7603627D1B88200BB1519 /* particle_app.cpp in Sources */,
 				04D75F3727CCCC6F00BB1519 /* cascade_shadowmap_app.cpp in Sources */,
 				04D75F2727CCB5C700BB1519 /* framebuffer_picker_app.cpp in Sources */,
 				04D75F9727CDA3AF00BB1519 /* animation_app.cpp in Sources */,
-				04D75FF027D04FDF00BB1519 /* atomic_compute.cpp in Sources */,
 				04D75F9627CDA2AA00BB1519 /* skybox_app.cpp in Sources */,
 				04D75F3927CCCCEE00BB1519 /* physx_app.cpp in Sources */,
 				04D75F3A27CCCD1600BB1519 /* physx_dynamic_app.cpp in Sources */,

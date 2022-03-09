@@ -9,6 +9,7 @@
 
 #include <Metal/Metal.hpp>
 #include "scene.h"
+#include "shader/shader_uniform.h"
 #include "render_context.h"
 
 namespace vox {
@@ -16,13 +17,6 @@ class RenderPass;
 
 class Subpass {
 public:
-    enum Type {
-        Render,
-        Compute,
-    };
-    
-    virtual Type type() = 0;
-    
     Subpass(RenderContext *context,
             Scene *scene,
             Camera *camera);
@@ -42,7 +36,23 @@ public:
      */
     virtual void prepare() = 0;
     
+    /**
+     * @brief Draw virtual function
+     * @param commandEncoder CommandEncoder to use to record draw commands
+     */
+    virtual void draw(MTL::RenderCommandEncoder &commandEncoder) = 0;
+    
     virtual void setRenderPass(RenderPass *pass);
+    
+public:
+    /**
+     * Upload constant shader data in shader uniform block.
+     * @param uniformBlock - shader Uniform block
+     * @param shaderData - shader data
+     */
+    void uploadUniforms(MTL::RenderCommandEncoder &commandEncoder,
+                        const std::vector<ShaderUniform> &uniformBlock,
+                        const ShaderData &shaderData);
     
 protected:
     RenderPass *_pass{nullptr};
@@ -50,6 +60,13 @@ protected:
     RenderContext *_context{nullptr};
     Scene *_scene{nullptr};
     Camera *_camera{nullptr};
+    
+    static bool _compareFromNearToFar(const RenderElement &a, const RenderElement &b);
+    
+    static bool _compareFromFarToNear(const RenderElement &a, const RenderElement &b);
+    
+private:
+    void process(const ShaderUniform &uniform, const std::any &a, MTL::RenderCommandEncoder &encoder);
 };
 
 }

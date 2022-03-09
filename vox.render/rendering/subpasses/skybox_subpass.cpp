@@ -14,7 +14,7 @@ namespace vox {
 SkyboxSubpass::SkyboxSubpass(RenderContext *context,
                              Scene *scene,
                              Camera *camera) :
-RenderSubpass(context, scene, camera) {
+Subpass(context, scene, camera) {
 }
 
 void SkyboxSubpass::createSphere(float radius) {
