@@ -12,7 +12,6 @@
 #include "metal_helpers.h"
 
 namespace vox {
-template<> DebugFrameManager *Singleton<DebugFrameManager>::msSingleton = 0;
 
 //-----------------------------------------------------------------------
 DebugFrameManager *DebugFrameManager::getSingletonPtr(void) {
@@ -28,6 +27,7 @@ DebugFrameManager::DebugFrameManager(EntityPtr entity) :
 _entity(entity) {
     _material = std::make_shared<BaseMaterial>(Shader::create("debug_frame", "vertex_debug_frame", "fragment_debug_frame"));
     
+    _vertexDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::VertexDescriptor, MTL::VertexDescriptor::alloc()->init());
     _vertexDescriptor->attributes()->object(0)->setFormat(MTL::VertexFormatFloat3);
     _vertexDescriptor->attributes()->object(0)->setOffset(0);
     _vertexDescriptor->attributes()->object(0)->setBufferIndex(0);

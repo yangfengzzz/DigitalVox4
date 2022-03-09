@@ -255,7 +255,7 @@ void ClothUI::_debugRenderDistanceConstraints() {
         
         nv::cloth::Factory &factory = cloth.getFactory();
         
-        Matrix4x4F transform = it->clothRenderer->entity()->transform->worldMatrix();
+        Matrix4x4F transform = it->entity()->transform->worldMatrix();
         
         nv::cloth::MappedRange<physx::PxVec4> particles = cloth.getCurrentParticles();
         std::vector<physx::PxVec4> motionConstraints;
@@ -317,7 +317,7 @@ void ClothUI::_debugRenderTethers() {
         
         nv::cloth::Factory &factory = cloth.getFactory();
         
-        Matrix4x4F transform = it->clothRenderer->entity()->transform->worldMatrix();
+        Matrix4x4F transform = it->entity()->transform->worldMatrix();
         
         nv::cloth::MappedRange<physx::PxVec4> particles = cloth.getCurrentParticles();
         
@@ -358,7 +358,7 @@ void ClothUI::_debugRenderConstraints() {
         
         nv::cloth::Factory &factory = cloth.getFactory();
         
-        Matrix4x4F transform = it->clothRenderer->entity()->transform->worldMatrix();
+        Matrix4x4F transform = it->entity()->transform->worldMatrix();
         
         nv::cloth::MappedRange<physx::PxVec4> particles = cloth.getCurrentParticles();
         
@@ -447,7 +447,7 @@ void ClothUI::_debugRenderConstraintStiffness() {
         
         nv::cloth::Factory &factory = cloth.getFactory();
         
-        Matrix4x4F transform = it->clothRenderer->entity()->transform->worldMatrix();
+        Matrix4x4F transform = it->entity()->transform->worldMatrix();
         
         nv::cloth::MappedRange<physx::PxVec4> particles = cloth.getCurrentParticles();
         
@@ -483,7 +483,7 @@ void ClothUI::_debugRenderConstraintError() {
         if (fabric.getNumRestvalues() == 0) {continue;}
         nv::cloth::Factory &factory = cloth.getFactory();
         
-        Matrix4x4F transform = it->clothRenderer->entity()->transform->worldMatrix();
+        Matrix4x4F transform = it->entity()->transform->worldMatrix();
         
         nv::cloth::MappedRange<physx::PxVec4> particles = cloth.getCurrentParticles();
         
@@ -524,7 +524,7 @@ void ClothUI::_debugRenderPositionDelta() {
     for (auto it: controller->_clothList) {
         nv::cloth::Cloth &cloth = *it->cloth;
         
-        Matrix4x4F transform = it->clothRenderer->entity()->transform->worldMatrix();
+        Matrix4x4F transform = it->entity()->transform->worldMatrix();
         
         nv::cloth::MappedRange<physx::PxVec4> particles1 = cloth.getCurrentParticles();
         nv::cloth::MappedRange<physx::PxVec4> particles0 = cloth.getPreviousParticles();
@@ -551,7 +551,7 @@ void ClothUI::_debugRenderBoundingBox() {
     for (auto it: controller->_clothList) {
         nv::cloth::Cloth &cloth = *it->cloth;
         
-        Matrix4x4F transform = it->clothRenderer->entity()->transform->worldMatrix();
+        Matrix4x4F transform = it->entity()->transform->worldMatrix();
         
         physx::PxVec3 cTmep = cloth.getBoundingBoxCenter();
         Vector3F c = Vector3F(cTmep.x, cTmep.y, cTmep.z);

@@ -87,7 +87,7 @@ void ClothController::updateSimulationGraphics() {
         for (uint32_t i = 0; i < particles.size(); ++i)
             particles3[i] = particles[i].getXYZ();
         
-        actor->clothRenderer->update(particles3.data(), particles.size());
+        actor->update(particles3.data(), particles.size());
     }
 }
 
@@ -102,7 +102,7 @@ void ClothController::handlePickingEvent(Camera *mainCamera, const InputEvent &i
             Ray3F ray = mainCamera->screenPointToRay(Vector2F(mouse_button.pos_x(), mouse_button.pos_y()));
             for (auto it: _clothList) {
                 nv::cloth::Cloth *cloth = it->cloth;
-                Matrix4x4F modelMatrix = it->clothRenderer->entity()->transform->worldMatrix();
+                Matrix4x4F modelMatrix = it->entity()->transform->worldMatrix();
                 nv::cloth::Range<physx::PxVec4> particles = cloth->getCurrentParticles();
                 
                 for (int i = 0; i < (int) particles.size(); i++) {
@@ -139,7 +139,7 @@ void ClothController::handlePickingEvent(Camera *mainCamera, const InputEvent &i
 void ClothController::updateParticleDragging(const Ray3F &ray) {
     if (_draggingParticle.trackedCloth) {
         nv::cloth::Cloth *cloth = _draggingParticle.trackedCloth->cloth;
-        Matrix4x4F modelMatrix = _draggingParticle.trackedCloth->clothRenderer->entity()->transform->worldMatrix();
+        Matrix4x4F modelMatrix = _draggingParticle.trackedCloth->entity()->transform->worldMatrix();
         nv::cloth::Range<physx::PxVec4> particles = cloth->getCurrentParticles();
         nv::cloth::Range<physx::PxVec4> prevParticles = cloth->getPreviousParticles();
         
@@ -193,11 +193,11 @@ void untrackT(std::vector<T> &list, T object) {
 }
 }
 
-void ClothController::trackClothActor(ClothActor *clothActor) {
+void ClothController::trackClothActor(cloth::ClothRenderer *clothActor) {
     trackT(_clothList, clothActor);
 }
 
-void ClothController::untrackClothActor(ClothActor *clothActor) {
+void ClothController::untrackClothActor(cloth::ClothRenderer *clothActor) {
     untrackT(_clothList, clothActor);
 }
 
@@ -219,13 +219,13 @@ void ClothController::untrackFabric(nv::cloth::Fabric *fabric) {
     untrackT(_fabricList, fabric);
 }
 
-void ClothController::addClothToSolver(ClothActor *clothActor, nv::cloth::Solver *solver) {
+void ClothController::addClothToSolver(cloth::ClothRenderer *clothActor, nv::cloth::Solver *solver) {
     solver->addCloth(clothActor->cloth);
     assert(_clothSolverMap.find(clothActor) == _clothSolverMap.end());
     _clothSolverMap[clothActor] = solver;
 }
 
-void ClothController::addClothsToSolver(nv::cloth::Range<ClothActor *> clothActors, nv::cloth::Solver *solver) {
+void ClothController::addClothsToSolver(nv::cloth::Range<cloth::ClothRenderer *> clothActors, nv::cloth::Solver *solver) {
     // A temporary vector of Cloth*, to construct a Range from and pass to solver
     std::vector<nv::cloth::Cloth *> cloths;
     

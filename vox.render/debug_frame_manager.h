@@ -81,7 +81,7 @@ private:
     RenderDebugBuffer _triangles{};
     std::shared_ptr<MTL::VertexDescriptor> _vertexDescriptor{nullptr};
 };
+template<> inline DebugFrameManager *Singleton<DebugFrameManager>::msSingleton = 0;
 
 }
-
 #endif /* debug_frame_manager_hpp */

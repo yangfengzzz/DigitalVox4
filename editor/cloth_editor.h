@@ -34,7 +34,7 @@ private:
     void _initializeCloth(EntityPtr entity, physx::PxVec3 offset);
     nv::cloth::Fabric *_fabric{nullptr};
     nv::cloth::Solver *_solver{nullptr};
-    ClothController::ClothActor _clothActor;
+    cloth::ClothRenderer *_clothActor{nullptr};
 };
 
 } 

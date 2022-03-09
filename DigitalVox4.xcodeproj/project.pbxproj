@@ -1450,6 +1450,8 @@
 				044592D1278ED03000F04CE0 /* material */,
 				04D75F2C27CCBB7900BB1519 /* texture */,
 				04D75F3C27CCD16F00BB1519 /* image */,
+				0434BC5527BF7CF500026D1D /* debug_frame_manager.h */,
+				0434BC5427BF7CF500026D1D /* debug_frame_manager.cpp */,
 				04459706279819A300F04CE0 /* lighting */,
 				04D75F3127CCBC9B00BB1519 /* shadow */,
 				04D7601B27D0ABF900BB1519 /* particle */,
@@ -1491,8 +1493,6 @@
 				0445942E2793A5D800F04CE0 /* forward_application.cpp */,
 				04CD939D2799920C0093D6CB /* editor_application.h */,
 				04CD939C2799920C0093D6CB /* editor_application.cpp */,
-				0434BC5527BF7CF500026D1D /* debug_frame_manager.h */,
-				0434BC5427BF7CF500026D1D /* debug_frame_manager.cpp */,
 			);
 			path = vox.render;
 			sourceTree = "<group>";
@@ -1981,7 +1981,6 @@
 				04459738279832B900F04CE0 /* pbrbasic.metal */,
 				0445972A279832B800F04CE0 /* pbribl.metal */,
 				0445972C279832B800F04CE0 /* pbribl2.metal */,
-				0434BC5927BF834F00026D1D /* debug_frame.metal */,
 				04459739279832B900F04CE0 /* function_common.metal */,
 				04459730279832B800F04CE0 /* SkinningShader.metal */,
 			);
@@ -2209,6 +2208,7 @@
 			children = (
 				04CD93A72799A61F0093D6CB /* framebuffer_picker_color.metal */,
 				04459735279832B900F04CE0 /* editor_grid.metal */,
+				0434BC5927BF834F00026D1D /* debug_frame.metal */,
 			);
 			name = editor;
 			sourceTree = "<group>";

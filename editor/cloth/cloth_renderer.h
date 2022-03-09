@@ -10,6 +10,7 @@
 #include "renderer.h"
 #include <Metal/Metal.hpp>
 #include <NvClothExt/ClothMeshDesc.h>
+#include <NvCloth/Cloth.h>
 
 namespace vox {
 namespace cloth {
@@ -19,6 +20,8 @@ public:
         physx::PxVec3 position;
         physx::PxVec3 normal;
     };
+    
+    nv::cloth::Cloth *cloth{nullptr};
     
     ClothRenderer(Entity* entity);
     
