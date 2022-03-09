@@ -30,6 +30,8 @@ public:
     
     void update(const physx::PxVec3* positions, uint32_t numVertices);
     
+    void _updateBounds(BoundingBox3F &worldBounds) override;
+    
 private:
     void _initialize(const void* vertices, uint32_t numVertices, uint32_t vertexSize,
                      const uint16_t* faces, uint32_t numFaces);

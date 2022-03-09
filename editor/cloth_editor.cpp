@@ -114,7 +114,6 @@ void ClothEditor::loadScene() {
     cameraEntity->transform->setPosition(10, 10, 10);
     cameraEntity->transform->lookAt(Point3F(0, 0, 0));
     _mainCamera = cameraEntity->addComponent<Camera>();
-    _mainCamera->resize(width, height);
     _entry = cameraEntity->addComponent<editor::GUIEntry>();
     _entry->addEditorComponent(std::make_unique<ClothUI>());
 

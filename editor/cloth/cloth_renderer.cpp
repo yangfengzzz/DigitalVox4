@@ -173,6 +173,14 @@ void ClothRenderer::update(const physx::PxVec3 *positions, uint32_t numVertices)
     memcpy(_vertexBuffers->contents(), _vertices.data(), sizeof(Vertex) * _vertices.size());
 }
 
+void ClothRenderer::_updateBounds(BoundingBox3F &worldBounds) {
+    for (const auto& vertice : _vertices) {
+        worldBounds.merge(Point3F(vertice.position.x, vertice.position.y, vertice.position.z));
+    }
+    worldBounds.upperCorner.y += 10;
+    worldBounds.lowerCorner.y -= 10;
+}
+
 
 }
 }
