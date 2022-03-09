@@ -10,6 +10,7 @@
 #include "material/blinn_phong_material.h"
 #include "camera.h"
 #include "controls/orbit_control.h"
+#include "shadow/shadow_debug_material.h"
 
 namespace vox {
 void CascadeShadowMapApp::loadScene(uint32_t width, uint32_t height) {
@@ -49,9 +50,12 @@ void CascadeShadowMapApp::loadScene(uint32_t width, uint32_t height) {
     planeMtl->setBaseColor(Color(1.0, 0, 0, 1.0));
     planeMtl->setRenderFace(RenderFace::Double);
     
+    auto debugMtl = std::make_shared<ShadowDebugMaterial>();
+    
     auto planeRenderer = planeEntity->addComponent<MeshRenderer>();
     planeRenderer->setMesh(PrimitiveMesh::createPlane(*_device, 10, 80));
     planeRenderer->setMaterial(planeMtl);
+    // planeRenderer->setMaterial(debugMtl);
     planeRenderer->receiveShadow = true;
 }
 

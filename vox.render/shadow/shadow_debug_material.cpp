@@ -8,8 +8,7 @@
 
 namespace vox {
 ShadowDebugMaterial::ShadowDebugMaterial():
-BaseMaterial(nullptr) {
-    
+BaseMaterial(Shader::create("shadow_debug", "vertex_blinn_phong", "fragment_cascade_shadow_debugger")) {
 }
 
 }
