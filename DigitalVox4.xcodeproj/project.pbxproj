@@ -212,7 +212,7 @@
 		04459754279832BA00F04CE0 /* cubemap_debugger.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973B279832B900F04CE0 /* cubemap_debugger.metal */; };
 		04459755279832BA00F04CE0 /* particle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973C279832BA00F04CE0 /* particle.metal */; };
 		04459756279832BA00F04CE0 /* shadow_common.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973D279832BA00F04CE0 /* shadow_common.metal */; };
-		04459758279832BA00F04CE0 /* light_debugger.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973F279832BA00F04CE0 /* light_debugger.metal */; };
+		04459758279832BA00F04CE0 /* light_sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973F279832BA00F04CE0 /* light_sprite.metal */; };
 		049D2BBE27D8C8E20037DC6A /* multi_light_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 049D2BBC27D8C8E20037DC6A /* multi_light_app.cpp */; };
 		04CD93A82799A61F0093D6CB /* framebuffer_picker_color.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93A72799A61F0093D6CB /* framebuffer_picker_color.metal */; };
 		04CD93BC279A4F650093D6CB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93BB279A4F650093D6CB /* main.cpp */; };
@@ -1126,7 +1126,7 @@
 		0445973B279832B900F04CE0 /* cubemap_debugger.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = cubemap_debugger.metal; sourceTree = "<group>"; };
 		0445973C279832BA00F04CE0 /* particle.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = particle.metal; sourceTree = "<group>"; };
 		0445973D279832BA00F04CE0 /* shadow_common.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = shadow_common.metal; sourceTree = "<group>"; };
-		0445973F279832BA00F04CE0 /* light_debugger.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = light_debugger.metal; sourceTree = "<group>"; };
+		0445973F279832BA00F04CE0 /* light_sprite.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = light_sprite.metal; sourceTree = "<group>"; };
 		04460433279BCC5A009108C8 /* scene_animation_clip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene_animation_clip.h; sourceTree = "<group>"; };
 		04460434279BCC5A009108C8 /* scene_animation_clip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_animation_clip.cpp; sourceTree = "<group>"; };
 		04460437279BCE3B009108C8 /* scene_animator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_animator.cpp; sourceTree = "<group>"; };
@@ -1402,7 +1402,7 @@
 		0400D25E27D85D6F0018FB52 /* light */ = {
 			isa = PBXGroup;
 			children = (
-				0445973F279832BA00F04CE0 /* light_debugger.metal */,
+				0445973F279832BA00F04CE0 /* light_sprite.metal */,
 				0400D27527D8AD0A0018FB52 /* cluster_compute.h */,
 				0400D27027D89EB60018FB52 /* cluster_compute.metal */,
 				0400D27327D8AC9A0018FB52 /* cluster_debug.metal */,
@@ -3155,7 +3155,7 @@
 				04D7601827D096E500BB1519 /* particle_sort_final.metal in Sources */,
 				04CD93A82799A61F0093D6CB /* framebuffer_picker_color.metal in Sources */,
 				04D7601027D081EE00BB1519 /* particle_simulation.metal in Sources */,
-				04459758279832BA00F04CE0 /* light_debugger.metal in Sources */,
+				04459758279832BA00F04CE0 /* light_sprite.metal in Sources */,
 				0400D27127D89EB60018FB52 /* cluster_compute.metal in Sources */,
 				04D7601427D0959100BB1519 /* particle_fill_indices.metal in Sources */,
 				04459752279832BA00F04CE0 /* function_common.metal in Sources */,

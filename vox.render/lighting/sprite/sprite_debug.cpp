@@ -12,18 +12,20 @@
 namespace vox {
 SpriteDebug::SpriteDebug(Entity* entity):
 Script(entity) {
-    Shader::create("spotlight_sprite_debug", "", "");
-    Shader::create("pointlight_sprite_debug", "", "");
+    Shader::create("spotlight_sprite_debug", "vertex_point_light_sprite", "fragment_light_sprite");
+    Shader::create("pointlight_sprite_debug", "vertex_spot_light_sprite", "fragment_light_sprite");
 
     _spotLightMesh = std::make_shared<BufferMesh>();
-    _spotLightMesh->addSubMesh(MTL::PrimitiveType::PrimitiveTypeTriangleStrip, MTL::IndexType::IndexTypeUInt16, 4, nullptr);
+    _spotLightMesh->addSubMesh(MTL::PrimitiveType::PrimitiveTypeTriangleStrip,
+                               MTL::IndexType::IndexTypeUInt16, 4, nullptr);
     _spotEntity = entity->createChild();
     auto spotRenderer = _spotEntity->addComponent<MeshRenderer>();
     spotRenderer->setMaterial(std::make_shared<SpriteDebugMaterial>(true));
     spotRenderer->setMesh(_spotLightMesh);
     
     _pointLightMesh = std::make_shared<BufferMesh>();
-    _pointLightMesh->addSubMesh(MTL::PrimitiveType::PrimitiveTypeTriangleStrip, MTL::IndexType::IndexTypeUInt16, 4, nullptr);
+    _pointLightMesh->addSubMesh(MTL::PrimitiveType::PrimitiveTypeTriangleStrip,
+                                MTL::IndexType::IndexTypeUInt16, 4, nullptr);
     _pointEntity = entity->createChild();
     auto pointRenderer = _pointEntity->addComponent<MeshRenderer>();
     pointRenderer->setMaterial(std::make_shared<SpriteDebugMaterial>(false));
