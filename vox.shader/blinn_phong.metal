@@ -7,8 +7,10 @@
 #include <metal_stdlib>
 using namespace metal;
 #include "function_constant.h"
-#include "shadow_common.h"
 #include "pbr_common.h"
+
+#include "shadow_common.h"
+#include "cluster_compute.h"
 
 typedef struct {
     float3 position [[attribute(Position)]];
@@ -237,6 +239,8 @@ fragment float4 fragment_blinn_phong(VertexOut in [[stage_in]],
                                      texture2d<float> u_diffuseTexture [[texture(4), function_constant(hasDiffuseTexture)]],
                                      texture2d<float> u_specularTexture [[texture(5), function_constant(hasSpecularTexture)]],
                                      texture2d<float> u_normalTexture [[texture(6), function_constant(hasNormalTexture)]],
+                                     constant float4& u_cluster_uniform [[buffer(21), function_constant(needForwardPlus)]],
+                                     device ClusterLightGroup& u_clusterLights [[buffer(22), function_constant(needForwardPlus)]],
                                      bool is_front_face [[front_facing]]) {
     constexpr sampler textureSampler(coord::normalized, filter::linear,
                                      address::repeat, compare_func:: less);
@@ -277,36 +281,65 @@ fragment float4 fragment_blinn_phong(VertexOut in [[stage_in]],
             lightSpecular += u_directLight[i].color * s;
         }
     }
+    
+    uint32_t clusterIndex = 0;
+    uint32_t lightOffset = 0;
+    if (needForwardPlus) {
+        clusterIndex = getClusterIndex(u_cluster_uniform, in.position);
+        lightOffset  = u_clusterLights.lights[clusterIndex].offset;
+    }
     if (hasPointLight) {
-        for( int i = 0; i < pointLightCount; i++ ) {
-            float3 direction = in.v_pos - u_pointLight[i].position;
+        uint32_t lightCount = pointLightCount;
+        if (needForwardPlus) {
+            lightCount = u_clusterLights.lights[clusterIndex].point_count;
+        }
+        
+        for(uint32_t i = 0; i < lightCount; i++ ) {
+            uint32_t index = i;
+            if (needForwardPlus) {
+                index = u_clusterLights.indices[lightOffset + i];
+            }
+            
+            float3 direction = in.v_pos - u_pointLight[index].position;
             float dist = length( direction );
             direction /= dist;
-            float decay = clamp(1.0 - pow(dist / u_pointLight[i].distance, 4.0), 0.0, 1.0);
+            float decay = clamp(1.0 - pow(dist / u_pointLight[index].distance, 4.0), 0.0, 1.0);
             
             float d =  max( dot( N, -direction ), 0.0 ) * decay;
-            lightDiffuse += u_pointLight[i].color * d;
+            lightDiffuse += u_pointLight[index].color * d;
             
             float3 halfDir = normalize( V - direction );
             float s = pow( clamp( dot( N, halfDir ), 0.0, 1.0 ), u_shininess )  * decay;
-            lightSpecular += u_pointLight[i].color * s;
+            lightSpecular += u_pointLight[index].color * s;
         }
     }
     if (hasSpotLight) {
-        for( int i = 0; i < spotLightCount; i++) {
-            float3 direction = u_spotLight[i].position - in.v_pos;
+        uint32_t pointlightCount;
+        uint32_t lightCount = spotLightCount;
+        if (needForwardPlus) {
+            pointlightCount = u_clusterLights.lights[clusterIndex].point_count;
+            lightCount = u_clusterLights.lights[clusterIndex].spot_count;
+        }
+        
+        for(uint32_t i = 0; i < lightCount; i++) {
+            uint32_t index = i;
+            if (needForwardPlus) {
+                index = u_clusterLights.indices[lightOffset + i + pointlightCount];
+            }
+            
+            float3 direction = u_spotLight[index].position - in.v_pos;
             float lightDistance = length( direction );
             direction /= lightDistance;
-            float angleCos = dot( direction, -u_spotLight[i].direction );
-            float decay = clamp(1.0 - pow(lightDistance/u_spotLight[i].distance, 4.0), 0.0, 1.0);
-            float spotEffect = smoothstep( u_spotLight[i].penumbraCos, u_spotLight[i].angleCos, angleCos );
+            float angleCos = dot( direction, -u_spotLight[index].direction );
+            float decay = clamp(1.0 - pow(lightDistance/u_spotLight[index].distance, 4.0), 0.0, 1.0);
+            float spotEffect = smoothstep( u_spotLight[index].penumbraCos, u_spotLight[index].angleCos, angleCos );
             float decayTotal = decay * spotEffect;
             float d = max( dot( N, direction ), 0.0 )  * decayTotal;
-            lightDiffuse += u_spotLight[i].color * d;
+            lightDiffuse += u_spotLight[index].color * d;
             
             float3 halfDir = normalize( V + direction );
             float s = pow( clamp( dot( N, halfDir ), 0.0, 1.0 ), u_shininess ) * decayTotal;
-            lightSpecular += u_spotLight[i].color * s;
+            lightSpecular += u_spotLight[index].color * s;
         }
     }
     

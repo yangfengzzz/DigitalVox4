@@ -46,6 +46,7 @@ std::unordered_map<MacroName, std::pair<int, MTL::DataType>> ShaderMacroCollecti
     {DIRECT_LIGHT_COUNT, {0, MTL::DataTypeInt}},
     {POINT_LIGHT_COUNT, {0, MTL::DataTypeInt}},
     {SPOT_LIGHT_COUNT, {0, MTL::DataTypeInt}},
+    {NEED_FORWARD_PLUS, {0, MTL::DataTypeBool}},
     
     // Enviroment
     {HAS_SH, {0, MTL::DataTypeBool}},

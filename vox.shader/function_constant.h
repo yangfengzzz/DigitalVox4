@@ -56,6 +56,7 @@ constant int pointLightCount [[function_constant(POINT_LIGHT_COUNT)]];
 constant bool hasPointLight = pointLightCount > 0;
 constant int spotLightCount [[function_constant(SPOT_LIGHT_COUNT)]];
 constant bool hasSpotLight = spotLightCount > 0;
+constant bool needForwardPlus [[function_constant(NEED_FORWARD_PLUS)]];
 
 constant bool hasSH [[function_constant(HAS_SH)]];
 constant bool hasSpecularEnv [[function_constant(HAS_SPECULAR_ENV)]];

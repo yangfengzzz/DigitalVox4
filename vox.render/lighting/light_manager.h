@@ -82,9 +82,7 @@ public:
     
     const std::vector<DirectLight *> &directLights() const;
     
-public:
-    bool enableForwardPlus() const;
-    
+public:    
     void draw(MTL::CommandBuffer& commandBuffer);
     
 private:
@@ -109,9 +107,7 @@ private:
     
     void _updateShaderData(MTL::Device &device, ShaderData &shaderData);
 
-private:
-    bool _enableForwardPlus{false};
-    
+private:    
     Vector4F _forwardPlusUniforms; // outputSize, zNear, zFar
     ShaderProperty _forwardPlusProp;
     

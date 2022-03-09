@@ -198,17 +198,14 @@ void LightManager::_updateShaderData(MTL::Device &device, ShaderData &shaderData
 }
 
 //MARK: - Forward Plus
-bool LightManager::enableForwardPlus() const {
-    return _enableForwardPlus;
-}
-
 void LightManager::draw(MTL::CommandBuffer& commandBuffer) {
     _updateShaderData(_scene->device(), _scene->shaderData);
     
     size_t pointLightCount = _pointLights.size();
     size_t spotLightCount = _spotLights.size();
     if (pointLightCount + spotLightCount > FORWARD_PLUS_ENABLE_MIN_COUNT) {
-        _enableForwardPlus = true;
+        _scene->shaderData.enableMacro(NEED_FORWARD_PLUS);
+        
         bool updateBounds = false;
         
         if (_forwardPlusUniforms.x != _camera->width() ||
@@ -232,6 +229,8 @@ void LightManager::draw(MTL::CommandBuffer& commandBuffer) {
         }
         _clusterLightsCompute->compute(*encoder);
         encoder->endEncoding();
+    } else {
+        _scene->shaderData.disableMacro(NEED_FORWARD_PLUS);
     }
 }
 
