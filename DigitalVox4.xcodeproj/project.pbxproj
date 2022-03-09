@@ -10,6 +10,12 @@
 		0400D25B27D85AAA0018FB52 /* shadow_debug_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0400D25927D85AAA0018FB52 /* shadow_debug_material.cpp */; };
 		0400D25C27D85AAA0018FB52 /* shadow_debug_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 0400D25A27D85AAA0018FB52 /* shadow_debug_material.h */; };
 		0400D25F27D870900018FB52 /* atomic_compute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FEE27D04FDF00BB1519 /* atomic_compute.cpp */; };
+		0400D26327D89C560018FB52 /* cluster_debug_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0400D26127D89C560018FB52 /* cluster_debug_material.cpp */; };
+		0400D26427D89C560018FB52 /* cluster_debug_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 0400D26227D89C560018FB52 /* cluster_debug_material.h */; };
+		0400D26727D89C900018FB52 /* sprite_debug_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0400D26527D89C900018FB52 /* sprite_debug_material.cpp */; };
+		0400D26827D89C900018FB52 /* sprite_debug_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 0400D26627D89C900018FB52 /* sprite_debug_material.h */; };
+		0400D26B27D89CD60018FB52 /* sprite_debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0400D26927D89CD60018FB52 /* sprite_debug.cpp */; };
+		0400D26C27D89CD60018FB52 /* sprite_debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 0400D26A27D89CD60018FB52 /* sprite_debug.h */; };
 		04229696278D71760090983F /* surface3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229692278D71760090983F /* surface3.h */; };
 		04229697278D71760090983F /* surface2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229693278D71760090983F /* surface2.h */; };
 		0434BC4F27BF56DD00026D1D /* cloth_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4627BF4F7100026D1D /* cloth_ui.cpp */; };
@@ -632,6 +638,12 @@
 /* Begin PBXFileReference section */
 		0400D25927D85AAA0018FB52 /* shadow_debug_material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shadow_debug_material.cpp; sourceTree = "<group>"; };
 		0400D25A27D85AAA0018FB52 /* shadow_debug_material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shadow_debug_material.h; sourceTree = "<group>"; };
+		0400D26127D89C560018FB52 /* cluster_debug_material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cluster_debug_material.cpp; sourceTree = "<group>"; };
+		0400D26227D89C560018FB52 /* cluster_debug_material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cluster_debug_material.h; sourceTree = "<group>"; };
+		0400D26527D89C900018FB52 /* sprite_debug_material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sprite_debug_material.cpp; sourceTree = "<group>"; };
+		0400D26627D89C900018FB52 /* sprite_debug_material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sprite_debug_material.h; sourceTree = "<group>"; };
+		0400D26927D89CD60018FB52 /* sprite_debug.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sprite_debug.cpp; sourceTree = "<group>"; };
+		0400D26A27D89CD60018FB52 /* sprite_debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sprite_debug.h; sourceTree = "<group>"; };
 		0422954F278C30840090983F /* libvox.render.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.render.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		042295D9278D121C0090983F /* libvox.geometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.geometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		042295E4278D17790090983F /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
@@ -1382,6 +1394,17 @@
 				0445973F279832BA00F04CE0 /* light_debugger.metal */,
 			);
 			name = light;
+			sourceTree = "<group>";
+		};
+		0400D26027D89C460018FB52 /* sprite */ = {
+			isa = PBXGroup;
+			children = (
+				0400D26A27D89CD60018FB52 /* sprite_debug.h */,
+				0400D26927D89CD60018FB52 /* sprite_debug.cpp */,
+				0400D26627D89C900018FB52 /* sprite_debug_material.h */,
+				0400D26527D89C900018FB52 /* sprite_debug_material.cpp */,
+			);
+			path = sprite;
 			sourceTree = "<group>";
 		};
 		04229546278C30840090983F = {
@@ -2179,6 +2202,9 @@
 		04459706279819A300F04CE0 /* lighting */ = {
 			isa = PBXGroup;
 			children = (
+				0400D26227D89C560018FB52 /* cluster_debug_material.h */,
+				0400D26127D89C560018FB52 /* cluster_debug_material.cpp */,
+				0400D26027D89C460018FB52 /* sprite */,
 				04459709279819D000F04CE0 /* light.h */,
 				04459708279819D000F04CE0 /* light.cpp */,
 				0445970D27981C3A00F04CE0 /* point_light.h */,
@@ -2413,6 +2439,7 @@
 				04D75F1E27CCA2C400BB1519 /* physics_manager.h in Headers */,
 				04D75E7427CC537300BB1519 /* shader_property.h in Headers */,
 				04D75E7227CC4B7F00BB1519 /* metal_helpers.h in Headers */,
+				0400D26427D89C560018FB52 /* cluster_debug_material.h in Headers */,
 				04D75E8427CC56AC00BB1519 /* unlit_material.h in Headers */,
 				04D75F2027CCA2C400BB1519 /* collider.h in Headers */,
 				04D75F1B27CC9F2500BB1519 /* singleton.h in Headers */,
@@ -2478,6 +2505,7 @@
 				04D75F0827CC9A9600BB1519 /* gpu_skinned_mesh_renderer.h in Headers */,
 				04D75ECE27CC632C00BB1519 /* sphere_collider_shape.h in Headers */,
 				04D75F0F27CC9B3800BB1519 /* light.h in Headers */,
+				0400D26827D89C900018FB52 /* sprite_debug_material.h in Headers */,
 				04D75EA927CC630400BB1519 /* transform.h in Headers */,
 				04D75EB227CC631C00BB1519 /* free_control.h in Headers */,
 				04D75F1F27CCA2C400BB1519 /* hit_result.h in Headers */,
@@ -2520,6 +2548,7 @@
 				04D75EA227CC62B600BB1519 /* component.h in Headers */,
 				04D75F2527CCA2C400BB1519 /* static_collider.h in Headers */,
 				04D7602F27D0B84A00BB1519 /* sampled_texture3d.h in Headers */,
+				0400D26C27D89CD60018FB52 /* sprite_debug.h in Headers */,
 				04D75EFD27CC99B600BB1519 /* skinned_mesh_renderer.h in Headers */,
 				04D75EAD27CC631C00BB1519 /* orbit_control.h in Headers */,
 				04D75F0027CC9A8000BB1519 /* animator.h in Headers */,
@@ -2845,8 +2874,10 @@
 				04D75E9127CC5C5700BB1519 /* mesh.cpp in Sources */,
 				04D75E8127CC56A300BB1519 /* base_material.cpp in Sources */,
 				04D75EAF27CC631C00BB1519 /* orbit_control.cpp in Sources */,
+				0400D26327D89C560018FB52 /* cluster_debug_material.cpp in Sources */,
 				04D75F6927CCD45700BB1519 /* astc_image_load_store.cpp in Sources */,
 				04D75F6227CCD45700BB1519 /* astc_averages_and_directions.cpp in Sources */,
+				0400D26B27D89CD60018FB52 /* sprite_debug.cpp in Sources */,
 				04D75EEF27CC94A400BB1519 /* fbx_mesh.cpp in Sources */,
 				04D75F7127CCD45700BB1519 /* astc_ktx_dds.cpp in Sources */,
 				04D75EAC27CC630400BB1519 /* camera.cpp in Sources */,
@@ -2859,6 +2890,7 @@
 				04D75EAB27CC630400BB1519 /* transform.cpp in Sources */,
 				04D75F2627CCA2C400BB1519 /* dynamic_collider.cpp in Sources */,
 				04D75F5E27CCD45700BB1519 /* astc_compute_variance.cpp in Sources */,
+				0400D26727D89C900018FB52 /* sprite_debug_material.cpp in Sources */,
 				04D75EC027CC632C00BB1519 /* capsule_character_controller.cpp in Sources */,
 				04D75E8827CC56AC00BB1519 /* blinn_phong_material.cpp in Sources */,
 				04D75F6127CCD45700BB1519 /* astc_partition_tables.cpp in Sources */,
