@@ -17,6 +17,7 @@
 		0400D26B27D89CD60018FB52 /* sprite_debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0400D26927D89CD60018FB52 /* sprite_debug.cpp */; };
 		0400D26C27D89CD60018FB52 /* sprite_debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 0400D26A27D89CD60018FB52 /* sprite_debug.h */; };
 		0400D26F27D89DE70018FB52 /* cluster_forward_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0400D26D27D89DE70018FB52 /* cluster_forward_app.cpp */; };
+		0400D27127D89EB60018FB52 /* cluster_compute.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0400D27027D89EB60018FB52 /* cluster_compute.metal */; };
 		04229696278D71760090983F /* surface3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229692278D71760090983F /* surface3.h */; };
 		04229697278D71760090983F /* surface2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229693278D71760090983F /* surface2.h */; };
 		0434BC4F27BF56DD00026D1D /* cloth_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4627BF4F7100026D1D /* cloth_ui.cpp */; };
@@ -647,6 +648,7 @@
 		0400D26A27D89CD60018FB52 /* sprite_debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sprite_debug.h; sourceTree = "<group>"; };
 		0400D26D27D89DE70018FB52 /* cluster_forward_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cluster_forward_app.cpp; sourceTree = "<group>"; };
 		0400D26E27D89DE70018FB52 /* cluster_forward_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cluster_forward_app.h; sourceTree = "<group>"; };
+		0400D27027D89EB60018FB52 /* cluster_compute.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = cluster_compute.metal; sourceTree = "<group>"; };
 		0422954F278C30840090983F /* libvox.render.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.render.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		042295D9278D121C0090983F /* libvox.geometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvox.geometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		042295E4278D17790090983F /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
@@ -1395,6 +1397,7 @@
 			isa = PBXGroup;
 			children = (
 				0445973F279832BA00F04CE0 /* light_debugger.metal */,
+				0400D27027D89EB60018FB52 /* cluster_compute.metal */,
 			);
 			name = light;
 			sourceTree = "<group>";
@@ -3142,6 +3145,7 @@
 				04CD93A82799A61F0093D6CB /* framebuffer_picker_color.metal in Sources */,
 				04D7601027D081EE00BB1519 /* particle_simulation.metal in Sources */,
 				04459758279832BA00F04CE0 /* light_debugger.metal in Sources */,
+				0400D27127D89EB60018FB52 /* cluster_compute.metal in Sources */,
 				04D7601427D0959100BB1519 /* particle_fill_indices.metal in Sources */,
 				04459752279832BA00F04CE0 /* function_common.metal in Sources */,
 				0434BC5A27BF834F00026D1D /* debug_frame.metal in Sources */,
