@@ -6,7 +6,7 @@
 
 #include <metal_stdlib>
 using namespace metal;
-#include "function-constant.h"
+#include "function_constant.h"
 
 typedef struct {
     float3 a_position [[attribute(0)]];

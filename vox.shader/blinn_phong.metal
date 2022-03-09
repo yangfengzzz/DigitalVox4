@@ -6,7 +6,7 @@
 
 #include <metal_stdlib>
 using namespace metal;
-#include "function-constant.h"
+#include "function_constant.h"
 #include "shadow_common.h"
 #include "pbr_common.h"
 

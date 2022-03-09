@@ -6,7 +6,7 @@
 
 #include <metal_stdlib>
 using namespace metal;
-#include "function-constant.h"
+#include "function_constant.h"
 
 struct VertexIn {
     float3 position [[attribute(0)]];

@@ -7,7 +7,7 @@
 #include <metal_stdlib>
 using namespace metal;
 #include "particle_curl_noise.h"
-#include "function-constant.h"
+#include "function_constant.h"
 
 TParticle popParticle(device atomic_uint* read_count,
 #if USE_SOA_LAYOUT

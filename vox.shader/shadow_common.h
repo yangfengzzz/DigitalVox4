@@ -9,7 +9,7 @@
 
 #include <metal_stdlib>
 using namespace metal;
-#include "function-constant.h"
+#include "function_constant.h"
 
 float textureProj(float3 worldPos, float3 viewPos, float2 off,
                   depth2d_array<float> u_shadowMap,
