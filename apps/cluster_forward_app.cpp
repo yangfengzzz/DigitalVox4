@@ -27,6 +27,23 @@ void ClusterForwardApp::loadScene() {
     _mainCamera = cameraEntity->addComponent<Camera>();
     cameraEntity->addComponent<control::OrbitControl>();
     
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dis(0.0, 1.0);
+    // init point light
+    for (uint32_t i = 0; i < 15; i++) {
+        auto light = rootEntity->createChild("light");
+        light->transform->setPosition(10 * dis(gen), 2, 10 * dis(gen));
+        light->addComponent<PointLight>();
+    }
+    
+    // init spot light
+    for (uint32_t i = 0; i < 15; i++) {
+        auto light = rootEntity->createChild("light");
+        light->transform->setPosition(10 * dis(gen), 2, 10 * dis(gen));
+        light->addComponent<SpotLight>();
+    }
+
     // init point light
     auto light = rootEntity->createChild("light");
     light->transform->setPosition(3, 3, 0);
@@ -41,7 +58,7 @@ void ClusterForwardApp::loadScene() {
     auto boxEntity = rootEntity->createChild("BoxEntity");
     auto boxMtl = std::make_shared<ClusterDebugMaterial>();
     auto boxRenderer = boxEntity->addComponent<MeshRenderer>();
-    boxRenderer->setMesh(PrimitiveMesh::createPlane(*_device, cubeSize, cubeSize));
+    boxRenderer->setMesh(PrimitiveMesh::createPlane(*_device, cubeSize, cubeSize, 100, 1000));
     boxRenderer->setMaterial(boxMtl);
 }
 
