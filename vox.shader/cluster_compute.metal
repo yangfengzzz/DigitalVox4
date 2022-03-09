@@ -4,13 +4,9 @@
 //  personal capacity and am not conveying any rights to any intellectual
 //  property of any third parties.
 
-#include <metal_stdlib>
-#include <simd/simd.h>
 #include "function_constant.h"
+#include "cluster_compute.h"
 using namespace metal;
-
-constant uint3 tileCount = uint3(32, 18, 48);
-// constant uint32_t MAX_LIGHTS_PER_CLUSTER = 50;
 
 float linearDepth(float4 projection, float depthSample) {
     return projection.w * projection.z / fma(depthSample, projection.z - projection.w, projection.w);
@@ -32,26 +28,6 @@ uint32_t getClusterIndex(float4 projection, float4 fragCoord) {
     return tile.x + tile.y * tileCount.x + tile.z * tileCount.x * tileCount.y;
 }
 
-struct ClusterBounds {
-    float3 minAABB;
-    float3 maxAABB;
-};
-struct Clusters {
-    array<ClusterBounds, 32 * 18 * 48> bounds; // TOTAL_TILES
-};
-
-
-struct ClusterLights {
-    uint32_t offset;
-    uint32_t point_count;
-    uint32_t spot_count;
-};
-struct ClusterLightGroup {
-    atomic_uint offset;
-    array<ClusterLights, 32 * 18 * 48> lights; // TOTAL_TILES
-    array<uint32_t, 50 * 32 * 18 * 48> indices; // MAX_LIGHTS_PER_CLUSTER * TOTAL_TILES
-};
-
 //MARK: - Cluster Bounds
 float3 lineIntersectionToZPlane(float3 a, float3 b, float zDistance) {
     float3 normal = float3(0.0, 0.0, 1.0);
@@ -72,33 +48,35 @@ float4 screen2View(float4 projection, matrix_float4x4 inverseMatrix, float4 scre
 }
 
 constant float3 eyePos = float3(0.0, 0.0, 0.0);
-kernel void cluster_bounds(device float4& projection [[buffer(0)]],
+kernel void cluster_bounds(device float4& u_cluster_uniform [[buffer(0)]],
                            device matrix_float4x4& u_projInvMat [[buffer(1)]],
-                           device Clusters& clusters [[buffer(2)]],
+                           device Clusters& u_clusters [[buffer(2)]],
                            uint3 global_id [[ thread_position_in_grid ]]) {
     uint32_t tileIndex = global_id.x +
     global_id.y * tileCount.x +
     global_id.z * tileCount.x * tileCount.y;
     
-    float2 tileSize = float2(projection.x / float(tileCount.x),
-                             projection.y / float(tileCount.y));
+    float2 tileSize = float2(u_cluster_uniform.x / float(tileCount.x),
+                             u_cluster_uniform.y / float(tileCount.y));
     
     float4 maxPoint_sS = float4(float2(float(global_id.x+1u), float(global_id.y+1u)) * tileSize, 0.0, 1.0);
     float4 minPoint_sS = float4(float2(float(global_id.x), float(global_id.y)) * tileSize, 0.0, 1.0);
     
-    float3 maxPoint_vS = screen2View(projection, u_projInvMat, maxPoint_sS).xyz;
-    float3 minPoint_vS = screen2View(projection, u_projInvMat, minPoint_sS).xyz;
+    float3 maxPoint_vS = screen2View(u_cluster_uniform, u_projInvMat, maxPoint_sS).xyz;
+    float3 minPoint_vS = screen2View(u_cluster_uniform, u_projInvMat, minPoint_sS).xyz;
     
-    float tileNear = -projection.z * pow(projection.w/ projection.z, float(global_id.z)/float(tileCount.z));
-    float tileFar = -projection.z * pow(projection.w/ projection.z, float(global_id.z+1u)/float(tileCount.z));
+    float tileNear = -u_cluster_uniform.z * pow(u_cluster_uniform.w/ u_cluster_uniform.z,
+                                                float(global_id.z)/float(tileCount.z));
+    float tileFar = -u_cluster_uniform.z * pow(u_cluster_uniform.w/ u_cluster_uniform.z,
+                                               float(global_id.z+1u)/float(tileCount.z));
     
     float3 minPointNear = lineIntersectionToZPlane(eyePos, minPoint_vS, tileNear);
     float3 minPointFar = lineIntersectionToZPlane(eyePos, minPoint_vS, tileFar);
     float3 maxPointNear = lineIntersectionToZPlane(eyePos, maxPoint_vS, tileNear);
     float3 maxPointFar = lineIntersectionToZPlane(eyePos, maxPoint_vS, tileFar);
     
-    clusters.bounds[tileIndex].minAABB = min(min(minPointNear, minPointFar),min(maxPointNear, maxPointFar));
-    clusters.bounds[tileIndex].maxAABB = max(max(minPointNear, minPointFar),max(maxPointNear, maxPointFar));
+    u_clusters.bounds[tileIndex].minAABB = min(min(minPointNear, minPointFar),min(maxPointNear, maxPointFar));
+    u_clusters.bounds[tileIndex].maxAABB = max(max(minPointNear, minPointFar),max(maxPointNear, maxPointFar));
 }
 
 //MARK: - Cluster Lights
@@ -121,13 +99,12 @@ float sqDistPointAABB(float3 point, float3 minAABB, float3 maxAABB) {
     return sqDist;
 }
 
-kernel void cluster_light(device float4& projection [[buffer(0)]],
-                          device matrix_float4x4& u_projInvMat [[buffer(1)]],
-                          device matrix_float4x4& u_viewMat [[buffer(2)]],
-                          device Clusters& clusters [[buffer(3)]],
-                          device ClusterLightGroup& clusterLights [[buffer(4)]],
-                          device PointLightData *u_pointLight [[buffer(11), function_constant(hasPointLight)]],
-                          device SpotLightData *u_spotLight [[buffer(12), function_constant(hasSpotLight)]],
+kernel void cluster_light(device matrix_float4x4& u_projInvMat [[buffer(0)]],
+                          device matrix_float4x4& u_viewMat [[buffer(1)]],
+                          device Clusters& u_clusters [[buffer(2)]],
+                          device ClusterLightGroup& u_clusterLights [[buffer(3)]],
+                          device PointLightData *u_pointLight [[buffer(4), function_constant(hasPointLight)]],
+                          device SpotLightData *u_spotLight [[buffer(5), function_constant(hasSpotLight)]],
                           uint3 global_id [[ thread_position_in_grid ]]) {
     uint32_t tileIndex = global_id.x +
     global_id.y * tileCount.x +
@@ -143,7 +120,8 @@ kernel void cluster_light(device float4& projection [[buffer(0)]],
             
             if (!lightInCluster) {
                 float4 lightViewPos = u_viewMat * float4(u_pointLight[i].position, 1.0);
-                float sqDist = sqDistPointAABB(lightViewPos.xyz, clusters.bounds[tileIndex].minAABB, clusters.bounds[tileIndex].maxAABB);
+                float sqDist = sqDistPointAABB(lightViewPos.xyz, u_clusters.bounds[tileIndex].minAABB,
+                                               u_clusters.bounds[tileIndex].maxAABB);
                 lightInCluster = sqDist <= (range * range);
             }
             
@@ -167,7 +145,8 @@ kernel void cluster_light(device float4& projection [[buffer(0)]],
             
             if (!lightInCluster) {
                 float4 lightViewPos = u_viewMat * float4(u_spotLight[i].position, 1.0);
-                float sqDist = sqDistPointAABB(lightViewPos.xyz, clusters.bounds[tileIndex].minAABB, clusters.bounds[tileIndex].maxAABB);
+                float sqDist = sqDistPointAABB(lightViewPos.xyz, u_clusters.bounds[tileIndex].minAABB,
+                                               u_clusters.bounds[tileIndex].maxAABB);
                 lightInCluster = sqDist <= (range * range);
             }
             
@@ -183,13 +162,14 @@ kernel void cluster_light(device float4& projection [[buffer(0)]],
         }
     }
     
-    uint32_t offset = atomic_fetch_add_explicit(&clusterLights.offset, clusterLightCount, memory_order::memory_order_relaxed);
+    uint32_t offset = atomic_fetch_add_explicit(&u_clusterLights.offset, clusterLightCount,
+                                                memory_order::memory_order_relaxed);
     
     for(uint32_t i = 0u; i < clusterLightCount; i = i + 1u) {
-        clusterLights.indices[offset + i] = cluserLightIndices[i];
+        u_clusterLights.indices[offset + i] = cluserLightIndices[i];
     }
-    clusterLights.lights[tileIndex].offset = offset;
-    clusterLights.lights[tileIndex].point_count = pointLightCount;
-    clusterLights.lights[tileIndex].spot_count = clusterLightCount - pointLightCount;
+    u_clusterLights.lights[tileIndex].offset = offset;
+    u_clusterLights.lights[tileIndex].point_count = pointLightCount;
+    u_clusterLights.lights[tileIndex].spot_count = clusterLightCount - pointLightCount;
     
 }

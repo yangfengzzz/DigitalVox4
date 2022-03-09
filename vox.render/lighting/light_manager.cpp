@@ -30,6 +30,8 @@ _directLightProperty(Shader::createProperty("u_directLight", ShaderDataGroup::Sc
 _forwardPlusProp(Shader::createProperty("u_cluster_uniform", ShaderDataGroup::Scene)),
 _clustersProp(Shader::createProperty("u_clusters", ShaderDataGroup::Compute)),
 _clusterLightsProp(Shader::createProperty("u_clusterLights", ShaderDataGroup::Scene)) {
+    Shader::create("cluster_debug", "vertex_unlit", "fragment_cluster_debug");
+    
     auto& device = _scene->device();
     _clustersBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Clusters),
                                                                                MTL::ResourceOptionCPUCacheModeDefault));
@@ -44,13 +46,13 @@ _clusterLightsProp(Shader::createProperty("u_clusterLights", ShaderDataGroup::Sc
     });
     
     _clusterBoundsCompute =
-    std::make_unique<ComputePass>(_library, scene, "");
+    std::make_unique<ComputePass>(_library, scene, "cluster_bounds");
     _clusterBoundsCompute->attachShaderData(&_shaderData);
     _clusterBoundsCompute->attachShaderData(&_scene->shaderData);
     _clusterBoundsCompute->setThreadsPerGrid(TILE_COUNT[0], TILE_COUNT[1], TILE_COUNT[2]);
     
     _clusterLightsCompute =
-    std::make_unique<ComputePass>(_library, scene, "");
+    std::make_unique<ComputePass>(_library, scene, "cluster_light");
     _clusterLightsCompute->attachShaderData(&_shaderData);
     _clusterLightsCompute->attachShaderData(&_scene->shaderData);
     _clusterLightsCompute->setThreadsPerGrid(TILE_COUNT[0], TILE_COUNT[1], TILE_COUNT[2]);
