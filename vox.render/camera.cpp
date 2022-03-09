@@ -254,13 +254,21 @@ Point3F Camera::_innerViewportToWorldPoint(const Vector3F &point, const Matrix4x
     return clipPoint;
 }
 
-void Camera::updateShaderData() {
+void Camera::update() {
+    auto vp = projectionMatrix() * viewMatrix();
+    
     shaderData.setData(Camera::_viewMatrixProperty, viewMatrix());
     shaderData.setData(Camera::_projectionMatrixProperty, projectionMatrix());
-    shaderData.setData(Camera::_vpMatrixProperty, projectionMatrix() * viewMatrix());
+    shaderData.setData(Camera::_vpMatrixProperty, vp);
     shaderData.setData(Camera::_inverseViewMatrixProperty, _transform->worldMatrix());
     shaderData.setData(Camera::_inverseProjectionMatrixProperty, inverseProjectionMatrix());
     shaderData.setData(Camera::_cameraPositionProperty, _transform->worldPosition());
+    
+    if (enableFrustumCulling && (_frustumViewChangeFlag->flag || _isFrustumProjectDirty)) {
+        _frustum.calculateFromMatrix(vp);
+        _frustumViewChangeFlag->flag = false;
+        _isFrustumProjectDirty = false;
+    }
 }
 
 Matrix4x4F Camera::invViewProjMat() {

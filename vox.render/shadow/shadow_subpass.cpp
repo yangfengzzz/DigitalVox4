@@ -74,6 +74,7 @@ void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
         auto macros = compileMacros;
         auto renderer = element.renderer;
         if (renderer->castShadow) {
+            renderer->updateShaderData(_camera->viewMatrix(), _camera->projectionMatrix());
             renderer->shaderData.mergeMacro(macros, macros);
             renderEncoder.setVertexBytes(renderer->entity()->transform->worldMatrix().data(), sizeof(Matrix4x4F), 12);
             

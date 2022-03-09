@@ -73,6 +73,7 @@ void ColorPickerSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
     for (auto &element: items) {
         auto macros = compileMacros;
         auto renderer = element.renderer;
+        renderer->updateShaderData(_camera->viewMatrix(), _camera->projectionMatrix());
         renderer->shaderData.mergeMacro(macros, macros);
         
         auto material = element.material;

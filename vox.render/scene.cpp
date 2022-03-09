@@ -291,7 +291,7 @@ void Scene::_removeEntity(EntityPtr entity) {
 void Scene::updateShaderData() {
     // union scene and camera macro.
     for (auto &camera: _activeCameras) {
-        camera->updateShaderData();
+        camera->update();
     }
 }
 
@@ -309,6 +309,8 @@ void Scene::update(float deltaTime) {
     _componentsManager.callScriptOnLateUpdate(deltaTime);
     
     _componentsManager.callRendererOnUpdate(deltaTime);
+    
+    updateShaderData();
 }
 
 void Scene::updateInputEvent(const InputEvent &inputEvent) {

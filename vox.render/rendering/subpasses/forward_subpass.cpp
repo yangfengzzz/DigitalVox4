@@ -66,6 +66,8 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
         if (renderer->receiveShadow && cubeShadowCount != 0) {
             renderer->shaderData.enableMacro(CUBE_SHADOW_MAP_COUNT, std::make_pair(cubeShadowCount, MTL::DataTypeInt));
         }
+        
+        renderer->updateShaderData(_camera->viewMatrix(), _camera->projectionMatrix());
         renderer->shaderData.mergeMacro(macros, macros);
         
         auto material = element.material;

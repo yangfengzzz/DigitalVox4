@@ -218,7 +218,7 @@ public:
     
     uint32_t framebufferHeight() const;
     
-    void updateShaderData();
+    void update();
     
 public:
     void _onActive() override;

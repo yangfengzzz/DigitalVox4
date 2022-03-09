@@ -53,7 +53,6 @@ bool ForwardApplication::prepare(Engine &engine) {
 void ForwardApplication::update(float delta_time) {
     MetalApplication::update(delta_time);
     _scene->update(delta_time);
-    _scene->updateShaderData();
     
     auto commandBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::CommandBuffer, _commandQueue->commandBuffer());
     updateGPUTask(*commandBuffer);
