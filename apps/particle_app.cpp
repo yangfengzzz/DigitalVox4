@@ -26,7 +26,7 @@ bool ParticleApp::prepare(Engine &engine) {
     return true;
 }
 
-void ParticleApp::loadScene(uint32_t width, uint32_t height) {
+void ParticleApp::loadScene() {
     _scene->background.solidColor = Color(0, 0, 0, 1);
     auto rootEntity = _scene->createRootEntity();
     
@@ -34,7 +34,6 @@ void ParticleApp::loadScene(uint32_t width, uint32_t height) {
     cameraEntity->transform->setPosition(-30, 30, 30);
     cameraEntity->transform->lookAt(Point3F(0, 0, 0));
     _mainCamera = cameraEntity->addComponent<Camera>();
-    _mainCamera->resize(width, height);
     cameraEntity->addComponent<control::OrbitControl>();
     
     // init point light

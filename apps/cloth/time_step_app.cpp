@@ -85,7 +85,7 @@ void TimeStepApp::_initializeCloth(EntityPtr entity, int index, physx::PxVec3 of
     addClothToSolver(&_clothActor[index], _solver);
 }
 
-void TimeStepApp::loadScene(uint32_t width, uint32_t height) {
+void TimeStepApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();

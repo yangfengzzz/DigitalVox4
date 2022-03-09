@@ -12,14 +12,21 @@
 #include "direct_light.h"
 #include "shader/shader_data.h"
 #include <Metal/Metal.hpp>
+#include "singleton.h"
 
 namespace vox {
 /**
  * Light Manager.
  */
-class LightManager {
+class LightManager : public Singleton<LightManager> {
 public:
-    LightManager();
+    static LightManager &getSingleton(void);
+    
+    static LightManager *getSingletonPtr(void);
+    
+    LightManager(Scene* scene);
+    
+    void setCamera(Camera* camera);
     
     /**
      * Register a light object to the current scene.
@@ -66,9 +73,14 @@ public:
     const std::vector<DirectLight *> &directLights() const;
     
 public:
-    void updateShaderData(MTL::Device &device, ShaderData &shaderData);
+    bool enableForwardPlus() const;
+    
+    void draw(MTL::CommandBuffer& commandBuffer);
     
 private:
+    Scene* _scene{nullptr};
+    Camera* _camera{nullptr};
+    
     std::vector<PointLight *> _pointLights;
     std::vector<PointLightData> _pointLightDatas;
     std::shared_ptr<MTL::Buffer> _pointLightBuffer;
@@ -83,7 +95,14 @@ private:
     std::vector<DirectLightData> _directLightDatas;
     std::shared_ptr<MTL::Buffer> _directLightBuffer;
     ShaderProperty _directLightProperty;
+    
+    void _updateShaderData(MTL::Device &device, ShaderData &shaderData);
+
+private:
+    bool _enableForwardPlus{false};
 };
+
+template<> inline LightManager* Singleton<LightManager>::msSingleton{nullptr};
 
 }
 

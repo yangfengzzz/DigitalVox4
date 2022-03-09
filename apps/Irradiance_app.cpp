@@ -43,7 +43,7 @@ private:
     ShaderProperty _faceIndexProp = Shader::createProperty("u_faceIndex", ShaderDataGroup::Material);
 };
 
-void IrradianceApp::loadScene(uint32_t width, uint32_t height) {
+void IrradianceApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     Shader::create("cubemapDebugger", "vertex_cubemap", "fragment_cubemap");
     
@@ -51,7 +51,6 @@ void IrradianceApp::loadScene(uint32_t width, uint32_t height) {
     cameraEntity->transform->setPosition(0, 0, 10);
     cameraEntity->transform->lookAt(Point3F(0, 0, 0));
     _mainCamera = cameraEntity->addComponent<Camera>();
-    _mainCamera->resize(width, height);
     cameraEntity->addComponent<control::OrbitControl>();
     
     // Create Sphere

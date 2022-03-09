@@ -12,6 +12,7 @@
 #include "texture/texture_utils.h"
 #include "texture/sampled_texture2d.h"
 #include "texture/sampled_texturecube.h"
+#include "lighting/light_manager.h"
 
 namespace vox {
 uint32_t ShadowManager::_shadowCount = 0;
@@ -23,6 +24,15 @@ uint32_t ShadowManager::shadowCount() {
 
 uint32_t ShadowManager::cubeShadowCount() {
     return _cubeShadowCount;
+}
+
+ShadowManager *ShadowManager::getSingletonPtr(void) {
+    return msSingleton;
+}
+
+ShadowManager &ShadowManager::getSingleton(void) {
+    assert(msSingleton);
+    return (*msSingleton);
 }
 
 ShadowManager::ShadowManager(MTL::Library &library, Scene *scene, Camera *camera) :
@@ -112,7 +122,7 @@ void ShadowManager::draw(MTL::CommandBuffer &commandBuffer) {
 }
 
 void ShadowManager::_drawSpotShadowMap(MTL::CommandBuffer &commandBuffer) {
-    const auto &lights = _scene->light_manager.spotLights();
+    const auto &lights = LightManager::getSingleton().spotLights();
     for (const auto &light: lights) {
         if (light->enableShadow() && _shadowCount < MAX_SHADOW) {
             _updateSpotShadow(light, _shadowDatas[_shadowCount]);
@@ -143,7 +153,7 @@ void ShadowManager::_drawSpotShadowMap(MTL::CommandBuffer &commandBuffer) {
 }
 
 void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer &commandBuffer) {
-    const auto &lights = _scene->light_manager.directLights();
+    const auto &lights = LightManager::getSingleton().directLights();
     for (const auto &light: lights) {
         if (light->enableShadow() && _shadowCount < MAX_SHADOW) {
             _updateCascadesShadow(light, _shadowDatas[_shadowCount]);
@@ -182,7 +192,7 @@ void ShadowManager::_drawDirectShadowMap(MTL::CommandBuffer &commandBuffer) {
 }
 
 void ShadowManager::_drawPointShadowMap(MTL::CommandBuffer &commandBuffer) {
-    const auto &lights = _scene->light_manager.pointLights();
+    const auto &lights = LightManager::getSingleton().pointLights();
     for (const auto &light: lights) {
         if (light->enableShadow() && _cubeShadowCount < MAX_CUBE_SHADOW) {
             _updatePointShadow(light, _cubeShadowDatas[_cubeShadowCount]);

@@ -13,7 +13,7 @@ namespace vox {
 namespace cloth {
 class VirtualParticleApp : public ClothApplication {
 public:
-    void loadScene(uint32_t width, uint32_t height) override;
+    void loadScene() override;
     
     void update(float delta_time) override;
     

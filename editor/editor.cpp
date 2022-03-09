@@ -66,7 +66,7 @@ public:
 };
 } // namespace
 
-void Editor::loadScene(uint32_t width, uint32_t height) {
+void Editor::loadScene() {
     _gui = std::make_unique<GUI>(*_device);
     _scene->background.solidColor = Color(0.9, 0.9, 0.9, 1.0);
     _scene->ambientLight().setDiffuseSolidColor(Color(1, 1, 1));

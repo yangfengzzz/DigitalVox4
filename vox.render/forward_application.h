@@ -9,6 +9,7 @@
 
 #include "graphics_application.h"
 #include "shadow/shadow_manager.h"
+#include "lighting/light_manager.h"
 
 namespace vox {
 class ForwardApplication : public MetalApplication {
@@ -32,7 +33,9 @@ public:
     
     void inputEvent(const InputEvent &inputEvent) override;
     
-    virtual void loadScene(uint32_t width, uint32_t height) = 0;
+    virtual void loadScene() = 0;
+    
+    virtual void updateGPUTask(MTL::CommandBuffer& commandBuffer);
     
 protected:
     Camera *_mainCamera{nullptr};
@@ -50,6 +53,7 @@ protected:
     std::unique_ptr<RenderPass> _renderPass{nullptr};
     
     std::unique_ptr<ShadowManager> _shadowManager{nullptr};
+    std::unique_ptr<LightManager> _lightManager{nullptr};
 };
 
 }

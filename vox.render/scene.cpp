@@ -290,7 +290,6 @@ void Scene::_removeEntity(EntityPtr entity) {
 //MARK: - Update Loop
 void Scene::updateShaderData() {
     // union scene and camera macro.
-    light_manager.updateShaderData(_device, shaderData);
     for (auto &camera: _activeCameras) {
         camera->updateShaderData();
     }

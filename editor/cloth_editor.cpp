@@ -102,7 +102,7 @@ void ClothEditor::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
 }
 
 
-void ClothEditor::loadScene(uint32_t width, uint32_t height) {
+void ClothEditor::loadScene() {
     _gui = std::make_unique<GUI>(*_device);
     _scene->background.solidColor = Color(0.9, 0.9, 0.9, 1.0);
     _scene->ambientLight().setDiffuseSolidColor(Color(1, 1, 1));

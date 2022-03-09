@@ -76,7 +76,7 @@ void WindApp::_initializeCloth(EntityPtr entity, int index, physx::PxVec3 offset
     addClothToSolver(&_clothActor[index], _solver);
 }
 
-void WindApp::loadScene(uint32_t width, uint32_t height) {
+void WindApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();

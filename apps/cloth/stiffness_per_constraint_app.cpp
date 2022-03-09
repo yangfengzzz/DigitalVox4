@@ -82,7 +82,7 @@ void StiffnessPerConstraintApp::_initializeCloth(EntityPtr entity, physx::PxVec3
     addClothToSolver(&_clothActor, _solver);
 }
 
-void StiffnessPerConstraintApp::loadScene(uint32_t width, uint32_t height) {
+void StiffnessPerConstraintApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();

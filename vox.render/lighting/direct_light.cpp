@@ -6,6 +6,7 @@
 
 #include "direct_light.h"
 #include "scene.h"
+#include "light_manager.h"
 
 namespace vox {
 DirectLight::DirectLight(Entity *entity) :
@@ -13,11 +14,11 @@ Light(entity) {
 }
 
 void DirectLight::_onEnable() {
-    scene()->light_manager.attachDirectLight(this);
+    LightManager::getSingleton().attachDirectLight(this);
 }
 
 void DirectLight::_onDisable() {
-    scene()->light_manager.detachDirectLight(this);
+    LightManager::getSingleton().detachDirectLight(this);
 }
 
 void DirectLight::_updateShaderData(DirectLightData &shaderData) {

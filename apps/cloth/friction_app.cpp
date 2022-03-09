@@ -88,7 +88,7 @@ void FrictionApp::_initializeCloth(EntityPtr entity, int index, physx::PxVec3 of
     addClothToSolver(&_clothActor[index], _solver);
 }
 
-void FrictionApp::loadScene(uint32_t width, uint32_t height) {
+void FrictionApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();

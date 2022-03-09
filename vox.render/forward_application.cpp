@@ -19,10 +19,15 @@ bool ForwardApplication::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
     
     _scene = std::make_unique<Scene>(*_device);
-    
-    auto extent = engine.window().extent();
-    loadScene(extent.width, extent.height);
-    
+    _lightManager = std::make_unique<LightManager>(_scene.get());
+    {
+        loadScene();
+        auto extent = engine.window().extent();
+        auto factor = engine.window().contentScaleFactor();
+        _scene->updateSize(extent.width, extent.height, factor * extent.width, factor * extent.height);
+        _mainCamera->resize(extent.width, extent.height, factor * extent.width, factor * extent.height);
+    }
+    _lightManager->setCamera(_mainCamera);
     _shadowManager = std::make_unique<ShadowManager>(*_library, _scene.get(), _mainCamera);
     
     // Create a render pass descriptor for thelighting and composition pass
@@ -51,7 +56,7 @@ void ForwardApplication::update(float delta_time) {
     _scene->updateShaderData();
     
     auto commandBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::CommandBuffer, _commandQueue->commandBuffer());
-    _shadowManager->draw(*commandBuffer);
+    updateGPUTask(*commandBuffer);
     
     // The final pass can only render if a drawable is available, otherwise it needs to skip
     // rendering this frame.
@@ -68,11 +73,16 @@ void ForwardApplication::update(float delta_time) {
     commandBuffer->waitUntilCompleted();
 }
 
+void ForwardApplication::updateGPUTask(MTL::CommandBuffer& commandBuffer) {
+    _shadowManager->draw(commandBuffer);
+    _lightManager->draw(commandBuffer);
+}
+
 bool ForwardApplication::resize(uint32_t win_width, uint32_t win_height,
                                 uint32_t fb_width, uint32_t fb_height) {
     MetalApplication::resize(win_width, win_height, fb_width, fb_height);
     _scene->updateSize(win_width, win_height, fb_width, fb_height);
-    _mainCamera->resize(win_width, win_height);
+    _mainCamera->resize(win_width, win_height, fb_width, fb_height);
     return true;
 }
 

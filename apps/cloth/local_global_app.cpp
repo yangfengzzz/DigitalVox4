@@ -84,7 +84,7 @@ void LocalGlobalApp::_initializeCloth(EntityPtr entity, int index, physx::PxVec3
     addClothToSolver(&_clothActor[index], _solver[index]);
 }
 
-void LocalGlobalApp::loadScene(uint32_t width, uint32_t height) {
+void LocalGlobalApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();

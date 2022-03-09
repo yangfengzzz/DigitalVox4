@@ -88,7 +88,7 @@ void MultiSolverApp::_initializeCloth(EntityPtr entity, int index, physx::PxVec3
     addClothToSolver(&_clothActor[index], _solver[index]);
 }
 
-void MultiSolverApp::loadScene(uint32_t width, uint32_t height) {
+void MultiSolverApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();

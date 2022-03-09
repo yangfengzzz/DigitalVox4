@@ -1420,6 +1420,7 @@
 			children = (
 				04D75E7127CC4B7F00BB1519 /* metal_helpers.h */,
 				04459209278E5C8100F04CE0 /* std_helpers.h */,
+				0434BC4A27BF548A00026D1D /* singleton.h */,
 				04D75E3827CB8F6300BB1519 /* filesystem.h */,
 				04D75E3927CB8F6300BB1519 /* filesystem.cpp */,
 				0445921E278E5F1100F04CE0 /* timer.h */,
@@ -1489,7 +1490,6 @@
 				0445942E2793A5D800F04CE0 /* forward_application.cpp */,
 				04CD939D2799920C0093D6CB /* editor_application.h */,
 				04CD939C2799920C0093D6CB /* editor_application.cpp */,
-				0434BC4A27BF548A00026D1D /* singleton.h */,
 				0434BC5527BF7CF500026D1D /* debug_frame_manager.h */,
 				0434BC5427BF7CF500026D1D /* debug_frame_manager.cpp */,
 			);
@@ -2179,8 +2179,6 @@
 		04459706279819A300F04CE0 /* lighting */ = {
 			isa = PBXGroup;
 			children = (
-				0445971927981EF500F04CE0 /* light_manager.h */,
-				0445971827981EF500F04CE0 /* light_manager.cpp */,
 				04459709279819D000F04CE0 /* light.h */,
 				04459708279819D000F04CE0 /* light.cpp */,
 				0445970D27981C3A00F04CE0 /* point_light.h */,
@@ -2189,6 +2187,8 @@
 				0445971027981DF500F04CE0 /* spot_light.cpp */,
 				0445971527981E7D00F04CE0 /* direct_light.h */,
 				0445971427981E7D00F04CE0 /* direct_light.cpp */,
+				0445971927981EF500F04CE0 /* light_manager.h */,
+				0445971827981EF500F04CE0 /* light_manager.cpp */,
 				0445972027982C1100F04CE0 /* ambient_light.h */,
 				0445971F27982C1100F04CE0 /* ambient_light.cpp */,
 			);

@@ -74,7 +74,7 @@ void TetherApp::_initializeCloth(EntityPtr entity, int index, physx::PxVec3 offs
     addClothToSolver(&_clothActor[index], _solver);
 }
 
-void TetherApp::loadScene(uint32_t width, uint32_t height) {
+void TetherApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();

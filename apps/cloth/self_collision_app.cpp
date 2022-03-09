@@ -120,7 +120,7 @@ void SelfCollisionApp::_initializeCloth(EntityPtr entity, int index, physx::PxMa
     addClothToSolver(&_clothActor[index], _solver);
 }
 
-void SelfCollisionApp::loadScene(uint32_t width, uint32_t height) {
+void SelfCollisionApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();

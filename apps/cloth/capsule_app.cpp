@@ -83,7 +83,7 @@ void CapsuleApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset) {
     addClothToSolver(&_clothActor, _solver);
 }
 
-void CapsuleApp::loadScene(uint32_t width, uint32_t height) {
+void CapsuleApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();

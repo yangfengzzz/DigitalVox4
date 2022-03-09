@@ -11,10 +11,24 @@
 #include <glog/logging.h>
 
 namespace vox {
-LightManager::LightManager() :
+LightManager *LightManager::getSingletonPtr(void) {
+    return msSingleton;
+}
+
+LightManager &LightManager::getSingleton(void) {
+    assert(msSingleton);
+    return (*msSingleton);
+}
+
+LightManager::LightManager(Scene* scene) :
+_scene(scene),
 _pointLightProperty(Shader::createProperty("u_pointLight", ShaderDataGroup::Scene)),
 _spotLightProperty(Shader::createProperty("u_spotLight", ShaderDataGroup::Scene)),
 _directLightProperty(Shader::createProperty("u_directLight", ShaderDataGroup::Scene)) {
+}
+
+void LightManager::setCamera(Camera* camera) {
+    _camera = camera;
 }
 
 //MARK: - Point Light
@@ -81,7 +95,7 @@ const std::vector<DirectLight *> &LightManager::directLights() const {
 }
 
 //MARK: - Internal Uploader
-void LightManager::updateShaderData(MTL::Device &device, ShaderData &shaderData) {
+void LightManager::_updateShaderData(MTL::Device &device, ShaderData &shaderData) {
     size_t pointLightCount = _pointLights.size();
     _pointLightDatas.resize(pointLightCount);
     size_t spotLightCount = _spotLights.size();
@@ -150,5 +164,13 @@ void LightManager::updateShaderData(MTL::Device &device, ShaderData &shaderData)
     }
 }
 
+//MARK: - Forward Plus
+bool LightManager::enableForwardPlus() const {
+    return _enableForwardPlus;
+}
+
+void LightManager::draw(MTL::CommandBuffer& commandBuffer) {
+    _updateShaderData(_scene->device(), _scene->shaderData);
+}
 
 }

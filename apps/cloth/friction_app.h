@@ -13,7 +13,7 @@ namespace vox {
 namespace cloth {
 class FrictionApp : public ClothApplication {
 public:
-    void loadScene(uint32_t width, uint32_t height) override;
+    void loadScene() override;
     
 private:
     void _initializeCloth(EntityPtr entity, int index, physx::PxVec3 offset, float frictionCoef);

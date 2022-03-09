@@ -91,7 +91,7 @@ void ConvexCollisionApp::_initializeCloth(EntityPtr entity, physx::PxVec3 offset
     addClothToSolver(&_clothActor, _solver);
 }
 
-void ConvexCollisionApp::loadScene(uint32_t width, uint32_t height) {
+void ConvexCollisionApp::loadScene() {
     auto rootEntity = _scene->createRootEntity();
     
     auto cameraEntity = rootEntity->createChild();
