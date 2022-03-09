@@ -26,6 +26,7 @@
 #include "omni_shadowmap_app.h"
 
 #include "atomic_compute.h"
+#include "cluster_forward_app.h"
 #include "particle_app.h"
 
 int main(int argc, char *argv[]) {
@@ -33,7 +34,7 @@ int main(int argc, char *argv[]) {
     
     auto code = engine.initialize();
     if (code == vox::ExitCode::Success) {
-        engine.setApp(std::make_unique<vox::AtomicComputeApp>());
+        engine.setApp(std::make_unique<vox::PhysXDynamicApp>());
         code = engine.mainLoop();
     }
     
