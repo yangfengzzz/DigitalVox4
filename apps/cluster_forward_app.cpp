@@ -19,7 +19,7 @@ void ClusterForwardApp::loadScene() {
     _scene->ambientLight().setDiffuseSolidColor(Color(1, 1, 1));
     
     auto rootEntity = _scene->createRootEntity();
-    rootEntity->addComponent<SpriteDebug>();
+    // rootEntity->addComponent<SpriteDebug>();
     
     auto cameraEntity = rootEntity->createChild("camera");
     cameraEntity->transform->setPosition(10, 10, 10);

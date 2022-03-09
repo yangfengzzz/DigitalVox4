@@ -48,8 +48,8 @@ float4 screen2View(float4 projection, matrix_float4x4 inverseMatrix, float4 scre
 }
 
 constant float3 eyePos = float3(0.0, 0.0, 0.0);
-kernel void cluster_bounds(device float4& u_cluster_uniform [[buffer(0)]],
-                           device matrix_float4x4& u_projInvMat [[buffer(1)]],
+kernel void cluster_bounds(constant float4& u_cluster_uniform [[buffer(0)]],
+                           constant matrix_float4x4& u_projInvMat [[buffer(1)]],
                            device Clusters& u_clusters [[buffer(2)]],
                            uint3 global_id [[ thread_position_in_grid ]]) {
     uint32_t tileIndex = global_id.x +
@@ -99,8 +99,8 @@ float sqDistPointAABB(float3 point, float3 minAABB, float3 maxAABB) {
     return sqDist;
 }
 
-kernel void cluster_light(device matrix_float4x4& u_projInvMat [[buffer(0)]],
-                          device matrix_float4x4& u_viewMat [[buffer(1)]],
+kernel void cluster_light(constant matrix_float4x4& u_projInvMat [[buffer(0)]],
+                          constant matrix_float4x4& u_viewMat [[buffer(1)]],
                           device Clusters& u_clusters [[buffer(2)]],
                           device ClusterLightGroup& u_clusterLights [[buffer(3)]],
                           device PointLightData *u_pointLight [[buffer(4), function_constant(hasPointLight)]],

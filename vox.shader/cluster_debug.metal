@@ -13,7 +13,7 @@ typedef struct {
 } VertexOut;
 
 fragment float4 fragment_cluster_debug(VertexOut in [[stage_in]],
-                                       device float4& u_cluster_uniform [[buffer(5)]],
+                                       constant float4& u_cluster_uniform [[buffer(5)]],
                                        device ClusterLightGroup& u_clusterLights [[buffer(6)]]) {
     uint32_t clusterIndex = getClusterIndex(u_cluster_uniform, in.position);
     uint32_t lightCount = u_clusterLights.lights[clusterIndex].point_count + u_clusterLights.lights[clusterIndex].spot_count;
