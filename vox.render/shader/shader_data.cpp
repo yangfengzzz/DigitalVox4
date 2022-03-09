@@ -8,23 +8,46 @@
 #include "shader.h"
 
 namespace vox {
-std::any ShaderData::getData(const std::string &property_name) const {
+std::optional<std::any> ShaderData::getData(const std::string &property_name) const {
     auto property = Shader::getPropertyByName(property_name);
     if (property.has_value()) {
         return getData(property.value());
     } else {
-        assert(false && "can't find property");
-        throw std::exception();
+        return std::nullopt;
     }
 }
 
-std::any ShaderData::getData(const ShaderProperty &property) const {
-    auto iter = _properties.find(property.uniqueId);
+std::optional<std::any> ShaderData::getData(const ShaderProperty &property) const {
+    return getData(property.uniqueId);
+}
+
+std::optional<std::any> ShaderData::getData(uint32_t uniqueID) const {
+    auto iter = _properties.find(uniqueID);
     if (iter != _properties.end()) {
         return iter->second;
-    } else {
-        return std::nullopt;
     }
+    
+    auto functorIter = _shaderBufferFunctors.find(uniqueID);
+    if (functorIter != _shaderBufferFunctors.end()) {
+        return functorIter->second();
+    }
+    
+    return std::nullopt;
+}
+
+void ShaderData::setBufferFunctor(const std::string &property_name,
+                                  std::function<std::shared_ptr<MTL::Buffer>()> functor) {
+    auto property = Shader::getPropertyByName(property_name);
+    if (property.has_value()) {
+        setBufferFunctor(property.value(), functor);
+    } else {
+        assert(false && "can't find property");
+    }
+}
+
+void ShaderData::setBufferFunctor(ShaderProperty property,
+                                  std::function<std::shared_ptr<MTL::Buffer>()> functor) {
+    _shaderBufferFunctors.insert(std::make_pair(property.uniqueId, functor));
 }
 
 void ShaderData::setData(const std::string &property_name, std::any value) {
@@ -46,10 +69,6 @@ void ShaderData::setSampledTexure(const std::string &property, const SampledText
 
 void ShaderData::setSampledTexure(ShaderProperty property, const SampledTexturePtr &value) {
     setData(property, value);
-}
-
-const std::unordered_map<int, std::any> &ShaderData::properties() const {
-    return _properties;
 }
 
 //MARK: - Macro

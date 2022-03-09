@@ -30,7 +30,7 @@ public:
     
     /// Tiling and offset of main textures.
     int faceIndex() {
-        return std::any_cast<uint>(shaderData.getData(_faceIndexProp));
+        return std::any_cast<uint>(shaderData.getData(_faceIndexProp).value());
     }
     
     void setFaceInex(int newValue) {

@@ -20,9 +20,17 @@ namespace vox {
  */
 class ShaderData {
 public:
-    std::any getData(const std::string &property_name) const;
+    std::optional<std::any> getData(const std::string &property_name) const;
     
-    std::any getData(const ShaderProperty &property) const;
+    std::optional<std::any> getData(const ShaderProperty &property) const;
+    
+    std::optional<std::any> getData(uint32_t uniqueID) const;
+    
+    void setBufferFunctor(const std::string &property_name,
+                          std::function<std::shared_ptr<MTL::Buffer>()> functor);
+    
+    void setBufferFunctor(ShaderProperty property,
+                          std::function<std::shared_ptr<MTL::Buffer>()> functor);
     
     void setData(const std::string &property, std::any value);
     
@@ -31,9 +39,7 @@ public:
     void setSampledTexure(const std::string &property, const SampledTexturePtr &value);
     
     void setSampledTexure(ShaderProperty property, const SampledTexturePtr &value);
-    
-    const std::unordered_map<int, std::any> &properties() const;
-    
+        
 public:
     /**
      * Enable macro.
@@ -60,6 +66,7 @@ public:
     
 private:
     std::unordered_map<int, std::any> _properties;
+    std::unordered_map<uint32_t, std::function<std::shared_ptr<MTL::Buffer>()>> _shaderBufferFunctors{};
     ShaderMacroCollection _macroCollection;
 };
 

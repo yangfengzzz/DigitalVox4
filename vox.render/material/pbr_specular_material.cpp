@@ -7,7 +7,7 @@
 
 namespace vox {
 Color PBRSpecularMaterial::specularColor() const {
-    return std::any_cast<Color>(shaderData.getData(PBRSpecularMaterial::_specularColorProp));
+    return std::any_cast<Color>(shaderData.getData(PBRSpecularMaterial::_specularColorProp).value());
 }
 
 void PBRSpecularMaterial::setSpecularColor(const Color &newValue) {
@@ -15,7 +15,7 @@ void PBRSpecularMaterial::setSpecularColor(const Color &newValue) {
 }
 
 float PBRSpecularMaterial::glossiness() const {
-    return std::any_cast<float>(shaderData.getData(PBRSpecularMaterial::_glossinessProp));
+    return std::any_cast<float>(shaderData.getData(PBRSpecularMaterial::_glossinessProp).value());
 }
 
 void PBRSpecularMaterial::setGlossiness(float newValue) {
@@ -23,7 +23,7 @@ void PBRSpecularMaterial::setGlossiness(float newValue) {
 }
 
 SampledTexture2DPtr PBRSpecularMaterial::specularGlossinessTexture() const {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRSpecularMaterial::_specularGlossinessTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRSpecularMaterial::_specularGlossinessTextureProp).value());
 }
 
 void PBRSpecularMaterial::setSpecularGlossinessTexture(const SampledTexture2DPtr &newValue) {

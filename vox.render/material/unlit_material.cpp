@@ -8,7 +8,7 @@
 
 namespace vox {
 Color UnlitMaterial::baseColor() const {
-    return std::any_cast<Color>(shaderData.getData(_baseColorProp));
+    return std::any_cast<Color>(shaderData.getData(_baseColorProp).value());
 }
 
 void UnlitMaterial::setBaseColor(const Color &newValue) {
@@ -16,7 +16,7 @@ void UnlitMaterial::setBaseColor(const Color &newValue) {
 }
 
 SampledTexture2DPtr UnlitMaterial::baseTexture() const {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(_baseTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(_baseTextureProp).value());
 }
 
 void UnlitMaterial::setBaseTexture(const SampledTexture2DPtr &newValue) {
@@ -30,7 +30,7 @@ void UnlitMaterial::setBaseTexture(const SampledTexture2DPtr &newValue) {
 }
 
 Vector4F UnlitMaterial::tilingOffset() const {
-    return std::any_cast<Vector4F>(shaderData.getData(_tilingOffsetProp));
+    return std::any_cast<Vector4F>(shaderData.getData(_tilingOffsetProp).value());
 }
 
 void UnlitMaterial::setTilingOffset(const Vector4F &newValue) {

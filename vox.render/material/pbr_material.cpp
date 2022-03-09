@@ -8,7 +8,7 @@
 
 namespace vox {
 float PBRMaterial::metallic() const {
-    return std::any_cast<float>(shaderData.getData(PBRMaterial::_metallicProp));
+    return std::any_cast<float>(shaderData.getData(PBRMaterial::_metallicProp).value());
 }
 
 void PBRMaterial::setMetallic(float newValue) {
@@ -16,7 +16,7 @@ void PBRMaterial::setMetallic(float newValue) {
 }
 
 float PBRMaterial::roughness() const {
-    return std::any_cast<float>(shaderData.getData(PBRMaterial::_roughnessProp));
+    return std::any_cast<float>(shaderData.getData(PBRMaterial::_roughnessProp).value());
 }
 
 void PBRMaterial::setRoughness(float newValue) {
@@ -24,7 +24,7 @@ void PBRMaterial::setRoughness(float newValue) {
 }
 
 SampledTexture2DPtr PBRMaterial::metallicRoughnessTexture() {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRMaterial::_metallicRoughnessTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRMaterial::_metallicRoughnessTextureProp).value());
 }
 
 void PBRMaterial::setMetallicRoughnessTexture(const SampledTexture2DPtr &newValue) {

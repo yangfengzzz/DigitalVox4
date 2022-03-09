@@ -8,7 +8,7 @@
 
 namespace vox {
 Color BlinnPhongMaterial::baseColor() const {
-    return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_diffuseColorProp));
+    return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_diffuseColorProp).value());
 }
 
 void BlinnPhongMaterial::setBaseColor(const Color &newValue) {
@@ -16,7 +16,7 @@ void BlinnPhongMaterial::setBaseColor(const Color &newValue) {
 }
 
 SampledTexture2DPtr BlinnPhongMaterial::baseTexture() const {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_baseTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_baseTextureProp).value());
 }
 
 void BlinnPhongMaterial::setBaseTexture(const SampledTexture2DPtr &newValue) {
@@ -29,7 +29,7 @@ void BlinnPhongMaterial::setBaseTexture(const SampledTexture2DPtr &newValue) {
 }
 
 Color BlinnPhongMaterial::specularColor() const {
-    return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_specularColorProp));
+    return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_specularColorProp).value());
 }
 
 void BlinnPhongMaterial::setSpecularColor(const Color &newValue) {
@@ -37,7 +37,7 @@ void BlinnPhongMaterial::setSpecularColor(const Color &newValue) {
 }
 
 SampledTexture2DPtr BlinnPhongMaterial::specularTexture() const {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_specularTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_specularTextureProp).value());
 }
 
 void BlinnPhongMaterial::setSpecularTexture(const SampledTexture2DPtr &newValue) {
@@ -50,7 +50,7 @@ void BlinnPhongMaterial::setSpecularTexture(const SampledTexture2DPtr &newValue)
 }
 
 Color BlinnPhongMaterial::emissiveColor() const {
-    return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_emissiveColorProp));
+    return std::any_cast<Color>(shaderData.getData(BlinnPhongMaterial::_emissiveColorProp).value());
 }
 
 void BlinnPhongMaterial::setEmissiveColor(const Color &newValue) {
@@ -58,7 +58,7 @@ void BlinnPhongMaterial::setEmissiveColor(const Color &newValue) {
 }
 
 SampledTexture2DPtr BlinnPhongMaterial::emissiveTexture() const {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_emissiveTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_emissiveTextureProp).value());
 }
 
 void BlinnPhongMaterial::BlinnPhongMaterial::setEmissiveTexture(const SampledTexture2DPtr &newValue) {
@@ -71,7 +71,7 @@ void BlinnPhongMaterial::BlinnPhongMaterial::setEmissiveTexture(const SampledTex
 }
 
 SampledTexture2DPtr BlinnPhongMaterial::normalTexture() const {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_normalTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(BlinnPhongMaterial::_normalTextureProp).value());
 }
 
 void BlinnPhongMaterial::setNormalTexture(const SampledTexture2DPtr &newValue) {
@@ -84,7 +84,7 @@ void BlinnPhongMaterial::setNormalTexture(const SampledTexture2DPtr &newValue) {
 }
 
 float BlinnPhongMaterial::normalIntensity() const {
-    return std::any_cast<float>(shaderData.getData(BlinnPhongMaterial::_normalIntensityProp));
+    return std::any_cast<float>(shaderData.getData(BlinnPhongMaterial::_normalIntensityProp).value());
 }
 
 void BlinnPhongMaterial::setNormalIntensity(float newValue) {
@@ -92,7 +92,7 @@ void BlinnPhongMaterial::setNormalIntensity(float newValue) {
 }
 
 float BlinnPhongMaterial::shininess() const {
-    return std::any_cast<float>(shaderData.getData(BlinnPhongMaterial::_shininessProp));
+    return std::any_cast<float>(shaderData.getData(BlinnPhongMaterial::_shininessProp).value());
 }
 
 void BlinnPhongMaterial::setShininess(float newValue) {
@@ -100,7 +100,7 @@ void BlinnPhongMaterial::setShininess(float newValue) {
 }
 
 Vector4F BlinnPhongMaterial::tilingOffset() const {
-    return std::any_cast<Vector4F>(shaderData.getData(BlinnPhongMaterial::_tilingOffsetProp));
+    return std::any_cast<Vector4F>(shaderData.getData(BlinnPhongMaterial::_tilingOffsetProp).value());
 }
 
 void BlinnPhongMaterial::setTilingOffset(const Vector4F &newValue) {

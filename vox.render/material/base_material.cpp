@@ -33,7 +33,7 @@ void BaseMaterial::setIsTransparent(bool newValue) {
 }
 
 float BaseMaterial::alphaCutoff() const {
-    return std::any_cast<float>(shaderData.getData(BaseMaterial::_alphaCutoffProp));
+    return std::any_cast<float>(shaderData.getData(BaseMaterial::_alphaCutoffProp).value());
 }
 
 void BaseMaterial::setAlphaCutoff(float newValue) {

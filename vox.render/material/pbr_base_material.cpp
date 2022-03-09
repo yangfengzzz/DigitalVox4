@@ -8,7 +8,7 @@
 
 namespace vox {
 Color PBRBaseMaterial::baseColor() const {
-    return std::any_cast<Color>(shaderData.getData(PBRBaseMaterial::_baseColorProp));
+    return std::any_cast<Color>(shaderData.getData(PBRBaseMaterial::_baseColorProp).value());
 }
 
 void PBRBaseMaterial::setBaseColor(const Color &newValue) {
@@ -16,7 +16,7 @@ void PBRBaseMaterial::setBaseColor(const Color &newValue) {
 }
 
 SampledTexture2DPtr PBRBaseMaterial::baseTexture() const {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_baseTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_baseTextureProp).value());
 }
 
 void PBRBaseMaterial::setBaseTexture(const SampledTexture2DPtr &newValue) {
@@ -29,7 +29,7 @@ void PBRBaseMaterial::setBaseTexture(const SampledTexture2DPtr &newValue) {
 }
 
 SampledTexture2DPtr PBRBaseMaterial::normalTexture() const {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_normalTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_normalTextureProp).value());
 }
 
 void PBRBaseMaterial::setNormalTexture(const SampledTexture2DPtr &newValue) {
@@ -42,7 +42,7 @@ void PBRBaseMaterial::setNormalTexture(const SampledTexture2DPtr &newValue) {
 }
 
 float PBRBaseMaterial::normalTextureIntensity() const {
-    return std::any_cast<float>(shaderData.getData(PBRBaseMaterial::_normalTextureIntensityProp));
+    return std::any_cast<float>(shaderData.getData(PBRBaseMaterial::_normalTextureIntensityProp).value());
 }
 
 void PBRBaseMaterial::setNormalTextureIntensity(float newValue) {
@@ -50,7 +50,7 @@ void PBRBaseMaterial::setNormalTextureIntensity(float newValue) {
 }
 
 Color PBRBaseMaterial::emissiveColor() const {
-    return std::any_cast<Color>(shaderData.getData(PBRBaseMaterial::_emissiveColorProp));
+    return std::any_cast<Color>(shaderData.getData(PBRBaseMaterial::_emissiveColorProp).value());
 }
 
 void PBRBaseMaterial::setEmissiveColor(const Color &newValue) {
@@ -58,7 +58,7 @@ void PBRBaseMaterial::setEmissiveColor(const Color &newValue) {
 }
 
 SampledTexture2DPtr PBRBaseMaterial::emissiveTexture() const {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_emissiveTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_emissiveTextureProp).value());
 }
 
 void PBRBaseMaterial::setEmissiveTexture(const SampledTexture2DPtr &newValue) {
@@ -71,7 +71,7 @@ void PBRBaseMaterial::setEmissiveTexture(const SampledTexture2DPtr &newValue) {
 }
 
 SampledTexture2DPtr PBRBaseMaterial::occlusionTexture() const {
-    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_occlusionTextureProp));
+    return std::any_cast<SampledTexture2DPtr>(shaderData.getData(PBRBaseMaterial::_occlusionTextureProp).value());
 }
 
 void PBRBaseMaterial::setOcclusionTexture(const SampledTexture2DPtr &newValue) {
@@ -84,7 +84,7 @@ void PBRBaseMaterial::setOcclusionTexture(const SampledTexture2DPtr &newValue) {
 }
 
 float PBRBaseMaterial::occlusionTextureIntensity() const {
-    return std::any_cast<float>(shaderData.getData(PBRBaseMaterial::_occlusionTextureIntensityProp));
+    return std::any_cast<float>(shaderData.getData(PBRBaseMaterial::_occlusionTextureIntensityProp).value());
 }
 
 void PBRBaseMaterial::setOcclusionTextureIntensity(float newValue) {
@@ -92,7 +92,7 @@ void PBRBaseMaterial::setOcclusionTextureIntensity(float newValue) {
 }
 
 Vector4F PBRBaseMaterial::tilingOffset() const {
-    return std::any_cast<Vector4F>(shaderData.getData(PBRBaseMaterial::_tilingOffsetProp));
+    return std::any_cast<Vector4F>(shaderData.getData(PBRBaseMaterial::_tilingOffsetProp).value());
 }
 
 void PBRBaseMaterial::setTilingOffset(const Vector4F &newValue) {

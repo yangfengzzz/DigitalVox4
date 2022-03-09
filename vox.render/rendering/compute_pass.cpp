@@ -85,13 +85,11 @@ void ComputePass::compute(MTL::ComputeCommandEncoder &commandEncoder) {
 void ComputePass::uploadUniforms(MTL::ComputeCommandEncoder &commandEncoder,
                                  const std::vector<ShaderUniform> &uniformBlock,
                                  const ShaderData &shaderData) {
-    const auto &properties = shaderData.properties();
-    
     for (size_t i = 0; i < uniformBlock.size(); i++) {
         const auto &uniform = uniformBlock[i];
-        auto iter = properties.find(uniform.propertyId);
-        if (iter != properties.end()) {
-            process(uniform, iter->second, commandEncoder);
+        auto data = shaderData.getData(uniform.propertyId);
+        if (data) {
+            process(uniform, data.value(), commandEncoder);
         }
     }
 }
