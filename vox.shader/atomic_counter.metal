@@ -18,9 +18,9 @@ fragment float4 fragment_atomic(VertexOut in [[stage_in]],
     return float4(atomic/255.0, 1 - atomic/255.0, atomic/255.0, 1.0);
 }
 
-kernel void atomicCounter(device atomic_uint* counter[[buffer(0)]],
+kernel void atomicCounter(device atomic_uint* u_atomic[[buffer(0)]],
                           uint3 position [[ thread_position_in_grid ]]) {
 //    atomic_store_explicit(counter, 0, memory_order::memory_order_relaxed);
 //    threadgroup_barrier(mem_flags::mem_device);
-    atomic_fetch_add_explicit(counter, 1, memory_order::memory_order_relaxed);
+    atomic_fetch_add_explicit(u_atomic, 1, memory_order::memory_order_relaxed);
 }

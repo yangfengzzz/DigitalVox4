@@ -65,7 +65,7 @@ public:
                     ShaderMacroCollection &result) const;
     
 private:
-    std::unordered_map<int, std::any> _properties;
+    std::unordered_map<int, std::any> _properties{};
     std::unordered_map<uint32_t, std::function<std::shared_ptr<MTL::Buffer>()>> _shaderBufferFunctors{};
     ShaderMacroCollection _macroCollection;
 };
