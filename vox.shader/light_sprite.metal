@@ -34,7 +34,7 @@ vertex VertexOutput vertex_point_light_sprite(constant matrix_float4x4 &u_viewMa
     float3 worldPos = float3(output.localPos, 0.0) * u_pointLight[instanceIndex].distance * 0.025;
     
     // Generate a billboarded model view matrix
-    matrix_float4x4 bbModelViewMatrix;
+    matrix_float4x4 bbModelViewMatrix = matrix_float4x4(1.0);
     bbModelViewMatrix[3] = float4(u_pointLight[instanceIndex].position, 1.0);
     bbModelViewMatrix = u_viewMat * bbModelViewMatrix;
     bbModelViewMatrix[0][0] = 1.0;
@@ -87,7 +87,6 @@ vertex VertexOutput vertex_spot_light_sprite(constant matrix_float4x4 &u_viewMat
 fragment float4 fragment_light_sprite(VertexOutput input [[ stage_in ]]) {
     float distToCenter = length(input.localPos);
     float fade = (1.0 - distToCenter) * (1.0 / (distToCenter * distToCenter));
-    return float4(1.0, 0, 0, 1);
-//    return float4(input.color * fade, fade);
+    return float4(input.color * fade, fade);
 }
 
