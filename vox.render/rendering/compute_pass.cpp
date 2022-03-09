@@ -6,12 +6,16 @@
 
 #include "compute_pass.h"
 #include <glog/logging.h>
+#include "metal_helpers.h"
 
 namespace vox {
-ComputePass::ComputePass(MTL::Library &library, Scene *scene) :
+ComputePass::ComputePass(MTL::Library &library, Scene *scene, const std::string& kernel) :
 _library(library),
 _scene(scene),
+_kernel(kernel),
 _resourceCache(library.device()) {
+    _pipelineDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::ComputePipelineDescriptor,
+                                                     MTL::ComputePipelineDescriptor::alloc()->init());
 }
 
 ResourceCache &ComputePass::resourceCache() {
@@ -64,7 +68,7 @@ void ComputePass::compute(MTL::ComputeCommandEncoder &commandEncoder) {
         shaderData->mergeMacro(compileMacros, compileMacros);
     }
     
-    auto function = _resourceCache.requestFunction(_library, "particle_emission", compileMacros);
+    auto function = _resourceCache.requestFunction(_library, _kernel, compileMacros);
     _pipelineDescriptor->setComputeFunction(function);
     auto pipelineState = _resourceCache.requestPipelineState(*_pipelineDescriptor);
     for (auto& shaderData : _data) {

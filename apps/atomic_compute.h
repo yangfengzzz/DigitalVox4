@@ -8,6 +8,7 @@
 #define compute_hpp
 
 #include "forward_application.h"
+#include "rendering/compute_pass.h"
 
 namespace vox {
 class AtomicComputeApp : public ForwardApplication {
@@ -16,8 +17,11 @@ public:
 
     void loadScene() override;
     
+    void updateGPUTask(MTL::CommandBuffer& commandBuffer) override;
+    
 private:
     std::shared_ptr<Material> _material{nullptr};
+    std::unique_ptr<ComputePass> _pass{nullptr};
 };
 }
 

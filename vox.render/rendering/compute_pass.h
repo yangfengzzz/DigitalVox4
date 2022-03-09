@@ -13,7 +13,8 @@
 namespace vox {
 class ComputePass {
 public:    
-    ComputePass(MTL::Library &library, Scene *scene);
+    ComputePass(MTL::Library &library, Scene *scene,
+                const std::string& kernel);
     
     ComputePass(const ComputePass &) = delete;
     
@@ -38,10 +39,6 @@ public:
                            uint32_t threadsPerGridY = 1,
                            uint32_t threadsPerGridZ = 1);
     
-    void setThreadsPerThreadgroup(uint32_t threadsPerThreadgroupX,
-                                  uint32_t threadsPerThreadgroupY = 1,
-                                  uint32_t threadsPerThreadgroupZ = 1);
-    
     void attachShaderData(ShaderData* data);
     
     void detachShaderData(ShaderData* data);
@@ -55,6 +52,7 @@ public:
 protected:
     MTL::Library &_library;
     Scene *_scene{nullptr};
+    std::string _kernel;
     
     uint32_t _threadsPerGridX = 1;
     uint32_t _threadsPerGridY = 1;

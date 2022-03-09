@@ -33,9 +33,7 @@ public:
     MTL::IndexType indexType() const;
     
     NS::UInteger indexCount() const;
-    
-    void setIndexCount(NS::UInteger count);
-    
+        
     const std::shared_ptr<MTL::Buffer> &indexBuffer() const;
     
 private:

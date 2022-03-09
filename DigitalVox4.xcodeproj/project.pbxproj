@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0400D25B27D85AAA0018FB52 /* shadow_debug_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0400D25927D85AAA0018FB52 /* shadow_debug_material.cpp */; };
 		0400D25C27D85AAA0018FB52 /* shadow_debug_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 0400D25A27D85AAA0018FB52 /* shadow_debug_material.h */; };
+		0400D25F27D870900018FB52 /* atomic_compute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D75FEE27D04FDF00BB1519 /* atomic_compute.cpp */; };
 		04229696278D71760090983F /* surface3.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229692278D71760090983F /* surface3.h */; };
 		04229697278D71760090983F /* surface2.h in Headers */ = {isa = PBXBuildFile; fileRef = 04229693278D71760090983F /* surface2.h */; };
 		0434BC4F27BF56DD00026D1D /* cloth_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0434BC4627BF4F7100026D1D /* cloth_ui.cpp */; };
@@ -3131,6 +3132,7 @@
 				04D75F9627CDA2AA00BB1519 /* skybox_app.cpp in Sources */,
 				04D75F3927CCCCEE00BB1519 /* physx_app.cpp in Sources */,
 				04D75F3A27CCCD1600BB1519 /* physx_dynamic_app.cpp in Sources */,
+				0400D25F27D870900018FB52 /* atomic_compute.cpp in Sources */,
 				04D75F9C27CDB85100BB1519 /* Irradiance_app.cpp in Sources */,
 				04D75F3B27CCCD9100BB1519 /* pbr_app.cpp in Sources */,
 				04D75F1D27CCA28200BB1519 /* primitive_app.cpp in Sources */,

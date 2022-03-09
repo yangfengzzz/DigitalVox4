@@ -17,8 +17,4 @@ _indexCount(indexCount), _indexBuffer(indexBuffer) {
     
 }
 
-void SubMesh::setIndexCount(NS::UInteger count) {
-    _indexCount = count;
-}
-
 }

@@ -13,7 +13,6 @@
 #include "camera.h"
 #include "controls/orbit_control.h"
 #include "image/stb.h"
-#include "rendering/compute_subpass.h"
 #include "metal_helpers.h"
 
 namespace vox {
@@ -32,53 +31,14 @@ public:
     }
 };
 
-class AtomicComputeSubpass: public ComputeSubpass {
-private:
-    std::shared_ptr<MTL::Function> _atomicCompute{nullptr};
-    std::shared_ptr<MTL::ComputePipelineState> _state{nullptr};
-    std::shared_ptr<MTL::Buffer> _atomicBuffer{nullptr};
-    
-    AtomicMaterial* _material{nullptr};
-    
-public:
-    AtomicComputeSubpass(RenderContext *context,
-                         Scene *scene,
-                         Camera *camera):
-    ComputeSubpass(context, scene, camera) {
-    }
-    
-    void setAtomicMaterial(AtomicMaterial* mat) {
-        _material = mat;
-    }
-    
-    void prepare() override {
-        _atomicCompute =
-        CLONE_METAL_CUSTOM_DELETER(MTL::Function,
-                                   _pass->library().newFunction(NS::String::string("atomicCounter",
-                                                                                   NS::StringEncoding::UTF8StringEncoding)));
-        NS::Error* error;
-        _state = CLONE_METAL_CUSTOM_DELETER(MTL::ComputePipelineState,
-                                            _context->device().newComputePipelineState(_atomicCompute.get(), &error))
-        
-        _atomicBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _context->device().newBuffer(sizeof(uint32_t), MTL::ResourceOptionCPUCacheModeDefault));
-        _material->setAtomicBuffer(_atomicBuffer);
-    }
-    
-    void compute(MTL::ComputeCommandEncoder &commandEncoder) override {
-        commandEncoder.setComputePipelineState(_state.get());
-        commandEncoder.setBuffer(_atomicBuffer.get(), 0, 0);
-        commandEncoder.dispatchThreadgroups(MTL::Size(2,2,2), MTL::Size(1,1,1));
-    }
-};
-
 } // namespace
 
 bool AtomicComputeApp::prepare(Engine &engine) {
     ForwardApplication::prepare(engine);
     
-    auto subpass = std::make_unique<AtomicComputeSubpass>(_renderContext.get(), _scene.get(), _mainCamera);
-    subpass->setAtomicMaterial(static_cast<AtomicMaterial*>(_material.get()));
-    _renderPass->addSubpass(std::move(subpass));
+    _pass = std::make_unique<ComputePass>(*_library, _scene.get(), "atomicCounter");
+    _pass->setThreadsPerGrid(2, 2, 2);
+    _pass->attachShaderData(&_material->shaderData);
     
     return true;
 }
@@ -107,4 +67,52 @@ void AtomicComputeApp::loadScene() {
     renderer->setMaterial(_material);
 }
 
+void AtomicComputeApp::updateGPUTask(MTL::CommandBuffer& commandBuffer) {
+    ForwardApplication::updateGPUTask(commandBuffer);
+    
+    auto encoder = CLONE_METAL_CUSTOM_DELETER(MTL::ComputeCommandEncoder, commandBuffer.computeCommandEncoder());
+    _pass->compute(*encoder);
+    encoder->endEncoding();
 }
+
+}
+
+
+//class AtomicComputeSubpass: public ComputeSubpass {
+//private:
+//    std::shared_ptr<MTL::Function> _atomicCompute{nullptr};
+//    std::shared_ptr<MTL::ComputePipelineState> _state{nullptr};
+//    std::shared_ptr<MTL::Buffer> _atomicBuffer{nullptr};
+//
+//    AtomicMaterial* _material{nullptr};
+//
+//public:
+//    AtomicComputeSubpass(RenderContext *context,
+//                         Scene *scene,
+//                         Camera *camera):
+//    ComputeSubpass(context, scene, camera) {
+//    }
+//
+//    void setAtomicMaterial(AtomicMaterial* mat) {
+//        _material = mat;
+//    }
+//
+//    void prepare() override {
+//        _atomicCompute =
+//        CLONE_METAL_CUSTOM_DELETER(MTL::Function,
+//                                   _pass->library().newFunction(NS::String::string("atomicCounter",
+//                                                                                   NS::StringEncoding::UTF8StringEncoding)));
+//        NS::Error* error;
+//        _state = CLONE_METAL_CUSTOM_DELETER(MTL::ComputePipelineState,
+//                                            _context->device().newComputePipelineState(_atomicCompute.get(), &error))
+//
+//        _atomicBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _context->device().newBuffer(sizeof(uint32_t), MTL::ResourceOptionCPUCacheModeDefault));
+//        _material->setAtomicBuffer(_atomicBuffer);
+//    }
+//
+//    void compute(MTL::ComputeCommandEncoder &commandEncoder) override {
+//        commandEncoder.setComputePipelineState(_state.get());
+//        commandEncoder.setBuffer(_atomicBuffer.get(), 0, 0);
+//        commandEncoder.dispatchThreadgroups(MTL::Size(2,2,2), MTL::Size(1,1,1));
+//    }
+//};
