@@ -95,11 +95,20 @@ void ShadowSubpass::drawMeshes(MTL::RenderCommandEncoder &renderEncoder) {
                                               0, index++);
             }
             auto &submesh = element.subMesh;
-            renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
-                                                submesh->indexCount(),
-                                                submesh->indexType(),
-                                                submesh->indexBuffer().get(),
-                                                0);
+            
+            if (submesh->indexBuffer()) {
+                renderEncoder.drawIndexedPrimitives(submesh->primitiveType(),
+                                                    submesh->indexCount(),
+                                                    submesh->indexType(),
+                                                    submesh->indexBuffer().get(),
+                                                    0,
+                                                    mesh->instanceCount());
+            } else {
+                renderEncoder.drawPrimitives(submesh->primitiveType(),
+                                             NS::UInteger(0),
+                                             submesh->indexCount(),
+                                             mesh->instanceCount());
+            }
         }
     }
 }

@@ -87,7 +87,7 @@ protected:
     
     std::shared_ptr<MTL::VertexDescriptor> _vertexDescriptor;
     
-    uint32_t _instanceCount = 0;
+    uint32_t _instanceCount = 1;
 };
 
 using MeshPtr = std::shared_ptr<Mesh>;

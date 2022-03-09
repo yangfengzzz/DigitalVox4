@@ -107,11 +107,13 @@ void ForwardSubpass::_drawElement(MTL::RenderCommandEncoder &renderEncoder,
                                                 submesh->indexCount(),
                                                 submesh->indexType(),
                                                 submesh->indexBuffer().get(),
-                                                0);
+                                                0,
+                                                mesh->instanceCount());
         } else {
             renderEncoder.drawPrimitives(submesh->primitiveType(),
                                          NS::UInteger(0),
-                                         submesh->indexCount());
+                                         submesh->indexCount(),
+                                         mesh->instanceCount());
         }
     }
 }
