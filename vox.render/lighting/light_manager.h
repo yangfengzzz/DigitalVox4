@@ -11,6 +11,7 @@
 #include "spot_light.h"
 #include "direct_light.h"
 #include "shader/shader_data.h"
+#include "rendering/compute_pass.h"
 #include <Metal/Metal.hpp>
 #include "singleton.h"
 
@@ -20,11 +21,19 @@ namespace vox {
  */
 class LightManager : public Singleton<LightManager> {
 public:
+    static constexpr uint32_t FORWARD_PLUS_ENABLE_MIN_COUNT = 20;
+    static constexpr std::array<uint32_t, 3> TILE_COUNT = {32, 18, 48};
+    static constexpr uint32_t TOTAL_TILES = TILE_COUNT[0] * TILE_COUNT[1] * TILE_COUNT[2];
+    // Each cluster tracks up to MAX_LIGHTS_PER_CLUSTER light indices (ints) and one light count.
+    // This limitation should be able to go away when we have atomic methods in WGSL.
+    static constexpr uint32_t MAX_LIGHTS_PER_CLUSTER = 50;
+    static constexpr uint32_t CLUSTER_LIGHTS_SIZE = (8 * TOTAL_TILES) + (4 * MAX_LIGHTS_PER_CLUSTER * TOTAL_TILES) + 4;
+    
     static LightManager &getSingleton(void);
     
     static LightManager *getSingletonPtr(void);
     
-    LightManager(Scene* scene);
+    LightManager(MTL::Library &library, Scene* scene);
     
     void setCamera(Camera* camera);
     
@@ -78,6 +87,7 @@ public:
     void draw(MTL::CommandBuffer& commandBuffer);
     
 private:
+    MTL::Library &_library;
     Scene* _scene{nullptr};
     Camera* _camera{nullptr};
     
@@ -100,6 +110,38 @@ private:
 
 private:
     bool _enableForwardPlus{false};
+    
+    Vector4F _forwardPlusUniforms; // outputSize, zNear, zFar
+    ShaderProperty _forwardPlusProp;
+    
+    struct ClusterBounds {
+        Vector3F minAABB;
+        float _pad1;
+        Vector3F maxAABB;
+        float _pad2;
+    };
+    struct Clusters {
+        std::array<ClusterBounds, TOTAL_TILES> bounds;
+    };
+    ShaderProperty _clustersProp;
+    std::shared_ptr<MTL::Buffer> _clustersBuffer;
+    
+    struct ClusterLights {
+        uint32_t offset;
+        uint32_t point_count;
+        uint32_t spot_count;
+    };
+    struct ClusterLightGroup {
+        uint32_t offset;
+        std::array<ClusterLights, TOTAL_TILES> lights;
+        std::array<uint32_t, MAX_LIGHTS_PER_CLUSTER * TOTAL_TILES> indices;
+    };
+    ShaderProperty _clusterLightsProp;
+    std::shared_ptr<MTL::Buffer> _clusterLightsBuffer;
+    
+    ShaderData _shaderData;
+    std::unique_ptr<ComputePass> _clusterBoundsCompute{nullptr};
+    std::unique_ptr<ComputePass> _clusterLightsCompute{nullptr};
 };
 
 template<> inline LightManager* Singleton<LightManager>::msSingleton{nullptr};

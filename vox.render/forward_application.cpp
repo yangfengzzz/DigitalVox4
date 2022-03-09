@@ -19,7 +19,7 @@ bool ForwardApplication::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
     
     _scene = std::make_unique<Scene>(*_device);
-    _lightManager = std::make_unique<LightManager>(_scene.get());
+    _lightManager = std::make_unique<LightManager>(*_library, _scene.get());
     {
         loadScene();
         auto extent = engine.window().extent();

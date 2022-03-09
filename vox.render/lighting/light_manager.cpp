@@ -7,6 +7,7 @@
 #include "light_manager.h"
 #include "shader/shader.h"
 #include "scene.h"
+#include "camera.h"
 #include "metal_helpers.h"
 #include <glog/logging.h>
 
@@ -20,15 +21,45 @@ LightManager &LightManager::getSingleton(void) {
     return (*msSingleton);
 }
 
-LightManager::LightManager(Scene* scene) :
+LightManager::LightManager(MTL::Library &library, Scene* scene) :
+_library(library),
 _scene(scene),
 _pointLightProperty(Shader::createProperty("u_pointLight", ShaderDataGroup::Scene)),
 _spotLightProperty(Shader::createProperty("u_spotLight", ShaderDataGroup::Scene)),
-_directLightProperty(Shader::createProperty("u_directLight", ShaderDataGroup::Scene)) {
+_directLightProperty(Shader::createProperty("u_directLight", ShaderDataGroup::Scene)),
+_forwardPlusProp(Shader::createProperty("u_cluster_uniform", ShaderDataGroup::Scene)),
+_clustersProp(Shader::createProperty("u_clusters", ShaderDataGroup::Compute)),
+_clusterLightsProp(Shader::createProperty("u_clusterLights", ShaderDataGroup::Scene)) {
+    auto& device = _scene->device();
+    _clustersBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Clusters),
+                                                                               MTL::ResourceOptionCPUCacheModeDefault));
+    _shaderData.setBufferFunctor(_clustersProp, [this]()->auto {
+        return _clustersBuffer;
+    });
+    
+    _clusterLightsBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(ClusterLightGroup),
+                                                                                    MTL::ResourceOptionCPUCacheModeDefault));
+    _scene->shaderData.setBufferFunctor(_clusterLightsProp, [this]()->auto {
+        return _clusterLightsBuffer;
+    });
+    
+    _clusterBoundsCompute =
+    std::make_unique<ComputePass>(_library, scene, "");
+    _clusterBoundsCompute->attachShaderData(&_shaderData);
+    _clusterBoundsCompute->attachShaderData(&_scene->shaderData);
+    _clusterBoundsCompute->setThreadsPerGrid(TILE_COUNT[0], TILE_COUNT[1], TILE_COUNT[2]);
+    
+    _clusterLightsCompute =
+    std::make_unique<ComputePass>(_library, scene, "");
+    _clusterLightsCompute->attachShaderData(&_shaderData);
+    _clusterLightsCompute->attachShaderData(&_scene->shaderData);
+    _clusterLightsCompute->setThreadsPerGrid(TILE_COUNT[0], TILE_COUNT[1], TILE_COUNT[2]);
 }
 
 void LightManager::setCamera(Camera* camera) {
     _camera = camera;
+    _clusterBoundsCompute->attachShaderData(&_camera->shaderData);
+    _clusterLightsCompute->attachShaderData(&_camera->shaderData);
 }
 
 //MARK: - Point Light
@@ -171,6 +202,35 @@ bool LightManager::enableForwardPlus() const {
 
 void LightManager::draw(MTL::CommandBuffer& commandBuffer) {
     _updateShaderData(_scene->device(), _scene->shaderData);
+    
+    size_t pointLightCount = _pointLights.size();
+    size_t spotLightCount = _spotLights.size();
+    if (pointLightCount + spotLightCount > FORWARD_PLUS_ENABLE_MIN_COUNT) {
+        _enableForwardPlus = true;
+        bool updateBounds = false;
+        
+        if (_forwardPlusUniforms.x != _camera->width() ||
+            _forwardPlusUniforms.y != _camera->height()) {
+            updateBounds = true;
+            _forwardPlusUniforms.x = _camera->framebufferWidth();
+            _forwardPlusUniforms.y = _camera->framebufferHeight();
+        }
+        _forwardPlusUniforms.z = _camera->nearClipPlane();
+        _forwardPlusUniforms.w = _camera->farClipPlane();
+        _scene->shaderData.setData(_forwardPlusProp, _forwardPlusUniforms);
+        
+        // Reset the light offset counter to 0 before populating the light clusters.
+        uint32_t empty = 0;
+        memcpy(_clusterLightsBuffer->contents(), &empty, sizeof(uint32_t));
+        
+        auto encoder = CLONE_METAL_CUSTOM_DELETER(MTL::ComputeCommandEncoder,
+                                                  commandBuffer.computeCommandEncoder());
+        if (updateBounds) {
+            _clusterBoundsCompute->compute(*encoder);
+        }
+        _clusterLightsCompute->compute(*encoder);
+        encoder->endEncoding();
+    }
 }
 
 }
