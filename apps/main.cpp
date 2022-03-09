@@ -27,6 +27,7 @@
 
 #include "atomic_compute.h"
 #include "cluster_forward_app.h"
+#include "multi_light_app.h"
 #include "particle_app.h"
 
 int main(int argc, char *argv[]) {
