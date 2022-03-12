@@ -124,7 +124,8 @@ public:
      * Set indices for the mesh.
      * @param indices - The indices for the mesh.
      */
-    void setIndices(const std::vector<uint32_t> &indices);
+    void setIndices(const std::vector<uint32_t> &indices,
+                    MTL::PrimitiveType type = MTL::PrimitiveTypeTriangle);
     
     /**
      * Get indices for the mesh.
@@ -158,6 +159,7 @@ private:
     size_t _elementCount;
     std::vector<float> _vertices{};
     std::vector<uint32_t> _indices{};
+    MTL::PrimitiveType _primitiveType;
     
     std::vector<Vector3F> _positions;
     std::vector<Vector3F> _normals;

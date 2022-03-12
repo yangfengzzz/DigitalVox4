@@ -214,6 +214,8 @@
 		04459756279832BA00F04CE0 /* shadow_common.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973D279832BA00F04CE0 /* shadow_common.metal */; };
 		04459758279832BA00F04CE0 /* light_sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0445973F279832BA00F04CE0 /* light_sprite.metal */; };
 		049D2BBE27D8C8E20037DC6A /* multi_light_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 049D2BBC27D8C8E20037DC6A /* multi_light_app.cpp */; };
+		049D2FF527DCB7F90037DC6A /* wireframe_primitive_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 049D2FF327DCB7F90037DC6A /* wireframe_primitive_mesh.h */; };
+		049D2FF627DCB7F90037DC6A /* wireframe_primitive_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 049D2FF427DCB7F90037DC6A /* wireframe_primitive_mesh.cpp */; };
 		04CD93A82799A61F0093D6CB /* framebuffer_picker_color.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93A72799A61F0093D6CB /* framebuffer_picker_color.metal */; };
 		04CD93BC279A4F650093D6CB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93BB279A4F650093D6CB /* main.cpp */; };
 		04CD93CF279A4FB30093D6CB /* imgui_zmo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93C1279A4FB20093D6CB /* imgui_zmo.cpp */; };
@@ -1147,6 +1149,8 @@
 		04460455279CDACB009108C8 /* shadowmap_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shadowmap_app.h; sourceTree = "<group>"; };
 		049D2BBC27D8C8E20037DC6A /* multi_light_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = multi_light_app.cpp; sourceTree = "<group>"; };
 		049D2BBD27D8C8E20037DC6A /* multi_light_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = multi_light_app.h; sourceTree = "<group>"; };
+		049D2FF327DCB7F90037DC6A /* wireframe_primitive_mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wireframe_primitive_mesh.h; sourceTree = "<group>"; };
+		049D2FF427DCB7F90037DC6A /* wireframe_primitive_mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wireframe_primitive_mesh.cpp; sourceTree = "<group>"; };
 		04B4ACC327983DCD0020576D /* model_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = model_mesh.cpp; sourceTree = "<group>"; };
 		04B4ACC427983DCD0020576D /* model_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = model_mesh.h; sourceTree = "<group>"; };
 		04B4ACC82798EB3C0020576D /* primitive_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = primitive_app.cpp; sourceTree = "<group>"; };
@@ -1996,6 +2000,7 @@
 				0445972E279832B800F04CE0 /* macro_name.h */,
 				04459396278FFF6E00F04CE0 /* shader_common.h */,
 				04459726279832B700F04CE0 /* function_constant.h */,
+				04459739279832B900F04CE0 /* function_common.metal */,
 				04459394278FFF6E00F04CE0 /* skybox.metal */,
 				04459725279832B700F04CE0 /* background_texture.metal */,
 				04459732279832B800F04CE0 /* unlit.metal */,
@@ -2018,7 +2023,6 @@
 				04459738279832B900F04CE0 /* pbrbasic.metal */,
 				0445972A279832B800F04CE0 /* pbribl.metal */,
 				0445972C279832B800F04CE0 /* pbribl2.metal */,
-				04459739279832B900F04CE0 /* function_common.metal */,
 				04459730279832B800F04CE0 /* SkinningShader.metal */,
 			);
 			path = vox.shader;
@@ -2103,6 +2107,8 @@
 				04B4ACC327983DCD0020576D /* model_mesh.cpp */,
 				044593E92791107600F04CE0 /* primitive_mesh.h */,
 				044593E82791107600F04CE0 /* primitive_mesh.cpp */,
+				049D2FF327DCB7F90037DC6A /* wireframe_primitive_mesh.h */,
+				049D2FF427DCB7F90037DC6A /* wireframe_primitive_mesh.cpp */,
 				0445941D279292E000F04CE0 /* mesh_renderer.h */,
 				0445941C279292E000F04CE0 /* mesh_renderer.cpp */,
 				04CD9406279A9FF00093D6CB /* skinned_mesh_renderer.h */,
@@ -2505,6 +2511,7 @@
 				04D75EE227CC7C0E00BB1519 /* forward_subpass.h in Headers */,
 				04D75E8227CC56AC00BB1519 /* pbr_material.h in Headers */,
 				04D75E5327CBCAB500BB1519 /* imconfig.h in Headers */,
+				049D2FF527DCB7F90037DC6A /* wireframe_primitive_mesh.h in Headers */,
 				04D75F1A27CC9F2500BB1519 /* editor_application.h in Headers */,
 				04D75E4327CBA5EE00BB1519 /* graphics_application.h in Headers */,
 				04D75F1427CC9BFD00BB1519 /* ambient_light.h in Headers */,
@@ -2905,6 +2912,7 @@
 				04D75E5427CBCAB500BB1519 /* imgui_impl_metal.mm in Sources */,
 				04D75F9927CDA51600BB1519 /* gltf_loader.cpp in Sources */,
 				04D75ED727CC67F300BB1519 /* subpass.cpp in Sources */,
+				049D2FF627DCB7F90037DC6A /* wireframe_primitive_mesh.cpp in Sources */,
 				04D75EAB27CC630400BB1519 /* transform.cpp in Sources */,
 				04D75F2627CCA2C400BB1519 /* dynamic_collider.cpp in Sources */,
 				04D75F5E27CCD45700BB1519 /* astc_compute_variance.cpp in Sources */,

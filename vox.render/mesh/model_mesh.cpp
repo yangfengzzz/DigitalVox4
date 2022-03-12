@@ -179,11 +179,12 @@ const std::vector<Vector2F> &ModelMesh::uvs(int channelIndex) {
     }
 }
 
-void ModelMesh::setIndices(const std::vector<uint32_t> &indices) {
+void ModelMesh::setIndices(const std::vector<uint32_t> &indices, MTL::PrimitiveType type) {
     if (!_accessible) {
         assert(false && "Not allowed to access data while accessible is false.");
     }
     _indices = indices;
+    _primitiveType = type;
 }
 
 const std::vector<uint32_t> ModelMesh::indices() {
@@ -211,7 +212,7 @@ void ModelMesh::uploadData(bool noLongerAccessible) {
     const auto indexBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, _device.newBuffer(_indices.data(),
                                                                                        _indices.size() * sizeof(uint32_t),
                                                                                        MTL::ResourceOptionCPUCacheModeDefault));
-    addSubMesh(MTL::PrimitiveTypeTriangle, MTL::IndexTypeUInt32, _indices.size(), indexBuffer);
+    addSubMesh(_primitiveType, MTL::IndexTypeUInt32, _indices.size(), indexBuffer);
     
     if (noLongerAccessible) {
         _accessible = false;

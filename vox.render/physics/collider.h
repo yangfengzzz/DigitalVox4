@@ -38,6 +38,11 @@ public:
     
     void _onDestroy() override;
     
+public:
+#ifdef _DEBUG
+    EntityPtr debugEntity{nullptr};;
+#endif
+    
 protected:
     friend class PhysicsManager;
     
