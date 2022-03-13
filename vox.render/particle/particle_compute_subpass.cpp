@@ -106,13 +106,7 @@ void ParticleComputeSubpass::_emission(const uint32_t count,
     commandEncoder.setComputePipelineState(&pipelineState->handle());
     
     commandEncoder.setBuffer(particle->readAtomicBuffer().get(), 0, 7);
-#if USE_SOA_LAYOUT
-    commandEncoder.setBuffer(particle->readPositionBuffer().get(), 0, 8);
-    commandEncoder.setBuffer(particle->readVelocityBuffer().get(), 0, 9);
-    commandEncoder.setBuffer(particle->readAttributeBuffer().get(), 0, 10);
-#else
     commandEncoder.setBuffer(particle->readAppendConsumeBuffer().get(), 0, 11);
-#endif
     commandEncoder.setBuffer(particle->randomBuffer().get(), 0, 12);
     
     auto nWidth = pipelineState->handle().threadExecutionWidth();
@@ -134,17 +128,8 @@ void ParticleComputeSubpass::_simulation(const uint32_t count,
     
     commandEncoder.setBuffer(particle->readAtomicBuffer().get(), 0, 9);
     commandEncoder.setBuffer(particle->writeAtomicBuffer().get(), 0, 10);
-#if USE_SOA_LAYOUT
-    commandEncoder.setBuffer(particle->readPositionBuffer().get(), 0, 11);
-    commandEncoder.setBuffer(particle->readVelocityBuffer().get(), 0, 12);
-    commandEncoder.setBuffer(particle->readAttributeBuffer().get(), 0, 13);
-    commandEncoder.setBuffer(particle->writePositionBuffer().get(), 0, 14);
-    commandEncoder.setBuffer(particle->writeVelocityBuffer().get(), 0, 15);
-    commandEncoder.setBuffer(particle->writeAttributeBuffer().get(), 0, 16);
-#else
     commandEncoder.setBuffer(particle->readAppendConsumeBuffer().get(), 0, 17);
     commandEncoder.setBuffer(particle->writeAppendConsumeBuffer().get(), 0, 18);
-#endif
     commandEncoder.setBuffer(particle->randomBuffer().get(), 0, 4);
     
     auto nWidth = pipelineState->handle().threadExecutionWidth();

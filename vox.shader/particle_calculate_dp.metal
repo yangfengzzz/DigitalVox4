@@ -8,33 +8,16 @@
 using namespace metal;
 #include "particle_config.h"
 
-float4 positionWS(
-#if USE_SOA_LAYOUT
-                  device float4* positions,
-#else
-                  device TParticle* particles,
-#endif
-                  uint id)
-{
-    float4 pos;
-#if USE_SOA_LAYOUT
-    pos = positions[id];
-#else
-    pos = particles[id].position;
-#endif
+float4 positionWS(device TParticle* particles,
+                  uint id) {
+    float4 pos = particles[id].position;
     return float4(pos.xyz, 1.0f);
 }
 
-kernel void particle_calculate_dp(
-#if USE_SOA_LAYOUT
-                                  device float4* positions [[buffer(0)]],
-#else
-                                  device TParticle* positions [[buffer(0)]],
-#endif
+kernel void particle_calculate_dp(device TParticle* positions [[buffer(0)]],
                                   device float* dp  [[buffer(1)]],
                                   constant matrix_float4x4& uViewMatrix [[buffer(2)]],
-                                  uint gid [[ thread_position_in_grid ]])
-{
+                                  uint gid [[ thread_position_in_grid ]]) {
     // Transform a particle's position from world space to view space.
     float4 positionVS = uViewMatrix * positionWS(positions, gid);
     

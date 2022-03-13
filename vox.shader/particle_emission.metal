@@ -11,22 +11,11 @@ using namespace metal;
 void pushParticle(float3 position,
                   float3 velocity,
                   float age,
-#if USE_SOA_LAYOUT
-                  device float4* positions,
-                  device float4* velocities,
-                  device float4* attributes,
-#else
                   device TParticle* particles,
-#endif
                   device atomic_uint* write_count) {
     // Emit particle id.
     const uint id = atomic_fetch_add_explicit(write_count, 1, memory_order::memory_order_relaxed);
     
-#if USE_SOA_LAYOUT
-    positions[id]  = float4(position, 1.0f);
-    velocities[id] = float4(velocity, 0.0f);
-    attributes[id] = float4(age, age, 0.0f, as_type<float>(id));
-#else
     TParticle p;
     p.position = float4(position, 1.0f);
     p.velocity = float4(velocity, 0.0f);
@@ -35,7 +24,6 @@ void pushParticle(float3 position,
     p.id = id;
     
     particles[id] = p;
-#endif
 }
 
 void createParticle(uint uEmitCount,
@@ -46,13 +34,7 @@ void createParticle(uint uEmitCount,
                     float uParticleMinAge,
                     float uParticleMaxAge,
                     device atomic_uint* write_count,
-#if USE_SOA_LAYOUT
-                    device float4* positions,
-                    device float4* velocities,
-                    device float4* attributes,
-#else
                     device TParticle* particles,
-#endif
                     device float* randbuffer,
                     const uint gid) {
     // Random vector.
@@ -84,13 +66,7 @@ void createParticle(uint uEmitCount,
     const float age = mix( uParticleMinAge, uParticleMaxAge, single_rand);
     
     pushParticle(pos, vel, age,
-#if USE_SOA_LAYOUT
-                 positions,
-                 velocities,
-                 attributes,
-#else
                  particles,
-#endif
                  write_count);
 }
 
@@ -103,13 +79,7 @@ kernel void particle_emission(constant uint& uEmitCount [[buffer(0)]],
                               constant float& uParticleMinAge [[buffer(5)]],
                               constant float& uParticleMaxAge [[buffer(6)]],
                               device atomic_uint* write_count [[buffer(7)]],
-#if USE_SOA_LAYOUT
-                              device float4* positions [[buffer(8)]],
-                              device float4* velocities [[buffer(9)]],
-                              device float4* attributes [[buffer(10)]],
-#else
                               device TParticle* particles [[buffer(11)]],
-#endif
                               device float* randbuffer [[buffer(12)]],
                               const uint gid [[ thread_position_in_grid ]]) {    
     createParticle(uEmitCount,
@@ -120,13 +90,7 @@ kernel void particle_emission(constant uint& uEmitCount [[buffer(0)]],
                    uParticleMinAge,
                    uParticleMaxAge,
                    write_count,
-#if USE_SOA_LAYOUT
-                   positions,
-                   velocities,
-                   attributes,
-#else
                    particles,
-#endif
                    randbuffer,
                    gid);
 }

@@ -10,52 +10,22 @@ using namespace metal;
 #include "function_constant.h"
 
 TParticle popParticle(device atomic_uint* read_count,
-#if USE_SOA_LAYOUT
-                      device float4* read_positions,
-                      device float4* read_velocities,
-                      device float4* read_attributes,
-#else
                       device TParticle* read_particles,
-#endif
                       uint index) {
     atomic_fetch_sub_explicit(read_count, 1, memory_order::memory_order_relaxed);
     
     TParticle p;
-    
-#if USE_SOA_LAYOUT
-    p.position   = read_positions[index];
-    p.velocity   = read_velocities[index];
-    float4 attribs = read_attributes[index];
-    
-    p.start_age  = attribs.x;
-    p.age        = attribs.y;
-    p.id         = as_type<uint>(attribs.w);
-#else
     p = read_particles[index];
-#endif
     
     return p;
 }
 
 void pushParticle(TParticle p
                   , device atomic_uint* write_count
-#if USE_SOA_LAYOUT
-                  , device float4* write_positions
-                  , device float4* write_velocities
-                  , device float4* write_attributes
-#else
                   , device TParticle* write_particles
-#endif
                   ) {
     const uint index = atomic_fetch_add_explicit(write_count, 1, memory_order::memory_order_relaxed);
-    
-#if USE_SOA_LAYOUT
-    write_positions[index]  = p.position;
-    write_velocities[index] = p.velocity;
-    write_attributes[index] = float4(p.start_age, p.age, 0.0f, as_type<float>(p.id));
-#else
     write_particles[index] = p;
-#endif
 }
 
 float updatedAge(TParticle p,
@@ -216,28 +186,13 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
 
                                 device atomic_uint* read_count [[buffer(9)]],
                                 device atomic_uint* write_count [[buffer(10)]],
-#if USE_SOA_LAYOUT
-                                device float4* read_positions [[buffer(11)]],
-                                device float4* read_velocities [[buffer(12)]],
-                                device float4* read_attributes [[buffer(13)]],
-                                device float4* write_positions [[buffer(14)]],
-                                device float4* write_velocities [[buffer(15)]],
-                                device float4* write_attributes [[buffer(16)]],
-#else
                                 device TParticle* read_particles [[buffer(17)]],
                                 device TParticle* write_particles [[buffer(18)]],
-#endif
                                 constant int& uPerlinNoisePermutationSeed [[buffer(19)]],
                                 uint gid [[ thread_position_in_grid ]]) {
     // Local copy of the particle.
     TParticle p = popParticle(read_count,
-#if USE_SOA_LAYOUT
-                              read_positions,
-                              read_velocities,
-                              read_attributes,
-#else
                               read_particles,
-#endif
                               gid);
     
     float age = updatedAge(p, uTimeStep);
@@ -284,14 +239,6 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
         updateParticle(p, position, velocity, age);
         
         // Save it in buffer.
-        pushParticle(p, write_count
-#if USE_SOA_LAYOUT
-                     , write_positions
-                     , write_velocities
-                     , write_attributes
-#else
-                     , write_particles
-#endif
-                     );
+        pushParticle(p, write_count, write_particles);
     }
 }

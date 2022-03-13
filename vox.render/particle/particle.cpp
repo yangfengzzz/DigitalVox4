@@ -71,27 +71,10 @@ void Particle::_allocBuffer() {
                                                                                 MTL::ResourceOptionCPUCacheModeDefault));
     
     /* Append Consume */
-#if USE_SOA_LAYOUT
-    _positionBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
-                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
-    _positionBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
-                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
-    
-    _velocityBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
-                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
-    _velocityBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
-                                                                                  MTL::ResourceOptionCPUCacheModeDefault));
-    
-    _attributeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
-                                                                                   MTL::ResourceOptionCPUCacheModeDefault));
-    _attributeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(Vector4F) * kMaxParticleCount,
-                                                                                   MTL::ResourceOptionCPUCacheModeDefault));
-#else
     _appendConsumeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * kMaxParticleCount,
                                                                                        MTL::ResourceOptionCPUCacheModeDefault));
     _appendConsumeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * kMaxParticleCount,
                                                                                        MTL::ResourceOptionCPUCacheModeDefault));
-#endif
     
     /* Sort buffers */
     // The parallel nature of the sorting algorithm needs power of two sized buffer.
@@ -105,20 +88,6 @@ void Particle::_allocBuffer() {
 void Particle::_allocMesh() {
     for (int i = 0; i < 2; i++) {
         auto vertexDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::VertexDescriptor, MTL::VertexDescriptor::alloc()->init());
-#if USE_SOA_LAYOUT
-        vertexDescriptor->attributes()->object(0)->setFormat(MTL::VertexFormat::VertexFormatFloat3);
-        vertexDescriptor->attributes()->object(0)->setOffset(0);
-        vertexDescriptor->attributes()->object(0)->setBufferIndex(0);
-        vertexDescriptor->attributes()->object(1)->setFormat(MTL::VertexFormat::VertexFormatFloat3);
-        vertexDescriptor->attributes()->object(1)->setOffset(0);
-        vertexDescriptor->attributes()->object(1)->setBufferIndex(1);
-        vertexDescriptor->attributes()->object(2)->setFormat(MTL::VertexFormat::VertexFormatFloat2);
-        vertexDescriptor->attributes()->object(2)->setOffset(0);
-        vertexDescriptor->attributes()->object(2)->setBufferIndex(2);
-        vertexDescriptor->layouts()->object(0)->setStride(sizeof(Vector4F));
-        vertexDescriptor->layouts()->object(1)->setStride(sizeof(Vector4F));
-        vertexDescriptor->layouts()->object(2)->setStride(sizeof(Vector4F));
-#else
         vertexDescriptor->attributes()->object(0)->setFormat(MTL::VertexFormat::VertexFormatFloat3);
         vertexDescriptor->attributes()->object(0)->setOffset(0);
         vertexDescriptor->attributes()->object(0)->setBufferIndex(0);
@@ -129,18 +98,11 @@ void Particle::_allocMesh() {
         vertexDescriptor->attributes()->object(2)->setOffset(2 * sizeof(Vector4F));
         vertexDescriptor->attributes()->object(2)->setBufferIndex(0);
         vertexDescriptor->layouts()->object(0)->setStride(sizeof(TParticle));
-#endif
         
         auto bufferMesh = std::make_shared<BufferMesh>();
         bufferMesh->setVertexLayouts(vertexDescriptor);
         bufferMesh->addSubMesh(MTL::PrimitiveType::PrimitiveTypePoint, MTL::IndexType::IndexTypeUInt16, 0, nullptr);
-#if USE_SOA_LAYOUT
-        bufferMesh->setVertexBufferBinding(_positionBuffer[i], 0);
-        bufferMesh->setVertexBufferBinding(_positionBuffer[i], 1);
-        bufferMesh->setVertexBufferBinding(_positionBuffer[i], 2);
-#else
         bufferMesh->setVertexBufferBinding(_appendConsumeBuffer[i], 0);
-#endif
         _meshes[i] = bufferMesh;
     }
 }
@@ -330,32 +292,6 @@ const std::shared_ptr<MTL::Buffer>& Particle::writeAtomicBuffer() const {
     return _atomicBuffer[_write];
 }
 
-#if USE_SOA_LAYOUT
-const std::shared_ptr<MTL::Buffer>& Particle::readPositionBuffer() const {
-    return _positionBuffer[_read];
-}
-
-const std::shared_ptr<MTL::Buffer>& Particle::writePositionBuffer() const {
-    return _positionBuffer[_write];
-}
-
-const std::shared_ptr<MTL::Buffer>& Particle::readVelocityBuffer() const {
-    return _velocityBuffer[_read];
-}
-
-const std::shared_ptr<MTL::Buffer>& Particle::writeVelocityBuffer() const {
-    return _velocityBuffer[_write];
-}
-
-const std::shared_ptr<MTL::Buffer>& Particle::readAttributeBuffer() const {
-    return _attributeBuffer[_read];
-}
-
-const std::shared_ptr<MTL::Buffer>& Particle::writeAttributeBuffer() const {
-    return _attributeBuffer[_write];
-}
-
-#else
 const std::shared_ptr<MTL::Buffer>& Particle::readAppendConsumeBuffer() const {
     return _appendConsumeBuffer[_read];
 }
@@ -363,7 +299,6 @@ const std::shared_ptr<MTL::Buffer>& Particle::readAppendConsumeBuffer() const {
 const std::shared_ptr<MTL::Buffer>& Particle::writeAppendConsumeBuffer() const {
     return _appendConsumeBuffer[_write];
 }
-#endif
 
 const std::shared_ptr<MTL::Buffer>& Particle::dpBuffer() const {
     return _dpBuffer;

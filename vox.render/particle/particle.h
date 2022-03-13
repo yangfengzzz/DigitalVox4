@@ -122,24 +122,9 @@ public:
 
     const std::shared_ptr<MTL::Buffer>& writeAtomicBuffer() const;    
 
-#if USE_SOA_LAYOUT
-    const std::shared_ptr<MTL::Buffer>& readPositionBuffer() const;
-    
-    const std::shared_ptr<MTL::Buffer>& writePositionBuffer() const;
-    
-    const std::shared_ptr<MTL::Buffer>& readVelocityBuffer() const;
-    
-    const std::shared_ptr<MTL::Buffer>& writeVelocityBuffer() const;
-    
-    const std::shared_ptr<MTL::Buffer>& readAttributeBuffer() const;
-    
-    const std::shared_ptr<MTL::Buffer>& writeAttributeBuffer() const;
-    
-#else
     const std::shared_ptr<MTL::Buffer>& readAppendConsumeBuffer() const;
     
     const std::shared_ptr<MTL::Buffer>& writeAppendConsumeBuffer() const;
-#endif
     
     const std::shared_ptr<MTL::Buffer>& dpBuffer() const;
     
@@ -173,13 +158,7 @@ private:
     MeshRenderer* _renderer{nullptr};
     std::shared_ptr<BufferMesh> _meshes[2];
     std::shared_ptr<MTL::Buffer> _atomicBuffer[2];
-#if USE_SOA_LAYOUT
-    std::shared_ptr<MTL::Buffer> _positionBuffer[2];
-    std::shared_ptr<MTL::Buffer> _velocityBuffer[2];
-    std::shared_ptr<MTL::Buffer> _attributeBuffer[2];
-#else
     std::shared_ptr<MTL::Buffer> _appendConsumeBuffer[2];
-#endif
     std::shared_ptr<MTL::Buffer> _dpBuffer{nullptr};
     std::shared_ptr<MTL::Buffer> _sortIndicesBuffer{nullptr};
 

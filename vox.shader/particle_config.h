@@ -9,11 +9,6 @@
 
 #import <simd/simd.h>
 
-// Decide which structure layout to use.
-#ifndef USE_SOA_LAYOUT
-#define USE_SOA_LAYOUT 0
-#endif
-
 struct TParticle {
     simd_float4 position;
     simd_float4 velocity;
