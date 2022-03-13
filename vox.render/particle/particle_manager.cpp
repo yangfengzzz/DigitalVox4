@@ -5,9 +5,15 @@
 //  property of any third parties.
 
 #include "particle_manager.h"
+#include "metal_helpers.h"
 #include <glog/logging.h>
 
 namespace vox {
+ParticleManager::ParticleManager(MTL::Library &library, Scene *scene) {
+    _emissionPass = std::make_unique<ComputePass>(library, scene, "particle_emission");
+    _simulationPass = std::make_unique<ComputePass>(library, scene, "particle_simulation");
+}
+
 const std::vector<Particle*>& ParticleManager::particles() const {
     return _particles;
 }
@@ -28,11 +34,12 @@ void ParticleManager::removeParticle(Particle* particle) {
     }
 }
 
-void ParticleManager::update(float deltaTime) {
-    deltaTime *= _timeStepFactor;
-    for (auto& particle : _particles) {
-        particle->setTimeStep(deltaTime);
-    }
+void ParticleManager::draw(MTL::CommandBuffer& commandBuffer) {
+    auto encoder = CLONE_METAL_CUSTOM_DELETER(MTL::ComputeCommandEncoder,
+                                              commandBuffer.computeCommandEncoder());
+    _emissionPass->compute(*encoder);
+    _simulationPass->compute(*encoder);
+    encoder->endEncoding();
 }
 
 float ParticleManager::timeStepFactor() const {

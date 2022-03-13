@@ -216,6 +216,12 @@
 		049D2BBE27D8C8E20037DC6A /* multi_light_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 049D2BBC27D8C8E20037DC6A /* multi_light_app.cpp */; };
 		049D2FF527DCB7F90037DC6A /* wireframe_primitive_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 049D2FF327DCB7F90037DC6A /* wireframe_primitive_mesh.h */; };
 		049D2FF627DCB7F90037DC6A /* wireframe_primitive_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 049D2FF427DCB7F90037DC6A /* wireframe_primitive_mesh.cpp */; };
+		049D337927DDED370037DC6A /* particle.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602127D0AFC400BB1519 /* particle.h */; };
+		049D337A27DDED370037DC6A /* particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7602027D0AFC400BB1519 /* particle.cpp */; };
+		049D337B27DDEDE40037DC6A /* particle_material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7602427D0B01800BB1519 /* particle_material.cpp */; };
+		049D337C27DDEDE40037DC6A /* particle_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602527D0B01800BB1519 /* particle_material.h */; };
+		049D337D27DDEE040037DC6A /* particle_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602927D0B12A00BB1519 /* particle_manager.h */; };
+		049D337E27DDEE040037DC6A /* particle_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7602827D0B12A00BB1519 /* particle_manager.cpp */; };
 		04CD93A82799A61F0093D6CB /* framebuffer_picker_color.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93A72799A61F0093D6CB /* framebuffer_picker_color.metal */; };
 		04CD93BC279A4F650093D6CB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93BB279A4F650093D6CB /* main.cpp */; };
 		04CD93CF279A4FB30093D6CB /* imgui_zmo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93C1279A4FB20093D6CB /* imgui_zmo.cpp */; };
@@ -2457,6 +2463,8 @@
 				04D75EEC27CC901F00BB1519 /* render_pipeline_state.h in Headers */,
 				04D75F2827CCB5D200BB1519 /* debug_frame_manager.h in Headers */,
 				04D75EEE27CC94A400BB1519 /* animator_loader.h in Headers */,
+				049D337927DDED370037DC6A /* particle.h in Headers */,
+				049D337C27DDEDE40037DC6A /* particle_material.h in Headers */,
 				04D75E5A27CBCB2400BB1519 /* gui.h in Headers */,
 				04D75EF527CC94BE00BB1519 /* mesh_renderer.h in Headers */,
 				04D75E9F27CC62B600BB1519 /* components_manager.h in Headers */,
@@ -2549,6 +2557,7 @@
 				04D75E6227CBCE5100BB1519 /* blend_state.h in Headers */,
 				04D75EB527CC632C00BB1519 /* collider_shape.h in Headers */,
 				04D75F9127CD09A900BB1519 /* sampled_texture2d_view.h in Headers */,
+				049D337D27DDEE040037DC6A /* particle_manager.h in Headers */,
 				04D75E5F27CBCB9600BB1519 /* std_helpers.h in Headers */,
 				04D75EA327CC62B600BB1519 /* entity.h in Headers */,
 				04D75E6027CBCB9600BB1519 /* filesystem.h in Headers */,
@@ -2916,6 +2925,7 @@
 				04D75EAB27CC630400BB1519 /* transform.cpp in Sources */,
 				04D75F2627CCA2C400BB1519 /* dynamic_collider.cpp in Sources */,
 				04D75F5E27CCD45700BB1519 /* astc_compute_variance.cpp in Sources */,
+				049D337E27DDEE040037DC6A /* particle_manager.cpp in Sources */,
 				0400D26727D89C900018FB52 /* sprite_debug_material.cpp in Sources */,
 				04D75EC027CC632C00BB1519 /* capsule_character_controller.cpp in Sources */,
 				04D75E8827CC56AC00BB1519 /* blinn_phong_material.cpp in Sources */,
@@ -2925,6 +2935,7 @@
 				04D75F6527CCD45700BB1519 /* astc_compress_symbolic.cpp in Sources */,
 				04D75FEA27D04CCD00BB1519 /* compute_pass.cpp in Sources */,
 				04D75E6527CBCE5100BB1519 /* stencil_state.cpp in Sources */,
+				049D337A27DDED370037DC6A /* particle.cpp in Sources */,
 				04D75F6E27CCD45700BB1519 /* astc_quantization.cpp in Sources */,
 				04D75F7027CCD45700BB1519 /* astc_percentile_tables.cpp in Sources */,
 				04D75EBA27CC632C00BB1519 /* box_character_controller.cpp in Sources */,
@@ -3008,6 +3019,7 @@
 				04D75EFE27CC99B600BB1519 /* skinned_mesh_renderer.cpp in Sources */,
 				04D75F2427CCA2C400BB1519 /* collider.cpp in Sources */,
 				04D75E4127CBA5CF00BB1519 /* unix_engine.cpp in Sources */,
+				049D337B27DDEDE40037DC6A /* particle_material.cpp in Sources */,
 				04D75F9427CD0BBF00BB1519 /* sampled_texturecube.cpp in Sources */,
 				04D75E7A27CC566A00BB1519 /* shader.cpp in Sources */,
 				04D75ED227CC632C00BB1519 /* hinge_joint.cpp in Sources */,

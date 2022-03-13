@@ -154,11 +154,13 @@ void Particle::_generateRandomValues() {
 }
 
 void Particle::onUpdate(float deltaTime) {
+    setTimeStep(deltaTime * ParticleManager::getSingleton().timeStepFactor());
+    
     _write = 1 - _write;
     _read = 1 - _read;
     
     memcpy(&_numAliveParticles, _atomicBuffer[_read]->contents(), sizeof(uint32_t));
-    _meshes[_read]->subMesh()->setIndexCount(_numAliveParticles);
+    _meshes[_read]->setInstanceCount(_numAliveParticles);
     _renderer->setMesh(_meshes[_read]);
     _generateRandomValues();
 }
@@ -303,12 +305,12 @@ void Particle::setParticleMaxAge(float age) {
 
 void Particle::_onEnable() {
     Script::_onEnable();
-    entity()->scene()->_particleManager.addParticle(this);
+    ParticleManager::getSingleton().addParticle(this);
 }
 
 void Particle::_onDisable() {
     Script::_onDisable();
-    entity()->scene()->_particleManager.removeParticle(this);
+    ParticleManager::getSingleton().removeParticle(this);
 }
 
 //MARK: - Buffer
