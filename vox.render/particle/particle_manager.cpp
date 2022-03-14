@@ -34,14 +34,6 @@ void ParticleManager::removeParticle(ParticleRenderer* particle) {
     }
 }
 
-void ParticleManager::draw(MTL::CommandBuffer& commandBuffer) {
-    auto encoder = CLONE_METAL_CUSTOM_DELETER(MTL::ComputeCommandEncoder,
-                                              commandBuffer.computeCommandEncoder());
-    _emissionPass->compute(*encoder);
-    _simulationPass->compute(*encoder);
-    encoder->endEncoding();
-}
-
 float ParticleManager::timeStepFactor() const {
     return _timeStepFactor;
 }
@@ -49,5 +41,57 @@ float ParticleManager::timeStepFactor() const {
 void ParticleManager::setTimeStepFactor(float factor) {
     _timeStepFactor = factor;
 }
+
+void ParticleManager::draw(MTL::CommandBuffer& commandBuffer) {
+    auto encoder = CLONE_METAL_CUSTOM_DELETER(MTL::ComputeCommandEncoder,
+                                              commandBuffer.computeCommandEncoder());
+    for (auto& particle : _particles) {
+        auto compileMacros = ShaderMacroCollection();
+        particle->shaderData.mergeMacro(compileMacros, compileMacros);
+        _computeSingle(particle, *encoder, compileMacros);
+    }
+    encoder->endEncoding();
+}
+
+void ParticleManager::_computeSingle(ParticleRenderer* particle,
+                                     MTL::ComputeCommandEncoder &commandEncoder,
+                                     const ShaderMacroCollection &compileMacros) {
+    /* Max number of particles able to be spawned. */
+    uint32_t const num_dead_particles = ParticleRenderer::kMaxParticleCount - particle->numAliveParticles();
+    /* Number of particles to be emitted. */
+    uint32_t const emit_count = std::min(ParticleRenderer::kBatchEmitCount, num_dead_particles); //
+    _emission(emit_count, particle, commandEncoder, compileMacros);
+    _simulation(emit_count, particle, commandEncoder, compileMacros);
+}
+
+void ParticleManager::_emission(const uint32_t count,
+                                ParticleRenderer* particle, MTL::ComputeCommandEncoder &commandEncoder,
+                                const ShaderMacroCollection &compileMacros) {
+    /* Emit only if a minimum count is reached. */
+    if (!count) {
+        return;
+    }
+    if (count < ParticleRenderer::kBatchEmitCount) {
+        //return;
+    }
+    
+    particle->setEmitCount(count);
+    _emissionPass->attachShaderData(&particle->shaderData);
+    _emissionPass->setThreadsPerGrid(count);
+    _emissionPass->detachShaderData(&particle->shaderData);
+}
+
+void ParticleManager::_simulation(const uint32_t count,
+                                  ParticleRenderer* particle, MTL::ComputeCommandEncoder &commandEncoder,
+                                  const ShaderMacroCollection &compileMacros) {
+    if (particle->numAliveParticles() + count == 0u) {
+        return;
+    }
+    
+    _simulationPass->attachShaderData(&particle->shaderData);
+    _simulationPass->setThreadsPerGrid(particle->numAliveParticles() + count);
+    _simulationPass->detachShaderData(&particle->shaderData);
+}
+
 
 }

@@ -42,13 +42,22 @@ _emitterPositionProp(Shader::createProperty("uEmitterPosition", ShaderDataGroup:
 _emitterDirectionProp(Shader::createProperty("uEmitterDirection", ShaderDataGroup::Compute)),
 _emitterRadiusProp(Shader::createProperty("uEmitterRadius", ShaderDataGroup::Compute)),
 _particleMinAgeProp(Shader::createProperty("uParticleMinAge", ShaderDataGroup::Compute)),
-_particleMaxAgeProp(Shader::createProperty("uParticleMaxAge", ShaderDataGroup::Compute)) {    
+_particleMaxAgeProp(Shader::createProperty("uParticleMaxAge", ShaderDataGroup::Compute)),
+
+_randomBufferProp(Shader::createProperty("uRandomBuffer", ShaderDataGroup::Compute)),
+_readCounterProp(Shader::createProperty("uReadCounter", ShaderDataGroup::Compute)),
+_writeCounterProp(Shader::createProperty("uWriteCounter", ShaderDataGroup::Compute)),
+_readParticleProp(Shader::createProperty("uReadParticle", ShaderDataGroup::Compute)),
+_writeParticleProp(Shader::createProperty("uWriteParticle", ShaderDataGroup::Compute)),
+_dpBufferProp(Shader::createProperty("uDPBuffer", ShaderDataGroup::Compute)),
+_sortIndicesBufferProp(Shader::createProperty("uSortIndicesBuffer", ShaderDataGroup::Compute)) {
     _allocBuffer();
-    _allocMesh();
     
-    _renderer = entity->addComponent<MeshRenderer>();
+    _mesh = std::make_shared<BufferMesh>();
+    _mesh->addSubMesh(MTL::PrimitiveTypeTriangleStrip,
+                      MTL::IndexType::IndexTypeUInt16, 4, nullptr);
     _material = std::make_shared<ParticleMaterial>();
-    _renderer->setMaterial(_material);
+    setMaterial(_material);
 }
 
 void ParticleRenderer::_allocBuffer() {
@@ -62,6 +71,9 @@ void ParticleRenderer::_allocBuffer() {
     _randomVec.resize(num_randvalues);
     _randomBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(float) * num_randvalues,
                                                                              MTL::ResourceOptionCPUCacheModeDefault));
+    shaderData.setBufferFunctor(_randomBufferProp, [this]()->auto {
+        return _randomBuffer;
+    });
     
     /* Atomic */
     uint32_t atomicInit = 0;
@@ -69,42 +81,38 @@ void ParticleRenderer::_allocBuffer() {
                                                                                 MTL::ResourceOptionCPUCacheModeDefault));
     _atomicBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(&atomicInit, sizeof(uint32_t),
                                                                                 MTL::ResourceOptionCPUCacheModeDefault));
+    shaderData.setBufferFunctor(_readCounterProp, [this]()->auto {
+        return _atomicBuffer[_read];
+    });
+    shaderData.setBufferFunctor(_writeCounterProp, [this]()->auto {
+        return _atomicBuffer[_write];
+    });
     
     /* Append Consume */
     _appendConsumeBuffer[0] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * kMaxParticleCount,
                                                                                        MTL::ResourceOptionCPUCacheModeDefault));
     _appendConsumeBuffer[1] = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(TParticle) * kMaxParticleCount,
                                                                                        MTL::ResourceOptionCPUCacheModeDefault));
+    shaderData.setBufferFunctor(_readParticleProp, [this]()->auto {
+        return _appendConsumeBuffer[_read];
+    });
+    shaderData.setBufferFunctor(_writeParticleProp, [this]()->auto {
+        return _appendConsumeBuffer[_write];
+    });
     
     /* Sort buffers */
     // The parallel nature of the sorting algorithm needs power of two sized buffer.
-    unsigned int const sort_buffer_max_count = closestPowerOfTwo(kMaxParticleCount); //
+    uint32_t const sort_buffer_max_count = closestPowerOfTwo(kMaxParticleCount); //
     _dpBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(float) * sort_buffer_max_count,
                                                                          MTL::ResourceOptionCPUCacheModeDefault));
     _sortIndicesBuffer = CLONE_METAL_CUSTOM_DELETER(MTL::Buffer, device.newBuffer(sizeof(uint32_t) * sort_buffer_max_count * 2,
                                                                                   MTL::ResourceOptionCPUCacheModeDefault));
-}
-
-void ParticleRenderer::_allocMesh() {
-    for (int i = 0; i < 2; i++) {
-        auto vertexDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::VertexDescriptor, MTL::VertexDescriptor::alloc()->init());
-        vertexDescriptor->attributes()->object(0)->setFormat(MTL::VertexFormat::VertexFormatFloat3);
-        vertexDescriptor->attributes()->object(0)->setOffset(0);
-        vertexDescriptor->attributes()->object(0)->setBufferIndex(0);
-        vertexDescriptor->attributes()->object(1)->setFormat(MTL::VertexFormat::VertexFormatFloat3);
-        vertexDescriptor->attributes()->object(1)->setOffset(sizeof(Vector4F));
-        vertexDescriptor->attributes()->object(1)->setBufferIndex(0);
-        vertexDescriptor->attributes()->object(2)->setFormat(MTL::VertexFormat::VertexFormatFloat2);
-        vertexDescriptor->attributes()->object(2)->setOffset(2 * sizeof(Vector4F));
-        vertexDescriptor->attributes()->object(2)->setBufferIndex(0);
-        vertexDescriptor->layouts()->object(0)->setStride(sizeof(TParticle));
-        
-        auto bufferMesh = std::make_shared<BufferMesh>();
-        bufferMesh->setVertexLayouts(vertexDescriptor);
-        bufferMesh->addSubMesh(MTL::PrimitiveType::PrimitiveTypePoint, MTL::IndexType::IndexTypeUInt16, 0, nullptr);
-        bufferMesh->setVertexBufferBinding(_appendConsumeBuffer[i], 0);
-        _meshes[i] = bufferMesh;
-    }
+    shaderData.setBufferFunctor(_dpBufferProp, [this]()->auto {
+        return _dpBuffer;
+    });
+    shaderData.setBufferFunctor(_sortIndicesBufferProp, [this]()->auto {
+        return _sortIndicesBuffer;
+    });
 }
 
 void ParticleRenderer::_generateRandomValues() {
@@ -115,6 +123,16 @@ void ParticleRenderer::_generateRandomValues() {
     memcpy(_randomBuffer->contents(), _randomVec.data(), _randomBuffer->length());
 }
 
+void ParticleRenderer::_render(std::vector<RenderElement> &opaqueQueue,
+                               std::vector<RenderElement> &alphaTestQueue,
+                               std::vector<RenderElement> &transparentQueue) {
+    transparentQueue.push_back(RenderElement(this, _mesh, _mesh->subMesh(), _material));
+}
+
+void ParticleRenderer::_updateBounds(BoundingBox3F &worldBounds) {
+    
+}
+
 void ParticleRenderer::update(float deltaTime) {
     setTimeStep(deltaTime * ParticleManager::getSingleton().timeStepFactor());
     
@@ -122,13 +140,16 @@ void ParticleRenderer::update(float deltaTime) {
     _read = 1 - _read;
     
     memcpy(&_numAliveParticles, _atomicBuffer[_read]->contents(), sizeof(uint32_t));
-    _meshes[_read]->setInstanceCount(_numAliveParticles);
-    _renderer->setMesh(_meshes[_read]);
+    _mesh->setInstanceCount(_numAliveParticles);
     _generateRandomValues();
 }
 
 ParticleMaterial& ParticleRenderer::material() {
     return *_material;
+}
+
+const uint32_t ParticleRenderer::numAliveParticles() const {
+    return _numAliveParticles;
 }
 
 float ParticleRenderer::timeStep() const {
@@ -273,39 +294,6 @@ void ParticleRenderer::_onEnable() {
 void ParticleRenderer::_onDisable() {
     Renderer::_onDisable();
     ParticleManager::getSingleton().removeParticle(this);
-}
-
-//MARK: - Buffer
-const uint32_t ParticleRenderer::numAliveParticles() const {
-    return _numAliveParticles;
-}
-
-const std::shared_ptr<MTL::Buffer>& ParticleRenderer::randomBuffer() const {
-    return _randomBuffer;
-}
-
-const std::shared_ptr<MTL::Buffer>& ParticleRenderer::readAtomicBuffer() const {
-    return _atomicBuffer[_read];
-}
-
-const std::shared_ptr<MTL::Buffer>& ParticleRenderer::writeAtomicBuffer() const {
-    return _atomicBuffer[_write];
-}
-
-const std::shared_ptr<MTL::Buffer>& ParticleRenderer::readAppendConsumeBuffer() const {
-    return _appendConsumeBuffer[_read];
-}
-
-const std::shared_ptr<MTL::Buffer>& ParticleRenderer::writeAppendConsumeBuffer() const {
-    return _appendConsumeBuffer[_write];
-}
-
-const std::shared_ptr<MTL::Buffer>& ParticleRenderer::dpBuffer() const {
-    return _dpBuffer;
-}
-
-const std::shared_ptr<MTL::Buffer>& ParticleRenderer::sortIndicesBuffer() const {
-    return _sortIndicesBuffer;
 }
 
 }

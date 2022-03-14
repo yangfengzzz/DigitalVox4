@@ -34,6 +34,18 @@ public:
     void setTimeStepFactor(float factor);
     
 private:
+    void _computeSingle(ParticleRenderer* particle, MTL::ComputeCommandEncoder &commandEncoder,
+                        const ShaderMacroCollection &compileMacros);
+    
+    void _emission(const uint32_t count,
+                   ParticleRenderer* particle, MTL::ComputeCommandEncoder &commandEncoder,
+                   const ShaderMacroCollection &compileMacros);
+    
+    void _simulation(const uint32_t count,
+                     ParticleRenderer* particle, MTL::ComputeCommandEncoder &commandEncoder,
+                     const ShaderMacroCollection &compileMacros);
+    
+private:
     std::vector<ParticleRenderer*> _particles{};
     float _timeStepFactor = 1.0f;
     

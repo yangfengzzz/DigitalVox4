@@ -42,11 +42,17 @@ public:
     
     ParticleMaterial& material();
     
-    ShaderData shaderData;
+    const uint32_t numAliveParticles() const;
     
 public:
+    void _render(std::vector<RenderElement> &opaqueQueue,
+                 std::vector<RenderElement> &alphaTestQueue,
+                 std::vector<RenderElement> &transparentQueue) override;
+    
+    void _updateBounds(BoundingBox3F &worldBounds) override;
+    
     void update(float deltaTime) override;
-        
+    
 public:
     float timeStep() const;
     
@@ -113,35 +119,19 @@ public:
     
     void setParticleMaxAge(float age);
     
-public:
-    const uint32_t numAliveParticles() const;
-
-    const std::shared_ptr<MTL::Buffer>& randomBuffer() const;
-
-    const std::shared_ptr<MTL::Buffer>& readAtomicBuffer() const;
-
-    const std::shared_ptr<MTL::Buffer>& writeAtomicBuffer() const;    
-
-    const std::shared_ptr<MTL::Buffer>& readAppendConsumeBuffer() const;
-    
-    const std::shared_ptr<MTL::Buffer>& writeAppendConsumeBuffer() const;
-    
-    const std::shared_ptr<MTL::Buffer>& dpBuffer() const;
-    
-    const std::shared_ptr<MTL::Buffer>& sortIndicesBuffer() const;
-    
 private:
     void _onEnable() override;
     
     void _onDisable() override;
     
     void _allocBuffer();
-    
-    void _allocMesh();
-    
+        
     void _generateRandomValues();
     
 private:
+    uint32_t _numAliveParticles = 0;
+    
+    std::shared_ptr<BufferMesh> _mesh{nullptr};
     std::shared_ptr<ParticleMaterial> _material{nullptr};
     
     std::random_device _randomDevice;
@@ -150,18 +140,23 @@ private:
     float _maxValue = 1.0;
     std::vector<float> _randomVec{};
     std::shared_ptr<MTL::Buffer> _randomBuffer{nullptr};
-    
-    uint32_t _numAliveParticles = 0;
+    ShaderProperty _randomBufferProp;
     
     uint32_t _read = 0;
     uint32_t _write = 1;
-    MeshRenderer* _renderer{nullptr};
-    std::shared_ptr<BufferMesh> _meshes[2];
     std::shared_ptr<MTL::Buffer> _atomicBuffer[2];
+    ShaderProperty _readCounterProp;
+    ShaderProperty _writeCounterProp;
+    
     std::shared_ptr<MTL::Buffer> _appendConsumeBuffer[2];
+    ShaderProperty _readParticleProp;
+    ShaderProperty _writeParticleProp;
+    
     std::shared_ptr<MTL::Buffer> _dpBuffer{nullptr};
+    ShaderProperty _dpBufferProp;
     std::shared_ptr<MTL::Buffer> _sortIndicesBuffer{nullptr};
-
+    ShaderProperty _sortIndicesBufferProp;
+    
     ShaderProperty _timeStepProp;
     ShaderProperty _vectorFieldTextureProp;
     ShaderProperty _boundingVolumeProp;
