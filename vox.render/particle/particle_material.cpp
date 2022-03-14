@@ -8,7 +8,7 @@
 
 namespace vox {
 ParticleMaterial::ParticleMaterial():
-BaseMaterial(Shader::find("particle")),
+BaseMaterial(Shader::find("particle_instancing")),
 _minParticleSizeProp(Shader::createProperty("uMinParticleSize", ShaderDataGroup::Material)),
 _maxParticleSizeProp(Shader::createProperty("uMaxParticleSize", ShaderDataGroup::Material)),
 _colorModeProp(Shader::createProperty("uColorMode", ShaderDataGroup::Material)),

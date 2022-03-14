@@ -11,10 +11,10 @@ using namespace metal;
 void pushParticle(float3 position,
                   float3 velocity,
                   float age,
-                  device TParticle* particles,
-                  device atomic_uint* write_count) {
+                  device TParticle* uReadParticle,
+                  device atomic_uint* uReadCounter) {
     // Emit particle id.
-    const uint id = atomic_fetch_add_explicit(write_count, 1, memory_order::memory_order_relaxed);
+    const uint id = atomic_fetch_add_explicit(uReadCounter, 1, memory_order::memory_order_relaxed);
     
     TParticle p;
     p.position = float4(position, 1.0f);
@@ -23,7 +23,7 @@ void pushParticle(float3 position,
     p.age = age;
     p.id = id;
     
-    particles[id] = p;
+    uReadParticle[id] = p;
 }
 
 void createParticle(uint uEmitCount,
@@ -33,13 +33,13 @@ void createParticle(uint uEmitCount,
                     float uEmitterRadius,
                     float uParticleMinAge,
                     float uParticleMaxAge,
-                    device atomic_uint* write_count,
-                    device TParticle* particles,
-                    device float* randbuffer,
+                    device atomic_uint* uReadCounter,
+                    device TParticle* uReadParticle,
+                    device float* uRandomBuffer,
                     const uint gid) {
     // Random vector.
     const uint rid = 3u * gid;
-    const float3 rn = float3(randbuffer[rid], randbuffer[rid+1u], randbuffer[rid+2u]);
+    const float3 rn = float3(uRandomBuffer[rid], uRandomBuffer[rid+1u], uRandomBuffer[rid+2u]);
     
     // Position
     float3 pos = uEmitterPosition;
@@ -61,13 +61,13 @@ void createParticle(uint uEmitCount,
     // const float group_rand = randbuffer[gid];
     // [As the threadgroup are not full, some dead particles might appears if not
     // skipped in following stages].
-    const float single_rand = randbuffer[gid];
+    const float single_rand = uRandomBuffer[gid];
     
     const float age = mix( uParticleMinAge, uParticleMaxAge, single_rand);
     
     pushParticle(pos, vel, age,
-                 particles,
-                 write_count);
+                 uReadParticle,
+                 uReadCounter);
 }
 
 
@@ -78,9 +78,9 @@ kernel void particle_emission(constant uint& uEmitCount [[buffer(0)]],
                               constant float& uEmitterRadius [[buffer(4)]],
                               constant float& uParticleMinAge [[buffer(5)]],
                               constant float& uParticleMaxAge [[buffer(6)]],
-                              device atomic_uint* write_count [[buffer(7)]],
-                              device TParticle* particles [[buffer(11)]],
-                              device float* randbuffer [[buffer(12)]],
+                              device atomic_uint* uReadCounter [[buffer(7)]],
+                              device TParticle* uReadParticle [[buffer(8)]],
+                              device float* uRandomBuffer [[buffer(9)]],
                               const uint gid [[ thread_position_in_grid ]]) {    
     createParticle(uEmitCount,
                    uEmitterType,
@@ -89,8 +89,8 @@ kernel void particle_emission(constant uint& uEmitCount [[buffer(0)]],
                    uEmitterRadius,
                    uParticleMinAge,
                    uParticleMaxAge,
-                   write_count,
-                   particles,
-                   randbuffer,
+                   uReadCounter,
+                   uReadParticle,
+                   uRandomBuffer,
                    gid);
 }

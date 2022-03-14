@@ -10,6 +10,9 @@
 
 namespace vox {
 ParticleManager::ParticleManager(MTL::Library &library, Scene *scene) {
+    Shader::create("particle_point", "vertex_particle_point", "fragment_particle_point");
+    Shader::create("particle_instancing", "vertex_particle_instancing", "fragment_particle_instancing");
+
     _emissionPass = std::make_unique<ComputePass>(library, scene, "particle_emission");
     _simulationPass = std::make_unique<ComputePass>(library, scene, "particle_simulation");
 }

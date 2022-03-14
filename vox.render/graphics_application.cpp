@@ -20,8 +20,6 @@ MetalApplication::MetalApplication() {
     Shader::create("pbr-specular", "vertex_blinn_phong", "fragment_pbr");
     Shader::create("skybox", "vertex_skybox", "fragment_skybox");
     
-    Shader::create("particle", "particle_vertex", "particle_fragment");
-
     // MARK: - experimental
     Shader::create("shadow-map", "vertex_shadow_map", "fragment_shadow_map");
     Shader::create("shadow", "vertex_shadow_map", "fragment_shadow");

@@ -222,6 +222,8 @@
 		049D337C27DDEDE40037DC6A /* particle_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602527D0B01800BB1519 /* particle_material.h */; };
 		049D337D27DDEE040037DC6A /* particle_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602927D0B12A00BB1519 /* particle_manager.h */; };
 		049D337E27DDEE040037DC6A /* particle_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7602827D0B12A00BB1519 /* particle_manager.cpp */; };
+		049D338C27DECB420037DC6A /* particle_draw_instancing.metal in Sources */ = {isa = PBXBuildFile; fileRef = 049D338B27DECB420037DC6A /* particle_draw_instancing.metal */; };
+		049D338E27DED1040037DC6A /* particle_draw_common.metal in Sources */ = {isa = PBXBuildFile; fileRef = 049D338D27DED1040037DC6A /* particle_draw_common.metal */; };
 		04CD93A82799A61F0093D6CB /* framebuffer_picker_color.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93A72799A61F0093D6CB /* framebuffer_picker_color.metal */; };
 		04CD93BC279A4F650093D6CB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93BB279A4F650093D6CB /* main.cpp */; };
 		04CD93CF279A4FB30093D6CB /* imgui_zmo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93C1279A4FB20093D6CB /* imgui_zmo.cpp */; };
@@ -532,7 +534,7 @@
 		04D7601427D0959100BB1519 /* particle_fill_indices.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601327D0959100BB1519 /* particle_fill_indices.metal */; };
 		04D7601627D0960800BB1519 /* particle_sort_step.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601527D0960800BB1519 /* particle_sort_step.metal */; };
 		04D7601827D096E500BB1519 /* particle_sort_final.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601727D096E500BB1519 /* particle_sort_final.metal */; };
-		04D7601A27D0A26800BB1519 /* particle_draw.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601927D0A26800BB1519 /* particle_draw.metal */; };
+		04D7601A27D0A26800BB1519 /* particle_draw_point.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04D7601927D0A26800BB1519 /* particle_draw_point.metal */; };
 		04D7602E27D0B84A00BB1519 /* sampled_texture3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7602C27D0B84A00BB1519 /* sampled_texture3d.cpp */; };
 		04D7602F27D0B84A00BB1519 /* sampled_texture3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D7602D27D0B84A00BB1519 /* sampled_texture3d.h */; };
 		04D7603227D0E4E800BB1519 /* compute_pipeline_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7603027D0E4E800BB1519 /* compute_pipeline_state.cpp */; };
@@ -1157,6 +1159,9 @@
 		049D2BBD27D8C8E20037DC6A /* multi_light_app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = multi_light_app.h; sourceTree = "<group>"; };
 		049D2FF327DCB7F90037DC6A /* wireframe_primitive_mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wireframe_primitive_mesh.h; sourceTree = "<group>"; };
 		049D2FF427DCB7F90037DC6A /* wireframe_primitive_mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wireframe_primitive_mesh.cpp; sourceTree = "<group>"; };
+		049D338B27DECB420037DC6A /* particle_draw_instancing.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_draw_instancing.metal; sourceTree = "<group>"; };
+		049D338D27DED1040037DC6A /* particle_draw_common.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_draw_common.metal; sourceTree = "<group>"; };
+		049D338F27DED10D0037DC6A /* particle_draw_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_draw_common.h; sourceTree = "<group>"; };
 		04B4ACC327983DCD0020576D /* model_mesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = model_mesh.cpp; sourceTree = "<group>"; };
 		04B4ACC427983DCD0020576D /* model_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = model_mesh.h; sourceTree = "<group>"; };
 		04B4ACC82798EB3C0020576D /* primitive_app.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = primitive_app.cpp; sourceTree = "<group>"; };
@@ -1307,7 +1312,7 @@
 		04D7601327D0959100BB1519 /* particle_fill_indices.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_fill_indices.metal; sourceTree = "<group>"; };
 		04D7601527D0960800BB1519 /* particle_sort_step.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_sort_step.metal; sourceTree = "<group>"; };
 		04D7601727D096E500BB1519 /* particle_sort_final.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_sort_final.metal; sourceTree = "<group>"; };
-		04D7601927D0A26800BB1519 /* particle_draw.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_draw.metal; sourceTree = "<group>"; };
+		04D7601927D0A26800BB1519 /* particle_draw_point.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_draw_point.metal; sourceTree = "<group>"; };
 		04D7601C27D0AEBA00BB1519 /* particle_compute_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = particle_compute_subpass.cpp; sourceTree = "<group>"; };
 		04D7601D27D0AEBA00BB1519 /* particle_compute_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_compute_subpass.h; sourceTree = "<group>"; };
 		04D7602027D0AFC400BB1519 /* particle_renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = particle_renderer.cpp; sourceTree = "<group>"; };
@@ -2426,7 +2431,10 @@
 				04D7601327D0959100BB1519 /* particle_fill_indices.metal */,
 				04D7601527D0960800BB1519 /* particle_sort_step.metal */,
 				04D7601727D096E500BB1519 /* particle_sort_final.metal */,
-				04D7601927D0A26800BB1519 /* particle_draw.metal */,
+				049D338F27DED10D0037DC6A /* particle_draw_common.h */,
+				049D338D27DED1040037DC6A /* particle_draw_common.metal */,
+				04D7601927D0A26800BB1519 /* particle_draw_point.metal */,
+				049D338B27DECB420037DC6A /* particle_draw_instancing.metal */,
 			);
 			name = particle;
 			sourceTree = "<group>";
@@ -3152,7 +3160,7 @@
 				0445974F279832BA00F04CE0 /* brdf_lut.metal in Sources */,
 				04459755279832BA00F04CE0 /* particle.metal in Sources */,
 				04459741279832BA00F04CE0 /* pbr_common.metal in Sources */,
-				04D7601A27D0A26800BB1519 /* particle_draw.metal in Sources */,
+				04D7601A27D0A26800BB1519 /* particle_draw_point.metal in Sources */,
 				0400D27427D8AC9A0018FB52 /* cluster_debug.metal in Sources */,
 				04D75FF827D0683D00BB1519 /* particle_math.metal in Sources */,
 				04D7600E27D07F6E00BB1519 /* particle_curl_noise.metal in Sources */,
@@ -3167,6 +3175,7 @@
 				04459744279832BA00F04CE0 /* specular_map.metal in Sources */,
 				04459756279832BA00F04CE0 /* shadow_common.metal in Sources */,
 				04D7601627D0960800BB1519 /* particle_sort_step.metal in Sources */,
+				049D338E27DED1040037DC6A /* particle_draw_common.metal in Sources */,
 				04459749279832BA00F04CE0 /* texture_packer.metal in Sources */,
 				04D7600827D06DF800BB1519 /* particle_perlin_2d.metal in Sources */,
 				04459754279832BA00F04CE0 /* cubemap_debugger.metal in Sources */,
@@ -3181,6 +3190,7 @@
 				04459752279832BA00F04CE0 /* function_common.metal in Sources */,
 				0434BC5A27BF834F00026D1D /* debug_frame.metal in Sources */,
 				04459750279832BA00F04CE0 /* shadow_map.metal in Sources */,
+				049D338C27DECB420037DC6A /* particle_draw_instancing.metal in Sources */,
 				04D75FF227D0510000BB1519 /* atomic_counter.metal in Sources */,
 				0445974C279832BA00F04CE0 /* unlit.metal in Sources */,
 				0445974E279832BA00F04CE0 /* editor_grid.metal in Sources */,

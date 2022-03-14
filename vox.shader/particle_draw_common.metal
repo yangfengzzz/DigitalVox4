@@ -5,23 +5,8 @@
 //  property of any third parties.
 
 #include <metal_stdlib>
-#include <simd/simd.h>
+#include "particle_draw_common.h"
 using namespace metal;
-
-struct VertexIn {
-    float3 position [[attribute(0)]];
-    float3 velocity [[attribute(1)]];
-    float2 age_info [[attribute(2)]];
-};
-
-struct VertexOut {
-    float4 position [[position]];
-    float pointSize [[point_size]];
-    float3 local_pos;
-    float3 velocity;
-    float3 color;
-    float decay;
-};
 
 /* Map a range from [edge0, edge1] to [0, 1]. */
 float maprange(float edge0, float edge1, float x) {
@@ -71,34 +56,6 @@ float3 base_color(float3 position, float decay,
     return 0.5f * (normalize(position) + 1.0f);
 }
 
-
-vertex VertexOut particle_vertex(const VertexIn in [[stage_in]],
-                                 constant matrix_float4x4& u_MVPMat [[buffer(6)]],
-                                 constant float& uMinParticleSize [[buffer(7)]],
-                                 constant float& uMaxParticleSize [[buffer(8)]],
-                                 constant float& uColorMode [[buffer(9)]],
-                                 constant float3& uBirthGradient [[buffer(10)]],
-                                 constant float3& uDeathGradient [[buffer(11)]]) {
-    VertexOut out;
-    const float3 p = in.position.xyz;
-    
-    // Time alived in [0, 1].
-    const float dAge = 1.0f - maprange(0.0f, in.age_info.x, in.age_info.y);
-    const float decay = curve_inout(dAge, 0.55f);
-    
-    // Vertex attributes.
-    out.position = u_MVPMat * float4(p, 1.0f);
-    out.pointSize = compute_size(out.position.z/out.position.w, decay, uMinParticleSize, uMaxParticleSize);
-    
-    // Output parameters.
-    out.local_pos = p;
-    out.velocity = in.velocity.xyz;
-    out.color = base_color(in.position, decay, uColorMode, uBirthGradient, uDeathGradient);
-    out.decay = decay;
-    
-    return out;
-}
-
 float4 compute_color(float3 base_color, float decay, float2 texcoord,
                      float uFadeCoefficient, bool uDebugDraw) {
     if (uDebugDraw) {
@@ -119,12 +76,4 @@ float4 compute_color(float3 base_color, float decay, float2 texcoord,
     color *= alpha * decay * uFadeCoefficient;
     
     return color;
-}
-
-fragment float4 particle_fragment(VertexOut in [[stage_in]],
-                                  constant float& uFadeCoefficient [[buffer(5)]],
-                                  constant bool& uDebugDraw [[buffer(6)]],
-                                  float2 point [[point_coord]]) {
-    return compute_color(in.color, in.decay, point,
-                         uFadeCoefficient, uDebugDraw);
 }

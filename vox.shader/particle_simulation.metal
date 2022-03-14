@@ -173,7 +173,7 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
                                 constant float& uBBoxSize [[buffer(2)]],
                                 
                                 constant float& uScatteringFactor [[buffer(3), function_constant(needParticleScattering)]],
-                                device float* randbuffer [[buffer(4), function_constant(needParticleScattering)]],
+                                device float* uRandomBuffer [[buffer(4), function_constant(needParticleScattering)]],
                                 
                                 constant float& uVectorFieldFactor [[buffer(5), function_constant(needParticleVectorField)]],
                                 sampler uVectorFieldSampler [[sampler(0), function_constant(needParticleVectorField)]],
@@ -184,15 +184,15 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
                                 
                                 constant float& uVelocityFactor [[buffer(8), function_constant(needParticleVelocityControl)]],
 
-                                device atomic_uint* read_count [[buffer(9)]],
-                                device atomic_uint* write_count [[buffer(10)]],
-                                device TParticle* read_particles [[buffer(17)]],
-                                device TParticle* write_particles [[buffer(18)]],
+                                device atomic_uint* uReadCounter [[buffer(9)]],
+                                device atomic_uint* uWriteCounter [[buffer(10)]],
+                                device TParticle* uReadParticle [[buffer(17)]],
+                                device TParticle* uWriteParticle [[buffer(18)]],
                                 constant int& uPerlinNoisePermutationSeed [[buffer(19)]],
                                 uint gid [[ thread_position_in_grid ]]) {
     // Local copy of the particle.
-    TParticle p = popParticle(read_count,
-                              read_particles,
+    TParticle p = popParticle(uReadCounter,
+                              uReadParticle,
                               gid);
     
     float age = updatedAge(p, uTimeStep);
@@ -202,7 +202,7 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
         float3 force = float3(0.0f);
         
         if (needParticleScattering) {
-            force += calculateScattering(uScatteringFactor, randbuffer, gid);
+            force += calculateScattering(uScatteringFactor, uRandomBuffer, gid);
         }
         force += calculateRepulsion(p);
         force += calculateTargetMesh(p);
@@ -239,6 +239,6 @@ kernel void particle_simulation(constant float& uTimeStep [[buffer(0)]],
         updateParticle(p, position, velocity, age);
         
         // Save it in buffer.
-        pushParticle(p, write_count, write_particles);
+        pushParticle(p, uWriteCounter, uWriteParticle);
     }
 }
