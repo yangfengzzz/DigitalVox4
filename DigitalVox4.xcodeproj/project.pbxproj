@@ -1314,8 +1314,6 @@
 		04D7601527D0960800BB1519 /* particle_sort_step.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_sort_step.metal; sourceTree = "<group>"; };
 		04D7601727D096E500BB1519 /* particle_sort_final.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_sort_final.metal; sourceTree = "<group>"; };
 		04D7601927D0A26800BB1519 /* particle_draw_point.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = particle_draw_point.metal; sourceTree = "<group>"; };
-		04D7601C27D0AEBA00BB1519 /* particle_compute_subpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = particle_compute_subpass.cpp; sourceTree = "<group>"; };
-		04D7601D27D0AEBA00BB1519 /* particle_compute_subpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_compute_subpass.h; sourceTree = "<group>"; };
 		04D7602027D0AFC400BB1519 /* particle_renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = particle_renderer.cpp; sourceTree = "<group>"; };
 		04D7602127D0AFC400BB1519 /* particle_renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle_renderer.h; sourceTree = "<group>"; };
 		04D7602427D0B01800BB1519 /* particle_material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = particle_material.cpp; sourceTree = "<group>"; };
@@ -2449,8 +2447,6 @@
 				04D7602427D0B01800BB1519 /* particle_material.cpp */,
 				04D7602927D0B12A00BB1519 /* particle_manager.h */,
 				04D7602827D0B12A00BB1519 /* particle_manager.cpp */,
-				04D7601D27D0AEBA00BB1519 /* particle_compute_subpass.h */,
-				04D7601C27D0AEBA00BB1519 /* particle_compute_subpass.cpp */,
 			);
 			path = particle;
 			sourceTree = "<group>";
