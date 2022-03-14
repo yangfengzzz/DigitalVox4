@@ -11,9 +11,7 @@
 
 namespace vox {
 class ParticleApp : public ForwardApplication {
-public:
-    bool prepare(Engine &engine) override;
-    
+public:    
     void loadScene() override;
 };
 

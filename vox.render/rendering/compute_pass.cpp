@@ -76,8 +76,8 @@ void ComputePass::compute(MTL::ComputeCommandEncoder &commandEncoder) {
     }
     commandEncoder.setComputePipelineState(&pipelineState->handle());
     
-    auto nWidth = pipelineState->handle().threadExecutionWidth();
-    auto nHeight = pipelineState->handle().maxTotalThreadsPerThreadgroup() / nWidth;
+    auto nWidth = std::min(_threadsPerGridX, static_cast<uint32_t>(pipelineState->handle().threadExecutionWidth()));
+    auto nHeight = std::min(_threadsPerGridY, static_cast<uint32_t>(pipelineState->handle().maxTotalThreadsPerThreadgroup() / nWidth));
     commandEncoder.dispatchThreads(MTL::Size(_threadsPerGridX, _threadsPerGridY, _threadsPerGridZ),
                                    MTL::Size(nWidth, nHeight, 1));
 }

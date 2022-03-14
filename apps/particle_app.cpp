@@ -13,19 +13,10 @@
 #include "camera.h"
 #include "controls/orbit_control.h"
 #include "image/stb.h"
-#include "particle/particle_compute_subpass.h"
+#include "particle/particle_renderer.h"
 #include "metal_helpers.h"
 
 namespace vox {
-bool ParticleApp::prepare(Engine &engine) {
-    ForwardApplication::prepare(engine);
-    
-    auto subpass = std::make_unique<ParticleComputeSubpass>(_renderContext.get(), _scene.get(), _mainCamera);
-    _renderPass->addSubpass(std::move(subpass));
-    
-    return true;
-}
-
 void ParticleApp::loadScene() {
     _scene->background.solidColor = Color(0, 0, 0, 1);
     auto rootEntity = _scene->createRootEntity();
@@ -43,16 +34,16 @@ void ParticleApp::loadScene() {
     pointLight->intensity = 0.3;
     
     auto particleEntity = rootEntity->createChild();
-    auto particle = particleEntity->addComponent<Particle>();
+    auto particle = particleEntity->addComponent<ParticleRenderer>();
     // emitter
     particle->setParticleMinAge(50.f);
     particle->setParticleMaxAge(100.f);
-    particle->setEmitterType(Particle::EmitterType::SPHERE);
+    particle->setEmitterType(ParticleRenderer::EmitterType::SPHERE);
     particle->setEmitterDirection(Vector3F(0, 1, 0));
     particle->setEmitterPosition(Vector3F()); // todo
     particle->setEmitterRadius(2.0f);
-    particle->setBoundingVolumeType(Particle::SimulationVolume::SPHERE);
-    particle->setBBoxSize(Particle::kDefaultSimulationVolumeSize);
+    particle->setBoundingVolumeType(ParticleRenderer::SimulationVolume::SPHERE);
+    particle->setBBoxSize(ParticleRenderer::kDefaultSimulationVolumeSize);
     
     // simulation
     particle->setScatteringFactor(1.f);

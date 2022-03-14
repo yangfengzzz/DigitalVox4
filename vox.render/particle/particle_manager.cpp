@@ -90,6 +90,7 @@ void ParticleManager::_emission(const uint32_t count,
     particle->setEmitCount(count);
     _emissionPass->attachShaderData(&particle->shaderData);
     _emissionPass->setThreadsPerGrid(count);
+    _emissionPass->compute(commandEncoder);
     _emissionPass->detachShaderData(&particle->shaderData);
 }
 
@@ -102,6 +103,7 @@ void ParticleManager::_simulation(const uint32_t count,
     
     _simulationPass->attachShaderData(&particle->shaderData);
     _simulationPass->setThreadsPerGrid(particle->numAliveParticles() + count);
+    _simulationPass->compute(commandEncoder);
     _simulationPass->detachShaderData(&particle->shaderData);
 }
 

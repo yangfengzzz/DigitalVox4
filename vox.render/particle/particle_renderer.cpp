@@ -126,11 +126,18 @@ void ParticleRenderer::_generateRandomValues() {
 void ParticleRenderer::_render(std::vector<RenderElement> &opaqueQueue,
                                std::vector<RenderElement> &alphaTestQueue,
                                std::vector<RenderElement> &transparentQueue) {
-    transparentQueue.push_back(RenderElement(this, _mesh, _mesh->subMesh(), _material));
+    if (_numAliveParticles > 0) {
+        transparentQueue.push_back(RenderElement(this, _mesh, _mesh->subMesh(), _material));
+    }
 }
 
 void ParticleRenderer::_updateBounds(BoundingBox3F &worldBounds) {
-    
+    worldBounds.lowerCorner.x = -std::numeric_limits<float>::max();
+    worldBounds.lowerCorner.y = -std::numeric_limits<float>::max();
+    worldBounds.lowerCorner.z = -std::numeric_limits<float>::max();
+    worldBounds.upperCorner.x = std::numeric_limits<float>::max();
+    worldBounds.upperCorner.y = std::numeric_limits<float>::max();
+    worldBounds.upperCorner.z = std::numeric_limits<float>::max();
 }
 
 void ParticleRenderer::update(float deltaTime) {

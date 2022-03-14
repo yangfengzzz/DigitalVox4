@@ -224,6 +224,7 @@
 		049D337E27DDEE040037DC6A /* particle_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7602827D0B12A00BB1519 /* particle_manager.cpp */; };
 		049D338C27DECB420037DC6A /* particle_draw_instancing.metal in Sources */ = {isa = PBXBuildFile; fileRef = 049D338B27DECB420037DC6A /* particle_draw_instancing.metal */; };
 		049D338E27DED1040037DC6A /* particle_draw_common.metal in Sources */ = {isa = PBXBuildFile; fileRef = 049D338D27DED1040037DC6A /* particle_draw_common.metal */; };
+		049D339027DED6A50037DC6A /* particle_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D7603427D1B88200BB1519 /* particle_app.cpp */; };
 		04CD93A82799A61F0093D6CB /* framebuffer_picker_color.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93A72799A61F0093D6CB /* framebuffer_picker_color.metal */; };
 		04CD93BC279A4F650093D6CB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93BB279A4F650093D6CB /* main.cpp */; };
 		04CD93CF279A4FB30093D6CB /* imgui_zmo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04CD93C1279A4FB20093D6CB /* imgui_zmo.cpp */; };
@@ -3216,6 +3217,7 @@
 				04D75F3927CCCCEE00BB1519 /* physx_app.cpp in Sources */,
 				04D75F3A27CCCD1600BB1519 /* physx_dynamic_app.cpp in Sources */,
 				0400D25F27D870900018FB52 /* atomic_compute.cpp in Sources */,
+				049D339027DED6A50037DC6A /* particle_app.cpp in Sources */,
 				0400D26F27D89DE70018FB52 /* cluster_forward_app.cpp in Sources */,
 				04D75F9C27CDB85100BB1519 /* Irradiance_app.cpp in Sources */,
 				04D75F3B27CCCD9100BB1519 /* pbr_app.cpp in Sources */,
