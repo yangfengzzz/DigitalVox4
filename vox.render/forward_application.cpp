@@ -19,6 +19,7 @@ bool ForwardApplication::prepare(Engine &engine) {
     MetalApplication::prepare(engine);
     
     _scene = std::make_unique<Scene>(*_device);
+    _particleManager = std::make_unique<ParticleManager>(*_library, _scene.get());
     _lightManager = std::make_unique<LightManager>(*_library, _scene.get());
     {
         loadScene();
@@ -75,6 +76,7 @@ void ForwardApplication::update(float delta_time) {
 void ForwardApplication::updateGPUTask(MTL::CommandBuffer& commandBuffer) {
     _shadowManager->draw(commandBuffer);
     _lightManager->draw(commandBuffer);
+    _particleManager->draw(commandBuffer);
 }
 
 bool ForwardApplication::resize(uint32_t win_width, uint32_t win_height,

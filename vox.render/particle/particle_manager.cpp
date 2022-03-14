@@ -9,6 +9,15 @@
 #include <glog/logging.h>
 
 namespace vox {
+ParticleManager *ParticleManager::getSingletonPtr(void) {
+    return msSingleton;
+}
+
+ParticleManager &ParticleManager::getSingleton(void) {
+    assert(msSingleton);
+    return (*msSingleton);
+}
+
 ParticleManager::ParticleManager(MTL::Library &library, Scene *scene) {
     Shader::create("particle_point", "vertex_particle_point", "fragment_particle_point");
     Shader::create("particle_instancing", "vertex_particle_instancing", "fragment_particle_instancing");
