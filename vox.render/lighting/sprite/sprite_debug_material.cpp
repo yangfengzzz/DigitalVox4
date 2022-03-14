@@ -9,7 +9,6 @@
 namespace vox {
 SpriteDebugMaterial::SpriteDebugMaterial(bool isSpotLight):
 BaseMaterial(Shader::find(isSpotLight? "spotlight_sprite_debug": "pointlight_sprite_debug")) {
-    setRenderFace(RenderFace::Double);
     setIsTransparent(true);
     setBlendMode(BlendMode::Additive);
 }

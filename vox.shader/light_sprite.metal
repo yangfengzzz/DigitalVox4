@@ -11,8 +11,8 @@ using namespace metal;
 
 constant array<float2, 4> pos = {
     float2(-1.0, 1.0),
-    float2(1.0, 1.0),
     float2(-1.0, -1.0),
+    float2(1.0, 1.0),
     float2(1.0, -1.0)
 };
 

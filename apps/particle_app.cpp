@@ -57,7 +57,7 @@ void ParticleApp::loadScene() {
     particle->material().setDeathGradient(Vector3F(1, 0, 0));
     particle->material().setMinParticleSize(0.75f);
     particle->material().setMaxParticleSize(4.0f);
-    particle->material().setFadeCoefficient(0.35f);
+    particle->material().setFadeCoefficient(0.85f);
     particle->material().setDebugDraw(false);
     
     auto cubeEntity = rootEntity->createChild();
