@@ -4,7 +4,7 @@
 //  personal capacity and am not conveying any rights to any intellectual
 //  property of any third parties.
 
-#include "particle.h"
+#include "particle_renderer.h"
 #include "entity.h"
 #include "scene.h"
 #include "mesh/mesh_renderer.h"
@@ -22,10 +22,10 @@ uint32_t closestPowerOfTwo(uint32_t const n) {
 
 }  // namespace
 
-uint32_t const Particle::kBatchEmitCount;
+uint32_t const ParticleRenderer::kBatchEmitCount;
 
-Particle::Particle(Entity *entity) :
-Script(entity),
+ParticleRenderer::ParticleRenderer(Entity *entity) :
+Renderer(entity),
 _timeStepProp(Shader::createProperty("uTimeStep", ShaderDataGroup::Compute)),
 _vectorFieldTextureProp(Shader::createProperty("uVectorFieldTexture", ShaderDataGroup::Compute)),
 _boundingVolumeProp(Shader::createProperty("uBoundingVolume", ShaderDataGroup::Compute)),
@@ -51,7 +51,7 @@ _particleMaxAgeProp(Shader::createProperty("uParticleMaxAge", ShaderDataGroup::C
     _renderer->setMaterial(_material);
 }
 
-void Particle::_allocBuffer() {
+void ParticleRenderer::_allocBuffer() {
     auto& device = entity()->scene()->device();
     
     /* Assert than the number of particles will be a factor of threadGroupWidth */
@@ -85,7 +85,7 @@ void Particle::_allocBuffer() {
                                                                                   MTL::ResourceOptionCPUCacheModeDefault));
 }
 
-void Particle::_allocMesh() {
+void ParticleRenderer::_allocMesh() {
     for (int i = 0; i < 2; i++) {
         auto vertexDescriptor = CLONE_METAL_CUSTOM_DELETER(MTL::VertexDescriptor, MTL::VertexDescriptor::alloc()->init());
         vertexDescriptor->attributes()->object(0)->setFormat(MTL::VertexFormat::VertexFormatFloat3);
@@ -107,7 +107,7 @@ void Particle::_allocMesh() {
     }
 }
 
-void Particle::_generateRandomValues() {
+void ParticleRenderer::_generateRandomValues() {
     std::uniform_real_distribution<float> distrib(_minValue, _maxValue);
     for (unsigned int i = 0u; i < _randomBuffer->length() / sizeof(float); ++i) {
         _randomVec[i] = distrib(_mt);
@@ -115,7 +115,7 @@ void Particle::_generateRandomValues() {
     memcpy(_randomBuffer->contents(), _randomVec.data(), _randomBuffer->length());
 }
 
-void Particle::onUpdate(float deltaTime) {
+void ParticleRenderer::update(float deltaTime) {
     setTimeStep(deltaTime * ParticleManager::getSingleton().timeStepFactor());
     
     _write = 1 - _write;
@@ -127,184 +127,184 @@ void Particle::onUpdate(float deltaTime) {
     _generateRandomValues();
 }
 
-ParticleMaterial& Particle::material() {
+ParticleMaterial& ParticleRenderer::material() {
     return *_material;
 }
 
-float Particle::timeStep() const {
+float ParticleRenderer::timeStep() const {
     return std::any_cast<float>(shaderData.getData(_timeStepProp));
 }
 
-void Particle::setTimeStep(float step) {
+void ParticleRenderer::setTimeStep(float step) {
     shaderData.setData(_timeStepProp, step);
 }
 
-Particle::SimulationVolume Particle::boundingVolumeType() const {
-    return (Particle::SimulationVolume)std::any_cast<uint32_t>(shaderData.getData(_boundingVolumeProp));
+ParticleRenderer::SimulationVolume ParticleRenderer::boundingVolumeType() const {
+    return (ParticleRenderer::SimulationVolume)std::any_cast<uint32_t>(shaderData.getData(_boundingVolumeProp));
 }
 
-void Particle::setBoundingVolumeType(SimulationVolume type) {
+void ParticleRenderer::setBoundingVolumeType(SimulationVolume type) {
     shaderData.setData(_boundingVolumeProp, (uint32_t)type);
 }
 
-float Particle::bboxSize() const {
+float ParticleRenderer::bboxSize() const {
     return std::any_cast<float>(shaderData.getData(_bboxSizeProp));
 }
 
-void Particle::setBBoxSize(float size) {
+void ParticleRenderer::setBBoxSize(float size) {
     shaderData.setData(_bboxSizeProp, size);
 }
 
-float Particle::scatteringFactor() const {
+float ParticleRenderer::scatteringFactor() const {
     return std::any_cast<float>(shaderData.getData(_scatteringFactorProp));
 }
 
-void Particle::setScatteringFactor(float factor) {
+void ParticleRenderer::setScatteringFactor(float factor) {
     shaderData.enableMacro(NEED_PARTICLE_SCATTERING);
     shaderData.setData(_scatteringFactorProp, factor);
 }
 
-std::shared_ptr<SampledTexture3D> Particle::vectorFieldTexture() const {
+std::shared_ptr<SampledTexture3D> ParticleRenderer::vectorFieldTexture() const {
     return std::any_cast<std::shared_ptr<SampledTexture3D>>(shaderData.getData(_vectorFieldTextureProp));
 }
 
-void Particle::setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field) {
+void ParticleRenderer::setVectorFieldTexture(const std::shared_ptr<SampledTexture3D>& field) {
     shaderData.enableMacro(NEED_PARTICLE_VECTOR_FIELD);
     shaderData.setSampledTexure(_vectorFieldTextureProp, field);
 }
 
-float Particle::vectorFieldFactor() const {
+float ParticleRenderer::vectorFieldFactor() const {
     return std::any_cast<float>(shaderData.getData(_vectorFieldFactorProp));
 }
 
-void Particle::setVectorFieldFactor(float factor) {
+void ParticleRenderer::setVectorFieldFactor(float factor) {
     shaderData.setData(_vectorFieldFactorProp, factor);
 }
 
-float Particle::curlNoiseFactor() const {
+float ParticleRenderer::curlNoiseFactor() const {
     return std::any_cast<float>(shaderData.getData(_curlNoiseFactorProp));
 }
 
-void Particle::setCurlNoiseFactor(float factor) {
+void ParticleRenderer::setCurlNoiseFactor(float factor) {
     shaderData.enableMacro(NEED_PARTICLE_CURL_NOISE);
     shaderData.setData(_curlNoiseFactorProp, factor);
 }
 
-float Particle::curlNoiseScale() const {
+float ParticleRenderer::curlNoiseScale() const {
     return std::any_cast<float>(shaderData.getData(_curlNoiseScaleProp));
 }
 
-void Particle::setCurlNoiseScale(float scale) {
+void ParticleRenderer::setCurlNoiseScale(float scale) {
     shaderData.enableMacro(NEED_PARTICLE_CURL_NOISE);
     shaderData.setData(_curlNoiseScaleProp, scale);
 }
 
-float Particle::velocityFactor() const {
+float ParticleRenderer::velocityFactor() const {
     return std::any_cast<float>(shaderData.getData(_velocityFactorProp));
 }
 
-void Particle::setVelocityFactor(float factor) {
+void ParticleRenderer::setVelocityFactor(float factor) {
     shaderData.enableMacro(NEED_PARTICLE_VELOCITY_CONTROL);
     shaderData.setData(_velocityFactorProp, factor);
 }
 
 //MARK: - Emitter
-uint32_t Particle::emitCount() const {
+uint32_t ParticleRenderer::emitCount() const {
     return std::any_cast<uint32_t>(shaderData.getData(_emitCountProp));
 }
 
-void Particle::setEmitCount(uint32_t count) {
+void ParticleRenderer::setEmitCount(uint32_t count) {
     shaderData.setData(_emitCountProp, count);
 }
 
-Particle::EmitterType Particle::emitterType() const {
-    return (Particle::EmitterType)std::any_cast<uint32_t>(shaderData.getData(_emitterTypeProp));
+ParticleRenderer::EmitterType ParticleRenderer::emitterType() const {
+    return (ParticleRenderer::EmitterType)std::any_cast<uint32_t>(shaderData.getData(_emitterTypeProp));
 }
 
-void Particle::setEmitterType(EmitterType type) {
+void ParticleRenderer::setEmitterType(EmitterType type) {
     shaderData.setData(_emitterTypeProp, (uint32_t)type);
 }
 
-Vector3F Particle::emitterPosition() const {
+Vector3F ParticleRenderer::emitterPosition() const {
     return std::any_cast<Vector3F>(shaderData.getData(_emitterPositionProp));
 }
 
-void Particle::setEmitterPosition(const Vector3F& position) {
+void ParticleRenderer::setEmitterPosition(const Vector3F& position) {
     shaderData.setData(_emitterPositionProp, position);
 }
 
-Vector3F Particle::emitterDirection() const {
+Vector3F ParticleRenderer::emitterDirection() const {
     return std::any_cast<Vector3F>(shaderData.getData(_emitterDirectionProp));
 }
 
-void Particle::setEmitterDirection(const Vector3F& direction) {
+void ParticleRenderer::setEmitterDirection(const Vector3F& direction) {
     shaderData.setData(_emitterDirectionProp, direction);
 }
 
-float Particle::emitterRadius() const {
+float ParticleRenderer::emitterRadius() const {
     return std::any_cast<float>(shaderData.getData(_emitterRadiusProp));
 }
 
-void Particle::setEmitterRadius(float radius) {
+void ParticleRenderer::setEmitterRadius(float radius) {
     shaderData.setData(_emitterRadiusProp, radius);
 }
 
-float Particle::particleMinAge() const {
+float ParticleRenderer::particleMinAge() const {
     return std::any_cast<float>(shaderData.getData(_particleMinAgeProp));
 }
 
-void Particle::setParticleMinAge(float age) {
+void ParticleRenderer::setParticleMinAge(float age) {
     shaderData.setData(_particleMinAgeProp, age);
 }
 
-float Particle::particleMaxAge() const {
+float ParticleRenderer::particleMaxAge() const {
     return std::any_cast<float>(shaderData.getData(_particleMaxAgeProp));
 }
 
-void Particle::setParticleMaxAge(float age) {
+void ParticleRenderer::setParticleMaxAge(float age) {
     shaderData.setData(_particleMaxAgeProp, age);
 }
 
-void Particle::_onEnable() {
-    Script::_onEnable();
+void ParticleRenderer::_onEnable() {
+    Renderer::_onEnable();
     ParticleManager::getSingleton().addParticle(this);
 }
 
-void Particle::_onDisable() {
-    Script::_onDisable();
+void ParticleRenderer::_onDisable() {
+    Renderer::_onDisable();
     ParticleManager::getSingleton().removeParticle(this);
 }
 
 //MARK: - Buffer
-const uint32_t Particle::numAliveParticles() const {
+const uint32_t ParticleRenderer::numAliveParticles() const {
     return _numAliveParticles;
 }
 
-const std::shared_ptr<MTL::Buffer>& Particle::randomBuffer() const {
+const std::shared_ptr<MTL::Buffer>& ParticleRenderer::randomBuffer() const {
     return _randomBuffer;
 }
 
-const std::shared_ptr<MTL::Buffer>& Particle::readAtomicBuffer() const {
+const std::shared_ptr<MTL::Buffer>& ParticleRenderer::readAtomicBuffer() const {
     return _atomicBuffer[_read];
 }
 
-const std::shared_ptr<MTL::Buffer>& Particle::writeAtomicBuffer() const {
+const std::shared_ptr<MTL::Buffer>& ParticleRenderer::writeAtomicBuffer() const {
     return _atomicBuffer[_write];
 }
 
-const std::shared_ptr<MTL::Buffer>& Particle::readAppendConsumeBuffer() const {
+const std::shared_ptr<MTL::Buffer>& ParticleRenderer::readAppendConsumeBuffer() const {
     return _appendConsumeBuffer[_read];
 }
 
-const std::shared_ptr<MTL::Buffer>& Particle::writeAppendConsumeBuffer() const {
+const std::shared_ptr<MTL::Buffer>& ParticleRenderer::writeAppendConsumeBuffer() const {
     return _appendConsumeBuffer[_write];
 }
 
-const std::shared_ptr<MTL::Buffer>& Particle::dpBuffer() const {
+const std::shared_ptr<MTL::Buffer>& ParticleRenderer::dpBuffer() const {
     return _dpBuffer;
 }
 
-const std::shared_ptr<MTL::Buffer>& Particle::sortIndicesBuffer() const {
+const std::shared_ptr<MTL::Buffer>& ParticleRenderer::sortIndicesBuffer() const {
     return _sortIndicesBuffer;
 }
 

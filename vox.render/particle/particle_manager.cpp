@@ -14,11 +14,11 @@ ParticleManager::ParticleManager(MTL::Library &library, Scene *scene) {
     _simulationPass = std::make_unique<ComputePass>(library, scene, "particle_simulation");
 }
 
-const std::vector<Particle*>& ParticleManager::particles() const {
+const std::vector<ParticleRenderer*>& ParticleManager::particles() const {
     return _particles;
 }
 
-void ParticleManager::addParticle(Particle* particle) {
+void ParticleManager::addParticle(ParticleRenderer* particle) {
     auto iter = std::find(_particles.begin(), _particles.end(), particle);
     if (iter == _particles.end()) {
         _particles.push_back(particle);
@@ -27,7 +27,7 @@ void ParticleManager::addParticle(Particle* particle) {
     }
 }
 
-void ParticleManager::removeParticle(Particle* particle) {
+void ParticleManager::removeParticle(ParticleRenderer* particle) {
     auto iter = std::find(_particles.begin(), _particles.end(), particle);
     if (iter != _particles.end()) {
         _particles.erase(iter);

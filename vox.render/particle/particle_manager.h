@@ -7,7 +7,7 @@
 #ifndef particle_manager_hpp
 #define particle_manager_hpp
 
-#include "particle.h"
+#include "particle_renderer.h"
 #include "rendering/compute_pass.h"
 #include "singleton.h"
 
@@ -20,11 +20,11 @@ public:
     
     ParticleManager(MTL::Library &library, Scene *scene);
     
-    const std::vector<Particle*>& particles() const;
+    const std::vector<ParticleRenderer*>& particles() const;
     
-    void addParticle(Particle* particle);
+    void addParticle(ParticleRenderer* particle);
     
-    void removeParticle(Particle* particle);
+    void removeParticle(ParticleRenderer* particle);
         
     void draw(MTL::CommandBuffer& commandBuffer);
     
@@ -34,7 +34,7 @@ public:
     void setTimeStepFactor(float factor);
     
 private:
-    std::vector<Particle*> _particles{};
+    std::vector<ParticleRenderer*> _particles{};
     float _timeStepFactor = 1.0f;
     
     std::unique_ptr<ComputePass> _emissionPass{nullptr};

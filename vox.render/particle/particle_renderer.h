@@ -7,7 +7,7 @@
 #ifndef particle_hpp
 #define particle_hpp
 
-#include "script.h"
+#include "renderer.h"
 #include "particle_material.h"
 #include "texture/sampled_texture3d.h"
 #include "mesh/buffer_mesh.h"
@@ -15,7 +15,7 @@
 #include <random>
 
 namespace vox {
-class Particle : public Script {
+class ParticleRenderer : public Renderer {
 public:
     static float constexpr kDefaultSimulationVolumeSize = 32.0f;
     
@@ -38,14 +38,14 @@ public:
         kNumSimulationVolume
     };
     
-    explicit Particle(Entity *entity);
+    explicit ParticleRenderer(Entity *entity);
     
     ParticleMaterial& material();
     
     ShaderData shaderData;
     
 public:
-    void onUpdate(float deltaTime) override;
+    void update(float deltaTime) override;
         
 public:
     float timeStep() const;
